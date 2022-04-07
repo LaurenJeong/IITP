@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_action_excelexport" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <View id="viwList" taborder="1" viewdataset="viewdataset" left="0" top="256" width="1010" height="274">
+          <Layouts>
+            <Layout>
+              <Grid id="grdExport2" taborder="0" binddataset="dsList" useinputpanel="false" left="0" top="30" griduserproperty="replace,colhide" right="0" bottom="0">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="213"/>
+                      <Column size="100"/>
+                      <Column size="79"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="256"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="24" band="head"/>
+                      <Row size="27"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="normal" calendardisplaynulltext="bind:normal"/>
+                      <Cell col="1" text="text" calendardisplaynulltext="bind:text"/>
+                      <Cell col="2" text="editControl" calendardisplaynulltext="bind:editControl"/>
+                      <Cell col="3" text="textArea" calendardisplaynulltext="bind:textArea"/>
+                      <Cell col="4" text="maskedit" calendardisplaynulltext="bind:maskEdit"/>
+                      <Cell col="5" text="currency" calendardisplaynulltext="bind:currency"/>
+                      <Cell col="6" text="number" calendardisplaynulltext="bind:number"/>
+                      <Cell col="7" text="calendar" calendardisplaynulltext="bind:calendar"/>
+                      <Cell col="8" text="calendar" calendardisplaynulltext="bind:calendar"/>
+                      <Cell col="9" text="checkbox"/>
+                      <Cell col="10" text="combo"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:normal"/>
+                      <Cell col="1" displaytype="text" text="bind:text"/>
+                      <Cell col="2" displaytype="normal" text="bind:editControl"/>
+                      <Cell col="3" displaytype="text" text="bind:textArea"/>
+                      <Cell col="4" displaytype="normal" edittype="masknumber" text="bind:maskEdit" mask="#,###.00"/>
+                      <Cell col="5" displaytype="currency" text="bind:currency"/>
+                      <Cell col="6" displaytype="number" text="bind:number"/>
+                      <Cell col="7" displaytype="date" text="bind:calendar" mask="SHORTDATE"/>
+                      <Cell col="8" displaytype="date" text="bind:calendar" mask="LONGDATE"/>
+                      <Cell col="9" displaytype="checkbox" edittype="checkbox" text="bind:check"/>
+                      <Cell col="10" displaytype="combo" text="bind:combo"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Button id="Button00" taborder="1" text="Button00" left="65" top="7" width="120" height="23"/>
+            </Layout>
+          </Layouts>
+        </View>
+        <Button id="btnExcelExport" taborder="1" text="ExcelExport" left="339" top="105" width="120" height="26"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsList">
+        <ColumnInfo>
+          <Column id="normal" type="STRING" size="256"/>
+          <Column id="button" type="STRING" size="256"/>
+          <Column id="calendar" type="STRING" size="256"/>
+          <Column id="check" type="STRING" size="256"/>
+          <Column id="combo" type="STRING" size="256"/>
+          <Column id="comboText" type="STRING" size="256"/>
+          <Column id="date" type="STRING" size="256"/>
+          <Column id="decoText" type="STRING" size="256"/>
+          <Column id="editControl" type="STRING" size="256"/>
+          <Column id="mask" type="BIGDECIMAL" size="256"/>
+          <Column id="maskEdit" type="BIGDECIMAL" size="256"/>
+          <Column id="number" type="BIGDECIMAL" size="256"/>
+          <Column id="currency" type="BIGDECIMAL" size="256"/>
+          <Column id="text" type="STRING" size="256"/>
+          <Column id="textArea" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="normal">test</Col>
+            <Col id="button">test</Col>
+            <Col id="calendar">19890912</Col>
+            <Col id="check">0</Col>
+            <Col id="combo">prev</Col>
+            <Col id="comboText">prev</Col>
+            <Col id="date">19890912</Col>
+            <Col id="decoText">&lt;fs v='16'&gt;TEST&lt;/fs&gt;</Col>
+            <Col id="editControl">test</Col>
+            <Col id="mask">8508301</Col>
+            <Col id="maskEdit">8508301</Col>
+            <Col id="number">9999999999999</Col>
+            <Col id="text">test</Col>
+            <Col id="textArea">동해물과 백두산이 마르고 닳도록
+하느님이 보우하사 우리나라 만세.
+무궁화 삼천리 화려강산
+대한 사람, 대한으로 길이 보전하세
+</Col>
+            <Col id="currency">1000</Col>
+          </Row>
+          <Row>
+            <Col id="normal">TEST</Col>
+            <Col id="button">TEST</Col>
+            <Col id="calendar">19890912</Col>
+            <Col id="check">1</Col>
+            <Col id="combo">next</Col>
+            <Col id="comboText">next</Col>
+            <Col id="date">19890912</Col>
+            <Col id="decoText">&lt;fc v='red'&gt;T&lt;/fc&gt;&lt;fc v='orange'&gt;E&lt;/fc&gt;&lt;fc v='purple'&gt;S&lt;/fc&gt;&lt;fc v='green'&gt;E&lt;/fc&gt;</Col>
+            <Col id="editControl">TEST</Col>
+            <Col id="mask">8303301</Col>
+            <Col id="maskEdit">8303301</Col>
+            <Col id="number">8888888888</Col>
+            <Col id="text">TEST</Col>
+            <Col id="textArea">TEST
+TEST2
+TEST3
+TEST4
+TEST5
+TEST6
+TEST7
+TEST8
+TEST9</Col>
+            <Col id="currency">2000</Col>
+          </Row>
+          <Row>
+            <Col id="normal">Test</Col>
+            <Col id="button">Test</Col>
+            <Col id="calendar">19890912</Col>
+            <Col id="check">0</Col>
+            <Col id="combo">all</Col>
+            <Col id="comboText">all</Col>
+            <Col id="date">19890912</Col>
+            <Col id="decoText">&lt;ff v='굴림'&gt;TEST&lt;/ff&gt;</Col>
+            <Col id="editControl">Test</Col>
+            <Col id="mask">8902022</Col>
+            <Col id="maskEdit">8902022</Col>
+            <Col id="number">7777777777</Col>
+            <Col id="text">Test</Col>
+            <Col id="textArea">Test</Col>
+            <Col id="currency">3000</Col>
+          </Row>
+          <Row>
+            <Col id="normal">test1</Col>
+            <Col id="button">test1</Col>
+            <Col id="calendar">19890810</Col>
+            <Col id="check">1</Col>
+            <Col id="combo">prev</Col>
+            <Col id="comboText">prev</Col>
+            <Col id="date">19890810</Col>
+            <Col id="decoText">&lt;b v='true'&gt;TE&lt;/b&gt;&lt;b v='false'&gt;ST&lt;/b&gt;</Col>
+            <Col id="editControl">test1</Col>
+            <Col id="mask">9201012</Col>
+            <Col id="maskEdit">9201012</Col>
+            <Col id="number">88888888888</Col>
+            <Col id="text">test1</Col>
+            <Col id="textArea">test1</Col>
+            <Col id="currency">100</Col>
+          </Row>
+          <Row>
+            <Col id="normal">서울특별시</Col>
+            <Col id="button">서울특별시</Col>
+            <Col id="calendar">19890810</Col>
+            <Col id="check">1</Col>
+            <Col id="combo">next</Col>
+            <Col id="comboText">next</Col>
+            <Col id="date">19890810</Col>
+            <Col id="decoText">&lt;i v='true'&gt;TE&lt;/i&gt;&lt;i v='false'&gt;ST&lt;/i&gt;</Col>
+            <Col id="editControl">서울특별시</Col>
+            <Col id="mask">8702022</Col>
+            <Col id="maskEdit">8702022</Col>
+            <Col id="number">9999999999</Col>
+            <Col id="text">서울특별시</Col>
+            <Col id="textArea">서울특별시gsdfdsfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddggggggggggggggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Col>
+            <Col id="currency">200</Col>
+          </Row>
+          <Row>
+            <Col id="normal">경기도</Col>
+            <Col id="button">경기도</Col>
+            <Col id="calendar">19890810</Col>
+            <Col id="check">0</Col>
+            <Col id="combo">all</Col>
+            <Col id="comboText">all</Col>
+            <Col id="date">19890810</Col>
+            <Col id="decoText">&lt;u v='true'&gt;TE&lt;/u&gt;&lt;u v='false'&gt;ST&lt;/u&gt;</Col>
+            <Col id="editControl">경기도</Col>
+            <Col id="mask">8801012</Col>
+            <Col id="maskEdit">8801012</Col>
+            <Col id="number">8888888888</Col>
+            <Col id="text">경기도</Col>
+            <Col id="textArea">경기도</Col>
+            <Col id="currency">500</Col>
+          </Row>
+          <Row>
+            <Col id="normal">서울특별시</Col>
+            <Col id="button">서울특별시</Col>
+            <Col id="calendar">19890912</Col>
+            <Col id="check">0</Col>
+            <Col id="combo">prev</Col>
+            <Col id="comboText">prev</Col>
+            <Col id="date">19890912</Col>
+            <Col id="decoText">&lt;s v='true'&gt;TE&lt;/s&gt;&lt;s v='false'&gt;ST&lt;/s&gt;</Col>
+            <Col id="editControl">서울특별시</Col>
+            <Col id="mask">9008301</Col>
+            <Col id="maskEdit">9008301</Col>
+            <Col id="number">4444444444</Col>
+            <Col id="text">서울특별시</Col>
+            <Col id="textArea">서울특별시</Col>
+            <Col id="currency">1000</Col>
+          </Row>
+          <Row>
+            <Col id="normal">경기도</Col>
+            <Col id="button">경기도</Col>
+            <Col id="calendar">19890810</Col>
+            <Col id="check">0</Col>
+            <Col id="combo">next</Col>
+            <Col id="comboText">next</Col>
+            <Col id="date">19890810</Col>
+            <Col id="decoText">&lt;fs v='16'&gt;TEST&lt;/fs&gt;</Col>
+            <Col id="editControl">경기도</Col>
+            <Col id="mask">9103301</Col>
+            <Col id="maskEdit">9103301</Col>
+            <Col id="number">5555555555</Col>
+            <Col id="text">경기도</Col>
+            <Col id="textArea">경기도</Col>
+            <Col id="currency">2000</Col>
+          </Row>
+          <Row>
+            <Col id="normal">경기도</Col>
+            <Col id="button">경기도</Col>
+            <Col id="calendar">19880826</Col>
+            <Col id="check">0</Col>
+            <Col id="combo">all</Col>
+            <Col id="comboText">all</Col>
+            <Col id="date">19880826</Col>
+            <Col id="decoText">&lt;fc v='red'&gt;T&lt;/fc&gt;&lt;fc v='orange'&gt;E&lt;/fc&gt;&lt;fc v='purple'&gt;S&lt;/fc&gt;&lt;fc v='green'&gt;E&lt;/fc&gt;</Col>
+            <Col id="editControl">경기도</Col>
+            <Col id="mask">9205052</Col>
+            <Col id="maskEdit">9205052</Col>
+            <Col id="number">11111111111</Col>
+            <Col id="text">경기도</Col>
+            <Col id="textArea">경기도</Col>
+            <Col id="currency">3000</Col>
+          </Row>
+          <Row>
+            <Col id="normal">서울특별시</Col>
+            <Col id="button">서울특별시</Col>
+            <Col id="calendar">19890912</Col>
+            <Col id="check">1</Col>
+            <Col id="combo">prev</Col>
+            <Col id="comboText">prev</Col>
+            <Col id="date">19890912</Col>
+            <Col id="decoText">&lt;ff v='굴림'&gt;TEST&lt;/ff&gt;</Col>
+            <Col id="editControl">서울특별시</Col>
+            <Col id="mask">9208302</Col>
+            <Col id="maskEdit">9208302</Col>
+            <Col id="number">2</Col>
+            <Col id="text">서울특별시</Col>
+            <Col id="textArea">서울특별시</Col>
+            <Col id="currency">100</Col>
+          </Row>
+          <Row>
+            <Col id="normal">TEST</Col>
+            <Col id="button">TEST</Col>
+            <Col id="calendar">19890810</Col>
+            <Col id="check">1</Col>
+            <Col id="combo">next</Col>
+            <Col id="comboText">next</Col>
+            <Col id="date">19890810</Col>
+            <Col id="decoText">&lt;b v='true'&gt;TE&lt;/b&gt;&lt;b v='false'&gt;ST&lt;/b&gt;</Col>
+            <Col id="editControl">TEST</Col>
+            <Col id="mask">8508301</Col>
+            <Col id="maskEdit">8508301</Col>
+            <Col id="number">222222222</Col>
+            <Col id="text">TEST</Col>
+            <Col id="textArea">TEST</Col>
+            <Col id="currency">200</Col>
+          </Row>
+          <Row>
+            <Col id="normal">test</Col>
+            <Col id="button">test</Col>
+            <Col id="calendar">19890826</Col>
+            <Col id="check">1</Col>
+            <Col id="combo">all</Col>
+            <Col id="comboText">all</Col>
+            <Col id="date">19890826</Col>
+            <Col id="decoText">&lt;i v='true'&gt;TE&lt;/i&gt;&lt;i v='false'&gt;ST&lt;/i&gt;</Col>
+            <Col id="editControl">test</Col>
+            <Col id="mask">8303301</Col>
+            <Col id="maskEdit">8303301</Col>
+            <Col id="number">2</Col>
+            <Col id="text">test</Col>
+            <Col id="textArea">test</Col>
+            <Col id="currency">500</Col>
+          </Row>
+          <Row>
+            <Col id="normal">Test</Col>
+            <Col id="button">Test</Col>
+            <Col id="calendar">19880826</Col>
+            <Col id="check">1</Col>
+            <Col id="combo">prev</Col>
+            <Col id="comboText">prev</Col>
+            <Col id="date">19880826</Col>
+            <Col id="decoText">&lt;u v='true'&gt;TE&lt;/u&gt;&lt;u v='false'&gt;ST&lt;/u&gt;</Col>
+            <Col id="editControl">Test</Col>
+            <Col id="mask">8902022</Col>
+            <Col id="maskEdit">8902022</Col>
+            <Col id="number">555555555</Col>
+            <Col id="text">Test</Col>
+            <Col id="textArea">Test</Col>
+            <Col id="currency">10000</Col>
+          </Row>
+          <Row>
+            <Col id="normal">test</Col>
+            <Col id="button">test</Col>
+            <Col id="calendar">19890912</Col>
+            <Col id="check">1</Col>
+            <Col id="combo">next</Col>
+            <Col id="comboText">next</Col>
+            <Col id="date">19890912</Col>
+            <Col id="decoText">&lt;fs v='16'&gt;TEST&lt;/fs&gt;</Col>
+            <Col id="editControl">test</Col>
+            <Col id="mask">9201012</Col>
+            <Col id="maskEdit">9201012</Col>
+            <Col id="number">233</Col>
+            <Col id="text">test</Col>
+            <Col id="textArea">test</Col>
+            <Col id="currency">20000</Col>
+          </Row>
+          <Row>
+            <Col id="normal">test</Col>
+            <Col id="button">test</Col>
+            <Col id="calendar">19880810</Col>
+            <Col id="check">1</Col>
+            <Col id="combo">all</Col>
+            <Col id="comboText">all</Col>
+            <Col id="date">19880810</Col>
+            <Col id="decoText">&lt;fc v='red'&gt;T&lt;/fc&gt;&lt;fc v='orange'&gt;E&lt;/fc&gt;&lt;fc v='purple'&gt;S&lt;/fc&gt;&lt;fc v='green'&gt;E&lt;/fc&gt;</Col>
+            <Col id="editControl">test</Col>
+            <Col id="mask">8702022</Col>
+            <Col id="maskEdit">8702022</Col>
+            <Col id="number">555555</Col>
+            <Col id="text">test</Col>
+            <Col id="textArea">test</Col>
+            <Col id="currency">50000</Col>
+          </Row>
+          <Row>
+            <Col id="normal">TEST</Col>
+            <Col id="button">TEST</Col>
+            <Col id="calendar">20171019</Col>
+            <Col id="check">1</Col>
+            <Col id="combo">prev</Col>
+            <Col id="comboText">prev</Col>
+            <Col id="date">20171019</Col>
+            <Col id="decoText">&lt;ff v='굴림'&gt;TEST&lt;/ff&gt;</Col>
+            <Col id="editControl">TEST</Col>
+            <Col id="mask">8801012</Col>
+            <Col id="maskEdit">8801012</Col>
+            <Col id="number">4444444</Col>
+            <Col id="text">TEST</Col>
+            <Col id="textArea">TEST</Col>
+            <Col id="currency">100</Col>
+          </Row>
+          <Row>
+            <Col id="normal">TEST</Col>
+            <Col id="button">TEST</Col>
+            <Col id="calendar">20171018</Col>
+            <Col id="check">0</Col>
+            <Col id="combo">next</Col>
+            <Col id="comboText">next</Col>
+            <Col id="date">20171018</Col>
+            <Col id="decoText">&lt;b v='true'&gt;TE&lt;/b&gt;&lt;b v='false'&gt;ST&lt;/b&gt;</Col>
+            <Col id="editControl">TEST</Col>
+            <Col id="mask">9008301</Col>
+            <Col id="maskEdit">9008301</Col>
+            <Col id="number">1111111</Col>
+            <Col id="text">TEST</Col>
+            <Col id="textArea">TEST</Col>
+            <Col id="currency">200</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <ExcelExportAction id="ExcelExportAction00" sheetname="Sheet1" exporttype="excel" targetview="viwList" targetgrid="Button00" onerror="ExcelExportAction00_onerror" onsuccess="ExcelExportAction00_onsuccess">
+        <Contents/>
+      </ExcelExportAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="test_action_excelexport" triggerobj="btnExcelExport" targetaction="ExcelExportAction00" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[
+this.ExcelExportAction00_onerror = function(obj:nexacro.Action,e:nexacro.ActionEventInfo)
+{
+	trace("ExcelExportAction00_onerror");
+};
+
+this.ExcelExportAction00_onsuccess = function(obj:nexacro.Action,e:nexacro.ActionEventInfo)
+{
+	trace("ExcelExportAction00_onsuccess");
+};
+]]></Script>
+  </Form>
+</FDL>

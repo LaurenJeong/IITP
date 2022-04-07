@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[/**
+*  ViewTemplate
+*  @FileName 	common.xjs 
+*  @Creator 	
+*  @CreateDate 	
+*  @Desction    ViewTemplate관련 공통 함수
+*/
+////////////////////////////// ViewTemplate 공통변수 선언 START ////////////////////////////////////////////////////
+
+//모델 정보
+var oFieldArray;
+	
+//뷰 컴포넌트 정보
+var oContents;
+	
+//뷰 옵션 설정 정보
+var oGenerationAttr;
+
+//컴포넌트 ID 목록
+var arrCompIds = [];
+
+//컴포넌트 + 바인드 Field 목록
+var arrBindItems = [];
+////////////////////////////// ViewTemplate 공통변수 선언 END ////////////////////////////////////////////////////
+
+
+/** @const {string} */
+// 네이밍 컨벤션 종류 (C : camelCase, S : snakeCase, LS : lower snakeCase, 빈값 : 지정안함.)
+var COMP_NAMING_RULE	= "C";
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetCompId
+ * Parameter    : 
+				- sCompId : 생성할 컴포넌트 아이디
+ * Return       : sRtnCompId : 컴포넌트 ID
+ * Description  : 컴포넌트 ID 생성 함수
+ *---------------------------------------------------------------------------------------------*/
+fn_GetCompId = function(sCompId){
+	
+	var sNewCompId = "";
+	
+	if (COMP_NAMING_RULE == "C") {
+		sNewCompId = fn_ToCamelCase(sCompId);
+	} else if (COMP_NAMING_RULE == "S") {
+		sNewCompId = fn_ToSnakeCase(sCompId);
+	} else if (COMP_NAMING_RULE == "LS") {
+		sNewCompId = fn_ToLowerSnakeCase(sCompId);
+	} else {
+		sNewCompId = sCompId;
+	}
+	//trace("fn_GetCompId() : " + sCompId + " -> " + sNewCompId);
+	
+	//동일한 Field로 생성된 컴포넌트 있는지 체크
+	var arrTemp = arrCompIds.filter(arrCompIds=>arrCompIds.indexOf(sNewCompId)==0);
+	var sRtnCompId;
+	
+	//동일한 Field로 생성된 컴포넌트가 존재할 경우
+	if(arrTemp.length>0)sRtnCompId = sNewCompId+"_"+arrTemp.length;
+	
+	//동일한 Field로 생성된 컴포넌트가 없을 경우 
+	else sRtnCompId = sNewCompId;
+	
+	//컴포넌트 ID관리 Array에 추가
+	arrCompIds[arrCompIds.length] = sRtnCompId;
+	
+	//컴포넌트 ID 리턴
+	return sRtnCompId;
+}	
+
+/**
+ * @class 문자열을 CamelCase 형식으로 변환한다.
+ * @param {string} sValue - 변환할 문자열
+ * @return {string} CamelCase 형식으로 변환된 문자열
+ * @example
+ * var sReturn = fn_ToCamelCase("background color");	// backgroundColor <br>
+ * var sReturn2 = fn_ToCamelCase("USER_TYPE");			// userType <br>
+ */
+fn_ToCamelCase = function(sValue){
+  return sValue.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+}
+
+/**
+ * @class 문자열을 SnakeCase 형식으로 변환한다.
+ * @param {string} sValue - 변환할 문자열
+ * @return {string} SnakeCase 형식으로 변환된 문자열
+ * @example
+ * var sReturn = fn_ToSnakeCase("background color");	// background_color <br>
+ * var sReturn2 = fn_ToSnakeCase("USER_TYPE");			// _u_s_e_r__t_y_p_e <br>
+ */
+fn_ToSnakeCase = function(sValue){
+	var result = sValue.replace( /([A-Z])/g, " $1" );
+	return result.split(' ').join('_').toLowerCase();
+}
+
+/**
+ * @class 문자열을 소문자로 변환 후 SnakeCase 형식으로 변환한다.
+ * @param {string} sValue - 변환할 문자열
+ * @return {string} SnakeCase 형식으로 변환된 문자열(상수형 문자열도 SnakeCase로 변환)
+ * @example
+ * var sReturn = fn_ToLowerSnakeCase("background color");	// background_color <br>
+ * var sReturn2 = fn_ToLowerSnakeCase("USER_TYPE");			// user_type <br>
+ */
+fn_ToLowerSnakeCase = function(sValue){
+	var result = sValue.toLowerCase().replace( /([A-Z])/g, " $1" );
+	return result.split(' ').join('_');
+}
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetCompClass
+ * Parameter    : 
+ *                - sCompType : CompType of field
+ * Return       : component class data
+ * Description  : Returns class information of the component based on Field data
+ *---------------------------------------------------------------------------------------------*/
+fn_GetCompClass = function(sCompType)
+{
+	var oCompClass = { "classId" : null, "prefix" : null };
+	
+	switch(sCompType)
+	{
+		case "button" : oCompClass.classId = "Button";
+						oCompClass.prefix = "btn";
+						break;
+		case "combo" : oCompClass.classId = "Combo";
+						oCompClass.prefix = "cmb";
+						break;
+		case "edit" : oCompClass.classId = "Edit";
+						oCompClass.prefix = "edt";
+						break;
+		case "maskedit" : oCompClass.classId = "MaskEdit";
+						oCompClass.prefix = "msk";
+						break;
+		case "textarea" : oCompClass.classId = "TextArea";
+						oCompClass.prefix = "ta";
+						break;
+		case "static" : oCompClass.classId = "Static";
+						oCompClass.prefix = "st";
+						break;
+		case "radio" : oCompClass.classId = "Radio";
+						oCompClass.prefix = "rdo";
+						break;
+		case "checkbox" : oCompClass.classId = "CheckBox";
+						oCompClass.prefix = "chk";
+						break;
+		case "spin" : oCompClass.classId = "Spin";
+						oCompClass.prefix = "spn";
+						break;
+		case "calendar" : oCompClass.classId = "Calendar";
+						oCompClass.prefix = "cal";
+						break;
+		case "imageviewer" : oCompClass.classId = "ImageViewer";
+						oCompClass.prefix = "img";
+						break;
+		case "progressbar" : oCompClass.classId = "ProgressBar";
+						oCompClass.prefix = "prg";
+						break;
+		default : oCompClass.classId = "Static";
+				  oCompClass.prefix = "st";
+	}
+	
+    //컴포넌트 정보 리턴
+    return oCompClass;
+}
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_CalcAlignPos
+ * Parameter    : 
+				- sAlign : 컴포넌트 정렬 방식
+				- nParentSize : 부모영역의 사이즈
+				- nSize : 컴포넌트영역의 사이즈
+ * Return       : nRtnValue : 시작위치 px 값
+ * Description  : Row/Col의 Align 시작위치값 구하기
+ *---------------------------------------------------------------------------------------------*/
+fn_CalcAlignPos = function(sAlign, nParentSize, nSize)
+{
+	var nRtnValue;
+	
+	if(sAlign=="center"||sAlign=="middle")nRtnValue = (nParentSize - nSize)/2;
+	else if(sAlign=="right"||sAlign=="bottom")nRtnValue = nParentSize - nSize;
+	else nRtnValue = 0;
+	
+	if(nRtnValue<0)nRtnValue = 0;
+	
+	return nRtnValue;
+}
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetRealSize
+ * Parameter    : 
+				- sSize : 사이즈정보(% or px)
+				- nParentSize : 부모영역의 사이즈 정보
+				- sDefSize : 디폴트 사이즈 정보
+				
+ * Return       : nRealSize : px기준 사이즈
+ * Description  : 등록된 사이즈를 기준으로 실제 사용할 사이즈 구하는 함수
+ *---------------------------------------------------------------------------------------------*/
+fn_GetRealSize = function(sSize, nParentSize, sDefSize)
+{
+	var nRealSize;
+	var nSizeType;
+	
+	if(!sSize)sSize = sDefSize;
+		
+	nSizeType = sSize.replace(/[0-9]/g, "");
+	
+	if(nSizeType=="%")
+	{
+		nRealSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, ""));
+		nRealSize = (nRealSize/100) * nParentSize;
+	}else
+	{
+		nRealSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, ""));
+	}
+	
+	return nRealSize;
+}
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetCellSize
+ * Parameter    : 
+				- arrList : columnsize or rowsize 사이즈정보(% or px)
+				- nIdx : 시작 Column/Row Index 정보
+				- nSpan : Column/Row Span 정보
+				- nDefSize : -1 일 경우 사용할 디폴트 사이즈 정보
+				
+ * Return       : nSize : px기준 사이즈
+ * Description  : Cell의 Width/Height 구하는 함수
+ *---------------------------------------------------------------------------------------------*/
+fn_GetCellSize = function(arrList, nIdx, nSpan, nDefSize)
+{
+	var nSize = 0;
+	
+	for(var i=nIdx; i<nIdx+nSpan; i++)
+	{
+		if(nexacro.toNumber(arrList[i])==-1)
+		{
+			nSize += nexacro.toNumber(nDefSize);
+		}else
+		{
+			nSize += nexacro.toNumber(arrList[i]);
+		}
+	}
+	
+	return nSize;
+}
+]]></Script>
