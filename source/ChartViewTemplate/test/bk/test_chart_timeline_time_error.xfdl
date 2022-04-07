@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_chart_timeline" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <FloatChart id="FloatChart00" taborder="0" left="30" top="22" width="634" height="309" binddataset="dsData" categorycolumn="bind:ROOM_NM" isdatetimevalue="true">
+          <Contents><![CDATA[{
+	"title": {
+		"id": "title",
+		"text": "Float Chart",
+		"textfont": "20pt/normal '맑은 고딕'",
+		"padding": "0px 0px 5px",
+		"visible": false
+	},
+	"legend": {
+		"id": "legend",
+		"padding": "3px 10px 3px 10px",
+		"itemtextfont": "9pt '맑은 고딕'",
+		"itemtextcolor": "#4c4c4c"
+	},
+	"tooltip": {
+		"id": "tooltip",
+		"background": "#4b4b4b",
+		"linestyle": "0px none",
+		"textcolor": "#ffffff",
+		"textfont": "10pt/normal '맑은 고딕'",
+		"padding": "5px"
+	},
+	"board": {
+		"id": "board"
+	},
+	"categoryaxis": {
+		"id": "categoryaxis",
+		"labeltextcolor": "#6f6f6f",
+		"labeltextfont": "10pt '맑은 고딕'",
+		"axislinestyle": "1px solid #d0d0d0",
+		"boardlinestyle": "1px solid #d0d0d0"
+	},
+	"valueaxes": [
+		{
+			"id": "valueaxis0",
+			"labeltextcolor": "#6f6f6f",
+			"labeltextfont": "10pt '맑은 고딕'",
+			"axislinestyle": "1px solid #d0d0d0",
+			"boardlinestyle": "1px solid #d0d0d0",
+			"timelabelunitmask": "hh시",
+			"tickinterval": "1"
+		}
+	],
+	"seriesset": [
+		{
+			"id": "series0",
+			"titletext": "series",
+			"linevisible": true,
+			"itemtextvisible": "false",
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 6pt '맑은 고딕'",
+			"valuecolumn": "bind:E_TIME",
+			"value2column": "bind:S_TIME"
+		}
+	]
+}]]></Contents>
+        </FloatChart>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="ROOM_NM" type="STRING" size="256"/>
+          <Column id="S_TIME" type="TIME" size="256"/>
+          <Column id="E_TIME" type="TIME" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ROOM_NM">Mercury</Col>
+            <Col id="S_TIME">0900</Col>
+            <Col id="E_TIME">1200</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Venus</Col>
+            <Col id="S_TIME">1300</Col>
+            <Col id="E_TIME">1400</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Earth</Col>
+            <Col id="S_TIME">0930</Col>
+            <Col id="E_TIME">1130</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Mars</Col>
+            <Col id="S_TIME">1400</Col>
+            <Col id="E_TIME">1600</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsData00">
+        <ColumnInfo>
+          <Column id="ROOM_NM" type="STRING" size="256"/>
+          <Column id="MEETING_NM" type="STRING" size="256"/>
+          <Column id="S_TIME" type="TIME" size="256"/>
+          <Column id="E_TIME" type="TIME" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ROOM_NM">Mercury</Col>
+            <Col id="S_TIME">0900</Col>
+            <Col id="E_TIME">1200</Col>
+            <Col id="MEETING_NM">주간보고 회의</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Venus</Col>
+            <Col id="S_TIME">1300</Col>
+            <Col id="E_TIME">1400</Col>
+            <Col id="MEETING_NM">설계회의</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Earth</Col>
+            <Col id="S_TIME">0930</Col>
+            <Col id="E_TIME">1130</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Mars</Col>
+            <Col id="S_TIME">1400</Col>
+            <Col id="E_TIME">1600</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Jupiter</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Saturn</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Uranus</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Neptune</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">Mercury</Col>
+            <Col id="S_TIME">1300</Col>
+            <Col id="E_TIME">1400</Col>
+            <Col id="MEETING_NM">주간보고 회의2</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="TranAction">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.TranAction" shorttypename="TranAction" csstypename="TranAction" csscontrolname="TranActionControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Set the action to execute when the trigger occurs." finalclass="false"/>
+    <PropertyInfo>
+      <Property name="serviceid" refreshinfo="serviceid" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="ModelServiceID"/>
+      <Property name="serviceurl" readonly="true" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="String"/>
+      <Property name="inputdatasets" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" group="Action"/>
+      <Property name="outputdatasets" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="String"/>
+      <Property name="args" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="String"/>
+      <Property name="async" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="Boolean" defaultvalue="true"/>
+      <Property name="targetview" group="Action" subgroup="" refreshinfo="" edittype="ViewObjList" defaultvalue="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="" description="" csspropertyname="" normalpropertyname=""/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This is the event to process the Trigger callback when the run method execution fails.">
+        <Syntax text="Action.onerror(obj:nexacro.Action,e:nexacro.ActionEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.TranAction" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This is the event to process the Trigger callback when the run method execution succeeds.">
+        <Syntax text="onsuccess(obj:nexacro.Action,e:nexacro.ActionEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.TranAction" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="canrun" group="Event" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This is the event that occurs when the action is executed.">
+        <Syntax text="canrun(obj:nexacro.Action,e:nexacro.ActionEventInfo)">
+          <Return type="Boolean" description="The action is executed if the event return value is changed to &quot;true&quot;. &#13;&#10;The action is not executed if the event return value is changed to &quot;false&quot;. &#13;&#10;&#13;&#10;If the return value is omitted during the event, &quot;true&quot; is applied."/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.TranAction" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionEventInfo" in="" out="" option="" variable="" description=""/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

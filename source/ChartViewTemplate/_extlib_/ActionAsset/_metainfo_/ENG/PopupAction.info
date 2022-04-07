@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="PopupAction">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.PopupAction" shorttypename="PopupAction" csstypename="PopupAction" csscontrolname="PopupActionControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Set the action to execute when the trigger occurs." finalclass="false"/>
+    <PropertyInfo>
+      <Property name="formurl" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="URL" group="Action"/>
+      <Property name="popupstyle" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="Enum" enuminfo="popupstyle" group="Action" defaultvalue="modal"/>
+      <Property name="popupleft" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Position" edittype="Number" defaultvalue="-1"/>
+      <Property name="popuptop" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Position" edittype="Number" defaultvalue="-1"/>
+      <Property name="popupwidth" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Position" edittype="Number" defaultvalue="-1"/>
+      <Property name="popupheight" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Position" edittype="Number" defaultvalue="-1"/>
+      <Property name="args" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="String"/>
+      <Property name="popupid" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" defaultvalue="popup" group="Action"/>
+      <Property name="title" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" defaultvalue="New Form" group="Action"/>
+      <Property name="targetview" group="Action" subgroup="" refreshinfo="" edittype="ViewObjList" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property sets the view object when performing the action." csspropertyname="" normalpropertyname="targetview"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="canrun" group="Event" unused="false" requirement="" description="">
+        <Syntax text="canrun(obj:nexacro.PopupAction, e:nexacro.ActionEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.PopupAction" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionEventInfo" in="" out="" option="" variable="" description=""/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

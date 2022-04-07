@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_chart_waterfall" width="1280" height="720" titletext="WaterfallChart">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="9" top="10" width="822" height="348">
+          <Layouts>
+            <Layout>
+              <FloatChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" waterfall="true" rotateaxis="false" waterfallsumtext="Gross" enableanimation="true" categorycolumn="bind:DAY">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "20pt/normal '맑은 고딕'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Arial'",
+										"visible" : false
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal '맑은 고딕'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 12pt '맑은 고딕'",
+										"labeltextcolor" : "#6f6f6f",
+										"labeltextfont" : "9pt '맑은 고딕'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal '맑은 고딕'",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 12pt '맑은 고딕'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "series",
+											"barvisible" : true,
+											"linevisible" : false,
+											"barsize" : "50",
+											"itemtextfont" : "bold 10pt '맑은 고딕'",
+											"baropacity" : "0.8",
+											"positivebarlinestyle" : "0px solid",
+											"negativebarlinestyle" : "0px solid",
+											"waterfallsumbarlinestyle" : "0px solid",
+											"valuecolumn" : "bind:FLUCTUATION",
+											"positivebarfillstyle" : "#1f77b4",
+											"negativebarfillstyle" : "#ff7f0e",
+											"waterfallsumbarfillstyle" : "#2ca02c",
+											"itemtextvisible" : true,
+											"itemtextmask" : "",
+											"itemtexttype" : "number",
+											"itemtextposition" : "outside"
+										}
+									]
+								}]]></Contents>
+              </FloatChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="DAY" type="STRING" size="80"/>
+                <Column id="FLUCTUATION" type="FLOAT" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="waterfallmodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="DAY" description="" displaytype="category"/>
+              <Field id="FLUCTUATION" description="" displaytype="series"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="DAY,FLUCTUATION"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="WaterfallChartViewTemplate.xviewgen">
+            <Attribute id="waterfallsumtext" value="Gross"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="itemtextposition" value="outside"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="DAY" type="STRING" size="256"/>
+          <Column id="FLUCTUATION" type="FLOAT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="DAY">Monday</Col>
+            <Col id="FLUCTUATION">10</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Tuesday</Col>
+            <Col id="FLUCTUATION">10</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Wednesday</Col>
+            <Col id="FLUCTUATION">5</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Thusday</Col>
+            <Col id="FLUCTUATION">-2</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Friday</Col>
+            <Col id="FLUCTUATION">-5</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Saturday</Col>
+            <Col id="FLUCTUATION">6</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Sunday</Col>
+            <Col id="FLUCTUATION">-5</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[//----------------------------- 공통 상수 설정부 START --------------------------------------
+//모델 정보
+this.oFieldArray;
+	
+//뷰 컴포넌트 정보
+this.oContents;
+	
+//옵션 설정 정보
+this.oGenerationAttr;
+
+//컴포넌트 ID 목록
+this.arrCompIds = [];
+
+//컴포넌트 + 바인드 Field 목록
+this.arrBindItems = [];
+
+/** @const {string} */
+// 네이밍 컨벤션 종류 (C : camelCase, S : snakeCase, LS : lower snakeCase, 빈값 : 지정안함.)
+this.COMP_NAMING_RULE	= "C";
+
+/** @const {string} */
+// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
+this.LOG_LEVEL			= -1;
+
+//----------------------------- 공통 상수 설정부 END ------------------------------------------
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetCompId
+ * Parameter    : 
+				- sCompId : 생성할 컴포넌트 아이디
+ * Return       : sRtnCompId : 컴포넌트 ID
+ * Description  : 컴포넌트 ID 생성 함수
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetCompId = function(sCompId)
+{
+	var sNewCompId = "";
+	
+	if (this.COMP_NAMING_RULE == "C") {
+		sNewCompId = this.lfn_ToCamelCase(sCompId);
+	} else if (this.COMP_NAMING_RULE == "S") {
+		sNewCompId = this.lfn_ToSnakeCase(sCompId);
+	} else if (this.COMP_NAMING_RULE == "LS") {
+		sNewCompId = this.lfn_ToLowerSnakeCase(sCompId);
+	} else {
+		sNewCompId = sCompId;
+	}
+	//trace("fn_GetCompId() : " + sCompId + " -> " + sNewCompId);
+	
+	//동일한 Field로 생성된 컴포넌트 있는지 체크
+	var arrTemp = this.arrCompIds.filter(arrCompIds=>arrCompIds.indexOf(sNewCompId)==0);
+	var sRtnCompId;
+	
+	//동일한 Field로 생성된 컴포넌트가 존재할 경우
+	if(arrTemp.length>0)sRtnCompId = sNewCompId+"_"+arrTemp.length;
+	
+	//동일한 Field로 생성된 컴포넌트가 없을 경우 
+	else sRtnCompId = sNewCompId;
+	
+	//컴포넌트 ID관리 Array에 추가
+	this.arrCompIds[this.arrCompIds.length] = sRtnCompId;
+	
+	//컴포넌트 ID 리턴
+	return sRtnCompId;
+};
+
+/**
+ * @class 문자열을 CamelCase 형식으로 변환한다.
+ * @param {string} sValue - 변환할 문자열
+ * @return {string} CamelCase 형식으로 변환된 문자열
+ * @example
+ * var sReturn = this.lfn_ToCamelCase("background color");	// backgroundColor <br>
+ * var sReturn2 = this.lfn_ToCamelCase("USER_TYPE");			// userType <br>
+ */
+this.lfn_ToCamelCase = function(sValue)
+{
+  return sValue.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+};
+
+/**
+ * @class 문자열을 SnakeCase 형식으로 변환한다.
+ * @param {string} sValue - 변환할 문자열
+ * @return {string} SnakeCase 형식으로 변환된 문자열
+ * @example
+ * var sReturn = this.lfn_ToSnakeCase("background color");	// background_color <br>
+ * var sReturn2 = this.lfn_ToSnakeCase("USER_TYPE");			// _u_s_e_r__t_y_p_e <br>
+ */
+this.lfn_ToSnakeCase = function(sValue)
+{
+	var result = sValue.replace( /([A-Z])/g, " $1" );
+	return result.split(' ').join('_').toLowerCase();
+};
+
+/**
+ * @class 문자열을 소문자로 변환 후 SnakeCase 형식으로 변환한다.
+ * @param {string} sValue - 변환할 문자열
+ * @return {string} SnakeCase 형식으로 변환된 문자열(상수형 문자열도 SnakeCase로 변환)
+ * @example
+ * var sReturn = this.lfn_ToLowerSnakeCase("background color");	// background_color <br>
+ * var sReturn2 = this.lfn_ToLowerSnakeCase("USER_TYPE");			// user_type <br>
+ */
+this.lfn_ToLowerSnakeCase = function(sValue)
+{
+	var result = sValue.toLowerCase().replace( /([A-Z])/g, " $1" );
+	return result.split(' ').join('_');
+};
+
+/**
+ * @class 디버깅용 log를 출력하는 함수
+ * @param {(string|object)} sMsg - 출력할 문자열
+ * @param {string} sType - loglevel (예 : "debug","info","warn","error") (기본값 : "debug")
+ * @example
+ * this.lfn_Log("test log");	// [debug] test log
+ */
+this.lfn_Log = function(sMsg, sType)
+{
+	var arrLogLevel = ["debug","info","warn","error"];
+	
+	if(sType == undefined)	sType = "debug";
+	var nLvl = arrLogLevel.indexOf(sType);
+	
+	if (nLvl < this.LOG_LEVEL)		return;
+	
+	if (system.navigatorname == "nexacro DesignMode"
+		|| system.navigatorname == "nexacro") {
+		if (sMsg instanceof Object) {
+			for(var x in sMsg){
+				trace("[" + sType + "] " + x + " : " + sMsg[x]);
+			}
+		} else {
+			trace("[" + sType + "] " + sMsg);
+		}
+	} else {
+		console.log(sMsg);
+	}
+};]]></Script>

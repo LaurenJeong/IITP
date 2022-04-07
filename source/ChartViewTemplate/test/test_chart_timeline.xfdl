@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_chart_timeline" width="1280" height="720" titletext="TimelineChart(정상동작하지 않음)">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="27" top="489" width="819" height="304">
+          <Layouts>
+            <Layout>
+              <FloatChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" isdatetimevalue="true" rotateaxis="true" enableanimation="true" categorycolumn="bind:ROOM_NM">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "20pt/normal '맑은 고딕'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Arial'",
+										"visible" : false
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal '맑은 고딕'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 12pt '맑은 고딕'",
+										"labeltextcolor" : "#6f6f6f",
+										"labeltextfont" : "9pt '맑은 고딕'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "10pt '맑은 고딕'",
+											"axislinestyle" : "1px solid #d0d0d0",
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"opposite" : "true",
+											"labeltype" : "normal",
+											"boardlinevisible" : "true"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "series",
+											"barvisible" : true,
+											"linevisible" : false,
+											"barsize" : "50",
+											"itemtextcolor" : "#ffffff",
+											"itemtextfont" : "bold 10pt '맑은 고딕'",
+											"baropacity" : "0.8",
+											"positivebarlinestyle" : "0px solid",
+											"negativebarlinestyle" : "1px solid #ffffff",
+											"valuecolumn" : "bind:TO",
+											"value2column" : "bind:FROM",
+											"value3column" : "bind:PERCENT",
+											"positivebarfillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"negativebarfillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"itemtextvisible" : true,
+											"itemtextmask" : "@@@@-@@-@@",
+											"itemtexttype" : "normal",
+											"itemtextposition" : "middle"
+										}
+									]
+								}]]></Contents>
+              </FloatChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ROOM_NM" type="STRING" size="80"/>
+                <Column id="FROM" type="DATE" size="80"/>
+                <Column id="TO" type="DATE" size="80"/>
+                <Column id="DEPT_NM" type="STRING" size="80"/>
+                <Column id="PERCENT" type="FLOAT" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="timelinemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="ROOM_NM" description="" displaytype="category"/>
+              <Field id="FROM" description="" displaytype="seriesfrom"/>
+              <Field id="TO" description="" displaytype="seriesto"/>
+              <Field id="DEPT_NM" description="" displaytype="none"/>
+              <Field id="PERCENT" description="" displaytype="seriespercent"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="ROOM_NM,FROM,TO,DEPT_NM,PERCENT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="TimelineChartViewTemplate.xviewgen">
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="itemtextposition" value="middle"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="Static00" taborder="2" text="TimelineChart는 정상동작하지 않음" left="235" top="8" width="415" height="42" background="#d62728" textAlign="center" verticalAlign="middle" font="20px/normal &quot;Malgun Gothic&quot;" color="#ffffff" border="2px solid #cccccc"/>
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="21" top="112" width="825" height="364">
+          <Layouts>
+            <Layout>
+              <FloatChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" isdatetimevalue="true" rotateaxis="true" enableanimation="true" categorycolumn="bind:ROOM_NM">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "20pt/normal '맑은 고딕'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Arial'",
+										"visible" : false
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal '맑은 고딕'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 12pt '맑은 고딕'",
+										"labeltextcolor" : "#6f6f6f",
+										"labeltextfont" : "9pt '맑은 고딕'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "10pt '맑은 고딕'",
+											"axislinestyle" : "1px solid #d0d0d0",
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"opposite" : "true",
+											"labeltype" : "normal",
+											"boardlinevisible" : "true"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "series",
+											"barvisible" : true,
+											"linevisible" : false,
+											"barsize" : "50",
+											"itemtextcolor" : "#ffffff",
+											"itemtextfont" : "bold 10pt '맑은 고딕'",
+											"baropacity" : "0.8",
+											"positivebarlinestyle" : "0px solid",
+											"negativebarlinestyle" : "1px solid #ffffff",
+											"valuecolumn" : "bind:TO",
+											"value2column" : "bind:FROM",
+											"positivebarfillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"negativebarfillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"itemtextvisible" : true,
+											"itemtextmask" : "@@@@-@@-@@",
+											"itemtexttype" : "normal",
+											"itemtextposition" : "middle"
+										}
+									]
+								}]]></Contents>
+              </FloatChart>
+            </Layout>
+            <Layout/>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ROOM_NM" type="STRING" size="80"/>
+                <Column id="FROM" type="DATE" size="80"/>
+                <Column id="TO" type="DATE" size="80"/>
+                <Column id="DEPT_NM" type="STRING" size="80"/>
+                <Column id="PERCENT" type="FLOAT" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="timelinemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="ROOM_NM" description="" displaytype="category"/>
+              <Field id="FROM" description="" displaytype="seriesfrom"/>
+              <Field id="TO" description="" displaytype="seriesto"/>
+              <Field id="DEPT_NM" description="" displaytype="none"/>
+              <Field id="PERCENT" description="" displaytype="none"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="ROOM_NM,FROM,TO,DEPT_NM,PERCENT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="TimelineChartViewTemplate.xviewgen">
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="itemtextposition" value="middle"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="ROOM_NM" type="STRING" size="256"/>
+          <Column id="FROM" type="DATE" size="256"/>
+          <Column id="TO" type="DATE" size="256"/>
+          <Column id="DEPT_NM" type="STRING" size="256"/>
+          <Column id="PERCENT" type="FLOAT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ROOM_NM">제우스</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220222</Col>
+            <Col id="DEPT_NM">인사총무팀</Col>
+            <Col id="PERCENT">50</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아프로디테</Col>
+            <Col id="FROM">20220223</Col>
+            <Col id="TO">20220228</Col>
+            <Col id="DEPT_NM">제품구현그룹</Col>
+            <Col id="PERCENT">70</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">포세이돈</Col>
+            <Col id="FROM">20220222</Col>
+            <Col id="TO">20220224</Col>
+            <Col id="DEPT_NM">제품관리그룹</Col>
+            <Col id="PERCENT">0</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아테나</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220221</Col>
+            <Col id="DEPT_NM">NX14팀</Col>
+            <Col id="PERCENT">10</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">헤르메스</Col>
+            <Col id="FROM">20220225</Col>
+            <Col id="TO">20220226</Col>
+            <Col id="DEPT_NM">융합기술개발팀</Col>
+            <Col id="PERCENT">100</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">에스티아</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220228</Col>
+            <Col id="DEPT_NM">일본사업팀</Col>
+            <Col id="PERCENT">80</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsData00">
+        <ColumnInfo>
+          <Column id="ROOM_NM" type="STRING" size="256"/>
+          <Column id="FROM" type="DATE" size="256"/>
+          <Column id="TO" type="DATE" size="256"/>
+          <Column id="DEPT_NM" type="STRING" size="256"/>
+          <Column id="PERCENT" type="FLOAT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ROOM_NM">제우스</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220222</Col>
+            <Col id="DEPT_NM">인사총무팀</Col>
+            <Col id="PERCENT">50</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아프로디테</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220220</Col>
+            <Col id="DEPT_NM">제품구현그룹</Col>
+            <Col id="PERCENT">70</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">포세이돈</Col>
+            <Col id="FROM">20220301</Col>
+            <Col id="TO">20220322</Col>
+            <Col id="DEPT_NM">제품관리그룹</Col>
+            <Col id="PERCENT">0</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아테나</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220220</Col>
+            <Col id="DEPT_NM">NX14팀</Col>
+            <Col id="PERCENT">10</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아테나</Col>
+            <Col id="FROM">20220222</Col>
+            <Col id="TO">20220222</Col>
+            <Col id="DEPT_NM">연구개발본부</Col>
+            <Col id="PERCENT">40</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아테나</Col>
+            <Col id="FROM">20220225</Col>
+            <Col id="TO">20220303</Col>
+            <Col id="DEPT_NM">제품구현1그룹</Col>
+            <Col id="PERCENT">90</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">헤르메스</Col>
+            <Col id="FROM">20220225</Col>
+            <Col id="TO">20220226</Col>
+            <Col id="DEPT_NM">융합기술개발팀</Col>
+            <Col id="PERCENT">100</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">에스티아</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220228</Col>
+            <Col id="DEPT_NM">일본사업팀</Col>
+            <Col id="PERCENT">80</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

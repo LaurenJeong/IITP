@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_chart" width="1280" height="720" titletext="PieChart, PyramidChart">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="180" top="42" binddataset="dsData" categorycolumn="bind:Month" enableanimation="true" width="730" height="289">
+          <ViewTemplateInfo filepath="PieChartViewTemplate.xviewgen">
+            <Attribute id="charttype" value="pie"/>
+            <Attribute id="chartdisplay" value="circle"/>
+            <Attribute id="innerradius" value="50"/>
+            <Attribute id="innertext" value="DeskTop"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+          </ViewTemplateInfo>
+          <Layouts>
+            <Layout>
+              <PieChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" enableanimation="true" categorycolumn="bind:BROWSER_NAME">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "20pt/normal '맑은 고딕'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Arial'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt '맑은 고딕'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : "true",
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal '맑은 고딕'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"seriesset" : [
+										{
+											"radius" : "70",
+											"opacity" : "0.8",
+											"linestyle" : "1px solid #ffffff",
+											"itemtextvisible" : true,
+											"itemtextguidelinestyle" : "1px solid darkgray",
+											"itemtextguideopacity" : "1",
+											"itemtextguidesize" : "20",
+											"selectindent" : "20",
+											"highlightvisible" : true,
+											"highlightradius" : "70",
+											"highlightopacity" : "0.3",
+											"highlightfillstyle" : "#ffffff",
+											"highlightlinestyle" : "1px solid #ffffff",
+											"id" : "seriesShare",
+											"titletext" : "점유율",
+											"valuecolumn" : "bind:SHARE",
+											"fillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"itemtextmask" : "",
+											"itemtexttype" : "number"
+										}
+									]
+								}]]></Contents>
+              </PieChart>
+            </Layout>
+          </Layouts>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="piemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="DEVICE" description="" displaytype="none"/>
+              <Field id="BROWSER_NAME" description="" displaytype="category"/>
+              <Field id="SHARE" description="" displaytype="series"/>
+              <Field id="CHK" description="" displaytype="series"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="DEVICE,BROWSER_NAME,SHARE,CHK"/>
+            </Components>
+          </ModelInfo>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="DEVICE" type="STRING" size="80"/>
+                <Column id="BROWSER_NAME" type="STRING" size="80"/>
+                <Column id="SHARE" type="BIGDECIMAL" size="80"/>
+                <Column id="CHK" type="STRING" size="1"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+        </View>
+        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="241" top="431" width="572" height="227">
+          <Layouts>
+            <Layout>
+              <PyramidChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" graphtype="funnel" enableanimation="true" categorycolumn="bind:BROWSER_NAME">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "20pt/normal '맑은 고딕'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Arial'",
+										"visible" : false
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal '맑은 고딕'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"seriesset" : [
+										{
+											"margintopdown" : 10,
+											"linestyle" : "2px solid #ffffff",
+											"itemtextfont" : "10pt/normal '맑은 고딕'",
+											"graphhalign" : "left",
+											"itemtextguidesize" : "30",
+											"autogradation" : "none",
+											"marginleftright" : "30",
+											"id" : "seriesShare",
+											"titletext" : "점유율",
+											"valuecolumn" : "bind:SHARE",
+											"fillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"itemtextvisible" : true,
+											"itemtextmask" : "",
+											"itemtexttype" : "number"
+										}
+									]
+								}]]></Contents>
+              </PyramidChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="DEVICE" type="STRING" size="80"/>
+                <Column id="BROWSER_NAME" type="STRING" size="80"/>
+                <Column id="SHARE" type="BIGDECIMAL" size="80"/>
+                <Column id="CHK" type="STRING" size="1"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="viewdataset00">
+              <ColumnInfo>
+                <Column id="DEVICE" type="STRING" size="80"/>
+                <Column id="BROWSER_NAME" type="STRING" size="80"/>
+                <Column id="SHARE" type="BIGDECIMAL" size="80"/>
+                <Column id="CHK" type="STRING" size="1"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="piemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="DEVICE" description="" displaytype="none"/>
+              <Field id="BROWSER_NAME" description="" displaytype="category"/>
+              <Field id="SHARE" description="" displaytype="series"/>
+              <Field id="CHK" description="" displaytype="none"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="DEVICE,BROWSER_NAME,SHARE,CHK"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="PyramidChartViewTemplate.xviewgen">
+            <Attribute id="charttype" value="funnel"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="itemtextposition" value="right"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="DEVICE" type="STRING" size="256"/>
+          <Column id="BROWSER_NAME" type="STRING" size="256"/>
+          <Column id="SHARE" type="BIGDECIMAL" size="256"/>
+          <Column id="CHK" type="STRING" size="1"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="BROWSER_NAME">Chrome</Col>
+            <Col id="SHARE">70.43</Col>
+            <Col id="CHK">1</Col>
+            <Col id="DEVICE">desktop</Col>
+          </Row>
+          <Row>
+            <Col id="BROWSER_NAME">Edge</Col>
+            <Col id="SHARE">12.84</Col>
+            <Col id="CHK">0</Col>
+            <Col id="DEVICE">desktop</Col>
+          </Row>
+          <Row>
+            <Col id="BROWSER_NAME">IE</Col>
+            <Col id="SHARE">5.85</Col>
+            <Col id="CHK">0</Col>
+            <Col id="DEVICE">desktop</Col>
+          </Row>
+          <Row>
+            <Col id="BROWSER_NAME">Whale Browser</Col>
+            <Col id="SHARE">5.45</Col>
+            <Col id="CHK">0</Col>
+            <Col id="DEVICE">desktop</Col>
+          </Row>
+          <Row>
+            <Col id="BROWSER_NAME">Safari</Col>
+            <Col id="SHARE">2.46</Col>
+            <Col id="CHK">0</Col>
+            <Col id="DEVICE">desktop</Col>
+          </Row>
+          <Row>
+            <Col id="BROWSER_NAME">Firefox</Col>
+            <Col id="SHARE">1.72</Col>
+            <Col id="CHK">0</Col>
+            <Col id="DEVICE">desktop</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.View00_BasicChart00_onclick = function(obj:nexacro.BasicChart,e:nexacro.ChartClickEventInfo)
+{
+	//trace(e.itemindex)
+};
+]]></Script>
+  </Form>
+</FDL>

@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="GaugeChart_Highlight" width="768" height="480" titletext="New Form">
+    <Layouts>
+      <Layout height="480" mobileorientation="landscape" width="768">
+        <GaugeChart id="GaugeChart02" taborder="1" left="0%" top="0%" binddataset="dsData" categorycolumn="bind:BASE" gaugetype="circular" right="0%" bottom="0%" enableanimation="false" ondrawend="GaugeChart02_ondrawend">
+          <Contents><![CDATA[{
+	"tooltip": {
+		"id": "tooltip",
+		"background": "#4b4b4b",
+		"linestyle": "0px none",
+		"textcolor": "#ffffff",
+		"textfont": "10pt/normal '맑은 고딕'",
+		"padding": "5px"
+	},
+	"indicator": {
+		"id": "indicator",
+		"visible": "true",
+		"indicatorimage": "",
+		"indicatorsize": "10",
+		"indicatorindent": "",
+		"indicatorfillstyle": "white",
+		"indicatorlinestyle": "1px solid black",
+		"indicatoropacity": "1",
+		"linestyle": "1px solid darkgray",
+		"fillstyle": "#70AD47",
+		"opacity": "1",
+		"indent": "0",
+		"size": "10",
+		"linetype": "false",
+		"centerpinradius": "5",
+		"indentouter": "90",
+		"centerpinstyle": "darkgray"
+	},
+	"board": {
+		"id": "board"
+	},
+	"valueaxes": [
+		{
+			"id": "valueaxis0",
+			"labeltextcolor": "#6f6f6f",
+			"labeltextfont": "10pt '맑은 고딕'",
+			"axislinestyle": "1px solid #d0d0d0",
+			"tickmin": "0",
+			"tickmax": "100",
+			"tickinterval": "10",
+			"opposite": "true",
+			"gap": "10",
+			"labelgap": "0",
+			"ticklinestyle": "2px solid black",
+			"smallticklinestyle": "1px solid #cccccc",
+			"smalltickcount": "5"
+		}
+	],
+	"seriesset": [
+		{
+			"id": "series0",
+			"titletext": "series",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 20pt '맑은 고딕'",
+			"valuecolumn": "bind:VALUE",
+			"highlightbarvisible": "true",
+			"highlightbarfillstyle": "white",
+			"barfillstyle": "#5587a2",
+			"fillstyle": "#5587a2",
+			"innerradius": "90",
+			"barlinestyle": "black",
+			"radius": "91",
+			"barsize": "80",
+			"itemtextgap": "0 70",
+			"startangle": "210",
+			"endangle": "300",
+			"opacity": "0.8",
+			"userrange": "[0,20,\"#70AD47\"],[20,80,\"#1f77b4\"],[80,100,\"#d62728\"]",
+			"userrangeinnerradius": "70",
+			"userrangeradius": "80",
+			"baropacity": "0"
+		}
+	]
+}]]></Contents>
+        </GaugeChart>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="BASE" type="BIGDECIMAL" size="256"/>
+          <Column id="VALUE" type="BIGDECIMAL" size="256"/>
+          <Column id="TARGET" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="VALUE">20</Col>
+            <Col id="TARGET">60</Col>
+            <Col id="BASE">0</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[ 
+this.GaugeChart02_ondrawend = function(obj:nexacro.GaugeChart,e:nexacro.ChartDrawEndEventInfo)
+{
+	var nTraget = 70;		// 표시할 값
+	
+	var oSeries = obj.getSeriesByID("series0");				// 시리즈정보
+	var oAxex = obj.getValueaxisByID("valueaxis0");			// 축 정보
+	var oPosInfo = obj.getSeriesPointPos(0, 0);				// 게이지 정보
+	
+// 	for(var x in oPosInfo){
+// 		trace(x + " : " + oPosInfo[x]);
+// 	}
+	
+
+	
+	var nSeriesRadiusRate = nexacro.round(oSeries["radius"],0) / 100;		// 축 원지름 비율
+	var nBaseAngle = 360 + 90 - nexacro.round(oPosInfo["startangle"]);		// 90도 기준 0값 기준각도
+	var nEndAngle = nexacro.round(oPosInfo["endangle"],0);
+	
+	var nAxexRd = oPosInfo["radius"] * nSeriesRadiusRate;					// 축 반지름
+ 	var nValRange = (-1 * nTraget) / nexacro.round(oAxex["tickmax"],0);		// 값 범위
+ 	
+ 	var nValDegree = (nEndAngle * nValRange) + nBaseAngle;					// nTraget에 해당하는 각도
+ 	var nAngle =  (360 - nValDegree) % 360;
+	
+ 	var nRadius = nAngle * Math.PI / 180;									// 값의 반지름
+
+ 	var nVX = Math.cos(nRadius) * nAxexRd;
+ 	var nVY = Math.sin(nRadius) * nAxexRd;
+
+ 	var nLeft = nexacro.round(oPosInfo["centerx"] + nVX,0);
+ 	var nTop = nexacro.round(oPosInfo["centery"] + nVY,0);
+ 	
+ 	this.stLine.set_left(nLeft);
+ 	this.stLine.set_top(nTop);
+	
+// 	var nValue = 60;
+// 	var pos = obj.getSeriesPointPos("VALUE", nValue);	
+// 	if(!pos) return;
+// 	
+// 	
+// 	
+// 	var item2 = obj.addUserControl("itemrect1", "rect");
+// 	item2.set_x(pos.x-1);
+// 	item2.set_y(30+sz.ny+2);
+// 	item2.set_width(3);
+// 	item2.set_height(obj.getOffsetHeight() - 150);	
+// 	item2.set_fillstyle("#E9B34E");
+// 	
+// 	obj.userControlDraw();
+};
+]]></Script>
+  </Form>
+</FDL>

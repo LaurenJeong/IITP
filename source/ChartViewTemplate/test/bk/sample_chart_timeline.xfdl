@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_chart_timeline" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <FloatChart id="FloatChart00" taborder="1" left="0" top="390" height="320" binddataset="dsData" categorycolumn="bind:ROOM_NM" isdatetimevalue="true" right="0">
+          <Contents><![CDATA[{
+	"title": {
+		"id": "title",
+		"text": "Float Chart",
+		"textfont": "20pt/normal '맑은 고딕'",
+		"padding": "0px 0px 5px",
+		"visible": false
+	},
+	"tooltip": {
+		"id": "tooltip",
+		"background": "#4b4b4b",
+		"linestyle": "0px none",
+		"textcolor": "#ffffff",
+		"textfont": "10pt/normal '맑은 고딕'",
+		"padding": "5px"
+	},
+	"board": {
+		"id": "board"
+	},
+	"categoryaxis": {
+		"id": "categoryaxis",
+		"labeltextcolor": "#6f6f6f",
+		"labeltextfont": "10pt '맑은 고딕'",
+		"axislinestyle": "1px solid #d0d0d0",
+		"boardlinestyle": "1px solid #d0d0d0"
+	},
+	"valueaxes": [
+		{
+			"id": "valueaxis0",
+			"labeltextcolor": "#6f6f6f",
+			"labeltextfont": "8pt/normal \"맑은 고딕\"",
+			"axislinestyle": "1px solid #d0d0d0",
+			"boardlinestyle": "1px solid #d0d0d0",
+			"timelabelunitmask": "dd",
+			"tickinterval": "",
+			"timelabelgroupmask": "MM"
+		}
+	],
+	"seriesset": [
+		{
+			"id": "series0",
+			"titletext": "series",
+			"linevisible": true,
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 6pt '맑은 고딕'",
+			"valuecolumn": "bind:TO",
+			"value2column": "bind:FROM"
+		}
+	]
+}]]></Contents>
+        </FloatChart>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="ROOM_NM" type="STRING" size="256"/>
+          <Column id="FROM" type="DATE" size="256"/>
+          <Column id="TO" type="DATE" size="256"/>
+          <Column id="DEPT_NM" type="STRING" size="256"/>
+          <Column id="PERCENT" type="FLOAT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ROOM_NM">제우스</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220320</Col>
+            <Col id="DEPT_NM">인사총무팀</Col>
+            <Col id="PERCENT">50</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아프로디테</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220220</Col>
+            <Col id="DEPT_NM">제품구현그룹</Col>
+            <Col id="PERCENT">70</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">포세이돈</Col>
+            <Col id="FROM">20220301</Col>
+            <Col id="TO">20220322</Col>
+            <Col id="DEPT_NM">제품관리그룹</Col>
+            <Col id="PERCENT">0</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아테나</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220220</Col>
+            <Col id="DEPT_NM">NX14팀</Col>
+            <Col id="PERCENT">10</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아테나</Col>
+            <Col id="FROM">20220222</Col>
+            <Col id="TO">20220222</Col>
+            <Col id="DEPT_NM">연구개발본부</Col>
+            <Col id="PERCENT">40</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아테나</Col>
+            <Col id="FROM">20220225</Col>
+            <Col id="TO">20220303</Col>
+            <Col id="DEPT_NM">제품구현1그룹</Col>
+            <Col id="PERCENT">90</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">헤르메스</Col>
+            <Col id="FROM">20220303</Col>
+            <Col id="TO">20220307</Col>
+            <Col id="DEPT_NM">융합기술개발팀</Col>
+            <Col id="PERCENT">100</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">에스티아</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220320</Col>
+            <Col id="DEPT_NM">일본사업팀</Col>
+            <Col id="PERCENT">80</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

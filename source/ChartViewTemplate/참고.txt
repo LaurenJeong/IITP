@@ -1,0 +1,18 @@
+[설정]
+*Base Library
+  ChartViewTemplate\nexacrolib
+* View Template Location
+  ChartViewTemplate\view\temp
+* 차트 모듈 설치 (필요한 경우만 설치)
+  ChartViewTemplate\module\Chart.xmodule
+* snippet (ViewTemplate 개발자만 셋팅)
+  ChartViewTemplate\viewtemplate_snippet.xsnippet
+
+[제약사항]
+1) 차트의 경우 데이터가 없는 경우 차트가 보이지 않음.
+   (viewdataset에 데이터가 없어 생성 후 데이터 안보임)
+2) Preview가 보이지 않음. (추후 툴 수정예정)
+3) TimeLineViewTemplate의 경우 차트 버그있음.
+  -> tickinterval = "1" 설정시 비정상종료 발생.
+4) environment의 datatyperule="2.0"인 경우 FloatChart에 isdatetimevalue="true"인 일부 데이터들이 정상적으로 보이지 않음.
+

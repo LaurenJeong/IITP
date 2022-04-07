@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_err_data" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <BubbleChart id="BubbleChart01_00" taborder="1" left="103" top="400" width="756" height="309" binddataset="dsBubble">
+          <Contents><![CDATA[{
+	"legend": {
+		"id": "legend",
+		"padding": "3px 10px 3px 10px",
+		"itemtextfont": "9pt '맑은 고딕'",
+		"itemtextcolor": "#4c4c4c",
+		"visible": true,
+		"align": "rightcenter",
+		"markertype": "circle"
+	},
+	"tooltip": {
+		"id": "tooltip",
+		"background": "#4b4b4b",
+		"linestyle": "0px none",
+		"textcolor": "white",
+		"textfont": "10pt/normal '맑은 고딕'",
+		"padding": "5px"
+	},
+	"board": {
+		"id": "board"
+	},
+	"seriesset": [
+		{
+			"id": "seriesNorthAmerica",
+			"valuecolumn": "bind:LIFE_EXPECTANCY_1",
+			"value2column": "bind:FERTILITY_RATE_1",
+			"titletext": "North America",
+			"value3column": "bind:POPULATION_1",
+			"opacity": "0.5",
+			"valueaxis": "valueaxisLifeExpectancy",
+			"value2axis": "valueaxisFertilityRate",
+			"itemtextposition": "centermiddle",
+			"itemtextcolor": "#1f77b4",
+			"itemtextvisible": "true",
+			"itemtextfont": "bold 8pt '맑은 고딕'",
+			"itemtext": "bind:ID_1",
+			"tooltiptext": "expr:REGION_1 + '\\n' + ID_1 + '\\n-Life Expectancy : ' + LIFE_EXPECTANCY_1 + '\\n-Fertility Rate : ' + FERTILITY_RATE_1 + '\\n-Population : ' + POPULATION_1"
+		},
+		{
+			"id": "seriesEurope",
+			"titletext": "Europe",
+			"valuecolumn": "bind:LIFE_EXPECTANCY_2",
+			"value2column": "bind:FERTILITY_RATE_2",
+			"value3column": "bind:POPULATION_2",
+			"opacity": "0.5",
+			"valueaxis": "valueaxisLifeExpectancy",
+			"value2axis": "valueaxisFertilityRate",
+			"itemtextcolor": "#ff7f0e",
+			"itemtextvisible": "true",
+			"itemtextposition": "centermiddle",
+			"itemtextfont": "bold 8pt '맑은 고딕'",
+			"itemtext": "bind:ID_2",
+			"tooltiptext": "expr:REGION_2 + '\\n' + ID_2 + '\\n-Life Expectancy : ' + LIFE_EXPECTANCY_2 + '\\n-Fertility Rate : ' + FERTILITY_RATE_2 + '\\n-Population : ' + POPULATION_2"
+		},
+		{
+			"id": "seriesMiddleEast",
+			"titletext": "Middle East",
+			"value2column": "bind:FERTILITY_RATE_3",
+			"value3column": "bind:POPULATION_3",
+			"valuecolumn": "bind:LIFE_EXPECTANCY_3",
+			"valueaxis": "valueaxisLifeExpectancy",
+			"value2axis": "valueaxisFertilityRate",
+			"opacity": "0.5",
+			"itemtextcolor": "#2ca02c",
+			"itemtextvisible": "true",
+			"itemtextposition": "centermiddle",
+			"itemtextfont": "bold 8pt '맑은 고딕'",
+			"itemtext": "bind:ID_3",
+			"tooltiptext": "expr:REGION_3 + '\\n' + ID_3 + '\\n-Life Expectancy : ' + LIFE_EXPECTANCY_3 + '\\n-Fertility Rate : ' + FERTILITY_RATE_3 + '\\n-Population : ' + POPULATION_3"
+		}
+	],
+	"valueaxes": [
+		{
+			"id": "valueaxisLifeExpectancy",
+			"titletext": "Life Expectancy",
+			"boardlinevisible": "true",
+			"boardlinestyle": "1px solid #d0d0d0",
+			"labeltextcolor": "#6f6f6f",
+			"labeltextfont": "10pt/normal '맑은 고딕'",
+			"titletextcolor": "#4c4c4c",
+			"titletextfont": "bold 12pt '맑은 고딕'",
+			"ticklinestyle": "1px solid #525252",
+			"axislinestyle": "1px solid #525252",
+			"labeltype": "number",
+			"autotickscale": "10"
+		},
+		{
+			"id": "valueaxisFertilityRate",
+			"titletext": "Fertility Rate",
+			"boardlinevisible": "true",
+			"boardlinestyle": "1px solid #d0d0d0",
+			"labeltextcolor": "#6f6f6f",
+			"labeltextfont": "10pt/normal '맑은 고딕'",
+			"titletextcolor": "#4c4c4c",
+			"titletextfont": "bold 12pt '맑은 고딕'",
+			"ticklinestyle": "1px solid #525252",
+			"axislinestyle": "1px solid #525252",
+			"labeltype": "number",
+			"autotickscale": "10"
+		}
+	],
+	"title": {
+		"id": "title",
+		"text": "Fertility rate vs life expectancy in selected countries (2010).",
+		"textfont": "bold 12pt/normal \"맑은 고딕\"",
+		"padding": "0px 0px 5px",
+		"linestyle": "0px none",
+		"subtext": " X=Life Expectancy,Y=Fertility, Bubble size=Population, Bubble color=Region",
+		"subtextfont": "8pt/normal \"맑은 고딕\""
+	}
+}]]></Contents>
+        </BubbleChart>
+        <BubbleChart id="BubbleChart00" taborder="1" left="130" top="40" width="685" height="272" binddataset="dsScatter">
+          <Contents><![CDATA[{
+	"tooltip": {
+		"id": "tooltip",
+		"background": "#4b4b4b",
+		"linestyle": "0px none",
+		"textcolor": "white",
+		"textfont": "10pt/normal '맑은 고딕'",
+		"padding": "5px"
+	},
+	"board": {
+		"id": "board"
+	},
+	"seriesset": [
+		{
+			"id": "series0",
+			"itemtextfont": "bold 9pt '맑은 고딕'",
+			"valuecolumn": "bind:AGE",
+			"value2column": "bind:WEIGHT"
+		}
+	],
+	"valueaxes": [
+		{
+			"id": "valueaxisAge",
+			"titletext": "Age",
+			"boardlinevisible": "true",
+			"boardlinestyle": "1px solid #d0d0d0",
+			"labeltextcolor": "#6f6f6f",
+			"labeltextfont": "10pt/normal '맑은 고딕'",
+			"titletextcolor": "#4c4c4c",
+			"titletextfont": "bold 12pt '맑은 고딕'",
+			"ticklinestyle": "1px solid #525252",
+			"axislinestyle": "1px solid #525252",
+			"autotickscale": "10"
+		},
+		{
+			"id": "valueaxisWeight",
+			"titletext": "Weight",
+			"boardlinevisible": "true",
+			"boardlinestyle": "1px solid #d0d0d0",
+			"labeltextcolor": "#6f6f6f",
+			"labeltextfont": "10pt/normal '맑은 고딕'",
+			"titletextcolor": "#4c4c4c",
+			"titletextfont": "bold 12pt '맑은 고딕'",
+			"ticklinestyle": "1px solid #525252",
+			"axislinestyle": "1px solid #525252",
+			"autotickscale": "10"
+		}
+	],
+	"title": {
+		"id": "title",
+		"text": "Age vs. Weight comparison",
+		"textfont": "20pt/normal \"맑은 고딕\"",
+		"padding": "0px 0px 5px",
+		"linestyle": "0px none"
+	}
+}]]></Contents>
+        </BubbleChart>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsScatter">
+        <ColumnInfo>
+          <Column id="NO" type="STRING" size="256"/>
+          <Column id="AGE" type="BIGDECIMAL" size="256"/>
+          <Column id="WEIGHT" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="AGE">8</Col>
+            <Col id="WEIGHT">12</Col>
+            <Col id="NO">1</Col>
+          </Row>
+          <Row>
+            <Col id="AGE">4</Col>
+            <Col id="WEIGHT">5.5</Col>
+            <Col id="NO">2</Col>
+          </Row>
+          <Row>
+            <Col id="AGE">11</Col>
+            <Col id="WEIGHT">14</Col>
+            <Col id="NO">3</Col>
+          </Row>
+          <Row>
+            <Col id="AGE">4</Col>
+            <Col id="WEIGHT">5</Col>
+            <Col id="NO">4</Col>
+          </Row>
+          <Row>
+            <Col id="AGE">3</Col>
+            <Col id="WEIGHT">3.5</Col>
+            <Col id="NO">5</Col>
+          </Row>
+          <Row>
+            <Col id="AGE">6.5</Col>
+            <Col id="WEIGHT">7</Col>
+            <Col id="NO">6</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsBubble">
+        <ColumnInfo>
+          <Column id="REGION_1" type="STRING" size="256"/>
+          <Column id="ID_1" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY_1" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_1" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_1" type="BIGDECIMAL" size="256"/>
+          <Column id="REGION_2" type="STRING" size="256"/>
+          <Column id="ID_2" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY_2" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_2" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_2" type="BIGDECIMAL" size="256"/>
+          <Column id="REGION_3" type="STRING" size="256"/>
+          <Column id="ID_3" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY_3" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_3" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_3" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_1">80.66</Col>
+            <Col id="FERTILITY_RATE_1">1.67</Col>
+            <Col id="POPULATION_1">33739900</Col>
+            <Col id="LIFE_EXPECTANCY_2">79.84</Col>
+            <Col id="FERTILITY_RATE_2">1.36</Col>
+            <Col id="POPULATION_2">81902307</Col>
+            <Col id="LIFE_EXPECTANCY_3">72.73</Col>
+            <Col id="FERTILITY_RATE_3">2.78</Col>
+            <Col id="POPULATION_3">79716203</Col>
+            <Col id="ID_1">CAN</Col>
+            <Col id="ID_2">DEU</Col>
+            <Col id="ID_3">EGY</Col>
+            <Col id="REGION_1">North America</Col>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_2">78.6</Col>
+            <Col id="FERTILITY_RATE_2">1.84</Col>
+            <Col id="POPULATION_2">5523095</Col>
+            <Col id="LIFE_EXPECTANCY_3">72.49</Col>
+            <Col id="FERTILITY_RATE_3">1.7</Col>
+            <Col id="POPULATION_3">73137148</Col>
+            <Col id="ID_1">USA</Col>
+            <Col id="LIFE_EXPECTANCY_1">78.09</Col>
+            <Col id="FERTILITY_RATE_1">2.05</Col>
+            <Col id="POPULATION_1">307007000</Col>
+            <Col id="ID_2">DNK</Col>
+            <Col id="ID_3">IRN</Col>
+            <Col id="REGION_1">North America</Col>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_2">80.05</Col>
+            <Col id="FERTILITY_RATE_2">2</Col>
+            <Col id="POPULATION_2">61801570</Col>
+            <Col id="LIFE_EXPECTANCY_3">68.09</Col>
+            <Col id="FERTILITY_RATE_3">4.77</Col>
+            <Col id="POPULATION_3">31090763</Col>
+            <Col id="ID_2">GBR</Col>
+            <Col id="ID_3">IRQ</Col>
+            <Col id="ID_1"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+            <Col id="REGION_1"/>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_3">81.55</Col>
+            <Col id="FERTILITY_RATE_3">2.96</Col>
+            <Col id="POPULATION_3">7485600</Col>
+            <Col id="LIFE_EXPECTANCY_2">68.6</Col>
+            <Col id="FERTILITY_RATE_2">1.54</Col>
+            <Col id="POPULATION_2">141850000</Col>
+            <Col id="ID_2">RUS</Col>
+            <Col id="ID_3">ISR</Col>
+            <Col id="ID_1"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+            <Col id="REGION_1"/>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsBubbleModel">
+        <ColumnInfo>
+          <Column id="REGION" type="STRING" size="256"/>
+          <Column id="REGION_NAME" type="STRING" size="256"/>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="LIFE_EXPECTANCY">80.66</Col>
+            <Col id="FERTILITY_RATE">1.67</Col>
+            <Col id="REGION_NAME">North America</Col>
+            <Col id="ID">CAN</Col>
+            <Col id="POPULATION">33739900</Col>
+            <Col id="REGION">NA</Col>
+          </Row>
+          <Row>
+            <Col id="REGION_NAME">Europe</Col>
+            <Col id="ID">DEU</Col>
+            <Col id="LIFE_EXPECTANCY">79.84</Col>
+            <Col id="FERTILITY_RATE">1.36</Col>
+            <Col id="POPULATION">81902307</Col>
+            <Col id="REGION">EU</Col>
+          </Row>
+          <Row>
+            <Col id="REGION_NAME">Europe</Col>
+            <Col id="ID">DNK</Col>
+            <Col id="LIFE_EXPECTANCY">78.6</Col>
+            <Col id="FERTILITY_RATE">1.84</Col>
+            <Col id="POPULATION">5523095</Col>
+            <Col id="REGION">EU</Col>
+          </Row>
+          <Row>
+            <Col id="REGION_NAME">Middle East</Col>
+            <Col id="ID">EGY</Col>
+            <Col id="LIFE_EXPECTANCY">72.73</Col>
+            <Col id="FERTILITY_RATE">2.78</Col>
+            <Col id="POPULATION">79716203</Col>
+            <Col id="REGION">ME</Col>
+          </Row>
+          <Row>
+            <Col id="REGION_NAME">Europe</Col>
+            <Col id="ID">GBR</Col>
+            <Col id="LIFE_EXPECTANCY">80.05</Col>
+            <Col id="FERTILITY_RATE">2</Col>
+            <Col id="POPULATION">61801570</Col>
+            <Col id="REGION">EU</Col>
+          </Row>
+          <Row>
+            <Col id="REGION_NAME">Middle East</Col>
+            <Col id="ID">IRN</Col>
+            <Col id="LIFE_EXPECTANCY">72.49</Col>
+            <Col id="FERTILITY_RATE">1.7</Col>
+            <Col id="POPULATION">73137148</Col>
+            <Col id="REGION">ME</Col>
+          </Row>
+          <Row>
+            <Col id="REGION_NAME">Middle East</Col>
+            <Col id="ID">IRQ</Col>
+            <Col id="LIFE_EXPECTANCY">68.09</Col>
+            <Col id="FERTILITY_RATE">4.77</Col>
+            <Col id="POPULATION">31090763</Col>
+            <Col id="REGION">ME</Col>
+          </Row>
+          <Row>
+            <Col id="REGION_NAME">Middle East</Col>
+            <Col id="ID">ISR</Col>
+            <Col id="LIFE_EXPECTANCY">81.55</Col>
+            <Col id="FERTILITY_RATE">2.96</Col>
+            <Col id="POPULATION">7485600</Col>
+            <Col id="REGION">ME</Col>
+          </Row>
+          <Row>
+            <Col id="REGION_NAME">Europe</Col>
+            <Col id="ID">RUS</Col>
+            <Col id="LIFE_EXPECTANCY">68.6</Col>
+            <Col id="FERTILITY_RATE">1.54</Col>
+            <Col id="POPULATION">141850000</Col>
+            <Col id="REGION">EU</Col>
+          </Row>
+          <Row>
+            <Col id="REGION_NAME">North America</Col>
+            <Col id="ID">USA</Col>
+            <Col id="LIFE_EXPECTANCY">78.09</Col>
+            <Col id="FERTILITY_RATE">2.05</Col>
+            <Col id="POPULATION">307007000</Col>
+            <Col id="REGION">NA</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsBubble00_00">
+        <ColumnInfo>
+          <Column id="REGION" type="STRING" size="256"/>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY_1" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_1" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_1" type="BIGDECIMAL" size="256"/>
+          <Column id="LIFE_EXPECTANCY_2" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_2" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_2" type="BIGDECIMAL" size="256"/>
+          <Column id="LIFE_EXPECTANCY_3" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_3" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_3" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_1">80.66</Col>
+            <Col id="FERTILITY_RATE_1">1.67</Col>
+            <Col id="REGION">North America</Col>
+            <Col id="ID">CAN</Col>
+            <Col id="POPULATION_1">33739900</Col>
+            <Col id="LIFE_EXPECTANCY_2"/>
+            <Col id="FERTILITY_RATE_2"/>
+            <Col id="POPULATION_2"/>
+            <Col id="LIFE_EXPECTANCY_3"/>
+            <Col id="FERTILITY_RATE_3"/>
+            <Col id="POPULATION_3"/>
+          </Row>
+          <Row>
+            <Col id="REGION">Europe</Col>
+            <Col id="ID">DEU</Col>
+            <Col id="LIFE_EXPECTANCY_2">79.84</Col>
+            <Col id="FERTILITY_RATE_2">1.36</Col>
+            <Col id="POPULATION_2">81902307</Col>
+            <Col id="LIFE_EXPECTANCY_3"/>
+            <Col id="FERTILITY_RATE_3"/>
+            <Col id="POPULATION_3"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+          </Row>
+          <Row>
+            <Col id="REGION">Europe</Col>
+            <Col id="ID">DNK</Col>
+            <Col id="LIFE_EXPECTANCY_2">78.6</Col>
+            <Col id="FERTILITY_RATE_2">1.84</Col>
+            <Col id="POPULATION_2">5523095</Col>
+            <Col id="LIFE_EXPECTANCY_3"/>
+            <Col id="FERTILITY_RATE_3"/>
+            <Col id="POPULATION_3"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+          </Row>
+          <Row>
+            <Col id="REGION">Middle East</Col>
+            <Col id="ID">EGY</Col>
+            <Col id="LIFE_EXPECTANCY_3">72.73</Col>
+            <Col id="FERTILITY_RATE_3">2.78</Col>
+            <Col id="POPULATION_3">79716203</Col>
+            <Col id="LIFE_EXPECTANCY_2"/>
+            <Col id="FERTILITY_RATE_2"/>
+            <Col id="POPULATION_2"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+          </Row>
+          <Row>
+            <Col id="REGION">Europe</Col>
+            <Col id="ID">GBR</Col>
+            <Col id="LIFE_EXPECTANCY_2">80.05</Col>
+            <Col id="FERTILITY_RATE_2">2</Col>
+            <Col id="POPULATION_2">61801570</Col>
+            <Col id="LIFE_EXPECTANCY_3"/>
+            <Col id="FERTILITY_RATE_3"/>
+            <Col id="POPULATION_3"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+          </Row>
+          <Row>
+            <Col id="REGION">Middle East</Col>
+            <Col id="ID">IRN</Col>
+            <Col id="LIFE_EXPECTANCY_3">72.49</Col>
+            <Col id="FERTILITY_RATE_3">1.7</Col>
+            <Col id="POPULATION_3">73137148</Col>
+            <Col id="LIFE_EXPECTANCY_2"/>
+            <Col id="FERTILITY_RATE_2"/>
+            <Col id="POPULATION_2"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+          </Row>
+          <Row>
+            <Col id="REGION">Middle East</Col>
+            <Col id="ID">IRQ</Col>
+            <Col id="LIFE_EXPECTANCY_3">68.09</Col>
+            <Col id="FERTILITY_RATE_3">4.77</Col>
+            <Col id="POPULATION_3">31090763</Col>
+            <Col id="LIFE_EXPECTANCY_2"/>
+            <Col id="FERTILITY_RATE_2"/>
+            <Col id="POPULATION_2"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+          </Row>
+          <Row>
+            <Col id="REGION">Middle East</Col>
+            <Col id="ID">ISR</Col>
+            <Col id="LIFE_EXPECTANCY_3">81.55</Col>
+            <Col id="FERTILITY_RATE_3">2.96</Col>
+            <Col id="POPULATION_3">7485600</Col>
+            <Col id="LIFE_EXPECTANCY_2"/>
+            <Col id="FERTILITY_RATE_2"/>
+            <Col id="POPULATION_2"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+          </Row>
+          <Row>
+            <Col id="REGION">Europe</Col>
+            <Col id="ID">RUS</Col>
+            <Col id="LIFE_EXPECTANCY_2">68.6</Col>
+            <Col id="FERTILITY_RATE_2">1.54</Col>
+            <Col id="POPULATION_2">141850000</Col>
+            <Col id="LIFE_EXPECTANCY_3"/>
+            <Col id="FERTILITY_RATE_3"/>
+            <Col id="POPULATION_3"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+          </Row>
+          <Row>
+            <Col id="REGION">North America</Col>
+            <Col id="ID">USA</Col>
+            <Col id="LIFE_EXPECTANCY_1">78.09</Col>
+            <Col id="FERTILITY_RATE_1">2.05</Col>
+            <Col id="POPULATION_1">307007000</Col>
+            <Col id="LIFE_EXPECTANCY_2"/>
+            <Col id="FERTILITY_RATE_2"/>
+            <Col id="POPULATION_2"/>
+            <Col id="LIFE_EXPECTANCY_3"/>
+            <Col id="FERTILITY_RATE_3"/>
+            <Col id="POPULATION_3"/>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

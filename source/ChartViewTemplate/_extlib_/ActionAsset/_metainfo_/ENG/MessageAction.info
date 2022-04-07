@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="MessageAction">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.MessageAction" shorttypename="MessageAction" csstypename="MessageAction" csscontrolname="MessageActionControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Set the action to execute when the trigger occurs." finalclass="false"/>
+    <PropertyInfo>
+      <Property name="message" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String"/>
+      <Property name="targetview" group="" subgroup="" refreshinfo="" edittype="ViewObjList" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property sets the view object when performing the action." csspropertyname="" normalpropertyname="targetview"/>
+      <Property name="messagetype" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="Enum" enuminfo="messagetype" defaultvalue="alert"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="canrun" group="Event" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="This is the event that occurs when the action is executed.">
+        <Syntax text="canrun(obj:nexacro.MessageAction, e:nexacro.ActionEventInfo)">
+          <Return type="Boolean" description="Change the check status if the return value is changed to &quot;true&quot; during the event. &#13;&#10;Do not change the check status if the return value is changed to &quot;false&quot; during the event. &#13;&#10;&#13;&#10;If the return value is omitted during the event, &quot;true&quot; is applied."/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.MessageAction" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionEventInfo" in="" out="" option="" variable="" description=""/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_chart_gauge" width="1280" height="720" titletext="GaugeChart, BarGaugeChart">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="27" top="25" width="437" height="361">
+          <Layouts>
+            <Layout>
+              <GaugeChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" gaugetype="circular" enableanimation="true" categorycolumn="bind:ID_1">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "20pt/normal '맑은 고딕'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Arial'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt '맑은 고딕'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : "true",
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "bottomcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal '맑은 고딕'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"indicator" : {
+										"id" : "indicator",
+										"visible" : "true",
+										"indicatorimage" : "",
+										"indicatorsize" : "",
+										"indicatorindent" : "",
+										"indicatorfillstyle" : "white",
+										"indicatorlinestyle" : "1px solid black",
+										"indicatoropacity" : "1",
+										"linestyle" : "1px solid black",
+										"fillstyle" : "white",
+										"opacity" : "1"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxis",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal '맑은 고딕'",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 12pt '맑은 고딕'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"tickmin" : 0,
+											"tickmax" : 100,
+											"tickinterval" : "10",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "seriesValue1",
+											"itemtextfont" : "bold 12pt '맑은 고딕'",
+											"radius" : "100",
+											"userrangeradius" : "100",
+											"opacity" : "0.5",
+											"barsize" : "100",
+											"baropacity" : "1",
+											"titletext" : "male value",
+											"valuecolumn" : "bind:VALUE_1",
+											"startangle" : 270,
+											"endangle" : 180,
+											"barfillstyle" : "#1f77b4",
+											"barlinestyle" : "1px solid #1f77b4",
+											"fillstyle" : "#1f77b4",
+											"linestyle" : "1px solid #1f77b4",
+											"itemtextcolor" : "#1f77b4",
+											"innerradius" : "70",
+											"itemtextvisible" : true,
+											"itemtextposition" : "gaugecenter",
+											"itemtextgap" : "0 50"
+										}
+									]
+								}]]></Contents>
+              </GaugeChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ID_1" type="STRING" size="80"/>
+                <Column id="VALUE_1" type="BIGDECIMAL" size="80"/>
+                <Column id="ID_2" type="STRING" size="80"/>
+                <Column id="VALUE_2" type="BIGDECIMAL" size="80"/>
+                <Column id="ID_TOT" type="STRING" size="80"/>
+                <Column id="VALUE_TOT" type="BIGDECIMAL" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="gaugemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="ID_1" description="" displaytype="category"/>
+              <Field id="VALUE_1" description="" displaytype="series"/>
+              <Field id="ID_2" description="" displaytype="none"/>
+              <Field id="VALUE_2" description="" displaytype="none"/>
+              <Field id="ID_TOT" description="" displaytype="none"/>
+              <Field id="VALUE_TOT" description="" displaytype="none"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="ID_1,VALUE_1,ID_2,VALUE_2,ID_TOT,VALUE_TOT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GaugeChartViewTemplate.xviewgen">
+            <Attribute id="chartdisplay" value="semicircle"/>
+            <Attribute id="startangle" value="0"/>
+            <Attribute id="displayangle" value="360"/>
+            <Attribute id="gaugemin" value="0"/>
+            <Attribute id="gaugemax" value="100"/>
+            <Attribute id="chartcolorset" value="#1f77b4"/>
+            <Attribute id="innerradius" value="70"/>
+            <Attribute id="visibleindicator" value="true"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="bottomcenter"/>
+            <Attribute id="itemtextposition" value="gaugecenter"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="931" top="27" width="190" height="392">
+          <Layouts>
+            <Layout>
+              <GaugeChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" gaugetype="vertical" enableanimation="true" categorycolumn="bind:ID_2">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "20pt/normal '맑은 고딕'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Arial'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt '맑은 고딕'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : "true",
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "bottomcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal '맑은 고딕'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"indicator" : {
+										"id" : "indicator",
+										"visible" : "true",
+										"indicatorimage" : "",
+										"indicatorsize" : "",
+										"indicatorindent" : "",
+										"indicatorfillstyle" : "white",
+										"indicatorlinestyle" : "1px solid black",
+										"indicatoropacity" : "1",
+										"linestyle" : "1px solid black",
+										"fillstyle" : "white",
+										"opacity" : "1"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxis",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal '맑은 고딕'",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 12pt '맑은 고딕'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"tickmin" : 0,
+											"tickmax" : 100,
+											"tickinterval" : "10",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "seriesValue2",
+											"itemtextfont" : "bold 12pt '맑은 고딕'",
+											"radius" : "100",
+											"userrangeradius" : "100",
+											"opacity" : "0.5",
+											"barsize" : "100",
+											"baropacity" : "1",
+											"titletext" : "female value",
+											"valuecolumn" : "bind:VALUE_2",
+											"barfillstyle" : "#ff7f0e",
+											"barlinestyle" : "1px solid #ff7f0e",
+											"fillstyle" : "#ff7f0e",
+											"linestyle" : "1px solid #ff7f0e",
+											"itemtextvisible" : true,
+											"itemtextmask" : "",
+											"itemtexttype" : "number",
+											"itemtextposition" : "middle"
+										}
+									]
+								}]]></Contents>
+              </GaugeChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ID_1" type="STRING" size="80"/>
+                <Column id="VALUE_1" type="BIGDECIMAL" size="80"/>
+                <Column id="ID_2" type="STRING" size="80"/>
+                <Column id="VALUE_2" type="BIGDECIMAL" size="80"/>
+                <Column id="ID_TOT" type="STRING" size="80"/>
+                <Column id="VALUE_TOT" type="BIGDECIMAL" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="gaugemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="ID_1" description="" displaytype="none"/>
+              <Field id="VALUE_1" description="" displaytype="none"/>
+              <Field id="ID_2" description="" displaytype="category"/>
+              <Field id="VALUE_2" description="" displaytype="series"/>
+              <Field id="ID_TOT" description="" displaytype="none"/>
+              <Field id="VALUE_TOT" description="" displaytype="none"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="ID_1,VALUE_1,ID_2,VALUE_2,ID_TOT,VALUE_TOT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="BarGaugeChartViewTemplate.xviewgen">
+            <Attribute id="charttype" value="vertical"/>
+            <Attribute id="gaugemin" value="0"/>
+            <Attribute id="gaugemax" value="100"/>
+            <Attribute id="chartcolorset" value="#ff7f0e"/>
+            <Attribute id="visibleindicator" value="true"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="bottomcenter"/>
+            <Attribute id="itemtextposition" value="middle"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View02" taborder="2" text="View02" viewdataset="viewdataset" left="85" top="480" width="626" height="220">
+          <Layouts>
+            <Layout>
+              <GaugeChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" gaugetype="horizontal" enableanimation="true" categorycolumn="bind:ID_TOT">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "20pt/normal '맑은 고딕'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Arial'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt '맑은 고딕'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : "true",
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "bottomcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal '맑은 고딕'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"indicator" : {
+										"id" : "indicator",
+										"visible" : "true",
+										"indicatorimage" : "",
+										"indicatorsize" : "",
+										"indicatorindent" : "",
+										"indicatorfillstyle" : "white",
+										"indicatorlinestyle" : "1px solid black",
+										"indicatoropacity" : "1",
+										"linestyle" : "1px solid black",
+										"fillstyle" : "white",
+										"opacity" : "1"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxis",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal '맑은 고딕'",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 12pt '맑은 고딕'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"tickmin" : 0,
+											"tickmax" : 100,
+											"tickinterval" : "10",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "seriesValueTot",
+											"itemtextfont" : "bold 12pt '맑은 고딕'",
+											"radius" : "100",
+											"userrangeradius" : "100",
+											"opacity" : "0.5",
+											"barsize" : "100",
+											"baropacity" : "1",
+											"titletext" : "totoal value",
+											"valuecolumn" : "bind:VALUE_TOT",
+											"barfillstyle" : "#2ca02c",
+											"barlinestyle" : "1px solid #2ca02c",
+											"fillstyle" : "#2ca02c",
+											"linestyle" : "1px solid #2ca02c",
+											"itemtextvisible" : true,
+											"itemtextmask" : "",
+											"itemtexttype" : "number",
+											"itemtextposition" : "middle"
+										}
+									]
+								}]]></Contents>
+              </GaugeChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ID_1" type="STRING" size="80"/>
+                <Column id="VALUE_1" type="BIGDECIMAL" size="80"/>
+                <Column id="ID_2" type="STRING" size="80"/>
+                <Column id="VALUE_2" type="BIGDECIMAL" size="80"/>
+                <Column id="ID_TOT" type="STRING" size="80"/>
+                <Column id="VALUE_TOT" type="BIGDECIMAL" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="gaugemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="ID_1" description="" displaytype="none"/>
+              <Field id="VALUE_1" description="" displaytype="none"/>
+              <Field id="ID_2" description="" displaytype="none"/>
+              <Field id="VALUE_2" description="" displaytype="none"/>
+              <Field id="ID_TOT" description="" displaytype="category"/>
+              <Field id="VALUE_TOT" description="" displaytype="series"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="ID_1,VALUE_1,ID_2,VALUE_2,ID_TOT,VALUE_TOT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="BarGaugeChartViewTemplate.xviewgen">
+            <Attribute id="charttype" value="horizontal"/>
+            <Attribute id="gaugemin" value="0"/>
+            <Attribute id="gaugemax" value="100"/>
+            <Attribute id="chartcolorset" value="#2ca02c"/>
+            <Attribute id="visibleindicator" value="true"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="bottomcenter"/>
+            <Attribute id="itemtextposition" value="middle"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View03" taborder="3" text="View03" viewdataset="viewdataset" left="473" top="24" width="406" height="363">
+          <Layouts>
+            <Layout>
+              <GaugeChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" gaugetype="circular" enableanimation="true" categorycolumn="bind:ID_1">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "20pt/normal '맑은 고딕'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Arial'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt '맑은 고딕'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : "true",
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "bottomcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal '맑은 고딕'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"indicator" : {
+										"id" : "indicator",
+										"visible" : "true",
+										"indicatorimage" : "",
+										"indicatorsize" : "",
+										"indicatorindent" : "",
+										"indicatorfillstyle" : "white",
+										"indicatorlinestyle" : "1px solid black",
+										"indicatoropacity" : "1",
+										"linestyle" : "1px solid black",
+										"fillstyle" : "white",
+										"opacity" : "1"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxis",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal '맑은 고딕'",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 12pt '맑은 고딕'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"tickmin" : 0,
+											"tickmax" : 100,
+											"tickinterval" : "10",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "seriesValue1",
+											"itemtextfont" : "bold 12pt '맑은 고딕'",
+											"radius" : "100",
+											"userrangeradius" : "100",
+											"opacity" : "1",
+											"barsize" : "0",
+											"baropacity" : "0",
+											"titletext" : "male value",
+											"valuecolumn" : "bind:VALUE_1",
+											"startangle" : "0",
+											"endangle" : "270",
+											"userrange" : "[0,60,'#70AD47'],[60,80,'#1f77b4'],[80,100,'#d62728']",
+											"innerradius" : "70",
+											"userrangeinnerradius" : "70",
+											"itemtextvisible" : true,
+											"itemtextmask" : "",
+											"itemtexttype" : "number",
+											"itemtextposition" : "gaugecenter",
+											"itemtextgap" : "0 50"
+										}
+									]
+								}]]></Contents>
+              </GaugeChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ID_1" type="STRING" size="80"/>
+                <Column id="VALUE_1" type="BIGDECIMAL" size="80"/>
+                <Column id="ID_2" type="STRING" size="80"/>
+                <Column id="VALUE_2" type="BIGDECIMAL" size="80"/>
+                <Column id="ID_TOT" type="STRING" size="80"/>
+                <Column id="VALUE_TOT" type="BIGDECIMAL" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="gaugemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="ID_1" description="" displaytype="category"/>
+              <Field id="VALUE_1" description="" displaytype="series"/>
+              <Field id="ID_2" description="" displaytype="none"/>
+              <Field id="VALUE_2" description="" displaytype="none"/>
+              <Field id="ID_TOT" description="" displaytype="none"/>
+              <Field id="VALUE_TOT" description="" displaytype="none"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="ID_1,VALUE_1,ID_2,VALUE_2,ID_TOT,VALUE_TOT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GaugeChartViewTemplate.xviewgen">
+            <Attribute id="chartdisplay" value="input"/>
+            <Attribute id="startangle" value="0"/>
+            <Attribute id="displayangle" value="270"/>
+            <Attribute id="gaugemin" value="0"/>
+            <Attribute id="gaugemax" value="100"/>
+            <Attribute id="chartcolorset" value="input"/>
+            <Attribute id="chartcolor" value="[0,60,'#70AD47'],[60,80,'#1f77b4'],[80,100,'#d62728']"/>
+            <Attribute id="innerradius" value="70"/>
+            <Attribute id="visibleindicator" value="true"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="bottomcenter"/>
+            <Attribute id="itemtextposition" value="gaugecenter"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="ID_1" type="STRING" size="256"/>
+          <Column id="VALUE_1" type="BIGDECIMAL" size="256"/>
+          <Column id="ID_2" type="STRING" size="256"/>
+          <Column id="VALUE_2" type="BIGDECIMAL" size="256"/>
+          <Column id="ID_TOT" type="STRING" size="256"/>
+          <Column id="VALUE_TOT" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="VALUE_1">81</Col>
+            <Col id="ID_1">male</Col>
+            <Col id="VALUE_2">93</Col>
+            <Col id="ID_2">female</Col>
+            <Col id="ID_TOT">totoal</Col>
+            <Col id="VALUE_TOT">87</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
