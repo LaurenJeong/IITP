@@ -16,7 +16,7 @@ if (!nexacro.ExcelExportAction)
     nexacro.ExcelExportAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.ExcelExportAction);		
     nexacro.ExcelExportAction.prototype._type_name = "ExcelExportAction";	
 	
-	nexacro.ExcelExportAction.prototype.COM_EXCEL_URL = "svc::XExportImport.do";		//"http://localhost.:8017/nexacro/XExportImport.do";		//"svc::XExportImport.do";
+	nexacro.ExcelExportAction.prototype.COM_EXCEL_URL = "svc::XExportImport.do";
 	
 	//===============================================================		
     // nexacro.ExcelExportAction : Create & Destroy		
@@ -27,7 +27,7 @@ if (!nexacro.ExcelExportAction)
 	};	
 		
     //===============================================================		
-    // nexacro.ExcelExportAction : Method		
+    // nexacro.ExcelExportAction : Method
     //===============================================================		
     nexacro.ExcelExportAction.prototype.run = function()		
 	{	
@@ -87,6 +87,109 @@ if (!nexacro.ExcelExportAction)
 		}	
 	};
 	
+	nexacro.ExcelExportAction.prototype.targetgrid = "";
+	nexacro.ExcelExportAction.prototype._targetgrid = "";
+	
+	nexacro.ExcelExportAction.prototype.set_targetgrid = function (v)				
+	{				
+		// TODO : enter your code here.
+		if (v instanceof nexacro.Grid) {
+			if (this.targetgrid != v) {			
+				this.targetgrid = v;
+				this._targetgrid = v.name;
+			}		
+		} else {
+			v = nexacro._toString(v);			
+			if (this._targetgrid != v) {
+				this._targetgrid = v;
+				this.targetgrid = v;			// TODO
+			}
+		}
+	};
+
+	nexacro.ExcelExportAction.prototype.sheetname = "";				
+	nexacro.ExcelExportAction.prototype.set_sheetname = function (v)				
+	{				
+		// TODO : enter your code here.			
+		v = nexacro._toString(v);			
+		if (this.sheetname != v) {			
+			this.sheetname = v;		
+		}			
+	};
+	
+	nexacro.ExcelExportAction.prototype.filename = "";				
+	nexacro.ExcelExportAction.prototype.set_filename = function (v)				
+	{				
+		// TODO : enter your code here.			
+		v = nexacro._toString(v);			
+		if (this.filename != v) {			
+			this.filename = v;		
+		}			
+	};
+	
+	nexacro.ExcelExportAction.prototype.exporttype = "";				
+	nexacro.ExcelExportAction.prototype.set_exporttype = function (v)				
+	{				
+		// TODO : enter your code here.			
+		v = nexacro._toString(v);			
+		if (this.exporttype != v) {			
+			this.exporttype = v;		
+		}			
+	};
+	
+	//===============================================================		
+    // nexacro.ExcelExportAction : Event		
+    //===============================================================
+	nexacro.ExcelExportAction.prototype.on_fire_canrun = function (userdata)
+	{
+		var event = this.canrun;
+		
+		//이벤트가 존재하고 사용자가 정의한 이벤트 핸들러 함수가 있을 경우
+		if (event && event._has_handlers)
+		{
+		  //ActionRunEventInfo 생성
+		  var evt = new nexacro.ActionRunEventInfo(this, "canrun", userdata); //TODO
+		  
+		  //true/false 리턴값을 받기 위해 _fireCheckEvent 함수 실행
+		  return this.canrun._fireCheckEvent(this, evt);
+		}
+		return true;
+	};
+	
+	nexacro.ExcelExportAction.prototype.on_fire_onsuccess = function (userdata)
+	{
+		var event = this.onsuccess;
+		
+		//이벤트가 존재하고 사용자가 정의한 이벤트 핸들러 함수가 있을 경우
+		if (event && event._has_handlers)
+		{
+		  //ActionSuccessEventInfo 생성
+		  var evt = new nexacro.ActionSuccessEventInfo(this, "onsuccess", userdata); //TODO
+		  
+		  //리턴값이 필요 없으므로 _fireEvent 함수 실행
+		  event._fireEvent(this, evt);
+		}
+	};
+	  
+	nexacro.ExcelExportAction.prototype.on_fire_onerror = function (userdata)
+	{
+		var event = this.onerror;
+		
+		//이벤트가 존재하고 사용자가 정의한 이벤트 핸들러 함수가 있을 경우
+		if (event && event._has_handlers)
+		{
+		  //ActionErrorEventInfo 생성
+		  var evt = new nexacro.ActionErrorEventInfo(this, "onerror", userdata); //TODO
+		  
+		  //리턴값이 필요 없으므로 _fireEvent 함수 실행
+		  event._fireEvent(this, evt);
+		}
+	};
+	
+	
+	//===============================================================		
+    // nexacro.ExcelExportAction : 공통함수 전환부분
+    //===============================================================
 	nexacro.ExcelExportAction.prototype.gfnExcelExport = function(objForm, objGrid,  sSheetName, sFileName, sExportType)
 	{
 		if(this.gfnIsNull(sExportType))		sExportType = "EXCEL2007";
@@ -214,103 +317,5 @@ if (!nexacro.ExcelExportAction)
 		}
 		
 		return sRetuenNm;
-	};
-	
-	
-
-	nexacro.ExcelExportAction.prototype.targetgrid = "";
-	nexacro.ExcelExportAction.prototype._targetgrid = "";
-	
-	nexacro.ExcelExportAction.prototype.set_targetgrid = function (v)				
-	{				
-		// TODO : enter your code here.
-		if (v instanceof nexacro.Grid) {
-			if (this.targetgrid != v) {			
-				this.targetgrid = v;
-				this._targetgrid = v.name;
-			}		
-		} else {
-			v = nexacro._toString(v);			
-			if (this._targetgrid != v) {
-				this._targetgrid = v;
-				this.targetgrid = v;			// TODO
-			}
-		}
-	};
-
-	nexacro.ExcelExportAction.prototype.sheetname = "";				
-	nexacro.ExcelExportAction.prototype.set_sheetname = function (v)				
-	{				
-		// TODO : enter your code here.			
-		v = nexacro._toString(v);			
-		if (this.sheetname != v) {			
-			this.sheetname = v;		
-		}			
-	};
-	
-	nexacro.ExcelExportAction.prototype.filename = "";				
-	nexacro.ExcelExportAction.prototype.set_filename = function (v)				
-	{				
-		// TODO : enter your code here.			
-		v = nexacro._toString(v);			
-		if (this.filename != v) {			
-			this.filename = v;		
-		}			
-	};
-	
-	nexacro.ExcelExportAction.prototype.exporttype = "";				
-	nexacro.ExcelExportAction.prototype.set_exporttype = function (v)				
-	{				
-		// TODO : enter your code here.			
-		v = nexacro._toString(v);			
-		if (this.exporttype != v) {			
-			this.exporttype = v;		
-		}			
-	};
-	
-	nexacro.ExcelExportAction.prototype.on_fire_canrun = function (userdata)
-	{
-		var event = this.canrun;
-		
-		//이벤트가 존재하고 사용자가 정의한 이벤트 핸들러 함수가 있을 경우
-		if (event && event._has_handlers)
-		{
-		  //ActionRunEventInfo 생성
-		  var evt = new nexacro.ActionRunEventInfo(this, "canrun", userdata); //TODO
-		  
-		  //true/false 리턴값을 받기 위해 _fireCheckEvent 함수 실행
-		  return this.canrun._fireCheckEvent(this, evt);
-		}
-		return true;
-	};
-	
-	nexacro.ExcelExportAction.prototype.on_fire_onsuccess = function (userdata)
-	{
-		var event = this.onsuccess;
-		
-		//이벤트가 존재하고 사용자가 정의한 이벤트 핸들러 함수가 있을 경우
-		if (event && event._has_handlers)
-		{
-		  //ActionSuccessEventInfo 생성
-		  var evt = new nexacro.ActionSuccessEventInfo(this, "onsuccess", userdata); //TODO
-		  
-		  //리턴값이 필요 없으므로 _fireEvent 함수 실행
-		  event._fireEvent(this, evt);
-		}
-	};
-	  
-	nexacro.ExcelExportAction.prototype.on_fire_onerror = function (userdata)
-	{
-		var event = this.onerror;
-		
-		//이벤트가 존재하고 사용자가 정의한 이벤트 핸들러 함수가 있을 경우
-		if (event && event._has_handlers)
-		{
-		  //ActionErrorEventInfo 생성
-		  var evt = new nexacro.ActionErrorEventInfo(this, "onerror", userdata); //TODO
-		  
-		  //리턴값이 필요 없으므로 _fireEvent 함수 실행
-		  event._fireEvent(this, evt);
-		}
 	};
 }
