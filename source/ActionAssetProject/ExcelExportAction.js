@@ -87,9 +87,7 @@ if (!nexacro.ExcelExportAction)
 		}	
 	};
 	
-	nexacro.ExcelExportAction.prototype.targetgrid = "";
 	nexacro.ExcelExportAction.prototype._targetgrid = "";
-	
 	nexacro.ExcelExportAction.prototype.set_targetgrid = function (v)				
 	{				
 		// TODO : enter your code here.
@@ -106,8 +104,7 @@ if (!nexacro.ExcelExportAction)
 			}
 		}
 	};
-
-	nexacro.ExcelExportAction.prototype.sheetname = "";				
+		
 	nexacro.ExcelExportAction.prototype.set_sheetname = function (v)				
 	{				
 		// TODO : enter your code here.			
@@ -116,20 +113,23 @@ if (!nexacro.ExcelExportAction)
 			this.sheetname = v;		
 		}			
 	};
-	
-	nexacro.ExcelExportAction.prototype.filename = "";				
+				
 	nexacro.ExcelExportAction.prototype.set_filename = function (v)				
-	{				
+	{	
 		// TODO : enter your code here.			
 		v = nexacro._toString(v);			
 		if (this.filename != v) {			
 			this.filename = v;		
 		}			
 	};
-	
-	nexacro.ExcelExportAction.prototype.exporttype = "";				
+				
 	nexacro.ExcelExportAction.prototype.set_exporttype = function (v)				
-	{				
+	{	
+		var exporttype_enum = ["excel", "excel2007", "hancell2010", "hancell2014", "csv"];
+		if (v && exporttype_enum.indexOf(v) == -1) {
+			return;
+		}
+		
 		// TODO : enter your code here.			
 		v = nexacro._toString(v);			
 		if (this.exporttype != v) {			
@@ -192,6 +192,10 @@ if (!nexacro.ExcelExportAction)
     //===============================================================
 	nexacro.ExcelExportAction.prototype.gfnExcelExport = function(objForm, objGrid,  sSheetName, sFileName, sExportType)
 	{
+		if(this.gfnIsNull(objForm))			return;
+		if(this.gfnIsNull(objGrid))			return;
+		if(this.gfnIsNull(sSheetName))		sSheetName = "Sheet1";
+		if(this.gfnIsNull(sFileName))		sFileName = "";
 		if(this.gfnIsNull(sExportType))		sExportType = "EXCEL2007";
 		
 		var nExportType = eval("nexacro.ExportTypes." + sExportType.toUpperCase());

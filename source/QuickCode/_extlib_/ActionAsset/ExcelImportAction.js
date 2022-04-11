@@ -67,34 +67,33 @@ if (!nexacro.ExcelImportAction)
 				objDs = new nexacro.NormalDataset("importdataset", objForm);
 				trace("Create Dataset : " + objDs.name);
 			}
- 			
+			
  			// Call Import
  			this.gfnExcelImport(objForm, objDs, sSheetName, sStartCell, sImportType);
 		}		
 	};	
 	
-	
-	nexacro.ExcelImportAction.prototype.targetdataset = "";
 	nexacro.ExcelImportAction.prototype._targetdataset = "";
-	
 	nexacro.ExcelImportAction.prototype.set_targetdataset = function (v)				
 	{				
 		// TODO : enter your code here.
-		if (v instanceof nexacro.Grid) {
+		if (v instanceof nexacro.NormalDataset) {
 			if (this.targetdataset != v) {			
 				this.targetdataset = v;
 				this._targetdataset = v.name;
 			}		
 		} else {
-			v = nexacro._toString(v);			
-			if (this._targetdataset != v) {
+			v = nexacro._toString(v);
+			
+			var objForm = this.parent;
+			var objDs = objForm._findDataset(v);
+			if (this._targetdataset != v && objDs != undefined) {
 				this._targetdataset = v;
-				this.targetdataset = v;			// TODO
+				this.targetdataset = objDs;
 			}
 		}
 	};
-	
-	nexacro.ExcelImportAction.prototype.sheetname = "";				
+				
 	nexacro.ExcelImportAction.prototype.set_sheetname = function (v)				
 	{				
 		// TODO : enter your code here.			
@@ -103,8 +102,7 @@ if (!nexacro.ExcelImportAction)
 			this.sheetname = v;		
 		}			
 	};
-	
-	nexacro.ExcelImportAction.prototype.startcell = "";				
+				
 	nexacro.ExcelImportAction.prototype.set_startcell = function (v)				
 	{				
 		// TODO : enter your code here.			
@@ -113,10 +111,14 @@ if (!nexacro.ExcelImportAction)
 			this.startcell = v;		
 		}			
 	};
-	
-	nexacro.ExcelImportAction.prototype.importtype = "";				
+				
 	nexacro.ExcelImportAction.prototype.set_importtype = function (v)				
-	{				
+	{
+		var importtype_enum = ["excel", "excel2007", "hancell2014", "csv"];
+		if (v && importtype_enum.indexOf(v) == -1) {
+			return;
+		}
+		
 		// TODO : enter your code here.			
 		v = nexacro._toString(v);			
 		if (this.importtype != v) {			
@@ -189,10 +191,11 @@ if (!nexacro.ExcelImportAction)
 	nexacro.ExcelImportAction.prototype.gfnExcelImport = function(objForm, objDataset, sSheet, sBody, sImportType)
 	{
 		//this.setWaitCursor(true);    	
-		
-		if (this.gfnIsNull(sSheet))			sSheet = "Sheet1";
-		if (this.gfnIsNull(sBody))			sBody = "A2";
-		if (this.gfnIsNull(sImportType))	sImportType = "EXCEL2007";
+		if(this.gfnIsNull(objForm))			return;
+		if(this.gfnIsNull(objDataset))		return;
+		if(this.gfnIsNull(sSheet))			sSheet = "Sheet1";
+		if(this.gfnIsNull(sBody))			sBody = "A2";
+		if(this.gfnIsNull(sImportType))		sImportType = "EXCEL2007";
 		
 		var sFilefilter = this.gfnGetFileFilter(sImportType);
 		var sDataset = objDataset.name;
