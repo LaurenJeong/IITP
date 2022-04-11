@@ -34,9 +34,10 @@
     <Component type="JavaScript" id="ListView" classname="nexacro.ListView"/>
     <Component type="JavaScript" id="DataObject" classname="nexacro.DataObject"/>
     <Component type="JavaScript" id="View" classname="nexacro.View"/>
-    <Component type="JavaScript" id="TranAction" classname="nexacro.TranAction"/>
-    <Component type="JavaScript" id="ExcelExportAction" classname="nexacro.ExcelExportAction"/>
-    <Component type="JavaScript" id="PopupAction" classname="nexacro.PopupAction"/>
+    <Component type="JavaScript" id="TranAction" classname="nexacro.TranAction" prefixid=""/>
+    <Component type="JavaScript" id="ExcelImportAction" classname="nexacro.ExcelImportAction" prefixid=""/>
+    <Component type="JavaScript" id="ExcelExportAction" classname="nexacro.ExcelExportAction" prefixid=""/>
+    <Component type="JavaScript" id="PopupAction" classname="nexacro.PopupAction" prefixid=""/>
     <Component type="JavaScript" id="MessageAction" classname="nexacro.MessageAction"/>
   </Components>
   <Services>
@@ -46,7 +47,7 @@
     <Service prefixid="imagerc" type="resource" url="./_resource_/_images_/" version="0" cachelevel="session" include_subdir="true"/>
     <Service prefixid="font" type="resource" url="./_resource_/_font_/" version="0" cachelevel="session" include_subdir="false"/>
     <Service prefixid="frame" type="form" url="./frame/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
-    <Service prefixid="svc" type="JSP" version="0" cachelevel="none" include_subdir="false" communicationversion="0" url="http://localhost:8080/sampleuiadapterN/"/>
+    <Service prefixid="svc" type="JSP" version="0" cachelevel="none" include_subdir="false" communicationversion="0" url="http://localhost:8080/DevPack/"/>
     <Service prefixid="model" type="model" url="./model/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
     <Service prefixid="view_lib" type="js" url="./view/lib/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
     <Service prefixid="ActionAsset" type="form" url="./_extlib_/ActionAsset/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
