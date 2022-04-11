@@ -16,7 +16,7 @@ if (!nexacro.ExcelExportAction)
     nexacro.ExcelExportAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.ExcelExportAction);		
     nexacro.ExcelExportAction.prototype._type_name = "ExcelExportAction";	
 	
-	nexacro.ExcelExportAction.prototype.COM_EXCEL_URL = "svc::XExportImport.do";
+	nexacro.ExcelExportAction.prototype.COM_EXCEL_URL = "svc::XExportImport";				//"svc::XExportImport.do";
 	
 	//===============================================================		
     // nexacro.ExcelExportAction : Create & Destroy		
