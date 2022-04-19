@@ -69,10 +69,10 @@ if (!nexacro.DsIsUpdatedAction)
 			
 			if(rtn==true)
 			{
-				this.on_fire_onsuccess("true");
+				this.on_fire_onsuccess(true);
 			}else
 			{
-				this.on_fire_onerror("false");
+				this.on_fire_onerror(false);
 			}
 		}	
 	};	
