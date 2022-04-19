@@ -37,13 +37,16 @@ var LINE_SPACE     		  = 5;
 									
 //Component Default CSS Class									
 var COMP_CSSCLASS		  = "";							
-									
+
+//Background Component Default CSS Class
+var COMP_BG_CSSCLASS	  = "sta_fieldbox";
+
 //Label Default CSS Class									
 var LABEL_CSSCLASS		  = "sta_labelbox";							
 
 //Component Use Type
 var USE_COMP 			  = "true";
-
+									
 //////////////////////////////Constant Setting END ////////////////////////////////////////////////////									
 									
 //Model Information									
@@ -51,7 +54,7 @@ var oFieldArray;
 
 //Use Model Information
 var oUseFieldArray;
-
+									
 //View Component Information									
 var oContents;									
 									
@@ -362,7 +365,7 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) {
     									
 	//Initialize Model Information								
 	oContents.View.Model = [];								
-	
+
 	fn_MakeUseFieldArray(fieldarray);
 	
 	//Load Model Information Generation Function								
@@ -479,7 +482,7 @@ fn_GetFieldUserAttributeList = function ()
     									
     // TODO : Write a code that predefines the list of user attributes for adding to the model field.									
      var oJson = {									
-                        "attributecount": "7",									
+                        "attributecount": "6",									
                         "attributes": [									
                             {									
                                 "id": "comptype",									
@@ -523,14 +526,14 @@ fn_GetFieldUserAttributeList = function ()
                                 "edittype": "Boolean",									
 								"defaultvalue": USE_COMP,	
                                 "description": "Use Component"									
-                            }							
+                            }									
                         ]									
                   };									
 				  					
 		strJson = JSON.stringify(oJson, null, "\t");								
 		return strJson;									
 }									
-
+									
 /*---------------------------------------------------------------------------------------------*									
  * Function     : fn_MakeUseFieldArray									
  * Parameter    : 
@@ -564,7 +567,7 @@ fn_MakeUseFieldArray = function(fieldarray)
 	oUseFieldArray.fieldcount = arrFields.length;
 }
 
-/*---------------------------------------------------------------------------------------------*									
+/*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetModel									
  * Parameter    : 									
  * Return       : 									
@@ -595,7 +598,7 @@ fn_GetModel = function(){
 	else								
 	{								
 		//Import Field Information							
-		var arrFieldList = oUseFieldArray.fields;							
+		var arrFieldList = oUseFieldArray.fields;
 									
 		//Import Component Production Direction Information							
 		var sDirection = oGenerationAttr.attributes.direction;							
@@ -610,7 +613,7 @@ fn_GetModel = function(){
 		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);							
 									
 		//Load Component Production Function							
-		fn_MakeComp(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false, true);							
+		fn_MakeComp(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
 	}								
 };									
 									
@@ -750,7 +753,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 	var nTemp;								
 									
 	//Import Field List Registered to the Model								
-	var arrFieldList = oUseFieldArray.fields;								
+	var arrFieldList = oUseFieldArray.fields;
 									
 	//Number of Fields connected to the Cell								
 	var nFieldInCellCnt;								
@@ -952,7 +955,9 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 			"rowidx" : nRowIdx,
 			"colidx" : nColIdx,
 			"alignx" : 0,
-			"aligny" : 0
+			"aligny" : 0,
+			"colsize" : nColSize,
+			"rowsize" : nRowSize
 		};						
 									
 		//Set the Left/Top Location Value of the next Field							
@@ -1011,7 +1016,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 	var nTemp;								
 									
 	//Import Field List Registered to the Model								
-	var arrFieldList = oUseFieldArray.fields;								
+	var arrFieldList = oUseFieldArray.fields;
 									
 	//Number of Fields connected to the Cell								
 	var nFieldInCellCnt;								
@@ -1197,7 +1202,9 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 			"rowidx" : nRowIdx,
 			"colidx" : nColIdx,
 			"alignx" : 0,
-			"aligny" : 0
+			"aligny" : 0,
+			"colsize": nColSize,
+			"rowsize" : nRowSize
 		};							
 									
 		//Set the Left/Top Location Value of the next Field							
@@ -1281,13 +1288,10 @@ fn_MakeCompByLayout = function(oLayout)
 		nLeft = fn_GetCellSize(arrColSize, 0, nCol, nColSizeDef);							
 		nTop = fn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef);							
 									
-		if(arrRowSize.length==nRow + nRowSpan)							
-		{							
-			fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, true);						
-		}else							
-		{							
-			fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, false);						
-		}							
+		if(nCol==0)bStartCol = true;
+		else bStartCol = false;
+		
+		fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, nRow, bStartCol);
 	}								
 }									
 									
@@ -1308,9 +1312,10 @@ fn_MakeCompByLayout = function(oLayout)
 fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, bLastRow)									
 {									
 	var nLabelLeft, nLabelTop, nLabelWidth, nLabelHeight;								
-	var nCompLeft, nCompTop, nCompWidth, nCompHeight;								
+	var nCompLeft, nCompTop, nCompWidth, nCompHeight, nCompBgWidth;
 	var nPosLeft, nPosTop, nPosWidth, nPosHeight;								
 	var nLabelAreaWidth;								
+	var nColSize, nRowSize;
 									
 	var oAlignPos;								
 	var sFieldId;								
@@ -1324,6 +1329,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var oCompClass;								
 	var sCompCssClass;								
 	var sLabelCssClass;								
+	var sFieldBgCssClass = COMP_BG_CSSCLASS;
 									
 	if(!bUseLayout)bUseLayout = false;								
 									
@@ -1335,7 +1341,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			//Import Field Object						
 			oFieldPosition = arrFields[i];						
 			sFieldId = oFieldPosition.fieldid;						
-			oField = oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];						
+			oField = oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
 									
 			//Import Component Naming Rules						
 			oCompClass = fn_GetCompClass(oField.comptype);						
@@ -1367,11 +1373,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				nLabelLeft = nBaseLeft + nPosLeft;					
 				nLabelTop = nBaseTop + nPosTop;					
 				nLabelWidth = nLabelAreaWidth;					
-									
-				//As the gap between the top and bottom of the label must overlap					
-				//Add 1px if it is not the last label					
-				if(bLastRow==false)nLabelHeight = nexacro.toNumber(nBaseHeight)+1;					
-				else nLabelHeight = nexacro.toNumber(nBaseHeight);					
+				nLabelHeight = nexacro.toNumber(nBaseHeight);
 			}						
 									
 			//Component Left Coordinate = Cell Left + Field Left + Label Area Width + HAlign Starting Coordinate						
@@ -1429,24 +1431,48 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 					//Component Top Coordinate = Component Top Coordinate + Component Top Padding				
 					nCompTop = nCompTop + COMP_PADDING_TOP;				
 				}					
-			}						
-									
+			}
+			
+			nLabelTop = nLabelTop - (nLayoutRow * 1);
+			nCompTop = nCompTop - (nLayoutRow * 1);
+			
 			oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};						
 									
 			//If it is the first label and the label width is no 0, add label tag						
-			if(i==0&&nLabelWidth>0)						
-			{						
-				sCompId = fn_GetCompId("st"+sFieldId+"_Label");					
-				oComp = {					
-							"tag" : "Static",
-							"attribute" :
-							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
-								, "text" : oField.label, "cssclass" : sLabelCssClass
-							}		
-						};			
-				oModel[oModel.length-1].Components.push(oComp);					
-			}						
+			if(i==0)
+			{
+			
+				if(bStartCol==true)
+				{
+					nCompBgWidth = oContents.View.referenceinfo.realwidth;
+					
+					//필드 배경 Static 추가
+					sCompId = fn_GetCompId("sta"+sFieldId+"_bg");
+					oComp = {
+								"tag" : "Static",
+								"attribute" :
+								{
+									"id" : sCompId, "left" : 0, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+				
+				if(nLabelWidth>0)
+				{
+					sCompId = fn_GetCompId("sta"+sFieldId+"_Label");
+					oComp = {
+								"tag" : "Static",
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
+									, "text" : oField.label, "cssclass" : sLabelCssClass, "DP_ML_WORD" : sLang
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+			}
 									
 			//Add Component Tag						
 			sCompId = fn_GetCompId(oCompClass.prefix+sFieldId);						
@@ -1472,7 +1498,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			else if(oField.comptype=="static")						
 			{						
 				oComp.attribute.text = oField.label;					
-			}else						
+			}
+			
+			if(oField.comptype!="button")
 			{						
 				//In order to process the Bind, add Id, Field Id to BindItems Array					
 				arrBindItems[arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};					
@@ -1489,7 +1517,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			//Import Field Object						
 			oFieldPosition = arrFields[i];						
 			sFieldId = oFieldPosition.fieldid;						
-			oField = oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];						
+			oField = oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
 									
 			//Import Component Naming Rules						
 			oCompClass = fn_GetCompClass(oField.comptype);						
@@ -1503,7 +1531,10 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			//Import Row/Col Index where the Field will be located						
 			nRowIdx = oFieldPosition.rowidx;						
 			nColIdx = oFieldPosition.colidx;						
-									
+			
+			nRowSize = oFieldPosition.rowsize;
+			nColSize = oFieldPosition.colsize;
+			
 			//Import Align Location Information of the Field						
 			nAlignX = oFieldPosition.alignx;						
 			nAlignY = oFieldPosition.aligny;						
@@ -1551,43 +1582,106 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				}					
 			}						
 									
-			if(sDirection=="horizontal")						
-			{						
-				if(arrFields[arrFields.length-1].rowidx!=nRowIdx)nLabelHeight = nLabelHeight + 1;					
-			}else						
-			{						
-				if(!(i==arrFields.length-1||arrFields[i+1].colidx==0))nLabelHeight = nLabelHeight + 1;					
-			}						
-									
 			nCompLeft = nLabelLeft + nLabelWidth + COMP_PADDING_LEFT;						
 			nCompTop = nBaseTop + nPosTop + nAlignY + COMP_PADDING_TOP;						
 			nCompWidth = nPosWidth - COMP_PADDING_LEFT - COMP_PADDING_RIGHT;						
 			nCompHeight = nPosHeight - COMP_PADDING_TOP - COMP_PADDING_BOTTOM;						
 									
-			sCompId = fn_GetCompId("st"+sFieldId+"_Label");						
-			oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};						
-			if(nLabelWidth>0)						
-			{						
-				oComp = {					
-							"tag" : "Static",
+
+			if(sDirection=="horizontal")						
+			{
+				nLabelTop = nLabelTop - (nRowIdx * 1);
+				nCompTop = nCompTop - (nRowIdx * 1);
+				
+				oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
+				
+				if(nColIdx==0)
+				{
+					nCompBgWidth = nColSize - nLabelLeft;
+					
+					//필드 배경 Static 추가
+					sCompId = fn_GetCompId("sta"+sFieldId+"_bg");
+					oComp = {
+								"tag" : "Static",
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+				if(nLabelWidth>0)						
+				{						
+					sCompId = fn_GetCompId("sta"+sFieldId+"_Label");
+					oComp = {					
+								"tag" : "Static",
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
+									, "text" : oField.label, "cssclass" : sLabelCssClass
+								}	
+							};			
+					oModel[oModel.length-1].Components.push(oComp);					
+				}						
+										
+				sCompId = fn_GetCompId(oCompClass.prefix+sFieldId);						
+										
+				oComp =	{					
+							"tag" : oCompClass.classId,
 							"attribute" :
 							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
-								, "text" : oField.label, "cssclass" : sLabelCssClass
+								"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 							}	
 						};			
-				oModel[oModel.length-1].Components.push(oComp);					
-			}						
-									
-			sCompId = fn_GetCompId(oCompClass.prefix+sFieldId);						
-									
-			oComp =	{					
-						"tag" : oCompClass.classId,
-						"attribute" :
-						{
-							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
-						}	
-					};				
+			}else
+			{
+				nLabelTop = nLabelTop - (nColIdx * 1);
+				nCompTop = nCompTop - (nColIdx * 1);
+				
+				oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
+				
+				if(nRowIdx==0)
+				{
+					nCompBgWidth = nColSize - nLabelLeft;
+					
+					//필드 배경 Static 추가
+					sCompId = fn_GetCompId("sta"+sFieldId+"_bg");
+					oComp = {
+								"tag" : "Static",
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+				if(nLabelWidth>0)						
+				{						
+					sCompId = fn_GetCompId("sta"+sFieldId+"_Label");
+					oComp = {					
+								"tag" : "Static",
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
+									, "text" : oField.label, "cssclass" : sLabelCssClass
+								}	
+							};			
+					oModel[oModel.length-1].Components.push(oComp);					
+				}						
+										
+				sCompId = fn_GetCompId(oCompClass.prefix+sFieldId);						
+										
+				oComp =	{					
+							"tag" : oCompClass.classId,
+							"attribute" :
+							{
+								"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
+							}	
+						};		
+			}
+			
 			if(oField.comptype=="button")						
 			{						
 				oComp.attribute.text = oField.label;					
@@ -1600,7 +1694,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			else if(oField.comptype=="static")						
 			{						
 				oComp.attribute.text = oField.label;					
-			}else						
+			}
+			
+			if(oField.comptype!="button")
 			{						
 				arrBindItems[arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};					
 			}						
