@@ -339,7 +339,7 @@ TEST9</Col>
           </Row>
         </Rows>
       </Dataset>
-      <ExcelImportAction id="ExcelImportAction00" targetview="viwExcelImport" sheetname="Sheet1" startcell="A2" importtype="excel" targetdataset="dsData">
+      <ExcelImportAction id="ExcelImportAction00" targetview="viwExcelImport" sheetname="Sheet1" startcell="A2" importtype="excel" targetdataset="dsData" onerror="ExcelImportAction00_onerror" onsuccess="ExcelImportAction00_onsuccess">
         <Contents/>
       </ExcelImportAction>
     </Objects>
@@ -348,24 +348,24 @@ TEST9</Col>
       <TriggerItem id="item1" triggertype="Click" triggerview="test_action_excelexport" triggerobj="btnExcelImport" targetaction="ExcelImportAction00" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[
-this.ExcelExportAction00_onerror = function(obj:nexacro.Action,e:nexacro.ActionEventInfo)
+this.ExcelExportAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
 {
-	trace("ExcelExportAction00_onerror");
+	trace("ExcelExportAction00_onerror" + e.userdata);
 };
 
-this.ExcelExportAction00_onsuccess = function(obj:nexacro.Action,e:nexacro.ActionEventInfo)
+this.ExcelExportAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
 {
-	trace("ExcelExportAction00_onsuccess");
+	trace("ExcelExportAction00_onsuccess" + e.userdata);
 };
 
-this.ExcelImportAction00_onerror = function(obj:nexacro.Action,e:nexacro.ActionEventInfo)
+this.ExcelImportAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
 {
-	trace("ExcelImportAction00_onerror");
+	trace("ExcelImportAction00_onerror" + e.userdata);
 };
 
-this.ExcelImportAction00_onsuccess = function(obj:nexacro.Action,e:nexacro.ActionEventInfo)
+this.ExcelImportAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
 {
-	trace("ExcelImportAction00_onsuccess");
+	trace("ExcelImportAction00_onsuccess" + e.userdata);
 };
 ]]></Script>
   </Form>

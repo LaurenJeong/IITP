@@ -87,20 +87,20 @@ if (!nexacro.ExcelExportAction)
 		}	
 	};
 	
-	nexacro.ExcelExportAction.prototype._targetgrid = "";
+	nexacro.ExcelExportAction.prototype._targetgrid = null;				// 그리드 객체
 	nexacro.ExcelExportAction.prototype.set_targetgrid = function (v)				
 	{				
 		// TODO : enter your code here.
 		if (v instanceof nexacro.Grid) {
-			if (this.targetgrid != v) {			
-				this.targetgrid = v;
-				this._targetgrid = v.name;
+			if (this._targetgrid != v) {			
+				this.targetgrid = v.name;
+				this._targetgrid = v;
 			}		
 		} else {
 			v = nexacro._toString(v);			
-			if (this._targetgrid != v) {
-				this._targetgrid = v;
-				this.targetgrid = v;			// TODO
+			if (this.targetgrid != v) {
+				this.targetgrid = v;
+				this._targetgrid = v;			// TODO
 			}
 		}
 	};

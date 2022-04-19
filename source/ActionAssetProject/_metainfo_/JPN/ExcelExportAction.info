@@ -16,29 +16,29 @@
     <MethodInfo/>
     <EventHandlerInfo>
       <EventHandler name="canrun" group="Event" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE">
-        <Syntax text="canrun(obj:nexacro.ExcelExportAction, e:nexacro.EventInfo)">
+        <Syntax text="canrun(obj:nexacro.ExcelExportAction, e:nexacro.ActionRunEventInfo)">
           <Return type="Boolean" description=""/>
           <Arguments>
             <Argument name="obj" type="nexacro.ExcelExportAction"/>
-            <Argument name="e" type="nexacro.EventInfo"/>
+            <Argument name="e" type="nexacro.ActionRunEventInfo"/>
           </Arguments>
         </Syntax>
       </EventHandler>
       <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="">
-        <Syntax text="Action.onerror(obj:nexacro.Action,e:nexacro.ActionEventInfo);">
+        <Syntax text="onerror(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)">
           <Return type="" description=""/>
           <Arguments>
             <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description=""/>
-            <Argument name="e" type="nexacro.ActionEventInfo" in="false" out="false" option="false" variable="false" description=""/>
+            <Argument name="e" type="nexacro.ActionErrorEventInfo" in="false" out="false" option="false" variable="false" description=""/>
           </Arguments>
         </Syntax>
       </EventHandler>
       <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="">
-        <Syntax text="Action.onsuccess(obj:nexacro.Action,e:nexacro.ActionEventInfo);">
+        <Syntax text="onsuccess(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)">
           <Return type="" description=""/>
           <Arguments>
             <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description=""/>
-            <Argument name="e" type="nexacro.ActionEventInfo" in="false" out="false" option="false" variable="false" description=""/>
+            <Argument name="e" type="nexacro.ActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description=""/>
           </Arguments>
         </Syntax>
       </EventHandler>

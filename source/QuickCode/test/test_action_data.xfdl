@@ -133,7 +133,7 @@
           </Row>
         </Rows>
       </Dataset>
-      <DsIsUpdatedAction id="DsIsUpdatedAction00" targetview="viwList" checkfilter="false" onerror="DsIsUpdatedAction00_onerror" onsuccess="DsIsUpdatedAction00_onsuccess">
+      <DsIsUpdatedAction id="DsIsUpdatedAction00" targetview="viwList" checkfilter="false" onsuccess="DsIsUpdatedAction00_onsuccess" onerror="DsIsUpdatedAction00_onerror">
         <Contents/>
       </DsIsUpdatedAction>
       <MessageAction id="MessageAction00" message="변경되었습니다." messagetype="alert">
@@ -154,20 +154,21 @@ this.viwButton_btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 	this.viwList.form.viewdataset.deleteRow(this.viwList.form.viewdataset.rowposition);
 };
 
-this.DsIsUpdatedAction00_onerror = function(obj:nexacro.Action,e:nexacro.ActionEventInfo)
-{
-	trace("DsIsUpdatedAction00_onerror");
-};
-
-this.DsIsUpdatedAction00_onsuccess = function(obj:nexacro.Action,e:nexacro.ActionEventInfo)
-{
-	trace("DsIsUpdatedAction00_onsuccess");
-};
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.DsIsUpdatedAction00.set_checkfilter(false);
 	trace(this.DsIsUpdatedAction00.checkfilter);
+};
+
+this.DsIsUpdatedAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	trace("DsIsUpdatedAction00_onerror" + e.userdata);
+};
+
+this.DsIsUpdatedAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	trace("DsIsUpdatedAction00_onsuccess" + e.userdata);
 };
 ]]></Script>
     <Trigger>

@@ -16,29 +16,29 @@
     <MethodInfo/>
     <EventHandlerInfo>
       <EventHandler name="canrun" group="Event" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE" description="Action이 실행되기 전 발생하는 이벤트 입니다.">
-        <Syntax text="canrun(obj:nexacro.ExcelExportAction, e:nexacro.EventInfo)">
-          <Return type="Boolean" description="이벤트에서 리턴값을 &quot;true&quot;로 반환하면 Action이 실행됩니다.&#13;&#10;이벤트에서 리턴값을 &quot;false&quot;로 반환하면 Action이 실행되지 않습니다.&#13;&#10;&#13;&#10;이벤트에서 리턴값을 생략하면 &quot;true&quot;로 적영됩니다."/>
+        <Syntax text="canrun(obj:nexacro.ExcelExportAction, e:nexacro.ActionRunEventInfo)">
+          <Return type="Boolean" description="이벤트에서 리턴값을 &quot;true&quot;로 반환하면 Action이 실행됩니다.&#13;&#10;이벤트에서 리턴값을 &quot;false&quot;로 반환하면 Action이 실행되지 않습니다.&#13;&#10;&#13;&#10;이벤트에서 리턴값을 생략하면 &quot;true&quot;로 적용됩니다."/>
           <Arguments>
             <Argument name="obj" type="nexacro.ExcelExportAction"/>
-            <Argument name="e" type="nexacro.EventInfo"/>
+            <Argument name="e" type="nexacro.ActionRunEventInfo"/>
           </Arguments>
         </Syntax>
       </EventHandler>
       <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="run 메소드 실행이 실패했을때 Trigger callback 처리를 위한 event 입니다.">
-        <Syntax text="Action.onerror(obj:nexacro.Action,e:nexacro.ActionEventInfo);">
+        <Syntax text="onerror(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)">
           <Return type="" description=""/>
           <Arguments>
             <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description="Event가 발생한 Object."/>
-            <Argument name="e" type="nexacro.ActionEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+            <Argument name="e" type="nexacro.ActionErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
           </Arguments>
         </Syntax>
       </EventHandler>
       <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="run 메소드 실행이 성공했을때 Trigger callback 처리를 위한 event 입니다.">
-        <Syntax text="Action.onsuccess(obj:nexacro.Action,e:nexacro.ActionEventInfo);">
+        <Syntax text="onsuccess(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)">
           <Return type="" description=""/>
           <Arguments>
             <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description="Event가 발생한 Object."/>
-            <Argument name="e" type="nexacro.ActionEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+            <Argument name="e" type="nexacro.ActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
           </Arguments>
         </Syntax>
       </EventHandler>
