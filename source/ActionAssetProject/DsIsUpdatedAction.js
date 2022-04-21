@@ -110,7 +110,7 @@ if (!nexacro.DsIsUpdatedAction)
 	};
 	
 	//===============================================================		
-    // nexacro.ExcelImportAction : Event		
+    // nexacro.DsIsUpdatedAction : Event		
     //===============================================================
 	nexacro.DsIsUpdatedAction.prototype.on_fire_canrun = function (userdata)
 	{
@@ -159,9 +159,21 @@ if (!nexacro.DsIsUpdatedAction)
 	};
 	
 	//===============================================================		
-    // nexacro.ExcelImportAction : 공통함수 전환부분
+    // nexacro.DsIsUpdatedAction : 공통함수(Util)
     //===============================================================
+	nexacro.DsIsUpdatedAction.prototype.gfnIsNull = function (Val)				
+	{				
+		if (new String(Val).valueOf() == "undefined") return true;			
+		if (Val == null) return true;			
+		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
+		if (Val.length == 0) return true;			
+					
+		return false;			
+	};
 	
+	//===============================================================		
+    // nexacro.DsIsUpdatedAction : 공통함수 전환부분
+    //===============================================================
 	 /**
 	 * @class dataSet의 Row 중에서 변경된 내용이 있는지 여부
 	 * @param {Object} objDs - 확인 대상 Dataset
@@ -210,15 +222,5 @@ if (!nexacro.DsIsUpdatedAction)
 		}
 		
 		return nRowType;
-	};
-	
-	nexacro.DsIsUpdatedAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
 	};
 }

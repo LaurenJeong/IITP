@@ -70,71 +70,6 @@ if (!nexacro.PopupAction)
 		}
 	};
 	
-	nexacro.PopupAction.prototype.gfnShowModal = function (sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
-	{
-		//Modal 팝업으로 사용할 ChildFrame 생성
-		var objChildFrame = new ChildFrame();
-		
-		//부모 Frame 정보 가져오기
-		var objOwnerFrame = objForm.getOwnerFrame();
-		
-		var sOpenAlignType = "";
-		
-		//
-		if (this.gfnIsNull(nLeft))nLeft = 0;
-		
-		if (this.gfnIsNull(nTop))nTop = 0;
-		
-		if (this.gfnIsNull(nWidth)) nWidth = 400;
-		
-		if (this.gfnIsNull(nHeight)) nHeight = 300;
-		
-		if(nLeft==-1)sOpenAlignType = "center ";
-		
-		if(nTop==-1)sOpenAlignType += "middle";
-		
-		objChildFrame.init(sPopupId, nLeft, nTop, nWidth, nHeight, null, null, sFormUrl);
-		objChildFrame.set_openalign(sOpenAlignType);
-				
-		objChildFrame.showModal(objOwnerFrame, objArgs, objForm, sCallback, true);
-	};
-	
-	nexacro.PopupAction.prototype.gfnModeless = function(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
-	{
-		var objOwnerFrame = objForm.getOwnerFrame();
-		
-		if (this.gfnIsNull(nLeft))nLeft = 0;
-		
-		if (this.gfnIsNull(nTop))nTop = 0;
-		
-		if (this.gfnIsNull(nWidth)||nWidth==-1) nWidth = 400;
-		
-		if (this.gfnIsNull(nHeight)||nHeight==-1) nHeight = 300;
-		
-		if(nLeft==-1)nLeft = system.clientToScreenX(objForm, 0) + (objForm.getOffsetWidth() / 2) - (nWidth/2);
-		
-		if(nTop==-1)nTop = system.clientToScreenY(objForm, 0) + (objForm.getOffsetHeight() / 2) - (nHeight/2);
-		
-		var sOpt = "showtitlebar=true";
-		
-		nexacro.open(sPopupId, sFormUrl, objOwnerFrame, objArgs, sOpt, nLeft, nTop, nWidth, nHeight, objForm);
-	};
-	
-	nexacro.PopupAction.prototype.gfnIsNull = function (Val)
-	{
-		if (new String(Val).valueOf() == "undefined") return true;
-		if (Val == null) return true;
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;
-		if (Val.length == 0) return true;
-		
-		return false;
-	}
-	
-	nexacro.PopupAction.prototype.fnPopupActionCallback = function(sId, sParam)
-	{
-		this.targetPopupAction.on_fire_onsuccess(sParam);
-	};
-	
 	nexacro.PopupAction.prototype.formurl = "";
 	nexacro.PopupAction.prototype.set_formurl = function (v)
 	{
@@ -232,8 +167,11 @@ if (!nexacro.PopupAction)
 				this._args = null;
 			}
 		}
-	};	
+	};
 	
+	//===============================================================		
+    // nexacro.PopupAction : Event		
+    //===============================================================
 	nexacro.PopupAction.prototype.on_fire_canrun = function (userdata)
 	{
 		if (this.canrun && this.canrun._has_handlers)
@@ -263,5 +201,76 @@ if (!nexacro.PopupAction)
 			var evt = new nexacro.ActionErrorEventInfo(this, "onerror", userdata); //TODO
 			event._fireEvent(this, evt);
 		}
+	};
+	
+	//===============================================================		
+    // nexacro.PopupAction : 공통함수(Util)
+    //===============================================================
+	nexacro.PopupAction.prototype.gfnIsNull = function (Val)
+	{
+		if (new String(Val).valueOf() == "undefined") return true;
+		if (Val == null) return true;
+		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;
+		if (Val.length == 0) return true;
+		
+		return false;
+	};
+	
+	//===============================================================		
+    // nexacro.PopupAction : 공통함수 전환부분
+    //===============================================================
+	nexacro.PopupAction.prototype.gfnShowModal = function (sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
+	{
+		//Modal 팝업으로 사용할 ChildFrame 생성
+		var objChildFrame = new ChildFrame();
+		
+		//부모 Frame 정보 가져오기
+		var objOwnerFrame = objForm.getOwnerFrame();
+		
+		var sOpenAlignType = "";
+		
+		//
+		if (this.gfnIsNull(nLeft))nLeft = 0;
+		
+		if (this.gfnIsNull(nTop))nTop = 0;
+		
+		if (this.gfnIsNull(nWidth)) nWidth = 400;
+		
+		if (this.gfnIsNull(nHeight)) nHeight = 300;
+		
+		if(nLeft==-1)sOpenAlignType = "center ";
+		
+		if(nTop==-1)sOpenAlignType += "middle";
+		
+		objChildFrame.init(sPopupId, nLeft, nTop, nWidth, nHeight, null, null, sFormUrl);
+		objChildFrame.set_openalign(sOpenAlignType);
+				
+		objChildFrame.showModal(objOwnerFrame, objArgs, objForm, sCallback, true);
+	};
+	
+	nexacro.PopupAction.prototype.gfnModeless = function(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
+	{
+		var objOwnerFrame = objForm.getOwnerFrame();
+		
+		if (this.gfnIsNull(nLeft))nLeft = 0;
+		
+		if (this.gfnIsNull(nTop))nTop = 0;
+		
+		if (this.gfnIsNull(nWidth)||nWidth==-1) nWidth = 400;
+		
+		if (this.gfnIsNull(nHeight)||nHeight==-1) nHeight = 300;
+		
+		if(nLeft==-1)nLeft = system.clientToScreenX(objForm, 0) + (objForm.getOffsetWidth() / 2) - (nWidth/2);
+		
+		if(nTop==-1)nTop = system.clientToScreenY(objForm, 0) + (objForm.getOffsetHeight() / 2) - (nHeight/2);
+		
+		var sOpt = "showtitlebar=true";
+		
+		nexacro.open(sPopupId, sFormUrl, objOwnerFrame, objArgs, sOpt, nLeft, nTop, nWidth, nHeight, objForm);
+	};
+	
+	nexacro.PopupAction.prototype.fnPopupActionCallback = function(sId, sParam)
+	{
+		this.targetPopupAction.on_fire_onsuccess(sParam);
 	};
 }

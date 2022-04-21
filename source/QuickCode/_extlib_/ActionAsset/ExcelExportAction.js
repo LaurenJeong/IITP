@@ -16,6 +16,9 @@ if (!nexacro.ExcelExportAction)
     nexacro.ExcelExportAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.ExcelExportAction);		
     nexacro.ExcelExportAction.prototype._type_name = "ExcelExportAction";	
 	
+	//===============================================================		
+    // nexacro.ExcelExportAction : 변수선언 부분
+    //===============================================================
 	nexacro.ExcelExportAction.prototype.COM_EXCEL_URL = "svc::XExportImport";				//"svc::XExportImport.do";
 	
 	//===============================================================		
@@ -186,6 +189,18 @@ if (!nexacro.ExcelExportAction)
 		}
 	};
 	
+	//===============================================================		
+    // nexacro.ExcelExportAction : 공통함수(Util)
+    //===============================================================
+	nexacro.ExcelExportAction.prototype.gfnIsNull = function (Val)				
+	{				
+		if (new String(Val).valueOf() == "undefined") return true;			
+		if (Val == null) return true;			
+		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
+		if (Val.length == 0) return true;			
+					
+		return false;			
+	};
 	
 	//===============================================================		
     // nexacro.ExcelExportAction : 공통함수 전환부분
@@ -286,16 +301,6 @@ if (!nexacro.ExcelExportAction)
 		trace("Excel Export Error!! : " + e.errormsg);
 		this.on_fire_onerror();	
 	};
-	
-	nexacro.ExcelExportAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
-	}
 	
 	/**
 	* gfn_getSheetName : Sheet명 반환

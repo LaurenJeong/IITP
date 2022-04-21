@@ -16,6 +16,9 @@ if (!nexacro.ExcelImportAction)
     nexacro.ExcelImportAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.ExcelImportAction);		
     nexacro.ExcelImportAction.prototype._type_name = "ExcelImportAction";	
 	
+	//===============================================================		
+    // nexacro.ExcelImportAction : 변수선언 부분
+    //===============================================================
 	nexacro.ExcelImportAction.prototype.COM_EXCEL_URL = "svc::XExportImport";				//"svc::XExportImport.do";
 	
 	//===============================================================		
@@ -176,9 +179,20 @@ if (!nexacro.ExcelImportAction)
 	};
 	
 	//===============================================================		
+    // nexacro.ExcelImportAction : 공통함수(Util)
+    //===============================================================
+	nexacro.ExcelImportAction.prototype.gfnIsNull = function (Val)				
+	{				
+		if (new String(Val).valueOf() == "undefined") return true;			
+		if (Val == null) return true;			
+		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
+		if (Val.length == 0) return true;			
+					
+		return false;			
+	};
+	//===============================================================		
     // nexacro.ExcelImportAction : 공통함수 전환부분
     //===============================================================
-	
 	/**
 	 * @class  excel import( 데이터 헤더제외 ) <br>
 	 * @param {String} sDataset - dataset	
@@ -277,16 +291,6 @@ if (!nexacro.ExcelImportAction)
 	{
 		trace("Excel Import Error!! : " + e.errormsg);
 		this.on_fire_onerror();	
-	};
-	
-	nexacro.ExcelImportAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
 	};
 	
 	nexacro.ExcelImportAction.prototype.gfnGetFileFilter = function(sImportType)

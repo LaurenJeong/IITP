@@ -78,7 +78,7 @@ if (!nexacro.DsSetFirstCdAction)
 		}	
 	};	
 	
-	nexacro.ExcelExportAction.prototype._targetcomp = null;				// 객체
+	nexacro.DsSetFirstCdAction.prototype._targetcomp = null;				// 객체
 	nexacro.DsSetFirstCdAction.prototype.set_targetcomp = function (v)				
 	{				
 		// TODO : enter your code here.
@@ -210,9 +210,73 @@ if (!nexacro.DsSetFirstCdAction)
 	};
 	
 	//===============================================================		
+    // nexacro.DsSetFirstCdAction : 공통함수(Util)
+    //===============================================================
+	nexacro.DsSetFirstCdAction.prototype.gfnIsNull = function (Val)				
+	{				
+		if (new String(Val).valueOf() == "undefined") return true;			
+		if (Val == null) return true;			
+		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
+		if (Val.length == 0) return true;			
+					
+		return false;			
+	};
+	
+	nexacro.DsSetFirstCdAction.prototype.gfnLog = function(sMsg, sType)
+	{
+		var arrLogLevel = ["debug","info","warn","error"];
+	
+		if(sType == undefined)	sType = "debug";
+		var nLvl = arrLogLevel.indexOf(sType);
+		
+		if (nLvl < this._LOG_LEVEL)		return;
+		
+		if (system.navigatorname == "nexacro DesignMode"
+			|| system.navigatorname == "nexacro") {
+			if (sMsg instanceof Object) {
+				for(var x in sMsg){
+					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
+				}
+			} else {
+				trace("[" + sType + "] " + this.name + " > " + sMsg);
+			}
+		} else {
+			console.log("[" + sType + "] " + this.name + " > " + sMsg);
+		}
+	};
+	
+	// run()에서만 동작함.
+	nexacro.DsSetFirstCdAction.prototype.gfnGetForm = function ()				
+	{				
+		var objView 		= this._findViewObject(this.targetview);
+		var objForm;
+		
+		if(objView)objForm = objView.form;		
+		else objForm = this.parent;
+					
+		return objForm;			
+	};
+	
+	// run()에서만 동작함.
+	nexacro.DsSetFirstCdAction.prototype.gfnGetTargetComp = function (sCompId)				
+	{
+		if (this._targetcomp) {
+			return this._targetcomp;
+		}
+		
+		var objForm = this.gfnGetForm();
+		var objComp = null;
+		
+		if (objForm)
+		{
+			objComp = objForm._findComponentForArrange(sCompId);
+		}
+					
+		return this._targetcomp = objComp;			
+	};
+	//===============================================================		
     // nexacro.DsSetFirstCdAction : 공통함수 전환부분
     //===============================================================
-	
 	/**
 	 * @class 첫번째 Row에 데이터 추가(콤보용)
 	 * @param {Object}	objComp 		: 적용할 객체(Dataset/Combo/Radio). Combo 선택시 첫번째 index 자동설정
@@ -309,68 +373,5 @@ if (!nexacro.DsSetFirstCdAction)
 		}
 		
 		return true;
-	};
-	
-	nexacro.DsSetFirstCdAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
-	};
-	
-	nexacro.DsSetFirstCdAction.prototype.gfnLog = function(sMsg, sType)
-	{
-		var arrLogLevel = ["debug","info","warn","error"];
-	
-		if(sType == undefined)	sType = "debug";
-		var nLvl = arrLogLevel.indexOf(sType);
-		
-		if (nLvl < this._LOG_LEVEL)		return;
-		
-		if (system.navigatorname == "nexacro DesignMode"
-			|| system.navigatorname == "nexacro") {
-			if (sMsg instanceof Object) {
-				for(var x in sMsg){
-					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
-				}
-			} else {
-				trace("[" + sType + "] " + this.name + " > " + sMsg);
-			}
-		} else {
-			console.log("[" + sType + "] " + this.name + " > " + sMsg);
-		}
-	};
-	
-	// run()에서만 동작함.
-	nexacro.DsSetFirstCdAction.prototype.gfnGetForm = function ()				
-	{				
-		var objView 		= this._findViewObject(this.targetview);
-		var objForm;
-		
-		if(objView)objForm = objView.form;		
-		else objForm = this.parent;
-					
-		return objForm;			
-	};
-	
-	// run()에서만 동작함.
-	nexacro.DsSetFirstCdAction.prototype.gfnGetTargetComp = function (sCompId)				
-	{
-		if (this._targetcomp) {
-			return this._targetcomp;
-		}
-		
-		var objForm = this.gfnGetForm();
-		var objComp = null;
-		
-		if (objForm)
-		{
-			objComp = objForm._findComponentForArrange(sCompId);
-		}
-					
-		return this._targetcomp = objComp;			
 	};
 }
