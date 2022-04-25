@@ -3,49 +3,15 @@
   <Form id="test_view_login" width="1280" height="720" titletext="New Form">
     <Layouts>
       <Layout height="720" width="1280">
-        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="38" top="298" width="558" height="83" background="lightgray">
-          <Layouts>
-            <Layout>
-              <Button id="btnAdd" left="0" top="0" width="80" height="30" text="신규"/>
-              <Button id="btnDel" left="85" top="0" width="80" height="30" text="삭제"/>
-              <Button id="btnSave" left="170" top="0" width="80" height="30" text="저장"/>
-              <Button id="btnPrint" left="255" top="0" width="80" height="30" text="출력"/>
-              <Button id="btnOk" left="340" top="0" width="80" height="30" text="확인"/>
-              <Button id="btnCancel" left="425" top="0" width="80" height="30" text="취소"/>
-            </Layout>
-            <Layout/>
-          </Layouts>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="CommBtn" filepath="sample\Button.xmodel">
-            <Fields>
-              <Field id="Add" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
-              <Field id="Del" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
-              <Field id="Save" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
-              <Field id="Print" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
-              <Field id="Ok" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
-              <Field id="Cancel" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
-            </Fields>
-            <Components>
-              <Component id="btnAdd" fields="Add"/>
-              <Component id="btnDel" fields="Del"/>
-              <Component id="btnSave" fields="Save"/>
-              <Component id="btnPrint" fields="Print"/>
-              <Component id="btnOk" fields="Ok"/>
-              <Component id="btnCancel" fields="Cancel"/>
-            </Components>
-          </ModelInfo>
-          <ViewTemplateInfo filepath="ButtonViewTemplate.xviewgen">
-            <Attribute id="direction" value="horizontal"/>
-            <Attribute id="halign" value="left"/>
-            <Attribute id="valign" value="top"/>
-          </ViewTemplateInfo>
-        </View>
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="47" top="39" width="630" height="191" background="lightgray">
+        <Static id="Static00_00_01" taborder="1" text="right" left="10" top="14" width="295" height="25" cssclass="sta_WF_title01"/>
+        <Static id="Static00_00_01_00" taborder="2" text="bottom" left="10" top="270" width="295" height="25" cssclass="sta_WF_title01"/>
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="49" width="630" height="191" background="lightgray">
           <Layouts>
             <Layout>
               <Button id="btnLogin" top="5" width="110" right="5" height="65" cssclass="btn_login" text="Login"/>
-              <Static id="staIdLabel" left="5" top="5" width="95" height="30" text="아이디" cssclass="sta_label"/>
+              <Static id="staIdLabel" left="5" top="5" width="95" height="30" text="아이디" cssclass="sta_login_label"/>
               <Edit id="edtId" left="105" top="5" height="30" right="btnLogin:10" password="false"/>
-              <Static id="staPwLabel" left="5" top="40" width="95" height="30" text="패스워드" cssclass="sta_label"/>
+              <Static id="staPwLabel" left="5" top="40" width="95" height="30" text="패스워드" cssclass="sta_login_label"/>
               <Edit id="edtPw" left="105" top="40" height="30" right="btnLogin:10" password="false"/>
               <CheckBox id="chkSaveId" left="105" top="75" height="40" right="btnLogin:10" text="Save User ID" cssclass="chk_login"/>
             </Layout>
@@ -68,8 +34,8 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="LoginModel001" filepath="sample\Login.xmodel">
             <Fields>
-              <Field id="ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_label"/>
-              <Field id="PW" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_label"/>
+              <Field id="ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_login_label"/>
+              <Field id="PW" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_login_label"/>
             </Fields>
             <Components>
               <Component id="staIdLabel" fields="ID"/>
@@ -80,6 +46,54 @@
           </ModelInfo>
           <ViewTemplateInfo filepath="LoginViewTemplate.xviewgen">
             <Attribute id="loginbuttontype" value="right"/>
+            <Attribute id="loginbuttontext" value="Login"/>
+            <Attribute id="loginbuttoncssclass" value="btn_login"/>
+            <Attribute id="saveidcheckboxuse" value="true"/>
+            <Attribute id="saveidcheckboxtext" value="Save User ID"/>
+            <Attribute id="saveidcheckboxcssclass" value="chk_login"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View01" taborder="3" text="View01" viewdataset="viewdataset" left="10" top="305" width="630" height="191" background="lightgray">
+          <Layouts>
+            <Layout>
+              <Button id="btnLogin" left="5" height="50" right="5" bottom="5" cssclass="btn_login" text="Login"/>
+              <Static id="staIdLabel" left="5" top="5" width="95" height="30" text="아이디" cssclass="sta_login_label"/>
+              <Edit id="edtId" left="105" top="5" height="30" width="520" password="false"/>
+              <Static id="staPwLabel" left="5" top="40" width="95" height="30" text="패스워드" cssclass="sta_login_label"/>
+              <Edit id="edtPw" left="105" top="40" height="30" width="520" password="false"/>
+              <CheckBox id="chkSaveId" left="105" top="75" height="40" right="5" text="Save User ID" cssclass="chk_login"/>
+            </Layout>
+            <Layout/>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ID" type="STRING" size="80"/>
+                <Column id="PW" type="STRING" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtId" compid="edtId" propid="value" datasetid="viewdataset" columnid="ID"/>
+            <BindItem id="bind_edtPw" compid="edtPw" propid="value" datasetid="viewdataset" columnid="PW"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="LoginModel001" filepath="sample\Login.xmodel">
+            <Fields>
+              <Field id="ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_login_label"/>
+              <Field id="PW" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_login_label"/>
+            </Fields>
+            <Components>
+              <Component id="staIdLabel" fields="ID"/>
+              <Component id="edtId" fields="ID"/>
+              <Component id="staPwLabel" fields="PW"/>
+              <Component id="edtPw" fields="PW"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="LoginViewTemplate.xviewgen">
+            <Attribute id="loginbuttontype" value="bottom"/>
             <Attribute id="loginbuttontext" value="Login"/>
             <Attribute id="loginbuttoncssclass" value="btn_login"/>
             <Attribute id="saveidcheckboxuse" value="true"/>
