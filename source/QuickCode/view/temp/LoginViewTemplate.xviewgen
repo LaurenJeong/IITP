@@ -7,17 +7,14 @@ o Developer   :
 o Create Date : 
 o Description : 
 *============================================================================================*/
-include "view_lib::common.xjs";
 //////////////////////////////Constant Setting  START ////////////////////////////////////////////////////	
 //--------------------------------------------------------------------------------------------------------
 // 로그인 Button 관련 상수
 //--------------------------------------------------------------------------------------------------------
 // Login Button ID
 var LOGIN_BUTTON_ID = "btnLogin";
-
 //Login Button Default Width											
 var LOGIN_BUTTON_WIDTH   = 110;	
-
 //Login Button Default Height											
 var LOGIN_BUTTON_HEIGHT  = 50;											
 											
@@ -32,11 +29,9 @@ var LOGIN_BUTTON_TEXT    = "Login";
 											
 //Login Button Default Form											
 var LOGIN_BUTTON_TYPE    = "bottom";	
-
 //Login Button Css Class											
 var LOGIN_BUTTON_CSSCLASS = "btn_login";
 //--------------------------------------------------------------------------------------------------------
-
 //--------------------------------------------------------------------------------------------------------
 // 아이디저장 Checkbox 관련 상수
 //--------------------------------------------------------------------------------------------------------
@@ -47,10 +42,11 @@ var SAVEID_CHECKBOX_TEXT = "Save User ID";
 // 아이디저장 체크박스 CSS CLASS
 var SAVEID_CHECKBOX_CSSCLASS = "chk_login";
 //--------------------------------------------------------------------------------------------------------
-
 //--------------------------------------------------------------------------------------------------------
 // 컴포넌트(Label + Field) 관련 상수
 //--------------------------------------------------------------------------------------------------------
+// 네이밍 컨벤션 종류 (C : camelCase, S : snakeCase, 빈값 : 지정안함.)
+var COMP_NAMING_RULE	= "C";
 //Field Default Width											
 var FIELD_WIDTH    		  = "100%";									
 											
@@ -59,7 +55,6 @@ var FIELD_HEIGHT   		  = "40px";
 											
 //Label Default Width											
 var LABEL_WIDTH    		  = 100;	
-
 //Component Default Type											
 var COMP_TYPE     		  = "edit";									
 											
@@ -88,6 +83,22 @@ var COMP_CSSCLASS		  = "";
 var LABEL_CSSCLASS		  = "sta_label";
 //--------------------------------------------------------------------------------------------------------
 //////////////////////////////Constant Setting  END ////////////////////////////////////////////////////											
+											
+//Model Information											
+var oFieldArray;											
+											
+//View Component Information											
+var oContents;											
+											
+//Option Setting Information											
+var oGenerationAttr;											
+											
+//Component ID List											
+var arrCompIds = [];											
+											
+//Component + Bind Field List											
+var arrBindItems = [];									
+	
 /*---------------------------------------------------------------------------------------------*
  * Function    : fn_GetViewGenerationResult
  * Parameter   : 
@@ -140,7 +151,6 @@ var LABEL_CSSCLASS		  = "sta_label";
  *                            !!! Do not delete it. !!!                                        *
  *---------------------------------------------------------------------------------------------*/
 fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) {
-
    //Return Value											
     var vResult = "";											
 											
@@ -182,8 +192,6 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) {
     //Return View Component Information											
     return vResult;	
 };
-
-
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetViewAttributeList
  * Return       : View generation attribute list (JSON format)
@@ -208,7 +216,6 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) {
  * Description : Obtain a list of custom attributes required for view generation
  *---------------------------------------------------------------------------------------------*/
 fn_GetViewAttributeList = function() {
-
     var strJson = "";								
     var oJson = {								
                         "attributecount": "7",								
@@ -262,7 +269,6 @@ fn_GetViewAttributeList = function() {
 	strJson = JSON.stringify(oJson, null, "\t");							
     return strJson;	
 };
-
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetFieldUserAttributeList
  * Return       : user attribute list from model field(JSON format)
@@ -348,7 +354,6 @@ fn_GetFieldUserAttributeList = function ()
 		strJson = JSON.stringify(oJson, null, "\t");								
 		return strJson;	
 }
-
 /*---------------------------------------------------------------------------------------------*											
  * Function     : fn_GetModel											
  * Parameter    : 											
@@ -559,7 +564,6 @@ fn_MakeLoginButton = function(nViewCompWidth, nViewCompHeight){
 	
 	return [nViewCompWidth, nViewCompHeight];
 }											
-
 /*---------------------------------------------------------------------------------------------*											
  * Function     : fn_MakeSaveIdCheckbox											
  * Parameter    : 											
@@ -611,7 +615,6 @@ fn_MakeSaveIdCheckbox = function(nViewCompWidth, nViewCompHeight){
 		}]								
 	};										
 };
-
 /*---------------------------------------------------------------------------------------------*											
  * Function     : fn_CalcLayout											
  * Parameter    : 											
@@ -1296,31 +1299,61 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		oModel[oModel.length-1].Components.push(oComp);									
 	}
 }											
-
-/*---------------------------------------------------------------------------------------------*											
- * Function     : fn_GetCompId											
- * Parameter    : 											
-				- sCompId : Component ID to be created						
- * Return       : sRtnCompId : Component ID											
- * Description  : Component ID Production Function											
- *---------------------------------------------------------------------------------------------*/											
-fn_GetCompId = function(sCompId){											
-	//Check if there is a Component produced in the same Field										
-	var arrTemp = arrCompIds.filter(arrCompIds=>arrCompIds.indexOf(sCompId)==0);										
-	var sRtnCompId;										
 											
-	//If there is a Component produced in the same Field										
-	if(arrTemp.length>0)sRtnCompId = sCompId+"_"+arrTemp.length;										
-											
-	//If there isn't a Component produced in the same Field										
-	else sRtnCompId = sCompId;										
-											
-	//Add Component ID Management to Array										
-	arrCompIds[arrCompIds.length] = sRtnCompId;										
-											
-	//Return Component ID										
-	return sRtnCompId;										
-}											
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetCompId
+ * Parameter    : 
+				- sCompId : 생성할 컴포넌트 아이디
+ * Return       : sRtnCompId : 컴포넌트 ID
+ * Description  : 컴포넌트 ID 생성 함수
+ *---------------------------------------------------------------------------------------------*/
+fn_GetCompId = function(sCompId){
+	
+	var sNewCompId = "";
+	
+	if (COMP_NAMING_RULE == "C") {
+		sNewCompId = fn_ToCamelCase(sCompId);
+	} else if (COMP_NAMING_RULE == "S") {
+		sNewCompId = fn_ToSnakeCase(sCompId);
+	} else {
+		sNewCompId = sCompId;
+	}
+	//trace("fn_GetCompId() : " + sCompId + " -> " + sNewCompId);
+	
+	//동일한 Field로 생성된 컴포넌트 있는지 체크
+	var arrTemp = arrCompIds.filter(arrCompIds=>arrCompIds.indexOf(sNewCompId)==0);
+	var sRtnCompId;
+	
+	//동일한 Field로 생성된 컴포넌트가 존재할 경우
+	if(arrTemp.length>0)sRtnCompId = sNewCompId+"_"+arrTemp.length;
+	
+	//동일한 Field로 생성된 컴포넌트가 없을 경우 
+	else sRtnCompId = sNewCompId;
+	
+	//컴포넌트 ID관리 Array에 추가
+	arrCompIds[arrCompIds.length] = sRtnCompId;
+	
+	//컴포넌트 ID 리턴
+	return sRtnCompId;
+}	
+fn_ToCamelCase = function(str){
+  return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+}
+fn_ToSnakeCase = function(str){
+	var result = str.toLowerCase().replace( /([A-Z])/g, " $1" );
+	return result.split(' ').join('_');
+// 	var result = str.replace( /([A-Z])/g, " $1" );
+// 	return result.split(' ').join('_').toLowerCase();
+// 	
+// 	return str.split('').map((character) => {
+//         if (character == character.toUpperCase()) {
+//             return '_' + character.toLowerCase();
+//         } else {
+//             return character;
+//         }
+//     })
+//     .join('');
+}
 											
 /*---------------------------------------------------------------------------------------------*											
  * Function     : fn_GetRealSize											
@@ -1378,8 +1411,8 @@ fn_GetCellSize = function(arrList, nIdx, nSpan, nDefSize){
 	}										
 											
 	return nSize;										
-}
-
+}											
+											
 /*---------------------------------------------------------------------------------------------*											
  * Function     : fn_CalcPaddingToSpace											
  * Parameter    : 											
