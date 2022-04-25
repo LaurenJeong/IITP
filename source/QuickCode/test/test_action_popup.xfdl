@@ -43,7 +43,8 @@
       <TriggerItem id="item0" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup" targetaction="PopupAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup2" targetaction="PopupAction01" condition=""/>
     </Trigger>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[include "view_lib::util.xjs";
+
 this.PopupAction00_onerror = function(obj:nexacro.PopupAction, e:nexacro.ActionErrorEventInfo)
 {
 	//trace("PopupAction00_onerror" + e.userdata);
@@ -57,7 +58,7 @@ this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.Actio
 	this.txaOutput.insertText("\n" + "PopupAction00_onsuccess");
 	this.txaOutput.insertText("\n - userdata : " + e.userdata);
 	
-	if (e.userdata != null) {
+	if (this.lfn_IsNull(e.userdata) == false) {
 		var objRet = JSON.parse(e.userdata);
 		this.dsRetPop.loadXML(objRet.dataset);
 		this.grdRetPop.createFormat();
