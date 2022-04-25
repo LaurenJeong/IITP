@@ -1296,7 +1296,90 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		oModel[oModel.length-1].Components.push(oComp);									
 	}
 }											
+
+/*---------------------------------------------------------------------------------------------*											
+ * Function     : fn_GetCompId											
+ * Parameter    : 											
+				- sCompId : Component ID to be created						
+ * Return       : sRtnCompId : Component ID											
+ * Description  : Component ID Production Function											
+ *---------------------------------------------------------------------------------------------*/											
+fn_GetCompId = function(sCompId){											
+	//Check if there is a Component produced in the same Field										
+	var arrTemp = arrCompIds.filter(arrCompIds=>arrCompIds.indexOf(sCompId)==0);										
+	var sRtnCompId;										
 											
+	//If there is a Component produced in the same Field										
+	if(arrTemp.length>0)sRtnCompId = sCompId+"_"+arrTemp.length;										
+											
+	//If there isn't a Component produced in the same Field										
+	else sRtnCompId = sCompId;										
+											
+	//Add Component ID Management to Array										
+	arrCompIds[arrCompIds.length] = sRtnCompId;										
+											
+	//Return Component ID										
+	return sRtnCompId;										
+}											
+											
+/*---------------------------------------------------------------------------------------------*											
+ * Function     : fn_GetRealSize											
+ * Parameter    : 											
+				- sSize : Size Information(% or px)				
+				- nParentSize : Size Information of Parent Area
+				- sDefSize : Default Size Information								
+											
+ * Return       : nRealSize : px standard Size											
+ * Description  : Function to Evaluate actual usage size based on the registered size											
+ *---------------------------------------------------------------------------------------------*/											
+fn_GetRealSize = function(sSize, nParentSize, sDefSize){											
+	var nRealSize;										
+	var nSizeType;										
+											
+	if(!sSize)sSize = sDefSize;										
+											
+	nSizeType = sSize.replace(/[0-9]/g, "");										
+											
+	if(nSizeType=="%")										
+	{										
+		nRealSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, ""));									
+		nRealSize = (nRealSize/100) * nParentSize;									
+	}else										
+	{										
+		nRealSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, ""));									
+	}										
+											
+	return nRealSize;										
+}											
+											
+/*---------------------------------------------------------------------------------------------*											
+ * Function     : fn_GetCellSize											
+ * Parameter    : 											
+				- arrList : columnsize or rowsize Size Information(% or px)
+				- nIdx : Starting Column/Row Index Information
+				- nSpan : Column/Row Span Information	
+				- nDefSize : Default Size Information to use if -1							
+											
+ * Return       : nSize : px standard Size											
+ * Description  : Cell Width/Height Evaluation Function											
+ *---------------------------------------------------------------------------------------------*/											
+fn_GetCellSize = function(arrList, nIdx, nSpan, nDefSize){											
+	var nSize = 0;										
+											
+	for(var i=nIdx; i<nIdx+nSpan; i++)										
+	{										
+		if(nexacro.toNumber(arrList[i])==-1)									
+		{									
+			nSize += nexacro.toNumber(nDefSize);								
+		}else									
+		{									
+			nSize += nexacro.toNumber(arrList[i]);								
+		}									
+	}										
+											
+	return nSize;										
+}
+
 /*---------------------------------------------------------------------------------------------*											
  * Function     : fn_CalcPaddingToSpace											
  * Parameter    : 											

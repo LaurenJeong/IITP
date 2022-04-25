@@ -16,6 +16,11 @@ if (!nexacro.PopupAction)
 	nexacro.PopupAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.PopupAction);
 	nexacro.PopupAction.prototype._type_name = "PopupAction";
 	
+	//===============================================================		
+    // nexacro.DsSetFirstCdAction : 변수선언 부분
+    //===============================================================
+	nexacro.PopupAction.prototype._POPUP_CALLBACK = "fnPopupActionCallback";		// callback함수
+	
 	//===============================================================
 	// nexacro.PopupAction : Create & Destroy
 	//===============================================================
@@ -60,12 +65,12 @@ if (!nexacro.PopupAction)
 			//Modeless 팝업 호출
 			if(sPopupStyle=="modeless")
 			{
-				this.gfnModeless(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, "fnPopupActionCallback");
+				this.gfnModeless(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, this._POPUP_CALLBACK);
 			}
 			//Modal 팝업 호출
 			else
 			{
-				this.gfnShowModal(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, "fnPopupActionCallback");
+				this.gfnShowModal(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, this._POPUP_CALLBACK);
 			}
 		}
 	};
