@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_view_login" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="47" top="39" width="630" height="340">
+          <Layouts>
+            <Layout>
+              <Button id="btnLogin" top="5" width="110" right="5" height="65" cssclass="btn_login" text="Login"/>
+              <Static id="staIdLabel" left="5" top="5" width="95" height="30" text="아이디" cssclass="sta_label"/>
+              <Edit id="edtId" left="105" top="5" height="30" right="btnLogin:10" password="false"/>
+              <Static id="staPwLabel" left="5" top="40" width="95" height="30" text="패스워드" cssclass="sta_label"/>
+              <Edit id="edtPw" left="105" top="40" height="30" right="btnLogin:10" password="false"/>
+              <CheckBox id="chkSaveId" left="105" top="75" height="40" right="btnLogin:10" text="Save User ID" cssclass="chk_login"/>
+            </Layout>
+            <Layout/>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ID" type="STRING" size="80"/>
+                <Column id="PW" type="STRING" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtId" compid="edtId" propid="value" datasetid="viewdataset" columnid="ID"/>
+            <BindItem id="bind_edtPw" compid="edtPw" propid="value" datasetid="viewdataset" columnid="PW"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="login" filepath="sample\commModelService.xmodel">
+            <Fields>
+              <Field id="ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_label"/>
+              <Field id="PW" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_label"/>
+            </Fields>
+            <Components>
+              <Component id="staIdLabel" fields="ID"/>
+              <Component id="edtId" fields="ID"/>
+              <Component id="staPwLabel" fields="PW"/>
+              <Component id="edtPw" fields="PW"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="LoginViewTemplate.xviewgen">
+            <Attribute id="loginbuttontype" value="right"/>
+            <Attribute id="loginbuttontext" value="Login"/>
+            <Attribute id="loginbuttoncssclass" value="btn_login"/>
+            <Attribute id="saveidcheckboxuse" value="true"/>
+            <Attribute id="saveidcheckboxtext" value="Save User ID"/>
+            <Attribute id="saveidcheckboxcssclass" value="chk_login"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

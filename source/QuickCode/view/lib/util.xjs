@@ -2915,7 +2915,7 @@ this.lfn_CloneObject = function(obj)
 	var result = Array.isArray(obj) ? [] : {};
 
 	for (var key of Object.keys(obj)) {
-		result[key] = this.fn_CloneObject(obj[key])
+		result[key] = this.lfn_CloneObject(obj[key])
 	}
 
 	return result;
