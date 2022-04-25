@@ -3,7 +3,7 @@
   <Form id="test_view_login" width="1280" height="720" titletext="New Form">
     <Layouts>
       <Layout height="720" width="1280">
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="47" top="39" width="630" height="340">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="47" top="39" width="630" height="191" background="lightgray">
           <Layouts>
             <Layout>
               <Button id="btnLogin" top="5" width="110" right="5" height="65" cssclass="btn_login" text="Login"/>
@@ -49,6 +49,51 @@
             <Attribute id="saveidcheckboxuse" value="true"/>
             <Attribute id="saveidcheckboxtext" value="Save User ID"/>
             <Attribute id="saveidcheckboxcssclass" value="chk_login"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="38" top="298" width="558" height="83" background="lightgray">
+          <Layouts>
+            <Layout>
+              <Button id="btnAdd" left="0" top="0" width="80" height="30" text="추가"/>
+              <Button id="btnDel" left="85" top="0" width="80" height="30" text="삭제"/>
+              <Button id="btnSave" left="170" top="0" width="80" height="30" text="저장"/>
+              <Button id="btnPrint" left="255" top="0" width="80" height="30" text="출력"/>
+              <Button id="btnConfirm" left="340" top="0" width="80" height="30" text="확인"/>
+              <Button id="btnCancel" left="425" top="0" width="80" height="30" text="취소"/>
+              <Button id="btnExceldown" left="0" top="35" width="80" height="30" text="엑셀 다운로드"/>
+              <Button id="btnExcelup" left="85" top="35" width="80" height="30" text="엑셀 업로드"/>
+              <Button id="btnExcelformdown" left="170" top="35" width="80" height="30" text="엑셀 양식 다운로드"/>
+            </Layout>
+            <Layout/>
+          </Layouts>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="button" filepath="sample\commModelService.xmodel">
+            <Fields>
+              <Field id="add" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
+              <Field id="del" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
+              <Field id="save" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
+              <Field id="print" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
+              <Field id="confirm" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
+              <Field id="cancel" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
+              <Field id="exceldown" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
+              <Field id="excelup" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
+              <Field id="excelformdown" description="" fieldwidth="80px" fieldheight="30px" cssclass=""/>
+            </Fields>
+            <Components>
+              <Component id="btnAdd" fields="add"/>
+              <Component id="btnDel" fields="del"/>
+              <Component id="btnSave" fields="save"/>
+              <Component id="btnPrint" fields="print"/>
+              <Component id="btnConfirm" fields="confirm"/>
+              <Component id="btnCancel" fields="cancel"/>
+              <Component id="btnExceldown" fields="exceldown"/>
+              <Component id="btnExcelup" fields="excelup"/>
+              <Component id="btnExcelformdown" fields="excelformdown"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="ButtonViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
           </ViewTemplateInfo>
         </View>
       </Layout>

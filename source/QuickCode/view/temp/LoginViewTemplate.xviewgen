@@ -66,8 +66,12 @@ this.FIELD_HEIGHT   		  = "40px";
 
 //Label Default Width
 this.LABEL_WIDTH    		  = 100;
+
 //Component Default Type
-this.COMP_TYPE     		  = "edit";
+this.COMP_TYPE     		  	= "edit";
+
+//Label Default Type
+this.LABEL_TYPE				= "static";
 
 //Component Padding
 this.COMP_PADDING_LEFT     = 5;
@@ -93,7 +97,9 @@ this.COMP_CSSCLASS		  = "";
 //Label Default CSS Class
 this.LABEL_CSSCLASS		  = "sta_label";
 //--------------------------------------------------------------------------------------------------------
-//////////////////////////////Constant Setting  END ////////////////////////////////////////////////////
+/************************************************************************************************
+ * Nexacro Studio 호출 필수 FUNCTION 영역
+ ************************************************************************************************/
 /*---------------------------------------------------------------------------------------------*
  * Function    : fn_GetViewGenerationResult
  * Parameter   :
@@ -158,31 +164,31 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
     if(fieldarray)this.oFieldArray = JSON.parse(fieldarray);
 
 	//Set View Component Information as JSON Object
-    if(contents)oContents = JSON.parse(contents);
+    if(contents)this.oContents = JSON.parse(contents);
 
 	//Set Setting Information as JSON Object
     if(generationattr)this.oGenerationAttr = JSON.parse(generationattr);
 
 	//Model Information Initialization
-	oContents.View.Model = [];
+	this.oContents.View.Model = [];
 
 	//Load Model Information Generation Function
 	fn_GetModel();
 
 	//Load InitValue Information Generation Function
-    oContents.View.InitValue = fn_GetInitValue();
+    this.oContents.View.InitValue = fn_GetInitValue();
 
 	//Load Object Information Generation Function
-    oContents.View.Objects = fn_GetObjects();
+    this.oContents.View.Objects = fn_GetObjects();
 
 	//Load BindInfo Information Generation Function
-    oContents.View.Bind = fn_GetBind();
+    this.oContents.View.Bind = fn_GetBind();
 
 	//Load Script Information Generation Function
-    oContents.View.Script = fn_GetScript();
+    this.oContents.View.Script = fn_GetScript();
 
 	//Convert View Component Information into String
-    vResult = JSON.stringify(oContents, null, "\t");
+    vResult = JSON.stringify(this.oContents, null, "\t");
 
     //trace(">> vResult : " + vResult);
     //Return View Component Information
@@ -214,9 +220,8 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
  *---------------------------------------------------------------------------------------------*/
 fn_GetViewAttributeList = function() 
 {
-    var strJson = "";
-    var oJson = {
-                        "attributecount": "7",
+    var sViewAttr = "";
+    var oViewAttr = {
                         "attributes": [
 							{
 								"id": "loginbuttontype",
@@ -263,9 +268,11 @@ fn_GetViewAttributeList = function()
                             }
                         ]
                   };
+				  
+	oViewAttr["attributecount"] = oViewAttr["attributes"].length;
 
-	strJson = JSON.stringify(oJson, null, "\t");
-    return strJson;
+	sViewAttr = JSON.stringify(oViewAttr, null, "\t");
+    return sViewAttr;
 };
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetFieldUserAttributeList
@@ -291,10 +298,9 @@ fn_GetViewAttributeList = function()
  *---------------------------------------------------------------------------------------------*/
 fn_GetFieldUserAttributeList = function ()
 {
-    var strJson = "";
+	var sFieldAttr = "";
 
-    // TODO : Write a code that predefines the list of user attributes for adding to the model field.
-     var oJson = {
+	var oFieldAttr = {
                         "attributecount": "8",
                         "attributes": [
 							{
@@ -348,9 +354,12 @@ fn_GetFieldUserAttributeList = function ()
                             }
                         ]
                   };
+				  
+	oFieldAttr["attributecount"] = oFieldAttr["attributes"].length;
 
-		strJson = JSON.stringify(oJson, null, "\t");
-		return strJson;
+ 	sFieldAttr = JSON.stringify(oFieldAttr, null, "\t");
+
+    return sFieldAttr;
 }
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetModel
@@ -362,10 +371,10 @@ fn_GetModel = function()
 {
 
 	//Import View Component Width Value
-	var nViewCompWidth = oContents.View.referenceinfo.realwidth;
+	var nViewCompWidth = this.oContents.View.referenceinfo.realwidth;
 
 	//Import View Component Height Value
-	var nViewCompHeight = oContents.View.referenceinfo.realheight;
+	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
 
 	//로그인버튼 타입이 none이 아닌경우	로그인버튼 생성
 	if(this.oGenerationAttr.attributes.loginbuttontype!="none")
@@ -424,7 +433,7 @@ fn_GetModel = function()
 
 	// 로그인버튼 사이즈 재설정(임시코딩)
 	if (this.oGenerationAttr.attributes.loginbuttontype == "right") {
-		var oModel 			= oContents.View.Model;
+		var oModel 			= this.oContents.View.Model;
 		var arrPreComp		= oModel[oModel.length-1].Components;
 		var oPreComp		= arrPreComp[arrPreComp.length-1];
 		var oPreAttr		= oPreComp.attribute;
@@ -460,7 +469,7 @@ fn_MakeLoginButton = function(nViewCompWidth, nViewCompHeight)
 	//Import Lookup Button Text Information
 	var sLoginButtonText = this.oGenerationAttr.attributes.loginbuttontext;
 
-	var oModel = oContents.View.Model;
+	var oModel = this.oContents.View.Model;
 	var oField;
 	var oComp;
 
@@ -581,7 +590,7 @@ fn_MakeSaveIdCheckbox = function(nViewCompWidth, nViewCompHeight)
 	var sSaveIdCheckboxText = this.oGenerationAttr.attributes.saveidcheckboxtext;
 	var sSaveIdCheckboxCssClass = this.oGenerationAttr.attributes.saveidcheckboxcssclass;
 
-	var oModel = oContents.View.Model;
+	var oModel = this.oContents.View.Model;
 	var oField;
 	var oComp;
 
@@ -1103,9 +1112,10 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var nRowIdx, nColIdx;
 	var nAlignX, nAlignY;
 
-	var oModel = oContents.View.Model;
+	var oModel = this.oContents.View.Model;
 	var sCompId;
 	var oCompClass;
+	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
 	var sCompCssClass;
 	var sLabelCssClass;
 	var sPassWord;
@@ -1251,9 +1261,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		//If the Label Width is not 0, Add Label Tag
 		if(nLabelWidth>0)
 		{
-			sCompId = this.lfn_GetCompId("sta_"+sFieldId+"_Label");
+			sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
 			oComp = {
-						"tag" : "Static",
+						"tag" : oLabelClass.classId,
 						"attribute" :
 						{
 							"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
@@ -1264,7 +1274,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		}
 
 		//Add Component Tag
-		sCompId = this.lfn_GetCompId(oCompClass.prefix+"_"+sFieldId);
+		sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
 		oComp =	{
 					"tag" : oCompClass.classId,
 					"attribute" :
