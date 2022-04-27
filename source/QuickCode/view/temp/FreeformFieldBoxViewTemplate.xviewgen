@@ -348,7 +348,8 @@ this.USE_COMP 			  = "true";
  *                            !!! This is a required function. !!!                             *
  *                            !!! Do not delete it. !!!                                        *
  *---------------------------------------------------------------------------------------------*/
-fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) {
+fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
+{
 
 	//Return Value
     var vResult = "";
@@ -536,7 +537,9 @@ fn_GetFieldUserAttributeList = function ()
  	sFieldAttr = JSON.stringify(oFieldAttr, null, "\t");
     return sFieldAttr;
 }
-
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_MakeUseFieldArray
  * Parameter    :
