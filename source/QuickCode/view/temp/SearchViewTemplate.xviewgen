@@ -378,19 +378,13 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	//trace(">> contents : " + contents);
     //trace(">> generationattr : " + generationattr);
 
-    //Set Model Information as JSON Object
-    if(fieldarray)this.oFieldArray = JSON.parse(fieldarray);
-
-	//Set View Component Information as JSON Object
-    if(contents)this.oContents = JSON.parse(contents);
-
-	//Set Setting Information as JSON Object
-    if(generationattr)this.oGenerationAttr = JSON.parse(generationattr);
-
-	//Model Information Initialization
-	this.oContents.View.Model = [];
-
-	fn_MakeUseFieldArray(fieldarray);
+    //Make Generation Info
+	//this.oFieldArray : Model Information as JSON Object
+	//this.oContents : View Component Information as JSON Object
+	//this.oContents.View.Model : Model Information Initialization
+	//this.oGenerationAttr : Setting Information as JSON Object
+	//this.oUseFieldArray : Use Model Information as JSON Object
+	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, true);
 
 	//Load Model Information Generation Function
 	fn_GetModel();

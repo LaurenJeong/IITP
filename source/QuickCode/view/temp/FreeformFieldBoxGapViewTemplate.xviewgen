@@ -353,19 +353,13 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	//trace(">> contents : " + contents);
     //trace(">> generationattr : " + generationattr);
 
-    //모델정보를 JSON 오브젝트로 설정
-    if(fieldarray)this.oFieldArray = JSON.parse(fieldarray);
-
-	//뷰 컴포넌트 정보를 JSON 오브젝트로 설정
-    if(contents)this.oContents = JSON.parse(contents);
-
-	//옵션 설정 정보를 JSON 오브젝트로 설정
-    if(generationattr)this.oGenerationAttr = JSON.parse(generationattr);
-
-	//모델정보 초기화
-	this.oContents.View.Model = [];
-
-	fn_MakeUseFieldArray(fieldarray);
+    //Make Generation Info
+	//this.oFieldArray : Model Information as JSON Object
+	//this.oContents : View Component Information as JSON Object
+	//this.oContents.View.Model : Model Information Initialization
+	//this.oGenerationAttr : Setting Information as JSON Object
+	//this.oUseFieldArray : Use Model Information as JSON Object
+	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, true);
 
 	//모델정보 생성 함수 호출
 	fn_GetModel();

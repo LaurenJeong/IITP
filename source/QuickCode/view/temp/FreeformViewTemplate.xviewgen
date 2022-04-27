@@ -349,20 +349,14 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
     //trace(">> fieldarray : " + fieldarray);
 	//trace(">> contents : " + contents);
     //trace(">> generationattr : " + generationattr);
-
-    //Set Model Information as JSON Object
-    if(fieldarray)this.oFieldArray = JSON.parse(fieldarray);
-
-	//Set View Component Information as JSON Object
-    if(contents)this.oContents = JSON.parse(contents);
-
-	//Set Option Setting Information as JSON Object
-    if(generationattr)this.oGenerationAttr = JSON.parse(generationattr);
-
-	//Initialize Model Information
-	this.oContents.View.Model = [];
-
-	fn_MakeUseFieldArray(fieldarray);
+	
+	//Make Generation Info
+	//this.oFieldArray : Model Information as JSON Object
+	//this.oContents : View Component Information as JSON Object
+	//this.oContents.View.Model : Model Information Initialization
+	//this.oGenerationAttr : Setting Information as JSON Object
+	//this.oUseFieldArray : Use Model Information as JSON Object
+	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, true);
 
 	//Load Model Information Generation Function
 	fn_GetModel();
@@ -534,39 +528,6 @@ fn_GetFieldUserAttributeList = function ()
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
 /*---------------------------------------------------------------------------------------------*
- * Function     : fn_MakeUseFieldArray
- * Parameter    :
-					- fieldarray     : model field list
- * Return       :
- * Description  : Model Information Production Function
- *---------------------------------------------------------------------------------------------*/
-fn_MakeUseFieldArray = function(fieldarray)
-{
-	var bUseComp;
-	var oModel = this.oContents.View.Model;
-
-	if(fieldarray)this.oUseFieldArray = JSON.parse(fieldarray);
-
-	var arrFields = this.oUseFieldArray.fields;
-
-	for(var i=arrFields.length-1;i>=0;i--)
-	{
-		bUseComp = arrFields[i].usecomp;
-
-		if(bUseComp=="false")
-		{
-			oModel[oModel.length] =
-			{
-				"fieldid" : arrFields[i].id,
-				"Components" :[]
-			};
-			arrFields.splice(i, 1);
-		}
-	}
-	this.oUseFieldArray.fieldcount = arrFields.length;
-};
-
-/*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetModel
  * Parameter    :
  * Return       :
@@ -574,7 +535,6 @@ fn_MakeUseFieldArray = function(fieldarray)
  *---------------------------------------------------------------------------------------------*/
 fn_GetModel = function()
 {
-
 	//Import View Component Width Value
 	var nViewCompWidth = this.oContents.View.referenceinfo.realwidth;
 

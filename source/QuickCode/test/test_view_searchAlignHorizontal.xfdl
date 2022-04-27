@@ -150,76 +150,6 @@
         <Static id="Static00_00_01_00" taborder="13" text="horizontal | left | bottom" left="5" top="395" width="295" height="25" cssclass="sta_WF_title02"/>
         <Static id="Static00_00_00_01_00" taborder="15" text="horizontal | center | bottom" left="585" top="395" width="295" height="25" cssclass="sta_WF_title02"/>
         <Static id="Static00_00_00_00_00_00" taborder="17" text="horizontal | right | bottom" left="1165" top="395" width="295" height="25" cssclass="sta_WF_title02"/>
-        <View id="View00_00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="40" width="550" height="120">
-          <Layouts>
-            <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
-              <Button id="btnSearch" width="100" height="30" right="5" bottom="5" cssclass="btn_search" text="Search"/>
-              <Static id="staCompanyLabel" left="5" top="5" width="95" height="30" text="회사명" cssclass="sta_label"/>
-              <Edit id="edtCompany" left="105" top="5" width="100" height="30"/>
-              <Static id="staDepartmentLabel" left="210" top="5" width="95" height="30" text="부서명" cssclass="sta_label"/>
-              <Edit id="edtDepartment" left="310" top="5" width="100" height="30"/>
-              <Static id="staNameLabel" left="5" top="35" width="95" height="30" text="성명" cssclass="sta_label"/>
-              <Edit id="edtName" left="105" top="40" width="100" height="30"/>
-              <Static id="staPhoneLabel" left="210" top="35" width="95" height="30" text="전화번호" cssclass="sta_label"/>
-              <Edit id="edtPhone" left="310" top="40" width="100" height="30"/>
-              <Static id="staEmailLabel" left="5" top="70" width="95" height="30" text="이메일주소" cssclass="sta_label"/>
-              <Edit id="edtEmail" left="105" top="75" width="100" height="30"/>
-            </Layout>
-            <Layout/>
-          </Layouts>
-          <Objects>
-            <Dataset id="viewdataset">
-              <ColumnInfo>
-                <Column id="Company" type="STRING" size="80"/>
-                <Column id="Department" type="STRING" size="80"/>
-                <Column id="Name" type="STRING" size="80"/>
-                <Column id="Phone" type="STRING" size="80"/>
-                <Column id="Email" type="STRING" size="80"/>
-              </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
-            </Dataset>
-          </Objects>
-          <Bind>
-            <BindItem id="bind_edtCompany" compid="edtCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
-            <BindItem id="bind_edtDepartment" compid="edtDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
-            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
-            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
-            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
-          </Bind>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="SearchModel001" filepath="sample\Search.xmodel">
-            <Fields>
-              <Field id="Company" description="" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Department" description="" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Name" description="" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Phone" description="" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Email" description="" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-            </Fields>
-            <Components>
-              <Component id="staCompanyLabel" fields="Company"/>
-              <Component id="edtCompany" fields="Company"/>
-              <Component id="staDepartmentLabel" fields="Department"/>
-              <Component id="edtDepartment" fields="Department"/>
-              <Component id="staNameLabel" fields="Name"/>
-              <Component id="edtName" fields="Name"/>
-              <Component id="staPhoneLabel" fields="Phone"/>
-              <Component id="edtPhone" fields="Phone"/>
-              <Component id="staEmailLabel" fields="Email"/>
-              <Component id="edtEmail" fields="Email"/>
-            </Components>
-          </ModelInfo>
-          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
-            <Attribute id="direction" value="horizontal"/>
-            <Attribute id="halign" value="left"/>
-            <Attribute id="valign" value="top"/>
-            <Attribute id="searchbuttontype" value="bottom"/>
-            <Attribute id="searchbuttontext" value="Search"/>
-            <Attribute id="searchbuttoncssclass" value="btn_search"/>
-            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
-          </ViewTemplateInfo>
-        </View>
         <View id="View00_00_00" taborder="2" text="View00" viewdataset="viewdataset" left="590" top="40" width="550" height="120">
           <Layouts>
             <Layout>
@@ -634,6 +564,76 @@
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="halign" value="right"/>
             <Attribute id="valign" value="bottom"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View00_00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="40" width="550" height="120">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="5" bottom="5" cssclass="btn_search" text="Search"/>
+              <Static id="staCompanyLabel" left="5" top="5" width="95" height="30" text="회사명" cssclass="sta_label"/>
+              <Edit id="edtCompany" left="105" top="5" width="100" height="30"/>
+              <Static id="staDepartmentLabel" left="210" top="5" width="95" height="30" text="부서명" cssclass="sta_label"/>
+              <Edit id="edtDepartment" left="310" top="5" width="100" height="30"/>
+              <Static id="staNameLabel" left="5" top="35" width="95" height="30" text="성명" cssclass="sta_label"/>
+              <Edit id="edtName" left="105" top="40" width="100" height="30"/>
+              <Static id="staPhoneLabel" left="210" top="35" width="95" height="30" text="전화번호" cssclass="sta_label"/>
+              <Edit id="edtPhone" left="310" top="40" width="100" height="30"/>
+              <Static id="staEmailLabel" left="5" top="70" width="95" height="30" text="이메일주소" cssclass="sta_label"/>
+              <Edit id="edtEmail" left="105" top="75" width="100" height="30"/>
+            </Layout>
+            <Layout/>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80"/>
+                <Column id="Department" type="STRING" size="80"/>
+                <Column id="Name" type="STRING" size="80"/>
+                <Column id="Phone" type="STRING" size="80"/>
+                <Column id="Email" type="STRING" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtCompany" compid="edtCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_edtDepartment" compid="edtDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="SearchModel001" filepath="sample\Search.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Department" description="" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Phone" description="" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Email" description="" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="edtCompany" fields="Company"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="edtDepartment" fields="Department"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
             <Attribute id="searchbuttontype" value="bottom"/>
             <Attribute id="searchbuttontext" value="Search"/>
             <Attribute id="searchbuttoncssclass" value="btn_search"/>

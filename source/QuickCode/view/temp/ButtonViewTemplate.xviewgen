@@ -325,26 +325,21 @@ this.COMP_CSSCLASS		  = "";
  *                            !!! This is a required function. !!!                             *
  *                            !!! Do not delete it. !!!                                        *
  *---------------------------------------------------------------------------------------------*/
-fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) {
-
+fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) 
+{
 	//Return Value
     var vResult = "";
 
     //trace(">> fieldarray : " + fieldarray);
     //trace(">> contents : " + contents);
     //trace(">> generationattr : " + generationattr);
-
-	//Set Model Information as JSON Object
-    if(fieldarray)this.oFieldArray = JSON.parse(fieldarray);
-
-	//Set View Component Information as JSON Object
-    if(contents)this.oContents = JSON.parse(contents);
-
-	//Set Setting Information as JSON Object
-    if(generationattr)this.oGenerationAttr = JSON.parse(generationattr);
-
-	//Model Information Initialization
-	this.oContents.View.Model = [];
+	
+	//Set Generation Info
+	//this.oFieldArray : Model Information as JSON Object
+	//this.oContents : View Component Information as JSON Object
+	//this.oContents.View.Model : Model Information Initialization
+	//this.oGenerationAttr : Setting Information as JSON Object
+	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, false);
 
 	//Load Model Information Generation Function
 	fn_GetModel();
