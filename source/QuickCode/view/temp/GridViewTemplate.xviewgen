@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
   <ViewTemplate id="GridViewTemplate" viewtype="Asset" description=""/>
-  <Script version="1.0" type="xscript5.1"><![CDATA[								/**
+  <Script version="1.0" type="xscript5.1"><![CDATA[/**
 *  Grid View Template
 *  @FileName 	GridViewTemplate.xviewgen
 *  @Creator 	Kim Dae Won
@@ -550,39 +550,6 @@ fn_GetFieldUserAttributeList = function ()
 /************************************************************************************************
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
-/*---------------------------------------------------------------------------------------------*
- * Function     : fn_MakeUseFieldArray
- * Parameter    :
-					- fieldarray     : model field list
- * Return       :
- * Description  : Model Information Production Function
- *---------------------------------------------------------------------------------------------*/
-fn_MakeUseFieldArray = function(fieldarray)
-{
-	var bUseComp;
-	var oModel = this.oContents.View.Model;
-
-	if(fieldarray)this.oUseFieldArray = JSON.parse(fieldarray);
-
-	var arrFields = this.oUseFieldArray.fields;
-
-	for(var i=arrFields.length-1;i>=0;i--)
-	{
-		bUseComp = arrFields[i].usecomp;
-
-		if(bUseComp=="false")
-		{
-			oModel[oModel.length] =
-			{
-				"fieldid" : arrFields[i].id,
-				"Components" :[]
-			};
-			arrFields.splice(i, 1);
-		}
-	}
-	this.oUseFieldArray.fieldcount = arrFields.length;
-}
-
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetModel
  * Parameter    :
