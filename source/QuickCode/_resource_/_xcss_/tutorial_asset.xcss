@@ -60,6 +60,7 @@
 	background : #eeeeee;
 }
 
+/* TreeViewTemplate */
 /* 접고, 펼치기 버튼 */
 .Button.btn_WF_Treecollapse
 {
@@ -85,8 +86,56 @@
 {
 	background : url('imagerc::btn_WF_Treeexpand.png') no-repeat center center #fefefe;
 }
+
 .Button.btn_WF_Treeexpand[userstatus=pushed],.Button.btn_WF_Treeexpand[userstatus=selected]
 {
 	background : url('imagerc::btn_WF_Treeexpand.png') no-repeat center center #e9e9e9;
+}
+
+.Grid.grd_WF_treetest
+{
+	color : #101010;
+	-nexa-border : 1px solid #c7c7c7;
+}
+.Grid.grd_WF_treetest[status=focused]
+{
+	color : #ffffff;
+}
+.Grid.grd_WF_treetest .body .row .cell
+{
+	color : #101010;
+	-nexa-border : 0px none;
+}
+.Grid.grd_WF_treetest .body .row .cell[status=mouseover]
+{
+	background : #e7e7e7;
+	color : #101010;
+	-nexa-border : 0px none;
+}
+.Grid.grd_WF_treetest .body .row .cell[userstatus=selected],.Grid.grd_WF_treetest .body .row .cell[status=focused]
+{
+	background : #a1c4e8;
+	-nexa-border : 0px none;
+}
+
+.Grid .body .row .cell.cell_treetest,.Grid .body .row .cell.cell_treetest[status=focused],.Grid .body .row .cell.cell_treetest[userstatus=selected]
+{
+	background : #f7f7f7;
+	color : #101010;
+	font : bold 13px "Malgun gothic","Arial","Gulim";
+	-nexa-background-odd : #f7f7f7;
+	-nexa-padding : 0px 0px 0px 10px;
+}
+.Grid .body .row .cell.cell_treetest[status=mouseover]
+{
+	background : #a1c4e8;
+	color : #101010;
+	-nexa-padding : 0px 0px 0px 10px;
+}
+.Grid .body .row .cell.cell_treetest[status=disabled]
+{
+	background : #dddddd;
+	color : #aaaaaa;
+	-nexa-padding : 0px 0px 0px 10px;
 }
 ]]></XCSS>

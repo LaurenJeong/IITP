@@ -345,6 +345,7 @@ fn_GetModel = function()
 	var sTreeStartLevel		= this.oGenerationAttr.attributes.treestartlevel;			// 트리 시작 level값
 	var sBodyBandSize		= this.oGenerationAttr.attributes.bodybandsize;				// 트리 Row Size
 	var sCssclass			= this.oGenerationAttr.attributes.treecssclass;				// 그리드 cssclass
+	var sCellCssclass		= this.oGenerationAttr.attributes.cellcssclass;				// 트리 cell cssclass
 	
 	var bTreeUseCheckbox	= false;													// treeusecheckbox 사용여부
 	
@@ -419,11 +420,19 @@ fn_GetModel = function()
 	oGridAttr = {
 					  "id" : this.TREE_ID
 					, "left" : nLeft, "top" : nTop, "right" : nRight, "bottom" : nBottom
-					, "binddataset" : "viewdataset"
-					, "autofittype" : this.AUTOFIT_TYPE
-					, "treeinitstatus" : sTreeInitStatus + ",all"
-					, "treeusecheckbox" : bTreeUseCheckbox
+					, "binddataset"		: "viewdataset"
+					, "autofittype"		: this.AUTOFIT_TYPE
+					, "treeinitstatus"	: sTreeInitStatus + ",all"
+					, "treeusebutton"	: sTreeUseButton
+					, "treeuseimage"	: sTreeUseImage
+					, "treeuseline"		: sTreeUseLine
+					, "treeusecheckbox"	: bTreeUseCheckbox
 				};
+	
+	// 트리 그리드 cssclass 설정
+	if(this.lfn_IsNotNull(sCssclass)) {
+		oGridAttr["cssclass"]	= sCssclass;
+	}
 	
 	// 트리 Cell 속성 설정
 	oTreeCellAttr = {
@@ -451,6 +460,11 @@ fn_GetModel = function()
 	// Tree CheckBox값 설정
 	if(this.lfn_IsNotNull(oTreeChkField)) {
 		oTreeCellAttr["treecheck"] = "bind:" + oTreeChkField.id;
+	}
+	
+	// 트리 cell cssclass 설정
+	if(this.lfn_IsNotNull(sCellCssclass)) {
+		oTreeCellAttr["cssclass"]	= sCellCssclass;
 	}
 	
 	var oModel = this.oContents.View.Model;
