@@ -510,14 +510,25 @@ fn_MakeTreeStatusButton = function()
 	var sTreeStatusButton	= this.oGenerationAttr.attributes.treestatusbutton;			// Expand/Collapse 추가 버튼 사용여부 및 위치설정
 
 	var oModel = this.oContents.View.Model;
+	var sViewNm = this.oContents.View.attribute.id;
 	var oField;
 	var oComp;
 
 	var nCompWidth	= this.TREE_BUTTON_SIZE;
 	var nCompHeight = this.TREE_BUTTON_SIZE;
 	
-	var oBtnCollapse	= {"id" : this.TREE_BUTTON_COLLAPSE_ID, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : this.TREE_BUTTON_COLLAPSE_CSSCLASS};
-	var oBtnExpand		= {"id" : this.TREE_BUTTON_EXPAND_ID, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : this.TREE_BUTTON_EXPAND_CSSCLASS};
+	var oBtnCollapse	= {
+							  "id" : this.TREE_BUTTON_COLLAPSE_ID
+							, "width" : nCompWidth, "height" : nCompHeight
+							, "cssclass" : this.TREE_BUTTON_COLLAPSE_CSSCLASS
+							, "onclick" : sViewNm + ".form." + "lfn_TreeView_btnTreecollapse_onclick"
+						};
+	var oBtnExpand		= {
+							  "id" : this.TREE_BUTTON_EXPAND_ID
+							, "width" : nCompWidth, "height" : nCompHeight
+							, "cssclass" : this.TREE_BUTTON_EXPAND_CSSCLASS
+							, "onclick" : sViewNm + ".form." + "lfn_TreeView_btnTreeexpand_onclick"
+						};
 	
 	// sTreeStatusButton에 따라 위치설정
 	if (sTreeStatusButton == "lefttop")
@@ -638,10 +649,39 @@ fn_GetObjects = function()
  *---------------------------------------------------------------------------------------------*/
 fn_GetScript = function()
 {
-
 	//Initialize Script Information
     var oScript = {};
-
+    var sScript = "";
+	
+	var sTreeStatusButton	= this.oGenerationAttr.attributes.treestatusbutton;			// Expand/Collapse 추가 버튼 사용여부 및 위치설정
+	
+	if (sTreeStatusButton != "none")
+	{
+		sScript += "this.lfn_TreeView_btnTreecollapse_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)";
+		sScript += "{";
+		sScript += "	var objForm = obj.parent;";
+		sScript += "	var objGrid = objForm.components['" + this.TREE_ID + "'];";
+		sScript += "	objGrid.set_treeinitstatus('collapse,all');";
+		sScript += "};";
+		sScript += "this.lfn_TreeView_btnTreeexpand_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)";
+		sScript += "{";
+		sScript += "	var objForm = obj.parent;";
+		sScript += "	var objGrid = objForm.components['" + this.TREE_ID + "'];";
+		sScript += "	objGrid.set_treeinitstatus('expand,all');";
+		sScript += "};";
+	}
+	
+	if (this.lfn_IsNotNull(sScript))
+	{
+		sScript = nexacro.replaceAll(sScript,"\t","");
+		
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sScript
+		}
+	};
 	//Return Script Information
     return oScript;
 };]]></Script>
