@@ -34,25 +34,31 @@ this.FIELD_HEIGHT			= "40px";
 this.LABEL_WIDTH			= 100;
 
 //Component Default Type
-this.COMP_TYPE     		  	= "edit";
+this.COMP_TYPE				= "edit";
 
 //Label Default Type
 this.LABEL_TYPE				= "static";
 
+//Background Default Type
+this.COMP_BG_TYPE			= "static";
+
 //Component Padding
-this.COMP_PADDING_LEFT		= 5;
-this.COMP_PADDING_TOP		= 5;
-this.COMP_PADDING_RIGHT		= 5;
-this.COMP_PADDING_BOTTOM	= 5;
+this.COMP_PADDING_LEFT     = 5;
+this.COMP_PADDING_TOP      = 5;
+this.COMP_PADDING_RIGHT    = 5;
+this.COMP_PADDING_BOTTOM   = 5;
 
 //Gap Between Components (Left and Right)
-this.COMP_SPACE				= 5;
+this.COMP_SPACE     		  = 5;
 
 //Gap Between Components (Top and Bottom)
-this.LINE_SPACE				= 5;
+this.LINE_SPACE     		  = 5;
 
 //Component Default CSS Class
 this.COMP_CSSCLASS		  = "";
+
+//Background Component Default CSS Class
+this.COMP_BG_CSSCLASS	  = "sta_fieldbox";
 
 //Label Default CSS Class
 this.LABEL_CSSCLASS		  = "sta_labelbox";
@@ -61,6 +67,7 @@ this.LABEL_CSSCLASS		  = "sta_labelbox";
 this.USE_COMP 			  = "true";
 
 //////////////////////////////Constant Setting END ////////////////////////////////////////////////////
+
 /*============================================================================================*
 * Parameter Structure Example
 
@@ -343,14 +350,15 @@ this.USE_COMP 			  = "true";
  *---------------------------------------------------------------------------------------------*/
 fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 {
+
 	//Return Value
     var vResult = "";
 
     //trace(">> fieldarray : " + fieldarray);
 	//trace(">> contents : " + contents);
     //trace(">> generationattr : " + generationattr);
-	
-	//Make Generation Info
+
+    //Make Generation Info
 	//this.oFieldArray : Model Information as JSON Object
 	//this.oContents : View Component Information as JSON Object
 	//this.oContents.View.Model : Model Information Initialization
@@ -428,6 +436,12 @@ fn_GetViewAttributeList = function()
                                 "defaultvalue": "top",
 								"enumlist" : ["top", "middle", "bottom"],
                                 "description": "Set the Field Vertical Alignment."
+                            },
+							{
+                                "id": "usefieldbox",
+                                "edittype": "Boolean",
+                                "defaultvalue": "true",
+                                "description": "Field영역에 배경 Box를 그릴지 여부"
                             },
 							{
                                 "id": "format",
@@ -522,8 +536,7 @@ fn_GetFieldUserAttributeList = function ()
 
  	sFieldAttr = JSON.stringify(oFieldAttr, null, "\t");
     return sFieldAttr;
-};
-
+}
 /************************************************************************************************
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
@@ -533,8 +546,8 @@ fn_GetFieldUserAttributeList = function ()
  * Return       :
  * Description  : Model Information Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_GetModel = function()
-{
+fn_GetModel = function(){
+
 	//Import View Component Width Value
 	var nViewCompWidth = this.oContents.View.referenceinfo.realwidth;
 
@@ -573,7 +586,7 @@ fn_GetModel = function()
 		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
 
 		//Load Component Production Function
-		fn_MakeComp(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false, true);
+		fn_MakeComp(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
 	}
 };
 
@@ -862,7 +875,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 				nEndX = nLeft + nFieldWidth;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx+1, nColIdx, (this.COMP_PADDING_LEFT+this.COMP_PADDING_RIGHT), this.COMP_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx+1, nColIdx, (this.COMP_PADDING_TOP+this.COMP_PADDING_BOTTOM), this.LINE_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
@@ -915,7 +928,9 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 			"rowidx" : nRowIdx,
 			"colidx" : nColIdx,
 			"alignx" : 0,
-			"aligny" : 0
+			"aligny" : 0,
+			"colsize" : nColSize,
+			"rowsize" : nRowSize
 		};
 
 		//Set the Left/Top Location Value of the next Field
@@ -1021,7 +1036,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		nRealColSize = nColSize - nLabelWidth;
 
 		//Evaluate Width/Height that this field will be expressed on
-		nFieldWidth = this.lfn_GetRealSize(oField.fieldwidth, 0 , nRealColSize, this.FIELD_WIDTH, 0, 0);
+		nFieldWidth = this.lfn_GetRealSize(oField.fieldwidth, 0, nRealColSize, this.FIELD_WIDTH, 0, 0);
 		nFieldHeight = this.lfn_GetRealSize(oField.fieldheight, 0, nRowSize, this.FIELD_HEIGHT, 0, 0);
 
 		//If the Component Production Direction is Horizontal
@@ -1160,7 +1175,9 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 			"rowidx" : nRowIdx,
 			"colidx" : nColIdx,
 			"alignx" : 0,
-			"aligny" : 0
+			"aligny" : 0,
+			"colsize": nColSize,
+			"rowsize" : nRowSize
 		};
 
 		//Set the Left/Top Location Value of the next Field
@@ -1244,13 +1261,10 @@ fn_MakeCompByLayout = function(oLayout)
 		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef);
 		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef);
 
-		if(arrRowSize.length==nRow + nRowSpan)
-		{
-			fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, true);
-		}else
-		{
-			fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, false);
-		}
+		if(nCol==0)bStartCol = true;
+		else bStartCol = false;
+
+		fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, nRow, bStartCol);
 	}
 }
 
@@ -1264,16 +1278,18 @@ fn_MakeCompByLayout = function(oLayout)
 				- sDirection : Component Production Direction
 				- arrFieldPosition: Object Array with Field Location Information
 				- bUseLayout : Whether Layout was used
-                - bLastRow : Whether it is the last Row
+                - nLayoutRow : 레이아웃 기준 현재 Row Index
+				- bStartCol : 레이아웃 기준 첫번째 Col Index인지 여부
  * Return       :
  * Description  : Component Tag Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, bLastRow)
+fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, nLayoutRow, bStartCol)
 {
 	var nLabelLeft, nLabelTop, nLabelWidth, nLabelHeight;
-	var nCompLeft, nCompTop, nCompWidth, nCompHeight;
+	var nCompLeft, nCompTop, nCompWidth, nCompHeight, nCompBgWidth;
 	var nPosLeft, nPosTop, nPosWidth, nPosHeight;
 	var nLabelAreaWidth;
+	var nColSize, nRowSize;
 
 	var oAlignPos;
 	var sFieldId;
@@ -1281,16 +1297,22 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var oFieldPosition;
 	var nRowIdx, nColIdx;
 	var nAlignX, nAlignY;
+	var nCheckIdx;
 
 	var oModel = this.oContents.View.Model;
 	var sCompId;
 	var oCompClass;
 	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
+	var oCompBgClass		= this.lfn_GetCompClass(this.COMP_BG_TYPE);
 	var sCompCssClass;
 	var sLabelCssClass;
+	var sFieldBgCssClass = this.COMP_BG_CSSCLASS;
+	
+	// FieldBox 사용여부
+	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
 
 	if(!bUseLayout)bUseLayout = false;
-
+	
 	//If using Layout
 	if(bUseLayout==true)
 	{
@@ -1331,11 +1353,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				nLabelLeft = nBaseLeft + nPosLeft;
 				nLabelTop = nBaseTop + nPosTop;
 				nLabelWidth = nLabelAreaWidth;
-
-				//As the gap between the top and bottom of the label must overlap
-				//Add 1px if it is not the last label
-				if(bLastRow==false)nLabelHeight = nexacro.toNumber(nBaseHeight)+1;
-				else nLabelHeight = nexacro.toNumber(nBaseHeight);
+				nLabelHeight = nexacro.toNumber(nBaseHeight);
 			}
 
 			//Component Left Coordinate = Cell Left + Field Left + Label Area Width + HAlign Starting Coordinate
@@ -1395,21 +1413,45 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				}
 			}
 
+			nLabelTop = nLabelTop - (nLayoutRow * 1);
+			nCompTop = nCompTop - (nLayoutRow * 1);
+
 			oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
 
 			//If it is the first label and the label width is no 0, add label tag
-			if(i==0&&nLabelWidth>0)
+			if(i==0)
 			{
-				sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
-				oComp = {
-							"tag" : oLabelClass.classId,
-							"attribute" :
-							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
-								, "text" : oField.label, "cssclass" : sLabelCssClass
-							}
-						};
-				oModel[oModel.length-1].Components.push(oComp);
+
+				if(bStartCol==true && sUseFieldBox == "true")
+				{
+					nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
+
+					//필드 배경 Static 추가
+					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+					oComp = {
+								"tag" : oCompBgClass.classId,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : 0, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+
+				if(nLabelWidth>0)
+				{
+					sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
+					oComp = {
+								"tag" : oLabelClass.classId,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
+									, "text" : oField.label, "cssclass" : sLabelCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
 			}
 
 			//Add Component Tag
@@ -1436,7 +1478,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			else if(oField.comptype=="static")
 			{
 				oComp.attribute.text = oField.label;
-			}else
+			}
+
+			if(oField.comptype!="button")
 			{
 				//In order to process the Bind, add Id, Field Id to BindItems Array
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
@@ -1467,6 +1511,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			//Import Row/Col Index where the Field will be located
 			nRowIdx = oFieldPosition.rowidx;
 			nColIdx = oFieldPosition.colidx;
+
+			nRowSize = oFieldPosition.rowsize;
+			nColSize = oFieldPosition.colsize;
 
 			//Import Align Location Information of the Field
 			nAlignX = oFieldPosition.alignx;
@@ -1515,23 +1562,47 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				}
 			}
 
-			if(sDirection=="horizontal")
-			{
-				if(arrFields[arrFields.length-1].rowidx!=nRowIdx)nLabelHeight = nLabelHeight + 1;
-			}else
-			{
-				if(!(i==arrFields.length-1||arrFields[i+1].colidx==0))nLabelHeight = nLabelHeight + 1;
-			}
-
 			nCompLeft = nLabelLeft + nLabelWidth + this.COMP_PADDING_LEFT;
 			nCompTop = nBaseTop + nPosTop + nAlignY + this.COMP_PADDING_TOP;
 			nCompWidth = nPosWidth - this.COMP_PADDING_LEFT - this.COMP_PADDING_RIGHT;
 			nCompHeight = nPosHeight - this.COMP_PADDING_TOP - this.COMP_PADDING_BOTTOM;
-
-			sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
+			
+			if(sDirection=="horizontal")
+			{
+				nLabelTop = nLabelTop - (nRowIdx * 1);
+				nCompTop = nCompTop - (nRowIdx * 1);
+				nCheckIdx = nColIdx;
+			}
+			else
+			{
+				nLabelTop = nLabelTop - (nColIdx * 1);
+				nCompTop = nCompTop - (nColIdx * 1);
+				nCheckIdx = nRowIdx;
+			}
+			
 			oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
+			
+			//필드 배경 Static 추가
+			if(nCheckIdx==0 && sUseFieldBox == "true")
+			{
+				nCompBgWidth = nColSize - nLabelLeft;
+
+				sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+				oComp = {
+							"tag" : oCompBgClass.classId,
+							"attribute" :
+							{
+								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+								,"cssclass" : sFieldBgCssClass
+							}
+						};
+				oModel[oModel.length-1].Components.push(oComp);
+			}
+			
+			//라벨 Static 추가
 			if(nLabelWidth>0)
 			{
+				sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
 				oComp = {
 							"tag" : oLabelClass.classId,
 							"attribute" :
@@ -1542,7 +1613,8 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 						};
 				oModel[oModel.length-1].Components.push(oComp);
 			}
-
+			
+			// Field 추가
 			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
 			oComp =	{
 						"tag" : oCompClass.classId,
@@ -1551,6 +1623,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 						}
 					};
+
 			if(oField.comptype=="button")
 			{
 				oComp.attribute.text = oField.label;
@@ -1563,10 +1636,13 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			else if(oField.comptype=="static")
 			{
 				oComp.attribute.text = oField.label;
-			}else
+			}
+
+			if(oField.comptype!="button")
 			{
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
 			}
+			
 			oModel[oModel.length-1].Components.push(oComp)
 		}
 	}
@@ -1592,7 +1668,7 @@ fn_GetInitValue = function()
  *---------------------------------------------------------------------------------------------*/
 fn_GetObjects = function()
 {
-    //Initialize Object
+	//Initialize Object
     var oObjects = [];
 
     var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
