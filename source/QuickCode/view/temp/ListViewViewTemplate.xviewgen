@@ -64,17 +64,22 @@ this.COMP_SPACE				= 5;
 //Gap Between Components (Top and Bottom)
 this.LINE_SPACE				= 5;
 
-//Component Default CSS Class
-this.FIELD_CELL_CSSCLASS	= "";
+//Component Cell Default CSS Class
+this.FIELD_CSSCLASS			= "";
 
-//Label Default CSS Class
+//Label Cell Default CSS Class
 this.LABEL_CSSCLASS			= "";
+
+//Background Cell Default CSS Class
+this.FIELD_BG_CSSCLASS		= "";
+
+//Background Component Use Type
+this.FIELD_COMP_BG			= "true";
 
 //Component Use Type
 this.USE_COMP				= "true";
 
 //--------------------------------------------------------------------------------------------------------
-
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -205,19 +210,12 @@ fn_GetViewAttributeList = function()
 												+ "\n" + " - horizontal : 왼쪽에서 오른쪽으로 생성"
 												+ "\n" + " - vertical : 위에서 아래로 생성"
                             },
+
 							{
-                                "id": "halign",
-                                "edittype": "Enum",
-                                "defaultvalue": "left",
-								"enumlist" : ["left", "center", "right"],
-                                "description": "Cell 생성 시 수평 정렬 방식을 설정"
-                            },
-							{
-                                "id": "valign",
-                                "edittype": "Enum",
-                                "defaultvalue": "top",
-								"enumlist" : ["top", "middle", "bottom"],
-                                "description": "Cell 생성시 수직 정렬 방식을 설정하는 속성"
+                                "id": "usefieldbox",
+                                "edittype": "Boolean",
+                                "defaultvalue": this.FIELD_COMP_BG,
+                                "description": "Field영역에 배경 Box를 그릴지 여부"
                             },
 							{
                                 "id": "bandexpandtype",
@@ -241,14 +239,14 @@ fn_GetViewAttributeList = function()
                                 "edittype": "layout",
 								"defaultvalue": "",
 								"description": "Body Band Layout을 설정"
-												+ "\n" + "(Layout을 설정할 경우 band, direction, halign, valign 속성은 무시됩니다.)"
+												+ "\n" + "(Layout을 설정할 경우 band, direction 속성은 무시됩니다.)"
                             },
 							{
                                 "id": "detailformat",
                                 "edittype": "layout",
 								"defaultvalue": "",
 								"description": "Detail Band Layout을 설정"
-												+ "\n" + "(Layout을 설정할 경우 band, direction, halign, valign 속성은 무시됩니다.)"
+												+ "\n" + "(Layout을 설정할 경우 band, direction 속성은 무시됩니다.)"
                             }
                         ]
                   };
@@ -328,7 +326,7 @@ fn_GetFieldUserAttributeList = function ()
 							{
                                 "id": "fieldcssclass",
                                 "edittype": "String",
-								"defaultvalue": this.CELL_CSSCLASS,
+								"defaultvalue": this.FIELD_CSSCLASS,
                                 "description": "Field CSS Class"
                             },
 							{
@@ -369,8 +367,12 @@ fn_GetModel = function()
 	//Import View Component Height Value
 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
 	
-	// 
+	// Detail 밴드가 표시되는 방법을  지정
 	var sBandExpandType = this.oGenerationAttr.attributes.bandexpandtype;
+	
+	// Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부
+	var sExpandBarType	= this.oGenerationAttr.attributes.expandbartype;
+	var bExpandBar		= sExpandBarType == "true" ? true : false;
 	
 	// Field Array
 	var arrField = new Array();
@@ -406,11 +408,11 @@ fn_GetModel = function()
 	var oBandDetail = {};
 	
 	// Body Band
-	oBandBody = fn_GetBands("body", arrFieldUse, arrFieldBody, this.oGenerationAttr.attributes.bodyformat, nViewCompWidth, nViewCompHeight);
+	oBandBody = fn_GetBands("body", arrFieldUse, arrFieldBody, this.oGenerationAttr.attributes.bodyformat, nViewCompWidth, nViewCompHeight, bExpandBar);
 	if (this.lfn_IsNotNull(oBandBody))		arrFormat.push(oBandBody);
 	
 	// Detail Band
-	oBandDetail = fn_GetBands("detail", arrFieldUse, arrFieldDetail, this.oGenerationAttr.attributes.detailformat, nViewCompWidth, nViewCompHeight);
+	oBandDetail = fn_GetBands("detail", arrFieldUse, arrFieldDetail, this.oGenerationAttr.attributes.detailformat, nViewCompWidth, nViewCompHeight, false);
 	if (this.lfn_IsNotNull(oBandDetail))		arrFormat.push(oBandDetail);
 	
 	//Add Grip Component
@@ -457,19 +459,24 @@ fn_GetModel = function()
 				- oLayout : Layout Setting Information
 				- nViewCompWidth : View Component Real Width
 				- nViewCompHeight : View Component Real Height
+				- bExpandBar : ExpandBar 표시여부
+				- 
  * Return       : Band Info Object
  * Description  : Band Information Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth, nViewCompHeight)
+fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth, nViewCompHeight, bExpandBar)
 {
-	var sExpandBarType	= this.oGenerationAttr.attributes.expandbartype;
-	var bExpandBar		= (sBand == "body" && sExpandBarType == "true") ? true : false;
-	
 	var arrBandCells = new Array();
 	var oBand = {};
 	
 	var nBandHeight = 0;
-	var oLastCell;
+	var nCellBottom = 0;
+	var oCell;
+	
+	if (bExpandBar)
+	{
+		nViewCompWidth = nViewCompWidth - this.EXPAND_BAR_WIDTH - this.COMP_SPACE;
+	}
 	
 	//If format properties are set up, create components based on layout rules
 	if(oLayout)
@@ -488,16 +495,16 @@ fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth
 		var sDirection = this.oGenerationAttr.attributes.direction;
 
 		//Import Component Horizontal Alignment Information
-		var sHAlign = this.oGenerationAttr.attributes.halign;
+		var sHAlign = "left";
 
 		//Import Component Vertical Alignment Information
-		var sVAlign = this.oGenerationAttr.attributes.valign;
+		var sVAlign = "top";
 
 		//Load Component Location Calculation Information
 		var arrFieldPosition = fn_CalcField(arrFieldBand, sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
 		
 		//Load Component Production Function
-		arrBandCells = fn_GetBandCell(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false, true);
+		arrBandCells = fn_GetBandCell(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
 	}
 	
 	// Band 객체값 셋팅
@@ -513,10 +520,15 @@ fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth
 			"Band" : arrBandCells
 		};
 		
-		// 마지막 Cell 기준으로 Band 높이 설정
+		// 가장 아래 Cell 기준으로 Band 높이 설정
 		if (arrBandCells.length > 0) {
-			oLastCell = arrBandCells[arrBandCells.length -1];
-			nBandHeight = nexacro.toNumber(oLastCell.attribute.top,0) + nexacro.toNumber(oLastCell.attribute.height,0) + this.LINE_SPACE;
+			for(var i = 0; i < arrBandCells.length; i++)
+			{
+				oCell = arrBandCells[i];
+				nCellBottom = nexacro.toNumber(oCell.attribute.top,0) + nexacro.toNumber(oCell.attribute.height,0);
+			
+				if (nBandHeight < nCellBottom)		nBandHeight = nCellBottom;
+			}
 			
 			oBand.attribute.height = nBandHeight;
 		}
@@ -819,7 +831,7 @@ fn_CalcFieldByLayout = function(arrFieldList, sDirection, sVAlign, sHAlign, nCol
 				nEndX = nLeft + nFieldWidth;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx+1, nColIdx, (this.COMP_PADDING_LEFT+this.COMP_PADDING_RIGHT), this.COMP_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx+1, nColIdx, (this.COMP_PADDING_TOP+this.COMP_PADDING_BOTTOM), this.LINE_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
@@ -872,7 +884,9 @@ fn_CalcFieldByLayout = function(arrFieldList, sDirection, sVAlign, sHAlign, nCol
 			"rowidx" : nRowIdx,
 			"colidx" : nColIdx,
 			"alignx" : 0,
-			"aligny" : 0
+			"aligny" : 0,
+			"colsize" : nColSize,
+			"rowsize" : nRowSize
 		};
 
 		//Set the Left/Top Location Value of the next Field
@@ -1116,7 +1130,9 @@ fn_CalcField = function(arrFieldList, sDirection, sVAlign, sHAlign, nColSize, nR
 			"rowidx" : nRowIdx,
 			"colidx" : nColIdx,
 			"alignx" : 0,
-			"aligny" : 0
+			"aligny" : 0,
+			"colsize": nColSize,
+			"rowsize" : nRowSize
 		};
 
 		//Set the Left/Top Location Value of the next Field
@@ -1179,6 +1195,7 @@ fn_GetBandCellByLayout = function(arrFieldList, oLayout)
 	var sDirection, sVAlign, sHAlign;
 	var nWidth;
 	var nHeight;
+	var bStartCol = true;
 
 	var oCell;
 	var oStatic;
@@ -1202,22 +1219,16 @@ fn_GetBandCellByLayout = function(arrFieldList, oLayout)
 		//Import the Left/Top Location Value of the current Cell
 		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef);
 		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef);
+		
+		if(nCol==0)bStartCol = true;
+		else bStartCol = false;
 
-		if(arrRowSize.length==nRow + nRowSpan)
-		{
-			arrCellRet = fn_GetBandCell(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, true);
-		}
-		else
-		{
-			arrCellRet = fn_GetBandCell(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, false);
-		}
+		arrCellRet = fn_GetBandCell(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, nRow, bStartCol);
 		
 		if (arrCellRet.length > 0) {
 			arrBandCells = arrBandCells.concat(arrCellRet);
 		}
 	}
-	
-	this.lfn_Log(arrBandCells.length);
 	
 	return arrBandCells;
 }
@@ -1232,18 +1243,20 @@ fn_GetBandCellByLayout = function(arrFieldList, oLayout)
 				- sDirection : Component Production Direction
 				- arrFieldPosition: Object Array with Field Location Information
 				- bUseLayout : Whether Layout was used
-                - bLastRow : Whether it is the last Row
+                - nLayoutRow : 레이아웃 기준 현재 Row Index
+				- bStartCol : 레이아웃 기준 첫번째 Col Index인지 여부
  * Return       :
  * Description  : Component Tag Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, bLastRow)
+fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, nLayoutRow, bStartCol)
 {
 	var arrBandCells = new Array();
 	
 	var nLabelLeft, nLabelTop, nLabelWidth, nLabelHeight;
-	var nCompLeft, nCompTop, nCompWidth, nCompHeight;
+	var nCompLeft, nCompTop, nCompWidth, nCompHeight, nCompBgWidth;
 	var nPosLeft, nPosTop, nPosWidth, nPosHeight;
 	var nLabelAreaWidth;
+	var nColSize, nRowSize;
 
 	var oAlignPos;
 	var sFieldId;
@@ -1251,6 +1264,7 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 	var oFieldPosition;
 	var nRowIdx, nColIdx;
 	var nAlignX, nAlignY;
+	var nCheckIdx;
 
 	var sCompId;
 	var sCellClassNm = "Cell";
@@ -1259,6 +1273,10 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 	var sEditType;
 	var sFieldCssClass;
 	var sLabelCssClass;
+	var sFieldBgCssClass = this.FIELD_BG_CSSCLASS;
+	
+	// FieldBox 사용여부
+	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
 
 	if(!bUseLayout)bUseLayout = false;
 
@@ -1305,11 +1323,7 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 				nLabelLeft = nBaseLeft + nPosLeft;
 				nLabelTop = nBaseTop + nPosTop;
 				nLabelWidth = nLabelAreaWidth;
-
-				//As the gap between the top and bottom of the label must overlap
-				//Add 1px if it is not the last label
-				if(bLastRow==false)nLabelHeight = nexacro.toNumber(nBaseHeight)+1;
-				else nLabelHeight = nexacro.toNumber(nBaseHeight);
+				nLabelHeight = nexacro.toNumber(nBaseHeight);
 			}
 
 			//Component Left Coordinate = Cell Left + Field Left + Label Area Width + HAlign Starting Coordinate
@@ -1368,22 +1382,45 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 					nCompTop = nCompTop + this.COMP_PADDING_TOP;
 				}
 			}
+			
+			nLabelTop = nLabelTop - (nLayoutRow * 1);
+			nCompTop = nCompTop - (nLayoutRow * 1);
 
 			//If it is the first label and the label width is no 0, add label tag
-			if(i==0&&nLabelWidth>0)
+			if(i==0)
 			{
-				sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Label" + "_" + sFieldId );
-				oComp = {
-							"tag" : sCellClassNm,
-							"attribute" :
-							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
-								, "text" : oField.label, "cssclass" : sLabelCssClass
-							}
-						};
-				arrBandCells.push(oComp);
-			}
+				//필드 배경 Cell 추가
+				if(bStartCol==true && sUseFieldBox == "true")
+				{
+					nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
 
+					sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
+					oComp = {
+								"tag" : sCellClassNm,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : 0, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					arrBandCells.push(oComp);
+				}
+				
+				if(nLabelWidth>0)
+				{
+					sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Label" + "_" + sFieldId );
+					oComp = {
+								"tag" : sCellClassNm,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
+									, "text" : oField.label, "cssclass" : sLabelCssClass
+								}
+							};
+					arrBandCells.push(oComp);
+				}
+			}
+			
 			//Add Component Tag
 			sCompId = this.lfn_GetCompId(sCellClassNm + "_" + sFieldId);
 			sLabel = "bind:"+sFieldId;
@@ -1430,6 +1467,9 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 			//Import Row/Col Index where the Field will be located
 			nRowIdx = oFieldPosition.rowidx;
 			nColIdx = oFieldPosition.colidx;
+			
+			nRowSize = oFieldPosition.rowsize;
+			nColSize = oFieldPosition.colsize;
 
 			//Import Align Location Information of the Field
 			nAlignX = oFieldPosition.alignx;
@@ -1440,7 +1480,7 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 			nPosTop = nexacro.toNumber(oFieldPosition.top);
 			nPosWidth = nexacro.toNumber(oFieldPosition.width);
 			nPosHeight = nexacro.toNumber(oFieldPosition.height);
-
+			
 			//Import Field Label Width Information
 			nLabelAreaWidth = nexacro.toNumber(oField.labelwidth);
 
@@ -1478,19 +1518,42 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 				}
 			}
 
-			if(sDirection=="horizontal")
-			{
-				if(arrFields[arrFields.length-1].rowidx!=nRowIdx)nLabelHeight = nLabelHeight + 1;
-			}else
-			{
-				if(!(i==arrFields.length-1||arrFields[i+1].colidx==0))nLabelHeight = nLabelHeight + 1;
-			}
-
 			nCompLeft = nLabelLeft + nLabelWidth + this.COMP_PADDING_LEFT;
 			nCompTop = nBaseTop + nPosTop + nAlignY + this.COMP_PADDING_TOP;
 			nCompWidth = nPosWidth - this.COMP_PADDING_LEFT - this.COMP_PADDING_RIGHT;
 			nCompHeight = nPosHeight - this.COMP_PADDING_TOP - this.COMP_PADDING_BOTTOM;
+			
+			if(sDirection=="horizontal")
+			{
+				nLabelTop = nLabelTop - (nRowIdx * 1);
+				nCompTop = nCompTop - (nRowIdx * 1);
+				nCheckIdx = nColIdx;
+			}
+			else
+			{
+				nLabelTop = nLabelTop - (nColIdx * 1);
+				nCompTop = nCompTop - (nColIdx * 1);
+				nCheckIdx = nRowIdx;
+			}
+			
+			//필드 배경 Cell 추가
+			if(nCheckIdx==0 && sUseFieldBox == "true")
+			{
+				nCompBgWidth = nColSize - nLabelLeft;
 
+				sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
+				oComp = {
+							"tag" : sCellClassNm,
+							"attribute" :
+							{
+								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+								,"cssclass" : sFieldBgCssClass
+							}
+						};
+				arrBandCells.push(oComp);
+			}
+			
+			// 라벨 Cell 추가
 			if(nLabelWidth>0)
 			{
 				sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Label" + "_" + sFieldId);
@@ -1505,6 +1568,7 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 				arrBandCells.push(oComp);
 			}
 			
+			// Field Cell 추가
 			sCompId = this.lfn_GetCompId(sCellClassNm + "_" + sFieldId);
 			sLabel = "bind:"+sFieldId;
 			oComp =	{
@@ -1515,7 +1579,8 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 							, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sFieldCssClass
 						}
 					};
-					
+			
+			
 			if(sDisplayType=="buttoncontrol")
 			{
 				oComp.attribute.text = oField.label;
