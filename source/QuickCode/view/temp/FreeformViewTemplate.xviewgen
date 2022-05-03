@@ -63,6 +63,9 @@ this.COMP_BG_CSSCLASS	  = "sta_fieldbox";
 //Label Default CSS Class
 this.LABEL_CSSCLASS		  = "sta_labelbox";
 
+//Background Component Use Type
+this.USE_COMP_BG		= "true";
+
 //Component Use Type
 this.USE_COMP 			  = "true";
 
@@ -440,7 +443,7 @@ fn_GetViewAttributeList = function()
 							{
                                 "id": "usefieldbox",
                                 "edittype": "Boolean",
-                                "defaultvalue": "true",
+                                "defaultvalue": this.USE_COMP_BG,
                                 "description": "Field영역에 배경 Box를 그릴지 여부"
                             },
 							{
