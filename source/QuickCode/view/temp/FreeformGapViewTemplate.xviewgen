@@ -3,10 +3,10 @@
   <ViewTemplate id="dataViewTemplate" viewtype="Asset" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
 *  Freeform View Template
-*  @FileName 	FreeformFieldBoxGapViewTemplate.xviewgen
+*  @FileName 	FreeformGapViewTemplate.xviewgen
 *  @Creator 	Kim Dae Won
 *  @CreateDate 	2021.04.29
-*  @Desction    상세화면(Field 배경추가, 여백기능 추가) 생성 템플릿
+*  @Desction    상세화면(여백기능 추가) 생성 템플릿
 *  @version		1.0.0.0
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
@@ -59,6 +59,9 @@ this.COMP_BG_CSSCLASS	= "sta_fieldbox";
 
 //레이블 디폴트 CSS Class
 this.LABEL_CSSCLASS		= "sta_labelbox";
+
+//Background Component Use Type
+this.USE_COMP_BG		= "true";
 
 //컴포넌트 사용여부
 this.USE_COMP			= "true";
@@ -431,6 +434,12 @@ fn_GetViewAttributeList = function()
                                 "defaultvalue": "top",
 								"enumlist" : ["top", "middle", "bottom"],
                                 "description": "필드의 수직 정렬방식을 설정합니다."
+                            },
+							{
+                                "id": "usefieldbox",
+                                "edittype": "Boolean",
+                                "defaultvalue": this.USE_COMP_BG,
+                                "description": "Field영역에 배경 Box를 그릴지 여부"
                             },
 							{
                                 "id": "format",
@@ -1109,6 +1118,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var sLabelCssClass;
 	var sLabelText;
 	var sFieldBgCssClass = this.COMP_BG_CSSCLASS;
+	
+	// FieldBox 사용여부
+	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
 
 	if(!bUseLayout)bUseLayout = false;
 
@@ -1169,7 +1181,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			if(i==0)
 			{
 
-				if(bStartCol==true)
+				if(bStartCol==true && sUseFieldBox == "true")
 				{
 					nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
 					
@@ -1209,6 +1221,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 						}
 					};
+					
 			if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
 			{
 				oComp.attribute.text = oField.label;
@@ -1276,7 +1289,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 			oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
 
-			if(nColIdx==0)
+			if(nColIdx==0 && sUseFieldBox == "true")
 			{
 				nCompBgWidth = nColSize;
 				
@@ -1315,6 +1328,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 						}
 					};
+					
 			if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
 			{
 				oComp.attribute.text = oField.label;
