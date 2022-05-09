@@ -22,6 +22,9 @@ include "view_lib::common.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
+//ListView 영역 top 위치(title영역에 따라 위치 변경됨)
+this.VIEW_TOP = 0;
+
 // ListView ID
 this.LISTVIEW_ID			= "livList";
 
@@ -201,6 +204,8 @@ fn_GetViewAttributeList = function()
     var sViewAttr = "";
     var oViewAttr = {
                         "attributes": [
+							this.oAttrTitleText,					// Title Text
+							this.oAttrTitleUseTotolCount,			// 전체건수 표시여부
                             {
                                 "id": "direction",
                                 "edittype": "Enum",
@@ -367,12 +372,27 @@ fn_GetModel = function()
 	//Import View Component Height Value
 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
 	
+	// Title 영역
+	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
+	var sUseTotalCount		= this.oGenerationAttr.attributes.usetotalcount;		// 전체건수 Static 생성
+	var sUseExpandButton	= "none";												// expand 토글버튼 생성
+	
+	this.VIEW_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+	
 	// Detail 밴드가 표시되는 방법을  지정
 	var sBandExpandType = this.oGenerationAttr.attributes.bandexpandtype;
 	
 	// Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부
 	var sExpandBarType	= this.oGenerationAttr.attributes.expandbartype;
 	var bExpandBar		= sExpandBarType == "true" ? true : false;
+	
+	// Grid 위치
+	var nTop	= this.VIEW_TOP;
+	var nBottom	= 0;
+	var nLeft	= 0;
+	var nRight	= 0;
+	var nHeight	= nViewCompHeight - nTop;
+	var nWidth	= nViewCompWidth;
 	
 	// Field Array
 	var arrField = new Array();
@@ -408,11 +428,11 @@ fn_GetModel = function()
 	var oBandDetail = {};
 	
 	// Body Band
-	oBandBody = fn_GetBands("body", arrFieldUse, arrFieldBody, this.oGenerationAttr.attributes.bodyformat, nViewCompWidth, nViewCompHeight, bExpandBar);
+	oBandBody = fn_GetBands("body", arrFieldUse, arrFieldBody, this.oGenerationAttr.attributes.bodyformat, nWidth, nHeight, bExpandBar);
 	if (this.lfn_IsNotNull(oBandBody))		arrFormat.push(oBandBody);
 	
 	// Detail Band
-	oBandDetail = fn_GetBands("detail", arrFieldUse, arrFieldDetail, this.oGenerationAttr.attributes.detailformat, nViewCompWidth, nViewCompHeight, false);
+	oBandDetail = fn_GetBands("detail", arrFieldUse, arrFieldDetail, this.oGenerationAttr.attributes.detailformat, nWidth, nHeight, false);
 	if (this.lfn_IsNotNull(oBandDetail))		arrFormat.push(oBandDetail);
 	
 	//Add Grip Component
@@ -425,7 +445,7 @@ fn_GetModel = function()
                     "tag" : "ListView",
                     "attribute" :
                     {
-                        "id" : this.LISTVIEW_ID, "left" : 0,    "top" : 0, "right" : 0, "bottom" : 0, "binddataset" : "viewdataset"
+                        "id" : this.LISTVIEW_ID, "left" : nLeft,    "top" : nTop, "right" : nRight, "bottom" : nBottom, "binddataset" : "viewdataset"
 						, "bandexpandtype" : sBandExpandType
                     },
                     "ListView" :
@@ -513,9 +533,9 @@ fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth
 		oBand = {
 			"tag" : "Band",
 			"attribute" : {
-				"id" : sBand,
-				"width" : "100%",
-				"height" : nBandHeight
+				"id"		: sBand,
+				"width"		: "100%",
+				"height"	: nBandHeight
 			},
 			"Band" : arrBandCells
 		};
