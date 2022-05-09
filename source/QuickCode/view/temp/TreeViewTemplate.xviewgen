@@ -22,6 +22,10 @@ include "view_lib::common.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
+//Tree 영역 top 위치(title영역에 따라 위치 변경됨)
+this.VIEW_TOP = 0;
+//Tree 영역 bottom 위치(title영역에 따라 위치 변경됨)
+this.VIEW_BOTTOM = 0;
 //--------------------------------------------------------------------------------------------------------
 // Grid 속성 관련 상수
 //--------------------------------------------------------------------------------------------------------
@@ -205,6 +209,7 @@ fn_GetViewAttributeList = function()
     var sViewAttr = "";
     var oViewAttr = {
                         "attributes": [
+							oAttrTitleText,					// Title Text
 							{
                                 "id": "treeinitstatus",
                                 "edittype" : "Enum",
@@ -338,6 +343,7 @@ fn_GetModel = function()
 	var oGridAttr = {};
 	var oTreeCellAttr = {};
 	
+	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
 	var sTreeInitStatus		= this.oGenerationAttr.attributes.treeinitstatus;			// 최초 로드 시 표시되는 트리의 상태
 	var sTreeUseButton		= this.oGenerationAttr.attributes.treeusebutton;			// 트리에서 Collapse/Expand 버튼을 사용할지 여부
 	var sTreeUseImage		= this.oGenerationAttr.attributes.treeuseimage;				// 트리 상태를 나타내는 이미지를 사용여부
@@ -349,6 +355,10 @@ fn_GetModel = function()
 	var sCellCssclass		= this.oGenerationAttr.attributes.cellcssclass;				// 트리 cell cssclass
 	
 	var bTreeUseCheckbox	= false;													// treeusecheckbox 사용여부
+	var sUseTotalCount		= "false";													// 전체건수 Static 생성
+	var sUseExpandButton	= "none";													// expand 토글버튼 생성
+	
+	this.VIEW_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 	
 	//Import Model Field Quantity
     var nFieldCount = this.oFieldArray.fieldcount;
@@ -357,25 +367,18 @@ fn_GetModel = function()
 	var arrField = new Array(); 
 	var oField;
 
-	// Grid 위치
-	var nTop = 0;
-	var nBottom = 0;
-	var nLeft = 0;
-	var nRight = 0;
-	
 	// 트리상태 변경 버튼 생성
 	if (sTreeStatusButton != "none")
 	{
-		// 버튼생성에 따라 Grid 위치값 변경
-		if (sTreeStatusButton == "lefttop" || sTreeStatusButton == "righttop") {
-			nTop 	+= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
-		} else if (sTreeStatusButton == "leftbottom" || sTreeStatusButton == "rightbottom") {
-			nBottom += this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
-		}
-		
 		// 트리 Expand/Collapse 추가버튼 생성
 		fn_MakeTreeStatusButton();
 	}
+	
+	// Grid 위치
+	var nTop	= this.VIEW_TOP;
+	var nBottom	= this.VIEW_BOTTOM;
+	var nLeft	= 0;
+	var nRight	= 0;
 	
 	var sTreeType;
 	var oTreeLvlField;
@@ -550,12 +553,14 @@ fn_MakeTreeStatusButton = function()
 	if (sTreeStatusButton == "lefttop")
 	{
 		// Collapse 버튼 위치 설정
-		oBtnCollapse["top"]		= 0;
+		oBtnCollapse["top"]		= this.VIEW_TOP;
 		oBtnCollapse["left"]	= 0;
 		
 		// Expand 버튼 위치 설정
-		oBtnExpand["top"]		= 0
+		oBtnExpand["top"]		= this.VIEW_TOP;
 		oBtnExpand["left"]		= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_COMP_SPACE;
+		
+		this.VIEW_TOP			= this.VIEW_TOP + this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
 	}
 	else if (sTreeStatusButton == "righttop")
 	{
@@ -566,6 +571,8 @@ fn_MakeTreeStatusButton = function()
 		// Expand 버튼 위치 설정
 		oBtnExpand["top"]		= 0;
 		oBtnExpand["right"]		= 0;
+		
+		this.VIEW_TOP			= Math.max(this.VIEW_TOP, (this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE));
 	}
 	else if (sTreeStatusButton == "leftbottom")
 	{
@@ -576,6 +583,8 @@ fn_MakeTreeStatusButton = function()
 		// Expand 버튼 위치 설정
 		oBtnExpand["bottom"]	= 0
 		oBtnExpand["left"]		= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_COMP_SPACE;
+		
+		this.VIEW_BOTTOM		= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
 	}
 	else if (sTreeStatusButton == "rightbottom")
 	{
@@ -586,6 +595,8 @@ fn_MakeTreeStatusButton = function()
 		// Expand 버튼 위치 설정
 		oBtnExpand["bottom"]	= 0;
 		oBtnExpand["right"]		= 0;
+		
+		this.VIEW_BOTTOM		= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
 	}
 
 	//Add Background Static Component Tag
