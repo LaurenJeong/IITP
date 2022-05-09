@@ -23,6 +23,8 @@ include "view_lib::common.xjs";
  * 변수 선언 영역
  ************************************************************************************************/
 //////////////////////////////상수 설정부 START ////////////////////////////////////////////////////
+//Freeform 영역 top 위치(title영역에 따라 위치 변경됨)
+this.VIEW_TOP = 0;
 
 //Field Default Width
 this.COMP_WIDTH			= "100%";
@@ -435,6 +437,8 @@ fn_GetViewAttributeList = function()
 								"enumlist" : ["top", "middle", "bottom"],
                                 "description": "필드의 수직 정렬방식을 설정합니다."
                             },
+							oAttrTitleText,					// Title Text
+							oAttrTitleExpandButton,			// 접기/펼치기 버튼 표시여부
 							{
                                 "id": "usefieldbox",
                                 "edittype": "Boolean",
@@ -571,6 +575,13 @@ fn_GetModel = function(){
 
 	//View Component Height 값 가져오기
 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
+	
+	// Title 영역
+	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
+	var sUseTotalCount		= "false";												// 전체건수 Static 생성
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 생성
+	
+	this.VIEW_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 
 	//format 속성이 설정되어있을 경우 Layout 룰에 따라 컴포넌트 생성
 	if(this.oGenerationAttr.attributes.format)
@@ -733,7 +744,7 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
 fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, arrFieldInCellList)
 {
 	var nLeft = 0;
-	var nTop = 0;
+	var nTop = this.VIEW_TOP;
 	var nRowIdx = 0;
 	var nColIdx = 0;
 	var nMaxWidth = nMaxHeight = 0;
@@ -826,7 +837,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 			if(nRowSize<nTemp)
 			{
 				nLeft = nMaxWidth;
-				nTop = 0;
+				nTop = this.VIEW_TOP;
 				nColIdx++;
 				nRowIdx = 0;
 			}
@@ -888,7 +899,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 {
 	var nLeft = 0;
-	var nTop = 0;
+	var nTop = this.VIEW_TOP;
 	var nLabelWidth, nLabelHeight, nCompWidth, nCompHeight;
 	var arrLabelPadding, arrCompPadding;
 	var nLabelWidthPadding, nLabelHeightPadding, nCompWidthPadding, nCompHeightPadding
@@ -957,7 +968,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 			if(nRowSize<nTemp)
 			{
 				nLeft = nMaxWidth;
-				nTop = 0;
+				nTop = this.VIEW_TOP;
 				nColIdx++;
 				nRowIdx = 0;
 			}
