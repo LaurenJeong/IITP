@@ -62,63 +62,6 @@
             <Attribute id="bodybandsize" value="30"/>
           </ViewTemplateInfo>
         </View>
-        <View id="viwTree4" taborder="6" text="View00" viewdataset="viewdataset" left="445" top="360" width="400" height="270" cssclass="viw_test_bg">
-          <Layouts>
-            <Layout>
-              <Static id="staTitle" left="0" top="0" height="30" width="80" text="트리타이틀" fittocontents="width" cssclass="sta_WF_subtitle"/>
-              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_WF_Treecollapse" onclick="viwTree4.form.lfn_TreeView_btnTreecollapse_onclick" bottom="0" left="0"/>
-              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_WF_Treeexpand" onclick="viwTree4.form.lfn_TreeView_btnTreeexpand_onclick" bottom="0" left="35"/>
-              <Grid id="grdList" left="0" top="30" right="0" bottom="35" binddataset="viewdataset" autofittype="col" treeinitstatus="collapse,all" treeusebutton="use" treeuseimage="true" treeuseline="false" treeusecheckbox="true">
-                <Formats>
-                  <Format id="default">
-                    <Columns>
-                      <Column size="200"/>
-                    </Columns>
-                    <Rows>
-                      <Row size="30"/>
-                    </Rows>
-                    <Band id="body">
-                      <Cell displaytype="treeitemcontrol" edittype="tree" treelevel="bind:TREE_LVL" treestartlevel="0" text="bind:TREE_TXT" treecheck="bind:TREE_CHK"/>
-                    </Band>
-                  </Format>
-                </Formats>
-              </Grid>
-            </Layout>
-          </Layouts>
-          <Objects>
-            <Dataset id="viewdataset">
-              <ColumnInfo>
-                <Column id="TREE_LVL" type="STRING" size="80"/>
-                <Column id="TREE_TXT" type="STRING" size="80"/>
-                <Column id="TREE_CHK" type="STRING" size="1"/>
-              </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
-            </Dataset>
-          </Objects>
-          <Script><![CDATA[this.lfn_TreeView_btnTreecollapse_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){var objForm = obj.parent;var objGrid = objForm.components['grdList'];objGrid.set_treeinitstatus('collapse,all');};this.lfn_TreeView_btnTreeexpand_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){var objForm = obj.parent;var objGrid = objForm.components['grdList'];objGrid.set_treeinitstatus('expand,all');};]]></Script>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="TreeModel001" filepath="sample\Tree.xmodel">
-            <Fields>
-              <Field id="TREE_LVL" description="" treetype="treelevel"/>
-              <Field id="TREE_TXT" description="" treetype="treetext"/>
-              <Field id="TREE_CHK" description="" treetype="treecheck"/>
-            </Fields>
-            <Components>
-              <Component id="grdList" fields="TREE_LVL,TREE_TXT,TREE_CHK"/>
-            </Components>
-          </ModelInfo>
-          <ViewTemplateInfo filepath="TreeViewTemplate.xviewgen">
-            <Attribute id="titletext" value="트리타이틀"/>
-            <Attribute id="treeinitstatus" value="collapse"/>
-            <Attribute id="treeusebutton" value="use"/>
-            <Attribute id="treeuseimage" value="true"/>
-            <Attribute id="treeuseline" value="false"/>
-            <Attribute id="treestatusbutton" value="leftbottom"/>
-            <Attribute id="treestartlevel" value="0"/>
-            <Attribute id="bodybandsize" value="30"/>
-          </ViewTemplateInfo>
-        </View>
         <View id="viwTree2" taborder="2" text="View00" viewdataset="viewdataset" left="445" top="40" width="400" height="270" cssclass="viw_test_bg">
           <Layouts>
             <Layout>
@@ -229,6 +172,63 @@
             <Attribute id="treeuseimage" value="false"/>
             <Attribute id="treeuseline" value="true"/>
             <Attribute id="treestatusbutton" value="righttop"/>
+            <Attribute id="treestartlevel" value="0"/>
+            <Attribute id="bodybandsize" value="30"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viwTree4" taborder="6" text="View00" viewdataset="viewdataset" left="445" top="360" width="400" height="270" cssclass="viw_test_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staTitle" left="0" top="0" height="30" width="80" text="트리타이틀" fittocontents="width" cssclass="sta_WF_subtitle"/>
+              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_WF_Treecollapse" onclick="viwTree4.form.lfn_TreeView_btnTreecollapse_onclick" bottom="0" left="0"/>
+              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_WF_Treeexpand" onclick="viwTree4.form.lfn_TreeView_btnTreeexpand_onclick" bottom="0" left="35"/>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="35" binddataset="viewdataset" autofittype="col" treeinitstatus="collapse,all" treeusebutton="use" treeuseimage="true" treeuseline="false" treeusecheckbox="true">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="200"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell displaytype="treeitemcontrol" edittype="tree" treelevel="bind:TREE_LVL" treestartlevel="0" text="bind:TREE_TXT" treecheck="bind:TREE_CHK"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="TREE_LVL" type="STRING" size="80"/>
+                <Column id="TREE_TXT" type="STRING" size="80"/>
+                <Column id="TREE_CHK" type="STRING" size="1"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Script><![CDATA[this.lfn_TreeView_btnTreecollapse_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){var objForm = obj.parent;var objGrid = objForm.components['grdList'];objGrid.set_treeinitstatus('collapse,all');};this.lfn_TreeView_btnTreeexpand_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){var objForm = obj.parent;var objGrid = objForm.components['grdList'];objGrid.set_treeinitstatus('expand,all');};]]></Script>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="TreeModel001" filepath="sample\Tree.xmodel">
+            <Fields>
+              <Field id="TREE_LVL" description="" treetype="treelevel"/>
+              <Field id="TREE_TXT" description="" treetype="treetext"/>
+              <Field id="TREE_CHK" description="" treetype="treecheck"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="TREE_LVL,TREE_TXT,TREE_CHK"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="TreeViewTemplate.xviewgen">
+            <Attribute id="titletext" value="트리타이틀"/>
+            <Attribute id="treeinitstatus" value="collapse"/>
+            <Attribute id="treeusebutton" value="use"/>
+            <Attribute id="treeuseimage" value="true"/>
+            <Attribute id="treeuseline" value="false"/>
+            <Attribute id="treestatusbutton" value="leftbottom"/>
             <Attribute id="treestartlevel" value="0"/>
             <Attribute id="bodybandsize" value="30"/>
           </ViewTemplateInfo>
