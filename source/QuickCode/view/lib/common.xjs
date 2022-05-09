@@ -48,6 +48,8 @@ this.TITLE_AREA_COMP_SPACE				= 5;
 
 // Title ID
 this.TITLE_ID							= "staTitle";
+// Title Text (ViewTemplate에서 this.TITLE_TEXT 설정하지 않을때 기본값)
+this.TITLE_TEXT_BASE					= "";
 // Title fittocontents
 this.TITLE_FITTOCONTENTS 				= "width";
 // Title Default CSS Class
@@ -55,8 +57,8 @@ this.TITLE_CSSCLASS						= "sta_WF_subtitle";
 // Title Default CSS Class
 this.TITLE_NOICON_CSSCLASS				= "sta_WF_subtitle_noicon";
 
-// TotalCount 객체 사용여부
-this.USE_TOT_COUNT						= "false";
+// TotalCount 객체 사용여부 (ViewTemplate에서 this.USE_TOT_COUNT 설정하지 않을때 기본값)
+this.USE_TOT_COUNT_BASE					= "false";
 // TotalCount ID
 this.TOT_COUNT_ID						= "staTotCnt";
 // TotalCount 기본Text
@@ -68,8 +70,8 @@ this.TOT_COUNT_USEDECORATE				= "true";
 // TotalCount Default CSS Class
 this.TOT_COUNT_CSSCLASS					= "sta_WF_totalCount";
 
-// expand 버튼 객체 사용여부
-this.USE_EXPAND_BUTTON					= "none";
+// expand 버튼 객체 사용여부 (ViewTemplate에서 this.USE_EXPAND_BUTTON 설정하지 않을때 기본값)
+this.USE_EXPAND_BUTTON_BASE				= "none";
 // expand/collapse 버튼 사이즈(width, height)
 this.EXPAND_BUTTON_SIZE					= 20;
 
@@ -83,20 +85,20 @@ this.EXPAND_BUTTON_CLOSE_CSSCLASS 		= "btn_WF_title_close";
 this.oAttrTitleText =	{
 							  "id"				: "titletext"
 							, "edittype"		: "String"
-							, "defaultvalue"	: ""
+							, "defaultvalue"	: this.lfn_Nvl(this.TITLE_TEXT, this.TITLE_TEXT_BASE)
 							, "description"		: "Title Text(titletext 미입력 다른 항목들도 생성안됨.)"
 					};
 this.oAttrTitleUseTotolCount =	{
 							  "id"				: "usetotalcount"
 							, "edittype"		: "Boolean"
-							, "defaultvalue"	: this.USE_TOT_COUNT
+							, "defaultvalue"	: this.lfn_Nvl(this.USE_TOT_COUNT, this.USE_TOT_COUNT_BASE)
 							, "description"		: "전체건수 표시여부"
 					};
 this.oAttrTitleExpandButton =	{
 							  "id"				: "useexpandbutton"
 							, "edittype"		: "Enum"
 							, "enumlist"		: ["none", "open","close"]
-							, "defaultvalue"	: this.USE_EXPAND_BUTTON
+							, "defaultvalue"	: this.lfn_Nvl(this.USE_EXPAND_BUTTON, this.USE_EXPAND_BUTTON_BASE)
 							, "description"		: "접기/펼치기 버튼 표시여부"
 													+ "\n" + "none : 표시안함"
 													+ "\n" + "open : 펼침"
@@ -645,10 +647,12 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 };
 
 /*---------------------------------------------------------------------------------------------*
- * Function     : lfn_MakeTitle
- * Parameter    :
- * Return       :
- * Description  : 타이틀 Static 생성 함수
+ * Function     : lfn_MakeTitleArea
+ * Parameter    : 	sTitleText - titletext 속성값
+					sUseTotalCount - usetotalcount 속성값
+					sUseExpandButton - useexpandbutton 속성값
+ * Return       : Title영역 높이
+ * Description  : 타이틀 영역 생성 함수
  *---------------------------------------------------------------------------------------------*/
 this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 {
@@ -672,8 +676,10 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 	// 1) ExpandButton 객체 생성
 	if (sUseExpandButton != "none")
 	{
+		var sViewNm = this.oContents.View.attribute.id;
+		
 		sCompId		= this.EXPAND_BUTTON_ID;
-		sCssClass	= sUseExpandButton == "close" ? this.EXPAND_BUTTON_CLOSE_CSSCLASS : this.EXPAND_BUTTON_OPEN_CSSCLASS;
+		sCssClass	= sUseExpandButton == "close" ? this.EXPAND_BUTTON_OPEN_CSSCLASS : this.EXPAND_BUTTON_CLOSE_CSSCLASS;
 		
 		nCompWidth	= this.EXPAND_BUTTON_SIZE;
 		nCompHeight	= this.EXPAND_BUTTON_SIZE;
@@ -683,8 +689,10 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 			"tag" : "Button",
 			"attribute" :
 			{
-				"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "height" : nCompHeight, "width" : nCompWidth,
-				"cssclass" : sCssClass
+				"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "height" : nCompHeight, "width" : nCompWidth
+				, "cssclass" : sCssClass
+				, "onclick" : sViewNm + ".form." + "lfn_Title_btnTitleOpenClose_onclick"
+				, "_openclose" : sUseExpandButton
 			}
 		});
 			
@@ -742,36 +750,102 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 	return this.TITLE_AREA_HEIGHT;
 };
 
-// this.lfn_GetLayoutTop = function()
-// {
-// 	var oModel = this.oContents.View.Model;
-// 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
-// 	
-// 	var oComp;
-// 	
-// 	var nTop = 0;
-// 	var nHeight = 0;
-// 	var nBottom = 0;
-// 	
-// 	if (oModel.length == 0 || oModel[oModel.length-1].Components.length == 0)		return nTop;
-// 	
-// 	var arrComps = oModel[oModel.length-1].Components;
-// 	var nCompCnt = arrComps.length;
-// 	
-// 	for(var i =0; i < nCompCnt; i++)
-// 	{
-// 		oComp = arrComps[i];
-// 		
-// 		nHeight = nexacro.toNumber(oComp["height"],0);
-// 		nBottom	= nexacro.toNumber(oComp["bottom"],-1);
-// 		
-// 		// height 값이 설정되지 않고 bottom값이 설정된 경우 View사이즈에서 bottom값을 빼서 height값 설정
-// 		if (nHeight == 0 && nBottom > 0) {
-// 			nHeight = nViewCompHeight - nBottom;
-// 		}
-// 		
-// 		if (nTop < nHeight)			nTop = nHeight;
-// 	}
-// 	
-// 	return nTop;
-// };]]></Script>
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetTitleScript
+ * Parameter    :	sViewNm - View 객체명
+					sUseExpandButton - useexpandbutton 설정값
+ * Return       : Script 문자열
+ * Description  : 타이틀 Expand버튼 동작 스크립트
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
+{
+	var sScript = "";
+	
+	/*
+	this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+	{
+		if (obj.cssclass == '" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "') {
+			this." + sViewNm + ".form.lfn_Title_SetSearchOpenClose(obj,'open');
+		} else {
+			this." + sViewNm + ".form.lfn_Title_SetSearchOpenClose(obj,'close');
+		}
+	};
+
+	this.lfn_Title_SetSearchOpenClose = function(obj,sStatus)
+	{
+		var objForm = obj.parent;
+		var objView = objForm.parent;
+		
+		if (sStatus == 'close') {
+			objView.set_height('" + this.TITLE_AREA_HEIGHT + "');
+			objView.set_formscrolltype('none');
+			obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');
+		} else {
+			objView.set_height(objView._openHeight);
+			objView.set_formscrolltype(objView._formscrolltype);
+			obj.set_cssclass('" + this.EXPAND_BUTTON_CLOSE_CSSCLASS + "');
+		}
+		
+		objView['_openclose'] = sStatus;
+		
+		objView.parent.resetScroll();
+	};
+	
+	this.lfn_Title_SetViewInit = function(obj,sStatus)
+	{
+		var objView = obj.parent;
+		objView._openclose = sStatus;
+		objView._openHeight = objView.height;
+		objView._formscrolltype = objView.formscrolltype;
+		this.lfn_Title_SetSearchOpenClose(obj.btnExpand,sStatus);
+	};
+
+	this.ViewNm.form.lfn_Title_SetViewInit(this,'" + sUseExpandButton + "');
+	*/
+	
+	// expand 토글버튼 클릭 이벤트 함수
+	sScript += "this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)";
+	sScript += "{";
+	sScript += "	if (obj.cssclass == '" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "') {";
+	sScript += "		this." + sViewNm + ".form.lfn_Title_SetSearchOpenClose(obj,'open');";
+	sScript += "	} else {";
+	sScript += "		this." + sViewNm + ".form.lfn_Title_SetSearchOpenClose(obj,'close');";
+	sScript += "	}";
+	sScript += "};";
+	
+	// expand 토글 함수
+	sScript += "this.lfn_Title_SetSearchOpenClose = function(obj,sStatus)";
+	sScript += "{";
+	sScript += "	var objForm = obj.parent;";
+	sScript += "	var objView = objForm.parent;";
+	sScript += "	";
+	sScript += "	if (sStatus == 'close') {";
+	sScript += "		objView.set_height('" + this.TITLE_AREA_HEIGHT + "');";
+	sScript += "		objView.set_formscrolltype('none');";
+	sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');";
+	sScript += "	} else {";
+	sScript += "		objView.set_height(objView._openHeight);";
+	sScript += "		objView.set_formscrolltype(objView._formscrolltype);";
+	sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_CLOSE_CSSCLASS + "');";
+	sScript += "	}";
+	sScript += "	";
+	sScript += "	objView['_openclose'] = sStatus;";
+	sScript += "	";
+	sScript += "	objView.parent.resetScroll();";
+	sScript += "};";
+	
+	// View 사이즈 초기값 설정 함수(onload시 호출됨)
+	sScript += "this.lfn_Title_SetViewInit = function(obj,sStatus)";
+	sScript += "{";
+	sScript += "	var objView = obj.parent;";
+	sScript += "	objView._openclose = sStatus;";
+	sScript += "	objView._openHeight = objView.height;";
+	sScript += "	objView._formscrolltype = objView.formscrolltype;";
+	sScript += "	this.lfn_Title_SetSearchOpenClose(obj.btnExpand,sStatus);";
+	sScript += "};";
+
+	//View onload시 호출 
+	sScript += "this.lfn_Title_SetViewInit(this,'" + sUseExpandButton + "');";
+	
+	return sScript;
+};]]></Script>

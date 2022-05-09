@@ -697,6 +697,21 @@ fn_GetScript = function()
 	
 	if (sTreeStatusButton != "none")
 	{
+		/*
+		this.lfn_TreeView_btnTreecollapse_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+		{
+			var objForm = obj.parent;
+			var objGrid = objForm.components['" + this.TREE_ID + "'];
+			objGrid.set_treeinitstatus('collapse,all');
+		};
+		this.lfn_TreeView_btnTreeexpand_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+		{
+			var objForm = obj.parent;
+			var objGrid = objForm.components['" + this.TREE_ID + "'];
+			objGrid.set_treeinitstatus('expand,all');
+		};
+		*/
+		
 		sScript += "this.lfn_TreeView_btnTreecollapse_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)";
 		sScript += "{";
 		sScript += "	var objForm = obj.parent;";
