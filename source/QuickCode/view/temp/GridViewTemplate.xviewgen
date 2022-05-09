@@ -22,6 +22,8 @@ include "view_lib::common.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
+//Grid 영역 top 위치(title영역에 따라 위치 변경됨)
+this.VIEW_TOP = 0;
 //////////////////////////////Constant Setting START ////////////////////////////////////////////////////
 
 this.HEAD_BAND_SIZE			= 30;
@@ -379,6 +381,8 @@ fn_GetViewAttributeList = function()
     var sViewAttr = "";
     var oViewAttr = {
                         "attributes": [
+							this.oAttrTitleText,					// Title Text
+							this.oAttrTitleUseTotolCount,			// 전체건수 표시여부
 							{
                                 "id": "headbandsize",
                                 "edittype": "Number",
@@ -578,8 +582,20 @@ fn_GetModel = function()
 
 	//Layout to use when creating Summ
 	var oSummLayout;
+	
+	// Title 영역
+	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
+	var sUseTotalCount		= this.oGenerationAttr.attributes.usetotalcount;		// 전체건수 Static 생성
+	var sUseExpandButton	= "none";												// expand 토글버튼 생성
+	
+	this.VIEW_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 
-	var nTop = 0;
+	// Grid 위치
+	var nTop = this.VIEW_TOP;
+	var nBottom	= 0;
+	var nLeft	= 0;
+	var nRight	= 0;
+	
 	//Create Model Field ID List to use in Grid
     for(i=0;i<nFieldCount;i++)
     {
@@ -636,7 +652,7 @@ fn_GetModel = function()
                     "tag" : "Grid",
                     "attribute" :
                     {
-                        "id" : "grdList", "left" : 0,    "top" : 0, "right" : 0, "bottom" : 0, "binddataset" : "viewdataset"
+                        "id" : "grdList", "left" : nLeft, "top" : nTop, "right" : nRight, "bottom" : nBottom, "binddataset" : "viewdataset"
                     },
                     "Grid" :
                     [
