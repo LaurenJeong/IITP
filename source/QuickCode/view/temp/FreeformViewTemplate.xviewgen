@@ -23,6 +23,7 @@ include "view_lib::common.xjs";
  * 변수 선언 영역
  ************************************************************************************************/
 //////////////////////////////Constant Setting START ////////////////////////////////////////////////////
+this.VIEW_TOP = 0;
 
 //Field Default Width
 this.FIELD_WIDTH			= "100%";
@@ -440,6 +441,8 @@ fn_GetViewAttributeList = function()
 								"enumlist" : ["top", "middle", "bottom"],
                                 "description": "Set the Field Vertical Alignment."
                             },
+							oAttrTitleText,					// Title Text
+							oAttrTitleExpandButton,			// 접기/펼치기 버튼 표시여부
 							{
                                 "id": "usefieldbox",
                                 "edittype": "Boolean",
@@ -556,6 +559,13 @@ fn_GetModel = function(){
 
 	//Import View Component Height Value
 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
+	
+	// Title 영역
+	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
+	var sUseTotalCount		= "false";												// 전체건수 Static 생성
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 생성
+	
+	this.VIEW_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 
 	//If format properties are set up, create components based on layout rules
 	if(this.oGenerationAttr.attributes.format)
@@ -718,7 +728,7 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
 fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, arrFieldInCellList)
 {
 	var nLeft = 0;
-	var nTop = 0;
+	var nTop = this.VIEW_TOP;		// Title Area영역 체크
 	var nRowIdx = 0;
 	var nColIdx = 0;
 	var nFiledWidthMax = 0;
@@ -845,7 +855,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 				nLeft += nFiledWidthMax;
 
 				//Initialize Top Coordinate
-				nTop = 0;
+				nTop  = this.VIEW_TOP;		// Title Area영역 체크
 
 				//Initialize the largest Width Value
 				nFiledWidthMax = 0;
@@ -981,7 +991,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 {
 	var nLeft = 0;
-	var nTop = 0;
+	var nTop  = this.VIEW_TOP;		// Title Area영역 체크
 	var nRowIdx = 0;
 	var nColIdx = 0;
 	var nFiledWidthMax = 0;
@@ -1101,7 +1111,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 				nLeft += nFiledWidthMax + nLabelWidth;
 
 				//Initialize Top Coordinate
-				nTop = 0;
+				nTop  = this.VIEW_TOP;		// Title Area영역 체크
 
 				//Initialize the largest Width Value
 				nFiledWidthMax = 0;

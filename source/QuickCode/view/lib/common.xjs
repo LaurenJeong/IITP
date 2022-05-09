@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Script version="1.0" type="xscript5.1"><![CDATA[/**
+<Script version="1.0" type="xscript5.1"><![CDATA[/******************************************************************************
 *  ViewTemplate
 *  @FileName 	common.xjs
 *  @Creator
 *  @CreateDate
 *  @Desction    ViewTemplate관련 공통 함수
-*/
-////////////////////////////// ViewTemplate 공통변수 선언 START ////////////////////////////////////////////////////
+*******************************************************************************/
+//--------------------------------------------------------------------------------------------------------
+// ViewTemplate 공통변수
+//--------------------------------------------------------------------------------------------------------
 //모델 정보
 this.oFieldArray;
 
@@ -24,15 +26,83 @@ this.arrCompIds = [];
 
 //컴포넌트 + 바인드 Field 목록
 this.arrBindItems = [];
+//--------------------------------------------------------------------------------------------------------
 
-////////////////////////////// ViewTemplate 공통변수 선언 END ////////////////////////////////////////////////////
-/** @const {string} */
+//--------------------------------------------------------------------------------------------------------
+// 프로젝트 공통 변수
+//--------------------------------------------------------------------------------------------------------
 // 네이밍 컨벤션 종류 (C : camelCase, S : snakeCase, LS : lower snakeCase, 빈값 : 지정안함.)
 this.COMP_NAMING_RULE	= "C";
 
-/** @const {string} */
 // 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 this.LOG_LEVEL			= -1;
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+// 타이틀 객체 관련 상수(ExpandButton + Title + TotalCount)
+//--------------------------------------------------------------------------------------------------------				
+// Title 영역 Height
+this.TITLE_AREA_HEIGHT					= 30;
+// Title 영역 컴포넌트 Gap
+this.TITLE_AREA_COMP_SPACE				= 5;
+
+// Title ID
+this.TITLE_ID							= "staTitle";
+// Title fittocontents
+this.TITLE_FITTOCONTENTS 				= "width";
+// Title Default CSS Class
+this.TITLE_CSSCLASS						= "sta_WF_subtitle";
+// Title Default CSS Class
+this.TITLE_NOICON_CSSCLASS				= "sta_WF_subtitle_noicon";
+
+// TotalCount 객체 사용여부
+this.USE_TOT_COUNT						= "false";
+// TotalCount ID
+this.TOT_COUNT_ID						= "staTotCnt";
+// TotalCount 기본Text
+this.TOT_COUNT_TEXT						= "(총 <b v='true'><fc v='#da291c'>0</fc></b>건)";
+// TotalCount fittocontents
+this.TOT_COUNT_FITTOCONTENTS 			= "width";
+// TotalCount usedecorate
+this.TOT_COUNT_USEDECORATE				= "true";
+// TotalCount Default CSS Class
+this.TOT_COUNT_CSSCLASS					= "sta_WF_totalCount";
+
+// expand 버튼 객체 사용여부
+this.USE_EXPAND_BUTTON					= "none";
+// expand/collapse 버튼 사이즈(width, height)
+this.EXPAND_BUTTON_SIZE					= 20;
+
+// expand 버튼 ID
+this.EXPAND_BUTTON_ID					= "btnExpand";
+// open 버튼 cssclass
+this.EXPAND_BUTTON_OPEN_CSSCLASS 		= "btn_WF_title_open";
+// close 버튼 cssclass
+this.EXPAND_BUTTON_CLOSE_CSSCLASS 		= "btn_WF_title_close";
+
+this.oAttrTitleText =	{
+							  "id"				: "titletext"
+							, "edittype"		: "String"
+							, "defaultvalue"	: ""
+							, "description"		: "Title Text(titletext 미입력 다른 항목들도 생성안됨.)"
+					};
+this.oAttrTitleUseTotolCount =	{
+							  "id"				: "usetotalcount"
+							, "edittype"		: "Boolean"
+							, "defaultvalue"	: this.USE_TOT_COUNT
+							, "description"		: "전체건수 표시여부"
+					};
+this.oAttrTitleExpandButton =	{
+							  "id"				: "useexpandbutton"
+							, "edittype"		: "Enum"
+							, "enumlist"		: ["none", "open","close"]
+							, "defaultvalue"	: this.USE_EXPAND_BUTTON
+							, "description"		: "접기/펼치기 버튼 표시여부"
+													+ "\n" + "none : 표시안함"
+													+ "\n" + "open : 펼침"
+													+ "\n" + "close : 접기"
+					};
+//--------------------------------------------------------------------------------------------------------
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : lfn_GetCompId
@@ -572,4 +642,136 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
     oBind[oBind.length] = {"tag" : "Bind", "Bind" : oBindItems};
 
     return oBind;
-};]]></Script>
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_MakeTitle
+ * Parameter    :
+ * Return       :
+ * Description  : 타이틀 Static 생성 함수
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
+{
+	if (sTitleText == null)			return 0;
+	if (sUseTotalCount == null)		sUseTotalCount = "false";
+
+	var oModel = this.oContents.View.Model;
+	var arrComponents	= new Array();
+	var oField;
+	var oComp;
+
+	var nCompTop		= 0;
+	var nCompLeft		= 0;
+	var nCompWidth		= 0;
+	var nCompHeight		= 0;
+	
+	var sCompId			= "";
+	var sText			= "";
+	var sCssClass		= "";
+	
+	// 1) ExpandButton 객체 생성
+	if (sUseExpandButton != "none")
+	{
+		sCompId		= this.EXPAND_BUTTON_ID;
+		sCssClass	= sUseExpandButton == "close" ? this.EXPAND_BUTTON_CLOSE_CSSCLASS : this.EXPAND_BUTTON_OPEN_CSSCLASS;
+		
+		nCompWidth	= this.EXPAND_BUTTON_SIZE;
+		nCompHeight	= this.EXPAND_BUTTON_SIZE;
+		nCompTop	= nexacro.round((this.TITLE_AREA_HEIGHT - this.EXPAND_BUTTON_SIZE) / 2, 0);
+		
+		arrComponents.push({
+			"tag" : "Button",
+			"attribute" :
+			{
+				"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "height" : nCompHeight, "width" : nCompWidth,
+				"cssclass" : sCssClass
+			}
+		});
+			
+		nCompLeft = nCompLeft + nCompWidth + this.TITLE_AREA_COMP_SPACE;
+	}
+	
+	// 2) Title 객체 생성
+	sCompId		= this.TITLE_ID;
+	sText		= sTitleText;
+	sCssClass	= sUseExpandButton == "none" ? this.TITLE_CSSCLASS : this.TITLE_NOICON_CSSCLASS;
+	
+	nCompWidth	= 80;
+	nCompHeight	= this.TITLE_AREA_HEIGHT;
+	nCompTop	= 0;
+		
+	arrComponents.push({
+		"tag" : "Static",
+		"attribute" :
+		{
+			"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "height" : nCompHeight, "width" : nCompWidth,
+			"text" : sText, "fittocontents" : this.TITLE_FITTOCONTENTS,
+			"cssclass" : sCssClass
+		}
+	});
+	
+	// 3) TotalCount 객체 생성
+	if (sUseTotalCount == "true") {
+		sCompId		= this.TOT_COUNT_ID;
+		sText		= this.TOT_COUNT_TEXT;
+		sCssClass	= this.TOT_COUNT_CSSCLASS;
+		
+		nCompWidth	= 50;
+		nCompHeight	= this.TITLE_AREA_HEIGHT;
+		nCompTop	= 0;
+		nCompLeft	= this.TITLE_ID + ":5";
+	
+		arrComponents.push({
+			"tag" : "Static",
+			"attribute" :
+			{
+				"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "height" : nCompHeight, "width" : nCompWidth,
+				"text" : sText, "fittocontents" : this.TOT_COUNT_FITTOCONTENTS, "usedecorate" : this.TOT_COUNT_USEDECORATE,
+				"cssclass" : sCssClass
+			}
+		});
+	}
+	
+	// 모델에 Component 설정
+	oModel[oModel.length] =
+	{
+		"fieldid" : "",
+		"Components" : arrComponents
+	};
+	
+	return this.TITLE_AREA_HEIGHT;
+};
+
+// this.lfn_GetLayoutTop = function()
+// {
+// 	var oModel = this.oContents.View.Model;
+// 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
+// 	
+// 	var oComp;
+// 	
+// 	var nTop = 0;
+// 	var nHeight = 0;
+// 	var nBottom = 0;
+// 	
+// 	if (oModel.length == 0 || oModel[oModel.length-1].Components.length == 0)		return nTop;
+// 	
+// 	var arrComps = oModel[oModel.length-1].Components;
+// 	var nCompCnt = arrComps.length;
+// 	
+// 	for(var i =0; i < nCompCnt; i++)
+// 	{
+// 		oComp = arrComps[i];
+// 		
+// 		nHeight = nexacro.toNumber(oComp["height"],0);
+// 		nBottom	= nexacro.toNumber(oComp["bottom"],-1);
+// 		
+// 		// height 값이 설정되지 않고 bottom값이 설정된 경우 View사이즈에서 bottom값을 빼서 height값 설정
+// 		if (nHeight == 0 && nBottom > 0) {
+// 			nHeight = nViewCompHeight - nBottom;
+// 		}
+// 		
+// 		if (nTop < nHeight)			nTop = nHeight;
+// 	}
+// 	
+// 	return nTop;
+// };]]></Script>
