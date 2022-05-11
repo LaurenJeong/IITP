@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_view_searchm" width="480" height="644" titletext="모바일 조회조건 테스트">
+    <Layouts>
+      <Layout height="644" width="480">
+        <Static id="Static00_00" taborder="1" text="vertical | left | top | bottomfull" left="0" top="0" height="40" cssclass="sta_WF_subtitle" right="0"/>
+        <Static id="Static00_00_00" taborder="2" text="horizontal | left | top | rightfull" left="0" top="358" height="40" cssclass="sta_WF_subtitle" right="0"/>
+        <View id="View01" taborder="3" text="View01" viewdataset="viewdataset" left="0" top="398" height="232" right="0">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" top="10" width="90" right="20" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staCompanyLabel" left="20" top="10" width="55" height="60" text="Company" cssclass="sta_label"/>
+              <Edit id="edtCompany" left="80" top="10" width="100" height="60"/>
+              <Static id="staDepartmentLabel" left="185" top="10" width="55" height="60" text="Department" cssclass="sta_label"/>
+              <Edit id="edtDepartment" left="245" top="10" width="100" height="60"/>
+              <Static id="staNameLabel" left="20" top="80" width="55" height="60" text="Name" cssclass="sta_label"/>
+              <Edit id="edtName" left="80" top="80" width="100" height="60"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="company" type="STRING" size="80"/>
+                <Column id="department" type="STRING" size="80"/>
+                <Column id="name" type="STRING" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtCompany" compid="edtCompany" propid="value" datasetid="viewdataset" columnid="company"/>
+            <BindItem id="bind_edtDepartment" compid="edtDepartment" propid="value" datasetid="viewdataset" columnid="department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="name"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="svcQuickCodeTutorial" modelid="tutorial_SearchEmployee" filepath="svcQuickCodeTutorial.xmodel">
+            <Fields>
+              <Field id="company" comptype="edit" fieldwidth="100" fieldheight="60px" labelwidth="60" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="department" required="false" comptype="edit" fieldwidth="100" fieldheight="60px" labelwidth="60" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="name" required="false" comptype="edit" fieldwidth="100" fieldheight="60px" labelwidth="60" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyLabel" fields="company"/>
+              <Component id="edtCompany" fields="company"/>
+              <Component id="staDepartmentLabel" fields="department"/>
+              <Component id="edtDepartment" fields="department"/>
+              <Component id="staNameLabel" fields="name"/>
+              <Component id="edtName" fields="name"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplateM.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="rightfull"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="0" top="40" height="301" right="0">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" left="20" height="60" right="20" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staCompanyLabel" left="20" top="10" width="115" height="60" text="Company" cssclass="sta_label"/>
+              <Edit id="edtCompany" left="140" top="10" width="320" height="60"/>
+              <Static id="staDepartmentLabel" left="20" top="80" width="115" height="60" text="Department" cssclass="sta_label"/>
+              <Edit id="edtDepartment" left="140" top="80" width="320" height="60"/>
+              <Static id="staNameLabel" left="20" top="150" width="115" height="60" text="Name" cssclass="sta_label"/>
+              <Edit id="edtName" left="140" top="150" width="320" height="60"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="company" type="STRING" size="80"/>
+                <Column id="department" type="STRING" size="80"/>
+                <Column id="name" type="STRING" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtCompany" compid="edtCompany" propid="value" datasetid="viewdataset" columnid="company"/>
+            <BindItem id="bind_edtDepartment" compid="edtDepartment" propid="value" datasetid="viewdataset" columnid="department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="name"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="svcQuickCodeTutorial" modelid="tutorial_SearchEmployee" filepath="svcQuickCodeTutorial.xmodel">
+            <Fields>
+              <Field id="company" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="120" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="department" required="false" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="120" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="name" required="false" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="120" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyLabel" fields="company"/>
+              <Component id="edtCompany" fields="company"/>
+              <Component id="staDepartmentLabel" fields="department"/>
+              <Component id="edtDepartment" fields="department"/>
+              <Component id="staNameLabel" fields="name"/>
+              <Component id="edtName" fields="name"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplateM.xviewgen">
+            <Attribute id="direction" value="vertical"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottomfull"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Bind>
+      <BindItem id="item0" compid="Edit00" propid="value" datasetid="Dataset00" columnid="Column0"/>
+    </Bind>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
+  </Form>
+</FDL>
