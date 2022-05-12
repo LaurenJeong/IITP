@@ -29,11 +29,8 @@ this.VIEW_PADDING_TOP				= 10;
 this.VIEW_PADDING_RIGHT				= 20;
 this.VIEW_PADDING_BOTTOM			= 10;
 
-this.VIEW_RESIZE					= true;
-this.VIEW_RESIZE_SIZE				= 0;
-
 // Field Production Direction("horizontal", "vertical")
-this.DIRECTION						= "vertical";
+this.DIRECTION						= "horizontal";
 
 //Field Default Width
 this.FIELD_WIDTH					= "100%";
@@ -384,8 +381,6 @@ fn_GetModel = function()
 	//Load Lookup Area Background Static Production Function
 	fn_MakeSearchBackgroundStatic();
 	
-	//this.lfn_Log("nViewCompWidth : " + nViewCompWidth + " nViewCompHeight : " + nViewCompHeight);
-
 	//When the Lookup Button Type is Not None
 	if(this.oGenerationAttr.attributes.searchbuttontype!="none")
 	{
@@ -397,8 +392,6 @@ fn_GetModel = function()
 		nViewCompHeight		= arrViewSize[1];
 	}
 	
-	//this.lfn_Log("nViewCompWidth : " + nViewCompWidth + " nViewCompHeight : " + nViewCompHeight);
-
 	//If the format properties are set, produce component-based on layout rules
 	if(this.oGenerationAttr.attributes.format)
 	{
@@ -430,7 +423,7 @@ fn_GetModel = function()
 		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight, false);
 
 		//Load Component Production Function
-		fn_MakeComp(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false, true);
+		fn_MakeComp(this.SEARCH_BUTTON_PADDING_LEFT, this.SEARCH_BUTTON_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false, true);
 	}
 };
 
@@ -684,12 +677,12 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
  *---------------------------------------------------------------------------------------------*/
 fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLayout, arrFieldInCellList)
 {
-	var nLeft = this.VIEW_PADDING_LEFT;
-	var nTop = this.VIEW_PADDING_TOP;
+	var nLeft = 0;
+	var nTop = 0;
 	var nRowIdx = 0;
 	var nColIdx = 0;
-	var nFiledWidthMax = nLeft;
-	var nFiledHeightMax = nTop;
+	var nFiledWidthMax = 0;
+	var nFiledHeightMax = 0;
 
 	var nStartX, nStartY;
 	var nEndX, nEndX;
@@ -767,7 +760,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
 			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx+1, nColIdx, (this.LABEL_PADDING_LEFT+this.COMP_PADDING_RIGHT), this.COMP_SPACE, true);
 			else nTemp = 0;
-
+			
 			//Start a new line if the Field exceeds the Cell Width
 			if(nLeft+nLabelWidth+nFieldWidth-nTemp>nColSize)
 			{
@@ -786,7 +779,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 				nTop += nFiledHeightMax;
 
 				//Initialize the Left Coordinate
-				nLeft = this.VIEW_PADDING_LEFT;
+				nLeft = 0;
 
 				//Initialize the largest Height Value
 				nFiledHeightMax = 0;
@@ -827,7 +820,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 				nLeft += nFiledWidthMax + nLabelWidth;
 
 				//Initialize Top Coordinate
-				nTop = this.VIEW_PADDING_TOP;
+				nTop = 0;
 
 				//Initialize the largest Width Value
 				nFiledWidthMax = 0;
@@ -914,7 +907,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			"alignx" : 0,
 			"aligny" : 0
 		};
-
+		
 		//Set the Left/Top Location Value of the next Field
 		if(sDirection=="horizontal")nLeft += nFieldWidth + nLabelWidth;
 		else nTop += nFieldHeight;
@@ -1072,7 +1065,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		nPosTop = nexacro.toNumber(oFieldPosition.top);
 		nPosWidth = nexacro.toNumber(oFieldPosition.width);
 		nPosHeight = nexacro.toNumber(oFieldPosition.height);
-
+		
 		//Import Field Label Width Information
 		nLabelAreaWidth = nexacro.toNumber(oField.labelwidth);
 
@@ -1086,7 +1079,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 		//Component Top Coordinate = Cell Top + Field Top + VAlign Starting Coordinate
 		nCompTop = nBaseTop + nPosTop + nAlignY;
-
+		
 		if(sDirection=="horizontal")
 		{
 			if(nColIdx!=0)
@@ -1161,7 +1154,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 		//Component Height = Field Height - Top/Bottom Padding
 		nCompHeight = nPosHeight - this.COMP_PADDING_TOP - this.COMP_PADDING_BOTTOM;
-
+		
 		oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
 
 		//If the Label Width is not 0, Add Label Tag
