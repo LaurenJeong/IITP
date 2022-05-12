@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="SearchViewTemplate" viewtype="Asset" description=""/>
+  <ViewTemplate id="SearchViewTemplate" viewtype="Mobile" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
 *  Search View Template
 *  @FileName 	SearchViewTemplate.xviewgen
@@ -30,8 +30,7 @@ this.VIEW_PADDING_RIGHT				= 20;
 this.VIEW_PADDING_BOTTOM			= 10;
 
 this.VIEW_RESIZE					= true;
-this.VIEW_RESIZE_WIDTH				= 0;
-this.VIEW_RESIZE_HEIGHT				= 0;
+this.VIEW_RESIZE_SIZE				= 0;
 
 // Field Production Direction("horizontal", "vertical")
 this.DIRECTION						= "vertical";
@@ -46,16 +45,16 @@ this.FIELD_HEIGHT					= "60px";
 this.LABEL_WIDTH					= 110;
 
 //Lookup Button Default Width
-this.SEARCH_BUTTON_WIDTH			= 90;
+this.SEARCH_BUTTON_WIDTH			= 100;
 
 //Lookup Button Default Height
 this.SEARCH_BUTTON_HEIGHT			= 80;
 
 //Lookup Button Padding
-this.SEARCH_BUTTON_PADDING_LEFT		= 0;
-this.SEARCH_BUTTON_PADDING_TOP		= 20;
-this.SEARCH_BUTTON_PADDING_RIGHT	= 0;
-this.SEARCH_BUTTON_PADDING_BOTTOM	= 0;
+this.SEARCH_BUTTON_PADDING_LEFT		= 20;
+this.SEARCH_BUTTON_PADDING_TOP		= 10;
+this.SEARCH_BUTTON_PADDING_RIGHT	= 20;
+this.SEARCH_BUTTON_PADDING_BOTTOM	= 10;
 
 //Lookup Button Default Text
 this.SEARCH_BUTTON_TEXT				= "Search";
@@ -82,7 +81,7 @@ this.COMP_PADDING_RIGHT				= 0;
 this.COMP_PADDING_BOTTOM			= 0;
 
 //Gap Between Components (Left and Right)
-this.COMP_SPACE						= 5;
+this.COMP_SPACE						= 10;
 
 //Gap Between Components (Top and Bottom)
 this.LINE_SPACE						= 10;
@@ -377,10 +376,10 @@ fn_GetModel = function()
 {
 
 	//Import View Component Width Value
-	var nViewCompWidth = this.oContents.View.referenceinfo.realwidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
+	var nViewCompWidth = this.oContents.View.referenceinfo.realwidth;
 
 	//Import View Component Height Value
-	var nViewCompHeight = this.oContents.View.referenceinfo.realheight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
+	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
 
 	//Load Lookup Area Background Static Production Function
 	fn_MakeSearchBackgroundStatic();
@@ -510,10 +509,10 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight)
 	//If the lookup button creation location is rightfull
 	if(sSearchButtonType=="rightfull")
 	{
-		nCompTop	= this.VIEW_PADDING_TOP;
-		nCompRight	= this.VIEW_PADDING_RIGHT + this.SEARCH_BUTTON_PADDING_RIGHT;
+		nCompTop	= this.SEARCH_BUTTON_PADDING_TOP;
+		nCompRight	= this.SEARCH_BUTTON_PADDING_RIGHT;
 		nCompWidth	= this.SEARCH_BUTTON_WIDTH - this.SEARCH_BUTTON_PADDING_LEFT - this.SEARCH_BUTTON_PADDING_RIGHT;
-		nCompBottom	= this.VIEW_PADDING_BOTTOM;
+		nCompBottom	= this.SEARCH_BUTTON_PADDING_BOTTOM;
 
 		oField.Components[0] =
 		{
@@ -527,14 +526,15 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight)
 		};
 
 		//Set area excluding lookup button area as component production area
-		nViewCompWidth = nViewCompWidth - nCompWidth;
+		nViewCompWidth = nViewCompWidth - this.SEARCH_BUTTON_WIDTH - this.COMP_SPACE;
+		nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
 	}
 	//If the lookup button creation location is bottomfull
 	else
 	{
-		nCompLeft	= this.VIEW_PADDING_LEFT + this.SEARCH_BUTTON_PADDING_LEFT;
-		nCompRight 	= this.VIEW_PADDING_RIGHT + this.SEARCH_BUTTON_PADDING_RIGHT;
-		nCompBottom = this.VIEW_PADDING_BOTTOM + this.SEARCH_BUTTON_PADDING_BOTTOM;
+		nCompLeft	= this.SEARCH_BUTTON_PADDING_LEFT;
+		nCompRight 	= this.SEARCH_BUTTON_PADDING_RIGHT;
+		nCompBottom = this.SEARCH_BUTTON_PADDING_BOTTOM;
 		nCompHeight = this.SEARCH_BUTTON_HEIGHT - this.SEARCH_BUTTON_PADDING_TOP - this.SEARCH_BUTTON_PADDING_BOTTOM;
 
 		oField.Components[0] =
@@ -549,7 +549,8 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight)
 		};
 
 		//Set area excluding lookup button area as component production area
-		nViewCompHeight = nViewCompHeight - nCompHeight;
+		nViewCompHeight = nViewCompHeight - this.SEARCH_BUTTON_HEIGHT - this.LINE_SPACE;
+		nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
 	}
 
 	//Add Lookup Button Tag
@@ -687,8 +688,8 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 	var nTop = this.VIEW_PADDING_TOP;
 	var nRowIdx = 0;
 	var nColIdx = 0;
-	var nFiledWidthMax = 0;
-	var nFiledHeightMax = 0;
+	var nFiledWidthMax = nLeft;
+	var nFiledHeightMax = nTop;
 
 	var nStartX, nStartY;
 	var nEndX, nEndX;
