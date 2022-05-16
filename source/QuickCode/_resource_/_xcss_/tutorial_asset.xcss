@@ -155,4 +155,28 @@
 	color : #0078ff;
 }
 
-]]></XCSS>
+/* 텍스트만 보여지는 타입 class */
+.Calendar.com_WF_View,
+.Calendar.com_WF_View[status=mouseover],.Calendar.com_WF_View[status=focused],.Calendar.com_WF_View[status=readonly],
+.Edit.com_WF_View,
+.Edit.com_WF_View[status=mouseover],.Edit.com_WF_View[status=focused],.Edit.com_WF_View[status=readonly],
+.MaskEdit.com_WF_View,
+.MaskEdit.com_WF_View[status=mouseover],.MaskEdit.com_WF_View[status=focused],.MaskEdit.com_WF_View[status=readonly],
+.Spin.com_WF_View,
+.Spin.com_WF_View[status=mouseover],.Spin.com_WF_View[status=focused],.Spin.com_WF_View[status=readonly],
+.TextArea.com_WF_View,
+.TextArea.com_WF_View[status=mouseover],.TextArea.com_WF_View[status=focused],.TextArea.com_WF_View[status=readonly],
+.TextArea.com_WF_View .hscrollbar,.TextArea.com_WF_View .vscrollbar,
+.Combo.com_WF_View,
+.Combo.com_WF_View[status=mouseover],.Combo.com_WF_View[status=focused],.Combo.com_WF_View[status=readonly]
+{
+	-nexa-border 		: 0px none;
+	background 		: transparent;
+}
+.Spin.com_WF_View .spinupbutton,.Spin.com_WF_View .spinupbutton[status=disabled],
+.Spin.com_WF_View .spindownbutton,.Spin.com_WF_View .spindownbutton[status=disabled],
+.Calendar.com_WF_View .dropbutton,.Calendar.com_WF_View .dropbutton[status=disabled],
+.Combo.com_WF_View .dropbutton,.Combo.com_WF_View .dropbutton[status=disabled]
+{
+	-nexa-icon : url('imagerc::blank.png');
+}]]></XCSS>
