@@ -46,6 +46,9 @@ this.LABEL_WIDTH			= 100;
 //Component Default Type
 this.COMP_TYPE				= "edit";
 
+//Component Readonly
+this.COMP_READONLY		= "true";
+
 //Label Default Type
 this.LABEL_TYPE				= "static";
 
@@ -65,7 +68,10 @@ this.COMP_SPACE     		  = 5;
 this.LINE_SPACE     		  = 5;
 
 //Component Default CSS Class
-this.COMP_CSSCLASS		  = "com_WF_View";
+this.COMP_CSSCLASS		  = "";
+
+//Component Readonly CSS Class
+this.COMP_READONLY_CSSCLASS		  = "com_WF_View";
 
 //Background Component Default CSS Class
 this.COMP_BG_CSSCLASS	  = "sta_fieldbox";
@@ -78,6 +84,9 @@ this.USE_COMP_BG		= "true";
 
 //Component Use Type
 this.USE_COMP 			  = "true";
+
+
+
 
 //////////////////////////////Constant Setting END ////////////////////////////////////////////////////
 
@@ -543,6 +552,12 @@ fn_GetFieldUserAttributeList = function ()
                                 "edittype": "Boolean",
 								"defaultvalue": this.USE_COMP,
                                 "description": "Use Component"
+                            },
+							{
+                                "id": "fieldreadonly",
+                                "edittype": "Boolean",
+								"defaultvalue": this.COMP_READONLY,
+                                "description": "Field Readonly"
                             }
                         ]
                   };
@@ -1329,8 +1344,13 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var sCompCssClass;
 	var sLabelCssClass;
 	var sFieldBgCssClass = this.COMP_BG_CSSCLASS;
+	var sFieldReadonly;
+	var sFieldReadonlyCssClass;
 	
 	// FieldBox 사용여부
+	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
+	
+	// Field ReadOnly
 	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
 
 	if(!bUseLayout)bUseLayout = false;
@@ -1493,16 +1513,21 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				oComp.attribute.text = oField.label;
 			}
 			
-			// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
-			if(oField.comptype=="calendar" || oField.comptype=="checkbox" || oField.comptype=="combo" || oField.comptype=="edit"
-				|| oField.comptype=="maskedit" || oField.comptype=="radio" || oField.comptype=="spin" || oField.comptype=="textarea")
+			// Readonly 처리
+			if(oField.fieldreadonly == "true")
 			{
-				oComp.attribute.readonly = "true";
-				
-				// 스핀버튼, 드롭다운버튼 안보이게 처리
-				if (oField.comptype=="spin" || oField.comptype=="combo" || oField.comptype=="calendar")
+				// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
+				if(oField.comptype=="calendar" || oField.comptype=="checkbox" || oField.comptype=="combo" || oField.comptype=="edit"
+					|| oField.comptype=="maskedit" || oField.comptype=="radio" || oField.comptype=="spin" || oField.comptype=="textarea")
 				{
-					oComp.attribute.buttonsize = "0";
+					oComp.attribute.readonly = "true";
+					oComp.attribute.cssclass = this.COMP_READONLY_CSSCLASS;
+					
+					// 스핀버튼, 드롭다운버튼 안보이게 처리
+					if (oField.comptype=="spin" || oField.comptype=="combo" || oField.comptype=="calendar")
+					{
+						oComp.attribute.buttonsize = "0";
+					}
 				}
 			}
 
@@ -1656,16 +1681,21 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				oComp.attribute.text = oField.label;
 			}
 			
-			// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
-			if(oField.comptype=="calendar" || oField.comptype=="checkbox" || oField.comptype=="combo" || oField.comptype=="edit"
-				|| oField.comptype=="maskedit" || oField.comptype=="radio" || oField.comptype=="spin" || oField.comptype=="textarea")
+			// Readonly 처리
+			if(oField.fieldreadonly == "true")
 			{
-				oComp.attribute.readonly = "true";
-				
-				// 스핀버튼, 드롭다운버튼 안보이게 처리
-				if (oField.comptype=="spin" || oField.comptype=="combo" || oField.comptype=="calendar")
+				// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
+				if(oField.comptype=="calendar" || oField.comptype=="checkbox" || oField.comptype=="combo" || oField.comptype=="edit"
+					|| oField.comptype=="maskedit" || oField.comptype=="radio" || oField.comptype=="spin" || oField.comptype=="textarea")
 				{
-					oComp.attribute.buttonsize = "0";
+					oComp.attribute.readonly = "true";
+					oComp.attribute.cssclass = this.COMP_READONLY_CSSCLASS;
+					
+					// 스핀버튼, 드롭다운버튼 안보이게 처리
+					if (oField.comptype=="spin" || oField.comptype=="combo" || oField.comptype=="calendar")
+					{
+						oComp.attribute.buttonsize = "0";
+					}
 				}
 			}
 

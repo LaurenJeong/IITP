@@ -63,14 +63,14 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="ExcelModel001" filepath="sample\Excel.xmodel">
             <Fields>
-              <Field id="TEXT" description="" comptype="edit" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="TEXTAREA" description="" comptype="textarea" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="CHECK" description="" comptype="checkbox" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="COMBO" description="" comptype="combo" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="DATE" description="" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="DECOTEXT" description="" comptype="static" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="NUMBER" description="" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="CURRENCY" description="" comptype="spin" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="TEXT" description="" comptype="edit" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="TEXTAREA" description="" comptype="textarea" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="CHECK" description="" comptype="checkbox" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="COMBO" description="" comptype="combo" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="DATE" description="" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="DECOTEXT" description="" comptype="static" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="NUMBER" description="" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="CURRENCY" description="" comptype="spin" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
             </Fields>
             <Components>
               <Component id="staTextBg" fields="TEXT"/>
@@ -104,6 +104,212 @@
             <Attribute id="halign" value="left"/>
             <Attribute id="valign" value="top"/>
             <Attribute id="titletext" value="타이틀"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="Static00_00_00" taborder="2" text="horizontal | left | top | readonly false" left="642" top="5" width="295" height="25" cssclass="sta_WF_title02"/>
+        <View id="View01" taborder="3" text="View01" viewdataset="viewdataset" left="652" top="40" width="550" height="360" cssclass="viw_test_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staTextBg" left="0" top="0" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staTextLabel" left="0" top="0" width="100" height="40" text="TEXT" cssclass="sta_labelbox"/>
+              <Edit id="edtText" left="105" top="5" width="440" height="30"/>
+              <Static id="staTextareaBg" left="0" top="39" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staTextareaLabel" left="0" top="39" width="100" height="40" text="TEXTAREA" cssclass="sta_labelbox"/>
+              <TextArea id="txtTextarea" left="105" top="44" width="440" height="30"/>
+              <Static id="staCheckBg" left="0" top="78" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCheckLabel" left="0" top="78" width="100" height="40" text="CHECK" cssclass="sta_labelbox"/>
+              <CheckBox id="chkCheck" left="105" top="83" width="440" height="30" text="CHECK"/>
+              <Static id="staComboBg" left="0" top="117" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staComboLabel" left="0" top="117" width="100" height="40" text="COMBO" cssclass="sta_labelbox"/>
+              <Combo id="cmbCombo" left="105" top="122" width="440" height="30"/>
+              <Static id="staDateBg" left="0" top="156" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDateLabel" left="0" top="156" width="100" height="40" text="DATE" cssclass="sta_labelbox"/>
+              <Calendar id="calDate" left="105" top="161" width="440" height="30"/>
+              <Static id="staDecotextBg" left="0" top="195" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDecotextLabel" left="0" top="195" width="100" height="40" text="DECOTEXT" cssclass="sta_labelbox"/>
+              <Static id="staDecotext_2" left="105" top="200" width="440" height="30" text="DECOTEXT"/>
+              <Static id="staNumberBg" left="0" top="234" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNumberLabel" left="0" top="234" width="100" height="40" text="NUMBER" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskNumber" left="105" top="239" width="440" height="30"/>
+              <Static id="staCurrencyBg" left="0" top="273" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCurrencyLabel" left="0" top="273" width="100" height="40" text="CURRENCY" cssclass="sta_labelbox"/>
+              <Spin id="spnCurrency" left="105" top="278" width="440" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="TEXT" type="STRING" size="80"/>
+                <Column id="TEXTAREA" type="STRING" size="80"/>
+                <Column id="CHECK" type="STRING" size="80"/>
+                <Column id="COMBO" type="STRING" size="80"/>
+                <Column id="DATE" type="DATE" size="80"/>
+                <Column id="DECOTEXT" type="STRING" size="80"/>
+                <Column id="NUMBER" type="BIGDECIMAL" size="80"/>
+                <Column id="CURRENCY" type="BIGDECIMAL" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtText" compid="edtText" propid="value" datasetid="viewdataset" columnid="TEXT"/>
+            <BindItem id="bind_txtTextarea" compid="txtTextarea" propid="value" datasetid="viewdataset" columnid="TEXTAREA"/>
+            <BindItem id="bind_chkCheck" compid="chkCheck" propid="value" datasetid="viewdataset" columnid="CHECK"/>
+            <BindItem id="bind_cmbCombo" compid="cmbCombo" propid="value" datasetid="viewdataset" columnid="COMBO"/>
+            <BindItem id="bind_calDate" compid="calDate" propid="value" datasetid="viewdataset" columnid="DATE"/>
+            <BindItem id="bind_staDecotext_2" compid="staDecotext_2" propid="text" datasetid="viewdataset" columnid="DECOTEXT"/>
+            <BindItem id="bind_mskNumber" compid="mskNumber" propid="value" datasetid="viewdataset" columnid="NUMBER"/>
+            <BindItem id="bind_spnCurrency" compid="spnCurrency" propid="value" datasetid="viewdataset" columnid="CURRENCY"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="ExcelModel001" filepath="sample\Excel.xmodel">
+            <Fields>
+              <Field id="TEXT" description="" comptype="edit" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="TEXTAREA" description="" comptype="textarea" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="CHECK" description="" comptype="checkbox" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="COMBO" description="" comptype="combo" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="DATE" description="" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="DECOTEXT" description="" comptype="static" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="NUMBER" description="" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="CURRENCY" description="" comptype="spin" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+            </Fields>
+            <Components>
+              <Component id="staTextBg" fields="TEXT"/>
+              <Component id="staTextLabel" fields="TEXT"/>
+              <Component id="edtText" fields="TEXT"/>
+              <Component id="staTextareaBg" fields="TEXTAREA"/>
+              <Component id="staTextareaLabel" fields="TEXTAREA"/>
+              <Component id="txtTextarea" fields="TEXTAREA"/>
+              <Component id="staCheckBg" fields="CHECK"/>
+              <Component id="staCheckLabel" fields="CHECK"/>
+              <Component id="chkCheck" fields="CHECK"/>
+              <Component id="staComboBg" fields="COMBO"/>
+              <Component id="staComboLabel" fields="COMBO"/>
+              <Component id="cmbCombo" fields="COMBO"/>
+              <Component id="staDateBg" fields="DATE"/>
+              <Component id="staDateLabel" fields="DATE"/>
+              <Component id="calDate" fields="DATE"/>
+              <Component id="staDecotextBg" fields="DECOTEXT"/>
+              <Component id="staDecotextLabel" fields="DECOTEXT"/>
+              <Component id="staDecotext_2" fields="DECOTEXT"/>
+              <Component id="staNumberBg" fields="NUMBER"/>
+              <Component id="staNumberLabel" fields="NUMBER"/>
+              <Component id="mskNumber" fields="NUMBER"/>
+              <Component id="staCurrencyBg" fields="CURRENCY"/>
+              <Component id="staCurrencyLabel" fields="CURRENCY"/>
+              <Component id="spnCurrency" fields="CURRENCY"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformReadonlyViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="Static00_00_00_00" taborder="4" text="horizontal | left | top | readonly mix" left="10" top="425" width="295" height="25" cssclass="sta_WF_title02"/>
+        <View id="View01_00" taborder="5" text="View01" viewdataset="viewdataset" left="20" top="460" width="550" height="360" cssclass="viw_test_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staTextBg" left="0" top="0" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staTextLabel" left="0" top="0" width="100" height="40" text="TEXT" cssclass="sta_labelbox"/>
+              <Edit id="edtText" left="105" top="5" width="440" height="30" cssclass="com_WF_View" readonly="true"/>
+              <Static id="staTextareaBg" left="0" top="39" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staTextareaLabel" left="0" top="39" width="100" height="40" text="TEXTAREA" cssclass="sta_labelbox"/>
+              <TextArea id="txtTextarea" left="105" top="44" width="440" height="30"/>
+              <Static id="staCheckBg" left="0" top="78" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCheckLabel" left="0" top="78" width="100" height="40" text="CHECK" cssclass="sta_labelbox"/>
+              <CheckBox id="chkCheck" left="105" top="83" width="440" height="30" cssclass="com_WF_View" text="CHECK" readonly="true"/>
+              <Static id="staComboBg" left="0" top="117" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staComboLabel" left="0" top="117" width="100" height="40" text="COMBO" cssclass="sta_labelbox"/>
+              <Combo id="cmbCombo" left="105" top="122" width="440" height="30" cssclass="com_WF_View" readonly="true" buttonsize="0"/>
+              <Static id="staDateBg" left="0" top="156" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDateLabel" left="0" top="156" width="100" height="40" text="DATE" cssclass="sta_labelbox"/>
+              <Calendar id="calDate" left="105" top="161" width="440" height="30"/>
+              <Static id="staDecotextBg" left="0" top="195" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDecotextLabel" left="0" top="195" width="100" height="40" text="DECOTEXT" cssclass="sta_labelbox"/>
+              <Static id="staDecotext_2" left="105" top="200" width="440" height="30" text="DECOTEXT"/>
+              <Static id="staNumberBg" left="0" top="234" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNumberLabel" left="0" top="234" width="100" height="40" text="NUMBER" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskNumber" left="105" top="239" width="440" height="30" cssclass="com_WF_View" readonly="true"/>
+              <Static id="staCurrencyBg" left="0" top="273" width="550" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCurrencyLabel" left="0" top="273" width="100" height="40" text="CURRENCY" cssclass="sta_labelbox"/>
+              <Spin id="spnCurrency" left="105" top="278" width="440" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="TEXT" type="STRING" size="80"/>
+                <Column id="TEXTAREA" type="STRING" size="80"/>
+                <Column id="CHECK" type="STRING" size="80"/>
+                <Column id="COMBO" type="STRING" size="80"/>
+                <Column id="DATE" type="DATE" size="80"/>
+                <Column id="DECOTEXT" type="STRING" size="80"/>
+                <Column id="NUMBER" type="BIGDECIMAL" size="80"/>
+                <Column id="CURRENCY" type="BIGDECIMAL" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtText" compid="edtText" propid="value" datasetid="viewdataset" columnid="TEXT"/>
+            <BindItem id="bind_txtTextarea" compid="txtTextarea" propid="value" datasetid="viewdataset" columnid="TEXTAREA"/>
+            <BindItem id="bind_chkCheck" compid="chkCheck" propid="value" datasetid="viewdataset" columnid="CHECK"/>
+            <BindItem id="bind_cmbCombo" compid="cmbCombo" propid="value" datasetid="viewdataset" columnid="COMBO"/>
+            <BindItem id="bind_calDate" compid="calDate" propid="value" datasetid="viewdataset" columnid="DATE"/>
+            <BindItem id="bind_staDecotext_2" compid="staDecotext_2" propid="text" datasetid="viewdataset" columnid="DECOTEXT"/>
+            <BindItem id="bind_mskNumber" compid="mskNumber" propid="value" datasetid="viewdataset" columnid="NUMBER"/>
+            <BindItem id="bind_spnCurrency" compid="spnCurrency" propid="value" datasetid="viewdataset" columnid="CURRENCY"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="ExcelModel001" filepath="sample\Excel.xmodel">
+            <Fields>
+              <Field id="TEXT" description="" comptype="edit" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="TEXTAREA" description="" comptype="textarea" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="CHECK" description="" comptype="checkbox" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="COMBO" description="" comptype="combo" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="DATE" description="" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="DECOTEXT" description="" comptype="static" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="NUMBER" description="" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="CURRENCY" description="" comptype="spin" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+            </Fields>
+            <Components>
+              <Component id="staTextBg" fields="TEXT"/>
+              <Component id="staTextLabel" fields="TEXT"/>
+              <Component id="edtText" fields="TEXT"/>
+              <Component id="staTextareaBg" fields="TEXTAREA"/>
+              <Component id="staTextareaLabel" fields="TEXTAREA"/>
+              <Component id="txtTextarea" fields="TEXTAREA"/>
+              <Component id="staCheckBg" fields="CHECK"/>
+              <Component id="staCheckLabel" fields="CHECK"/>
+              <Component id="chkCheck" fields="CHECK"/>
+              <Component id="staComboBg" fields="COMBO"/>
+              <Component id="staComboLabel" fields="COMBO"/>
+              <Component id="cmbCombo" fields="COMBO"/>
+              <Component id="staDateBg" fields="DATE"/>
+              <Component id="staDateLabel" fields="DATE"/>
+              <Component id="calDate" fields="DATE"/>
+              <Component id="staDecotextBg" fields="DECOTEXT"/>
+              <Component id="staDecotextLabel" fields="DECOTEXT"/>
+              <Component id="staDecotext_2" fields="DECOTEXT"/>
+              <Component id="staNumberBg" fields="NUMBER"/>
+              <Component id="staNumberLabel" fields="NUMBER"/>
+              <Component id="mskNumber" fields="NUMBER"/>
+              <Component id="staCurrencyBg" fields="CURRENCY"/>
+              <Component id="staCurrencyLabel" fields="CURRENCY"/>
+              <Component id="spnCurrency" fields="CURRENCY"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformReadonlyViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
             <Attribute id="useexpandbutton" value="none"/>
             <Attribute id="usefieldbox" value="true"/>
           </ViewTemplateInfo>
