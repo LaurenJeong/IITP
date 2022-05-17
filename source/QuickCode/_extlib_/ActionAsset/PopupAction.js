@@ -19,7 +19,7 @@ if (!nexacro.PopupAction)
 	//===============================================================		
     // nexacro.DsSetFirstCdAction : 변수선언 부분
     //===============================================================
-	nexacro.PopupAction.prototype._POPUP_CALLBACK = "fnPopupActionCallback";		// callback함수명
+	nexacro.PopupAction.prototype._POPUP_CALLBACK = "fnPopupActionCallback";		// callback함수
 	
 	//===============================================================
 	// nexacro.PopupAction : Create & Destroy
@@ -61,6 +61,12 @@ if (!nexacro.PopupAction)
 			//Action Scope에 있는 CallBack 함수가 호출되도록 설정
 			objForm.fnPopupActionCallback = this.fnPopupActionCallback;
 			objForm.targetPopupAction = this;
+			
+			if (this.gfnIsNull(objArgs)) {
+				objArgs = {};
+			}
+			
+			objArgs._PUPUP_STYLE = sPopupStyle;
 			
 			//Modeless 팝업 호출
 			if(sPopupStyle=="modeless")

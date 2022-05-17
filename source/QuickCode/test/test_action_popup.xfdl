@@ -3,20 +3,41 @@
   <Form id="test_action_popup" width="1280" height="720" titletext="팝업 테스트">
     <Layouts>
       <Layout height="720" width="1280">
-        <Button id="btnPopup" taborder="0" text="팝업(단건선택)" left="10" top="10" width="100" height="30"/>
+        <Button id="btnPopup" taborder="0" text="팝업(선택데이터)" left="10" top="10" width="114" height="30"/>
         <TextArea id="txaOutput" taborder="1" left="10" top="50" width="440" bottom="10" wordWrap="english"/>
-        <Grid id="grdRetPop" taborder="2" left="460" top="80" height="235" right="10" binddataset="dsRetPop">
+        <Grid id="grdRetPop" taborder="2" left="460" top="80" height="235" right="10" binddataset="dsRetPop" autofittype="col">
           <Formats>
-            <Format id="default"/>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="30" band="head"/>
+                <Row size="30"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="company"/>
+                <Cell col="1" text="department"/>
+                <Cell col="2" text="name"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:company"/>
+                <Cell col="1" text="bind:department"/>
+                <Cell col="2" text="bind:name"/>
+              </Band>
+            </Format>
           </Formats>
         </Grid>
         <Static id="Static00" taborder="3" text="팝업결과 데이터" left="460" top="50" height="30" cssclass="sta_WF_title02" right="410"/>
-        <Button id="btnPopup2" taborder="4" text="팝업(전체데이터반환)" left="120" top="10" width="140" height="30"/>
+        <Button id="btnPopup2" taborder="4" text="팝업(전체데이터)" left="134" top="10" width="114" height="30"/>
+        <Button id="btnPopup3" taborder="5" text="팝업(변경데이터)" left="258" top="10" width="114" height="30"/>
       </Layout>
     </Layouts>
     <Objects>
       <Dataset id="dsRetPop"/>
-      <PopupAction id="PopupAction00" formurl="test::test_action_popupsub.xfdl" popupstyle="modal" popupid="popup" title="팝업테스트" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}">
+      <PopupAction id="PopupAction00" formurl="test::test_action_popupsub.xfdl" popupstyle="modal" popupid="popup" title="선택데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}">
         <Contents><![CDATA[{
     "extra":
     [
@@ -27,7 +48,18 @@
     ]
 }]]></Contents>
       </PopupAction>
-      <PopupAction id="PopupAction01" formurl="test::test_action_popupsub.xfdl" popupstyle="modal" popupid="popup" title="팝업테스트" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;alldata&quot;}">
+      <PopupAction id="PopupAction01" formurl="test::test_action_popupsub.xfdl" popupstyle="modeless" popupid="popup" title="전체데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;alldata&quot;}">
+        <Contents><![CDATA[{
+    "extra":
+    [
+        {
+            "name":"test",
+            "value":1111
+        }
+    ]
+}]]></Contents>
+      </PopupAction>
+      <PopupAction id="PopupAction02" formurl="test::test_action_popupsub.xfdl" popupstyle="modal" popupid="popup" title="변경데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;changedata&quot;}">
         <Contents><![CDATA[{
     "extra":
     [
@@ -42,6 +74,7 @@
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup" targetaction="PopupAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup2" targetaction="PopupAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup3" targetaction="PopupAction02" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[include "view_lib::util.xjs";
 
@@ -61,8 +94,10 @@ this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.Actio
 	if (this.lfn_IsNull(e.userdata) == false) {
 		var objRet = JSON.parse(e.userdata);
 		this.dsRetPop.loadXML(objRet.dataset);
-		this.grdRetPop.createFormat();
+		//this.grdRetPop.createFormat();
 	}
-};]]></Script>
+};
+
+]]></Script>
   </Form>
 </FDL>

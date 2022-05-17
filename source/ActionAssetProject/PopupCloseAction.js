@@ -44,7 +44,7 @@ if (!nexacro.PopupCloseAction)
 			
 		var objDataset;
 		var objComp;
-		var oRet;
+		var oRet = {};
 		var sRet = "";
 
 		//If the canrun event return value is not false			
@@ -59,6 +59,7 @@ if (!nexacro.PopupCloseAction)
 			if (sReturnType != "none")
 			{
 				var objDs;
+				var oRetParam = this._returnparam;
 				
 				// Dataset 객체 찾기
 				if (sTarget) {				// targetgrid 설정시 해당 그리드
@@ -88,8 +89,6 @@ if (!nexacro.PopupCloseAction)
 					
 					if (!this.gfnIsNull(objChkDs))		sXML = objChkDs.saveXML();
 					
-					this.gfnLog(sXML);
-
 					oRet = {
 						  dataset	: sXML
 					};
@@ -97,16 +96,35 @@ if (!nexacro.PopupCloseAction)
 				else if (sReturnType == "alldata")		// alldata : 데이터셋 전체 데이터
 				{
 					oRet = {
+						  dataset	: objDs.saveXML("dataset")
+					};
+				}
+				else if (sReturnType == "changedata")	// changedata : 변경된 데이터
+				{
+					oRet = {
 						  dataset	: objDs.saveXML("dataset","U")
 					};
 				}
 				
+				// 리턴값을 String으로 변경
 				sRet = JSON.stringify(oRet);
 			}
 			
+			var objChildFrame	= objForm.getOwnerFrame();
+			var objChildForm	= objChildFrame.form;
+			
+			var sPopupStyle = objChildFrame["_PUPUP_STYLE"];
+			
+			// 팝업이 modeless 일때
+			if (sPopupStyle == "modeless") {
+				
+				var oOpener			= objChildForm.opener;
+				var sAction			= oOpener.targetPopupAction;
+				
+				sAction.on_fire_onsuccess(sRet);
+			}
 			
 			// 팝업창 닫기
- 			var objChildForm = objForm.getOwnerFrame().form;
 			objChildForm.close(sRet);
 		}		
 	};
@@ -133,7 +151,7 @@ if (!nexacro.PopupCloseAction)
 	
 	nexacro.PopupCloseAction.prototype.set_returntype = function (v)				
 	{
-		var returntype_enum = ["none", "currow", "selectmulti", "alldata"];
+		var returntype_enum = ["none", "currow", "changedata", "alldata"];
 		if (v && returntype_enum.indexOf(v) == -1) {
 			return;
 		}

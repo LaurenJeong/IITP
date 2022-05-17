@@ -62,6 +62,12 @@ if (!nexacro.PopupAction)
 			objForm.fnPopupActionCallback = this.fnPopupActionCallback;
 			objForm.targetPopupAction = this;
 			
+			if (this.gfnIsNull(objArgs)) {
+				objArgs = {};
+			}
+			
+			objArgs._PUPUP_STYLE = sPopupStyle;
+			
 			//Modeless 팝업 호출
 			if(sPopupStyle=="modeless")
 			{

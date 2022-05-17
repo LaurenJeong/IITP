@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_action_popup" width="480" height="768" titletext="모바일 팝업 테스트">
+    <Layouts>
+      <Layout height="768" width="480">
+        <Button id="btnPopup" taborder="0" text="팝업&#13;&#10;(선택데이터)" left="10" top="10" width="133" height="60"/>
+        <TextArea id="txaOutput" taborder="1" left="10" top="80" wordWrap="english" height="230" right="10"/>
+        <Static id="Static00" taborder="3" text="팝업결과 데이터" left="10" top="320" height="40" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdRetPop" taborder="2" left="10" top="Static00:0" height="350" right="10" binddataset="dsRetPop" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="52" band="head"/>
+                <Row size="50"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="company"/>
+                <Cell col="1" text="department"/>
+                <Cell col="2" text="name"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:company"/>
+                <Cell col="1" text="bind:department"/>
+                <Cell col="2" text="bind:name"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnPopup2" taborder="4" text="팝업&#13;&#10;(전체데이터)" left="btnPopup:10" top="10" width="133" height="60"/>
+        <Button id="btnPopup3" taborder="5" text="팝업&#13;&#10;(변경데이터)" left="btnPopup2:10" top="10" width="133" height="60"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsRetPop">
+        <ColumnInfo>
+          <Column id="company" type="STRING" size="80"/>
+          <Column id="department" type="STRING" size="80"/>
+          <Column id="name" type="STRING" size="80"/>
+        </ColumnInfo>
+      </Dataset>
+      <PopupActionM id="PopupActionM00" formurl="test_m::test_action_popupmsub.xfdl" popupstyle="modal" popupid="popup" title="선택데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}">
+        <Contents><![CDATA[{
+    "extra":
+    [
+        {
+            "name":"test",
+            "value":1111
+        }
+    ]
+}]]></Contents>
+      </PopupActionM>
+      <PopupActionM id="PopupActionM01" formurl="test_m::test_action_popupmsub.xfdl" popupstyle="modeless" popupid="popup" title="전체데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;alldata&quot;}">
+        <Contents><![CDATA[{
+    "extra":
+    [
+        {
+            "name":"test",
+            "value":1111
+        }
+    ]
+}]]></Contents>
+      </PopupActionM>
+      <PopupActionM id="PopupActionM02" formurl="test_m::test_action_popupmsub.xfdl" popupstyle="modal" popupid="popup" title="변경데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;changedata&quot;}">
+        <Contents><![CDATA[{
+    "extra":
+    [
+        {
+            "name":"test",
+            "value":1111
+        }
+    ]
+}]]></Contents>
+      </PopupActionM>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup" targetaction="PopupActionM00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup2" targetaction="PopupActionM01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup3" targetaction="PopupActionM02" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[include "view_lib::util.xjs";
+
+this.PopupAction00_onerror = function(obj:nexacro.PopupAction, e:nexacro.ActionErrorEventInfo)
+{
+	//trace("PopupAction00_onerror" + e.userdata);
+	this.txaOutput.insertText("\n" + "PopupAction00_onerror");
+	this.txaOutput.insertText("\n - userdata : " + e.userdata);
+};
+
+this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.ActionSuccessEventInfo)
+{
+	//trace("PopupAction00_onsuccess" + e.userdata);
+	this.txaOutput.insertText("\n" + "PopupAction00_onsuccess");
+	this.txaOutput.insertText("\n - userdata : " + e.userdata);
+	
+	if (this.lfn_IsNull(e.userdata) == false) {
+		var objRet = JSON.parse(e.userdata);
+		this.dsRetPop.loadXML(objRet.dataset);
+	}
+};]]></Script>
+  </Form>
+</FDL>

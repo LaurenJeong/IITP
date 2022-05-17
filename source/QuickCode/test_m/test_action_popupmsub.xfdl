@@ -1,22 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="test_action_popupsub" width="450" height="500" titletext="팝업화면 샘플" onload="test_action_popupsub_onload">
+  <Form id="test_action_popupsub" width="480" height="644" titletext="팝업화면 샘플" onload="test_action_popupsub_onload">
     <Layouts>
-      <Layout height="500" mobileorientation="landscape" width="450">
-        <View id="viwSearch" taborder="0" viewdataset="viewdataset" left="20" top="60" height="40" right="20">
+      <Layout height="644" mobileorientation="landscape" width="480">
+        <Static id="staTitle" taborder="1" text="팝업타이틀" left="0" top="0" height="55" cssclass="sta_WF_title_popup" right="0"/>
+        <View id="viwPopBtn" taborder="2" viewdataset="viewdataset" left="20" height="60" bottom="20" right="20">
+          <Layouts>
+            <Layout type="horizontal" flexmainaxisalign="center" flexcrossaxisalign="center" horizontalgap="10">
+              <Button id="btnCancel" taborder="1" text="취소" left="110" top="9" width="80" height="60" cssclass="btn_cm_basic01" flexgrow="1"/>
+              <Button id="btnOk" taborder="1" text="확인" left="110" top="9" width="80" height="60" cssclass="btn_cm_basic02" flexgrow="1"/>
+            </Layout>
+          </Layouts>
+        </View>
+        <Button id="btnPopupClose" taborder="3" top="0" width="55" height="55" right="0" cssclass="btn_WF_title_popup_close"/>
+        <View id="viwSearch" taborder="0" viewdataset="viewdataset" left="20" top="70" height="160" right="20">
           <Layouts>
             <Layout>
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
-              <Button id="btnSearch" width="100" height="30" right="5" bottom="5" cssclass="btn_search" text="Search" onclick="viwSearch_btnSearch_onclick"/>
-              <Static id="stname_Label" left="5" top="5" width="95" height="30" text="Name" cssclass="sta_label"/>
-              <Edit id="edtname" left="105" top="5" width="100" height="30"/>
+              <Button id="btnSearch" left="20" height="60" right="20" bottom="10" cssclass="btn_search" text="Search" onclick="viwSearch_btnSearch_onclick"/>
+              <Static id="staNameLabel" left="20" top="10" width="105" height="60" text="성명" cssclass="sta_label"/>
+              <Edit id="edtName" left="130" top="10" width="220" height="60"/>
             </Layout>
-            <Layout/>
           </Layouts>
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="name" type="STRING" size="80"/>
+                <Column id="Name" type="STRING" size="80"/>
               </ColumnInfo>
               <Rows>
                 <Row/>
@@ -24,37 +33,28 @@
             </Dataset>
           </Objects>
           <Bind>
-            <BindItem id="bind_edtname" compid="edtname" propid="value" datasetid="viewdataset" columnid="name"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="svcQuickCodeTutorial" modelid="tutorial_SearchEmployee" filepath="svcQuickCodeTutorial.xmodel">
+          <ModelInfo modelserviceid="model" serviceid="" modelid="SearchModel001" filepath="sample\Search.xmodel">
             <Fields>
-              <Field id="name" required="false" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label"/>
+              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="stname_Label" fields="name"/>
-              <Component id="edtname" fields="name"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="SearchViewTemplateM.xviewgen">
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="halign" value="left"/>
             <Attribute id="valign" value="top"/>
-            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontype" value="bottomfull"/>
             <Attribute id="searchbuttontext" value="Search"/>
             <Attribute id="searchbuttoncssclass" value="btn_search"/>
             <Attribute id="searchbgcssclass" value="sta_searchbox"/>
           </ViewTemplateInfo>
         </View>
-        <Static id="Static00" taborder="1" text="팝업타이틀" left="20" top="20" height="30" cssclass="sta_WF_title01" right="20"/>
-        <View id="viwPopBtn" taborder="3" viewdataset="viewdataset" left="20" height="30" bottom="20" right="20">
-          <Layouts>
-            <Layout type="horizontal" flexmainaxisalign="center" flexcrossaxisalign="center" horizontalgap="10">
-              <Button id="btnOk" taborder="0" text="확인" left="110" top="9" width="80" height="30" cssclass="btn_cm_basic02"/>
-              <Button id="btnCancel" taborder="1" text="취소" left="110" top="9" width="80" height="30" cssclass="btn_cm_basic01"/>
-            </Layout>
-          </Layouts>
-        </View>
-        <View id="viwList" taborder="2" viewdataset="viewdataset" left="20" top="viwSearch:10" right="20" bottom="viwPopBtn:10">
+        <View id="viwList" taborder="4" viewdataset="viewdataset" left="20" top="viwSearch:20" right="20" bottom="100">
           <Layouts>
             <Layout>
               <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
@@ -66,8 +66,8 @@
                       <Column size="80" band="body"/>
                     </Columns>
                     <Rows>
-                      <Row size="30" band="head"/>
-                      <Row size="30" band="body"/>
+                      <Row size="52" band="head"/>
+                      <Row size="50" band="body"/>
                     </Rows>
                     <Band id="head">
                       <Cell id="cell_company" col="0" row="0" text="Company"/>
@@ -106,8 +106,8 @@
           </ModelInfo>
           <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
             <Attribute id="usetotalcount" value="false"/>
-            <Attribute id="headbandsize" value="30"/>
-            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="headbandsize" value="52"/>
+            <Attribute id="bodybandsize" value="50"/>
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
@@ -154,10 +154,15 @@
       <PopupCloseAction id="PopupCloseAction01" targetview="viwList" targetcomp="viewdataset" returntype="currow">
         <Contents/>
       </PopupCloseAction>
+      <PopupCloseAction id="PopupCloseAction02" returntype="none">
+        <Contents/>
+      </PopupCloseAction>
     </Objects>
     <Script type="xscript5.1"><![CDATA[this.test_action_popupsub_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var sReturnType = this.gfnGetArgument("returntype");
+	
+	//trace("sReturnType : " + sReturnType);
 	
 	this.PopupCloseAction01.set_returntype(sReturnType);
 };
@@ -180,12 +185,11 @@ this.gfnGetArgument = function(sName)
 	
 	return ret;
 };
-
-
 ]]></Script>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="viwPopBtn" triggerobj="btnCancel" targetaction="PopupCloseAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Click" triggerview="viwPopBtn" triggerobj="btnOk" targetaction="PopupCloseAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="test_action_popupsub" triggerobj="btnPopupClose" targetaction="PopupCloseAction02" condition=""/>
     </Trigger>
   </Form>
 </FDL>
