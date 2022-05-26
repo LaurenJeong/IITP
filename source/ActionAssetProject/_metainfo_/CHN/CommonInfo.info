@@ -17,10 +17,14 @@
   </EnumInfo>
   <EnumInfo id="PopupReturnType" description="">
     <Enum name="none" description=""/>
-    <Enum name="selectone" description=""/>
-    <Enum name="selectmulti" description=""/>
+    <Enum name="currow" description=""/>
+    <Enum name="changedata" description=""/>
+    <Enum name="alldata" description=""/>
   </EnumInfo>
-  <EnumInfo id="alldata"/>
+  <EnumInfo id="CheckMode" description="RequiredValidationAction 필수입력 체크모드">
+    <Enum name="allrow" description="모든 row에 대해서 체크"/>
+    <Enum name="modified" description="변경된 row에 대해서만 체크(default)"/>
+  </EnumInfo>
   <RefreshInfo id="targetview">
     <Property name="targetcomp"/>
   </RefreshInfo>

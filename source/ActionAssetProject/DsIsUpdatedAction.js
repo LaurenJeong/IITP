@@ -35,7 +35,7 @@ if (!nexacro.DsIsUpdatedAction)
 		var objView = this.getTargetView();	
 		
 		var sTarget = this.targetdataset;
-		var bCheckFilter = this.checkfilter
+		var bCheckFilter = this.checkfilter;
 			
 		var objDataset;
 		var objComp;
