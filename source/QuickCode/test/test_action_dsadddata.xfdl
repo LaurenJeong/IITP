@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_action_dsadddata" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Button id="btnAdd" taborder="1" text="마지막행 추가" left="308" top="49" width="100" height="30"/>
+        <Button id="btnAdd2" taborder="2" text="첫행 추가" left="426" top="49" width="100" height="30"/>
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="7" top="89" width="518" height="257">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                      <Row size="30" band="summ"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_Company" col="0" row="0" text="회사명"/>
+                      <Cell id="cell_Department" col="1" row="0" text="부서명"/>
+                      <Cell id="cell_Name" col="2" row="0" text="성명"/>
+                      <Cell id="cell_Phone" col="3" row="0" text="전화번호"/>
+                      <Cell id="cell_Email" col="4" row="0" text="이메일주소"/>
+                      <Cell id="cell_field0" col="5" row="0" text="label0"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_Company" col="0" row="0" text="bind:Company" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Department" col="1" row="0" text="bind:Department" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Name" col="2" row="0" text="bind:Name" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Phone" col="3" row="0" text="bind:Phone" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Email" col="4" row="0" text="bind:Email" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_field0" col="5" row="0" text="bind:field0" displaytype="normal" edittype="normal"/>
+                    </Band>
+                    <Band id="summary">
+                      <Cell id="cell_Company" col="0" row="0" text=""/>
+                      <Cell id="cell_Department" col="1" row="0" text=""/>
+                      <Cell id="cell_Name" col="2" row="0" text=""/>
+                      <Cell id="cell_Phone" col="3" row="0" text=""/>
+                      <Cell id="cell_Email" col="4" row="0" text=""/>
+                      <Cell id="cell_field0" col="5" row="0" text=""/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80"/>
+                <Column id="Department" type="STRING" size="80"/>
+                <Column id="Name" type="STRING" size="80"/>
+                <Column id="Phone" type="STRING" size="80"/>
+                <Column id="Email" type="STRING" size="80"/>
+                <Column id="field0" type="STRING" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Department" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Name" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Phone" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Email" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="field0" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="Company,Department,Name,Phone,Email,field0"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="30"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <DsAddDataAction id="DsAddDataAction00" targetview="View00" rowindex="-1">
+        <Contents><![CDATA[{
+    "model":{
+        "none":[
+            {
+                "name":"View00:Company",
+                "viewid":"View00",
+                "fieldid":"Company",
+                "value":"Company"
+            },
+            {
+                "name":"View00:Department",
+                "viewid":"View00",
+                "fieldid":"Department",
+                "value":"Department"
+            },
+            {
+                "name":"View00:Name",
+                "viewid":"View00",
+                "fieldid":"Name",
+                "value":"Name"
+            },
+            {
+                "name":"View00:Phone",
+                "viewid":"View00",
+                "fieldid":"Phone",
+                "value":"Phone"
+            },
+            {
+                "name":"View00:Email",
+                "viewid":"View00",
+                "fieldid":"Email",
+                "value":"Email"
+            },
+            {
+                "name":"View00:field0",
+                "viewid":"View00",
+                "fieldid":"field0",
+                "value":"field0"
+            }
+        ]
+    }
+}]]></Contents>
+      </DsAddDataAction>
+      <DsAddDataAction id="DsAddDataAction01" targetview="View00" rowindex="0">
+        <Contents><![CDATA[{
+    "model":{
+        "none":[
+            {
+                "name":"View00:Company",
+                "viewid":"View00",
+                "fieldid":"Company",
+                "value":"Company"
+            },
+            {
+                "name":"View00:Department",
+                "viewid":"View00",
+                "fieldid":"Department",
+                "value":"Department"
+            },
+            {
+                "name":"View00:Name",
+                "viewid":"View00",
+                "fieldid":"Name",
+                "value":"Name"
+            },
+            {
+                "name":"View00:Phone",
+                "viewid":"View00",
+                "fieldid":"Phone",
+                "value":"Phone"
+            },
+            {
+                "name":"View00:Email",
+                "viewid":"View00",
+                "fieldid":"Email",
+                "value":"Email"
+            },
+            {
+                "name":"View00:field0",
+                "viewid":"View00",
+                "fieldid":"field0",
+                "value":"field0"
+            }
+        ]
+    }
+}]]></Contents>
+      </DsAddDataAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd2" targetaction="DsAddDataAction01" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>

@@ -2,40 +2,43 @@
 //	Define the Action.
 //==============================================================================
 //==============================================================================		
-// Object : nexacro.DsIsUpdatedAction		
+// Object : nexacro.DsAddDataAction		
 // Group : Action		
 //==============================================================================		
-if (!nexacro.DsIsUpdatedAction)		
+if (!nexacro.DsAddDataAction)		
 {		
-    nexacro.DsIsUpdatedAction = function(id, parent)		
+    nexacro.DsAddDataAction = function(id, parent)		
     {		
-        nexacro.Action.call(this, id, parent);
-		this.addEvent("canrun");
+        nexacro.Action.call(this, id, parent);		
     };		
         		
-    nexacro.DsIsUpdatedAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DsIsUpdatedAction);		
-    nexacro.DsIsUpdatedAction.prototype._type_name = "DsIsUpdatedAction";		
+    nexacro.DsAddDataAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DsAddDataAction);		
+    nexacro.DsAddDataAction.prototype._type_name = "DsAddDataAction";		
 	
 	//===============================================================		
-    // nexacro.DsIsUpdatedAction : Create & Destroy		
+    // nexacro.DsAddDataAction : 변수선언 부분
+    //===============================================================
+	nexacro.DsAddDataAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
+	
+	//===============================================================		
+    // nexacro.DsAddDataAction : Create & Destroy		
     //===============================================================		
-    nexacro.DsIsUpdatedAction.prototype.destroy = function()		
+    nexacro.DsAddDataAction.prototype.destroy = function()		
 	{	
 		nexacro.Action.prototype.destroy.call(this);
 	};	
 		
     //===============================================================		
-    // nexacro.DsIsUpdatedAction : Method		
+    // nexacro.DsAddDataAction : Method		
     //===============================================================		
-    nexacro.DsIsUpdatedAction.prototype.run = function()		
+    nexacro.DsAddDataAction.prototype.run = function()		
 	{	
-		var objForm;			
+        var objForm;			
 					
 		//Import the object set as TargetView			
 		var objView = this.getTargetView();	
 		
 		var sTarget = this.targetdataset;
-		var bCheckFilter = this.checkfilter;
 			
 		var objDataset;
 		var objComp;
@@ -48,6 +51,7 @@ if (!nexacro.DsIsUpdatedAction)
 			else objForm = this.parent;
 			
 			var objDs;
+			var nRowIndex = this._rowindex;
 			
 			// Dataset 객체 찾기
 			if (sTarget) {				// targetgrid 설정시 해당 그리드
@@ -65,22 +69,23 @@ if (!nexacro.DsIsUpdatedAction)
 			}
 			
  			// Call Function
- 			var rtn = this.gfnDsIsUpdated(objDs, bCheckFilter);
+ 			var rtn = this.gfnAddRow(objDs, nRowIndex);
 			
-			if(rtn==true)
-			{
-				this.on_fire_onsuccess(true);
-			}else
+			if(rtn==false)
 			{
 				this.on_fire_onerror(false);
+				
 			}
-		}	
-	};	
+			else
+			{
+				this.on_fire_onsuccess(rtn);
+			}
+		}		
+	};
 	
-	nexacro.DsIsUpdatedAction.prototype._targetdataset = "";
-	nexacro.DsIsUpdatedAction.prototype.set_targetdataset = function (v)				
+	nexacro.DsAddDataAction.prototype._targetdataset = "";
+	nexacro.DsAddDataAction.prototype.set_targetdataset = function (v)				
 	{				
-		// TODO : enter your code here.
 		if (v instanceof nexacro.NormalDataset) {
 			if (this.targetdataset != v) {			
 				this.targetdataset = v;
@@ -98,21 +103,23 @@ if (!nexacro.DsIsUpdatedAction)
 		}
 	};
 	
-	nexacro.DsIsUpdatedAction.prototype.set_checkfilter = function (v)
+	nexacro.DsAddDataAction.prototype._rowindex = -1;
+	nexacro.DsAddDataAction.prototype.set_rowindex = function (v)				
 	{
-		// TODO : enter your code here.
-		v = nexacro._toBoolean(v);
+		var nRow = nexacro.toNumber(v,-1,-1,-1);
 		
-		if(this.checkfilter != v)
-		{
-			this.checkfilter = v;
+		// TODO : enter your code here.
+		if (nRow < 0) {
+			this._rowindex = -1;
+		} else {
+			this._rowindex = nRow;
 		}
 	};
 	
 	//===============================================================		
-    // nexacro.DsIsUpdatedAction : Event		
+    // nexacro.DsAddDataAction : Event		
     //===============================================================
-	nexacro.DsIsUpdatedAction.prototype.on_fire_canrun = function (userdata)
+	nexacro.DsAddDataAction.prototype.on_fire_canrun = function (userdata)
 	{
 		var event = this.canrun;
 		
@@ -128,7 +135,7 @@ if (!nexacro.DsIsUpdatedAction)
 		return true;
 	};
 	
-	nexacro.DsIsUpdatedAction.prototype.on_fire_onsuccess = function (userdata)
+	nexacro.DsAddDataAction.prototype.on_fire_onsuccess = function (userdata)
 	{
 		var event = this.onsuccess;
 		
@@ -143,7 +150,7 @@ if (!nexacro.DsIsUpdatedAction)
 		}
 	};
 	  
-	nexacro.DsIsUpdatedAction.prototype.on_fire_onerror = function (userdata)
+	nexacro.DsAddDataAction.prototype.on_fire_onerror = function (userdata)
 	{
 		var event = this.onerror;
 		
@@ -159,9 +166,9 @@ if (!nexacro.DsIsUpdatedAction)
 	};
 	
 	//===============================================================		
-    // nexacro.DsIsUpdatedAction : 공통함수(Util)
+    // nexacro.DsAddDataAction : 공통함수(Util)
     //===============================================================
-	nexacro.DsIsUpdatedAction.prototype.gfnIsNull = function (Val)				
+	nexacro.DsAddDataAction.prototype.gfnIsNull = function (Val)				
 	{				
 		if (new String(Val).valueOf() == "undefined") return true;			
 		if (Val == null) return true;			
@@ -171,56 +178,52 @@ if (!nexacro.DsIsUpdatedAction)
 		return false;			
 	};
 	
-	//===============================================================		
-    // nexacro.DsIsUpdatedAction : 공통함수 전환부분
-    //===============================================================
-	 /**
-	 * @class dataSet의 Row 중에서 변경된 내용이 있는지 여부
-	 * @param {Object} objDs - 확인 대상 Dataset
-	 * @param {boolean} bFilterCheck - 필터된 데이터 체크여부(기본값:false)
-	 * @return {boolean} 변경여부
-	 */   
-	nexacro.DsIsUpdatedAction.prototype.gfnDsIsUpdated = function (objDs, bFilterCheck)
+	nexacro.DsAddDataAction.prototype.gfnLog = function(sMsg, sType)
 	{
-		if (this.gfnIsNull(bFilterCheck))		bFilterCheck = false;
+		var arrLogLevel = ["debug","info","warn","error"];
+	
+		if(sType == undefined)	sType = "debug";
+		var nLvl = arrLogLevel.indexOf(sType);
 		
-		if (objDs.getDeletedRowCount() > 0) {
-			return true;
-		}
+		if (nLvl < this._LOG_LEVEL)		return;
 		
-		var nRowType;
-		var nRowCnt = objDs.getRowCount();
-		if (bFilterCheck)	nRowCnt = objDs.getRowCountNF();
-		
-		for (var i = 0 ; i < nRowCnt ; i++) {
-			nRowType = this.gfnGetRowType(objDs, i, bFilterCheck);
-			
-			if (nRowType == Dataset.ROWTYPE_INSERT || nRowType == Dataset.ROWTYPE_UPDATE || nRowType == Dataset.ROWTYPE_DELETE) {
-				return true;
+		if (system.navigatorname == "nexacro DesignMode"
+			|| system.navigatorname == "nexacro") {
+			if (sMsg instanceof Object) {
+				for(var x in sMsg){
+					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
+				}
+			} else {
+				trace("[" + sType + "] " + this.name + " > " + sMsg);
 			}
+		} else {
+			console.log("[" + sType + "] " + this.name + " > " + sMsg);
 		}
-
-		return false;
 	};
 	
-	 /**
-	 * @class 해당 Row의 RowType을 반환
+	//===============================================================		
+    // nexacro.DsAddDataAction : 공통함수 전환부분
+    //===============================================================
+		/**
+	 * @class dataSet에 행추가
 	 * @param {Object} objDs - 확인 대상 Dataset
-	 * @param {Number} nRow - row값
-	 * @param {boolean} bFilterCheck - 필터된 데이터 체크여부(기본값:false)
-	 * @return {Number} RowType
-	 */  
-	nexacro.DsIsUpdatedAction.prototype.gfnGetRowType = function (objDs, nRow, bFilterCheck)
+	 * @param {Number} nRowIndex - 필터된 데이터 체크여부(기본값:false)
+	 * @return {Number} 추가된 행 Index
+	 */   
+	nexacro.DsAddDataAction.prototype.gfnAddRow = function (objDs, nRowIndex)
 	{
-		var nRowType;
-		var sStatus;
+		var nRow;
 		
-		if (bFilterCheck) {
-			nRowType = objDs.getRowTypeNF(nRow);
+		// 행추가
+		if (nRowIndex >= 0) {
+			nRow = objDs.insertRow(nRowIndex);
 		} else {
-			nRowType = objDs.getRowType(nRow);
+			nRow = objDs.addRow();
 		}
 		
-		return nRowType;
+		// TODO : 추가된 행에 데이터 설정
+		//var oModelArg = this.getContents("model");
+		
+		return nRow;
 	};
 }
