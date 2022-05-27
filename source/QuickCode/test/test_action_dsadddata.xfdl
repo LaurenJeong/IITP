@@ -7,7 +7,7 @@
         <Button id="btnAdd2" taborder="2" text="첫행 추가" left="112" top="50" width="100" height="30"/>
         <Button id="btnAdd3" taborder="3" text="현재위치에 추가" left="217" top="50" width="100" height="30"/>
         <Button id="btnDel" taborder="4" text="현재 행 삭제" left="7" top="85" width="100" height="30"/>
-        <TextArea id="txtOutput" taborder="5" left="552" top="50" right="0" bottom="-42"/>
+        <TextArea id="txtOutput" taborder="5" left="552" top="50" right="0" bottom="0"/>
         <Button id="btnDel2" taborder="6" text="선택된 행 삭제" left="112" top="85" width="100" height="30"/>
         <Button id="btnDel3" taborder="7" text="체크된 행 삭제" left="217" top="85" width="100" height="30"/>
         <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="7" top="129" width="518" height="257">
@@ -90,24 +90,28 @@
             <Attribute id="summbandsize" value="30"/>
           </ViewTemplateInfo>
         </View>
+        <CheckBox id="chkOnCanEvent" taborder="8" text="canrun 반환값" left="8" top="6" width="100" height="30" value="true"/>
       </Layout>
     </Layouts>
     <Objects>
-      <DsAddDataAction id="DsAddDataAction00" targetview="View00" onerror="DsAddDataAction00_onerror" onsuccess="DsAddDataAction00_onsuccess">
+      <DsAddDataAction id="DsAddDataAction00" targetview="View00" onerror="DsAddDataAction00_onerror" onsuccess="DsAddDataAction00_onsuccess" canrun="Common_canrun">
         <Contents/>
       </DsAddDataAction>
-      <DsInsertDataAction id="DsInsertDataAction00" targetview="View00" rowindex="0" onerror="DsInsertDataAction00_onerror" onsuccess="DsInsertDataAction00_onsuccess">
+      <DsInsertDataAction id="DsInsertDataAction00" targetview="View00" rowindex="0" onerror="DsInsertDataAction00_onerror" onsuccess="DsInsertDataAction00_onsuccess" canrun="Common_canrun">
         <Contents/>
       </DsInsertDataAction>
-      <DsInsertDataAction id="DsInsertDataAction01" targetview="View00" onerror="DsInsertDataAction01_onerror" onsuccess="DsInsertDataAction01_onsuccess">
+      <DsInsertDataAction id="DsInsertDataAction01" targetview="View00" onerror="DsInsertDataAction01_onerror" onsuccess="DsInsertDataAction01_onsuccess" canrun="Common_canrun">
         <Contents/>
       </DsInsertDataAction>
-      <DsDeleteDataAction id="DsDeleteDataAction00" targetview="View00" onerror="DsDeleteDataAction00_onerror" onsuccess="DsDeleteDataAction00_onsuccess">
+      <DsDeleteDataAction id="DsDeleteDataAction00" targetview="View00" onerror="DsDeleteDataAction00_onerror" onsuccess="DsDeleteDataAction00_onsuccess" canrun="Common_canrun">
         <Contents/>
       </DsDeleteDataAction>
-      <DsDeleteSelectDataAction id="DsDeleteSelectDataAction00" targetview="View00" onerror="DsDeleteSelectDataAction00_onerror" onsuccess="DsDeleteSelectDataAction00_onsuccess">
+      <DsDeleteSelectDataAction id="DsDeleteSelectDataAction00" targetview="View00" onerror="DsDeleteSelectDataAction00_onerror" onsuccess="DsDeleteSelectDataAction00_onsuccess" canrun="Common_canrun">
         <Contents/>
       </DsDeleteSelectDataAction>
+      <DsDeleteCheckedDataAction id="DsDeleteCheckedDataAction00" targetview="View00" targetdataset="View00.form.viewdataset" checkcolumnid="Check" onerror="DsDeleteCheckedDataAction00_onerror" onsuccess="DsDeleteCheckedDataAction00_onsuccess" canrun="Common_canrun">
+        <Contents/>
+      </DsDeleteCheckedDataAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
@@ -115,8 +119,15 @@
       <TriggerItem id="item2" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd3" targetaction="DsInsertDataAction01" condition=""/>
       <TriggerItem id="item3" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel" targetaction="DsDeleteDataAction00" condition=""/>
       <TriggerItem id="item4" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel2" targetaction="DsDeleteSelectDataAction00" condition=""/>
+      <TriggerItem id="item5" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel3" targetaction="DsDeleteCheckedDataAction00" condition=""/>
     </Trigger>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[this.Common_canrun = function(obj, e:nexacro.ActionRunEventInfo)
+{
+	this.txtOutput.insertText("\n" + "Common_canrun " + obj.name +" : " + this.chkOnCanEvent.value);
+	
+	return this.chkOnCanEvent.value;
+};
+
 this.DsAddDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
 {
 	this.txtOutput.insertText("\n" + "DsAddDataAction00_onerror : " + e.userdata);
@@ -166,6 +177,15 @@ this.DsDeleteSelectDataAction00_onsuccess = function(obj:nexacro.Action, e:nexac
 {
 	this.txtOutput.insertText("\n" + "DsDeleteSelectDataAction00_onsuccess : " + e.userdata);
 };
-]]></Script>
+
+this.DsDeleteCheckedDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsDeleteCheckedDataAction00_onerror : " + e.userdata);
+};
+
+this.DsDeleteCheckedDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsDeleteCheckedDataAction00_onsuccess : " + e.userdata);
+};]]></Script>
   </Form>
 </FDL>
