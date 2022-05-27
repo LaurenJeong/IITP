@@ -5,7 +5,12 @@
       <Layout height="720" width="1280">
         <Button id="btnAdd" taborder="1" text="마지막행 추가" left="7" top="50" width="100" height="30"/>
         <Button id="btnAdd2" taborder="2" text="첫행 추가" left="112" top="50" width="100" height="30"/>
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="7" top="89" width="518" height="257">
+        <Button id="btnAdd3" taborder="3" text="현재위치에 추가" left="217" top="50" width="100" height="30"/>
+        <Button id="btnDel" taborder="4" text="현재 행 삭제" left="7" top="85" width="100" height="30"/>
+        <TextArea id="txtOutput" taborder="5" left="552" top="50" right="0" bottom="-42"/>
+        <Button id="btnDel2" taborder="6" text="선택된 행 삭제" left="112" top="85" width="100" height="30"/>
+        <Button id="btnDel3" taborder="7" text="체크된 행 삭제" left="217" top="85" width="100" height="30"/>
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="7" top="129" width="518" height="257">
           <Layouts>
             <Layout>
               <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" selecttype="multirow">
@@ -25,28 +30,28 @@
                       <Row size="30" band="summ"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_Company" col="0" row="0" text="회사명"/>
-                      <Cell id="cell_Department" col="1" row="0" text="부서명"/>
-                      <Cell id="cell_Name" col="2" row="0" text="성명"/>
-                      <Cell id="cell_Phone" col="3" row="0" text="전화번호"/>
-                      <Cell id="cell_Email" col="4" row="0" text="이메일주소"/>
-                      <Cell id="cell_field0" col="5" row="0" text="label0"/>
+                      <Cell id="cell_Check" col="0" row="0" text="선택"/>
+                      <Cell id="cell_Company" col="1" row="0" text="회사명"/>
+                      <Cell id="cell_Department" col="2" row="0" text="부서명"/>
+                      <Cell id="cell_Name" col="3" row="0" text="성명"/>
+                      <Cell id="cell_Phone" col="4" row="0" text="전화번호"/>
+                      <Cell id="cell_Email" col="5" row="0" text="이메일주소"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_Company" col="0" row="0" text="bind:Company" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Department" col="1" row="0" text="bind:Department" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Name" col="2" row="0" text="bind:Name" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Phone" col="3" row="0" text="bind:Phone" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Email" col="4" row="0" text="bind:Email" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_field0" col="5" row="0" text="bind:field0" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Check" col="0" row="0" text="bind:Check" displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell id="cell_Company" col="1" row="0" text="bind:Company" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Department" col="2" row="0" text="bind:Department" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Name" col="3" row="0" text="bind:Name" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Phone" col="4" row="0" text="bind:Phone" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Email" col="5" row="0" text="bind:Email" displaytype="normal" edittype="normal"/>
                     </Band>
                     <Band id="summary">
-                      <Cell id="cell_Company" col="0" row="0" text=""/>
-                      <Cell id="cell_Department" col="1" row="0" text=""/>
-                      <Cell id="cell_Name" col="2" row="0" text=""/>
-                      <Cell id="cell_Phone" col="3" row="0" text=""/>
-                      <Cell id="cell_Email" col="4" row="0" text=""/>
-                      <Cell id="cell_field0" col="5" row="0" text=""/>
+                      <Cell id="cell_Check" col="0" row="0" text=""/>
+                      <Cell id="cell_Company" col="1" row="0" text=""/>
+                      <Cell id="cell_Department" col="2" row="0" text=""/>
+                      <Cell id="cell_Name" col="3" row="0" text=""/>
+                      <Cell id="cell_Phone" col="4" row="0" text=""/>
+                      <Cell id="cell_Email" col="5" row="0" text=""/>
                     </Band>
                   </Format>
                 </Formats>
@@ -56,26 +61,26 @@
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
+                <Column id="Check" type="STRING" size="80"/>
                 <Column id="Company" type="STRING" size="80"/>
                 <Column id="Department" type="STRING" size="80"/>
                 <Column id="Name" type="STRING" size="80"/>
                 <Column id="Phone" type="STRING" size="80"/>
                 <Column id="Email" type="STRING" size="80"/>
-                <Column id="field0" type="STRING" size="80"/>
               </ColumnInfo>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
+              <Field id="Check" description="" displaytype="checkboxcontrol" edittype="checkbox" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="Company" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="Department" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="Name" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="Phone" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="Email" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="field0" description="" displaytype="normal" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="grdList" fields="Company,Department,Name,Phone,Email,field0"/>
+              <Component id="grdList" fields="Check,Company,Department,Name,Phone,Email"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
@@ -85,9 +90,6 @@
             <Attribute id="summbandsize" value="30"/>
           </ViewTemplateInfo>
         </View>
-        <Button id="btnAdd3" taborder="3" text="현재위치에 추가" left="217" top="50" width="100" height="30"/>
-        <Button id="btnDel" taborder="4" text="현재 행삭제" left="322" top="50" width="100" height="30"/>
-        <TextArea id="txtOutput" taborder="5" left="552" top="50" right="0" bottom="-42"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -103,12 +105,16 @@
       <DsDeleteDataAction id="DsDeleteDataAction00" targetview="View00" onerror="DsDeleteDataAction00_onerror" onsuccess="DsDeleteDataAction00_onsuccess">
         <Contents/>
       </DsDeleteDataAction>
+      <DsDeleteSelectDataAction id="DsDeleteSelectDataAction00" targetview="View00" onerror="DsDeleteSelectDataAction00_onerror" onsuccess="DsDeleteSelectDataAction00_onsuccess">
+        <Contents/>
+      </DsDeleteSelectDataAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd2" targetaction="DsInsertDataAction00" condition=""/>
       <TriggerItem id="item2" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd3" targetaction="DsInsertDataAction01" condition=""/>
       <TriggerItem id="item3" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel" targetaction="DsDeleteDataAction00" condition=""/>
+      <TriggerItem id="item4" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel2" targetaction="DsDeleteSelectDataAction00" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[
 this.DsAddDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
@@ -149,6 +155,16 @@ this.DsDeleteDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.Actio
 this.DsDeleteDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
 {
 	this.txtOutput.insertText("\n" + "DsDeleteDataAction00_onsuccess : " + e.userdata);
+};
+
+this.DsDeleteSelectDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsDeleteSelectDataAction00_onerror : " + e.userdata);
+};
+
+this.DsDeleteSelectDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsDeleteSelectDataAction00_onsuccess : " + e.userdata);
 };
 ]]></Script>
   </Form>

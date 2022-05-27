@@ -2,45 +2,45 @@
 //	Define the Action.
 //==============================================================================
 //==============================================================================		
-// Object : nexacro.DsDeleteDataAction		
+// Object : nexacro.DsDeleteSelectDataAction		
 // Group : Action		
 //==============================================================================		
-if (!nexacro.DsDeleteDataAction)		
+if (!nexacro.DsDeleteSelectDataAction)		
 {		
-    nexacro.DsDeleteDataAction = function(id, parent)		
+    nexacro.DsDeleteSelectDataAction = function(id, parent)		
     {		
         nexacro.Action.call(this, id, parent);		
     };		
         		
-    nexacro.DsDeleteDataAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DsDeleteDataAction);		
-    nexacro.DsDeleteDataAction.prototype._type_name = "DsDeleteDataAction";
+    nexacro.DsDeleteSelectDataAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DsDeleteSelectDataAction);		
+    nexacro.DsDeleteSelectDataAction.prototype._type_name = "DsDeleteSelectDataAction";		
 	
 	//===============================================================		
-    // nexacro.DsDeleteDataAction : 변수선언 부분
+    // nexacro.DsDeleteSelectDataAction : 변수선언 부분
     //===============================================================
-	nexacro.DsDeleteDataAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
+	nexacro.DsDeleteSelectDataAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 	
 	//===============================================================		
-    // nexacro.DsDeleteDataAction : Create & Destroy		
+    // nexacro.DsDeleteSelectDataAction : Create & Destroy		
     //===============================================================		
-    nexacro.DsDeleteDataAction.prototype.destroy = function()		
+    nexacro.DsDeleteSelectDataAction.prototype.destroy = function()		
 	{	
 		nexacro.Action.prototype.destroy.call(this);
 	};	
 		
     //===============================================================		
-    // nexacro.DsDeleteDataAction : Method		
+    // nexacro.DsDeleteSelectDataAction : Method		
     //===============================================================		
-    nexacro.DsDeleteDataAction.prototype.run = function()		
-	{	
-        var objForm;			
+    nexacro.DsDeleteSelectDataAction.prototype.run = function()		
+	{
+		var objForm;			
 					
 		//Import the object set as TargetView			
 		var objView = this.getTargetView();	
 		
-		var sTarget = this.targetdataset;
-			
-		var objDataset;
+		var sTarget = this.targetgrid;
+		
+		var objGrid;
 		var objComp;
 
 		//If the canrun event return value is not false			
@@ -50,75 +50,69 @@ if (!nexacro.DsDeleteDataAction)
 			if(objView)objForm = objView.form;		
 			else objForm = this.parent;
 			
-			var objDs;
-			
-			// Dataset 객체 찾기
+			// Grid 객체 찾기
 			if (sTarget) {				// targetgrid 설정시 해당 그리드
-				sTarget = sTarget.replace("@", "");
-				objDs = objForm._findDataset(sTarget);
-			} else {						// targetgrid 미설정시 View에 있는 Grid
-				objDs = objView.getViewDataset();
-			}
-			
-			if (objDs == undefined)
-			{
-				this.gfnLog("[Info] Dataset does not found.");
-				this.on_fire_onerror("error");
-				return;
-			}
-			
- 			// Call Function
- 			var rtn = this.gfnDeleteRow(objDs);
-			
-			if(rtn==false)
-			{
-				this.on_fire_onerror();
+				objComp = objView.form.components[sTarget];
 				
+				if (objComp instanceof nexacro.Grid) {
+					objGrid = objComp;
+				} else {
+					this.gfnLog("targetgrid에 Grid를 설정하세요.");
+					this.on_fire_onerror();
+					return;
+				}
+			} else {						// targetgrid 미설정시 View에 있는 Grid
+				var arrComp = objView.form.components;
+				var arrGrid = new Array();
+				
+				for(var i=0; i< arrComp.length; i++) {
+					objComp = arrComp[i];
+				
+					if (objComp instanceof nexacro.Grid) {
+						arrGrid.push(objComp);
+					}
+				}
+				
+				if (arrGrid.length == 1) {
+					objGrid = arrGrid[0];
+				} else {
+					objGrid = arrGrid;
+				}
+				
+				if (this.gfnIsNull(objGrid)){
+					this.gfnLog("targetgrid에 Grid를 설정하세요.");
+					this.on_fire_onerror();
+					return;
+				}
 			}
-			else
-			{
-				this.on_fire_onsuccess();
-			}
-		}	
-	};	
-	
-	nexacro.DsDeleteDataAction.prototype._targetdataset = "";
-	nexacro.DsDeleteDataAction.prototype.set_targetdataset = function (v)				
-	{				
-		if (v instanceof nexacro.NormalDataset) {
-			if (this.targetdataset != v) {			
-				this.targetdataset = v;
-				this._targetdataset = v.name;
-			}		
-		} else {
-			v = nexacro._toString(v);
 			
-			var objForm = this.parent;
-			var objDs = objForm._findDataset(v);
-			if (this._targetdataset != v && objDs != undefined) {
-				this._targetdataset = v;
-				this.targetdataset = objDs;
-			}
-		}
+			// 선택된 행 삭제
+			this.gfnDeleteSelectRow(objGrid);	
+		}	
 	};
 	
-	nexacro.DsDeleteDataAction.prototype._rowindex = -1;
-	nexacro.DsDeleteDataAction.prototype.set_rowindex = function (v)				
-	{
-		var nRow = nexacro.toNumber(v,-1,-1,-1);
-		
+	nexacro.DsDeleteSelectDataAction.prototype._targetgrid = null;				// 그리드 객체
+	nexacro.DsDeleteSelectDataAction.prototype.set_targetgrid = function (v)				
+	{				
 		// TODO : enter your code here.
-		if (nRow < 0) {
-			this._rowindex = -1;
+		if (v instanceof nexacro.Grid) {
+			if (this._targetgrid != v) {			
+				this.targetgrid = v.name;
+				this._targetgrid = v;
+			}		
 		} else {
-			this._rowindex = nRow;
+			v = nexacro._toString(v);			
+			if (this.targetgrid != v) {
+				this.targetgrid = v;
+				this._targetgrid = v;			// TODO
+			}
 		}
 	};
 	
 	//===============================================================		
-    // nexacro.DsDeleteDataAction : Event		
+    // nexacro.DsDeleteSelectDataAction : Event		
     //===============================================================
-	nexacro.DsDeleteDataAction.prototype.on_fire_canrun = function (userdata)
+	nexacro.DsDeleteSelectDataAction.prototype.on_fire_canrun = function (userdata)
 	{
 		var event = this.canrun;
 		
@@ -134,7 +128,7 @@ if (!nexacro.DsDeleteDataAction)
 		return true;
 	};
 	
-	nexacro.DsDeleteDataAction.prototype.on_fire_onsuccess = function (userdata)
+	nexacro.DsDeleteSelectDataAction.prototype.on_fire_onsuccess = function (userdata)
 	{
 		var event = this.onsuccess;
 		
@@ -149,7 +143,7 @@ if (!nexacro.DsDeleteDataAction)
 		}
 	};
 	  
-	nexacro.DsDeleteDataAction.prototype.on_fire_onerror = function (userdata)
+	nexacro.DsDeleteSelectDataAction.prototype.on_fire_onerror = function (userdata)
 	{
 		var event = this.onerror;
 		
@@ -165,9 +159,9 @@ if (!nexacro.DsDeleteDataAction)
 	};
 	
 	//===============================================================		
-    // nexacro.DsDeleteDataAction : 공통함수(Util)
+    // nexacro.DsDeleteSelectDataAction : 공통함수(Util)
     //===============================================================
-	nexacro.DsDeleteDataAction.prototype.gfnIsNull = function (Val)				
+	nexacro.DsDeleteSelectDataAction.prototype.gfnIsNull = function (Val)				
 	{				
 		if (new String(Val).valueOf() == "undefined") return true;			
 		if (Val == null) return true;			
@@ -177,7 +171,7 @@ if (!nexacro.DsDeleteDataAction)
 		return false;			
 	};
 	
-	nexacro.DsDeleteDataAction.prototype.gfnLog = function(sMsg, sType)
+	nexacro.DsDeleteSelectDataAction.prototype.gfnLog = function(sMsg, sType)
 	{
 		var arrLogLevel = ["debug","info","warn","error"];
 	
@@ -201,18 +195,34 @@ if (!nexacro.DsDeleteDataAction)
 	};
 	
 	//===============================================================		
-    // nexacro.DsDeleteDataAction : 공통함수 전환부분
+    // nexacro.DsDeleteSelectDataAction : 공통함수 전환부분
     //===============================================================
 		/**
-	 * @class dataSet에 행삭제
-	 * @param {Object} objDs - 확인 대상 Dataset
-	 * @param {Number} nRowIndex - 필터된 데이터 체크여부(기본값:false)
+	 * @class 선택된 행삭제
+	 * @param {Object} objGrid - 삭제 데이터 그리드
 	 * @return {Boolean} 삭제 성공실패여부
 	 */   
-	nexacro.DsDeleteDataAction.prototype.gfnDeleteRow = function (objDs)
+	nexacro.DsDeleteSelectDataAction.prototype.gfnDeleteSelectRow = function (objGrid)
 	{
-		var bSucc = objDs.deleteRow(objDs.rowposition);
+		var objDs;
+		var arrDelRow;
 		
-		return bSucc;
+		objDs = objGrid.getBindDataset();
+		
+		if (this.gfnIsNull(objDs)){
+			this.gfnLog("Grid의 binddataset이 설정되지 않았습니다.");
+			this.on_fire_onerror();
+			return;
+		}
+		
+		arrDelRow = objGrid.getSelectedDatasetRows();
+		
+		if (arrDelRow == -9)
+			arrDelRow = [0];
+			
+		objDs.deleteMultiRows(arrDelRow);
+		
+		this.on_fire_onsuccess(arrDelRow);
 	};
+	
 }

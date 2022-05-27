@@ -20,6 +20,7 @@ if (!nexacro.ExcelExportAction)
     // nexacro.ExcelExportAction : 변수선언 부분
     //===============================================================
 	nexacro.ExcelExportAction.prototype.COM_EXCEL_URL = "svc::XExportImport";				//"svc::XExportImport.do";
+	nexacro.ExcelExportAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 	
 	//===============================================================		
     // nexacro.ExcelExportAction : Create & Destroy		
@@ -62,7 +63,7 @@ if (!nexacro.ExcelExportAction)
 				if (objComp instanceof nexacro.Grid) {
 					objGrid = objComp;
 				} else {
-					trace("targetgrid에 Grid를 설정하세요.");
+					this.gfnLog("targetgrid에 Grid를 설정하세요.");
 					this.on_fire_onerror();
 					return;
 				}
@@ -82,6 +83,12 @@ if (!nexacro.ExcelExportAction)
 					objGrid = arrGrid[0];
 				} else {
 					objGrid = arrGrid;
+				}
+				
+				if (this.gfnIsNull(objGrid)){
+					this.gfnLog("targetgrid에 Grid를 설정하세요.");
+					this.on_fire_onerror();
+					return;
 				}
 			}
 			
@@ -200,6 +207,29 @@ if (!nexacro.ExcelExportAction)
 		if (Val.length == 0) return true;			
 					
 		return false;			
+	};
+	
+	nexacro.ExcelExportAction.prototype.gfnLog = function(sMsg, sType)
+	{
+		var arrLogLevel = ["debug","info","warn","error"];
+	
+		if(sType == undefined)	sType = "debug";
+		var nLvl = arrLogLevel.indexOf(sType);
+		
+		if (nLvl < this._LOG_LEVEL)		return;
+		
+		if (system.navigatorname == "nexacro DesignMode"
+			|| system.navigatorname == "nexacro") {
+			if (sMsg instanceof Object) {
+				for(var x in sMsg){
+					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
+				}
+			} else {
+				trace("[" + sType + "] " + this.name + " > " + sMsg);
+			}
+		} else {
+			console.log("[" + sType + "] " + this.name + " > " + sMsg);
+		}
 	};
 	
 	//===============================================================		

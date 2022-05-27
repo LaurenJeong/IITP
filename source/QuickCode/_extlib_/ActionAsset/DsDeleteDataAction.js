@@ -13,7 +13,12 @@ if (!nexacro.DsDeleteDataAction)
     };		
         		
     nexacro.DsDeleteDataAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DsDeleteDataAction);		
-    nexacro.DsDeleteDataAction.prototype._type_name = "DsDeleteDataAction";		
+    nexacro.DsDeleteDataAction.prototype._type_name = "DsDeleteDataAction";
+	
+	//===============================================================		
+    // nexacro.DsDeleteDataAction : 변수선언 부분
+    //===============================================================
+	nexacro.DsDeleteDataAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 	
 	//===============================================================		
     // nexacro.DsDeleteDataAction : Create & Destroy		
@@ -57,7 +62,7 @@ if (!nexacro.DsDeleteDataAction)
 			
 			if (objDs == undefined)
 			{
-				trace("[Info] Dataset does not found.");
+				this.gfnLog("[Info] Dataset does not found.");
 				this.on_fire_onerror("error");
 				return;
 			}
@@ -202,7 +207,7 @@ if (!nexacro.DsDeleteDataAction)
 	 * @class dataSet에 행삭제
 	 * @param {Object} objDs - 확인 대상 Dataset
 	 * @param {Number} nRowIndex - 필터된 데이터 체크여부(기본값:false)
-	 * @return {Number} 추가된 행 Index
+	 * @return {Boolean} 삭제 성공실패여부
 	 */   
 	nexacro.DsDeleteDataAction.prototype.gfnDeleteRow = function (objDs)
 	{
