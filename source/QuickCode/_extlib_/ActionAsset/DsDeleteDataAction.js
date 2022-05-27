@@ -9,7 +9,8 @@ if (!nexacro.DsDeleteDataAction)
 {		
     nexacro.DsDeleteDataAction = function(id, parent)		
     {		
-        nexacro.Action.call(this, id, parent);		
+        nexacro.Action.call(this, id, parent);
+		this.addEvent("canrun");
     };		
         		
     nexacro.DsDeleteDataAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DsDeleteDataAction);		

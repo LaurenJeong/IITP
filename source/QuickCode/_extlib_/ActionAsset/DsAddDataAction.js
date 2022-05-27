@@ -9,7 +9,8 @@ if (!nexacro.DsAddDataAction)
 {		
     nexacro.DsAddDataAction = function(id, parent)		
     {		
-        nexacro.Action.call(this, id, parent);		
+        nexacro.Action.call(this, id, parent);
+		this.addEvent("canrun");
     };		
         		
     nexacro.DsAddDataAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DsAddDataAction);		
