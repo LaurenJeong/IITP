@@ -7,7 +7,7 @@
       <Property name="targetdataset" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="DatasetID" description="Import할 Dataset 오브젝트를 설정합니다."/>
       <Property name="sheetname" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" defaultvalue="Sheet1" description="엑셀에서 Import 할 Sheet명을 설정하는 속성입니다."/>
       <Property name="startcell" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" description="엑셀 Sheet에서 데이터가 시작하는 cell을 설정하는 속성입니다." defaultvalue="A2"/>
-      <Property name="importtype" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="Enum" enuminfo="ImportType" defaultvalue="excel2007"/>
+      <Property name="importtype" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="Enum" enuminfo="ImportType" defaultvalue="excel2007" description="Import할 파일의 형식을 설정합니다.&#13;&#10;&#13;&#10; - excel : Worksheet 97 - 2003 Files (*.xls)&#13;&#10; - excel2007 : Worksheet Files (*.xlsx)&#13;&#10; - hancell2014 : Hancell Files (*.cell)&#13;&#10; - csv : CSV (*.csv)"/>
     </PropertyInfo>
     <CSSInfo>
       <PropertyInfo/>
