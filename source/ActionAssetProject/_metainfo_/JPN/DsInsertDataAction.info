@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <MetaInfo version="2.0">
-  <Object id="DsAddDataAction">
-    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.DsAddDataAction" shorttypename="DsAddDataAction" csstypename="DsAddDataAction" csscontrolname="DsAddDataActionControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" finalclass="true"/>
+  <Object id="DsInsertDataAction">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.DsInsertDataAction" shorttypename="DsInsertDataAction" csstypename="DsInsertDataAction" csscontrolname="DsInsertDataActionControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" finalclass="true"/>
     <PropertyInfo>
       <Property name="targetview" group="" subgroup="" refreshinfo="" displayinfo="" edittype="ViewObjList" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" csspropertyname="" normalpropertyname="targetview"/>
       <Property name="targetdataset" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="DatasetID"/>
+      <Property name="rowindex" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false"/>
     </PropertyInfo>
     <CSSInfo>
       <PropertyInfo/>
@@ -13,10 +14,10 @@
     <MethodInfo/>
     <EventHandlerInfo>
       <EventHandler name="canrun" group="Event" unused="false">
-        <Syntax text="canrun(obj:nexacro.DsAddDataAction, e:nexacro.ActionRunEventInfo)">
+        <Syntax text="canrun(obj:nexacro.DsInsertDataAction, e:nexacro.ActionRunEventInfo)">
           <Return type="Boolean" description=""/>
           <Arguments>
-            <Argument name="obj" type="nexacro.DsAddDataAction"/>
+            <Argument name="obj" type="nexacro.DsInsertDataAction"/>
             <Argument name="e" type="nexacro.ActionRunEventInfo"/>
           </Arguments>
         </Syntax>

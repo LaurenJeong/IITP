@@ -16,11 +16,6 @@ if (!nexacro.DsAddDataAction)
     nexacro.DsAddDataAction.prototype._type_name = "DsAddDataAction";		
 	
 	//===============================================================		
-    // nexacro.DsAddDataAction : 변수선언 부분
-    //===============================================================
-	nexacro.DsAddDataAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
-	
-	//===============================================================		
     // nexacro.DsAddDataAction : Create & Destroy		
     //===============================================================		
     nexacro.DsAddDataAction.prototype.destroy = function()		
@@ -51,7 +46,6 @@ if (!nexacro.DsAddDataAction)
 			else objForm = this.parent;
 			
 			var objDs;
-			var nRowIndex = this._rowindex;
 			
 			// Dataset 객체 찾기
 			if (sTarget) {				// targetgrid 설정시 해당 그리드
@@ -69,16 +63,17 @@ if (!nexacro.DsAddDataAction)
 			}
 			
  			// Call Function
- 			var rtn = this.gfnAddRow(objDs, nRowIndex);
+ 			var rtn = this.gfnAddRow(objDs);
 			
-			if(rtn==false)
+			if (rtn >= 0)
 			{
-				this.on_fire_onerror(false);
-				
+				this.on_fire_onsuccess(rtn);
+				return;
 			}
 			else
 			{
-				this.on_fire_onsuccess(rtn);
+				this.on_fire_onerror(rtn);
+				return;
 			}
 		}		
 	};
@@ -100,19 +95,6 @@ if (!nexacro.DsAddDataAction)
 				this._targetdataset = v;
 				this.targetdataset = objDs;
 			}
-		}
-	};
-	
-	nexacro.DsAddDataAction.prototype._rowindex = -1;
-	nexacro.DsAddDataAction.prototype.set_rowindex = function (v)				
-	{
-		var nRow = nexacro.toNumber(v,-1,-1,-1);
-		
-		// TODO : enter your code here.
-		if (nRow < 0) {
-			this._rowindex = -1;
-		} else {
-			this._rowindex = nRow;
 		}
 	};
 	
@@ -178,48 +160,20 @@ if (!nexacro.DsAddDataAction)
 		return false;			
 	};
 	
-	nexacro.DsAddDataAction.prototype.gfnLog = function(sMsg, sType)
-	{
-		var arrLogLevel = ["debug","info","warn","error"];
-	
-		if(sType == undefined)	sType = "debug";
-		var nLvl = arrLogLevel.indexOf(sType);
-		
-		if (nLvl < this._LOG_LEVEL)		return;
-		
-		if (system.navigatorname == "nexacro DesignMode"
-			|| system.navigatorname == "nexacro") {
-			if (sMsg instanceof Object) {
-				for(var x in sMsg){
-					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
-				}
-			} else {
-				trace("[" + sType + "] " + this.name + " > " + sMsg);
-			}
-		} else {
-			console.log("[" + sType + "] " + this.name + " > " + sMsg);
-		}
-	};
-	
 	//===============================================================		
     // nexacro.DsAddDataAction : 공통함수 전환부분
     //===============================================================
 		/**
-	 * @class dataSet에 행추가
-	 * @param {Object} objDs - 확인 대상 Dataset
-	 * @param {Number} nRowIndex - 필터된 데이터 체크여부(기본값:false)
+	 * @class Dataset에 행추가
+	 * @param {Object} objDs - 대상 Dataset
 	 * @return {Number} 추가된 행 Index
 	 */   
-	nexacro.DsAddDataAction.prototype.gfnAddRow = function (objDs, nRowIndex)
+	nexacro.DsAddDataAction.prototype.gfnAddRow = function (objDs)
 	{
 		var nRow;
 		
 		// 행추가
-		if (nRowIndex >= 0) {
-			nRow = objDs.insertRow(nRowIndex);
-		} else {
-			nRow = objDs.addRow();
-		}
+		nRow = objDs.addRow();
 		
 		// TODO : 추가된 행에 데이터 설정
 		//var oModelArg = this.getContents("model");

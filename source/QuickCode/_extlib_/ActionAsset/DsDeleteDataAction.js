@@ -2,31 +2,31 @@
 //	Define the Action.
 //==============================================================================
 //==============================================================================		
-// Object : nexacro.DsAddDataAction		
+// Object : nexacro.DsDeleteDataAction		
 // Group : Action		
 //==============================================================================		
-if (!nexacro.DsAddDataAction)		
+if (!nexacro.DsDeleteDataAction)		
 {		
-    nexacro.DsAddDataAction = function(id, parent)		
+    nexacro.DsDeleteDataAction = function(id, parent)		
     {		
         nexacro.Action.call(this, id, parent);		
     };		
         		
-    nexacro.DsAddDataAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DsAddDataAction);		
-    nexacro.DsAddDataAction.prototype._type_name = "DsAddDataAction";		
+    nexacro.DsDeleteDataAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DsDeleteDataAction);		
+    nexacro.DsDeleteDataAction.prototype._type_name = "DsDeleteDataAction";		
 	
 	//===============================================================		
-    // nexacro.DsAddDataAction : Create & Destroy		
+    // nexacro.DsDeleteDataAction : Create & Destroy		
     //===============================================================		
-    nexacro.DsAddDataAction.prototype.destroy = function()		
+    nexacro.DsDeleteDataAction.prototype.destroy = function()		
 	{	
 		nexacro.Action.prototype.destroy.call(this);
 	};	
 		
     //===============================================================		
-    // nexacro.DsAddDataAction : Method		
+    // nexacro.DsDeleteDataAction : Method		
     //===============================================================		
-    nexacro.DsAddDataAction.prototype.run = function()		
+    nexacro.DsDeleteDataAction.prototype.run = function()		
 	{	
         var objForm;			
 					
@@ -63,23 +63,22 @@ if (!nexacro.DsAddDataAction)
 			}
 			
  			// Call Function
- 			var rtn = this.gfnAddRow(objDs);
+ 			var rtn = this.gfnDeleteRow(objDs);
 			
-			if (rtn >= 0)
+			if(rtn==false)
 			{
-				this.on_fire_onsuccess(rtn);
-				return;
+				this.on_fire_onerror();
+				
 			}
 			else
 			{
-				this.on_fire_onerror(rtn);
-				return;
+				this.on_fire_onsuccess();
 			}
-		}		
-	};
+		}	
+	};	
 	
-	nexacro.DsAddDataAction.prototype._targetdataset = "";
-	nexacro.DsAddDataAction.prototype.set_targetdataset = function (v)				
+	nexacro.DsDeleteDataAction.prototype._targetdataset = "";
+	nexacro.DsDeleteDataAction.prototype.set_targetdataset = function (v)				
 	{				
 		if (v instanceof nexacro.NormalDataset) {
 			if (this.targetdataset != v) {			
@@ -98,10 +97,23 @@ if (!nexacro.DsAddDataAction)
 		}
 	};
 	
+	nexacro.DsDeleteDataAction.prototype._rowindex = -1;
+	nexacro.DsDeleteDataAction.prototype.set_rowindex = function (v)				
+	{
+		var nRow = nexacro.toNumber(v,-1,-1,-1);
+		
+		// TODO : enter your code here.
+		if (nRow < 0) {
+			this._rowindex = -1;
+		} else {
+			this._rowindex = nRow;
+		}
+	};
+	
 	//===============================================================		
-    // nexacro.DsAddDataAction : Event		
+    // nexacro.DsDeleteDataAction : Event		
     //===============================================================
-	nexacro.DsAddDataAction.prototype.on_fire_canrun = function (userdata)
+	nexacro.DsDeleteDataAction.prototype.on_fire_canrun = function (userdata)
 	{
 		var event = this.canrun;
 		
@@ -117,7 +129,7 @@ if (!nexacro.DsAddDataAction)
 		return true;
 	};
 	
-	nexacro.DsAddDataAction.prototype.on_fire_onsuccess = function (userdata)
+	nexacro.DsDeleteDataAction.prototype.on_fire_onsuccess = function (userdata)
 	{
 		var event = this.onsuccess;
 		
@@ -132,7 +144,7 @@ if (!nexacro.DsAddDataAction)
 		}
 	};
 	  
-	nexacro.DsAddDataAction.prototype.on_fire_onerror = function (userdata)
+	nexacro.DsDeleteDataAction.prototype.on_fire_onerror = function (userdata)
 	{
 		var event = this.onerror;
 		
@@ -148,9 +160,9 @@ if (!nexacro.DsAddDataAction)
 	};
 	
 	//===============================================================		
-    // nexacro.DsAddDataAction : 공통함수(Util)
+    // nexacro.DsDeleteDataAction : 공통함수(Util)
     //===============================================================
-	nexacro.DsAddDataAction.prototype.gfnIsNull = function (Val)				
+	nexacro.DsDeleteDataAction.prototype.gfnIsNull = function (Val)				
 	{				
 		if (new String(Val).valueOf() == "undefined") return true;			
 		if (Val == null) return true;			
@@ -160,24 +172,42 @@ if (!nexacro.DsAddDataAction)
 		return false;			
 	};
 	
+	nexacro.DsDeleteDataAction.prototype.gfnLog = function(sMsg, sType)
+	{
+		var arrLogLevel = ["debug","info","warn","error"];
+	
+		if(sType == undefined)	sType = "debug";
+		var nLvl = arrLogLevel.indexOf(sType);
+		
+		if (nLvl < this._LOG_LEVEL)		return;
+		
+		if (system.navigatorname == "nexacro DesignMode"
+			|| system.navigatorname == "nexacro") {
+			if (sMsg instanceof Object) {
+				for(var x in sMsg){
+					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
+				}
+			} else {
+				trace("[" + sType + "] " + this.name + " > " + sMsg);
+			}
+		} else {
+			console.log("[" + sType + "] " + this.name + " > " + sMsg);
+		}
+	};
+	
 	//===============================================================		
-    // nexacro.DsAddDataAction : 공통함수 전환부분
+    // nexacro.DsDeleteDataAction : 공통함수 전환부분
     //===============================================================
 		/**
-	 * @class Dataset에 행추가
-	 * @param {Object} objDs - 대상 Dataset
+	 * @class dataSet에 행삭제
+	 * @param {Object} objDs - 확인 대상 Dataset
+	 * @param {Number} nRowIndex - 필터된 데이터 체크여부(기본값:false)
 	 * @return {Number} 추가된 행 Index
 	 */   
-	nexacro.DsAddDataAction.prototype.gfnAddRow = function (objDs)
+	nexacro.DsDeleteDataAction.prototype.gfnDeleteRow = function (objDs)
 	{
-		var nRow;
+		var bSucc = objDs.deleteRow(objDs.rowposition);
 		
-		// 행추가
-		nRow = objDs.addRow();
-		
-		// TODO : 추가된 행에 데이터 설정
-		//var oModelArg = this.getContents("model");
-		
-		return nRow;
+		return bSucc;
 	};
 }

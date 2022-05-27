@@ -3,12 +3,12 @@
   <Form id="test_action_dsadddata" width="1280" height="720" titletext="New Form">
     <Layouts>
       <Layout height="720" width="1280">
-        <Button id="btnAdd" taborder="1" text="마지막행 추가" left="308" top="49" width="100" height="30"/>
-        <Button id="btnAdd2" taborder="2" text="첫행 추가" left="426" top="49" width="100" height="30"/>
+        <Button id="btnAdd" taborder="1" text="마지막행 추가" left="7" top="50" width="100" height="30"/>
+        <Button id="btnAdd2" taborder="2" text="첫행 추가" left="112" top="50" width="100" height="30"/>
         <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="7" top="89" width="518" height="257">
           <Layouts>
             <Layout>
-              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset">
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" selecttype="multirow">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -63,9 +63,6 @@
                 <Column id="Email" type="STRING" size="80"/>
                 <Column id="field0" type="STRING" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
@@ -88,101 +85,71 @@
             <Attribute id="summbandsize" value="30"/>
           </ViewTemplateInfo>
         </View>
+        <Button id="btnAdd3" taborder="3" text="현재위치에 추가" left="217" top="50" width="100" height="30"/>
+        <Button id="btnDel" taborder="4" text="현재 행삭제" left="322" top="50" width="100" height="30"/>
+        <TextArea id="txtOutput" taborder="5" left="552" top="50" right="0" bottom="-42"/>
       </Layout>
     </Layouts>
     <Objects>
-      <DsAddDataAction id="DsAddDataAction00" targetview="View00" rowindex="-1">
-        <Contents><![CDATA[{
-    "model":{
-        "none":[
-            {
-                "name":"View00:Company",
-                "viewid":"View00",
-                "fieldid":"Company",
-                "value":"Company"
-            },
-            {
-                "name":"View00:Department",
-                "viewid":"View00",
-                "fieldid":"Department",
-                "value":"Department"
-            },
-            {
-                "name":"View00:Name",
-                "viewid":"View00",
-                "fieldid":"Name",
-                "value":"Name"
-            },
-            {
-                "name":"View00:Phone",
-                "viewid":"View00",
-                "fieldid":"Phone",
-                "value":"Phone"
-            },
-            {
-                "name":"View00:Email",
-                "viewid":"View00",
-                "fieldid":"Email",
-                "value":"Email"
-            },
-            {
-                "name":"View00:field0",
-                "viewid":"View00",
-                "fieldid":"field0",
-                "value":"field0"
-            }
-        ]
-    }
-}]]></Contents>
+      <DsAddDataAction id="DsAddDataAction00" targetview="View00" onerror="DsAddDataAction00_onerror" onsuccess="DsAddDataAction00_onsuccess">
+        <Contents/>
       </DsAddDataAction>
-      <DsAddDataAction id="DsAddDataAction01" targetview="View00" rowindex="0">
-        <Contents><![CDATA[{
-    "model":{
-        "none":[
-            {
-                "name":"View00:Company",
-                "viewid":"View00",
-                "fieldid":"Company",
-                "value":"Company"
-            },
-            {
-                "name":"View00:Department",
-                "viewid":"View00",
-                "fieldid":"Department",
-                "value":"Department"
-            },
-            {
-                "name":"View00:Name",
-                "viewid":"View00",
-                "fieldid":"Name",
-                "value":"Name"
-            },
-            {
-                "name":"View00:Phone",
-                "viewid":"View00",
-                "fieldid":"Phone",
-                "value":"Phone"
-            },
-            {
-                "name":"View00:Email",
-                "viewid":"View00",
-                "fieldid":"Email",
-                "value":"Email"
-            },
-            {
-                "name":"View00:field0",
-                "viewid":"View00",
-                "fieldid":"field0",
-                "value":"field0"
-            }
-        ]
-    }
-}]]></Contents>
-      </DsAddDataAction>
+      <DsInsertDataAction id="DsInsertDataAction00" targetview="View00" rowindex="0" onerror="DsInsertDataAction00_onerror" onsuccess="DsInsertDataAction00_onsuccess">
+        <Contents/>
+      </DsInsertDataAction>
+      <DsInsertDataAction id="DsInsertDataAction01" targetview="View00" onerror="DsInsertDataAction01_onerror" onsuccess="DsInsertDataAction01_onsuccess">
+        <Contents/>
+      </DsInsertDataAction>
+      <DsDeleteDataAction id="DsDeleteDataAction00" targetview="View00" onerror="DsDeleteDataAction00_onerror" onsuccess="DsDeleteDataAction00_onsuccess">
+        <Contents/>
+      </DsDeleteDataAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd2" targetaction="DsAddDataAction01" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd2" targetaction="DsInsertDataAction00" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd3" targetaction="DsInsertDataAction01" condition=""/>
+      <TriggerItem id="item3" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel" targetaction="DsDeleteDataAction00" condition=""/>
     </Trigger>
+    <Script type="xscript5.1"><![CDATA[
+this.DsAddDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsAddDataAction00_onerror : " + e.userdata);
+};
+
+this.DsAddDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsAddDataAction00_onsuccess : " + e.userdata);
+};
+
+this.DsInsertDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsInsertDataAction00_onerror : " + e.userdata);
+};
+
+this.DsInsertDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsInsertDataAction00_onsuccess : " + e.userdata);
+};
+
+this.DsInsertDataAction01_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsInsertDataAction01_onerror : " + e.userdata);
+};
+
+this.DsInsertDataAction01_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsInsertDataAction01_onsuccess : " + e.userdata);
+};
+
+this.DsDeleteDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsDeleteDataAction00_onerror : " + e.userdata);
+};
+
+this.DsDeleteDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsDeleteDataAction00_onsuccess : " + e.userdata);
+};
+]]></Script>
   </Form>
 </FDL>
