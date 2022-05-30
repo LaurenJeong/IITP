@@ -31,6 +31,14 @@
     <Enum name="allrow" description="모든 row에 대해서 체크"/>
     <Enum name="modified" description="변경된 row에 대해서만 체크(default)"/>
   </EnumInfo>
+  <EnumInfo id="DeleteType" description="데이터삭제 유형">
+    <Enum name="delete" description="전체 데이터를 삭제"/>
+    <Enum name="clear" description="전체 데이터를 초기화(reset으로 복구불가)"/>
+  </EnumInfo>
+  <EnumInfo id="ResetType">
+    <Enum name="all" description="전체 데이터"/>
+    <Enum name="row" description="현재 Row"/>
+  </EnumInfo>
   <RefreshInfo id="targetview">
     <Property name="targetcomp"/>
   </RefreshInfo>
