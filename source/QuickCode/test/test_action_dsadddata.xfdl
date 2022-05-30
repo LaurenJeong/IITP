@@ -10,7 +10,7 @@
         <TextArea id="txtOutput" taborder="5" left="552" top="50" right="0" bottom="0"/>
         <Button id="btnDel2" taborder="6" text="선택된 행 삭제" left="112" top="85" width="100" height="30"/>
         <Button id="btnDel3" taborder="7" text="체크된 행 삭제" left="217" top="85" width="100" height="30"/>
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="7" top="129" width="518" height="257">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="7" top="159" width="518" height="257">
           <Layouts>
             <Layout>
               <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" selecttype="multirow">
@@ -68,6 +68,32 @@
                 <Column id="Phone" type="STRING" size="80"/>
                 <Column id="Email" type="STRING" size="80"/>
               </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="Check">0</Col>
+                  <Col id="Company">TOBESOFT</Col>
+                  <Col id="Department">부서1</Col>
+                  <Col id="Name">김XX</Col>
+                </Row>
+                <Row>
+                  <Col id="Check">0</Col>
+                  <Col id="Company">TOBESOFT</Col>
+                  <Col id="Department">부서1</Col>
+                  <Col id="Name">이XX</Col>
+                </Row>
+                <Row>
+                  <Col id="Check">0</Col>
+                  <Col id="Company">TOBESOFT</Col>
+                  <Col id="Department">부서1</Col>
+                  <Col id="Name">박XX</Col>
+                </Row>
+                <Row>
+                  <Col id="Check">0</Col>
+                  <Col id="Company">TOBESOFT</Col>
+                  <Col id="Department">부서2</Col>
+                  <Col id="Name">김OO</Col>
+                </Row>
+              </Rows>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
@@ -91,6 +117,10 @@
           </ViewTemplateInfo>
         </View>
         <CheckBox id="chkOnCanEvent" taborder="8" text="canrun 반환값" left="8" top="6" width="100" height="30" value="true"/>
+        <Button id="btnDel4" taborder="9" text="전체 삭제" left="322" top="85" width="100" height="30"/>
+        <Button id="btnReset" taborder="10" text="현재 행 복구" left="7" top="120" width="100" height="30"/>
+        <Button id="btnReset2" taborder="11" text="전체 복구" left="112" top="120" width="100" height="30"/>
+        <Button id="btnDel5" taborder="12" text="전체 삭제&#13;&#10;(복구안됨)" left="427" top="85" width="100" height="30"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -112,6 +142,18 @@
       <DsDeleteCheckedDataAction id="DsDeleteCheckedDataAction00" targetview="View00" targetdataset="View00.form.viewdataset" checkcolumnid="Check" onerror="DsDeleteCheckedDataAction00_onerror" onsuccess="DsDeleteCheckedDataAction00_onsuccess" canrun="Common_canrun">
         <Contents/>
       </DsDeleteCheckedDataAction>
+      <DsDeleteAllDataAction id="DsDeleteAllDataAction00" targetview="View00" deletetype="delete" canrun="Common_canrun" onerror="DsDeleteAllDataAction00_onerror" onsuccess="DsDeleteAllDataAction00_onsuccess">
+        <Contents/>
+      </DsDeleteAllDataAction>
+      <DsDeleteAllDataAction id="DsDeleteAllDataAction01" targetview="View00" deletetype="clear" canrun="Common_canrun" onerror="DsDeleteAllDataAction01_onerror" onsuccess="DsDeleteAllDataAction01_onsuccess">
+        <Contents/>
+      </DsDeleteAllDataAction>
+      <DsResetDataAction id="DsResetDataAction00" targetview="View00" resettype="row" canrun="Common_canrun" onerror="DsResetDataAction00_onerror" onsuccess="DsResetDataAction00_onsuccess">
+        <Contents/>
+      </DsResetDataAction>
+      <DsResetDataAction id="DsResetDataAction01" targetview="View00" resettype="all" canrun="Common_canrun" onerror="DsResetDataAction01_onerror" onsuccess="DsResetDataAction01_onsuccess">
+        <Contents/>
+      </DsResetDataAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
@@ -120,6 +162,10 @@
       <TriggerItem id="item3" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel" targetaction="DsDeleteDataAction00" condition=""/>
       <TriggerItem id="item4" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel2" targetaction="DsDeleteSelectDataAction00" condition=""/>
       <TriggerItem id="item5" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel3" targetaction="DsDeleteCheckedDataAction00" condition=""/>
+      <TriggerItem id="item6" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel4" targetaction="DsDeleteAllDataAction00" condition=""/>
+      <TriggerItem id="item7" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel5" targetaction="DsDeleteAllDataAction01" condition=""/>
+      <TriggerItem id="item8" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnReset" targetaction="DsResetDataAction00" condition=""/>
+      <TriggerItem id="item9" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnReset2" targetaction="DsResetDataAction01" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[this.Common_canrun = function(obj, e:nexacro.ActionRunEventInfo)
 {
@@ -186,6 +232,47 @@ this.DsDeleteCheckedDataAction00_onerror = function(obj:nexacro.Action, e:nexacr
 this.DsDeleteCheckedDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
 {
 	this.txtOutput.insertText("\n" + "DsDeleteCheckedDataAction00_onsuccess : " + e.userdata);
-};]]></Script>
+};
+
+this.DsDeleteAllDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsDeleteAllDataAction00_onerror : " + e.userdata);
+};
+
+this.DsDeleteAllDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsDeleteAllDataAction00_onsuccess : " + e.userdata);
+};
+
+this.DsDeleteAllDataAction01_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsDeleteAllDataAction01_onerror : " + e.userdata);
+};
+
+this.DsDeleteAllDataAction01_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsDeleteAllDataAction01_onsuccess : " + e.userdata);
+};
+
+this.DsResetDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsResetDataAction00_onerror : " + e.userdata);
+};
+
+this.DsResetDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsResetDataAction00_onsuccess : " + e.userdata);
+};
+
+this.DsResetDataAction01_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsResetDataAction01_onerror : " + e.userdata);
+};
+
+this.DsResetDataAction01_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + "DsResetDataAction01_onsuccess : " + e.userdata);
+};
+]]></Script>
   </Form>
 </FDL>
