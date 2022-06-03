@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_deviceapi" width="480" height="1840" titletext="New Form">
+    <Layouts>
+      <Layout height="1840" width="480">
+        <Static id="Static00" taborder="0" text="전화연결" left="10" top="10" height="40" cssclass="sta_WF_title02" right="10"/>
+        <Edit id="edtPhone" taborder="1" left="30" top="60" height="60" value="01012345678" text="01012345678" right="150"/>
+        <Button id="btnMakeCall" taborder="2" text="전화연결" top="60" width="120" height="60" onclick="btnMakeCall_onclick" right="20"/>
+        <Static id="Static00_00" taborder="3" text="문자보내기" left="10" top="140" height="40" cssclass="sta_WF_title02" right="10"/>
+        <TextArea id="txtSendMessage" taborder="4" left="30" top="190" height="237" right="20"/>
+        <Button id="btnSendMessage" taborder="5" text="문자보내기" left="30" top="441" height="60" right="20" onclick="btnSendMessage_onclick"/>
+        <Static id="Static00_00_00" taborder="6" text="연락처검색" left="10" top="521" height="40" cssclass="sta_WF_title02" right="368" width="102"/>
+        <Edit id="edtName" taborder="7" left="220" top="571" height="60" text="01012345678" right="100"/>
+        <Button id="btnSearch" taborder="8" text="검색" top="571" width="70" height="60" right="20" onclick="btnSearch_onclick"/>
+        <Grid id="Grid00" taborder="9" useinputpanel="false" binddataset="dsContactsInfo" autofittype="col" findtype="none" position="absolute" left="30" right="20" top="641" height="291">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="49"/>
+                <Column size="205"/>
+                <Column size="202"/>
+              </Columns>
+              <Rows>
+                <Row size="39" band="head"/>
+                <Row size="50"/>
+              </Rows>
+              <Band id="head">
+                <Cell/>
+                <Cell col="1" text="Name"/>
+                <Cell col="2" text="phoneNumber"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="checkbox" edittype="checkbox" text="bind:chk"/>
+                <Cell col="1" text="bind:displayname"/>
+                <Cell col="2" text="bind:phonenumber"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00_01" position="absolute" style="background:transparent;" left="Static00_00_00:30" width="111" top="520" height="43" taborder="10"/>
+        <Combo id="cbmType" taborder="11" text="contactname" left="30" top="571" width="180" height="60" innerdataset="dsQueryType" codecolumn="code" datacolumn="code" index="4" value="contactname"/>
+        <Static id="Static00_00_01" taborder="12" text="사진찍기" left="10" top="952" height="40" cssclass="sta_WF_title02" right="10"/>
+        <ImageViewer id="imgCamera" taborder="13" left="30" top="1071" width="430" height="309"/>
+        <Button id="btnCamera" taborder="14" text="사진찍기" left="30" top="1002" height="60" right="20" onclick="btnCamera_onclick"/>
+        <Static id="Static00_00_01_00" taborder="15" text="앨범 이미지 선택" left="10" top="1392" height="40" cssclass="sta_WF_title02" right="10"/>
+        <Button id="btnImagePicker" taborder="16" text="이미지 선택" left="30" top="1442" height="60" right="20" onclick="btnImagePicker_onclick"/>
+        <ImageViewer id="imgImagePicker" taborder="17" left="30" top="1511" width="430" height="309"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Phone id="Phone00"/>
+      <Sms id="Sms00"/>
+      <ContactSet id="ContactSet00" onsuccess="ContactSet00_onsuccess" onerror="ContactSet00_onerror"/>
+      <Dataset id="dsContactsInfo" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="uid" type="STRING" size="256"/>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="displayname" type="STRING" size="256"/>
+          <Column id="phonenumber" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsQueryType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">all</Col>
+          </Row>
+          <Row>
+            <Col id="code">uniqueid</Col>
+          </Row>
+          <Row>
+            <Col id="code">categories</Col>
+          </Row>
+          <Row>
+            <Col id="code">birthday</Col>
+          </Row>
+          <Row>
+            <Col id="code">contactname</Col>
+          </Row>
+          <Row>
+            <Col id="code">nickname</Col>
+          </Row>
+          <Row>
+            <Col id="code">note</Col>
+          </Row>
+          <Row>
+            <Col id="code">phonenumbers</Col>
+          </Row>
+          <Row>
+            <Col id="code">emails</Col>
+          </Row>
+          <Row>
+            <Col id="code">ims</Col>
+          </Row>
+          <Row>
+            <Col id="code">urls</Col>
+          </Row>
+          <Row>
+            <Col id="code">addresses</Col>
+          </Row>
+          <Row>
+            <Col id="code">organizations</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Camera id="Camera00" oncapture="Camera00_oncapture" onerror="Camera00_onerror" gettype="imagedata"/>
+      <ImagePicker id="ImagePicker00" onsuccess="ImagePicker00_onsuccess" onerror="ImagePicker00_onerror"/>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.btnMakeCall_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.Phone00.makeCall(this.edtPhone.value);
+};
+
+this.btnSendMessage_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.Sms00.sendMessage(this.edtPhone.value,this.txtSendMessage.value);
+};
+
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+// 연락처 데이터 조건 조회. 조건 입력하지 않으면 전체 조회.
+this.fnSearchContacts = function ()
+{
+	var strQueryString;
+
+	if (this.gfnIsNull(this.edtName.value)) 
+	{
+		// strQueryString = "phonenumbers:*";
+		strQueryString = "uniqueid:*";
+		// strQueryString = "contactname:*";
+	}
+	else 
+	{
+		strQueryString = this.cbmType.value + ":*" + this.edtName.value + "*";
+	}
+	
+	var r_query = this.ContactSet00.query(strQueryString);
+
+	if (r_query != true) 
+	{
+		this.alert("검색조건 입력 오류");
+	}
+}
+
+// 연락처 데이터의 처리에 성공했을 때 발생하는 이벤트
+this.ContactSet00_onsuccess = function(obj:nexacro.ContactSet,e:nexacro.ContactSetEventInfo)
+{
+	//this.gfn_setWaitCursor(false, this);
+	this.alert("ContactSet00_onsuccess 발생 e.reason: " + e.reason);
+
+	if (e.reason == "1") 
+	{
+        if (e.contacts.length == 0) 
+        {
+            this.Static00.set_text("0건");
+            this.alert("조회된 연락처 데이터가 없습니다.");
+            return;
+        }
+        else        
+        {
+            this.Static00.set_text(e.contacts.length + "건");
+
+            this.dsContactsInfo.clearData();
+
+            for (var i = 0; i < e.contacts.length; i++) 
+            {
+                // dsContactsInfo는 uniqueid, name, phonenumber정도만 저장함.
+                this.dsContactsInfo.addRow();
+                this.dsContactsInfo.setColumn(i, "chk", "0");
+                this.dsContactsInfo.setColumn(i, "uid", e.contacts[i].uniqueid);
+
+                if (this.gfnIsNull(e.contacts[i].contactname.displayname)) 
+                {
+                    if (this.gfnIsNull(e.contacts[i].contactname.givenname)) 
+                    {
+                        this.dsContactsInfo.setColumn(i, "displayname", e.contacts[i].contactname.familyname);
+                    }
+                    else 
+                    {
+                        this.dsContactsInfo.setColumn(i, "displayname", e.contacts[i].contactname.givenname);
+                    }
+                }
+                else 
+                {
+                    this.dsContactsInfo.setColumn(i, "displayname", e.contacts[i].contactname.displayname);
+                }
+
+                if (e.contacts[i].phonenumbers.length > 0) 
+                {
+                    this.dsContactsInfo.setColumn(i, "phonenumber", e.contacts[i].phonenumbers[0].value);
+                }
+
+            }
+        }
+
+	}
+	else if (e.reason == "2") 
+	{
+		// append
+	}
+	else if (e.reason == "3") 
+	{
+		// update
+	}
+	else if (e.reason == "4") 
+	{
+
+	}
+}
+
+// 연락처 데이터의 처리에 실패했을 때 발생하는 이벤트
+this.ContactSet00_onerror = function(obj:nexacro.ContactSet,e:nexacro.ContactSetErrorEventInfo)
+{
+	this.alert("연락처 데이터 처리 실패  " + e.errorcode + "::" + e.errormsg);
+}
+
+this.btnCamera_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.Camera00.takePicture();
+};
+
+// image 정상생성시 event
+this.Camera00_oncapture = function(obj:nexacro.Camera,e:nexacro.CameraEventInfo)
+{
+	this.imgCamera.set_image(e.imagedata);		
+}
+
+this.Camera00_onerror = function(obj:nexacro.Camera,e:nexacro.CameraErrorEventInfo)
+{
+	alert(e.eventid + " ### " +e.errormsg);
+}
+
+this.btnImagePicker_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ImagePicker00.open("imagedata", "PNG" );
+};
+
+this.ImagePicker00_onsuccess = function(obj:nexacro.ImagePicker,e:nexacro.ImagePickerEventInfo)
+{
+	this.imgImagePicker.set_image(e.imagedata);
+};
+
+this.ImagePicker00_onerror = function(obj:nexacro.ImagePicker,e:nexacro.ImagePickerErrorEventInfo)
+{
+	alert(e.eventid + " ### " +e.errormsg);
+};
+]]></Script>
+  </Form>
+</FDL>

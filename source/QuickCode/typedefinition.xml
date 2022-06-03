@@ -52,6 +52,11 @@
     <Component type="JavaScript" id="DsResetDataAction" classname="nexacro.DsResetDataAction" prefixid=""/>
     <Component type="JavaScript" id="DsCopyDataAction" classname="nexacro.DsCopyDataAction" prefixid=""/>
     <Component type="JavaScript" id="DsCopyRowDataAction" classname="nexacro.DsCopyRowDataAction" prefixid=""/>
+    <Component type="JavaScript" id="Phone" classname="nexacro.Phone"/>
+    <Component type="JavaScript" id="Sms" classname="nexacro.Sms"/>
+    <Component type="JavaScript" id="ContactSet" classname="nexacro.ContactSet"/>
+    <Component type="JavaScript" id="Camera" classname="nexacro.Camera"/>
+    <Component type="JavaScript" id="ImagePicker" classname="nexacro.ImagePicker"/>
   </Components>
   <Services>
     <Service prefixid="theme" type="resource" url="./_resource_/_theme_/" version="0" cachelevel="session" include_subdir="true"/>
@@ -72,5 +77,33 @@
   </Services>
   <Protocols/>
   <DeviceAdaptors/>
-  <Update/>
+  <Update>
+    <Os name="Windows" url="./" timeout="30" retry="3" autoupdate="auto" updatetype="server">
+      <Version name="common">
+        <Resource type="Module" file="nexacrolib.zip" version="0" targetpath="" description=""/>
+      </Version>
+    </Os>
+    <Os name="Android" url="./" timeout="30" retry="3" autoupdate="auto" updatetype="update">
+      <Version name="common">
+        <Resource type="Engine" file="quickcode_sample2.apk" version="1.0.3" targetpath="./"/>
+        <Resource type="Module" file="nexacrolib.zip" version="0" targetpath="./" description=""/>
+        <Resource type="File" file="Archive00.xzip" version="0" targetpath="./" description=""/>
+        <Resource type="Resource" file="Resource.zip" version="0" targetpath="./" description=""/>
+      </Version>
+    </Os>
+    <Os name="iOS" url="./" timeout="30" retry="3" autoupdate="auto" updatetype="update">
+      <Version name="common">
+        <Resource type="Engine" file="https://cacao.tobesoft.co.kr:8443/~nexacro/appbuilder/M2/tops/785/app.plist" version="1.0.3" targetpath="./"/>
+        <Resource type="Module" file="nexacrolib.zip" version="0" targetpath="./" description=""/>
+        <Resource type="Engine" file="Run.zip" version="20220603130723" targetpath="./" description=""/>
+        <Resource type="File" file="Archive00.xzip" version="0" targetpath="./" description=""/>
+        <Resource type="Resource" file="Resource.zip" version="0" targetpath="./" description=""/>
+      </Version>
+    </Os>
+  </Update>
+  <Deploy>
+    <Os name="Windows"/>
+    <Os name="Android"/>
+    <Os name="iOS"/>
+  </Deploy>
 </TypeDefinition>
