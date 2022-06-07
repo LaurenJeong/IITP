@@ -2,100 +2,120 @@
 //	Define the Action.
 //==============================================================================
 //==============================================================================		
-// Object : nexacro.DeviceAPIMakeCallActionM		
+// Object : nexacro.DeviceAPIImagePickerActionM		
 // Group : Action		
 //==============================================================================		
-if (!nexacro.DeviceAPIMakeCallActionM)		
+if (!nexacro.DeviceAPIImagePickerActionM)		
 {		
-    nexacro.DeviceAPIMakeCallActionM = function(id, parent)		
+    nexacro.DeviceAPIImagePickerActionM = function(id, parent)		
     {		
         nexacro.Action.call(this, id, parent);
 		this.addEvent("canrun");
     };		
         		
-    nexacro.DeviceAPIMakeCallActionM.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DeviceAPIMakeCallActionM);		
-    nexacro.DeviceAPIMakeCallActionM.prototype._type_name = "DeviceAPIMakeCallActionM";		
+    nexacro.DeviceAPIImagePickerActionM.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DeviceAPIImagePickerActionM);		
+    nexacro.DeviceAPIImagePickerActionM.prototype._type_name = "DeviceAPIImagePickerActionM";
 	
 	//===============================================================		
     // nexacro.DsCopyRowDataAction : 변수선언 부분
     //===============================================================
-	nexacro.DeviceAPIMakeCallActionM.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
-	nexacro.DeviceAPIMakeCallActionM.prototype._phone;
+	nexacro.DeviceAPIImagePickerActionM.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
+	nexacro.DeviceAPIImagePickerActionM.prototype._imagepicker;
+	nexacro.DeviceAPIImagePickerActionM.prototype._encodingtype		= "PNG";
 	
 	//===============================================================		
-    // nexacro.DeviceAPIMakeCallActionM : Create & Destroy		
+    // nexacro.DeviceAPIImagePickerActionM : Create & Destroy		
     //===============================================================		
-    nexacro.DeviceAPIMakeCallActionM.prototype.destroy = function()		
+    nexacro.DeviceAPIImagePickerActionM.prototype.destroy = function()		
 	{	
 		nexacro.Action.prototype.destroy.call(this);
 	};	
 		
     //===============================================================		
-    // nexacro.DeviceAPIMakeCallActionM : Method		
+    // nexacro.DeviceAPIImagePickerActionM : Method		
     //===============================================================		
-    nexacro.DeviceAPIMakeCallActionM.prototype.run = function()		
-	{
-		// Phone.makeCall( strPhoneNumber [, bAutoDialing] );
-		var sPhoneNumber = this.phonenumber;
-		var bAutoDialing = this.autodialing;
+    nexacro.DeviceAPIImagePickerActionM.prototype.run = function()		
+	{	
+		// Camera.takePicture();
+		var sGettype = this.returntype;
+		var nImageHeight = this.imageheight;
+		var nImageWidth = this.imagewidth;
+		var bUseGallery = this.savegallery;
 		
         //If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
 		{
 			var objForm = this.parent;
-			var oPhone = this._phone;
+			var oImagePicker = this._imagepicker;
 			
-			if (oPhone == undefined)
+			if (oImagePicker == undefined)
 			{
-				oPhone = new nexacro.Phone();
-				this._phone = oPhone;
+				oImagePicker = new nexacro.ImagePicker();
+				objForm.addChild("ImagePicker" + this.id, oImagePicker); 
+				this._imagepicker = oImagePicker;
 			}
 			
-			if (this._phone == undefined)
+			if (this._imagepicker == undefined)
 			{
-				this.gfnLog("Phone Object를 생성 할 수 없습니다.","info");
+				this.gfnLog("ImagePicker Object를 생성 할 수 없습니다.","info");
 				this.on_fire_onerror("error");
 				return;
 			}
 			
- 			var ret = oPhone.makeCall(sPhoneNumber,bAutoDialing);
+			oImagePicker.set_gettype(sGettype);
+			oImagePicker.set_imageheight(nImageHeight);
+			oImagePicker.set_imagewidth(nImageWidth);
+			
+			oImagePicker.addEventHandler("onsuccess", this.fnActionImagePickerOnsuccess, this);	
+			oImagePicker.addEventHandler("onerror", this.fnActionImagePickerOOnerror, this);	
+			
+ 			var ret = oImagePicker.open(sGettype,this._encodingtype);
 			
 			if (ret == false)
 			{
 				this.on_fire_onerror();
 			}
-			else
-			{
-				this.on_fire_onsuccess();
-			}
 		}
-	};
+	};	
 	
-	nexacro.DeviceAPIMakeCallActionM.prototype.phonenumber = "";
-	nexacro.DeviceAPIMakeCallActionM.prototype.set_phonenumber = function (v)
-	{
-		// TODO : enter your code here.
-		v = nexacro._toString(v);
-		if (this.phonenumber != v) {
-			this.phonenumber = v;
+	nexacro.DeviceAPIImagePickerActionM.prototype.set_returntype = function (v)				
+	{	
+		var returntype_enum = ["imagedata", "url"];
+		if (v && returntype_enum.indexOf(v) == -1) {
+			return;
 		}
-	};
-	
-	nexacro.DeviceAPIMakeCallActionM.prototype.set_autodialing = function (v)
-	{
-		// TODO : enter your code here.
-		v = nexacro._toBoolean(v);
 		
-		if(this.autodialing != v)
-		{
-			this.autodialing = v;
+		// TODO : enter your code here.			
+		v = nexacro._toString(v);			
+		if (this.returntype != v) {			
+			this.returntype = v;		
+		}			
+	};
+	
+	nexacro.DeviceAPIImagePickerActionM.prototype.set_imageheight = function (v)				
+	{
+		var nNum = nexacro.toNumber(v,0,0,0);
+		
+		// TODO : enter your code here.
+		if (nNum >= 0) {
+			this.imageheight = nNum;
+		}
+	};
+	
+	nexacro.DeviceAPIImagePickerActionM.prototype.set_imagewidth = function (v)				
+	{
+		var nNum = nexacro.toNumber(v,0,0,0);
+		
+		// TODO : enter your code here.
+		if (nNum >= 0) {
+			this.imagewidth = nNum;
 		}
 	};
 	
 	//===============================================================		
-    // nexacro.DeviceAPIMakeCallActionM : Event		
+    // nexacro.DeviceAPIImagePickerActionM : Event		
     //===============================================================
-	nexacro.DeviceAPIMakeCallActionM.prototype.on_fire_canrun = function (userdata)
+	nexacro.DeviceAPIImagePickerActionM.prototype.on_fire_canrun = function (userdata)
 	{
 		var event = this.canrun;
 		
@@ -111,7 +131,7 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 		return true;
 	};
 	
-	nexacro.DeviceAPIMakeCallActionM.prototype.on_fire_onsuccess = function (userdata)
+	nexacro.DeviceAPIImagePickerActionM.prototype.on_fire_onsuccess = function (userdata)
 	{
 		var event = this.onsuccess;
 		
@@ -126,7 +146,7 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 		}
 	};
 	  
-	nexacro.DeviceAPIMakeCallActionM.prototype.on_fire_onerror = function (userdata)
+	nexacro.DeviceAPIImagePickerActionM.prototype.on_fire_onerror = function (userdata)
 	{
 		var event = this.onerror;
 		
@@ -142,9 +162,9 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 	};
 	
 	//===============================================================		
-    // nexacro.DeviceAPIMakeCallActionM : 공통함수(Util)
+    // nexacro.DeviceAPIImagePickerActionM : 공통함수(Util)
     //===============================================================
-	nexacro.DeviceAPIMakeCallActionM.prototype.gfnIsNull = function (Val)				
+	nexacro.DeviceAPIImagePickerActionM.prototype.gfnIsNull = function (Val)				
 	{				
 		if (new String(Val).valueOf() == "undefined") return true;			
 		if (Val == null) return true;			
@@ -154,7 +174,7 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 		return false;			
 	};
 	
-	nexacro.DeviceAPIMakeCallActionM.prototype.gfnLog = function(sMsg, sType)
+	nexacro.DeviceAPIImagePickerActionM.prototype.gfnLog = function(sMsg, sType)
 	{
 		var arrLogLevel = ["debug","info","warn","error"];
 	
@@ -178,6 +198,25 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 	};
 	
 	//===============================================================		
-    // nexacro.DeviceAPIMakeCallActionM : 공통함수 전환부분
+    // nexacro.DeviceAPIImagePickerActionM : 공통함수 전환부분
     //===============================================================
+	nexacro.DeviceAPIImagePickerActionM.prototype.fnActionImagePickerOnsuccess = function(obj,e)
+	{
+		if (this.returntype == "url")
+		{
+			var realpath = e.imageurl.replace("%USERAPP%", "");
+			var sUrl = "file://"+ system.convertRealPath("%USERAPP%") + realpath;
+			
+			this.on_fire_onsuccess(sUrl);
+		}
+		else
+		{
+			this.on_fire_onsuccess(e.imagedata);
+		}
+	}
+
+	nexacro.DeviceAPIImagePickerActionM.prototype.fnActionImagePickerOnerror = function(obj,e)
+	{
+		this.on_fire_onerror(e.errormsg);	
+	}
 }

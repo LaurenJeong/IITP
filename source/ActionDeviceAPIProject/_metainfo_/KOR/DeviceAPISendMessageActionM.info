@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <MetaInfo version="2.0">
-  <Object id="DeviceAPIMakeCallActionM">
-    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.DeviceAPIMakeCallActionM" shorttypename="DeviceAPIMakeCallActionM" csstypename="DeviceAPIMakeCallActionM" csscontrolname="DeviceAPIMakeCallActionMControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="Android NRE,iOS/iPadOS NRE" description="전화연결 화면을 표시하는 Action" finalclass="true"/>
+  <Object id="DeviceAPISendMessageActionM">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.DeviceAPISendMessageActionM" shorttypename="DeviceAPISendMessageActionM" csstypename="DeviceAPISendMessageActionM" csscontrolname="DeviceAPISendMessageActionMControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="Android NRE,iOS/iPadOS NRE" description="문자 메시지 전송을 위해 SMS 작성화면을 표시하는 Action" finalclass="true"/>
     <PropertyInfo>
       <Property name="targetview" group="" subgroup="" refreshinfo="" displayinfo="" edittype="ViewObjList" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Action을 수행할 View 오브젝트를 설정하는 속성입니다." csspropertyname="" normalpropertyname="targetview"/>
-      <Property name="phonenumber" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" description="전화를 연결할 전화번호를 설정합니다."/>
-      <Property name="autodialing" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" description="전화걸기가 자동으로 실행될지 여부를 설정합니다.&#13;&#10;(안드로이드에서만 " requirement="Android NRE" edittype="Boolean" defaultvalue="false"/>
+      <Property name="phonenumber" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" description="문자메시지를 전송 할 전화번호를 설정합니다."/>
+      <Property name="message" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" description="문자메시지 내용을 설정합니다."/>
     </PropertyInfo>
     <CSSInfo>
       <PropertyInfo/>
@@ -14,10 +14,10 @@
     <MethodInfo/>
     <EventHandlerInfo>
       <EventHandler name="canrun" group="Event" unused="false" description="Action이 실행되기 전 발생하는 이벤트 입니다.">
-        <Syntax text="canrun(obj:nexacro.DeviceAPIMakeCallActionM, e:nexacro.ActionRunEventInfo)">
+        <Syntax text="canrun(obj:nexacro.DeviceAPISendMessageActionM, e:nexacro.ActionRunEventInfo)">
           <Return type="Boolean" description="이벤트에서 리턴값을 &quot;true&quot;로 반환하면 Action이 실행됩니다.&#13;&#10;이벤트에서 리턴값을 &quot;false&quot;로 반환하면 Action이 실행되지 않습니다.&#13;&#10;&#13;&#10;이벤트에서 리턴값을 생략하면 &quot;true&quot;로 적용됩니다."/>
           <Arguments>
-            <Argument name="obj" type="nexacro.DeviceAPIMakeCallActionM"/>
+            <Argument name="obj" type="nexacro.DeviceAPISendMessageActionM"/>
             <Argument name="e" type="nexacro.ActionRunEventInfo"/>
           </Arguments>
         </Syntax>

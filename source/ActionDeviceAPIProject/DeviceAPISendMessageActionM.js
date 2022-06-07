@@ -2,63 +2,64 @@
 //	Define the Action.
 //==============================================================================
 //==============================================================================		
-// Object : nexacro.DeviceAPIMakeCallActionM		
+// Object : nexacro.DeviceAPISendMessageActionM		
 // Group : Action		
 //==============================================================================		
-if (!nexacro.DeviceAPIMakeCallActionM)		
+if (!nexacro.DeviceAPISendMessageActionM)		
 {		
-    nexacro.DeviceAPIMakeCallActionM = function(id, parent)		
+    nexacro.DeviceAPISendMessageActionM = function(id, parent)		
     {		
         nexacro.Action.call(this, id, parent);
 		this.addEvent("canrun");
     };		
         		
-    nexacro.DeviceAPIMakeCallActionM.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DeviceAPIMakeCallActionM);		
-    nexacro.DeviceAPIMakeCallActionM.prototype._type_name = "DeviceAPIMakeCallActionM";		
+    nexacro.DeviceAPISendMessageActionM.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DeviceAPISendMessageActionM);		
+    nexacro.DeviceAPISendMessageActionM.prototype._type_name = "DeviceAPISendMessageActionM";		
 	
 	//===============================================================		
     // nexacro.DsCopyRowDataAction : 변수선언 부분
     //===============================================================
-	nexacro.DeviceAPIMakeCallActionM.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
-	nexacro.DeviceAPIMakeCallActionM.prototype._phone;
+	nexacro.DeviceAPISendMessageActionM.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
+	nexacro.DeviceAPISendMessageActionM.prototype._sms;
 	
 	//===============================================================		
-    // nexacro.DeviceAPIMakeCallActionM : Create & Destroy		
+    // nexacro.DeviceAPISendMessageActionM : Create & Destroy		
     //===============================================================		
-    nexacro.DeviceAPIMakeCallActionM.prototype.destroy = function()		
+    nexacro.DeviceAPISendMessageActionM.prototype.destroy = function()		
 	{	
 		nexacro.Action.prototype.destroy.call(this);
 	};	
 		
     //===============================================================		
-    // nexacro.DeviceAPIMakeCallActionM : Method		
+    // nexacro.DeviceAPISendMessageActionM : Method		
     //===============================================================		
-    nexacro.DeviceAPIMakeCallActionM.prototype.run = function()		
-	{
-		// Phone.makeCall( strPhoneNumber [, bAutoDialing] );
+    nexacro.DeviceAPISendMessageActionM.prototype.run = function()		
+	{	
+        // Sms.sendMessage([strNumber [,strMessage]]);
 		var sPhoneNumber = this.phonenumber;
-		var bAutoDialing = this.autodialing;
+		var sMessage = this.message;
 		
         //If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
 		{
 			var objForm = this.parent;
-			var oPhone = this._phone;
+			var oSms = this._sms;
 			
-			if (oPhone == undefined)
+			if (oSms == undefined)
 			{
-				oPhone = new nexacro.Phone();
-				this._phone = oPhone;
+				oSms = new nexacro.Sms();
+				objForm.addChild("sms" + this.id, oSms); 
+				this._sms = oSms;
 			}
 			
-			if (this._phone == undefined)
+			if (this._sms == undefined)
 			{
-				this.gfnLog("Phone Object를 생성 할 수 없습니다.","info");
+				this.gfnLog("SMS Object를 생성 할 수 없습니다.","info");
 				this.on_fire_onerror("error");
 				return;
 			}
 			
- 			var ret = oPhone.makeCall(sPhoneNumber,bAutoDialing);
+ 			var ret = oSms.sendMessage(sPhoneNumber,sMessage);
 			
 			if (ret == false)
 			{
@@ -71,8 +72,8 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 		}
 	};
 	
-	nexacro.DeviceAPIMakeCallActionM.prototype.phonenumber = "";
-	nexacro.DeviceAPIMakeCallActionM.prototype.set_phonenumber = function (v)
+	nexacro.DeviceAPISendMessageActionM.prototype.phonenumber = "";
+	nexacro.DeviceAPISendMessageActionM.prototype.set_phonenumber = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -81,21 +82,20 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 		}
 	};
 	
-	nexacro.DeviceAPIMakeCallActionM.prototype.set_autodialing = function (v)
+	nexacro.DeviceAPISendMessageActionM.prototype.message = "";
+	nexacro.DeviceAPISendMessageActionM.prototype.set_message = function (v)
 	{
 		// TODO : enter your code here.
-		v = nexacro._toBoolean(v);
-		
-		if(this.autodialing != v)
-		{
-			this.autodialing = v;
+		v = nexacro._toString(v);
+		if (this.message != v) {
+			this.message = v;
 		}
 	};
 	
 	//===============================================================		
-    // nexacro.DeviceAPIMakeCallActionM : Event		
+    // nexacro.DeviceAPISendMessageActionM : Event		
     //===============================================================
-	nexacro.DeviceAPIMakeCallActionM.prototype.on_fire_canrun = function (userdata)
+	nexacro.DeviceAPISendMessageActionM.prototype.on_fire_canrun = function (userdata)
 	{
 		var event = this.canrun;
 		
@@ -111,7 +111,7 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 		return true;
 	};
 	
-	nexacro.DeviceAPIMakeCallActionM.prototype.on_fire_onsuccess = function (userdata)
+	nexacro.DeviceAPISendMessageActionM.prototype.on_fire_onsuccess = function (userdata)
 	{
 		var event = this.onsuccess;
 		
@@ -126,7 +126,7 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 		}
 	};
 	  
-	nexacro.DeviceAPIMakeCallActionM.prototype.on_fire_onerror = function (userdata)
+	nexacro.DeviceAPISendMessageActionM.prototype.on_fire_onerror = function (userdata)
 	{
 		var event = this.onerror;
 		
@@ -142,9 +142,9 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 	};
 	
 	//===============================================================		
-    // nexacro.DeviceAPIMakeCallActionM : 공통함수(Util)
+    // nexacro.DeviceAPISendMessageActionM : 공통함수(Util)
     //===============================================================
-	nexacro.DeviceAPIMakeCallActionM.prototype.gfnIsNull = function (Val)				
+	nexacro.DeviceAPISendMessageActionM.prototype.gfnIsNull = function (Val)				
 	{				
 		if (new String(Val).valueOf() == "undefined") return true;			
 		if (Val == null) return true;			
@@ -154,7 +154,7 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 		return false;			
 	};
 	
-	nexacro.DeviceAPIMakeCallActionM.prototype.gfnLog = function(sMsg, sType)
+	nexacro.DeviceAPISendMessageActionM.prototype.gfnLog = function(sMsg, sType)
 	{
 		var arrLogLevel = ["debug","info","warn","error"];
 	
@@ -178,6 +178,7 @@ if (!nexacro.DeviceAPIMakeCallActionM)
 	};
 	
 	//===============================================================		
-    // nexacro.DeviceAPIMakeCallActionM : 공통함수 전환부분
+    // nexacro.DeviceAPISendMessageActionM : 공통함수 전환부분
     //===============================================================
+	
 }
