@@ -82,7 +82,17 @@
       <TriggerItem id="item1" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup2" targetaction="PopupActionM01" condition=""/>
       <TriggerItem id="item2" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup3" targetaction="PopupActionM02" condition=""/>
     </Trigger>
-    <Script type="xscript5.1"><![CDATA[include "view_lib::util.xjs";
+    <Script type="xscript5.1"><![CDATA[this.gfnIsNull = function(sValue)
+{
+    if (new String(sValue).valueOf() == "undefined") return true;
+    if (sValue == null) return true;
+    
+    var ChkStr = new String(sValue);
+
+    if (ChkStr == null) return true;
+    if (ChkStr.toString().length == 0 ) return true;
+    return false;
+};
 
 this.PopupAction00_onerror = function(obj:nexacro.PopupAction, e:nexacro.ActionErrorEventInfo)
 {
@@ -97,7 +107,7 @@ this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.Actio
 	this.txaOutput.insertText("\n" + "PopupAction00_onsuccess");
 	this.txaOutput.insertText("\n - userdata : " + e.userdata);
 	
-	if (this.lfn_IsNull(e.userdata) == false) {
+	if (this.gfnIsNull(e.userdata) == false) {
 		var objRet = JSON.parse(e.userdata);
 		this.dsRetPop.loadXML(objRet.dataset);
 	}

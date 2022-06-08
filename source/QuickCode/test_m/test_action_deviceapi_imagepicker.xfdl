@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_action_deviceapi_imagepicker" width="480" height="990" titletext="이미지선택 테스트">
+    <Layouts>
+      <Layout height="990" mobileorientation="portrait" width="480">
+        <Static id="staCompanyBg00_00" left="20" top="178" height="60" cssclass="sta_fieldbox" taborder="10" right="20"/>
+        <Static id="staCompanyBg00" left="20" top="119" height="60" cssclass="sta_fieldbox" taborder="4" right="20"/>
+        <Static id="staCompanyBg" left="20" top="60" height="60" cssclass="sta_fieldbox" taborder="3" right="20"/>
+        <Static id="Static00" taborder="0" text="이미지 선택" left="10" top="10" height="40" cssclass="sta_WF_title02" width="151" fittocontents="width"/>
+        <Static id="staCompanyLabel" left="20" top="60" width="145" height="60" text="반환타입" cssclass="sta_labelbox" taborder="1"/>
+        <Static id="staCompanyLabel00" left="20" top="119" width="145" height="60" text="이미지 높이" cssclass="sta_labelbox" taborder="2"/>
+        <Combo id="cboReturnType" taborder="5" left="175" top="72" height="40" right="30" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="0" text="imagedata" value="imagedata">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="datacolumn">imagedata</Col>
+                <Col id="codecolumn">imagedata</Col>
+              </Row>
+              <Row>
+                <Col id="datacolumn">url</Col>
+                <Col id="codecolumn">url</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Combo>
+        <MaskEdit id="medImageHeight" taborder="6" left="175" top="129" height="40" value="0" right="30"/>
+        <Button id="btnImagePicker" taborder="7" text="이미지 선택" left="20" top="258" height="60" right="20" onclick="btnImagePicker_onclick"/>
+        <Static id="staCompanyLabel00_00" left="20" top="178" width="145" height="60" text="이미지 넓이" cssclass="sta_labelbox" taborder="8"/>
+        <MaskEdit id="medImageWidth" taborder="9" left="175" top="188" height="40" value="0" right="30"/>
+        <ImageViewer id="imgImagePicker" taborder="11" left="20" top="338" height="309" stretch="fixaspectratio" right="20"/>
+        <CheckBox id="chkOnCanEvent" taborder="12" text="Action 실행여부" left="Static00:20" top="10" width="171" height="40" value="true" fittocontents="width"/>
+        <TextArea id="txtOutput" taborder="13" left="20" top="imgImagePicker:20" right="20" height="300"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <DeviceAPIImagePickerActionM id="DeviceAPIImagePickerActionM00" returntype="imagedata" imageheight="0" imagewidth="0" canrun="DeviceAPIImagePickerActionM00_canrun" onerror="DeviceAPIImagePickerActionM00_onerror" onsuccess="DeviceAPIImagePickerActionM00_onsuccess">
+        <Contents/>
+      </DeviceAPIImagePickerActionM>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.btnImagePicker_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.DeviceAPIImagePickerActionM00.set_returntype(this.cboReturnType.value);
+	this.DeviceAPIImagePickerActionM00.set_imageheight(this.medImageHeight.value);
+	this.DeviceAPIImagePickerActionM00.set_imagewidth(this.medImageWidth.value);
+	
+	this.DeviceAPIImagePickerActionM00.run();
+};
+
+this.DeviceAPIImagePickerActionM00_canrun = function(obj:nexacro.DeviceAPIImagePickerActionM, e:nexacro.ActionRunEventInfo)
+{
+	this.txtOutput.insertText("\n" + "Common_canrun " + obj.name +" : " + this.chkOnCanEvent.value);
+	
+	return this.chkOnCanEvent.value;
+};
+
+this.DeviceAPIImagePickerActionM00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onerror : " + e.userdata);
+};
+
+this.DeviceAPIImagePickerActionM00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	if (obj.returntype == "imagedata")
+	{
+		this.txtOutput.insertText("\n" + obj.name + "_onsuccess");
+		this.imgImagePicker.set_image(e.userdata);
+	}
+	else
+	{
+		this.txtOutput.insertText("\n" + obj.name + "_onsuccess : " + e.userdata);
+		this.imgImagePicker.set_image('url("'+e.userdata+'")');
+	}
+};
+]]></Script>
+  </Form>
+</FDL>
