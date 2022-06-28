@@ -6,14 +6,14 @@
         <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="9" top="10" width="822" height="348">
           <Layouts>
             <Layout>
-              <FloatChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" waterfall="true" rotateaxis="false" waterfallsumtext="Gross" enableanimation="true" categorycolumn="bind:DAY">
+              <FloatChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" waterfall="true" rotateaxis="false" waterfallsumtext="Gross" enableanimation="true" categorycolumn="bind:DAY">
                 <Contents><![CDATA[{
 									"title" : {
 										"id" : "title",
-										"textfont" : "20pt/normal '맑은 고딕'",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
 										"padding" : "0px 0px 5px",
 										"subtextcolor" : "gray",
-										"subtextfont" : "italic 8/normal 'Arial'",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
 										"visible" : false
 									},
 									"tooltip" : {
@@ -21,7 +21,7 @@
 										"background" : "#4b4b4b",
 										"linestyle" : "0px none",
 										"textcolor" : "white",
-										"textfont" : "10pt/normal '맑은 고딕'",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
 										"padding" : "5px"
 									},
 									"board" : {
@@ -30,9 +30,9 @@
 									"categoryaxis" : {
 										"id" : "categoryaxis",
 										"titletextcolor" : "#4c4c4c",
-										"titletextfont" : "bold 12pt '맑은 고딕'",
+										"titletextfont" : "bold 9pt 'Malgun Gothic'",
 										"labeltextcolor" : "#6f6f6f",
-										"labeltextfont" : "9pt '맑은 고딕'",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
 										"axislinestyle" : "1px solid #525252",
 										"ticklinestyle" : "1px solid #525252",
 										"boardlinestyle" : "1px solid #d0d0d0",
@@ -47,10 +47,10 @@
 											"id" : "valueaxisy",
 											"boardlinevisible" : true,
 											"boardlinestyle" : "1px solid #d0d0d0",
-											"labeltextcolor" : "#6f6f6f",
-											"labeltextfont" : "9pt/normal '맑은 고딕'",
 											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 12pt '맑은 고딕'",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
 											"ticklinestyle" : "1px solid #525252",
 											"axislinestyle" : "1px solid #525252",
 											"labelgap" : "5",
@@ -66,7 +66,7 @@
 											"barvisible" : true,
 											"linevisible" : false,
 											"barsize" : "50",
-											"itemtextfont" : "bold 10pt '맑은 고딕'",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"baropacity" : "0.8",
 											"positivebarlinestyle" : "0px solid",
 											"negativebarlinestyle" : "0px solid",
@@ -110,6 +110,7 @@
             <Attribute id="enableanimation" value="true"/>
             <Attribute id="titlealign" value="topcenter"/>
             <Attribute id="itemtextposition" value="outside"/>
+            <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
       </Layout>
@@ -151,6 +152,12 @@
           </Row>
         </Rows>
       </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="View00" copytype="replace" fromdataset="dsData" fromview="test_chart">
+        <Contents/>
+      </DsCopyDataAction>
     </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="test_chart_waterfall" triggerobj="test_chart_waterfall" targetaction="DsCopyDataAction00" condition=""/>
+    </Trigger>
   </Form>
 </FDL>

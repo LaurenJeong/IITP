@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <MetaInfo version="2.0">
   <Object id="TranAction">
-    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.TranAction" shorttypename="TranAction" csstypename="TranAction" csscontrolname="TranActionControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Set the action to execute when the trigger occurs." finalclass="false"/>
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.TranAction" shorttypename="TranAction" csstypename="TranAction" csscontrolname="TranActionControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Trigger가 발생하는 시점에 수행하는 Action을 설정합니다." finalclass="false"/>
     <PropertyInfo>
-      <Property name="serviceid" refreshinfo="serviceid" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="ModelServiceID"/>
-      <Property name="serviceurl" readonly="true" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="String"/>
+      <Property name="serviceid" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="String"/>
+      <Property name="serviceurl" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="String"/>
       <Property name="inputdatasets" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" group="Action"/>
       <Property name="outputdatasets" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="String"/>
       <Property name="args" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="Action" edittype="String"/>
@@ -17,30 +17,30 @@
     <StatusInfo/>
     <MethodInfo/>
     <EventHandlerInfo>
-      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This is the event to process the Trigger callback when the run method execution fails.">
-        <Syntax text="Action.onerror(obj:nexacro.Action,e:nexacro.ActionEventInfo)">
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="run 메소드 실행이 실패했을때 Trigger callback 처리를 위한 event 입니다.    ">
+        <Syntax text="onerror(obj:nexacro.TranAction, e:nexacro.TranActionErrorEventInfo)">
           <Return type="" description=""/>
           <Arguments>
             <Argument name="obj" type="nexacro.TranAction" in="" out="" option="" variable="" description=""/>
-            <Argument name="e" type="nexacro.ActionEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+            <Argument name="e" type="nexacro.TranActionErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
           </Arguments>
         </Syntax>
       </EventHandler>
-      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This is the event to process the Trigger callback when the run method execution succeeds.">
-        <Syntax text="onsuccess(obj:nexacro.Action,e:nexacro.ActionEventInfo)">
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="run 메소드 실행이 성공했을때 Trigger callback 처리를 위한 event 입니다.    ">
+        <Syntax text="onsuccess(obj:nexacro.TranAction, e:nexacro.TranActionSuccessEventInfo)">
           <Return type="" description=""/>
           <Arguments>
             <Argument name="obj" type="nexacro.TranAction" in="" out="" option="" variable="" description=""/>
-            <Argument name="e" type="nexacro.ActionEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+            <Argument name="e" type="nexacro.TranActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
           </Arguments>
         </Syntax>
       </EventHandler>
-      <EventHandler name="canrun" group="Event" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This is the event that occurs when the action is executed.">
-        <Syntax text="canrun(obj:nexacro.Action,e:nexacro.ActionEventInfo)">
-          <Return type="Boolean" description="The action is executed if the event return value is changed to &quot;true&quot;. &#13;&#10;The action is not executed if the event return value is changed to &quot;false&quot;. &#13;&#10;&#13;&#10;If the return value is omitted during the event, &quot;true&quot; is applied."/>
+      <EventHandler name="canrun" group="Event" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Action이 실행될 때 발생하는 이벤트 입니다.">
+        <Syntax text="canrun(obj:nexacro.TranAction, e:nexacro.ActionRunEventInfo)">
+          <Return type="Boolean" description="이벤트에서 리턴값을 &quot;true&quot;로 반환하면 Action이 실행됩니다.&#13;&#10;이벤트에서 리턴값을 &quot;false&quot;로 반환하면 Action이 실행되지 않습니다.&#13;&#10;&#13;&#10;이벤트에서 리턴값을 생략하면 &quot;true&quot;로 적영됩니다."/>
           <Arguments>
             <Argument name="obj" type="nexacro.TranAction" in="" out="" option="" variable="" description=""/>
-            <Argument name="e" type="nexacro.ActionEventInfo" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionRunEventInfo" in="" out="" option="" variable="" description=""/>
           </Arguments>
         </Syntax>
       </EventHandler>

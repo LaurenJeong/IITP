@@ -3,25 +3,25 @@
   <Form id="test_chart_combination" width="1280" height="720" titletext="CombinationChart">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="11" width="1000" height="379">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="11" width="1000" height="379" background="#e1e1e1">
           <Layouts>
             <Layout>
-              <BasicChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" enableanimation="true" categorycolumn="bind:month">
+              <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:month">
                 <Contents><![CDATA[{
 									"title" : {
 										"id" : "title",
-										"textfont" : "20pt/normal '맑은 고딕'",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
 										"padding" : "0px 0px 5px",
 										"subtextcolor" : "gray",
-										"subtextfont" : "italic 8/normal 'Arial'",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
 										"visible" : false
 									},
 									"legend" : {
 										"id" : "legend",
 										"padding" : "3px 10px 3px 10px",
-										"itemtextfont" : "9pt '맑은 고딕'",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
 										"itemtextcolor" : "#4c4c4c",
-										"itemautofit" : "true",
+										"itemautofit" : true,
 										"markertextgap" : "5",
 										"markertype" : "circle",
 										"verticalitemgap" : "5",
@@ -34,7 +34,7 @@
 										"background" : "#4b4b4b",
 										"linestyle" : "0px none",
 										"textcolor" : "white",
-										"textfont" : "10pt/normal '맑은 고딕'",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
 										"padding" : "5px"
 									},
 									"board" : {
@@ -43,9 +43,9 @@
 									"categoryaxis" : {
 										"id" : "categoryaxis",
 										"titletextcolor" : "#4c4c4c",
-										"titletextfont" : "bold 12pt '맑은 고딕'",
+										"titletextfont" : "bold 9pt 'Malgun Gothic'",
 										"labeltextcolor" : "#6f6f6f",
-										"labeltextfont" : "9pt '맑은 고딕'",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
 										"axislinestyle" : "1px solid #525252",
 										"ticklinestyle" : "1px solid #525252",
 										"boardlinestyle" : "1px solid #d0d0d0",
@@ -60,10 +60,10 @@
 											"id" : "valueaxisy",
 											"boardlinevisible" : true,
 											"boardlinestyle" : "1px solid #d0d0d0",
-											"labeltextcolor" : "#6f6f6f",
-											"labeltextfont" : "9pt/normal '맑은 고딕'",
 											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 12pt '맑은 고딕'",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
 											"ticklinestyle" : "1px solid #525252",
 											"axislinestyle" : "1px solid #525252",
 											"labelgap" : "5",
@@ -78,10 +78,10 @@
 											"boardlinevisible" : false,
 											"opposite" : true,
 											"boardlinestyle" : "1px solid #d0d0d0",
-											"labeltextcolor" : "#6f6f6f",
-											"labeltextfont" : "9pt/normal '맑은 고딕'",
 											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 12pt '맑은 고딕'",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
 											"ticklinestyle" : "1px solid #525252",
 											"axislinestyle" : "1px solid #525252",
 											"labelgap" : "5",
@@ -96,10 +96,10 @@
 											"boardlinevisible" : false,
 											"opposite" : true,
 											"boardlinestyle" : "1px solid #d0d0d0",
-											"labeltextcolor" : "#6f6f6f",
-											"labeltextfont" : "9pt/normal '맑은 고딕'",
 											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 12pt '맑은 고딕'",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
 											"ticklinestyle" : "1px solid #525252",
 											"axislinestyle" : "1px solid #525252",
 											"labelgap" : "5",
@@ -114,12 +114,12 @@
 										{
 											"barvisible" : false,
 											"linevisible" : true,
-											"lineareavisible" : true,
+											"pointsize" : "7",
 											"pointlinestyle" : "0px solid",
-											"lineareaopacity" : "0.5",
 											"itemtextcolor" : "#4c4c4c",
-											"itemtextfont" : "normal 10/normal '맑은 고딕'",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
 											"id" : "seriesRainfall",
 											"titletext" : "Rainfall",
 											"valuecolumn" : "bind:rainfall",
@@ -140,7 +140,7 @@
 											"pointlinestyle" : "0px solid",
 											"lineareaopacity" : "0.5",
 											"itemtextcolor" : "#4c4c4c",
-											"itemtextfont" : "normal 10/normal '맑은 고딕'",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"lineitemtextgap" : 5,
 											"id" : "seriesTemperature",
 											"titletext" : "Temperature",
@@ -159,12 +159,13 @@
 										{
 											"barvisible" : false,
 											"linevisible" : true,
-											"lineareavisible" : true,
+											"pointsize" : "7",
 											"pointlinestyle" : "0px solid",
-											"lineareaopacity" : "0.5",
 											"itemtextcolor" : "#4c4c4c",
-											"itemtextfont" : "normal 10/normal '맑은 고딕'",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
+											"pointvisible" : true,
 											"id" : "seriesPressure",
 											"titletext" : "Sea-Level Pressure",
 											"valuecolumn" : "bind:pressure",
@@ -176,7 +177,7 @@
 											"itemtextvisible" : true,
 											"itemtextmask" : "",
 											"itemtexttype" : "number",
-											"lineitemtextposition" : "centertop",
+											"pointitemtextposition" : "centertop",
 											"valueaxis" : "valueaxisy2"
 										}
 									]
@@ -196,24 +197,13 @@
                 <Row/>
               </Rows>
             </Dataset>
-            <Dataset id="viewdataset00">
-              <ColumnInfo>
-                <Column id="month" type="STRING" size="80"/>
-                <Column id="rainfall" type="FLOAT" size="80"/>
-                <Column id="temperature" type="FLOAT" size="80"/>
-                <Column id="pressure" type="FLOAT" size="80"/>
-              </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
-            </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="combinationmodel" filepath="nexacrochart\chartModelService.xmodel">
             <Fields>
               <Field id="month" description="" displaytype="category" seriesdisplay="bar" linetype="segment" valueaxes="y"/>
-              <Field id="rainfall" description="" displaytype="series" seriesdisplay="area" linetype="segment" valueaxes="y"/>
+              <Field id="rainfall" description="" displaytype="series" seriesdisplay="line" linetype="segment" valueaxes="y"/>
               <Field id="temperature" description="" displaytype="series" seriesdisplay="area" linetype="step" valueaxes="y1"/>
-              <Field id="pressure" description="" displaytype="series" seriesdisplay="area" linetype="curve" valueaxes="y2"/>
+              <Field id="pressure" description="" displaytype="series" seriesdisplay="linepoint" linetype="curve" valueaxes="y2"/>
             </Fields>
             <Components>
               <Component id="chart" fields="month,rainfall,temperature,pressure"/>
@@ -225,6 +215,7 @@
             <Attribute id="legendposition" value="rightcenter"/>
             <Attribute id="baritemtextposition" value="outside"/>
             <Attribute id="lineareaitemtextposition" value="centertop"/>
+            <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
       </Layout>
@@ -312,6 +303,12 @@
           </Row>
         </Rows>
       </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="View00" copytype="replace" fromdataset="dsData" fromview="test_chart">
+        <Contents/>
+      </DsCopyDataAction>
     </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="test_chart_combination" triggerobj="test_chart_combination" targetaction="DsCopyDataAction00" condition=""/>
+    </Trigger>
   </Form>
 </FDL>

@@ -3,17 +3,17 @@
   <Form id="test_chart_float" width="1280" height="720" titletext="FloatChart">
     <Layouts>
       <Layout height="720" width="1280">
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="13" top="17" width="825" height="355">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="13" top="17" width="825" height="355" background="#e1e1e1">
           <Layouts>
             <Layout>
-              <FloatChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="dsData" enableanimation="true" categorycolumn="bind:CAREER">
+              <FloatChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:CAREER">
                 <Contents><![CDATA[{
 									"title" : {
 										"id" : "title",
-										"textfont" : "20pt/normal '맑은 고딕'",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
 										"padding" : "0px 0px 5px",
 										"subtextcolor" : "gray",
-										"subtextfont" : "italic 8/normal 'Arial'",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
 										"visible" : false
 									},
 									"tooltip" : {
@@ -21,7 +21,7 @@
 										"background" : "#4b4b4b",
 										"linestyle" : "0px none",
 										"textcolor" : "white",
-										"textfont" : "10pt/normal '맑은 고딕'",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
 										"padding" : "5px"
 									},
 									"board" : {
@@ -30,9 +30,9 @@
 									"categoryaxis" : {
 										"id" : "categoryaxis",
 										"titletextcolor" : "#4c4c4c",
-										"titletextfont" : "bold 12pt '맑은 고딕'",
+										"titletextfont" : "bold 9pt 'Malgun Gothic'",
 										"labeltextcolor" : "#6f6f6f",
-										"labeltextfont" : "9pt '맑은 고딕'",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
 										"axislinestyle" : "1px solid #525252",
 										"ticklinestyle" : "1px solid #525252",
 										"boardlinestyle" : "1px solid #d0d0d0",
@@ -47,10 +47,10 @@
 											"id" : "valueaxisy",
 											"boardlinevisible" : true,
 											"boardlinestyle" : "1px solid #d0d0d0",
-											"labeltextcolor" : "#6f6f6f",
-											"labeltextfont" : "9pt/normal '맑은 고딕'",
 											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 12pt '맑은 고딕'",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
 											"ticklinestyle" : "1px solid #525252",
 											"axislinestyle" : "1px solid #525252",
 											"labelgap" : "5",
@@ -67,7 +67,7 @@
 											"barvisible" : true,
 											"linevisible" : false,
 											"barsize" : "50",
-											"itemtextfont" : "bold 10pt '맑은 고딕'",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"baropacity" : "0.8",
 											"positivebarlinestyle" : "0px solid",
 											"negativebarlinestyle" : "0px solid",
@@ -96,16 +96,6 @@
                 <Row/>
               </Rows>
             </Dataset>
-            <Dataset id="viewdataset00">
-              <ColumnInfo>
-                <Column id="CAREER" type="STRING" size="80"/>
-                <Column id="BOTTOM_25" type="INT" size="80"/>
-                <Column id="TOP_25" type="INT" size="80"/>
-              </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
-            </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="floatmodel" filepath="nexacrochart\chartModelService.xmodel">
             <Fields>
@@ -123,6 +113,7 @@
             <Attribute id="categoryaxistitletext" value="x축"/>
             <Attribute id="valueaxistitletext" value="y축"/>
             <Attribute id="itemtextposition" value="middle"/>
+            <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
       </Layout>
@@ -226,6 +217,12 @@
           </Row>
         </Rows>
       </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="View00" copytype="replace" fromdataset="dsData" fromview="test_chart">
+        <Contents/>
+      </DsCopyDataAction>
     </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="test_chart_float" triggerobj="test_chart_float" targetaction="DsCopyDataAction00" condition=""/>
+    </Trigger>
   </Form>
 </FDL>

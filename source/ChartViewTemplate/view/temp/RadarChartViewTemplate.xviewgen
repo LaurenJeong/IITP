@@ -22,6 +22,9 @@ include "view_lib::chart.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
+// View 여백
+this.VIEW_PADDING = "20";
+
 this.SERIES_LINE_STYLE = "1px solid";				// 시리즈 선 스타일			
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
@@ -205,6 +208,7 @@ fn_GetViewAttributeList = function() {
                                 "enumlist" : ["none", "lefttop", "centertop", "righttop", "leftmiddle", "centermiddle", "rightmiddle", "leftbottom", "centerbottom", "rightbottom"],
                                 "description": "값 표시 위치"
                             }
+							, this.oAttrViewPadding
                         ]
                   };
 				  
@@ -287,6 +291,9 @@ fn_GetModel = function(){
 	var sTitleAlign = this.oGenerationAttr.attributes.titlealign;
 	var sLegendPosition = this.oGenerationAttr.attributes.legendposition;
 	
+	// View Padding 설정
+	this.lfn_SetViewPadding();
+	
 	//모델 필드 갯수 가져오기
     var nFieldCount = this.oFieldArray.fieldcount;
 	
@@ -322,6 +329,12 @@ fn_GetModel = function(){
 	
 	// 차트 기본속성 셋팅
 	oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	
+	// View 여백 설정
+	oChartAttr["left"] = this.VIEW_PADDING_LEFT;
+	oChartAttr["top"] = this.VIEW_PADDING_TOP;
+	oChartAttr["right"] = this.VIEW_PADDING_RIGHT;
+	oChartAttr["bottom"] = this.VIEW_PADDING_BOTTOM;
 	
 	// 레이더 모양 설정
 	oChartAttr["radartype"] = sRadarType;

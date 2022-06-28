@@ -21,17 +21,17 @@ this.arrColorSet3		= ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462
 this.oBaseChartAttr =	{
 							"id" : "chart", "left" : 0,  "top" : 0, "right" : 0, "bottom" : 0
 							, "legendspacing"	: "10px"
-							//, "binddataset" : "viewdataset"
-							, "binddataset" 	: "dsData"
+							, "binddataset" : "viewdataset"
+							//, "binddataset" 	: "dsData"
 						};
 
 // 타이틀 기본속성
 this.oBaseTitle = 		{
 							  "id"					: "title"
-							, "textfont"			: "20pt/normal '맑은 고딕'"
+							, "textfont"			: "normal 700 17px/normal 'Malgun Gothic'"
 							, "padding"				: "0px 0px 5px"
 							, "subtextcolor"		: "gray"
-							, "subtextfont"			: "italic 8/normal 'Arial'"
+							, "subtextfont"			: "italic 8/normal 'Malgun Gothic'"
 							, "visible"				: false
 						};
 
@@ -41,7 +41,7 @@ this.oBaseTooltip =		{
 							, "background"			: "#4b4b4b"
 							, "linestyle"			: "0px none"
 							, "textcolor"			: "white"
-							, "textfont"			: "10pt/normal '맑은 고딕'"
+							, "textfont"			: "10pt/normal 'Malgun Gothic'"
 							, "padding"				: "5px"
 						};
 
@@ -54,9 +54,9 @@ this.oBaseBoard =		{
 this.oBaseLegend = 		{
 							  "id" 					: "legend"
 							, "padding" 			: "3px 10px 3px 10px"
-							, "itemtextfont" 		: "9pt '맑은 고딕'"
+							, "itemtextfont" 		: "9pt 'Malgun Gothic'"
 							, "itemtextcolor" 		: "#4c4c4c"
-							, "itemautofit" 		: "true"
+							, "itemautofit" 		: true
 							, "markertextgap" 		: "5"
 							, "markertype" 			: "circle"
 							, "verticalitemgap" 	: "5"
@@ -68,9 +68,9 @@ this.oBaseLegend = 		{
 this.oBaseCategoryaxis =	{
 							  "id" 					: "categoryaxis"
 							, "titletextcolor"		: "#4c4c4c"
-							, "titletextfont"		: "bold 12pt '맑은 고딕'"
+							, "titletextfont"		: "bold 9pt 'Malgun Gothic'"
 							, "labeltextcolor"		: "#6f6f6f"
-							, "labeltextfont"		: "9pt '맑은 고딕'"
+							, "labeltextfont"		: "9pt 'Malgun Gothic'"
 							, "axislinestyle"		: "1px solid #525252"
 							, "ticklinestyle"		: "1px solid #525252"
 							, "boardlinestyle"		: "1px solid #d0d0d0"
@@ -83,10 +83,10 @@ this.oBaseValueaxis =	{
 							  "id" 					: "valueaxis"
 							, "boardlinevisible"	: true
 							, "boardlinestyle" 		: "1px solid #d0d0d0"
-							, "labeltextcolor" 		: "#6f6f6f"
-							, "labeltextfont" 		: "9pt/normal '맑은 고딕'"
 							, "titletextcolor" 		: "#4c4c4c"
-							, "titletextfont" 		: "bold 12pt '맑은 고딕'"
+							, "titletextfont"		: "bold 9pt 'Malgun Gothic'"
+							, "labeltextcolor" 		: "#6f6f6f"
+							, "labeltextfont" 		: "9pt/normal 'Malgun Gothic'"
 							, "ticklinestyle" 		: "1px solid #525252"
 							, "axislinestyle" 		: "1px solid #525252"
 							, "labelgap" 			: "5"
@@ -100,10 +100,10 @@ this.oBaseValueaxis2 =	{
 							, "boardlinevisible"	: false							// 라인표시안함.
 							, "opposite"			: true							// 오른쪽 표시
 							, "boardlinestyle" 		: "1px solid #d0d0d0"
-							, "labeltextcolor" 		: "#6f6f6f"
-							, "labeltextfont" 		: "9pt/normal '맑은 고딕'"
 							, "titletextcolor" 		: "#4c4c4c"
-							, "titletextfont" 		: "bold 12pt '맑은 고딕'"
+							, "titletextfont"		: "bold 9pt 'Malgun Gothic'"
+							, "labeltextcolor" 		: "#6f6f6f"
+							, "labeltextfont" 		: "9pt/normal 'Malgun Gothic'"
 							, "ticklinestyle" 		: "1px solid #525252"
 							, "axislinestyle" 		: "1px solid #525252"
 							, "labelgap" 			: "5"
@@ -114,14 +114,16 @@ this.oBaseValueaxis2 =	{
 // [TimeLineChart] 데이터축 기본속성
 this.oBaseValueaxisTime =	{
 							  "id"					: "valueaxistime"
-							, "labeltextcolor"		: "#6f6f6f"
-							, "labeltextfont"		: "10pt '맑은 고딕'"
-							, "axislinestyle"		: "1px solid #d0d0d0"
+							, "boardlinevisible"	: true
+							, "opposite"			: true
 							, "boardlinestyle"		: "1px solid #d0d0d0"
-							, "opposite"			: "true"
+							, "titletextcolor" 		: "#4c4c4c"
+							, "titletextfont"		: "bold 9pt 'Malgun Gothic'"
 							, "labeltype"			: "normal"
-							, "boardlinevisible"	: "true"
-							//, "tickinterval"		: ""
+							, "labeltextcolor"		: "#6f6f6f"
+							, "labeltextfont"		: "9pt/normal 'Malgun Gothic'"
+							, "axislinestyle"		: "1px solid #d0d0d0"
+							, "tickinterval"		: ""
 						};
 
 // [BarChart] 막대그래프 시리즈 기본속성
@@ -130,7 +132,7 @@ this.oBaseSeriesBar =	{
 							, "barsize" 			: "75"
 							, "barlinestyle"		: "1px solid"
 							, "itemtextcolor"		: "#4c4c4c"
-							, "itemtextfont"		: "normal 10/normal '맑은 고딕'"
+							, "itemtextfont"		: "9pt 'Malgun Gothic'"
 							, "baritemtextgap"		: 5
 						};
 
@@ -141,7 +143,7 @@ this.oBaseSeriesLine =	{
 							, "pointsize"			: "7"
 							, "pointlinestyle"		: "0px solid"
 							, "itemtextcolor"		: "#4c4c4c"
-							, "itemtextfont"		: "normal 10/normal '맑은 고딕'"
+							, "itemtextfont"		: "9pt 'Malgun Gothic'"
 							, "lineitemtextgap"		: 5
 							, "pointitemtextgap"	: 5
 						};
@@ -154,7 +156,7 @@ this.oBaseSeriesArea =	{
 							, "pointlinestyle"		: "0px solid"
 							, "lineareaopacity"		: "0.5"
 							, "itemtextcolor"		: "#4c4c4c"
-							, "itemtextfont"		: "normal 10/normal '맑은 고딕'"
+							, "itemtextfont"		: "9pt 'Malgun Gothic'"
 							, "lineitemtextgap"		: 5
 						};
 
@@ -164,6 +166,7 @@ this.oBaseSeriesPie =	{
 							, "opacity" 				: "0.8"
 							, "linestyle" 				: "1px solid #ffffff"
 							, "itemtextvisible" 		: true
+							, "itemtextfont"			: "9pt 'Malgun Gothic'"
 							, "itemtextguidelinestyle"	: "1px solid darkgray"
 							, "itemtextguideopacity" 	: "1"
 							, "itemtextguidesize" 		: "20"
@@ -179,7 +182,7 @@ this.oBaseSeriesPie =	{
 this.oBaseSeriesPyramid =	{
  							  "margintopdown"		: 10
  							, "linestyle"			: "2px solid #ffffff"
- 							, "itemtextfont"		: "10pt/normal '맑은 고딕'"
+ 							, "itemtextfont"		: "9pt 'Malgun Gothic'"
  							, "graphhalign"			: "center"
  							, "itemtextguidesize"	: "30"
  							, "autogradation"		: "none"
@@ -188,13 +191,13 @@ this.oBaseSeriesPyramid =	{
 
 // [BubbleChart] 버블차트 시리즈 기본속성
 this.oBaseSeriesBubble =	{
-							  "itemtextfont"		: "bold 8pt '맑은 고딕'"
+							  "itemtextfont"		: "8pt 'Malgun Gothic'"
 						};
 
 // [RadarChart] 레이더차트 시리즈 기본속성
 this.oBaseSeriesRadar =	{
 							  "linevisible"			: true
- 							, "itemtextfont"		: "8pt '맑은 고딕'"
+ 							, "itemtextfont"		: "8pt 'Malgun Gothic'"
  							, "lineareaopacity"		: "0.5"
 							, "pointsize"			: "7"
 						};
@@ -202,13 +205,13 @@ this.oBaseSeriesRadar =	{
 // [RoseChart] 장미도표 시리즈 기본속성
 this.oBaseSeriesRose =	{
 							  "linevisible"			: true
- 							, "itemtextfont"		: "8pt '맑은 고딕'"
+ 							, "itemtextfont"		: "8pt 'Malgun Gothic'"
 						};
 
 // [GaugeChart] 게이지차트 게이지선 기본속성
 this.oBaseIndicator =	{
 							  "id"					: "indicator"
- 							, "visible"				: "true"
+ 							, "visible"				: true
  							, "indicatorimage"		: ""
  							, "indicatorsize"		: ""
  							, "indicatorindent"		: ""
@@ -223,7 +226,7 @@ this.oBaseIndicator =	{
 // [GaugeChart] 게이지차트 시리즈 기본속성
 this.oBaseSeriesGauge =	{
 							  "id"					: "series"
- 							, "itemtextfont"		: "bold 12pt '맑은 고딕'"
+ 							, "itemtextfont"		: "bold 12pt 'Malgun Gothic'"
 							, "radius"				: "100"
 							, "userrangeradius"		: "100"
 							, "opacity"				: "0.5"
@@ -235,7 +238,7 @@ this.oBaseSeriesGauge =	{
 this.oBaseSeriesBarGauge =	{
 							  "id"					: "series"
  							, "itemtextcolor"		: "#ffffff"
-							, "itemtextfont"		: "bold 20pt '맑은 고딕'"
+							, "itemtextfont"		: "bold 20pt 'Malgun Gothic'"
 							, "opacity"				: "0.5"
 							, "barsize"				: "80"
 							, "baropacity"			: "1"
@@ -247,7 +250,7 @@ this.oBaseSeriesFloat =	{
 							, "barvisible" 				: true
  							, "linevisible" 			: false
  							, "barsize" 				: "50"
- 							, "itemtextfont" 			: "bold 10pt '맑은 고딕'"
+ 							, "itemtextfont" 			: "9pt 'Malgun Gothic'"
  							, "baropacity" 				: "0.8"
 							, "positivebarlinestyle"	: "0px solid"
 							, "negativebarlinestyle"	: "0px solid"
@@ -259,7 +262,7 @@ this.oBaseSeriesWaterfall =	{
 							, "barvisible" 					: true
  							, "linevisible" 				: false
  							, "barsize" 					: "50"
- 							, "itemtextfont" 				: "bold 10pt '맑은 고딕'"
+ 							, "itemtextfont" 				: "9pt 'Malgun Gothic'"
  							, "baropacity" 					: "0.8"
 							, "positivebarlinestyle"		: "0px solid"
 							, "negativebarlinestyle"		: "0px solid"
@@ -273,7 +276,7 @@ this.oBaseSeriesTimeLine =	{
  							, "linevisible" 			: false
  							, "barsize" 				: "50"
  							, "itemtextcolor" 			: "#ffffff"
- 							, "itemtextfont" 			: "bold 10pt '맑은 고딕'"
+ 							, "itemtextfont" 			: "9pt 'Malgun Gothic'"
  							, "baropacity" 				: "0.8"
 							, "positivebarlinestyle"	: "0px solid"
 							, "negativebarlinestyle"	: "1px solid #ffffff"				// %색상과 구분을 위해 line값 설정
