@@ -46,11 +46,11 @@ if (!nexacro.DsCopyDataAction)
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
 		{			
-			var objToDs;
-			var objFormDs;
+			var objToDs 	= this._targetdataset;
+			var objFormDs	= this._fromdataset;
 			
-			objToDs 	= this.getDataset(objView,sTargetDs);
-			objFormDs	= this.getDataset(objFromView,sFromDs);
+			if (objToDs == undefined)	objToDs 	= this.getDataset(objView,sTargetDs);
+			if (objFormDs == undefined)	objFormDs	= this.getDataset(objFromView,sFromDs);
 			
 			if (objToDs == undefined)
 			{
@@ -80,22 +80,22 @@ if (!nexacro.DsCopyDataAction)
 		}
 	};
 	
-	nexacro.DsCopyDataAction.prototype._targetdataset = "";
+	nexacro.DsCopyDataAction.prototype._targetdataset = null;
 	nexacro.DsCopyDataAction.prototype.set_targetdataset = function (v)				
 	{				
 		if (v instanceof nexacro.NormalDataset) {
-			if (this.targetdataset != v) {			
-				this.targetdataset = v;
-				this._targetdataset = v.name;
+			if (this.targetdataset != v.name) {			
+				this.targetdataset = v.name;
+				this._targetdataset = v;
 			}		
 		} else {
 			v = nexacro._toString(v);
 			
 			var objForm = this.parent;
 			var objDs = objForm._findDataset(v);
-			if (this._targetdataset != v && objDs != undefined) {
-				this._targetdataset = v;
-				this.targetdataset = objDs;
+			if (this.targetdataset != v && objDs != undefined) {
+				this.targetdataset = v;
+				this._targetdataset = objDs;
 			}
 		}
 	};
@@ -109,22 +109,22 @@ if (!nexacro.DsCopyDataAction)
 		}
 	};
 	
-	nexacro.DsCopyDataAction.prototype._fromdataset = "";
+	nexacro.DsCopyDataAction.prototype._fromdataset = null;
 	nexacro.DsCopyDataAction.prototype.set_fromdataset = function (v)				
 	{				
 		if (v instanceof nexacro.NormalDataset) {
-			if (this.fromdataset != v) {			
-				this.fromdataset = v;
-				this._fromdataset = v.name;
+			if (this.fromdataset != v.name) {			
+				this.fromdataset = v.name;
+				this._fromdataset = v;
 			}		
 		} else {
 			v = nexacro._toString(v);
 			
 			var objForm = this.parent;
 			var objDs = objForm._findDataset(v);
-			if (this._fromdataset != v && objDs != undefined) {
-				this._fromdataset = v;
-				this.fromdataset = objDs;
+			if (this.fromdataset != v && objDs != undefined) {
+				this.fromdataset = v;
+				this._fromdataset = objDs;
 			}
 		}
 	};
@@ -251,7 +251,9 @@ if (!nexacro.DsCopyDataAction)
 		else objForm = this.parent;
 		
 		// Dataset 객체 찾기
-		if (sDatasetId) {				// targetgrid 설정시 해당 그리드
+		if (sDatasetId instanceof nexacro.NormalDataset) {				// targetgrid 설정시 해당 그리드
+			objDs = sDatasetId;
+		} else if (sDatasetId) {				// targetgrid 설정시 해당 그리드
 			objDsNm = sDatasetId.replace("@", "");
 			objDs = objForm._findDataset(objDsNm);
 		} else {						// targetgrid 미설정시 View에 있는 Grid

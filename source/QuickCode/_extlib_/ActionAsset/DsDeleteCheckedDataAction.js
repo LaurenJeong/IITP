@@ -219,7 +219,7 @@ if (!nexacro.DsDeleteCheckedDataAction)
 		var arrDelRow = new Array();
 		
 		// 선택된 자료가 없습니다.
-		if (objDs.getCaseCount(sCheckColumnId + " ||" + sCheckColumnId + "==1") == 0) {
+		if (objDs.getCaseCount(sCheckColumnId + "== true ||" + sCheckColumnId + "==1") == 0) {
 			this.gfnLog("선택된 데이터가 없습니다.","info");
 			this.on_fire_onerror();
 			return arrDelRow;
@@ -228,7 +228,7 @@ if (!nexacro.DsDeleteCheckedDataAction)
 		// 행삭제
 		objDs.set_enableevent(false);
 		for(var i=objDs.rowcount-1; i>=0; i--) {
-			if (objDs.getColumn(i,sCheckColumnId) || objDs.getColumn(i,sCheckColumnId) == 1) {
+			if (objDs.getColumn(i,sCheckColumnId) == true || objDs.getColumn(i,sCheckColumnId) == 1) {
 				arrDelRow.unshift(i);
 				objDs.deleteRow(i);
 			}
