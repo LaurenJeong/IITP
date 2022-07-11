@@ -7,7 +7,7 @@
 //==============================================================================	
 if (!nexacro.TranActionErrorEventInfo)	
 {	
-    nexacro.TranActionErrorEventInfo = function(obj, id, serviceid, errorcd, errormsg)	
+    nexacro.TranActionErrorEventInfo = function(obj, id, serviceid, errorcode, errormsg)	
     {	
         nexacro.ActionEventInfo.call(this, obj, id);
 		this.set_serviceid(serviceid);
