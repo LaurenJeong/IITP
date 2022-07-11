@@ -11,13 +11,13 @@
 //--------------------------------------------------------------------------------------------------------
 //모델 정보
 this.oFieldArray;
-
+	
 //Use Model Information
 this.oUseFieldArray;
 
 //뷰 컴포넌트 정보
 this.oContents;
-
+	
 //옵션 설정 정보
 this.oGenerationAttr;
 
@@ -37,6 +37,7 @@ this.arrValidationRules = [];
 // 네이밍 컨벤션 종류 (C : camelCase, S : snakeCase, LS : lower snakeCase, 빈값 : 지정안함.)
 this.COMP_NAMING_RULE	= "C";
 
+/** @const {string} */
 // 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 this.LOG_LEVEL			= -1;
 //--------------------------------------------------------------------------------------------------------
@@ -47,6 +48,21 @@ this.LOG_LEVEL			= -1;
 this.VALID_USERPROP_ID = "_vaild";
 //--------------------------------------------------------------------------------------------------------
 
+//--------------------------------------------------------------------------------------------------------
+// View 여백관련 상수
+//--------------------------------------------------------------------------------------------------------		
+// View 여백
+this.VIEW_PADDING_LEFT				= 0;
+this.VIEW_PADDING_TOP				= 0;
+this.VIEW_PADDING_RIGHT				= 0;
+this.VIEW_PADDING_BOTTOM			= 0;
+
+this.oAttrViewPadding =	{
+                                "id": "viewpadding",
+                                "edittype": "String",
+								"defaultvalue": this.lfn_Nvl(this.VIEW_PADDING, ""),
+								"description": "Set the View Padding(px)"
+						};
 //--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수(ExpandButton + Title + TotalCount)
 //--------------------------------------------------------------------------------------------------------				
@@ -117,7 +133,7 @@ this.oAttrTitleExpandButton =	{
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : lfn_GetCompId
- * Parameter    :
+ * Parameter    : 
 				- sCompId : 생성할 컴포넌트 아이디
  * Return       : sRtnCompId : 컴포넌트 ID
  * Description  : 컴포넌트 ID 생성 함수
@@ -125,7 +141,7 @@ this.oAttrTitleExpandButton =	{
 this.lfn_GetCompId = function(sCompId)
 {
 	var sNewCompId = "";
-
+	
 	if (this.COMP_NAMING_RULE == "C") {
 		sNewCompId = this.lfn_ToCamelCase(sCompId);
 	} else if (this.COMP_NAMING_RULE == "S") {
@@ -136,20 +152,20 @@ this.lfn_GetCompId = function(sCompId)
 		sNewCompId = sCompId;
 	}
 	//trace("fn_GetCompId() : " + sCompId + " -> " + sNewCompId);
-
+	
 	//동일한 Field로 생성된 컴포넌트 있는지 체크
 	var arrTemp = this.arrCompIds.filter(arrCompIds=>arrCompIds.indexOf(sNewCompId)==0);
 	var sRtnCompId;
-
+	
 	//동일한 Field로 생성된 컴포넌트가 존재할 경우
 	if(arrTemp.length>0)sRtnCompId = sNewCompId+"_"+arrTemp.length;
-
-	//동일한 Field로 생성된 컴포넌트가 없을 경우
+	
+	//동일한 Field로 생성된 컴포넌트가 없을 경우 
 	else sRtnCompId = sNewCompId;
-
+	
 	//컴포넌트 ID관리 Array에 추가
 	this.arrCompIds[this.arrCompIds.length] = sRtnCompId;
-
+	
 	//컴포넌트 ID 리턴
 	return sRtnCompId;
 };
@@ -205,12 +221,12 @@ this.lfn_ToLowerSnakeCase = function(sValue)
 this.lfn_Log = function(sMsg, sType)
 {
 	var arrLogLevel = ["debug","info","warn","error"];
-
+	
 	if(sType == undefined)	sType = "debug";
 	var nLvl = arrLogLevel.indexOf(sType);
-
+	
 	if (nLvl < this.LOG_LEVEL)		return;
-
+	
 	if (system.navigatorname == "nexacro DesignMode"
 		|| system.navigatorname == "nexacro") {
 		if (sMsg instanceof Object) {
@@ -655,6 +671,50 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
     return oBind;
 };
 
+
+this.lfn_SetViewPadding = function()
+{
+	var sViewPadding = this.oGenerationAttr.attributes.viewpadding;
+	
+	if (sViewPadding)
+	{
+		var arrViewPadding = sViewPadding.split(" ");
+		var nPaddingTop, nPaddingRight, nPaddingBottom, nPaddingLeft;
+		
+// 		1회 입력 : top/right/bottom/left 에 모두 적용됩니다.
+// 		2회 입력 : top/bottom, right/left 에 첫번째 값부터 각각 적용됩니다.
+// 		3회 입력 : top, right/left, bottom 에 첫번째 값부터 각각 적용됩니다.
+// 		4회 입력 : top, right, bottom, left 에 첫번째 값부터 각각 적용됩니다.
+		if (arrViewPadding.length == 1)
+		{
+			this.VIEW_PADDING_TOP = nexacro.toNumber(arrViewPadding[0]);
+			this.VIEW_PADDING_RIGHT = nexacro.toNumber(arrViewPadding[0]);
+			this.VIEW_PADDING_BOTTOM = nexacro.toNumber(arrViewPadding[0]);
+			this.VIEW_PADDING_LEFT = nexacro.toNumber(arrViewPadding[0]);
+		}
+		else if (arrViewPadding.length == 2)
+		{
+			this.VIEW_PADDING_TOP = nexacro.toNumber(arrViewPadding[0]);
+			this.VIEW_PADDING_RIGHT = nexacro.toNumber(arrViewPadding[1]);
+			this.VIEW_PADDING_BOTTOM = nexacro.toNumber(arrViewPadding[0]);
+			this.VIEW_PADDING_LEFT = nexacro.toNumber(arrViewPadding[1]);
+		}
+		else if (arrViewPadding.length == 3)
+		{
+			this.VIEW_PADDING_TOP = nexacro.toNumber(arrViewPadding[0]);
+			this.VIEW_PADDING_RIGHT = nexacro.toNumber(arrViewPadding[1]);
+			this.VIEW_PADDING_BOTTOM = nexacro.toNumber(arrViewPadding[2]);
+			this.VIEW_PADDING_LEFT = nexacro.toNumber(arrViewPadding[1]);
+		}
+		else if (arrViewPadding.length == 4)
+		{
+			this.VIEW_PADDING_TOP = nexacro.toNumber(arrViewPadding[0]);
+			this.VIEW_PADDING_RIGHT = nexacro.toNumber(arrViewPadding[1]);
+			this.VIEW_PADDING_BOTTOM = nexacro.toNumber(arrViewPadding[2]);
+			this.VIEW_PADDING_LEFT = nexacro.toNumber(arrViewPadding[3]);
+		}
+	}
+};
 /*---------------------------------------------------------------------------------------------*
  * Function     : lfn_MakeTitleArea
  * Parameter    : 	sTitleText - titletext 속성값
@@ -665,7 +725,7 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
  *---------------------------------------------------------------------------------------------*/
 this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 {
-	if (sTitleText == null)			return 0;
+	if (sTitleText == null)			return this.VIEW_PADDING_TOP;
 	if (sUseTotalCount == null)		sUseTotalCount = "false";
 
 	var oModel = this.oContents.View.Model;
@@ -673,8 +733,8 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 	var oField;
 	var oComp;
 
-	var nCompTop		= 0;
-	var nCompLeft		= 0;
+	var nCompTop		= this.VIEW_PADDING_TOP;
+	var nCompLeft		= this.VIEW_PADDING_LEFT;
 	var nCompWidth		= 0;
 	var nCompHeight		= 0;
 	
@@ -713,9 +773,9 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 	sText		= sTitleText;
 	sCssClass	= sUseExpandButton == "none" ? this.TITLE_CSSCLASS : this.TITLE_NOICON_CSSCLASS;
 	
-	nCompWidth	= 80;
+	nCompWidth	= 120;
 	nCompHeight	= this.TITLE_AREA_HEIGHT;
-	nCompTop	= 0;
+	nCompTop	= this.VIEW_PADDING_TOP;
 		
 	arrComponents.push({
 		"tag" : "Static",
@@ -735,7 +795,6 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 		
 		nCompWidth	= 50;
 		nCompHeight	= this.TITLE_AREA_HEIGHT;
-		nCompTop	= 0;
 		nCompLeft	= this.TITLE_ID + ":5";
 	
 		arrComponents.push({
@@ -756,7 +815,7 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 		"Components" : arrComponents
 	};
 	
-	return this.TITLE_AREA_HEIGHT;
+	return nCompTop + this.TITLE_AREA_HEIGHT;
 };
 
 /*---------------------------------------------------------------------------------------------*
@@ -790,7 +849,11 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 			objView.set_formscrolltype('none');
 			obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');
 		} else {
-			objView.set_height(objView._openHeight);
+			if (objView._openHeight > 0) {
+				objView.set_height(objView._openHeight);
+			} else {
+				objView.set_bottom(objView._openBottom);
+			}
 			objView.set_formscrolltype(objView._formscrolltype);
 			obj.set_cssclass('" + this.EXPAND_BUTTON_CLOSE_CSSCLASS + "');
 		}
@@ -805,6 +868,7 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 		var objView = obj.parent;
 		objView._openclose = sStatus;
 		objView._openHeight = objView.height;
+		objView._openBottom = objView.bottom;
 		objView._formscrolltype = objView.formscrolltype;
 		this.lfn_Title_SetSearchOpenClose(obj.btnExpand,sStatus);
 	};
@@ -833,7 +897,11 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 	sScript += "		objView.set_formscrolltype('none');";
 	sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');";
 	sScript += "	} else {";
-	sScript += "		objView.set_height(objView._openHeight);";
+	sScript += "		if (objView._openHeight > 0) {";
+	sScript += "			objView.set_height(objView._openHeight);";
+	sScript += "		} else {";
+	sScript += "			objView.set_bottom(objView._openBottom);";
+	sScript += "		}";
 	sScript += "		objView.set_formscrolltype(objView._formscrolltype);";
 	sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_CLOSE_CSSCLASS + "');";
 	sScript += "	}";
@@ -849,6 +917,7 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 	sScript += "	var objView = obj.parent;";
 	sScript += "	objView._openclose = sStatus;";
 	sScript += "	objView._openHeight = objView.height;";
+	sScript += "	objView._openBottom = objView.bottom;";
 	sScript += "	objView._formscrolltype = objView.formscrolltype;";
 	sScript += "	this.lfn_Title_SetSearchOpenClose(obj.btnExpand,sStatus);";
 	sScript += "};";
