@@ -91,17 +91,15 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) {
 	//trace(">> contents : " + contents);
     //trace(">> generationattr : " + generationattr);
 
-    //모델정보를 JSON 오브젝트로 설정
-    if(fieldarray)this.oFieldArray = JSON.parse(fieldarray);
+	//Set Generation Info
+	//this.oFieldArray : Model Information as JSON Object
+	//this.oContents : View Component Information as JSON Object
+	//this.oContents.View.Model : Model Information Initialization
+	//this.oGenerationAttr : Setting Information as JSON Object
+	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, false);
 
-	//뷰 컴포넌트 정보를 JSON 오브젝트로 설정
-    if(contents)this.oContents = JSON.parse(contents);
-
-	//옵션 설정 정보를 JSON 오브젝트로 설정
-    if(generationattr)this.oGenerationAttr = JSON.parse(generationattr);
-
-	//모델정보 초기화
-	this.oContents.View.Model = [];
+	// View Padding 설정
+	this.lfn_SetViewPadding();
 
 	//모델정보 생성 함수 호출
 	fn_GetModel();
@@ -287,9 +285,6 @@ fn_GetModel = function(){
 	var sSubTitletext = this.oGenerationAttr.attributes.subtitletext;
 	var sTitleAlign = this.oGenerationAttr.attributes.titlealign;
 	var sLegendPosition = this.oGenerationAttr.attributes.legendposition;
-	
-	// View Padding 설정
-	this.lfn_SetViewPadding();
 	
 	// 모델 필드 갯수 가져오기
     var nFieldCount = this.oFieldArray.fieldcount;
