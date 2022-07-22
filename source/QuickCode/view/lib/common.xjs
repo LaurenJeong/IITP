@@ -230,9 +230,10 @@ this.lfn_Log = function(sMsg, sType)
 	if (system.navigatorname == "nexacro DesignMode"
 		|| system.navigatorname == "nexacro") {
 		if (sMsg instanceof Object) {
-			for(var x in sMsg){
-				trace("[" + sType + "] " + x + " : " + sMsg[x]);
-			}
+			trace("[" + sType + "] " + JSON.stringify(sMsg, null, "\t"));
+// 			for(var x in sMsg){
+// 				trace("[" + sType + "] " + x + " : " + sMsg[x]);
+// 			}
 		} else {
 			trace("[" + sType + "] " + sMsg);
 		}
@@ -355,6 +356,9 @@ this.lfn_GetCompClass = function(sCompType)
 						break;
 		case "progressbar" : oCompClass.classId = "ProgressBar";
 						oCompClass.prefix = "prg";
+						break;
+		case "grid" : oCompClass.classId = "Grid";
+						oCompClass.prefix = "grd";
 						break;
 		default : oCompClass.classId = "Static";
 				  oCompClass.prefix = "sta";
@@ -560,6 +564,8 @@ this.lfn_GetDsColumns = function(objFieldArr)
     var sFieldId;
     var sDataType;
     var sDataSize;
+	var sProp;
+	var sSumText;
 
     //모델 Field 개수 가져오기
     var nCount = objFieldArr.fieldcount;
@@ -569,9 +575,11 @@ this.lfn_GetDsColumns = function(objFieldArr)
     {
         oField = objFieldArr.fields[i];
 
-        sFieldId = oField.id;
-        sDataType = oField.datatype;
-        sDataSize = oField.datasize;
+        sFieldId 	= oField.id;
+        sDataType 	= oField.datatype;
+        sDataSize 	= oField.datasize;
+		sProp		= oField.prop;
+		sSumText	= oField.sumtext;
 
 		if(oField.comptype!="button")
 		{
@@ -583,6 +591,9 @@ this.lfn_GetDsColumns = function(objFieldArr)
 					"id": sFieldId, "type": sDataType, "size": sDataSize
 				}
 			};
+			
+			if(this.lfn_IsNotNull(sProp))			oColumns[i]["attribute"]["prop"] = sProp;
+			if(this.lfn_IsNotNull(sSumText))		oColumns[i]["attribute"]["sumtext"] = sSumText;
 		}
     }
 
