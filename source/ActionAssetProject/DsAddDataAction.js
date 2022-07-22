@@ -29,8 +29,6 @@ if (!nexacro.DsAddDataAction)
     //===============================================================		
     nexacro.DsAddDataAction.prototype.run = function()		
 	{	
-        var objForm;			
-					
 		//Import the object set as TargetView			
 		var objView = this.getTargetView();	
 		
@@ -41,20 +39,10 @@ if (!nexacro.DsAddDataAction)
 
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
-		{			
-			//If the TargetView is set as View, not Form		
-			if(objView)objForm = objView.form;		
-			else objForm = this.parent;
+		{
+			var objDs = this._targetdataset;
 			
-			var objDs;
-			
-			// Dataset 객체 찾기
-			if (sTarget) {				// targetgrid 설정시 해당 그리드
-				sTarget = sTarget.replace("@", "");
-				objDs = objForm._findDataset(sTarget);
-			} else {						// targetgrid 미설정시 View에 있는 Grid
-				objDs = objView.getViewDataset();
-			}
+			if (objDs == undefined)		objDs 	= this.gfnGetDataset(objView,sTarget);
 			
 			if (objDs == undefined)
 			{
@@ -79,22 +67,22 @@ if (!nexacro.DsAddDataAction)
 		}		
 	};
 	
-	nexacro.DsAddDataAction.prototype._targetdataset = "";
+	nexacro.DsAddDataAction.prototype._targetdataset = null;
 	nexacro.DsAddDataAction.prototype.set_targetdataset = function (v)				
 	{				
 		if (v instanceof nexacro.NormalDataset) {
-			if (this.targetdataset != v) {			
-				this.targetdataset = v;
-				this._targetdataset = v.name;
+			if (this.targetdataset != v.name) {			
+				this.targetdataset = v.name;
+				this._targetdataset = v;
 			}		
 		} else {
 			v = nexacro._toString(v);
 			
 			var objForm = this.parent;
 			var objDs = objForm._findDataset(v);
-			if (this._targetdataset != v && objDs != undefined) {
-				this._targetdataset = v;
-				this.targetdataset = objDs;
+			if (this.targetdataset != v && objDs != undefined) {
+				this.targetdataset = v;
+				this._targetdataset = objDs;
 			}
 		}
 	};
@@ -149,22 +137,9 @@ if (!nexacro.DsAddDataAction)
 	};
 	
 	//===============================================================		
-    // nexacro.DsAddDataAction : 공통함수(Util)
-    //===============================================================
-	nexacro.DsAddDataAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
-	};
-	
-	//===============================================================		
     // nexacro.DsAddDataAction : 공통함수 전환부분
     //===============================================================
-		/**
+	/**
 	 * @class Dataset에 행추가
 	 * @param {Object} objDs - 대상 Dataset
 	 * @return {Number} 추가된 행 Index

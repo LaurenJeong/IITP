@@ -159,19 +159,6 @@ if (!nexacro.DsIsUpdatedAction)
 	};
 	
 	//===============================================================		
-    // nexacro.DsIsUpdatedAction : 공통함수(Util)
-    //===============================================================
-	nexacro.DsIsUpdatedAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
-	};
-	
-	//===============================================================		
     // nexacro.DsIsUpdatedAction : 공통함수 전환부분
     //===============================================================
 	 /**

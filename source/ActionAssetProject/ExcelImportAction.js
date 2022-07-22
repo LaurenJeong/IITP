@@ -17,11 +17,6 @@ if (!nexacro.ExcelImportAction)
     nexacro.ExcelImportAction.prototype._type_name = "ExcelImportAction";	
 	
 	//===============================================================		
-    // nexacro.ExcelImportAction : 변수선언 부분
-    //===============================================================
-	nexacro.ExcelImportAction.prototype.COM_EXCEL_URL = "svc::XExportImport";				//"svc::XExportImport.do";
-	
-	//===============================================================		
     // nexacro.ExcelImportAction : Create & Destroy		
     //===============================================================		
     nexacro.ExcelImportAction.prototype.destroy = function()		
@@ -179,18 +174,6 @@ if (!nexacro.ExcelImportAction)
 	};
 	
 	//===============================================================		
-    // nexacro.ExcelImportAction : 공통함수(Util)
-    //===============================================================
-	nexacro.ExcelImportAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
-	};
-	//===============================================================		
     // nexacro.ExcelImportAction : 공통함수 전환부분
     //===============================================================
 	/**
@@ -214,11 +197,9 @@ if (!nexacro.ExcelImportAction)
 		var sFilefilter = this.gfnGetFileFilter(sImportType);
 		var sDataset = objDataset.name;
 		
-		
-		
 		var objImport;	
 		objImport = new nexacro.ExcelImportObject(sDataset + "_ExcelImport", objForm);				
-		objImport.set_importurl(this.COM_EXCEL_URL);						
+		objImport.set_importurl(this._COM_EXCEL_URL);						
 		objImport.set_importtype(eval("nexacro.ExportTypes." + sImportType.toUpperCase()));	
 		objImport.set_filefilter(sFilefilter);
 		

@@ -28,9 +28,7 @@ if (!nexacro.DsInsertDataAction)
     // nexacro.DsInsertDataAction : Method		
     //===============================================================		
     nexacro.DsInsertDataAction.prototype.run = function()		
-	{	
-        var objForm;			
-					
+	{			
 		//Import the object set as TargetView			
 		var objView = this.getTargetView();	
 		
@@ -42,20 +40,11 @@ if (!nexacro.DsInsertDataAction)
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
 		{			
-			//If the TargetView is set as View, not Form		
-			if(objView)objForm = objView.form;		
-			else objForm = this.parent;
-			
-			var objDs;
 			var nRowIndex = this._rowindex;
 			
-			// Dataset 객체 찾기
-			if (sTarget) {				// targetgrid 설정시 해당 그리드
-				sTarget = sTarget.replace("@", "");
-				objDs = objForm._findDataset(sTarget);
-			} else {						// targetgrid 미설정시 View에 있는 Grid
-				objDs = objView.getViewDataset();
-			}
+			var objDs = this._targetdataset;
+			
+			if (objDs == undefined)		objDs 	= this.gfnGetDataset(objView,sTarget);
 			
 			if (objDs == undefined)
 			{
@@ -80,22 +69,22 @@ if (!nexacro.DsInsertDataAction)
 		}		
 	};	
 	
-	nexacro.DsInsertDataAction.prototype._targetdataset = "";
+	nexacro.DsInsertDataAction.prototype._targetdataset = null;
 	nexacro.DsInsertDataAction.prototype.set_targetdataset = function (v)				
 	{				
 		if (v instanceof nexacro.NormalDataset) {
-			if (this.targetdataset != v) {			
-				this.targetdataset = v;
-				this._targetdataset = v.name;
+			if (this.targetdataset != v.name) {			
+				this.targetdataset = v.name;
+				this._targetdataset = v;
 			}		
 		} else {
 			v = nexacro._toString(v);
 			
 			var objForm = this.parent;
 			var objDs = objForm._findDataset(v);
-			if (this._targetdataset != v && objDs != undefined) {
-				this._targetdataset = v;
-				this.targetdataset = objDs;
+			if (this.targetdataset != v && objDs != undefined) {
+				this.targetdataset = v;
+				this._targetdataset = objDs;
 			}
 		}
 	};
@@ -163,19 +152,6 @@ if (!nexacro.DsInsertDataAction)
 	};
 	
 	//===============================================================		
-    // nexacro.DsInsertDataAction : 공통함수(Util)
-    //===============================================================
-	nexacro.DsInsertDataAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
-	};
-	
-	//===============================================================		
     // nexacro.DsInsertDataAction : 공통함수 전환부분
     //===============================================================
 		/**
@@ -188,8 +164,6 @@ if (!nexacro.DsInsertDataAction)
 	{
 		var nRow;
 		var nARow;
-		
-		trace(objDs.rowposition);
 		
 		// 행 추가 위치 계산
 		if (nRowIndex >= 0) {

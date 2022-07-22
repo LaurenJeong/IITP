@@ -17,11 +17,6 @@ if (!nexacro.DsCopyRowDataAction)
     nexacro.DsCopyRowDataAction.prototype._type_name = "DsCopyRowDataAction";		
 	
 	//===============================================================		
-    // nexacro.DsCopyRowDataAction : 변수선언 부분
-    //===============================================================
-	nexacro.DsCopyRowDataAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
-	
-	//===============================================================		
     // nexacro.DsCopyRowDataAction : Create & Destroy		
     //===============================================================		
     nexacro.DsCopyRowDataAction.prototype.destroy = function()		
@@ -45,11 +40,11 @@ if (!nexacro.DsCopyRowDataAction)
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
 		{			
-			var objToDs;
-			var objFormDs;
+			var objToDs 	= this._targetdataset;
+			var objFormDs	= this._fromdataset;
 			
-			objToDs 	= this.getDataset(objView,sTargetDs);
-			objFormDs	= this.getDataset(objFromView,sFromDs);
+			if (objToDs == undefined)	objToDs 	= this.gfnGetDataset(objView,sTargetDs);
+			if (objFormDs == undefined)	objFormDs	= this.gfnGetDataset(objFromView,sFromDs);
 			
 			if (objToDs == undefined)
 			{
@@ -70,22 +65,22 @@ if (!nexacro.DsCopyRowDataAction)
 		}	
 	};	
 	
-	nexacro.DsCopyRowDataAction.prototype._targetdataset = "";
+	nexacro.DsCopyRowDataAction.prototype._targetdataset = null;
 	nexacro.DsCopyRowDataAction.prototype.set_targetdataset = function (v)				
 	{				
 		if (v instanceof nexacro.NormalDataset) {
-			if (this.targetdataset != v) {			
-				this.targetdataset = v;
-				this._targetdataset = v.name;
+			if (this.targetdataset != v.name) {			
+				this.targetdataset = v.name;
+				this._targetdataset = v;
 			}		
 		} else {
 			v = nexacro._toString(v);
 			
 			var objForm = this.parent;
 			var objDs = objForm._findDataset(v);
-			if (this._targetdataset != v && objDs != undefined) {
-				this._targetdataset = v;
-				this.targetdataset = objDs;
+			if (this.targetdataset != v && objDs != undefined) {
+				this.targetdataset = v;
+				this._targetdataset = objDs;
 			}
 		}
 	};
@@ -99,49 +94,46 @@ if (!nexacro.DsCopyRowDataAction)
 		}
 	};
 	
-	nexacro.DsCopyRowDataAction.prototype._fromdataset = "";
+	nexacro.DsCopyRowDataAction.prototype._fromdataset = null;
 	nexacro.DsCopyRowDataAction.prototype.set_fromdataset = function (v)				
 	{				
 		if (v instanceof nexacro.NormalDataset) {
-			if (this.fromdataset != v) {			
-				this.fromdataset = v;
-				this._fromdataset = v.name;
+			if (this.fromdataset != v.name) {			
+				this.fromdataset = v.name;
+				this._fromdataset = v;
 			}		
 		} else {
 			v = nexacro._toString(v);
 			
 			var objForm = this.parent;
 			var objDs = objForm._findDataset(v);
-			if (this._fromdataset != v && objDs != undefined) {
-				this._fromdataset = v;
-				this.fromdataset = objDs;
+			if (this.fromdataset != v && objDs != undefined) {
+				this.fromdataset = v;
+				this._fromdataset = objDs;
 			}
 		}
 	};
 	
-	nexacro.DsCopyRowDataAction.prototype.set_copytype = function (v)				
-	{
-		var copytype_enum = ["replace", "append"];
-		if (v && copytype_enum.indexOf(v) == -1) {
-			return;
-		}
-		
-		// TODO : enter your code here.			
-		v = nexacro._toString(v);			
-		if (this.copytype != v) {			
-			this.copytype = v;		
-		}			
-	};
-	
-	nexacro.DsCopyRowDataAction.prototype.filter = "";
-	nexacro.DsCopyRowDataAction.prototype.set_filter = function (v)
+	nexacro.DsCopyRowDataAction.prototype.targetrow = -1;
+	nexacro.DsCopyRowDataAction.prototype.set_targetrow = function (v)
 	{
 		// TODO : enter your code here.
-		v = nexacro._toString(v);
-		if (this.filter != v) {
-			this.filter = v;
+		v = nexacro._parseInt(v);
+		if (this.targetrow != v) {
+			this.targetrow = v;
 		}
 	};
+	
+	nexacro.DsCopyRowDataAction.prototype.fromrow = -1;
+	nexacro.DsCopyRowDataAction.prototype.set_fromrow = function (v)
+	{
+		// TODO : enter your code here.
+		v = nexacro._parseInt(v);
+		if (this.fromrow != v) {
+			this.fromrow = v;
+		}
+	};
+	
 	//===============================================================		
     // nexacro.DsCopyRowDataAction : Event		
     //===============================================================
@@ -192,64 +184,8 @@ if (!nexacro.DsCopyRowDataAction)
 	};
 	
 	//===============================================================		
-    // nexacro.DsCopyRowDataAction : 공통함수(Util)
-    //===============================================================
-	nexacro.DsCopyRowDataAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
-	};
-	
-	nexacro.DsCopyRowDataAction.prototype.gfnLog = function(sMsg, sType)
-	{
-		var arrLogLevel = ["debug","info","warn","error"];
-	
-		if(sType == undefined)	sType = "debug";
-		var nLvl = arrLogLevel.indexOf(sType);
-		
-		if (nLvl < this._LOG_LEVEL)		return;
-		
-		if (system.navigatorname == "nexacro DesignMode"
-			|| system.navigatorname == "nexacro") {
-			if (sMsg instanceof Object) {
-				for(var x in sMsg){
-					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
-				}
-			} else {
-				trace("[" + sType + "] " + this.name + " > " + sMsg);
-			}
-		} else {
-			console.log("[" + sType + "] " + this.name + " > " + sMsg);
-		}
-	};
-	
-	//===============================================================		
     // nexacro.DsCopyRowDataAction : 공통함수 전환부분
     //===============================================================
-	// run()에서만 동작함.
-	nexacro.DsCopyRowDataAction.prototype.getDataset = function (objView, sDatasetId)
-	{
-		var objForm;
-		var objDs;
-		var objDsNm;
-		
-		if(objView)objForm = objView.form;		
-		else objForm = this.parent;
-		
-		// Dataset 객체 찾기
-		if (sDatasetId) {				// targetgrid 설정시 해당 그리드
-			objDsNm = sDatasetId.replace("@", "");
-			objDs = objForm._findDataset(objDsNm);
-		} else {						// targetgrid 미설정시 View에 있는 Grid
-			objDs = objView.getViewDataset();
-		}
-
-		return objDs;
-	};
 	/**
 	 * @class 데이터를 복사
 	 * @param {Object} objToDs - 복사 될 Dataset
@@ -260,15 +196,27 @@ if (!nexacro.DsCopyRowDataAction)
 	 */   
 	nexacro.DsCopyRowDataAction.prototype.gfnCopyRowData = function (objToDs,objFormDs,nToRow,nFromRow)
 	{
-		// 
 		if (this.gfnIsNull(nToRow))			nToRow = objToDs.rowposition;
 		if (this.gfnIsNull(nFromRow))		nFromRow = objFormDs.rowposition;
 		
-		if (nToRow < 0 || nFromRow < 0)
+		if (nFromRow < 0 || objFormDs.rowcount == 0)
 		{
 			this.gfnLog("선택된 행이 없습니다.","info");
 			this.on_fire_onerror();
 			return;
+		}
+		
+		// To Dataset 처리
+		if (nToRow < 0)
+		{
+			if (objToDs.rowcount == 0)		// To Dataset에 데이터 없는 경우 행 1개 추가
+			{
+				nToRow = objToDs.addRow();
+			}
+			else
+			{
+				nToRow = 0;
+			}
 		}
 		
 		var rtn = objToDs.copyRow(nToRow, objFormDs, nFromRow);
