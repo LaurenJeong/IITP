@@ -17,11 +17,6 @@ if (!nexacro.DsCopyDataAction)
     nexacro.DsCopyDataAction.prototype._type_name = "DsCopyDataAction";
 	
 	//===============================================================		
-    // nexacro.DsCopyDataAction : 변수선언 부분
-    //===============================================================
-	nexacro.DsCopyDataAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
-	
-	//===============================================================		
     // nexacro.DsCopyDataAction : Create & Destroy		
     //===============================================================		
     nexacro.DsCopyDataAction.prototype.destroy = function()		
@@ -49,8 +44,8 @@ if (!nexacro.DsCopyDataAction)
 			var objToDs 	= this._targetdataset;
 			var objFormDs	= this._fromdataset;
 			
-			if (objToDs == undefined)	objToDs 	= this.getDataset(objView,sTargetDs);
-			if (objFormDs == undefined)	objFormDs	= this.getDataset(objFromView,sFromDs);
+			if (objToDs == undefined)	objToDs 	= this.gfnGetDataset(objView,sTargetDs);
+			if (objFormDs == undefined)	objFormDs	= this.gfnGetDataset(objFromView,sFromDs);
 			
 			if (objToDs == undefined)
 			{
@@ -202,66 +197,8 @@ if (!nexacro.DsCopyDataAction)
 	};
 	
 	//===============================================================		
-    // nexacro.DsCopyDataAction : 공통함수(Util)
-    //===============================================================
-	nexacro.DsCopyDataAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
-	};
-	
-	nexacro.DsCopyDataAction.prototype.gfnLog = function(sMsg, sType)
-	{
-		var arrLogLevel = ["debug","info","warn","error"];
-	
-		if(sType == undefined)	sType = "debug";
-		var nLvl = arrLogLevel.indexOf(sType);
-		
-		if (nLvl < this._LOG_LEVEL)		return;
-		
-		if (system.navigatorname == "nexacro DesignMode"
-			|| system.navigatorname == "nexacro") {
-			if (sMsg instanceof Object) {
-				for(var x in sMsg){
-					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
-				}
-			} else {
-				trace("[" + sType + "] " + this.name + " > " + sMsg);
-			}
-		} else {
-			console.log("[" + sType + "] " + this.name + " > " + sMsg);
-		}
-	};
-	
-	//===============================================================		
     // nexacro.DsCopyDataAction : 공통함수 전환부분
     //===============================================================
-	// run()에서만 동작함.
-	nexacro.DsCopyDataAction.prototype.getDataset = function (objView, sDatasetId)
-	{
-		var objForm;
-		var objDs;
-		var objDsNm;
-		
-		if(objView)objForm = objView.form;		
-		else objForm = this.parent;
-		
-		// Dataset 객체 찾기
-		if (sDatasetId instanceof nexacro.NormalDataset) {				// targetgrid 설정시 해당 그리드
-			objDs = sDatasetId;
-		} else if (sDatasetId) {				// targetgrid 설정시 해당 그리드
-			objDsNm = sDatasetId.replace("@", "");
-			objDs = objForm._findDataset(objDsNm);
-		} else {						// targetgrid 미설정시 View에 있는 Grid
-			objDs = objView.getViewDataset();
-		}
-
-		return objDs;
-	};
 	/**
 	 * @class 데이터를 복사
 	 * @param {Object} objToDs - 복사 될 Dataset

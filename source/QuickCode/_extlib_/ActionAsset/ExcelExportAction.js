@@ -17,12 +17,6 @@ if (!nexacro.ExcelExportAction)
     nexacro.ExcelExportAction.prototype._type_name = "ExcelExportAction";	
 	
 	//===============================================================		
-    // nexacro.ExcelExportAction : 변수선언 부분
-    //===============================================================
-	nexacro.ExcelExportAction.prototype.COM_EXCEL_URL = "svc::XExportImport";				//"svc::XExportImport.do";
-	nexacro.ExcelExportAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
-	
-	//===============================================================		
     // nexacro.ExcelExportAction : Create & Destroy		
     //===============================================================		
     nexacro.ExcelExportAction.prototype.destroy = function()		
@@ -209,29 +203,6 @@ if (!nexacro.ExcelExportAction)
 		return false;			
 	};
 	
-	nexacro.ExcelExportAction.prototype.gfnLog = function(sMsg, sType)
-	{
-		var arrLogLevel = ["debug","info","warn","error"];
-	
-		if(sType == undefined)	sType = "debug";
-		var nLvl = arrLogLevel.indexOf(sType);
-		
-		if (nLvl < this._LOG_LEVEL)		return;
-		
-		if (system.navigatorname == "nexacro DesignMode"
-			|| system.navigatorname == "nexacro") {
-			if (sMsg instanceof Object) {
-				for(var x in sMsg){
-					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
-				}
-			} else {
-				trace("[" + sType + "] " + this.name + " > " + sMsg);
-			}
-		} else {
-			console.log("[" + sType + "] " + this.name + " > " + sMsg);
-		}
-	};
-	
 	//===============================================================		
     // nexacro.ExcelExportAction : 공통함수 전환부분
     //===============================================================
@@ -268,7 +239,7 @@ if (!nexacro.ExcelExportAction)
 		
 		objForm.objExport = null
 		objForm.objExport = new ExcelExportObject();
-		objForm.objExport.set_exporturl(this.COM_EXCEL_URL);
+		objForm.objExport.set_exporturl(this._COM_EXCEL_URL);
 		
 		if(sType == "[OBJECT GRID]")
 		{

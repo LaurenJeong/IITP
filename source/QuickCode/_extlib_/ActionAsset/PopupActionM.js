@@ -16,11 +16,6 @@ if (!nexacro.PopupActionM)
 	nexacro.PopupActionM.prototype = nexacro._createPrototype(nexacro.Action, nexacro.PopupActionM);
 	nexacro.PopupActionM.prototype._type_name = "PopupActionM";
 	
-	//===============================================================		
-    // nexacro.PopupActionM : 변수선언 부분
-    //===============================================================
-	nexacro.PopupActionM.prototype._POPUP_CALLBACK = "fnPopupActionCallback";		// callback함수
-	
 	//===============================================================
 	// nexacro.PopupActionM : Create & Destroy
 	//===============================================================
@@ -203,42 +198,6 @@ if (!nexacro.PopupActionM)
 		{
 			var evt = new nexacro.ActionErrorEventInfo(this, "onerror", userdata); //TODO
 			event._fireEvent(this, evt);
-		}
-	};
-	
-	//===============================================================		
-    // nexacro.PopupActionM : 공통함수(Util)
-    //===============================================================
-	nexacro.PopupActionM.prototype.gfnIsNull = function (Val)
-	{
-		if (new String(Val).valueOf() == "undefined") return true;
-		if (Val == null) return true;
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;
-		if (Val.length == 0) return true;
-		
-		return false;
-	};
-	
-	nexacro.PopupActionM.prototype.gfnLog = function(sMsg, sType)
-	{
-		var arrLogLevel = ["debug","info","warn","error"];
-	
-		if(sType == undefined)	sType = "debug";
-		var nLvl = arrLogLevel.indexOf(sType);
-		
-		if (nLvl < this._LOG_LEVEL)		return;
-		
-		if (system.navigatorname == "nexacro DesignMode"
-			|| system.navigatorname == "nexacro") {
-			if (sMsg instanceof Object) {
-				for(var x in sMsg){
-					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
-				}
-			} else {
-				trace("[" + sType + "] " + this.name + " > " + sMsg);
-			}
-		} else {
-			console.log("[" + sType + "] " + this.name + " > " + sMsg);
 		}
 	};
 	

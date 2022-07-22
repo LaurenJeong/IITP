@@ -16,11 +16,6 @@ if (!nexacro.PopupAction)
 	nexacro.PopupAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.PopupAction);
 	nexacro.PopupAction.prototype._type_name = "PopupAction";
 	
-	//===============================================================		
-    // nexacro.DsSetFirstCdAction : 변수선언 부분
-    //===============================================================
-	nexacro.PopupAction.prototype._POPUP_CALLBACK = "fnPopupActionCallback";		// callback함수
-	
 	//===============================================================
 	// nexacro.PopupAction : Create & Destroy
 	//===============================================================
@@ -212,19 +207,6 @@ if (!nexacro.PopupAction)
 			var evt = new nexacro.ActionErrorEventInfo(this, "onerror", userdata); //TODO
 			event._fireEvent(this, evt);
 		}
-	};
-	
-	//===============================================================		
-    // nexacro.PopupAction : 공통함수(Util)
-    //===============================================================
-	nexacro.PopupAction.prototype.gfnIsNull = function (Val)
-	{
-		if (new String(Val).valueOf() == "undefined") return true;
-		if (Val == null) return true;
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;
-		if (Val.length == 0) return true;
-		
-		return false;
 	};
 	
 	//===============================================================		

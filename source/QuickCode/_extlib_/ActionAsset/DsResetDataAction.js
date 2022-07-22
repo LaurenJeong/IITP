@@ -17,11 +17,6 @@ if (!nexacro.DsResetDataAction)
     nexacro.DsResetDataAction.prototype._type_name = "DsResetDataAction";		
 	
 	//===============================================================		
-    // nexacro.DsResetDataAction : 변수선언 부분
-    //===============================================================
-	nexacro.DsResetDataAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
-	
-	//===============================================================		
     // nexacro.DsResetDataAction : Create & Destroy		
     //===============================================================		
     nexacro.DsResetDataAction.prototype.destroy = function()		
@@ -154,42 +149,6 @@ if (!nexacro.DsResetDataAction)
 		  
 		  //리턴값이 필요 없으므로 _fireEvent 함수 실행
 		  event._fireEvent(this, evt);
-		}
-	};
-	
-	//===============================================================		
-    // nexacro.DsResetDataAction : 공통함수(Util)
-    //===============================================================
-	nexacro.DsResetDataAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
-	};
-	
-	nexacro.DsResetDataAction.prototype.gfnLog = function(sMsg, sType)
-	{
-		var arrLogLevel = ["debug","info","warn","error"];
-	
-		if(sType == undefined)	sType = "debug";
-		var nLvl = arrLogLevel.indexOf(sType);
-		
-		if (nLvl < this._LOG_LEVEL)		return;
-		
-		if (system.navigatorname == "nexacro DesignMode"
-			|| system.navigatorname == "nexacro") {
-			if (sMsg instanceof Object) {
-				for(var x in sMsg){
-					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
-				}
-			} else {
-				trace("[" + sType + "] " + this.name + " > " + sMsg);
-			}
-		} else {
-			console.log("[" + sType + "] " + this.name + " > " + sMsg);
 		}
 	};
 	

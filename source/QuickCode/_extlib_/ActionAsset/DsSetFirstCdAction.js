@@ -18,13 +18,6 @@ if (!nexacro.DsSetFirstCdAction)
     nexacro.DsSetFirstCdAction.prototype._type_name = "DsSetFirstCdAction";		
 	
 	//===============================================================		
-    // nexacro.DsSetFirstCdAction : 변수선언 부분
-    //===============================================================
-	nexacro.DsSetFirstCdAction.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
-	nexacro.DsSetFirstCdAction.prototype._COMN_CODE_COL = "COMN_CD";			// 공통코드 코드컬럼명
-	nexacro.DsSetFirstCdAction.prototype._COMN_NAME_COL = "COMN_CD_NM";			// 공통코드 코드명컬럼명
-	
-	//===============================================================		
     // nexacro.DsSetFirstCdAction : Create & Destroy		
     //===============================================================		
     nexacro.DsSetFirstCdAction.prototype.destroy = function()		
@@ -210,71 +203,6 @@ if (!nexacro.DsSetFirstCdAction)
 	};
 	
 	//===============================================================		
-    // nexacro.DsSetFirstCdAction : 공통함수(Util)
-    //===============================================================
-	nexacro.DsSetFirstCdAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
-	};
-	
-	nexacro.DsSetFirstCdAction.prototype.gfnLog = function(sMsg, sType)
-	{
-		var arrLogLevel = ["debug","info","warn","error"];
-	
-		if(sType == undefined)	sType = "debug";
-		var nLvl = arrLogLevel.indexOf(sType);
-		
-		if (nLvl < this._LOG_LEVEL)		return;
-		
-		if (system.navigatorname == "nexacro DesignMode"
-			|| system.navigatorname == "nexacro") {
-			if (sMsg instanceof Object) {
-				for(var x in sMsg){
-					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
-				}
-			} else {
-				trace("[" + sType + "] " + this.name + " > " + sMsg);
-			}
-		} else {
-			console.log("[" + sType + "] " + this.name + " > " + sMsg);
-		}
-	};
-	
-	// run()에서만 동작함.
-	nexacro.DsSetFirstCdAction.prototype.gfnGetForm = function ()				
-	{				
-		var objView 		= this._findViewObject(this.targetview);
-		var objForm;
-		
-		if(objView)objForm = objView.form;		
-		else objForm = this.parent;
-					
-		return objForm;			
-	};
-	
-	// run()에서만 동작함.
-	nexacro.DsSetFirstCdAction.prototype.gfnGetTargetComp = function (sCompId)				
-	{
-		if (this._targetcomp) {
-			return this._targetcomp;
-		}
-		
-		var objForm = this.gfnGetForm();
-		var objComp = null;
-		
-		if (objForm)
-		{
-			objComp = objForm._findComponentForArrange(sCompId);
-		}
-					
-		return this._targetcomp = objComp;			
-	};
-	//===============================================================		
     // nexacro.DsSetFirstCdAction : 공통함수 전환부분
     //===============================================================
 	/**
@@ -321,7 +249,7 @@ if (!nexacro.DsSetFirstCdAction)
 			var sInnerdataset = obj.getCellProperty("Body", nGridCell, "combodataset");
 			sInnerdataset = sInnerdataset.replace("@", "");
 			
-			objDs = this.parent._findDataset(sInnerdataset);
+			objDs = obj.parent._findDataset(sInnerdataset);
 			objSetComp = null;
 			
 			if(this.gfnIsNull(sCodeCol)) {
@@ -337,11 +265,11 @@ if (!nexacro.DsSetFirstCdAction)
 		}
 		
 		if(this.gfnIsNull(sCodeCol)) {
-			sCodeCol = this._COMN_CODE_COL;
+			sCodeCol = this._COM_CODE_COL;
 		}
 		
 		if(this.gfnIsNull(sDataCol)) {
-			sDataCol = this._COMN_NAME_COL;
+			sDataCol = this._COM_NAME_COL;
 		}
 		
 		if(this.gfnIsNull(objDs))
