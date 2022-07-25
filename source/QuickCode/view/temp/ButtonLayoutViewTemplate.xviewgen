@@ -22,8 +22,18 @@ include "view_lib::common.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
+//--------------------------------------------------------------------------------------------------------
+// View 관련 상수
+//--------------------------------------------------------------------------------------------------------
 // View 여백
-this.VIEW_PADDING = "";
+this.VIEW_PADDING			= "";
+// 컴포넌트 생성 방향
+this.DIRECTION				= "horizontal";
+// 컴포넌트 생성 수평 정렬방식
+this.HALIGN					= "left";
+// 컴포넌트 생성 수직 정렬방식
+this.VALIGN					= "top";
+//--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 // Button 관련 상수
 //--------------------------------------------------------------------------------------------------------
@@ -163,20 +173,20 @@ fn_GetViewAttributeList = function() {
 								"id": "direction",
                                 "edittype": "Enum",
 								"enumlist" : ["horizontal", "vertical"],
-                                "defaultvalue": "horizontal",
+                                "defaultvalue": this.DIRECTION,
                                 "description": "Set the Component Production Direction."
                             }
 							, {
                                 "id": "halign",
                                 "edittype": "Enum",
-                                "defaultvalue": "left",
+                                "defaultvalue": this.HALIGN,
 								"enumlist" : ["left", "center", "right"],
                                 "description": "Set the Field  Horizontal Alignment."
                             }
 							, {
                                 "id": "valign",
                                 "edittype": "Enum",
-                                "defaultvalue": "top",
+                                "defaultvalue": this.VALIGN,
 								"enumlist" : ["top", "middle", "bottom"],
                                 "description": "Set the Field Vertical Alignment."
                             }

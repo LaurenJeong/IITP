@@ -23,28 +23,40 @@ include "view_lib::common.xjs";
  * 변수 선언 영역
  ************************************************************************************************/
 //--------------------------------------------------------------------------------------------------------
+// View 관련 상수
+//--------------------------------------------------------------------------------------------------------
+// View 여백
+this.VIEW_PADDING			= "";
+// 컴포넌트 생성 방향
+this.DIRECTION				= "horizontal";
+// 컴포넌트 생성 수평 정렬방식
+this.HALIGN					= "left";
+// 컴포넌트 생성 수직 정렬방식
+this.VALIGN					= "top";
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // Button 관련 상수
 //--------------------------------------------------------------------------------------------------------
 //Field Default Width
-this.FIELD_WIDTH    		  = "80px";
+this.FIELD_WIDTH			= "80px";
 
 //Field Default Height
-this.FIELD_HEIGHT   		  = "30px";
+this.FIELD_HEIGHT			= "30px";
 
 //Component Padding
-this.COMP_PADDING_LEFT     = 0;
-this.COMP_PADDING_TOP      = 0;
-this.COMP_PADDING_RIGHT    = 0;
-this.COMP_PADDING_BOTTOM   = 0;
+this.COMP_PADDING_LEFT		= 0;
+this.COMP_PADDING_TOP		= 0;
+this.COMP_PADDING_RIGHT		= 0;
+this.COMP_PADDING_BOTTOM	= 0;
 
 //Gap Between Components (Left and Right)
-this.COMP_SPACE     		  = 5;
+this.COMP_SPACE				= 5;
 
 //Gap Between Components (Top and Bottom)
-this.LINE_SPACE     		  = 5;
+this.LINE_SPACE				= 5;
 
 //Component Default CSS Class
-this.COMP_CSSCLASS		  = "";
+this.COMP_CSSCLASS			= "";
 /*============================================================================================*
 * Parameter Structure Example
 
@@ -340,6 +352,9 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	//this.oContents.View.Model : Model Information Initialization
 	//this.oGenerationAttr : Setting Information as JSON Object
 	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, false);
+	
+	// View Padding 설정
+	this.lfn_SetViewPadding();
 
 	//Load Model Information Generation Function
 	fn_GetModel();
@@ -383,20 +398,20 @@ fn_GetViewAttributeList = function() {
 								"id": "direction",
                                 "edittype": "Enum",
 								"enumlist" : ["horizontal", "vertical"],
-                                "defaultvalue": "horizontal",
+                                "defaultvalue": this.DIRECTION,
                                 "description": "Set the Component Production Direction."
                             },
 							{
                                 "id": "halign",
                                 "edittype": "Enum",
-                                "defaultvalue": "left",
+                                "defaultvalue": this.HALIGN,
 								"enumlist" : ["left", "center", "right"],
                                 "description": "Set the Field  Horizontal Alignment."
                             },
 							{
                                 "id": "valign",
                                 "edittype": "Enum",
-                                "defaultvalue": "top",
+                                "defaultvalue": this.VALIGN,
 								"enumlist" : ["top", "middle", "bottom"],
                                 "description": "Set the Field Vertical Alignment."
                             },
@@ -407,6 +422,7 @@ fn_GetViewAttributeList = function() {
 								"description": "Set the View Layout"
 
                             }
+							, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 	
@@ -486,6 +502,10 @@ fn_GetModel = function(){
 
 	//Import View Component Height Value
 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
+	
+	// View Padding 적용
+	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
+	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
 
 	//If the format properties are set, produce components based on layout rules
 	if(this.oGenerationAttr.attributes.format)
@@ -518,7 +538,7 @@ fn_GetModel = function(){
 		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight, false);
 
 		//Load Component Production Function
-		fn_MakeComp(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false, true);
+		fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false, true);
 	}
 };
 
@@ -945,8 +965,8 @@ fn_MakeCompByLayout = function(oLayout)
 		if(!oCell.fieldlist)continue;
 
 		//Import the Left/Top Location Value of the current Cell
-		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef);
-		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef);
+		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef) + this.VIEW_PADDING_LEFT;
+		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef) + this.VIEW_PADDING_TOP;
 
 		//Load Component Tag Production Function
 		fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true);
