@@ -29,6 +29,9 @@ this.arrBindItems = [];
 
 //validationRuleSet 목록
 this.arrValidationRules = [];
+
+// View에서 생성한 컴포넌트의 Field ID
+this.VIEW_COMP_FIELD_ID = "_viewcomp";
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -58,14 +61,21 @@ this.VIEW_PADDING_RIGHT				= 0;
 this.VIEW_PADDING_BOTTOM			= 0;
 
 this.oAttrViewPadding =	{
-                                "id": "viewpadding",
-                                "edittype": "String",
-								"defaultvalue": this.lfn_Nvl(this.VIEW_PADDING, ""),
-								"description": "Set the View Padding(px)"
+							"id": "viewpadding",
+							"edittype": "String",
+							"defaultvalue": this.lfn_Nvl(this.VIEW_PADDING, ""),
+							"description": "View 여백 설정(px)"
+											+ "\n" + "(숫자만 입력 가능하며, 빈칸으로 구분하여 설정가능합니다.)"
+											+ "\n" + "1회 입력 : [1번째값] top/right/bottom/left 에 모두 적용"
+											+ "\n" + "2회 입력 : [1번째값] top/bottom, [2번째값] right/left 에 적용"
+											+ "\n" + "3회 입력 : [1번째값] top, [2번째값] right/left, [3번째값] bottom 에 적용"
+											+ "\n" + "4회 입력 : [1번째값] top, [2번째값] right, [3번째값] bottom, [4번째값] left 에 적용"
 						};
 //--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수(ExpandButton + Title + TotalCount)
-//--------------------------------------------------------------------------------------------------------				
+//--------------------------------------------------------------------------------------------------------
+// Title 영역 Div ID
+this.DIV_TITLE_ID						= "divTitle";
 // Title 영역 Height
 this.TITLE_AREA_HEIGHT					= 30;
 // Title 영역 컴포넌트 Gap
@@ -685,7 +695,15 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 
 this.lfn_SetViewPadding = function()
 {
-	var sViewPadding = this.oGenerationAttr.attributes.viewpadding;
+	var sViewPadding = "";
+	
+	if (this.oGenerationAttr.attributes.hasOwnProperty("viewpadding")) {
+		sViewPadding = this.oGenerationAttr.attributes.viewpadding;
+		this.lfn_Log("viewpadding");
+	} else {
+		sViewPadding = this.VIEW_PADDING;
+		this.lfn_Log("this.VIEW_PADDING");
+	}
 	
 	if (sViewPadding)
 	{
@@ -822,8 +840,19 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 	// 모델에 Component 설정
 	oModel[oModel.length] =
 	{
-		"fieldid" : "",
-		"Components" : arrComponents
+		"fieldid" : this.VIEW_COMP_FIELD_ID,
+		"Components" : [{
+						"tag" : "Div",
+						"attribute" : { "id" : this.DIV_TITLE_ID, "left" : "0", "top" : "0", "height" : this.TITLE_AREA_HEIGHT, "width" : "100%"},
+						"Div" : [{
+								"tag" : "Layouts",
+								"Layouts" : [{
+										"tag" : "Layout",
+										"Layout" : arrComponents
+								}]
+						}]
+					}]
+					
 	};
 	
 	return nCompTop + this.TITLE_AREA_HEIGHT;
@@ -900,7 +929,7 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 	// expand 토글 함수
 	sScript += "this.lfn_Title_SetSearchOpenClose = function(obj,sStatus)";
 	sScript += "{";
-	sScript += "	var objForm = obj.parent;";
+	sScript += "	var objForm = obj.parent.parent.parent;";
 	sScript += "	var objView = objForm.parent;";
 	sScript += "	";
 	sScript += "	if (sStatus == 'close') {";
@@ -930,11 +959,14 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 	sScript += "	objView._openHeight = objView.height;";
 	sScript += "	objView._openBottom = objView.bottom;";
 	sScript += "	objView._formscrolltype = objView.formscrolltype;";
-	sScript += "	this.lfn_Title_SetSearchOpenClose(obj.btnExpand,sStatus);";
+	sScript += "	this.lfn_Title_SetSearchOpenClose(obj."+this.DIV_TITLE_ID+".form."+"btnExpand,sStatus);";
 	sScript += "};";
 
 	//View onload시 호출 
 	sScript += "this.lfn_Title_SetViewInit(this,'" + sUseExpandButton + "');";
+	
+	//this.lfn_Log(sScript);
+	//sScript = "";
 	
 	return sScript;
 };]]></Script>
