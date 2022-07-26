@@ -23,10 +23,14 @@ include "view_lib::common.xjs";
  * 변수 선언 영역
  ************************************************************************************************/
 //--------------------------------------------------------------------------------------------------------
+// View 관련 상수
+//--------------------------------------------------------------------------------------------------------
+// View 여백
+this.VIEW_PADDING = "";
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------	
-//Grid 영역 top 위치(title영역에 따라 위치 변경됨)
-this.VIEW_TOP				= 0;
 //타이틀 영역 전체건수 표시여부
 this.USE_TOT_COUNT			= "true";
 //타이틀 영역 접기/펼치기 버튼 표시여부(Grid에서는 사용안함)
@@ -346,6 +350,9 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	//this.oUseFieldArray : Use Model Information as JSON Object
 	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, true);
 	
+	// View Padding 설정
+	this.lfn_SetViewPadding();
+	
 	//Load Model Information Production Function
 	fn_GetModel();
 
@@ -479,6 +486,7 @@ fn_GetViewAttributeList = function()
 								"description": "Set the View Summ Layout."
 
                             }
+							, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 
@@ -600,13 +608,13 @@ fn_GetModel = function()
 	var sUseTotalCount		= this.oGenerationAttr.attributes.usetotalcount;		// 전체건수 Static 생성
 	var sUseExpandButton	= "none";												// expand 토글버튼 생성
 	
-	this.VIEW_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 
 	// Grid 위치
-	var nTop = this.VIEW_TOP;
-	var nBottom	= 0;
-	var nLeft	= 0;
-	var nRight	= 0;
+	var nTop = this.VIEW_PADDING_TOP;
+	var nBottom	= this.VIEW_PADDING_BOTTOM;
+	var nLeft	= this.VIEW_PADDING_LEFT;
+	var nRight	= this.VIEW_PADDING_RIGHT;
 	
 	//Create Model Field ID List to use in Grid
     for(i=0;i<nFieldCount;i++)
@@ -756,10 +764,10 @@ fn_GetColumns = function(oBaseLayout)
 	else
 	{
 		//Create Column Tags based on number of Model Field
-		nCount = this.oFieldArray.fieldcount;
+		nCount = this.oUseFieldArray.fieldcount;
 		for(var i=0;i<nCount;i++)
 		{
-			oField = this.oFieldArray.fields[i];
+			oField = this.oUseFieldArray.fields[i];
 			nFieldWidth = oField.fieldwidth;
 
 			oColumns[oColumns.length] =
@@ -971,12 +979,12 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
 		if(this.oGenerationAttr.attributes.headbandsize>-1)
 		{
 			//Import Model Field Quantity
-			nCount = this.oFieldArray.fieldcount;
+			nCount = this.oUseFieldArray.fieldcount;
 
 			//Add Cell Tag on Head Band based on number of Fields
 			for(var i=0;i<nCount;i++)
 			{
-				oField = this.oFieldArray.fields[i];
+				oField = this.oUseFieldArray.fields[i];
 
 				sFieldId = oField.id;
 				sLabel = oField.label;
@@ -1349,7 +1357,7 @@ fn_GetObjects = function()
     //Initialize Object
     var oObjects = [];
 
-    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
+    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 0);
 
     //Object Information Setting
     oObjects.push(oViewDataset);

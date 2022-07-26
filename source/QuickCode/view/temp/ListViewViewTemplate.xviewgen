@@ -23,6 +23,13 @@ include "view_lib::common.xjs";
  * 변수 선언 영역
  ************************************************************************************************/
 //--------------------------------------------------------------------------------------------------------
+// View 관련 상수
+//--------------------------------------------------------------------------------------------------------
+// View 여백
+this.VIEW_PADDING			= "";
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
 //ListView 영역 top 위치(title영역에 따라 위치 변경됨)
@@ -164,7 +171,10 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	//this.oGenerationAttr : Setting Information as JSON Object
 	//this.oUseFieldArray : Use Model Information as JSON Object
 	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, false);
-
+	
+	// View Padding 설정
+	this.lfn_SetViewPadding();
+	
 	//Load Model Information Generation Function
 	fn_GetModel();
 
@@ -264,6 +274,7 @@ fn_GetViewAttributeList = function()
 								"description": "Detail Band Layout을 설정"
 												+ "\n" + "(Layout을 설정할 경우 band, direction 속성은 무시됩니다.)"
                             }
+							, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 
@@ -388,7 +399,7 @@ fn_GetModel = function()
 	var sUseTotalCount		= this.oGenerationAttr.attributes.usetotalcount;		// 전체건수 Static 생성
 	var sUseExpandButton	= "none";												// expand 토글버튼 생성
 	
-	this.VIEW_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 	
 	// Detail 밴드가 표시되는 방법을  지정
 	var sBandExpandType = this.oGenerationAttr.attributes.bandexpandtype;
@@ -398,10 +409,10 @@ fn_GetModel = function()
 	var bExpandBar		= sExpandBarType == "true" ? true : false;
 	
 	// ListView 위치
-	var nTop	= this.VIEW_TOP;
-	var nBottom	= 0;
-	var nLeft	= 0;
-	var nRight	= 0;
+	var nTop = this.VIEW_PADDING_TOP;
+	var nBottom	= this.VIEW_PADDING_BOTTOM;
+	var nLeft	= this.VIEW_PADDING_LEFT;
+	var nRight	= this.VIEW_PADDING_RIGHT;
 	var nHeight	= nViewCompHeight - nTop;
 	var nWidth	= nViewCompWidth;
 	
@@ -1647,7 +1658,7 @@ fn_GetObjects = function()
     //Initialize Object
     var oObjects = [];
 
-    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
+    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 0);
 
     //Object Information Setting
     oObjects.push(oViewDataset);

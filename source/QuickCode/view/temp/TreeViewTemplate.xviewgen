@@ -23,6 +23,12 @@ include "view_lib::common.xjs";
  * 변수 선언 영역
  ************************************************************************************************/
 //--------------------------------------------------------------------------------------------------------
+// View 관련 상수
+//--------------------------------------------------------------------------------------------------------
+// View 여백
+this.VIEW_PADDING			= "";
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
 //Tree 영역 top 위치(title영역에 따라 위치 변경됨)
@@ -171,6 +177,9 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	//this.oUseFieldArray : Use Model Information as JSON Object
 	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, false);
 	
+	// View Padding 설정
+    this.lfn_SetViewPadding();
+	
 	//Load Model Information Production Function
 	fn_GetModel();
 
@@ -278,6 +287,7 @@ fn_GetViewAttributeList = function()
 								"defaultvalue": this.CELL_CSSCLASS,
                                 "description": "Cell CSS Class"
                             }
+							, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 
@@ -367,7 +377,7 @@ fn_GetModel = function()
 	var sUseTotalCount		= this.USE_TOT_COUNT;										// 전체건수 Static 생성
 	var sUseExpandButton	= this.USE_EXPAND_BUTTON;									// expand 토글버튼 생성
 	
-	this.VIEW_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+    this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 	
 	//Import Model Field Quantity
     var nFieldCount = this.oFieldArray.fieldcount;
@@ -384,10 +394,10 @@ fn_GetModel = function()
 	}
 	
 	// Grid 위치
-	var nTop	= this.VIEW_TOP;
-	var nBottom	= this.VIEW_BOTTOM;
-	var nLeft	= 0;
-	var nRight	= 0;
+	var nTop	= this.VIEW_PADDING_TOP;
+	var nBottom	= this.VIEW_PADDING_BOTTOM;
+	var nLeft	= this.VIEW_PADDING_LEFT;
+	var nRight	= this.VIEW_PADDING_RIGHT;
 	
 	var sTreeType;
 	var oTreeLvlField;
@@ -615,7 +625,7 @@ fn_MakeTreeStatusButton = function()
 	//Add Background Static Component Tag
 	oModel[oModel.length] =
 	{
-		"fieldid" : "",
+		"fieldid" : this.VIEW_COMP_FIELD_ID,
 		"Components" :
 		[{ "tag" : "Button", "attribute" : oBtnCollapse}
 		, { "tag" : "Button", "attribute" : oBtnExpand}]
