@@ -23,10 +23,20 @@ include "view_lib::common.xjs";
  * 변수 선언 영역
  ************************************************************************************************/
 //--------------------------------------------------------------------------------------------------------
+// View 관련 상수
+//--------------------------------------------------------------------------------------------------------
+// View 여백
+this.VIEW_PADDING			= "";
+// 컴포넌트 생성 방향
+this.DIRECTION				= "horizontal";
+// 컴포넌트 생성 수평 정렬방식
+this.HALIGN					= "left";
+// 컴포넌트 생성 수직 정렬방식
+this.VALIGN					= "top";
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
-//Freeform 영역 top 위치(title영역에 따라 위치 변경됨)
-this.VIEW_TOP				= 0;
 //타이틀 영역 전체건수 표시여부(Freeform에서는 사용안함)
 this.USE_TOT_COUNT			= "false";
 //타이틀 영역 접기/펼치기 버튼 표시여부("none", "open","close")
@@ -378,6 +388,9 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	//this.oGenerationAttr : Setting Information as JSON Object
 	//this.oUseFieldArray : Use Model Information as JSON Object
 	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, true);
+	
+	// View Padding 설정
+	this.lfn_SetViewPadding();
 
 	//Load Model Information Generation Function
 	fn_GetModel();
@@ -432,21 +445,21 @@ fn_GetViewAttributeList = function()
                             {
                                 "id": "direction",
                                 "edittype": "Enum",
-                                "defaultvalue": "horizontal",
-																"enumlist" : ["horizontal", "vertical"],
+                                "defaultvalue": this.DIRECTION,
+								"enumlist" : ["horizontal", "vertical"],
                                 "description": "Set the Field Production Direction."
                             },
 							{
                                 "id": "halign",
                                 "edittype": "Enum",
-                                "defaultvalue": "left",
+                                "defaultvalue": this.HALIGN,
 								"enumlist" : ["left", "center", "right"],
                                 "description": "Set the Field  Horizontal Alignment."
                             },
 							{
                                 "id": "valign",
                                 "edittype": "Enum",
-                                "defaultvalue": "top",
+                                "defaultvalue": this.VALIGN,
 								"enumlist" : ["top", "middle", "bottom"],
                                 "description": "Set the Field Vertical Alignment."
                             },
@@ -465,6 +478,7 @@ fn_GetViewAttributeList = function()
 								"description": "Set View Layout"
 
                             }
+							, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 
@@ -508,31 +522,31 @@ fn_GetFieldUserAttributeList = function ()
                                 "defaultvalue": this.COMP_TYPE,
                                 "description": "Types of Components to be Expressed"
                             },
-														{
+							{
                                 "id": "fieldwidth",
                                 "edittype": "String",
 								"defaultvalue": this.FIELD_WIDTH,
                                 "description": "Field Width(px or %)"
                             },
-														{
+							{
                                 "id": "fieldheight",
                                 "edittype": "String",
 								"defaultvalue": this.FIELD_HEIGHT,
                                 "description": "Field Height(px or %)"
                             },
-														{
+							{
                                 "id": "labelwidth",
                                 "edittype": "Number",
 								"defaultvalue": this.LABEL_WIDTH,
                                 "description": "Label Width(px)"
                             },
-														{
+							{
                                 "id": "cssclass",
                                 "edittype": "String",
 								"defaultvalue": this.COMP_CSSCLASS,
                                 "description": "Component CSS Class"
                             },
-														{
+							{
                                 "id": "labelcssclass",
                                 "edittype": "String",
 								"defaultvalue": this.LABEL_CSSCLASS,
@@ -561,7 +575,8 @@ fn_GetFieldUserAttributeList = function ()
  * Return       :
  * Description  : Model Information Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_GetModel = function(){
+fn_GetModel = function()
+{
 
 	//Import View Component Width Value
 	var nViewCompWidth = this.oContents.View.referenceinfo.realwidth;
@@ -571,10 +586,13 @@ fn_GetModel = function(){
 	
 	// Title 영역
 	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
-	var sUseTotalCount		= "false";												// 전체건수 Static 생성
+	var sUseTotalCount		= this.USE_TOT_COUNT;									// 전체건수 Static 생성
 	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 생성
 	
-	this.VIEW_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+	
+	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
+	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
 
 	//If format properties are set up, create components based on layout rules
 	if(this.oGenerationAttr.attributes.format)
@@ -608,7 +626,7 @@ fn_GetModel = function(){
 		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
 
 		//Load Component Production Function
-		fn_MakeComp(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
+		fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
 	}
 };
 
@@ -737,7 +755,7 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
 fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, arrFieldInCellList)
 {
 	var nLeft = 0;
-	var nTop = this.VIEW_TOP;		// Title Area영역 체크
+	var nTop = 0;
 	var nRowIdx = 0;
 	var nColIdx = 0;
 	var nFiledWidthMax = 0;
@@ -864,7 +882,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 				nLeft += nFiledWidthMax;
 
 				//Initialize Top Coordinate
-				nTop  = this.VIEW_TOP;		// Title Area영역 체크
+				nTop  = 0;
 
 				//Initialize the largest Width Value
 				nFiledWidthMax = 0;
@@ -1000,7 +1018,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 {
 	var nLeft = 0;
-	var nTop  = this.VIEW_TOP;		// Title Area영역 체크
+	var nTop  = 0;
 	var nRowIdx = 0;
 	var nColIdx = 0;
 	var nFiledWidthMax = 0;
@@ -1120,7 +1138,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 				nLeft += nFiledWidthMax + nLabelWidth;
 
 				//Initialize Top Coordinate
-				nTop  = this.VIEW_TOP;		// Title Area영역 체크
+				nTop  = 0;
 
 				//Initialize the largest Width Value
 				nFiledWidthMax = 0;
@@ -1280,8 +1298,8 @@ fn_MakeCompByLayout = function(oLayout)
 		if(!oCell.fieldlist)continue;
 
 		//Import the Left/Top Location Value of the current Cell
-		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef);
-		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef);
+		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef) + this.VIEW_PADDING_LEFT;
+		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef) + this.VIEW_PADDING_TOP;
 
 		if(nCol==0)bStartCol = true;
 		else bStartCol = false;
@@ -1722,27 +1740,27 @@ fn_GetBind = function()
 fn_GetScript = function()
 {
     var oScript = {};
-// 	var sScript = "";
-// 	
-// 	var sViewNm = this.oContents.View.attribute.id;
-// 	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
-// 	
-// 	if (sUseExpandButton != "none")
-// 	{
-// 		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
-// 	}
-// 	
-//     if (this.lfn_IsNotNull(sScript))
-// 	{
-// 		sScript = nexacro.replaceAll(sScript,"\t","");
-// 		
-// 		oScript =
-// 		{
-// 			"tag": "Script",
-// 			"attribute": { "type" : "xscript5.1" },
-// 			"value": sScript
-// 		}
-// 	};
+	var sScript = "";
+	
+	var sViewNm = this.oContents.View.attribute.id;
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
+	
+	if (sUseExpandButton != "none")
+	{
+		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
+	}
+	
+    if (this.lfn_IsNotNull(sScript))
+	{
+		sScript = nexacro.replaceAll(sScript,"\t","");
+		
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sScript
+		}
+	};
 
     return oScript;
 };]]></Script>

@@ -23,10 +23,20 @@ include "view_lib::common.xjs";
  * 변수 선언 영역
  ************************************************************************************************/
 //--------------------------------------------------------------------------------------------------------
+// View 관련 상수
+//--------------------------------------------------------------------------------------------------------
+// View 여백
+this.VIEW_PADDING			= "";
+// 컴포넌트 생성 방향
+this.DIRECTION				= "horizontal";
+// 컴포넌트 생성 수평 정렬방식
+this.HALIGN					= "left";
+// 컴포넌트 생성 수직 정렬방식
+this.VALIGN					= "top";
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
-//Freeform 영역 top 위치(title영역에 따라 위치 변경됨)
-this.VIEW_TOP				= 0;
 //타이틀 영역 전체건수 표시여부(Freeform에서는 사용안함)
 this.USE_TOT_COUNT			= "false";
 //타이틀 영역 접기/펼치기 버튼 표시여부("none", "open","close")
@@ -374,6 +384,9 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	//this.oGenerationAttr : Setting Information as JSON Object
 	//this.oUseFieldArray : Use Model Information as JSON Object
 	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, true);
+	
+	// View Padding 설정
+	this.lfn_SetViewPadding();
 
 	//모델정보 생성 함수 호출
 	fn_GetModel();
@@ -428,21 +441,21 @@ fn_GetViewAttributeList = function()
                             {
                                 "id": "direction",
                                 "edittype": "Enum",
-                                "defaultvalue": "horizontal",
+                                "defaultvalue": this.DIRECTION,
 								"enumlist" : ["horizontal", "vertical"],
                                 "description": "필드의 생성 방향을 설정합니다."
                             },
 							{
                                 "id": "halign",
                                 "edittype": "Enum",
-                                "defaultvalue": "left",
+                                "defaultvalue": this.HALIGN,
 								"enumlist" : ["left", "center", "right"],
                                 "description": "필드의 수평 정렬방식을 설정합니다."
                             },
 							{
                                 "id": "valign",
                                 "edittype": "Enum",
-                                "defaultvalue": "top",
+                                "defaultvalue": this.VALIGN,
 								"enumlist" : ["top", "middle", "bottom"],
                                 "description": "필드의 수직 정렬방식을 설정합니다."
                             },
@@ -461,6 +474,7 @@ fn_GetViewAttributeList = function()
 								"description": "View Layout을 설정합니다."
 
                             }
+							, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 
@@ -590,7 +604,10 @@ fn_GetModel = function(){
 	var sUseTotalCount		= this.USE_TOT_COUNT;									// 전체건수 Static 생성
 	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 생성
 	
-	this.VIEW_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+	
+	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
+	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
 
 	//format 속성이 설정되어있을 경우 Layout 룰에 따라 컴포넌트 생성
 	if(this.oGenerationAttr.attributes.format)
@@ -624,7 +641,7 @@ fn_GetModel = function(){
 		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
 
 		//컴포넌트 생성 함수 호출
-		fn_MakeComp(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
+		fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
 	}
 };
 
@@ -753,7 +770,7 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
 fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, arrFieldInCellList)
 {
 	var nLeft = 0;
-	var nTop = this.VIEW_TOP;
+	var nTop = 0;
 	var nRowIdx = 0;
 	var nColIdx = 0;
 	var nMaxWidth = nMaxHeight = 0;
@@ -846,7 +863,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 			if(nRowSize<nTemp)
 			{
 				nLeft = nMaxWidth;
-				nTop = this.VIEW_TOP;
+				nTop = 0;
 				nColIdx++;
 				nRowIdx = 0;
 			}
@@ -908,7 +925,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 {
 	var nLeft = 0;
-	var nTop = this.VIEW_TOP;
+	var nTop = 0;
 	var nLabelWidth, nLabelHeight, nCompWidth, nCompHeight;
 	var arrLabelPadding, arrCompPadding;
 	var nLabelWidthPadding, nLabelHeightPadding, nCompWidthPadding, nCompHeightPadding
@@ -977,7 +994,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 			if(nRowSize<nTemp)
 			{
 				nLeft = nMaxWidth;
-				nTop = this.VIEW_TOP;
+				nTop = 0;
 				nColIdx++;
 				nRowIdx = 0;
 			}
@@ -1089,8 +1106,8 @@ fn_MakeCompByLayout = function(oLayout)
 		if(!oCell.fieldlist)continue;
 
 		//현재 Cell의 Left/Top 위치값 가져오기
-		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef);
-		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef);
+		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef) + this.VIEW_PADDING_LEFT;
+		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef) + this.VIEW_PADDING_TOP;
 
 		if(nCol==0)bStartCol = true;
 		else bStartCol = false;

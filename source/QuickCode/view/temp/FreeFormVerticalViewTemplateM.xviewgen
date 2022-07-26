@@ -26,15 +26,6 @@ include "view_lib::common.xjs";
 this.VIEW_PADDING = "";
 
 //--------------------------------------------------------------------------------------------------------
-// 타이틀 객체 관련 상수
-//--------------------------------------------------------------------------------------------------------
-//타이틀 영역 전체건수 표시여부(Freeform에서는 사용안함)
-this.USE_TOT_COUNT			= "false";
-//타이틀 영역 접기/펼치기 버튼 표시여부("none", "open","close")(Freeform에서는 사용안함)
-this.USE_EXPAND_BUTTON		= "none";
-//--------------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------------
 // FreeFormVerticalViewTemplateM 고정값(변경하지 마세요)
 //--------------------------------------------------------------------------------------------------------
 this.DIRECTION				= "horizontal";
@@ -46,8 +37,16 @@ this.COMP_PADDING_LEFT		= 0;
 this.COMP_PADDING_TOP		= 0;
 this.COMP_PADDING_RIGHT		= 0;
 this.COMP_PADDING_BOTTOM	= 0;
-//////////////////////////////상수 설정부 START ////////////////////////////////////////////////////
+//--------------------------------------------------------------------------------------------------------
+// 타이틀 객체 관련 상수
+//--------------------------------------------------------------------------------------------------------
+//타이틀 영역 전체건수 표시여부(Freeform에서는 사용안함)
+this.USE_TOT_COUNT			= "false";
+//타이틀 영역 접기/펼치기 버튼 표시여부("none", "open","close")(Freeform에서는 사용안함)
+this.USE_EXPAND_BUTTON		= "none";
+//--------------------------------------------------------------------------------------------------------
 
+//////////////////////////////상수 설정부 START ////////////////////////////////////////////////////
 //Field Default Height
 this.FIELD_HEIGHT			= "60px";
 
@@ -214,6 +213,7 @@ fn_GetViewAttributeList = function()
     var oViewAttr = {
                         "attributes": [
                               this.oAttrTitleText					// Title Text
+							, this.oAttrTitleExpandButton			// 접기/펼치기 버튼 표시여부
 							, this.oAttrViewPadding
 							, {
                                 "id": "horizontalgap",
@@ -391,9 +391,10 @@ fn_GetModel = function()
 	// Title 영역
 	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
 	var sUseTotalCount		= this.USE_TOT_COUNT;									// 전체건수 Static 생성
-	var sUseExpandButton	= this.USE_EXPAND_BUTTON;								// expand 토글버튼 생성
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 생성
+	var bFluidLayout		= true;													// FluidLayout 여부(Title영역 width로만 설정가능)
 	
-	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton, bFluidLayout);
 	
 	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
 	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
@@ -1081,27 +1082,27 @@ fn_GetBind = function()
 fn_GetScript = function()
 {
     var oScript = {};
-// 	var sScript = "";
-// 	
-// 	var sViewNm = this.oContents.View.attribute.id;
-// 	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
-// 	
-// 	if (sUseExpandButton != "none")
-// 	{
-// 		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
-// 	}
-// 	
-//     if (this.lfn_IsNotNull(sScript))
-// 	{
-// 		sScript = nexacro.replaceAll(sScript,"\t","");
-// 		
-// 		oScript =
-// 		{
-// 			"tag": "Script",
-// 			"attribute": { "type" : "xscript5.1" },
-// 			"value": sScript
-// 		}
-// 	};
+	var sScript = "";
+	
+	var sViewNm = this.oContents.View.attribute.id;
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
+	
+	if (sUseExpandButton != "none")
+	{
+		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
+	}
+	
+    if (this.lfn_IsNotNull(sScript))
+	{
+		sScript = nexacro.replaceAll(sScript,"\t","");
+		
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sScript
+		}
+	};
 
     return oScript;
 };]]></Script>

@@ -749,21 +749,23 @@ this.lfn_SetViewPadding = function()
  * Parameter    : 	sTitleText - titletext 속성값
 					sUseTotalCount - usetotalcount 속성값
 					sUseExpandButton - useexpandbutton 속성값
+					bFluidLayout - FluidLayout 여부
  * Return       : Title영역 높이
  * Description  : 타이틀 영역 생성 함수
  *---------------------------------------------------------------------------------------------*/
-this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
+this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton, bFluidLayout)
 {
 	if (sTitleText == null)			return this.VIEW_PADDING_TOP;
 	if (sUseTotalCount == null)		sUseTotalCount = "false";
+	if (bFluidLayout == null)		bFluidLayout = false;
 
 	var oModel = this.oContents.View.Model;
 	var arrComponents	= new Array();
 	var oField;
 	var oComp;
 
-	var nCompTop		= this.VIEW_PADDING_TOP;
-	var nCompLeft		= this.VIEW_PADDING_LEFT;
+	var nCompTop		= 0;
+	var nCompLeft		= 0;
 	var nCompWidth		= 0;
 	var nCompHeight		= 0;
 	
@@ -804,7 +806,7 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 	
 	nCompWidth	= 120;
 	nCompHeight	= this.TITLE_AREA_HEIGHT;
-	nCompTop	= this.VIEW_PADDING_TOP;
+	nCompTop	= 0;
 		
 	arrComponents.push({
 		"tag" : "Static",
@@ -838,12 +840,13 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 	}
 	
 	// 모델에 Component 설정
-	oModel[oModel.length] =
+	var nModelIndex = oModel.length;
+	oModel[nModelIndex] =
 	{
 		"fieldid" : this.VIEW_COMP_FIELD_ID,
 		"Components" : [{
 						"tag" : "Div",
-						"attribute" : { "id" : this.DIV_TITLE_ID, "left" : "0", "top" : "0", "height" : this.TITLE_AREA_HEIGHT, "width" : "100%"},
+						"attribute" : { "id" : this.DIV_TITLE_ID, "left" : this.VIEW_PADDING_LEFT, "top" : this.VIEW_PADDING_TOP, "height" : this.TITLE_AREA_HEIGHT},
 						"Div" : [{
 								"tag" : "Layouts",
 								"Layouts" : [{
@@ -855,7 +858,14 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 					
 	};
 	
-	return nCompTop + this.TITLE_AREA_HEIGHT;
+	// FluidLayout일때는 width 설정, 그외는 right 설정
+	if (bFluidLayout == true) {
+		oModel[nModelIndex]["Components"][0]["attribute"]["width"] = "100%";
+	} else {
+		oModel[nModelIndex]["Components"][0]["attribute"]["right"] = this.VIEW_PADDING_RIGHT;
+	}
+	
+	return this.VIEW_PADDING_TOP + this.TITLE_AREA_HEIGHT;
 };
 
 /*---------------------------------------------------------------------------------------------*
