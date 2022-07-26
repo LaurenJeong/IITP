@@ -22,38 +22,43 @@ include "view_lib::common.xjs";
  * 변수 선언 영역
  ************************************************************************************************/
 //--------------------------------------------------------------------------------------------------------
+// View 관련 상수
+//--------------------------------------------------------------------------------------------------------
+// View 여백
+this.VIEW_PADDING				= "20";
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // 로그인 Button 관련 상수
 //--------------------------------------------------------------------------------------------------------
 // Login Button ID
-this.LOGIN_BUTTON_ID = "btnLogin";
+this.LOGIN_BUTTON_ID			= "btnLogin";
 //Login Button Default Width
-this.LOGIN_BUTTON_WIDTH   = 110;
+this.LOGIN_BUTTON_WIDTH			= 100;
 //Login Button Default Height
-this.LOGIN_BUTTON_HEIGHT  = 50;
+this.LOGIN_BUTTON_HEIGHT		= 60;
 
-//Login Button Padding
-this.LOGIN_BUTTON_PADDING_LEFT     = 5;
-this.LOGIN_BUTTON_PADDING_TOP      = 5;
-this.LOGIN_BUTTON_PADDING_RIGHT    = 5;
-this.LOGIN_BUTTON_PADDING_BOTTOM   = 5;
+// 로그인버튼과 컴포넌트와의 가로 간격(loginbuttontype=="right"일때 적용)
+this.LOGIN_BUTTON_H_SPACE		= 10;
+// 로그인과 컴포넌트와의 세로 간격(loginbuttontype=="bottom"일때 적용)
+this.LOGIN_BUTTON_V_SPACE		= 10;
 
 //Login Button Default Text
-this.LOGIN_BUTTON_TEXT    = "Login";
+this.LOGIN_BUTTON_TEXT			= "Login";
 
 //Login Button Default Form
-this.LOGIN_BUTTON_TYPE    = "bottom";
+this.LOGIN_BUTTON_TYPE			= "bottom";
 //Login Button Css Class
-this.LOGIN_BUTTON_CSSCLASS = "btn_login";
+this.LOGIN_BUTTON_CSSCLASS		= "btn_login";
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 // 아이디저장 Checkbox 관련 상수
 //--------------------------------------------------------------------------------------------------------
 // 아이디저장 체크박스 ID
-this.SAVEID_CHECKBOX_ID = "chkSaveId";
+this.SAVEID_CHECKBOX_ID			= "chkSaveId";
 // 아이디저장 체크박스 TEXT
-this.SAVEID_CHECKBOX_TEXT = "Save User ID";
+this.SAVEID_CHECKBOX_TEXT		= "Save User ID";
 // 아이디저장 체크박스 CSS CLASS
-this.SAVEID_CHECKBOX_CSSCLASS = "chk_login";
+this.SAVEID_CHECKBOX_CSSCLASS	= "chk_login";
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 // 컴포넌트(Label + Field) 관련 상수
@@ -74,16 +79,16 @@ this.COMP_TYPE				= "edit";
 this.LABEL_TYPE				= "static";
 
 //Component Padding
-this.COMP_PADDING_LEFT		= 5;
-this.COMP_PADDING_TOP		= 5;
-this.COMP_PADDING_RIGHT		= 5;
-this.COMP_PADDING_BOTTOM	= 5;
+this.COMP_PADDING_LEFT		= 0;
+this.COMP_PADDING_TOP		= 0;
+this.COMP_PADDING_RIGHT		= 0;
+this.COMP_PADDING_BOTTOM	= 0;
 
 //Label Padding
-this.LABEL_PADDING_LEFT		= 5;
-this.LABEL_PADDING_TOP		= 5;
-this.LABEL_PADDING_RIGHT	= 0;
-this.LABEL_PADDING_BOTTOM	= 5;
+this.LABEL_PADDING_LEFT		= 0;
+this.LABEL_PADDING_TOP		= 0;
+this.LABEL_PADDING_RIGHT	= 5;
+this.LABEL_PADDING_BOTTOM	= 0;
 
 //Gap Between Components (Left and Right)
 this.COMP_SPACE				= 5;
@@ -168,6 +173,9 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	//this.oUseFieldArray : Use Model Information as JSON Object
 	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, false);
 
+	// View Padding 설정
+	this.lfn_SetViewPadding();
+	
 	//Load Model Information Generation Function
 	fn_GetModel();
 
@@ -262,6 +270,7 @@ fn_GetViewAttributeList = function()
 								"defaultvalue": "",
 								"description": "Set the View Layout"
                             }
+							, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 				  
@@ -373,6 +382,10 @@ fn_GetModel = function()
 
 	//Import View Component Height Value
 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
+	
+	// View 사이즈에서 View 여백 설정
+	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
+	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
 
 	//로그인버튼 타입이 none이 아닌경우	로그인버튼 생성
 	if(this.oGenerationAttr.attributes.loginbuttontype!="none")
@@ -392,8 +405,6 @@ fn_GetModel = function()
 	{
 		nViewCompHeight = nViewCompHeight - this.lfn_GetRealSize(this.FIELD_HEIGHT, 0, nViewCompHeight, this.FIELD_HEIGHT, 0, 0);
 	}
-
-	//trace("nViewCompHeight 2 : " + nViewCompHeight );
 
 	//If the format properties are set, produce component-based on layout rules
 	if(this.oGenerationAttr.attributes.format)
@@ -426,10 +437,10 @@ fn_GetModel = function()
 		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight, false);
 
 		//Load Component Production Function
-		fn_MakeComp(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false, true, true);
+		fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false, true, true);
 	}
 
-	// 로그인버튼 사이즈 재설정(임시코딩)
+	// TODO : 로그인버튼 사이즈 재설정(임시코딩)
 	if (this.oGenerationAttr.attributes.loginbuttontype == "right") {
 		var oModel 			= this.oContents.View.Model;
 		var arrPreComp		= oModel[oModel.length-1].Components;
@@ -458,8 +469,10 @@ fn_GetModel = function()
  *---------------------------------------------------------------------------------------------*/
 fn_MakeLoginButton = function(nViewCompWidth, nViewCompHeight)
 {
-	//Import Lookup Button Form Information (none, top, middle, bottom, full)
+	//Import Lookup Button Form Information (none, right, rightfull, bottom)
 	var sLoginButtonType = this.oGenerationAttr.attributes.loginbuttontype;
+	
+	if (sLoginButtonType =="none")	return;
 
 	//Import Lookup Button CSS Class Information
 	var sLoginButtonCssClass = this.oGenerationAttr.attributes.loginbuttoncssclass;
@@ -479,35 +492,13 @@ fn_MakeLoginButton = function(nViewCompWidth, nViewCompHeight)
 	var nCompBottom;
 
 	//Create Field Tag
-	oField = {"fieldid" : "", "Components" : []};
+	oField = {"fieldid" : this.VIEW_COMP_FIELD_ID, "Components" : []};
 
 	//If the lookup button creation location is bottom
-	if(sLoginButtonType=="bottom")
+	if(sLoginButtonType=="right")
 	{
-		nCompLeft	= this.LOGIN_BUTTON_PADDING_LEFT;
-		nCompRight 	= this.LOGIN_BUTTON_PADDING_RIGHT;
-		nCompBottom = this.LOGIN_BUTTON_PADDING_BOTTOM;
-		nCompWidth 	= this.LOGIN_BUTTON_WIDTH;
-		nCompHeight = this.LOGIN_BUTTON_HEIGHT;
-
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : this.LOGIN_BUTTON_ID, "left" : nCompLeft, "height" : nCompHeight, "right" : nCompRight, "bottom" : nCompBottom,
-				"cssclass" : sLoginButtonCssClass,
-				"text" : sLoginButtonText
-			}
-		};
-
-		//Set area excluding lookup button area as component production area
-		nViewCompHeight = nViewCompHeight - this.LOGIN_BUTTON_HEIGHT - this.LOGIN_BUTTON_PADDING_TOP - this.LOGIN_BUTTON_PADDING_BOTTOM;
-	}
-	else if(sLoginButtonType=="right")
-	{
-		nCompTop 	= this.LOGIN_BUTTON_PADDING_TOP;
-		nCompRight 	= this.LOGIN_BUTTON_PADDING_RIGHT;
+		nCompTop 	= this.VIEW_PADDING_TOP;
+		nCompRight 	= this.VIEW_PADDING_RIGHT;
 		nCompWidth 	= this.LOGIN_BUTTON_WIDTH;
 		nCompHeight = this.LOGIN_BUTTON_HEIGHT;						// 우선 버튼 기본 사이즈로 설정 후 나머지 컴포넌트 생성하고 사이즈 조절예정
 
@@ -523,14 +514,14 @@ fn_MakeLoginButton = function(nViewCompWidth, nViewCompHeight)
 		};
 
 		//Set area excluding lookup button area as component production area
-		nViewCompWidth = nViewCompWidth - this.LOGIN_BUTTON_WIDTH - this.LOGIN_BUTTON_PADDING_LEFT - this.LOGIN_BUTTON_PADDING_RIGHT;
+		nViewCompWidth = nViewCompWidth - this.LOGIN_BUTTON_WIDTH - this.LOGIN_BUTTON_H_SPACE;
 	}
 	else if(sLoginButtonType=="rightfull")
 	{
-		nCompTop = this.LOGIN_BUTTON_PADDING_TOP;
-		nCompRight = this.LOGIN_BUTTON_PADDING_RIGHT;
-		nCompWidth = this.LOGIN_BUTTON_WIDTH - this.LOGIN_BUTTON_PADDING_LEFT - this.LOGIN_BUTTON_PADDING_RIGHT;
-		nCompBottom = this.LOGIN_BUTTON_PADDING_BOTTOM;
+		nCompTop = this.VIEW_PADDING_TOP;
+		nCompRight = this.VIEW_PADDING_RIGHT;
+		nCompWidth = this.LOGIN_BUTTON_WIDTH;
+		nCompBottom = this.VIEW_PADDING_BOTTOM;
 
 		oField.Components[0] =
 		{
@@ -544,26 +535,28 @@ fn_MakeLoginButton = function(nViewCompWidth, nViewCompHeight)
 		};
 
 		//Set area excluding lookup button area as component production area
-		nViewCompWidth = nViewCompWidth - this.LOGIN_BUTTON_WIDTH - this.LOGIN_BUTTON_PADDING_LEFT - this.LOGIN_BUTTON_PADDING_RIGHT;
+		nViewCompWidth = nViewCompWidth - this.LOGIN_BUTTON_WIDTH - this.LOGIN_BUTTON_H_SPACE;
 	}
-	//If the lookup button creation location is full
 	else
 	{
-		nCompTop = this.LOGIN_BUTTON_PADDING_TOP;
-		nCompRight = this.LOGIN_BUTTON_PADDING_RIGHT;
-		nCompWidth = this.LOGIN_BUTTON_WIDTH - this.LOGIN_BUTTON_PADDING_LEFT - this.LOGIN_BUTTON_PADDING_RIGHT;
-		nCompBottom = this.LOGIN_BUTTON_PADDING_BOTTOM;
+		nCompLeft	= this.VIEW_PADDING_LEFT;
+		nCompRight 	= this.VIEW_PADDING_RIGHT;
+		nCompBottom = this.VIEW_PADDING_BOTTOM;
+		nCompHeight = this.LOGIN_BUTTON_HEIGHT;
 
 		oField.Components[0] =
 		{
 			"tag" : "Button",
 			"attribute" :
 			{
-				"id" : "btnLogin", "top" : nCompTop, "width" : nCompWidth, "right" : nCompRight, "bottom" : nCompBottom,
+				"id" : this.LOGIN_BUTTON_ID, "left" : nCompLeft, "height" : nCompHeight, "right" : nCompRight, "bottom" : nCompBottom,
 				"cssclass" : sLoginButtonCssClass,
 				"text" : sLoginButtonText
 			}
 		};
+
+		//Set area excluding lookup button area as component production area
+		nViewCompHeight = nViewCompHeight - this.LOGIN_BUTTON_HEIGHT - this.LOGIN_BUTTON_V_SPACE;
 	}
 
 	//Add Lookup Button Tag
@@ -843,7 +836,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			else nTemp = 0;
 
 			//Start a new line if the Field exceeds the Cell Width
-			if(nLeft+nLabelWidth+nFieldWidth-nTemp>nColSize)
+			if(nLeft+nLabelWidth+nFieldWidth-nTemp-this.VIEW_PADDING_LEFT>nColSize)
 			{
 				//The Right value of the Field located on the last row
 				nEndX = nLeft;
@@ -884,7 +877,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			else nTemp = 0;
 
 			//Start a new line if the Field exceeds the Cell Height
-			if(nTop+nFieldHeight-nTemp>nRowSize)
+			if(nTop+nFieldHeight-nTemp-this.VIEW_PADDING_TOP>nRowSize)
 			{
 				//The Bottom Value of the last Field of this row
 				nEndY = nTop;
@@ -1068,8 +1061,8 @@ fn_MakeCompByLayout = function(oLayout)
 		if(!oCell.fieldlist)continue;
 
 		//Import the Left/Top Location Value of the current Cell
-		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef);
-		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef);
+		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef) + this.VIEW_PADDING_LEFT;
+		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef) + this.VIEW_PADDING_TOP;
 
 		// 마지막 Row인지 여부 설정
 		bLastRow = arrRowSize.length==nRow + nRowSpan ? true : false;
@@ -1119,9 +1112,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var sPassWord;
 
 	var sLoginButtonType = this.oGenerationAttr.attributes.loginbuttontype;
-	var nLoginGap = this.COMP_SPACE + this.LOGIN_BUTTON_PADDING_LEFT;
+	var nLoginGap = this.LOGIN_BUTTON_H_SPACE;
 
-	if(!bUseLayout)bUseLayout = false;
+	if(!bUseLayout)	bUseLayout = false;
 
 	for(var i=0;i<arrFields.length;i++)
 	{
@@ -1129,10 +1122,6 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		oFieldPosition = arrFields[i];
 		sFieldId = oFieldPosition.fieldid;
 		oField = this.oFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
-
-// 		for(var x in oFieldPosition){
-// 			trace(x + " : " + oFieldPosition[x]);
-// 		}
 
 		//Import Component Naming Rule Information
 		oCompClass = this.lfn_GetCompClass(oField.comptype);

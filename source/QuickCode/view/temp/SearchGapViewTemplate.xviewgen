@@ -22,7 +22,41 @@ include "view_lib::common.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
-//////////////////////////////Constant Setting  START ////////////////////////////////////////////////////
+//--------------------------------------------------------------------------------------------------------
+// View 관련 상수
+//--------------------------------------------------------------------------------------------------------
+// View 여백(top/right/bottom/left)
+this.VIEW_PADDING			= "5 10 10 5";
+// 컴포넌트 생성 방향
+this.DIRECTION				= "horizontal";
+// 컴포넌트 생성 수평 정렬방식
+this.HALIGN					= "left";
+// 컴포넌트 생성 수직 정렬방식
+this.VALIGN					= "top";
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+// 조회 버튼 객체 관련 상수
+//--------------------------------------------------------------------------------------------------------
+//Lookup Button Default Width
+this.SEARCH_BUTTON_WIDTH			= 100;
+
+//Lookup Button Default Height
+this.SEARCH_BUTTON_HEIGHT			= 30;
+
+// 조회버튼과 컴포넌트와의 가로 간격
+this.SEARCH_BUTTON_H_SPACE			= 20;
+
+//Lookup Button Default Text
+this.SEARCH_BUTTON_TEXT				= "Search";
+
+//Lookup Button Default Form
+this.SEARCH_BUTTON_TYPE				= "bottom";
+
+//Lookup Button Css Class
+this.SEARCH_BUTTON_CSSCLASS			= "btn_search";
+//--------------------------------------------------------------------------------------------------------
+
 //Field Default Width
 this.COMP_WIDTH						= "100px";
 
@@ -34,24 +68,6 @@ this.LABEL_WIDTH					= 100;
 
 //Label Default Height
 this.LABEL_HEIGHT					= 30;
-
-//Lookup Button Default Width
-this.SEARCH_BUTTON_WIDTH			= 110;
-
-//Lookup Button Default Height
-this.SEARCH_BUTTON_HEIGHT			= 40;
-
-//Lookup Button Padding
-this.SEARCH_BUTTON_PADDING_LEFT		= 5;
-this.SEARCH_BUTTON_PADDING_TOP		= 5;
-this.SEARCH_BUTTON_PADDING_RIGHT	= 5;
-this.SEARCH_BUTTON_PADDING_BOTTOM	= 5;
-
-//Lookup Button Default Text
-this.SEARCH_BUTTON_TEXT				= "Search";
-
-//Lookup Button Default Form
-this.SEARCH_BUTTON_TYPE				= "bottom";
 
 //Component Default Type
 this.COMP_TYPE						= "edit";
@@ -71,15 +87,12 @@ this.COMP_CSSCLASS					= "";
 //Label Default CSS Class
 this.LABEL_CSSCLASS					= "sta_label";
 
-//Lookup Button Css Class
-this.SEARCH_BUTTON_CSSCLASS			= "btn_search";
-
 //Background Static Css Class
-this.SEARCH_BG_CSSCLASS = "sta_searchbox";
+this.SEARCH_BG_CSSCLASS				= "sta_searchbox";
 
 //컴포넌트 사용여부
 this.USE_COMP						= "true";
-//////////////////////////////Constant Setting  END ////////////////////////////////////////////////////
+
 /*============================================================================================*
 * Parameter Structure Example
 
@@ -376,6 +389,9 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	//this.oGenerationAttr : Setting Information as JSON Object
 	//this.oUseFieldArray : Use Model Information as JSON Object
 	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, true);
+	
+	// View Padding 설정
+	this.lfn_SetViewPadding();
 
 	//Load Model Information Generation Function
 	fn_GetModel();
@@ -430,21 +446,21 @@ fn_GetViewAttributeList = function()
                             {
                                 "id": "direction",
                                 "edittype": "Enum",
-                                "defaultvalue": "horizontal",
+                                "defaultvalue": this.DIRECTION,
 								"enumlist" : ["horizontal", "vertical"],
                                 "description": "Set the Field Production Direction."
                             },
 							{
                                 "id": "halign",
                                 "edittype": "Enum",
-                                "defaultvalue": "left",
+                                "defaultvalue": this.HALIGN,
 								"enumlist" : ["left", "center", "right"],
                                 "description": "Set the Field  Horizontal Alignment."
                             },
 							{
                                 "id": "valign",
                                 "edittype": "Enum",
-                                "defaultvalue": "top",
+                                "defaultvalue": this.VALIGN,
 								"enumlist" : ["top", "middle", "bottom"],
                                 "description": "Set the Field Vertical Alignment."
                             },
@@ -480,6 +496,7 @@ fn_GetViewAttributeList = function()
 								"description": "Set the View Layout"
 
                             }
+							//, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 
@@ -595,8 +612,8 @@ fn_GetFieldUserAttributeList = function ()
  * Return       :
  * Description  : Model Information Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_GetModel = function(){
-
+fn_GetModel = function()
+{
 	//Import View Component Width Value
 	var nViewCompWidth = this.oContents.View.referenceinfo.realwidth;
 
@@ -605,17 +622,22 @@ fn_GetModel = function(){
 
 	//Load Lookup Area Background Static Production Function
 	fn_MakeSearchBackgroundStatic();
-
+	
+	// View 사이즈에서 View 여백 설정
+	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
+	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
+	
 	//When the Lookup Button Type is Not None
 	if(this.oGenerationAttr.attributes.searchbuttontype!="none")
 	{
 		//Load Lookup Button Production Function
-		fn_MakeSearchButton(nViewCompWidth, nViewCompHeight);
+		var arrViewSize = fn_MakeSearchButton(nViewCompWidth, nViewCompHeight);
 
 		//Set area excluding lookup button area as component production area
-		nViewCompWidth = nViewCompWidth - this.SEARCH_BUTTON_WIDTH - this.SEARCH_BUTTON_PADDING_LEFT - this.SEARCH_BUTTON_PADDING_RIGHT;
+		nViewCompWidth		= arrViewSize[0];
+		nViewCompHeight		= arrViewSize[1];
 	}
-
+	
 	//If the format properties are set, produce component-based on layout rules
 	if(this.oGenerationAttr.attributes.format)
 	{
@@ -647,7 +669,7 @@ fn_GetModel = function(){
 		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight, false);
 
 		//Load Component Production Function
-		fn_MakeComp(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition);
+		fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition);
 	}
 };
 
@@ -657,7 +679,8 @@ fn_GetModel = function(){
  * Return       :
  * Description  : Lookup Area Background Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_MakeSearchBackgroundStatic = function(){
+fn_MakeSearchBackgroundStatic = function()
+{
 	//Import Background Static CSS Class Information
 	var sSearchBgCssClass = this.oGenerationAttr.attributes.searchbgcssclass;
 
@@ -674,7 +697,7 @@ fn_MakeSearchBackgroundStatic = function(){
 	//Add Background Static Component Tag
 	oModel[oModel.length] =
 	{
-		"fieldid" : "",
+		"fieldid" : this.VIEW_COMP_FIELD_ID,
 		"Components" :
 		[{
 			"tag" : "Static",
@@ -694,10 +717,13 @@ fn_MakeSearchBackgroundStatic = function(){
  * Return       :
  * Description  : Lookup Button Creation Function
  *---------------------------------------------------------------------------------------------*/
-fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight){
+fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight)
+{
 	//Import Lookup Button Form Information (none, top, middle, bottom, full)
 	var sSearchButtonType = this.oGenerationAttr.attributes.searchbuttontype;
-
+	
+	if (sSearchButtonType=="none")	return;
+	
 	//Import Lookup Button CSS Class Information
 	var sSearchButtonCssClass = this.oGenerationAttr.attributes.searchbuttoncssclass;
 
@@ -709,21 +735,22 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight){
 	var oComp;
 
 	var nCompTop;
+	var nCompLeft;
 	var nCompRigth;
 	var nCompWidth;
 	var nCompHeight;
 	var nCompBottom;
 
 	//Create Field Tag
-	oField = {"fieldid" : "", "Components" : []};
+	oField = {"fieldid" : this.VIEW_COMP_FIELD_ID, "Components" : []};
 
 	//If the lookup button creation location is top
 	if(sSearchButtonType=="top")
 	{
-		nCompTop = this.SEARCH_BUTTON_PADDING_TOP;
-		nCompRight = this.SEARCH_BUTTON_PADDING_RIGHT;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH - this.SEARCH_BUTTON_PADDING_LEFT - this.SEARCH_BUTTON_PADDING_RIGHT;
-		nCompHeight = this.SEARCH_BUTTON_HEIGHT - this.SEARCH_BUTTON_PADDING_TOP - this.SEARCH_BUTTON_PADDING_BOTTOM;
+		nCompTop = this.VIEW_PADDING_TOP;
+		nCompRight = this.VIEW_PADDING_RIGHT;
+		nCompWidth = this.SEARCH_BUTTON_WIDTH;
+		nCompHeight = this.SEARCH_BUTTON_HEIGHT;
 
 		oField.Components[0] =
 		{
@@ -739,10 +766,10 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight){
 	//If the lookup button creation location is middle
 	else if(sSearchButtonType=="middle")
 	{
-		nCompTop = nViewCompHeight/2 - ((this.SEARCH_BUTTON_HEIGHT + this.SEARCH_BUTTON_PADDING_TOP + this.SEARCH_BUTTON_PADDING_BOTTOM)/2);
-		nCompRight = this.SEARCH_BUTTON_PADDING_RIGHT;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH - this.SEARCH_BUTTON_PADDING_LEFT - this.SEARCH_BUTTON_PADDING_RIGHT;
-		nCompHeight = this.SEARCH_BUTTON_HEIGHT - this.SEARCH_BUTTON_PADDING_TOP - this.SEARCH_BUTTON_PADDING_BOTTOM;
+		nCompTop = ((nViewCompHeight/2) - (this.SEARCH_BUTTON_HEIGHT/2)) + this.VIEW_PADDING_TOP;
+		nCompRight = this.VIEW_PADDING_RIGHT;
+		nCompWidth = this.SEARCH_BUTTON_WIDTH;
+		nCompHeight = this.SEARCH_BUTTON_HEIGHT;
 
 		oField.Components[0] =
 		{
@@ -758,10 +785,10 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight){
 	//If the lookup button creation location is bottom
 	else if(sSearchButtonType=="bottom")
 	{
-		nCompRight = this.SEARCH_BUTTON_PADDING_RIGHT;
-		nCompBottom = this.SEARCH_BUTTON_PADDING_BOTTOM;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH - this.SEARCH_BUTTON_PADDING_LEFT - this.SEARCH_BUTTON_PADDING_RIGHT;
-		nCompHeight = this.SEARCH_BUTTON_HEIGHT - this.SEARCH_BUTTON_PADDING_TOP - this.SEARCH_BUTTON_PADDING_BOTTOM;
+		nCompRight = this.VIEW_PADDING_RIGHT;
+		nCompBottom = this.VIEW_PADDING_BOTTOM;
+		nCompWidth = this.SEARCH_BUTTON_WIDTH;
+		nCompHeight = this.SEARCH_BUTTON_HEIGHT;
 
 		oField.Components[0] =
 		{
@@ -777,10 +804,10 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight){
 	//If the lookup button creation location is full
 	else
 	{
-		nCompTop = this.SEARCH_BUTTON_PADDING_TOP;
-		nCompRight = this.SEARCH_BUTTON_PADDING_RIGHT;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH - this.SEARCH_BUTTON_PADDING_LEFT - this.SEARCH_BUTTON_PADDING_RIGHT;
-		nCompBottom = this.SEARCH_BUTTON_PADDING_BOTTOM;
+		nCompTop = this.VIEW_PADDING_TOP;
+		nCompRight = this.VIEW_PADDING_RIGHT;
+		nCompWidth = this.SEARCH_BUTTON_WIDTH;
+		nCompBottom = this.VIEW_PADDING_BOTTOM;
 
 		oField.Components[0] =
 		{
@@ -793,9 +820,14 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight){
 			}
 		};
 	}
+	
+	//Set area excluding lookup button area as component production area
+	nViewCompWidth = nViewCompWidth - this.SEARCH_BUTTON_WIDTH - this.SEARCH_BUTTON_H_SPACE;
 
 	//Add Lookup Button Tag
 	oModel[oModel.length] = oField;
+	
+	return [nViewCompWidth, nViewCompHeight];
 }
 
 /*---------------------------------------------------------------------------------------------*
@@ -807,7 +839,8 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight){
  * Return       :
  * Description  : Layout Calculation Information
  *---------------------------------------------------------------------------------------------*/
-fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight){
+fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
+{
 	//CellList Information set on Layout
 	var arrCellList = oLayout.celllist;
 
@@ -905,7 +938,7 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight){
 			oCell.fieldposition = fn_CalcField(sDirection, sVAlign, sHAlign, nColSize, nRowSize, true, oCell.fieldlist);
 		}
 	}
-}
+};
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_CalcField
@@ -920,7 +953,8 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight){
  * Return       : arrFieldPosition : Object Array with Field Location Information
  * Description  : Function to Evaluate the Field Location Value to be Expressed
  *---------------------------------------------------------------------------------------------*/
-fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLayout, arrFieldInCellList){
+fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLayout, arrFieldInCellList)
+{
 	var nLeft = 0;
 	var nTop = 0;
 	var nLabelWidth, nLabelHeight, nCompWidth, nCompHeight;
@@ -988,10 +1022,10 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 		{
 			if(nLabelWidth==0)
 			{
-				nTemp = nLeft + nCompWidth + nCompWidthPadding;
+				nTemp = nLeft + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
 			}else
 			{
-				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
+				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
 			}
 
 
@@ -1005,8 +1039,8 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 		}
 		else
 		{
-			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
-			nTempComp = nTop + nCompHeight + nCompHeightPadding;
+			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding - this.VIEW_PADDING_TOP;
+			nTempComp = nTop + nCompHeight + nCompHeightPadding - this.VIEW_PADDING_TOP;
 
 			if(nRowSize<nTempLabel||nRowSize<nTempComp)
 			{
@@ -1069,7 +1103,8 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			if(nWidth>nMaxWidth)nMaxWidth = nWidth;
 		}
 	}
-
+	
+	//Return Field Location Information
 	return arrFieldPosition;
 }
 
@@ -1080,7 +1115,8 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
  * Return       :
  * Description  : Layout-based Component Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_MakeCompByLayout = function(oLayout){
+fn_MakeCompByLayout = function(oLayout)
+{
 	//CellList Information set on Layout
 	var arrCellList = oLayout.celllist;
 
@@ -1119,8 +1155,8 @@ fn_MakeCompByLayout = function(oLayout){
 		if(!oCell.fieldlist)continue;
 
 		//Import the Left/Top Location Value of the current Cell
-		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef);
-		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef);
+		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef) + this.VIEW_PADDING_LEFT;
+		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef) + this.VIEW_PADDING_TOP;
 
 		fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition);
 	}
@@ -1138,7 +1174,8 @@ fn_MakeCompByLayout = function(oLayout){
  * Return       :
  * Description  : Component Tag Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields){
+fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields)
+{
 	var nLabelLeft, nLabelTop, nLabelWidth, nLabelHeight;
 	var nCompLeft, nCompTop, nCompWidth, nCompHeight;
 	var nLabelLeftPadding, nLabelTopPadding, nLabelRightPadding, nLabelBottomPadding;
