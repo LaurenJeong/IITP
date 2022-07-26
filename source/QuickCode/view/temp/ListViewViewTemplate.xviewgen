@@ -1043,7 +1043,7 @@ fn_CalcField = function(arrFieldList, sDirection, sVAlign, sHAlign, nColSize, nR
 			else nTemp = 0;
 
 			//Start a new line if the Field exceeds the Cell Height
-			if(nLeft+nFieldWidth+nLabelWidth-nTemp>nColSize)
+			if(nLeft+nFieldWidth+nLabelWidth-nTemp>nColSize)		// [ListView] ListView 컴포넌트에서 this.VIEW_PADDING_LEFT 여백 설정됨.
 			{
 				//The Right value of the last Field of this Row
 				nEndX = nLeft;
@@ -1080,7 +1080,7 @@ fn_CalcField = function(arrFieldList, sDirection, sVAlign, sHAlign, nColSize, nR
 		else
 		{
 			//Start a new line if the Field exceeds the Cell Height
-			if(nTop+nFieldHeight>nRowSize)
+			if(nTop+nFieldHeight>nRowSize)					// [ListView] ListView 컴포넌트에서 this.VIEW_PADDING_TOP 여백 설정됨.
 			{
 				//The Bottom Value of the last Field of this Row
 				nEndY = nTop;

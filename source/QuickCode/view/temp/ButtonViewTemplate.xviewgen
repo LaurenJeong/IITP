@@ -503,10 +503,10 @@ fn_GetModel = function(){
 	//Import View Component Height Value
 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
 	
-	// View Padding 적용
+	// View 사이즈에서 View 여백 설정
 	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
 	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
-
+	
 	//If the format properties are set, produce components based on layout rules
 	if(this.oGenerationAttr.attributes.format)
 	{
@@ -741,7 +741,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			else nTemp = 0;
 
 			//Start a new line if the Field exceeds the Cell Width
-			if(nLeft+nFieldWidth-nTemp>nColSize)
+			if(nLeft+nFieldWidth-nTemp-this.VIEW_PADDING_LEFT>nColSize)
 			{
 				//The Right value of the Field located on the last Row
 				nEndX = nLeft;
@@ -782,7 +782,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			else nTemp = 0;
 
 			//Start a new line if the Field exceeds the Cell Height
-			if(nTop+nFieldHeight-nTemp>nRowSize)
+			if(nTop+nFieldHeight-nTemp-this.VIEW_PADDING_TOP>nRowSize)
 			{
 				//The Bottom Value of the last Field of this Row
 				nEndY = nTop;

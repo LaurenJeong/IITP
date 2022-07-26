@@ -396,6 +396,7 @@ fn_GetModel = function()
 	
 	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton, bFluidLayout);
 	
+	// View 사이즈에서 View 여백 설정
 	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
 	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
 
@@ -504,7 +505,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 			else nTemp = 0;
 			
 			//Start a new line if the Field exceeds the Cell Height
-			if(nLeft+nFieldWidth+nLabelWidth-nTemp>nColSize)
+			if(nLeft+nFieldWidth+nLabelWidth-nTemp-this.VIEW_PADDING_LEFT>nColSize)
 			{
 				//The Right value of the last Field of this Row
 				nEndX = nLeft;
@@ -541,7 +542,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		else
 		{
 			//Start a new line if the Field exceeds the Cell Height
-			if(nTop+nFieldHeight>nRowSize)
+			if(nTop+nFieldHeight-this.VIEW_PADDING_TOP>nRowSize)
 			{
 				//The Bottom Value of the last Field of this Row
 				nEndY = nTop;

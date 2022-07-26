@@ -606,6 +606,7 @@ fn_GetModel = function(){
 	
 	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 	
+	// View 사이즈에서 View 여백 설정
 	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
 	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
 
@@ -969,10 +970,10 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		{
 			if(nLabelWidth==0)
 			{
-				nTemp = nLeft + nCompWidth + nCompWidthPadding;
+				nTemp = nLeft + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
 			}else
 			{
-				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
+				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
 			}
 
 			if(nColSize<nTemp)
@@ -985,8 +986,8 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		}
 		else
 		{
-			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
-			nTempComp =  nTop + nCompHeight + nCompHeightPadding;
+			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding - this.VIEW_PADDING_TOP;
+			nTempComp =  nTop + nCompHeight + nCompHeightPadding - this.VIEW_PADDING_TOP;
 
 			if(nTempLabel>nTempComp)nTemp = nTempLabel;
 			else nTemp = nTempComp;
