@@ -9,7 +9,13 @@
         <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="14" top="36" width="500" height="257" cssclass="viw_test_bg">
           <Layouts>
             <Layout>
-              <Static id="staTitle" left="0" top="0" height="30" width="80" text="타이틀" fittocontents="width" cssclass="sta_WF_subtitle"/>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="타이틀" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
               <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset">
                 <Formats>
                   <Format id="default">
@@ -60,9 +66,7 @@
                 <Column id="Phone" type="STRING" size="80"/>
                 <Column id="Email" type="STRING" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
@@ -74,6 +78,7 @@
               <Field id="Email" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
               <Component id="grdList" fields="Company,Department,Name,Phone,Email"/>
             </Components>
           </ModelInfo>
@@ -88,13 +93,18 @@
         <View id="View01" taborder="3" text="View01" viewdataset="viewdataset" left="579" top="36" width="500" height="257" cssclass="viw_test_bg">
           <Layouts>
             <Layout>
-              <Static id="staTitle" left="0" top="0" height="30" width="80" text="타이틀" fittocontents="width" cssclass="sta_WF_subtitle"/>
-              <Static id="staTotCnt" left="staTitle:5" top="0" height="30" width="50" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_totalCount"/>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="타이틀" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                    <Static id="staTotCnt" left="staTitle:5" top="0" height="30" width="50" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_totalCount"/>
+                  </Layout>
+                </Layouts>
+              </Div>
               <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset">
                 <Formats>
                   <Format id="default">
                     <Columns>
-                      <Column size="80" band="body"/>
                       <Column size="80" band="body"/>
                       <Column size="80" band="body"/>
                       <Column size="80" band="body"/>
@@ -111,7 +121,6 @@
                       <Cell id="cell_Name" col="2" row="0" text="성명"/>
                       <Cell id="cell_Phone" col="3" row="0" text="전화번호"/>
                       <Cell id="cell_Email" col="4" row="0" text="이메일주소"/>
-                      <Cell id="cell_field0" col="5" row="0" text="label0"/>
                     </Band>
                     <Band id="body">
                       <Cell id="cell_Company" col="0" row="0" text="bind:Company" displaytype="combocontrol" edittype="combo"/>
@@ -119,7 +128,6 @@
                       <Cell id="cell_Name" col="2" row="0" text="bind:Name" displaytype="textareacontrol" edittype="textarea"/>
                       <Cell id="cell_Phone" col="3" row="0" text="bind:Phone" displaytype="maskeditcontrol" edittype="mask"/>
                       <Cell id="cell_Email" col="4" row="0" text="bind:Email" displaytype="buttoncontrol" edittype="button"/>
-                      <Cell id="cell_field0" col="5" row="0" text="bind:field0" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary"/>
                   </Format>
@@ -135,11 +143,8 @@
                 <Column id="Name" type="STRING" size="80"/>
                 <Column id="Phone" type="STRING" size="80"/>
                 <Column id="Email" type="STRING" size="80"/>
-                <Column id="field0" type="STRING" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
@@ -149,10 +154,10 @@
               <Field id="Name" description="" displaytype="textareacontrol" edittype="textarea" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="Phone" description="" displaytype="maskeditcontrol" edittype="mask" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="Email" description="" displaytype="buttoncontrol" edittype="button" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="field0" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="grdList" fields="Company,Department,Name,Phone,Email,field0"/>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="Company,Department,Name,Phone,Email"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
@@ -166,8 +171,14 @@
         <View id="View00_00" taborder="4" text="View00" viewdataset="viewdataset" left="14" top="336" width="500" height="257" cssclass="viw_test_bg">
           <Layouts>
             <Layout>
-              <Static id="staTitle" left="0" top="0" height="30" width="80" text="타이틀" fittocontents="width" cssclass="sta_WF_subtitle"/>
-              <Static id="staTotCnt" left="staTitle:5" top="0" height="30" width="50" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_totalCount"/>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="타이틀" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                    <Static id="staTotCnt" left="staTitle:5" top="0" height="30" width="50" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_totalCount"/>
+                  </Layout>
+                </Layouts>
+              </Div>
               <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset">
                 <Formats>
                   <Format id="default">
@@ -211,9 +222,7 @@
                 <Column id="Phone" type="STRING" size="80"/>
                 <Column id="Email" type="STRING" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
@@ -225,6 +234,7 @@
               <Field id="Email" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
               <Component id="grdList" fields="Company,Department,Name,Phone,Email"/>
             </Components>
           </ModelInfo>

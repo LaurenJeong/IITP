@@ -7,7 +7,13 @@
         <View id="View00" taborder="1" viewdataset="viewdataset" left="10" top="40" width="550" height="360" cssclass="viw_test_bg">
           <Layouts>
             <Layout>
-              <Static id="staTitle" left="0" top="0" height="30" width="80" text="타이틀" fittocontents="width" cssclass="sta_WF_subtitle"/>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="타이틀" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
               <Static id="staTextBg" left="0" top="30" width="550" height="40" cssclass="sta_fieldbox"/>
               <Static id="staTextLabel" left="0" top="30" width="100" height="40" text="TEXT" cssclass="sta_labelbox"/>
               <Edit id="edtText" left="105" top="35" width="440" height="30" cssclass="com_WF_View" readonly="true"/>
@@ -73,6 +79,7 @@
               <Field id="CURRENCY" description="" comptype="spin" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="com_WF_View" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
             </Fields>
             <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
               <Component id="staTextBg" fields="TEXT"/>
               <Component id="staTextLabel" fields="TEXT"/>
               <Component id="edtText" fields="TEXT"/>

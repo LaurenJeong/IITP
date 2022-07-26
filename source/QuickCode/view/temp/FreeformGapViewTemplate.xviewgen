@@ -474,7 +474,7 @@ fn_GetViewAttributeList = function()
 								"description": "View Layout을 설정합니다."
 
                             }
-							, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
+							//, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 
@@ -1437,27 +1437,27 @@ fn_GetBind = function()
 fn_GetScript = function()
 {
     var oScript = {};
-// 	var sScript = "";
-// 	
-// 	var sViewNm = this.oContents.View.attribute.id;
-// 	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
-// 	
-// 	if (sUseExpandButton != "none")
-// 	{
-// 		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
-// 	}
-// 	
-//     if (this.lfn_IsNotNull(sScript))
-// 	{
-// 		sScript = nexacro.replaceAll(sScript,"\t","");
-// 		
-// 		oScript =
-// 		{
-// 			"tag": "Script",
-// 			"attribute": { "type" : "xscript5.1" },
-// 			"value": sScript
-// 		}
-// 	};
+	var sScript = "";
+	
+	var sViewNm = this.oContents.View.attribute.id;
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
+	
+	if (sUseExpandButton != "none")
+	{
+		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
+	}
+	
+    if (this.lfn_IsNotNull(sScript))
+	{
+		sScript = nexacro.replaceAll(sScript,"\t","");
+		
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sScript
+		}
+	};
 
     return oScript;
 };]]></Script>

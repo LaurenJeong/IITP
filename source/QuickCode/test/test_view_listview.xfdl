@@ -27,8 +27,6 @@
                       <Cell id="cellBgEmail" left="0" top="78" width="590" height="40" cssclass=""/>
                       <Cell id="cellLabelEmail" left="0" top="78" width="100" height="40" text="이메일주소"/>
                       <Cell id="cellEmail" left="105" top="83" width="140" height="30" text="bind:Email" displaytype="normal" edittype="none"/>
-                      <Cell id="cellLabelField0" left="250" top="78" width="100" height="40" text="label0"/>
-                      <Cell id="cellField0" left="355" top="83" width="140" height="30" text="bind:field0" displaytype="normal" edittype="none"/>
                     </Band>
                   </Format>
                 </Formats>
@@ -43,11 +41,8 @@
                 <Column id="Name" type="STRING" size="80"/>
                 <Column id="Phone" type="STRING" size="80"/>
                 <Column id="Email" type="STRING" size="80"/>
-                <Column id="field0" type="STRING" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <Bind/>
@@ -58,13 +53,13 @@
               <Field id="Name" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Phone" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Email" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="field0" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="livList" fields="Company,Department,Name,Phone,Email,field0"/>
+              <Component id="livList" fields="Company,Department,Name,Phone,Email"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="ListViewViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="usefieldbox" value="true"/>
             <Attribute id="bandexpandtype" value="none"/>
@@ -88,8 +83,6 @@
                       <Cell id="cellPhone" left="105" top="122" width="140" height="30" text="bind:Phone" displaytype="normal" edittype="none"/>
                       <Cell id="cellLabelEmail" left="0" top="156" width="100" height="40" text="이메일주소"/>
                       <Cell id="cellEmail" left="105" top="161" width="140" height="30" text="bind:Email" displaytype="normal" edittype="none"/>
-                      <Cell id="cellLabelField0" left="250" top="0" width="100" height="40" text="label0"/>
-                      <Cell id="cellField0" left="355" top="5" width="140" height="30" text="bind:field0" displaytype="normal" edittype="none"/>
                     </Band>
                   </Format>
                 </Formats>
@@ -104,11 +97,8 @@
                 <Column id="Name" type="STRING" size="80"/>
                 <Column id="Phone" type="STRING" size="80"/>
                 <Column id="Email" type="STRING" size="80"/>
-                <Column id="field0" type="STRING" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <Bind/>
@@ -119,13 +109,13 @@
               <Field id="Name" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Phone" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Email" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="field0" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="livList" fields="Company,Department,Name,Phone,Email,field0"/>
+              <Component id="livList" fields="Company,Department,Name,Phone,Email"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="ListViewViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
             <Attribute id="direction" value="vertical"/>
             <Attribute id="usefieldbox" value="false"/>
             <Attribute id="bandexpandtype" value="none"/>
@@ -153,8 +143,6 @@
                       <Cell id="cellBgEmail" left="0" top="78" width="590" height="40" cssclass=""/>
                       <Cell id="cellLabelEmail" left="0" top="78" width="100" height="40" text="이메일주소"/>
                       <Cell id="cellEmail" left="105" top="83" width="140" height="30" text="bind:Email" displaytype="normal" edittype="none"/>
-                      <Cell id="cellLabelField0" left="250" top="78" width="100" height="40" text="label0"/>
-                      <Cell id="cellField0" left="355" top="83" width="140" height="30" text="bind:field0" displaytype="normal" edittype="none"/>
                     </Band>
                   </Format>
                 </Formats>
@@ -169,11 +157,8 @@
                 <Column id="Name" type="STRING" size="80"/>
                 <Column id="Phone" type="STRING" size="80"/>
                 <Column id="Email" type="STRING" size="80"/>
-                <Column id="field0" type="STRING" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <Bind/>
@@ -184,13 +169,13 @@
               <Field id="Name" description="" band="detail" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Phone" description="" band="detail" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Email" description="" band="detail" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="field0" description="" band="detail" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="livList" fields="Company,Department,Name,Phone,Email,field0"/>
+              <Component id="livList" fields="Company,Department,Name,Phone,Email"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="ListViewViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="usefieldbox" value="true"/>
             <Attribute id="bandexpandtype" value="accordion"/>
@@ -238,11 +223,8 @@
                 <Column id="Name" type="STRING" size="80"/>
                 <Column id="Phone" type="STRING" size="80"/>
                 <Column id="Email" type="STRING" size="80"/>
-                <Column id="field0" type="STRING" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <Bind/>
@@ -253,13 +235,13 @@
               <Field id="Name" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Phone" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Email" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="field0" description="" band="body" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40px" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="livList" fields="Company,Department,Name,Phone,Email,field0"/>
+              <Component id="livList" fields="Company,Department,Name,Phone,Email"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="ListViewViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="usefieldbox" value="true"/>
             <Attribute id="bandexpandtype" value="expand"/>
@@ -282,7 +264,7 @@ this.View01_staDepartmentLabel_onclick = function(obj:nexacro.Static,e:nexacro.C
 };
 ]]></Script>
     <Objects>
-      <Dataset id="viewdataset">
+      <Dataset id="dsEmptyData">
         <ColumnInfo>
           <Column id="Company" type="STRING" size="80"/>
           <Column id="Department" type="STRING" size="80"/>
@@ -295,6 +277,24 @@ this.View01_staDepartmentLabel_onclick = function(obj:nexacro.Static,e:nexacro.C
           <Row/>
         </Rows>
       </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="View00_00" fromview="searchAlignHorizontal" fromdataset="dsEmptyData" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+      <DsCopyDataAction id="DsCopyDataAction00_00" targetview="View00" fromview="searchAlignHorizontal" fromdataset="dsEmptyData" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+      <DsCopyDataAction id="DsCopyDataAction00_01" targetview="View00_00_00" fromview="searchAlignHorizontal" fromdataset="dsEmptyData" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+      <DsCopyDataAction id="DsCopyDataAction00_02" targetview="View00_00_00_00" fromview="searchAlignHorizontal" fromdataset="dsEmptyData" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
     </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="searchAlignHorizontal" triggerobj="searchAlignHorizontal" targetaction="DsCopyDataAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Form Init" triggerview="searchAlignHorizontal" triggerobj="searchAlignHorizontal" targetaction="DsCopyDataAction00_00" condition=""/>
+      <TriggerItem id="item2" triggertype="Form Init" triggerview="searchAlignHorizontal" triggerobj="searchAlignHorizontal" targetaction="DsCopyDataAction00_01" condition=""/>
+      <TriggerItem id="item3" triggertype="Form Init" triggerview="searchAlignHorizontal" triggerobj="searchAlignHorizontal" targetaction="DsCopyDataAction00_02" condition=""/>
+    </Trigger>
   </Form>
 </FDL>
