@@ -17,6 +17,9 @@ this.oUseFieldArray;
 
 //뷰 컴포넌트 정보
 this.oContents;
+
+//뷰 컴포넌트 정보(현재)
+this.oContentsOrg;
 	
 //옵션 설정 정보
 this.oGenerationAttr;
@@ -71,9 +74,19 @@ this.oAttrViewPadding =	{
 											+ "\n" + "3회 입력 : [1번째값] top, [2번째값] right/left, [3번째값] bottom 에 적용"
 											+ "\n" + "4회 입력 : [1번째값] top, [2번째값] right, [3번째값] bottom, [4번째값] left 에 적용"
 						};
+
+//--------------------------------------------------------------------------------------------------------
+// View 객체 값 유지관련 상수
+//--------------------------------------------------------------------------------------------------------	
+this.oAttrViewInitialization =	{
+                                "id": "viewinitialization",
+                                "edittype": "Boolean",
+								"defaultvalue": "false",
+								"description": "View 컴포넌트 초기화 여부"
+						};
 //--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수(ExpandButton + Title + TotalCount)
-//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------	
 // Title 영역 Div ID
 this.DIV_TITLE_ID						= "divTitle";
 // Title 영역 Height
@@ -273,13 +286,23 @@ this.lfn_MakeGenerationInfo = function(fieldarray, contents, generationattr, bUs
     if(fieldarray)this.oFieldArray = JSON.parse(fieldarray);
 
 	//Set View Component Information as JSON Object
-    if(contents)this.oContents = JSON.parse(contents);
-
+    if(contents)
+	{
+		//trace(">> contents : " + contents);
+		this.oContents = JSON.parse(contents);
+		this.oContentsOrg = JSON.parse(contents);
+		
+	}
+	
 	//Set Option Setting Information as JSON Object
     if(generationattr)this.oGenerationAttr = JSON.parse(generationattr);
 
 	//Initialize Model Information
 	this.oContents.View.Model = [];
+	
+	if (this.oContentsOrg.View.Model == null) {
+		this.oContentsOrg.View.Model = [];
+	}
 
 	if (bUseComp) {
 		this.lfn_MakeUseFieldArray(fieldarray);
@@ -700,10 +723,10 @@ this.lfn_SetViewPadding = function()
 	
 	if (this.oGenerationAttr.attributes.hasOwnProperty("viewpadding")) {
 		sViewPadding = this.oGenerationAttr.attributes.viewpadding;
-		this.lfn_Log("viewpadding");
+		//this.lfn_Log("viewpadding");
 	} else {
 		sViewPadding = this.VIEW_PADDING;
-		this.lfn_Log("this.VIEW_PADDING");
+		//this.lfn_Log("this.VIEW_PADDING");
 	}
 	
 	if (sViewPadding)
@@ -978,8 +1001,160 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 	//View onload시 호출 
 	sScript += "this.lfn_Title_SetViewInit(this,'" + sUseExpandButton + "');";
 	
-	//this.lfn_Log(sScript);
-	//sScript = "";
-	
 	return sScript;
+};
+
+/**
+ * @class 기존 ViewContents에서 동일한 컴포넌트 Contents 반환
+ * @param {string} sFieldId - Model Field ID
+ * @param {string} sTag - Component Class ID
+ * @param {string} sId - Component ID
+ * @param {boolean} bInit - 초기화여부(true인 경우 기존 컴포넌트 Contents 반환안하고 기본 태그만 반환)
+ * @return {Object} Component Contents
+ */
+this.lfn_GetUseViewContents = function(bInit)
+{
+	if (this.lfn_IsNull(bInit))		bInit = this.oGenerationAttr.attributes.viewinitialization;
+	
+	var bUse = false;
+	
+	if (bInit == false || bInit == "false")			bUse = true;
+	
+	return bUse;
+};
+
+this.lfn_GetObjectContents = function(oTarget, sElem, sKey, sId)
+{
+	var oObject;
+	var oContents;
+	
+	if (this.lfn_IsNotNull(oTarget))
+	{
+		if (this.lfn_IsNotNull(sElem)) {
+			oObject = oTarget[sElem];
+		} else {
+			oObject = oTarget;
+		}
+		
+		oContents = this.lfn_GetMatchObject(oObject, sKey, sId);
+	}
+	
+	return oContents;
+};
+
+this.lfn_GetMatchObject = function(oObject, sKey, sValue)
+{
+	var oRet;
+	
+	if (Array.isArray(oObject)) {
+		oRet = oObject.find(oObject => oObject[sKey]==sValue || (oObject.hasOwnProperty("attribute") && oObject.attribute[sKey]==sValue));
+	} else if (oObject instanceof Object) {
+		for(var elem in oObject){
+			if (elem == sKey && oObject[elem] == sValue)
+			{
+				oRet = oObject;
+				break;
+			}
+			else if (oObject[elem][sKey] == sValue)
+			{
+				oRet = oObject[elem];
+				break;
+			}
+		}
+	}
+	
+	return oRet;
+};
+
+
+this.lfn_GetUserCompContents = function(bInit)
+{
+	if (this.lfn_IsNull(bInit))		bInit = this.oGenerationAttr.attributes.viewinitialization;
+	
+	var oModelOrg;
+	var oCompField;
+	
+	if (this.lfn_GetUseViewContents())
+	{
+		oModelOrg = this.oContentsOrg.View.Model;
+		oCompField = oModelOrg.find(oModelOrg=>oModelOrg.fieldid=="");
+	}
+	
+	return oCompField;
+};
+
+/**
+ * @class 기존 ViewContents에서 동일한 컴포넌트 Contents 반환
+ * @param {string} sFieldId - Model Field ID
+ * @param {string} sTag - Component Class ID
+ * @param {string} sId - Component ID
+ * @param {boolean} bInit - 초기화여부(true인 경우 기존 컴포넌트 Contents 반환안하고 기본 태그만 반환)
+ * @return {Object} Component Contents
+ */
+this.lfn_GetCompContents = function(sFieldId, sTag, sId, bInit)
+{
+	if (this.lfn_IsNull(bInit))		bInit = this.oGenerationAttr.attributes.viewinitialization;
+	
+	var oCompField;
+	var oCompField;
+	var oComp;
+	
+	if (this.lfn_GetUseViewContents())
+	{
+		oModelOrg = this.oContentsOrg.View.Model;
+		oCompField = oModelOrg.find(oModelOrg=>oModelOrg.fieldid==sFieldId);
+	}
+	
+	// ID에 매칭하는 컴포넌트 정보 반환
+	oComp = this.lfn_GetObjectContents(oCompField, "Components", "id", sId);
+	
+	// 매칭되는 정보가 없거나 컴포넌트가 변경된 경우 초기화
+	if (this.lfn_IsNull(oComp) || oComp["tag"] != sTag) {
+		oComp =	{
+					"tag" : sTag,
+					"attribute" : {"id" : sId}
+				};
+	}
+	
+	return oComp;
+};
+
+this.lfn_GetCellContents = function(oBandContents, sId, nCol, nRow, bInit)
+{
+	if (this.lfn_IsNull(bInit))		bInit = this.oGenerationAttr.attributes.viewinitialization;
+	
+	var oCell;
+	var oBandCells;
+	
+	if (this.lfn_GetUseViewContents())
+	{
+		if (this.lfn_IsNotNull(oBandContents))
+		{
+			// 1) ID에 매칭하는 Cell 정보 반환
+			if (this.lfn_IsNotNull(sId)) {
+				oCell = this.lfn_GetObjectContents(oBandContents, "Band", "id", sId);
+			}
+			
+			// 2) 사용자가 입력한 정보인 경우 col, row로 찾기
+			if (this.lfn_IsNull(oCell)) {
+				oBandCells = oBandContents["Band"];
+				
+				oCell = oBandCells.find((oBandCells.attribute.hasOwnProperty("col") && oBandCells.attribute["col"]==nCol)
+										&& (oBandCells.attribute.hasOwnProperty("row") && oBandCells.attribute["row"]==nRow));
+			}
+		}
+	}
+	// 3) 해당하는 정보가 없는 경우 빈 Cell정보 반환
+	if (this.lfn_IsNull(oCell)) {
+		oCell = {
+					"tag" : "Cell",
+					"attribute" : {}
+				};
+	}
+	
+	if (this.lfn_IsNotNull(sId))	oCell.attribute["id"]	= sId;
+	if (this.lfn_IsNotNull(nCol))	oCell.attribute["col"]	= nCol;
+	if (this.lfn_IsNotNull(nRow))	oCell.attribute["row"]	= nRow;
+	
+	return oCell;
 };]]></Script>
