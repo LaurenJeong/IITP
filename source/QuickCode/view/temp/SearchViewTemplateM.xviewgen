@@ -282,6 +282,7 @@ fn_GetViewAttributeList = function()
 
                             }
 							//, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
+							, this.oAttrViewInitialization			// 컴포넌트 초기화 여부
                         ]
                   };
 
@@ -439,6 +440,10 @@ fn_GetModel = function()
 		//Load Component Production Function
 		fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false, true);
 	}
+	
+	// 사용자 추가 컴포넌트 Contents 추가
+	var oModelUserComp = this.lfn_GetUserCompContents();
+	if (this.lfn_IsNotNull(oModelUserComp))		this.oContents.View.Model[this.oContents.View.Model.length] = oModelUserComp;
 };
 
 /*---------------------------------------------------------------------------------------------*
@@ -1170,26 +1175,48 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		if(nLabelWidth>0)
 		{
 			sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
-			oComp = {
-						"tag" : oLabelClass.classId,
-						"attribute" :
-						{
-							"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
-							, "text" : oField.label, "cssclass" : sLabelCssClass
-						}
-					};
+// 			oComp = {
+// 						"tag" : oLabelClass.classId,
+// 						"attribute" :
+// 						{
+// 							"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
+// 							, "text" : oField.label, "cssclass" : sLabelCssClass
+// 						}
+// 					};
+			// 컴포넌트 Contents
+			oComp = this.lfn_GetCompContents(sFieldId, oLabelClass.classId, sCompId);
+			
+			// 속성설정
+			oComp.attribute["left"]		= nLabelLeft;
+			oComp.attribute["top"]		= nLabelTop;
+			oComp.attribute["width"]	= nLabelWidth;
+			oComp.attribute["height"]	= nLabelHeight;
+			oComp.attribute["text"]		= oField.label;
+			oComp.attribute["cssclass"]	= sLabelCssClass;
+					
 			oModel[oModel.length-1].Components.push(oComp);
 		}
 
 		//Add Component Tag
 		sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
-		oComp =	{
-					"tag" : oCompClass.classId,
-					"attribute" :
-					{
-						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
-					}
-				};
+// 		oComp =	{
+// 					"tag" : oCompClass.classId,
+// 					"attribute" :
+// 					{
+// 						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
+// 					}
+// 				};
+		
+		// 컴포넌트 Contents
+		oComp = this.lfn_GetCompContents(sFieldId, oCompClass.classId, sCompId);
+		
+		// 속성설정
+		oComp.attribute["left"]		= nCompLeft;
+		oComp.attribute["top"]		= nCompTop;
+		oComp.attribute["width"]	= nCompWidth;
+		oComp.attribute["height"]	= nCompHeight;
+		oComp.attribute["cssclass"]	= sCompCssClass;
+			
 		//If the Component Type is Button, add label text to the text properties
 		if(oField.comptype=="button")
 		{

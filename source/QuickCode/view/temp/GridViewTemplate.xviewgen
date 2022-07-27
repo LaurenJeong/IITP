@@ -42,7 +42,7 @@ this.USE_EXPAND_BUTTON		= "none";
 //--------------------------------------------------------------------------------------------------------
 this.HEAD_BAND_SIZE			= 30;
 this.BODY_BAND_SIZE			= 30;
-this.SUMM_BAND_SIZE			= 30;
+this.SUMM_BAND_SIZE			= -1;
 this.COL_SIZE				= 80;
 
 this.DISPLAY_TYPE			= "normal";
@@ -484,6 +484,7 @@ fn_GetViewAttributeList = function()
 
                             }
 							//, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
+							, this.oAttrViewInitialization			// 컴포넌트 초기화 여부
                         ]
                   };
 
@@ -661,67 +662,99 @@ fn_GetModel = function()
 
 	//Add Grip Component
 	var oModel = this.oContents.View.Model;
-    oModel[oModel.length] = {
-            "fieldid" : sFieldId,
-            "Components" :
-            [
-                {
-                    "tag" : "Grid",
-                    "attribute" :
-                    {
-                        "id" : "grdList", "left" : nLeft, "top" : nTop, "right" : nRight, "bottom" : nBottom, "binddataset" : "viewdataset"
-                    },
-                    "Grid" :
-                    [
+	var nModelIndex = oModel.length;
+	oModel[nModelIndex] = {"fieldid" : sFieldId,"Components" : []};
+	
+	var sGrdClass = "Grid";
+	var oGrdFormatsOrg;
+	var oGrdDefaultFormatOrg;
+	var oGrdDefaultFormat;
+	var nDefaultIndex = 0;
+	var aGrdFormats = new Array();
+	
+	// 그리드 객체 Contents
+	oComp = this.lfn_GetCompContents(sFieldId, sGrdClass, "grdList");
+	
+	// 기존에 설정된 Format정보에 따라 기본값 다르게 처리
+	if (oComp.hasOwnProperty(sGrdClass)) {
+		// 기존 Default Formats 정보
+		oGrdFormatsOrg = oComp[sGrdClass][0];
+		oGrdDefaultFormatOrg = this.lfn_GetObjectContents(oGrdFormatsOrg, "Formats", "id", "default");
+		
+		// Formats Contents
+		aGrdFormats = oGrdFormatsOrg["Formats"];
+		
+		// Default Formats Index
+		nDefaultIndex = aGrdFormats.findIndex(element => element.attribute["id"]=="default");
+		if (nDefaultIndex == -1)	nDefaultIndex = 0;
+	}
+	
+	// 그리드 속성 설정
+	oComp.attribute["left"]			= nLeft;
+	oComp.attribute["top"]			= nTop;
+	oComp.attribute["right"]		= nRight;
+	oComp.attribute["bottom"]		= nBottom;
+	oComp.attribute["binddataset"]	= "viewdataset";
+	oComp.attribute["autofittype"]	= "col";
+	
+	// 그리드 default Format 생성
+	oGrdDefaultFormat = {
+							"tag": "Format",
+							"attribute": { "id": "default" },
+							"Format":
+							[
+								{
+									"tag": "Columns",
+									"attribute": {},
+									//Load Grid Column Information Creation Function
+									"Columns": fn_GetColumns(oBaseLayout)
+								},
+								{
+									"tag": "Rows",
+									"attribute": {},
+									//Load Grid Row Information Creation Function
+									"Rows": fn_GetRows(oBaseLayout, oHeadLayout, oBodyLayout, oSummLayout)
+								},
+								{
+									"tag": "Band",
+									"attribute": { "id" : "head"},
+									//Load Grid Head Information Creation Function
+									"Band": fn_GetHeads(oBaseLayout, oHeadLayout, oGrdDefaultFormatOrg)
+								},
+								{
+									"tag": "Band",
+									"attribute": { "id" : "body"},
+									//Load Grid Body Information Creation Function
+									"Band": fn_GetBodys(oBaseLayout, oBodyLayout, oGrdDefaultFormatOrg)
+								},
+								{
+									"tag": "Band",
+									"attribute": { "id" : "summary"},
+									//Load Grid Summary Information Creation Function
+									"Band": fn_GetSumms(oBaseLayout, oSummLayout, oGrdDefaultFormatOrg)
+								}
+							]
+						};
+	
+	// 그리드 전체 Formats에서 default Format 셋팅
+	aGrdFormats.splice(nDefaultIndex,1,oGrdDefaultFormat);
+	
+	// 그리드 Formats Contents
+	oComp["Grid"]	= [
                         {
                             "tag": "Formats",
                             "attribute": {},
-                            "Formats":
-                            [
-                                {
-                                    "tag": "Format",
-                                    "attribute": { "id": "default" },
-                                    "Format":
-                                    [
-                                        {
-                                            "tag": "Columns",
-                                            "attribute": {},
-											//Load Grid Column Information Creation Function
-                                            "Columns": fn_GetColumns(oBaseLayout)
-                                        },
-                                        {
-                                            "tag": "Rows",
-                                            "attribute": {},
-											//Load Grid Row Information Creation Function
-                                            "Rows": fn_GetRows(oBaseLayout, oHeadLayout, oBodyLayout, oSummLayout)
-                                        },
-                                        {
-                                            "tag": "Band",
-                                            "attribute": { "id" : "head"},
-											//Load Grid Head Information Creation Function
-                                            "Band": fn_GetHeads(oBaseLayout, oHeadLayout)
-                                        },
-                                        {
-                                            "tag": "Band",
-                                            "attribute": { "id" : "body"},
-											//Load Grid Body Information Creation Function
-                                            "Band": fn_GetBodys(oBaseLayout, oBodyLayout)
-                                        },
-                                        {
-                                            "tag": "Band",
-                                            "attribute": { "id" : "summary"},
-											//Load Grid Summary Information Creation Function
-                                            "Band": fn_GetSumms(oBaseLayout, oSummLayout)
-                                        }
-                                    ]
-                                }
-                            ]
+                            "Formats": aGrdFormats
                         }
-                    ]
-                }
-            ]
-        }
-
+                    ];
+	
+	// Grid 추가
+	oModel[nModelIndex].Components.push(oComp);
+	
+	// 사용자 추가 컴포넌트 Contents 추가
+	var oModelUserComp = this.lfn_GetUserCompContents();
+	if (this.lfn_IsNotNull(oModelUserComp))		oModel[oModel.length] = oModelUserComp;
+	
 	//Return Information of Model to be Created
     return oModel;
 };
@@ -890,7 +923,7 @@ fn_GetRows = function(oBaseLayout, oHeadLayout, oBodyLayout, oSummLayout)
  * Return       : head band data of grid format
  * Description  : Function to generate <Band id="head"> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetHeads = function(oBaseLayout, oHeadLayout)
+fn_GetHeads = function(oBaseLayout, oHeadLayout, oGrdDefaultFormat)
 {
     var nCount;
 	var nFieldCount;
@@ -907,9 +940,15 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
 
 	var oField;
     var sFieldId = "";
+	var sCellId = "";
     var sLabel = "";
     var sCssClass;
-
+	
+	var oCell;
+	
+	// 기존 Head Cell 정보
+	var oCellOrg = this.lfn_GetObjectContents(oGrdDefaultFormat, "Format", "id", "head");
+	
 	//If Layout is Set Up
 	if(oBaseLayout)
 	{
@@ -959,14 +998,15 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
 				}
 
 				//Add Cell Tag on Head Band
-				oHeads[oHeads.length] =
-				{
-					"tag": "Cell",
-					"attribute":
-					{
-						"id": "cell_"+nCol+"_"+nRow+"_"+sFieldId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan, "text": sLabel, "cssclass" : sCssClass
-					}
-				};
+				sCellId = "cell_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				oCell = this.lfn_GetCellContents(oCellOrg, sCellId, nCol, nRow);
+				oCell.attribute["colspan"] = nColSpan;
+				oCell.attribute["rowspan"] = nRowSpan;
+				oCell.attribute["text"] = sLabel;
+				oCell.attribute["cssclass"] = sCssClass;
+				
+				oHeads[oHeads.length] = oCell;
 			}
 		}
 	}
@@ -985,15 +1025,14 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
 
 				sFieldId = oField.id;
 				sLabel = oField.label;
-
-				oHeads[oHeads.length] =
-				{
-					"tag": "Cell",
-					"attribute":
-					{
-						"id": "cell_"+sFieldId, "col": oHeads.length, "row": 0, "text": sLabel
-					}
-				};
+				sCellId = "cell_"+sFieldId;
+				nCol = oHeads.length;
+				nRow = 0;
+				
+				oCell = this.lfn_GetCellContents(oCellOrg, sCellId, nCol, nRow);
+				
+				oCell.attribute["text"] = sLabel;
+				oHeads[oHeads.length] = oCell;
 			}
 		}
 	}
@@ -1009,7 +1048,7 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
  * Return       : body band data of grid format
  * Description  : Function to generate <Band id="body"> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetBodys = function(oBaseLayout, oBodyLayout)
+fn_GetBodys = function(oBaseLayout, oBodyLayout, oGrdDefaultFormat)
 {
     var nCount;
 	var nFieldCount;
@@ -1025,12 +1064,18 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 
 	var oField;
     var sFieldId = "";
+	var sCellId = "";
     var sLabel = "";
 	var sDisplayType;
 	var sEditType;
 	var sCssClass = "";
 	var sCellCssClass = "";
-
+	
+	var oCell;
+	
+	// 기존 Body Cell 정보
+	var oCellOrg = this.lfn_GetObjectContents(oGrdDefaultFormat, "Format", "id", "body");
+	
 	//If Layout is Set Up
 	if(oBaseLayout)
 	{
@@ -1115,15 +1160,17 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 				if(sCellCssClass)sCssClass = sCellCssClass;
 
 				//Add Cell Tag on Body Band
-				oBodys[oBodys.length] =
-				{
-					"tag": "Cell",
-					"attribute":
-					{
-						"id": "cell_"+nCol+"_"+nRow+"_"+sFieldId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan
-						, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
-					}
-				};
+				sCellId = "cell_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				oCell = this.lfn_GetCellContents(oCellOrg, sCellId, nCol, nRow);
+				oCell.attribute["colspan"] = nColSpan;
+				oCell.attribute["rowspan"] = nRowSpan;
+				oCell.attribute["text"] = sLabel;
+				oCell.attribute["displaytype"] = sDisplayType;
+				oCell.attribute["edittype"] = sEditType;
+				oCell.attribute["cssclass"] = sCssClass;
+				
+				oBodys[oBodys.length] = oCell;
 			}
 		}
 	}
@@ -1145,14 +1192,17 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 				sDisplayType = oField.displaytype;
 				sEditType = oField.edittype;
 				sCssClass = oField.cssclass;
-				oBodys[oBodys.length] =
-				{
-					"tag": "Cell",
-					"attribute":
-					{
-						"id": "cell_"+sFieldId, "col": oBodys.length, "row": 0, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
-					}
-				};
+				sCellId = "cell_"+sFieldId;
+				nCol = oBodys.length;
+				nRow = 0;
+				
+				oCell = this.lfn_GetCellContents(oCellOrg, sCellId, nCol, nRow);
+				oCell.attribute["text"] = sLabel;
+				oCell.attribute["displaytype"] = sDisplayType;
+				oCell.attribute["edittype"] = sEditType;
+				oCell.attribute["cssclass"] = sCssClass;
+				
+				oBodys[oBodys.length] = oCell;
 			}
 		}
 	}
@@ -1168,7 +1218,7 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
  * Return       : summ band data of grid format
  * Description  : Function to generate <Band id="summ"> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetSumms = function(oBaseLayout, oSummLayout)
+fn_GetSumms = function(oBaseLayout, oSummLayout, oGrdDefaultFormat)
 {
     var nCount;
 	var nFieldCount;
@@ -1185,10 +1235,16 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 
 	var oField;
     var sFieldId = "";
+	var sCellId = "";
     var sLabel = "";
     var sSummProp;
 	var sCssClass = "";
-
+	
+	var oCell;
+	
+	// 기존 summary Cell 정보
+	var oCellOrg = this.lfn_GetObjectContents(oGrdDefaultFormat, "Format", "id", "summary");
+	
 	//If Layout is Set Up
 	if(oBaseLayout)
 	{
@@ -1265,14 +1321,15 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 				}
 
 				//Add Cell Tag on Summ Band
-				oSumms[oSumms.length] =
-				{
-					"tag": "Cell",
-					"attribute":
-					{
-						"id": "cell_"+nCol+"_"+nRow+"_"+sFieldId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan, "text" : sLabel, "cssclass" : sCssClass
-					}
-				};
+				sCellId = "cell_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				oCell = this.lfn_GetCellContents(oCellOrg, sCellId, nCol, nRow);
+				oCell.attribute["colspan"] = nColSpan;
+				oCell.attribute["rowspan"] = nRowSpan;
+				oCell.attribute["text"] = sLabel;
+				oCell.attribute["cssclass"] = sCssClass;
+				
+				oSumms[oSumms.length] = oCell;
 			}
 		}
 	}
@@ -1291,15 +1348,14 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 
 				sFieldId = oField.id;
 				sLabel = oField.label;
-
-				oSumms[oSumms.length] =
-				{
-					"tag": "Cell",
-					"attribute":
-					{
-						"id": "cell_"+sFieldId, "col": oSumms.length, "row": 0, "text" : ""
-					}
-				};
+				sCellId = "cell_"+sFieldId;
+				nCol = oSumms.length;
+				nRow = 0;
+				
+				oCell = this.lfn_GetCellContents(oCellOrg, sCellId, nCol, nRow);
+				oCell.attribute["text"] = sLabel;
+				
+				oSumms[oSumms.length] = oCell;
 			}
 		}
 	}
