@@ -17,6 +17,9 @@ this.oUseFieldArray;
 
 //뷰 컴포넌트 정보
 this.oContents;
+
+//뷰 컴포넌트 정보(현재)
+this.oContentsOrg;
 	
 //옵션 설정 정보
 this.oGenerationAttr;
@@ -73,7 +76,7 @@ this.oAttrViewPadding =	{
 						};
 //--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수(ExpandButton + Title + TotalCount)
-//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------	
 // Title 영역 Div ID
 this.DIV_TITLE_ID						= "divTitle";
 // Title 영역 Height
@@ -273,13 +276,23 @@ this.lfn_MakeGenerationInfo = function(fieldarray, contents, generationattr, bUs
     if(fieldarray)this.oFieldArray = JSON.parse(fieldarray);
 
 	//Set View Component Information as JSON Object
-    if(contents)this.oContents = JSON.parse(contents);
-
+    if(contents)
+	{
+		//trace(">> contents : " + contents);
+		this.oContents = JSON.parse(contents);
+		this.oContentsOrg = JSON.parse(contents);
+		
+	}
+	
 	//Set Option Setting Information as JSON Object
     if(generationattr)this.oGenerationAttr = JSON.parse(generationattr);
 
 	//Initialize Model Information
 	this.oContents.View.Model = [];
+	
+	if (this.oContentsOrg.View.Model == null) {
+		this.oContentsOrg.View.Model = [];
+	}
 
 	if (bUseComp) {
 		this.lfn_MakeUseFieldArray(fieldarray);
@@ -700,10 +713,10 @@ this.lfn_SetViewPadding = function()
 	
 	if (this.oGenerationAttr.attributes.hasOwnProperty("viewpadding")) {
 		sViewPadding = this.oGenerationAttr.attributes.viewpadding;
-		this.lfn_Log("viewpadding");
+		//this.lfn_Log("viewpadding");
 	} else {
 		sViewPadding = this.VIEW_PADDING;
-		this.lfn_Log("this.VIEW_PADDING");
+		//this.lfn_Log("this.VIEW_PADDING");
 	}
 	
 	if (sViewPadding)
@@ -977,9 +990,6 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 
 	//View onload시 호출 
 	sScript += "this.lfn_Title_SetViewInit(this,'" + sUseExpandButton + "');";
-	
-	//this.lfn_Log(sScript);
-	//sScript = "";
 	
 	return sScript;
 };]]></Script>
