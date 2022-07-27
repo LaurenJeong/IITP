@@ -17,6 +17,9 @@ this.oUseFieldArray;
 
 //뷰 컴포넌트 정보
 this.oContents;
+
+//뷰 컴포넌트 정보(현재)
+this.oContentsOrg;
 	
 //옵션 설정 정보
 this.oGenerationAttr;
@@ -27,6 +30,11 @@ this.arrCompIds = [];
 //컴포넌트 + 바인드 Field 목록
 this.arrBindItems = [];
 
+//validationRuleSet 목록
+this.arrValidationRules = [];
+
+// View에서 생성한 컴포넌트의 Field ID
+this.VIEW_COMP_FIELD_ID = "_viewcomp";
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -41,6 +49,12 @@ this.LOG_LEVEL			= -1;
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
+// 공통함수 관련 변수
+//--------------------------------------------------------------------------------------------------------
+this.VALID_USERPROP_ID = "_vaild";
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
 // View 여백관련 상수
 //--------------------------------------------------------------------------------------------------------		
 // View 여백
@@ -50,14 +64,21 @@ this.VIEW_PADDING_RIGHT				= 0;
 this.VIEW_PADDING_BOTTOM			= 0;
 
 this.oAttrViewPadding =	{
-                                "id": "viewpadding",
-                                "edittype": "String",
-								"defaultvalue": this.lfn_Nvl(this.VIEW_PADDING, ""),
-								"description": "Set the View Padding"
+							"id": "viewpadding",
+							"edittype": "String",
+							"defaultvalue": this.lfn_Nvl(this.VIEW_PADDING, ""),
+							"description": "View 여백 설정(px)"
+											+ "\n" + "(숫자만 입력 가능하며, 빈칸으로 구분하여 설정가능합니다.)"
+											+ "\n" + "1회 입력 : [1번째값] top/right/bottom/left 에 모두 적용"
+											+ "\n" + "2회 입력 : [1번째값] top/bottom, [2번째값] right/left 에 적용"
+											+ "\n" + "3회 입력 : [1번째값] top, [2번째값] right/left, [3번째값] bottom 에 적용"
+											+ "\n" + "4회 입력 : [1번째값] top, [2번째값] right, [3번째값] bottom, [4번째값] left 에 적용"
 						};
 //--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수(ExpandButton + Title + TotalCount)
-//--------------------------------------------------------------------------------------------------------				
+//--------------------------------------------------------------------------------------------------------	
+// Title 영역 Div ID
+this.DIV_TITLE_ID						= "divTitle";
 // Title 영역 Height
 this.TITLE_AREA_HEIGHT					= 30;
 // Title 영역 컴포넌트 Gap
@@ -117,6 +138,7 @@ this.oAttrTitleExpandButton =	{
 							, "enumlist"		: ["none", "open","close"]
 							, "defaultvalue"	: this.lfn_Nvl(this.USE_EXPAND_BUTTON, this.USE_EXPAND_BUTTON_BASE)
 							, "description"		: "접기/펼치기 버튼 표시여부"
+													+ "\n" + "(※주의 - View ID를 변경시 정상동작하지 않습니다.)"
 													+ "\n" + "none : 표시안함"
 													+ "\n" + "open : 펼침"
 													+ "\n" + "close : 접기"
@@ -222,9 +244,10 @@ this.lfn_Log = function(sMsg, sType)
 	if (system.navigatorname == "nexacro DesignMode"
 		|| system.navigatorname == "nexacro") {
 		if (sMsg instanceof Object) {
-			for(var x in sMsg){
-				trace("[" + sType + "] " + x + " : " + sMsg[x]);
-			}
+			trace("[" + sType + "] " + JSON.stringify(sMsg, null, "\t"));
+// 			for(var x in sMsg){
+// 				trace("[" + sType + "] " + x + " : " + sMsg[x]);
+// 			}
 		} else {
 			trace("[" + sType + "] " + sMsg);
 		}
@@ -253,13 +276,23 @@ this.lfn_MakeGenerationInfo = function(fieldarray, contents, generationattr, bUs
     if(fieldarray)this.oFieldArray = JSON.parse(fieldarray);
 
 	//Set View Component Information as JSON Object
-    if(contents)this.oContents = JSON.parse(contents);
-
+    if(contents)
+	{
+		//trace(">> contents : " + contents);
+		this.oContents = JSON.parse(contents);
+		this.oContentsOrg = JSON.parse(contents);
+		
+	}
+	
 	//Set Option Setting Information as JSON Object
     if(generationattr)this.oGenerationAttr = JSON.parse(generationattr);
 
 	//Initialize Model Information
 	this.oContents.View.Model = [];
+	
+	if (this.oContentsOrg.View.Model == null) {
+		this.oContentsOrg.View.Model = [];
+	}
 
 	if (bUseComp) {
 		this.lfn_MakeUseFieldArray(fieldarray);
@@ -347,6 +380,9 @@ this.lfn_GetCompClass = function(sCompType)
 						break;
 		case "progressbar" : oCompClass.classId = "ProgressBar";
 						oCompClass.prefix = "prg";
+						break;
+		case "grid" : oCompClass.classId = "Grid";
+						oCompClass.prefix = "grd";
 						break;
 		default : oCompClass.classId = "Static";
 				  oCompClass.prefix = "sta";
@@ -552,6 +588,8 @@ this.lfn_GetDsColumns = function(objFieldArr)
     var sFieldId;
     var sDataType;
     var sDataSize;
+	var sProp;
+	var sSumText;
 
     //모델 Field 개수 가져오기
     var nCount = objFieldArr.fieldcount;
@@ -561,9 +599,11 @@ this.lfn_GetDsColumns = function(objFieldArr)
     {
         oField = objFieldArr.fields[i];
 
-        sFieldId = oField.id;
-        sDataType = oField.datatype;
-        sDataSize = oField.datasize;
+        sFieldId 	= oField.id;
+        sDataType 	= oField.datatype;
+        sDataSize 	= oField.datasize;
+		sProp		= oField.prop;
+		sSumText	= oField.sumtext;
 
 		if(oField.comptype!="button")
 		{
@@ -575,6 +615,9 @@ this.lfn_GetDsColumns = function(objFieldArr)
 					"id": sFieldId, "type": sDataType, "size": sDataSize
 				}
 			};
+			
+			if(this.lfn_IsNotNull(sProp))			oColumns[i]["attribute"]["prop"] = sProp;
+			if(this.lfn_IsNotNull(sSumText))		oColumns[i]["attribute"]["sumtext"] = sSumText;
 		}
     }
 
@@ -666,7 +709,15 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 
 this.lfn_SetViewPadding = function()
 {
-	var sViewPadding = this.oGenerationAttr.attributes.viewpadding;
+	var sViewPadding = "";
+	
+	if (this.oGenerationAttr.attributes.hasOwnProperty("viewpadding")) {
+		sViewPadding = this.oGenerationAttr.attributes.viewpadding;
+		//this.lfn_Log("viewpadding");
+	} else {
+		sViewPadding = this.VIEW_PADDING;
+		//this.lfn_Log("this.VIEW_PADDING");
+	}
 	
 	if (sViewPadding)
 	{
@@ -705,6 +756,8 @@ this.lfn_SetViewPadding = function()
 			this.VIEW_PADDING_BOTTOM = nexacro.toNumber(arrViewPadding[2]);
 			this.VIEW_PADDING_LEFT = nexacro.toNumber(arrViewPadding[3]);
 		}
+		
+		//this.lfn_Log(this.VIEW_PADDING_TOP + " " + this.VIEW_PADDING_RIGHT + " " + this.VIEW_PADDING_BOTTOM+ " " + this.VIEW_PADDING_LEFT);
 	}
 };
 /*---------------------------------------------------------------------------------------------*
@@ -712,21 +765,23 @@ this.lfn_SetViewPadding = function()
  * Parameter    : 	sTitleText - titletext 속성값
 					sUseTotalCount - usetotalcount 속성값
 					sUseExpandButton - useexpandbutton 속성값
+					bFluidLayout - FluidLayout 여부
  * Return       : Title영역 높이
  * Description  : 타이틀 영역 생성 함수
  *---------------------------------------------------------------------------------------------*/
-this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
+this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton, bFluidLayout)
 {
 	if (sTitleText == null)			return this.VIEW_PADDING_TOP;
 	if (sUseTotalCount == null)		sUseTotalCount = "false";
+	if (bFluidLayout == null)		bFluidLayout = false;
 
 	var oModel = this.oContents.View.Model;
 	var arrComponents	= new Array();
 	var oField;
 	var oComp;
 
-	var nCompTop		= this.VIEW_PADDING_TOP;
-	var nCompLeft		= this.VIEW_PADDING_LEFT;
+	var nCompTop		= 0;
+	var nCompLeft		= 0;
 	var nCompWidth		= 0;
 	var nCompHeight		= 0;
 	
@@ -767,7 +822,7 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 	
 	nCompWidth	= 120;
 	nCompHeight	= this.TITLE_AREA_HEIGHT;
-	nCompTop	= this.VIEW_PADDING_TOP;
+	nCompTop	= 0;
 		
 	arrComponents.push({
 		"tag" : "Static",
@@ -801,13 +856,32 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton)
 	}
 	
 	// 모델에 Component 설정
-	oModel[oModel.length] =
+	var nModelIndex = oModel.length;
+	oModel[nModelIndex] =
 	{
-		"fieldid" : "",
-		"Components" : arrComponents
+		"fieldid" : this.VIEW_COMP_FIELD_ID,
+		"Components" : [{
+						"tag" : "Div",
+						"attribute" : { "id" : this.DIV_TITLE_ID, "left" : this.VIEW_PADDING_LEFT, "top" : this.VIEW_PADDING_TOP, "height" : this.TITLE_AREA_HEIGHT},
+						"Div" : [{
+								"tag" : "Layouts",
+								"Layouts" : [{
+										"tag" : "Layout",
+										"Layout" : arrComponents
+								}]
+						}]
+					}]
+					
 	};
 	
-	return nCompTop + this.TITLE_AREA_HEIGHT;
+	// FluidLayout일때는 width 설정, 그외는 right 설정
+	if (bFluidLayout == true) {
+		oModel[nModelIndex]["Components"][0]["attribute"]["width"] = "100%";
+	} else {
+		oModel[nModelIndex]["Components"][0]["attribute"]["right"] = this.VIEW_PADDING_RIGHT;
+	}
+	
+	return this.VIEW_PADDING_TOP + this.TITLE_AREA_HEIGHT;
 };
 
 /*---------------------------------------------------------------------------------------------*
@@ -881,7 +955,7 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 	// expand 토글 함수
 	sScript += "this.lfn_Title_SetSearchOpenClose = function(obj,sStatus)";
 	sScript += "{";
-	sScript += "	var objForm = obj.parent;";
+	sScript += "	var objForm = obj.parent.parent.parent;";
 	sScript += "	var objView = objForm.parent;";
 	sScript += "	";
 	sScript += "	if (sStatus == 'close') {";
@@ -911,7 +985,7 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 	sScript += "	objView._openHeight = objView.height;";
 	sScript += "	objView._openBottom = objView.bottom;";
 	sScript += "	objView._formscrolltype = objView.formscrolltype;";
-	sScript += "	this.lfn_Title_SetSearchOpenClose(obj.btnExpand,sStatus);";
+	sScript += "	this.lfn_Title_SetSearchOpenClose(obj."+this.DIV_TITLE_ID+".form."+"btnExpand,sStatus);";
 	sScript += "};";
 
 	//View onload시 호출 

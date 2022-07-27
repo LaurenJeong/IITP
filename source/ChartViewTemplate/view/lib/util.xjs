@@ -74,7 +74,7 @@ this.lfn_IsNullEmpty = function(sValue)
  */
 this.lfn_Nvl = function(inVal, nullVal)
 {
-	if(inVal == null) {
+	if(this.lfn_IsNull(inVal)) {
 		inVal = nullVal;
 	}
 	return inVal;

@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[/******************************************************************************
+*  ViewTemplate
+*  @FileName 	maintain.xjs
+*  @Creator
+*  @CreateDate
+*  @Desction    View Contents 유지관련 함수
+*******************************************************************************/
+//--------------------------------------------------------------------------------------------------------
+// View 객체 값 유지관련 상수
+//--------------------------------------------------------------------------------------------------------	
+this.oAttrViewContentsMaintain =	{
+									"id": "viewcontentsmaintain",
+									"edittype": "Boolean",
+									"defaultvalue": "true",
+									"description": "View 컴포넌트 유지 여부"
+												+ "\n" + "ViewTemplate에서 설정하지 않은 속성 일부를 유지시켜 줍니다."
+												+ "\n" + "(※주의 - View 객체의 속성이 모두 유지되지 않습니다.)"
+								};
+
+//--------------------------------------------------------------------------------------------------------
+// 공통함수
+//--------------------------------------------------------------------------------------------------------	
+/**
+ * @class 기존 ViewContents에서 동일한 컴포넌트 Contents 반환
+ * @param {string} sFieldId - Model Field ID
+ * @param {string} sTag - Component Class ID
+ * @param {string} sId - Component ID
+ * @param {boolean} bInit - 초기화여부(true인 경우 기존 컴포넌트 Contents 반환안하고 기본 태그만 반환)
+ * @return {Object} Component Contents
+ */
+this.lfn_GetUseOrgViewContents = function(bMaintain)
+{
+	if (this.lfn_IsNull(bMaintain))		bMaintain = this.oGenerationAttr.attributes.viewcontentsmaintain;
+	
+	var bUse = false;
+	
+	if (bMaintain == true || bMaintain == "true")			bUse = true;
+	
+	return bUse;
+};
+
+this.lfn_GetObjectContents = function(oTarget, sElem, sKey, sId)
+{
+	var oObject;
+	var oContents;
+	
+	if (this.lfn_IsNotNull(oTarget))
+	{
+		if (this.lfn_IsNotNull(sElem)) {
+			oObject = oTarget[sElem];
+		} else {
+			oObject = oTarget;
+		}
+		
+		oContents = this.lfn_GetMatchObject(oObject, sKey, sId);
+	}
+	
+	return oContents;
+};
+
+this.lfn_GetMatchObject = function(oObject, sKey, sValue)
+{
+	var oRet;
+	
+	if (Array.isArray(oObject)) {
+		oRet = oObject.find(oObject => oObject[sKey]==sValue || (oObject.hasOwnProperty("attribute") && oObject.attribute[sKey]==sValue));
+	} else if (oObject instanceof Object) {
+		for(var elem in oObject){
+			if (elem == sKey && oObject[elem] == sValue)
+			{
+				oRet = oObject;
+				break;
+			}
+			else if (oObject[elem][sKey] == sValue)
+			{
+				oRet = oObject[elem];
+				break;
+			}
+		}
+	}
+	
+	return oRet;
+};
+
+
+this.lfn_GetUserCompContents = function(bInit)
+{
+	if (this.lfn_IsNull(bInit))		bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+	
+	var oModelOrg;
+	var oCompField;
+	
+	if (this.lfn_GetUseOrgViewContents())
+	{
+		oModelOrg = this.oContentsOrg.View.Model;
+		oCompField = oModelOrg.find(oModelOrg=>oModelOrg.fieldid=="");
+	}
+	
+	return oCompField;
+};
+
+/**
+ * @class 기존 ViewContents에서 동일한 컴포넌트 Contents 반환
+ * @param {string} sFieldId - Model Field ID
+ * @param {string} sTag - Component Class ID
+ * @param {string} sId - Component ID
+ * @param {boolean} bInit - 초기화여부(true인 경우 기존 컴포넌트 Contents 반환안하고 기본 태그만 반환)
+ * @return {Object} Component Contents
+ */
+this.lfn_GetCompContents = function(sFieldId, sTag, sId, bInit)
+{
+	if (this.lfn_IsNull(bInit))		bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+	
+	var oCompField;
+	var oCompField;
+	var oComp;
+	
+	if (this.lfn_GetUseOrgViewContents())
+	{
+		oModelOrg = this.oContentsOrg.View.Model;
+		oCompField = oModelOrg.find(oModelOrg=>oModelOrg.fieldid==sFieldId);
+	}
+	
+	// ID에 매칭하는 컴포넌트 정보 반환
+	oComp = this.lfn_GetObjectContents(oCompField, "Components", "id", sId);
+	
+	// 매칭되는 정보가 없거나 컴포넌트가 변경된 경우 초기화
+	if (this.lfn_IsNull(oComp) || oComp["tag"] != sTag) {
+		oComp =	{
+					"tag" : sTag,
+					"attribute" : {"id" : sId}
+				};
+	}
+	
+	return oComp;
+};
+
+this.lfn_GetCellContents = function(oBandContents, sId, nCol, nRow, bInit)
+{
+	if (this.lfn_IsNull(bInit))		bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+	
+	var oCell;
+	var oBandCells;
+	
+	if (this.lfn_GetUseOrgViewContents())
+	{
+		if (this.lfn_IsNotNull(oBandContents))
+		{
+			// 1) ID에 매칭하는 Cell 정보 반환
+			if (this.lfn_IsNotNull(sId)) {
+				oCell = this.lfn_GetObjectContents(oBandContents, "Band", "id", sId);
+			}
+			
+			// 2) 사용자가 입력한 정보인 경우 col, row로 찾기
+			if (this.lfn_IsNull(oCell)) {
+				oBandCells = oBandContents["Band"];
+				
+				oCell = oBandCells.find((oBandCells.attribute.hasOwnProperty("col") && oBandCells.attribute["col"]==nCol)
+										&& (oBandCells.attribute.hasOwnProperty("row") && oBandCells.attribute["row"]==nRow));
+			}
+		}
+	}
+	// 3) 해당하는 정보가 없는 경우 빈 Cell정보 반환
+	if (this.lfn_IsNull(oCell)) {
+		oCell = {
+					"tag" : "Cell",
+					"attribute" : {}
+				};
+	}
+	
+	if (this.lfn_IsNotNull(sId))	oCell.attribute["id"]	= sId;
+	if (this.lfn_IsNotNull(nCol))	oCell.attribute["col"]	= nCol;
+	if (this.lfn_IsNotNull(nRow))	oCell.attribute["row"]	= nRow;
+	
+	return oCell;
+};
+
+
+/**
+ * @class 기존 ViewContents에서 Chart Contents 반환
+ * @param {Object} oChartContents - Chart Contents
+ * @param {string} oBaseContents - 기존 데이터 없을때 기본 Contents
+ * @param {string} sId - oChartContents에서 Sub Contents ID
+ * @return {Object} Chart Sub Contents
+ */
+this.lfn_GetChartContents = function(oChartContents, oBaseContents, sId, bInit)
+{
+    if (this.lfn_IsNull(sId))        sId = oBaseContents["id"];
+    if (this.lfn_IsNull(bInit))        bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+    
+    var oContents;
+    
+    if (this.lfn_GetUseOrgViewContents())
+    {
+        if (this.lfn_IsNotNull(oChartContents))
+        {
+            oContents = this.lfn_GetMatchObject(oChartContents, "id", sId);
+        }
+    }
+    
+    if (this.lfn_IsNull(oContents))
+    {
+        oContents = this.lfn_CloneObject(oBaseContents);
+    }
+    
+    return oContents;
+};
+
+this.lfn_GetUserCompChartContents = function(oChartContents, sTag, bInit)
+{
+    if (this.lfn_IsNull(bInit))        bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+    
+    var aAllContents;
+    var aUserContents;
+    
+    if (this.lfn_GetUseOrgViewContents())
+    {
+        if (this.lfn_IsNotNull(oChartContents) && this.lfn_IsNotNull(sTag))
+        {
+            aAllContents = oChartContents[sTag];
+            aUserContents = aAllContents.filter(oContents => oContents.hasOwnProperty("fieldid") == false);
+        }
+    }
+    
+    return aUserContents;
+};]]></Script>
