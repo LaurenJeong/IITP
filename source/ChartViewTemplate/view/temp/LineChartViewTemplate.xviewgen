@@ -19,13 +19,28 @@
 include "view_lib::util.xjs";
 include "view_lib::common.xjs";
 include "view_lib::chart.xjs";
+include "view_lib::maintain.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
+//-----------------------------------------------------------------------------------------------
+// View 관련 상수
+//-----------------------------------------------------------------------------------------------
 // View 여백
-this.VIEW_PADDING = "20";
+this.VIEW_PADDING = "";
+//-----------------------------------------------------------------------------------------------
 
-this.SERIES_LINE_STYLE = "1px solid";				// 시리즈 선 스타일			
+//-----------------------------------------------------------------------------------------------
+// LineChartViewTemplate 변수
+//-----------------------------------------------------------------------------------------------
+this.SERIES_LINE_STYLE = "1px solid";				// 시리즈 선 스타일
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// ViewTemplate 공통변수(변경불가)
+//-----------------------------------------------------------------------------------------------
+this.CHART_CLASS_ID = "BasicChart";
+//-----------------------------------------------------------------------------------------------		
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -214,7 +229,8 @@ fn_GetViewAttributeList = function() {
                                 "enumlist" : ["none", "lefttop", "centertop", "righttop", "leftmiddle", "centermiddle", "rightmiddle", "leftbottom", "centerbottom", "rightbottom"],
                                 "description": "값 표시 위치"
                             }
-							, this.oAttrViewPadding
+							, this.oAttrViewPadding						// View 여백(사용안하는 경우 주석)
+							, this.oAttrViewContentsMaintain            // 컴포넌트 컨텐츠 유지 여부
                         ]
                   };
 				  
@@ -296,6 +312,8 @@ fn_GetModel = function(){
 	var oChartAttr = {};
 	var oTitle = {};
 	var oLegend = {};
+	var oTooltip = {};
+    var oBoard = {};
 	
 	var sTitletext = this.oGenerationAttr.attributes.titletext;
 	var sSubTitletext = this.oGenerationAttr.attributes.subtitletext;
@@ -348,8 +366,18 @@ fn_GetModel = function(){
 		}
     }
 	
+	sFieldId = arrField.join(",");
+	
 	// 차트 기본속성 셋팅
-	oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	var oChartOrg = this.lfn_GetCompContents(sFieldId, this.CHART_CLASS_ID, this.oBaseChartAttr.id);
+	var oChartContentsOrg;
+	
+	if (oChartOrg.hasOwnProperty(this.CHART_CLASS_ID)) {
+		oChartAttr = oChartOrg["attribute"];
+		oChartContentsOrg = oChartOrg[this.CHART_CLASS_ID][0]["value"];
+	} else {
+		oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	}
 	
 	// View 여백 설정
 	oChartAttr["left"] = this.VIEW_PADDING_LEFT;
@@ -361,7 +389,7 @@ fn_GetModel = function(){
 	oChartAttr["enableanimation"] = this.oGenerationAttr.attributes.enableanimation;
 	
 	// 타이틀설정
-	oTitle = this.lfn_CloneObject(this.oBaseTitle);
+	oTitle = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseTitle);
 	if (this.lfn_IsNotNull(sTitletext) || this.lfn_IsNotNull(sSubTitletext)) {
 		oTitle["text"] = sTitletext;
 		oTitle["subtext"] = sSubTitletext;
@@ -370,12 +398,18 @@ fn_GetModel = function(){
 	}
 				
 	// 범례 설정
-	oLegend = this.lfn_CloneObject(this.oBaseLegend);
+	oLegend = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseLegend);
 	if (this.lfn_IsNotNull(sLegendPosition) && sLegendPosition != "none")
 	{
 		oLegend["align"] = sLegendPosition;
 		oLegend["visible"] = true;
 	}
+	
+	// 툴팁 설정
+	oTooltip = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseTooltip);
+	
+	// Board 설정
+	oBoard = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseBoard);
 	
 	// 카테고리 설정
 	if(this.lfn_IsNull(oCategoryField)) {
@@ -387,11 +421,11 @@ fn_GetModel = function(){
 	//차트 컴포넌트 추가
 	var oModel = this.oContents.View.Model;
     oModel[oModel.length] = {
-            "fieldid" : arrField.join(","),
+            "fieldid" : sFieldId,
             "Components" :
             [
                 {
-                    "tag" : "BasicChart",
+                    "tag" : this.CHART_CLASS_ID,
                     "attribute" : oChartAttr,
                     "BasicChart" :
                     [
@@ -400,11 +434,11 @@ fn_GetModel = function(){
 							"value"	: {
 								"title" 		: oTitle,
 								"legend" 		: oLegend,
-								"tooltip" 		: this.oBaseTooltip,
-								"board" 		: this.oBaseBoard,
-								"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField),
-								"valueaxes" 	: fn_GetValueAxes(arrAxisYField,arrAxisY1Field,arrAxisY2Field),
-								"seriesset" 	: fn_GetSeries(arrSeriesField)
+								"tooltip" 		: oTooltip,
+								"board" 		: oBoard,
+								"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField,oChartContentsOrg),
+								"valueaxes" 	: fn_GetValueAxes(arrAxisYField,arrAxisY1Field,arrAxisY2Field,oChartContentsOrg),
+								"seriesset" 	: fn_GetSeries(arrSeriesField,oChartContentsOrg)
 							}
                         }
                     ]
@@ -417,7 +451,7 @@ fn_GetModel = function(){
 };
 
 // 카테고리 축 설정
-fn_GetCategoryAxes = function(oCategoryField)
+fn_GetCategoryAxes = function(oCategoryField, oChartContentsOrg)
 {
 	var sAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.categoryaxistitletext);
 	
@@ -427,11 +461,12 @@ fn_GetCategoryAxes = function(oCategoryField)
 	
 	// 카테고리축 추가
 	oCategoryAxes = {};
-	oCategoryAxes = this.lfn_CloneObject(this.oBaseCategoryaxis);
+	oCategoryAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseCategoryaxis);
 	oCategoryAxes["titletext"] = this.lfn_Trim(sAxisTitleText);
 	
 	if(this.lfn_IsNotNull(oCategoryField)) {
 		arrMaskInfo = this.lfn_GetDataTypeMask(oCategoryField.datatype);
+		oCategoryAxes["fieldid"] = oCategoryField.id;
 		oCategoryAxes["labelmask"] = arrMaskInfo[0];
 		oCategoryAxes["labeltype"] = arrMaskInfo[1];
 	}
@@ -440,7 +475,7 @@ fn_GetCategoryAxes = function(oCategoryField)
 };
 
 // 데이터 축 설정
-fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
+fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field, oChartContentsOrg)
 {
 	var sAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.valueaxistitletext);
 	var arrAxisTitleText = sAxisTitleText.split(",");
@@ -450,11 +485,13 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
 	
 	var arrMaskInfo = new Array();
 	var oFieldy, oFieldy1, oFieldy2;
+	var sValueAxesId;
 	
 	// 기본y축 추가
 	oValueAxes = {};
-	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
-	oValueAxes["id"] = "valueaxis" + "y";
+	sValueAxesId = "valueaxis" + "y";
+	oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis,"valueaxes",sValueAxesId);
+	oValueAxes["id"] = sValueAxesId;
 	oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[0]);
 	
 	if (arrAxisYField.length == 0) {
@@ -462,6 +499,7 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
 	} else {
 		oFieldy = arrAxisYField[0];				// 첫번째 시리즈 기준으로 축값 설정
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy.datatype);
+		oValueAxes["fieldid"] = oFieldy.id;
 		oValueAxes["labelmask"] = arrMaskInfo[0];
 		oValueAxes["labeltype"] = arrMaskInfo[1];
 	}
@@ -474,8 +512,10 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy1.datatype);
 		
 		oValueAxes = {};
-		oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis2);
-		oValueAxes["id"] = "valueaxis" + "y1";
+		sValueAxesId = "valueaxis" + "y1";
+		oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis2,"valueaxes",sValueAxesId);
+		oValueAxes["id"] = sValueAxesId;
+		oValueAxes["fieldid"] = oFieldy1.id;
 		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[1]);
 		oValueAxes["labelmask"] = arrMaskInfo[0];
 		oValueAxes["labeltype"] = arrMaskInfo[1];
@@ -489,20 +529,26 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy2.datatype);
 		
 		oValueAxes = {};
-		oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis2);
-		oValueAxes["id"] = "valueaxis" + "y2";
+		sValueAxesId = "valueaxis" + "y2";
+		oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis2,"valueaxes",sValueAxesId);
+		oValueAxes["id"] = sValueAxesId;
+		oValueAxes["fieldid"] = oFieldy2.id;
 		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[2]);
 		oValueAxes["labelmask"] = arrMaskInfo[0];
 		oValueAxes["labeltype"] = arrMaskInfo[1];
 		
 		arrValueAxes.push(oValueAxes);
 	}
+	
+	// 사용자 추가 valueaxes를 추가
+	var aUserContents = this.lfn_GetUserCompChartContents(oChartContentsOrg, "valueaxes");
+	if (this.lfn_IsNotNull(aUserContents))	arrValueAxes = arrValueAxes.concat(aUserContents);
 
     return arrValueAxes;
 }
 
 // 시리즈 셋팅
-fn_GetSeries = function(arrSeriesField)
+fn_GetSeries = function(arrSeriesField, oChartContentsOrg)
 {
 	var sLineType = this.oGenerationAttr.attributes.linetype;
 	var bVisiblePoint = this.oGenerationAttr.attributes.visiblepoint;
@@ -513,6 +559,7 @@ fn_GetSeries = function(arrSeriesField)
 	var oSeries;
 	
 	var oField;
+	var sSeriesId;
 	
 	var arrMaskInfo = new Array();
 	
@@ -522,12 +569,14 @@ fn_GetSeries = function(arrSeriesField)
 	for(var i=0;i<nCount;i++)
 	{
 		oField = arrSeriesField[i];
+		sSeriesId = this.lfn_GetCompId("series" + " " + oField.id);
 		
 		oSeries = {};
-		oSeries = this.lfn_CloneObject(this.oBaseSeriesLine);
-		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
+		oSeries = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseSeriesLine,"seriesset",sSeriesId);
+		oSeries["id"] = sSeriesId;
 		oSeries["titletext"] = oField.label;
 		oSeries["valuecolumn"] = "bind:" + oField.id;
+		oSeries["fieldid"] = oField.id;
 		
 		// [LineChart] 선유형설정
 		oSeries["linetype"] = sLineType;
@@ -566,6 +615,10 @@ fn_GetSeries = function(arrSeriesField)
 		
 		arrSeries.push(oSeries);
 	}
+	
+	// 사용자 추가 seriesset를 추가
+	var aUserContents = this.lfn_GetUserCompChartContents(oChartContentsOrg, "seriesset");
+	if (this.lfn_IsNotNull(aUserContents))	arrSeries = arrSeries.concat(aUserContents);
 	
     return arrSeries;
 }
