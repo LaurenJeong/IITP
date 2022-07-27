@@ -19,6 +19,7 @@
  ************************************************************************************************/
 include "view_lib::util.xjs";
 include "view_lib::common.xjs";
+include "view_lib::maintain.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
@@ -213,7 +214,7 @@ fn_GetViewAttributeList = function() {
                                 "defaultvalue": this.LINE_SPACE,
                                 "description": "컴포넌트간 세로 간격(px)"
                             }
-							, this.oAttrViewInitialization			// 컴포넌트 초기화 여부
+							, this.oAttrViewContentsMaintain			// 컴포넌트 컨텐츠 유지 여부
                         ]
                   };
 	
