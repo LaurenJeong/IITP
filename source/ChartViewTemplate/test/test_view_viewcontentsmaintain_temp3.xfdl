@@ -8,122 +8,125 @@
             <Layout>
               <BasicChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month" onseriesclick="View00_chart_onseriesclick">
                 <Contents><![CDATA[{
-	"title": {
-		"id": "title",
-		"textfont": "normal 700 17px/normal 'Malgun Gothic'",
-		"padding": "0px 0px 5px",
-		"subtextcolor": "gray",
-		"subtextfont": "italic 8/normal 'Malgun Gothic'",
-		"visible": false
-	},
-	"legend": {
-		"id": "legend",
-		"padding": "3px 10px 3px 10px",
-		"itemtextfont": "9pt 'Malgun Gothic'",
-		"itemtextcolor": "#4c4c4c",
-		"itemautofit": true,
-		"markertextgap": "5",
-		"markertype": "circle",
-		"verticalitemgap": "5",
-		"linestyle": "1px dashed #4c4c4c",
-		"visible": true,
-		"align": "rightcenter",
-		"background": "red"
-	},
-	"tooltip": {
-		"id": "tooltip",
-		"background": "#4b4b4b",
-		"linestyle": "0px none",
-		"textcolor": "white",
-		"textfont": "10pt/normal 'Malgun Gothic'",
-		"padding": "5px"
-	},
-	"board": {
-		"id": "board"
-	},
-	"categoryaxis": {
-		"id": "categoryaxis",
-		"titletextcolor": "#4c4c4c",
-		"titletextfont": "bold 9pt 'Malgun Gothic'",
-		"labeltextcolor": "green",
-		"labeltextfont": "9pt 'Malgun Gothic'",
-		"axislinestyle": "1px solid #525252",
-		"ticklinestyle": "1px solid #525252",
-		"boardlinestyle": "1px solid #d0d0d0",
-		"ticksize": "5",
-		"labelgap": "5",
-		"titletext": "",
-		"fieldid": "Month",
-		"labelmask": "",
-		"labeltype": "normal"
-	},
-	"valueaxes": [
-		{
-			"id": "valueaxisy",
-			"boardlinevisible": true,
-			"boardlinestyle": "1px solid #d0d0d0",
-			"titletextcolor": "#4c4c4c",
-			"titletextfont": "bold 9pt 'Malgun Gothic'",
-			"labeltextcolor": "blue",
-			"labeltextfont": "9pt/normal 'Malgun Gothic'",
-			"ticklinestyle": "1px solid #525252",
-			"axislinestyle": "1px solid #525252",
-			"labelgap": "5",
-			"ticksize": "5",
-			"autotickscale": "10",
-			"titletext": "",
-			"fieldid": "Seoul",
-			"labelmask": "",
-			"labeltype": "number",
-			"tickinterval": "20"
-		}
-	],
-	"seriesset": [
-		{
-			"barvisible": true,
-			"barsize": "75",
-			"barlinestyle": "1px solid #1f77b4",
-			"itemtextcolor": "#4c4c4c",
-			"itemtextfont": "9pt 'Malgun Gothic'",
-			"baritemtextgap": 5,
-			"id": "seriesSeoul",
-			"titletext": "서울지점",
-			"valuecolumn": "bind:Seoul",
-			"fieldid": "Seoul",
-			"barfillstyle": "#1f77b4",
-			"itemtextvisible": false,
-			"selecttype": "select"
-		},
-		{
-			"barvisible": true,
-			"barsize": "75",
-			"barlinestyle": "1px solid #ff7f0e",
-			"itemtextcolor": "#4c4c4c",
-			"itemtextfont": "9pt 'Malgun Gothic'",
-			"baritemtextgap": 5,
-			"id": "seriesBusan",
-			"titletext": "부산지점",
-			"valuecolumn": "bind:Busan",
-			"fieldid": "Busan",
-			"barfillstyle": "#ff7f0e",
-			"itemtextvisible": false
-		},
-		{
-			"barvisible": true,
-			"barsize": "75",
-			"barlinestyle": "1px solid #2ca02c",
-			"itemtextcolor": "#4c4c4c",
-			"itemtextfont": "9pt 'Malgun Gothic'",
-			"baritemtextgap": 5,
-			"id": "seriesGwangju",
-			"titletext": "광주지점",
-			"valuecolumn": "bind:Gwangju",
-			"fieldid": "Gwangju",
-			"barfillstyle": "#2ca02c",
-			"itemtextvisible": false
-		}
-	]
-}]]></Contents>
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter",
+										"background" : "red"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 9pt 'Malgun Gothic'",
+										"labeltextcolor" : "green",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "",
+										"fieldid" : "Month",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "blue",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "",
+											"fieldid" : "Seoul",
+											"labelmask" : "",
+											"labeltype" : "number",
+											"tickinterval" : "20"
+										}
+									],
+									"seriesset" : [
+										{
+											"barvisible" : true,
+											"barsize" : "75",
+											"barlinestyle" : "1px solid #1f77b4",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"baritemtextgap" : 5,
+											"id" : "seriesSeoul",
+											"titletext" : "서울지점",
+											"valuecolumn" : "bind:Seoul",
+											"fieldid" : "Seoul",
+											"barfillstyle" : "#1f77b4",
+											"itemtextvisible" : false,
+											"selecttype" : "select"
+										},
+										{
+											"barvisible" : true,
+											"barsize" : "75",
+											"barlinestyle" : "1px solid #ff7f0e",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"baritemtextgap" : 5,
+											"id" : "seriesBusan",
+											"titletext" : "부산지점",
+											"valuecolumn" : "bind:Busan",
+											"fieldid" : "Busan",
+											"barfillstyle" : "#ff7f0e",
+											"itemtextvisible" : false
+										},
+										{
+											"barvisible" : true,
+											"barsize" : "75",
+											"barlinestyle" : "1px solid #2ca02c",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"baritemtextgap" : 5,
+											"id" : "seriesGwangju",
+											"titletext" : "광주지점",
+											"valuecolumn" : "bind:Gwangju",
+											"fieldid" : "Gwangju",
+											"barfillstyle" : "#2ca02c",
+											"itemtextvisible" : false
+										},
+										{
+											"id" : "series3"
+										}
+									]
+								}]]></Contents>
               </BasicChart>
             </Layout>
           </Layouts>
@@ -293,6 +296,9 @@
 											"linestyle" : "1px solid #2ca02c",
 											"pointfillstyle" : "#2ca02c",
 											"itemtextvisible" : false
+										},
+										{
+											"id" : "series3"
 										}
 									]
 								}]]></Contents>
@@ -693,6 +699,9 @@
 											"pointfillstyle" : "#2ca02c",
 											"itemtextvisible" : false,
 											"valueaxis" : "valueaxisy2"
+										},
+										{
+											"id" : "series3"
 										}
 									]
 								}]]></Contents>

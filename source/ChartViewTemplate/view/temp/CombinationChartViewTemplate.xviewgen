@@ -441,34 +441,27 @@ fn_GetModel = function(){
 		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
 	}
 	
+	// 차트 컨텐츠
+	var oChartContents = { "tag" : this.CHART_CLASS_ID, "attribute" : oChartAttr};
+	oChartContents[this.CHART_CLASS_ID] = [
+												{
+													"tag"	: "Contents",
+													"value"	: {
+														"title" 		: oTitle,
+														"legend" 		: oLegend,
+														"tooltip" 		: oTooltip,
+														"board" 		: oBoard,
+														"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField,oChartContentsOrg),
+														"valueaxes" 	: fn_GetValueAxes(arrAxisYField,arrAxisY1Field,arrAxisY2Field,oChartContentsOrg),
+														"seriesset" 	: fn_GetSeries(arrSeriesField,oChartContentsOrg)
+													}
+												}
+											];
+	
 	//차트 컴포넌트 추가
 	var oModel = this.oContents.View.Model;
-    oModel[oModel.length] = {
-            "fieldid" : sFieldId,
-            "Components" :
-            [
-                {
-                    "tag" : this.CHART_CLASS_ID,
-                    "attribute" : oChartAttr,
-                    "BasicChart" :
-                    [
-                        {
-                            "tag"	: "Contents",
-							"value"	: {
-								"title" 		: oTitle,
-								"legend" 		: oLegend,
-								"tooltip" 		: oTooltip,
-								"board" 		: oBoard,
-								"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField,oChartContentsOrg),
-								"valueaxes" 	: fn_GetValueAxes(arrAxisYField,arrAxisY1Field,arrAxisY2Field,oChartContentsOrg),
-								"seriesset" 	: fn_GetSeries(arrSeriesField,oChartContentsOrg)
-							}
-                        }
-                    ]
-                }
-            ]
-        }
-
+    oModel[oModel.length] = { "fieldid" : sFieldId, "Components" : [oChartContents]};
+	
 	//생성할 Model 정보 리턴
     return oModel;
 };
