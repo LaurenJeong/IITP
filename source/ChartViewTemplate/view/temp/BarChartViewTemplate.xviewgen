@@ -226,7 +226,7 @@ fn_GetViewAttributeList = function() {
                                 "enumlist" : ["none", "start", "middle", "end", "outside"],
                                 "description": "값 표시 위치"
                             }
-							, this.oAttrViewPadding
+							, this.oAttrViewPadding						// View 여백(사용안하는 경우 주석)
 							, this.oAttrViewContentsMaintain            // 컴포넌트 컨텐츠 유지 여부
                         ]
                   };
@@ -508,9 +508,9 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field, oChartC
 	var sValueAxesId;
 	
 	// 기본y축 추가
-	sValueAxesId = "valueaxis" + "y";
 	oValueAxes = {};
-	oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis,sValueAxesId);
+	sValueAxesId = "valueaxis" + "y";
+	oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis,"valueaxes",sValueAxesId);
 	oValueAxes["id"] = sValueAxesId;
 	oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[0]);
 	
@@ -531,9 +531,9 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field, oChartC
 		oFieldy1 = arrAxisY1Field[0];			// 첫번째 시리즈 기준으로 축값 설정
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy1.datatype);
 		
-		sValueAxesId = "valueaxis" + "y1";
 		oValueAxes = {};
-		oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis2,sValueAxesId);
+		sValueAxesId = "valueaxis" + "y1";
+		oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis2,"valueaxes",sValueAxesId);
 		oValueAxes["id"] = sValueAxesId;
 		oValueAxes["fieldid"] = oFieldy1.id;
 		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[1]);
@@ -548,9 +548,9 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field, oChartC
 		oFieldy2 = arrAxisY2Field[0];			// 첫번째 시리즈 기준으로 축값 설정
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy2.datatype);
 		
-		sValueAxesId = "valueaxis" + "y2";
 		oValueAxes = {};
-		oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis2,sValueAxesId);
+		sValueAxesId = "valueaxis" + "y2";
+		oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis2,"valueaxes",sValueAxesId);
 		oValueAxes["id"] = sValueAxesId;
 		oValueAxes["fieldid"] = oFieldy2.id;
 		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[2]);
@@ -562,8 +562,8 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field, oChartC
 	
 	// 사용자 추가 valueaxes를 추가
 	var aUserContents = this.lfn_GetUserCompChartContents(oChartContentsOrg, "valueaxes");
-	if (this.lfn_IsNotNull(aUserContents))	arrValueAxes.push(aUserContents);
-
+	if (this.lfn_IsNotNull(aUserContents))	arrValueAxes = arrValueAxes.concat(aUserContents);
+	
     return arrValueAxes;
 }
 
@@ -577,6 +577,7 @@ fn_GetSeries = function(arrSeriesField, oChartContentsOrg)
 	var oSeries;
 	
 	var oField;
+	var sSeriesId;
 	
 	var arrMaskInfo = new Array();
 	
@@ -591,10 +592,11 @@ fn_GetSeries = function(arrSeriesField, oChartContentsOrg)
 	for(var i=0;i<nCount;i++)
 	{
 		oField = arrSeriesField[i];
+		sSeriesId = this.lfn_GetCompId("series" + " " + oField.id);
 		
 		oSeries = {};
-		oSeries = this.lfn_CloneObject(this.oBaseSeriesBar);
-		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
+		oSeries = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseSeriesBar,"seriesset",sSeriesId);
+		oSeries["id"] = sSeriesId;
 		oSeries["titletext"] = oField.label;
 		oSeries["valuecolumn"] = "bind:" + oField.id;
 		oSeries["fieldid"] = oField.id;
@@ -644,7 +646,7 @@ fn_GetSeries = function(arrSeriesField, oChartContentsOrg)
 	
 	// 사용자 추가 seriesset를 추가
 	var aUserContents = this.lfn_GetUserCompChartContents(oChartContentsOrg, "seriesset");
-	if (this.lfn_IsNotNull(aUserContents))	arrSeries.push(aUserContents);
+	if (this.lfn_IsNotNull(aUserContents))	arrSeries = arrSeries.concat(aUserContents);
 	
     return arrSeries;
 }

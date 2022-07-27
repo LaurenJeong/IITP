@@ -184,18 +184,25 @@ this.lfn_GetCellContents = function(oBandContents, sId, nCol, nRow, bInit)
  * @param {string} sId - oChartContents에서 Sub Contents ID
  * @return {Object} Chart Sub Contents
  */
-this.lfn_GetChartContents = function(oChartContents, oBaseContents, sId, bInit)
+this.lfn_GetChartContents = function(oChartContents, oBaseContents, sElem, sValue, bInit)
 {
-    if (this.lfn_IsNull(sId))        sId = oBaseContents["id"];
-    if (this.lfn_IsNull(bInit))        bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+	if (this.lfn_IsNull(sValue))		sValue = oBaseContents["id"];
+	if (this.lfn_IsNull(bInit))			bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
     
-    var oContents;
+	var oObject;
+	var oContents;
     
     if (this.lfn_GetUseOrgViewContents())
     {
         if (this.lfn_IsNotNull(oChartContents))
         {
-            oContents = this.lfn_GetMatchObject(oChartContents, "id", sId);
+			if (this.lfn_IsNotNull(sElem)) {
+				oObject = oChartContents[sElem];
+			} else {
+				oObject = oChartContents;
+			}
+		
+            oContents = this.lfn_GetMatchObject(oObject, "id", sValue);
         }
     }
     
