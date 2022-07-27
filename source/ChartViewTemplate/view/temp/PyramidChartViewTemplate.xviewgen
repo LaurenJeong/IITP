@@ -21,11 +21,22 @@
 include "view_lib::util.xjs";
 include "view_lib::common.xjs";
 include "view_lib::chart.xjs";
+include "view_lib::maintain.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
+//-----------------------------------------------------------------------------------------------
+// View 관련 상수
+//-----------------------------------------------------------------------------------------------
 // View 여백
-this.VIEW_PADDING = "20";
+this.VIEW_PADDING = "";
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// ViewTemplate 공통변수(변경불가)
+//-----------------------------------------------------------------------------------------------
+this.CHART_CLASS_ID = "PyramidChart";
+//-----------------------------------------------------------------------------------------------
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -189,7 +200,8 @@ fn_GetViewAttributeList = function() {
                                 "enumlist" : ["none", "left", "center", "right"],
                                 "description": "값 표시 위치"
                             }
-							, this.oAttrViewPadding
+							, this.oAttrViewPadding						// View 여백(사용안하는 경우 주석)
+							, this.oAttrViewContentsMaintain            // 컴포넌트 컨텐츠 유지 여부
                         ]
                   };
 				  
@@ -264,7 +276,8 @@ fn_GetModel = function(){
 	// Chart Attribute
 	var oChartAttr = {};
 	var oTitle = {};
-	var oLegend = {};
+	var oTooltip = {};
+    var oBoard = {};
 	
 	var sChartType = this.oGenerationAttr.attributes.charttype;
 	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
@@ -309,8 +322,18 @@ fn_GetModel = function(){
 		}
     }
 	
+	sFieldId = arrField.join(",");
+	
 	// 차트 기본속성 셋팅
-	oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	var oChartOrg = this.lfn_GetCompContents(sFieldId, this.CHART_CLASS_ID, this.oBaseChartAttr.id);
+	var oChartContentsOrg;
+	
+	if (oChartOrg.hasOwnProperty(this.CHART_CLASS_ID)) {
+		oChartAttr = oChartOrg["attribute"];
+		oChartContentsOrg = oChartOrg[this.CHART_CLASS_ID][0]["value"];
+	} else {
+		oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	}
 	
 	// View 여백 설정
 	oChartAttr["left"] = this.VIEW_PADDING_LEFT;
@@ -327,13 +350,19 @@ fn_GetModel = function(){
 	oChartAttr["enableanimation"] = this.oGenerationAttr.attributes.enableanimation;
 	
 	// 타이틀설정
-	oTitle = this.lfn_CloneObject(this.oBaseTitle);
+	oTitle = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseTitle);
 	if (this.lfn_IsNotNull(sTitletext) || this.lfn_IsNotNull(sSubTitletext)) {
 		oTitle["text"] = sTitletext;
 		oTitle["subtext"] = sSubTitletext;
 		oTitle["align"] = sTitleAlign;
 		oTitle["visible"] = true;
 	}
+	
+	// 툴팁 설정
+	oTooltip = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseTooltip);
+	
+	// Board 설정
+	oBoard = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseBoard);
 	
 	// 카테고리 설정
 	if(this.lfn_IsNull(oCategoryField)) {
@@ -342,37 +371,30 @@ fn_GetModel = function(){
 		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
 	}
 	
+	// 차트 컨텐츠
+	var oChartContents = { "tag" : this.CHART_CLASS_ID, "attribute" : oChartAttr};
+	oChartContents[this.CHART_CLASS_ID] = [
+											{
+												"tag"	: "Contents",
+												"value"	: {
+													"title" 		: oTitle,
+													"tooltip" 		: oTooltip,
+													"board" 		: oBoard,
+													"seriesset" 	: fn_GetSeries(arrSeriesField,oChartContentsOrg)
+												}
+											}
+										];
+	
 	//차트 컴포넌트 추가
 	var oModel = this.oContents.View.Model;
-    oModel[oModel.length] = {
-            "fieldid" : arrField.join(","),
-            "Components" :
-            [
-                {
-                    "tag" : "PyramidChart",
-                    "attribute" : oChartAttr,
-                    "PyramidChart" :
-                    [
-                        {
-                            "tag"	: "Contents",
-							"value"	: {
-								"title" 		: oTitle,
-								"tooltip" 		: this.oBaseTooltip,
-								"board" 		: this.oBaseBoard,
-								"seriesset" 	: fn_GetSeries(arrSeriesField)
-							}
-                        }
-                    ]
-                }
-            ]
-        }
+    oModel[oModel.length] = { "fieldid" : sFieldId, "Components" : [oChartContents]};
 
 	//생성할 Model 정보 리턴
     return oModel;
 };
 
 // 시리즈 셋팅
-fn_GetSeries = function(arrSeriesField)
+fn_GetSeries = function(arrSeriesField,oChartContentsOrg)
 {
 	var sItemTextPosition = this.oGenerationAttr.attributes.itemtextposition;
 	var sGraphHAlign;		// [PyramidChart] 차트의 위치라 sItemTextPosition는 반대로 설정해야함.
@@ -387,6 +409,7 @@ fn_GetSeries = function(arrSeriesField)
 	var oSeries;
 	
 	var oField;
+	var sSeriesId;
 	
 	var arrMaskInfo = new Array();
 	
@@ -396,12 +419,14 @@ fn_GetSeries = function(arrSeriesField)
 	for(var i=0;i<nCount;i++)
 	{
 		oField = arrSeriesField[i];
+		sSeriesId = this.lfn_GetCompId("series" + " " + oField.id);
 		
 		oSeries = {};
-		oSeries = this.lfn_CloneObject(this.oBaseSeriesPyramid);
-		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
+		oSeries = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseSeriesPyramid,"seriesset",sSeriesId);
+		oSeries["id"] = sSeriesId;
 		oSeries["titletext"] = oField.label;
 		oSeries["valuecolumn"] = "bind:" + oField.id;
+		oSeries["fieldid"] = oField.id;
 		
 		// [PyramidChart] 시리즈 색상처리
 		if (nCount == 1)	{				// 시리즈 1개
@@ -425,6 +450,10 @@ fn_GetSeries = function(arrSeriesField)
 		
 		arrSeries.push(oSeries);
 	}
+	
+	// 사용자 추가 seriesset를 추가
+	var aUserContents = this.lfn_GetUserCompChartContents(oChartContentsOrg, "seriesset");
+	if (this.lfn_IsNotNull(aUserContents))	arrSeries = arrSeries.concat(aUserContents);
 	
     return arrSeries;
 }
@@ -578,7 +607,7 @@ fn_GetDsRows = function(){
     var sFieldId;
 
     //로우 개수
-    var nRowCnt = 1;
+    var nRowCnt = 0;
 
     //컬럼 개수
     var nColCnt = this.oFieldArray.fieldcount;
