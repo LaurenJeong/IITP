@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="test_view_viewinitialization_temp3" width="1024" height="720" titletext="BarChart, LineChart, AreaChart, CombinationChart">
+  <Form id="test_view_viewinitialization_temp3" width="1280" height="720" titletext="BarChart, LineChart, AreaChart, CombinationChart">
     <Layouts>
-      <Layout height="720" mobileorientation="landscape" width="1024">
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="17" top="14" width="725" height="217">
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="10" width="600" height="250">
           <Layouts>
             <Layout>
               <BasicChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month" onseriesclick="View00_chart_onseriesclick">
@@ -105,7 +105,7 @@
 											"titletext" : "부산지점",
 											"valuecolumn" : "bind:Busan",
 											"fieldid" : "Busan",
-											"barfillstyle" : "#ff7f0e",
+											"barfillstyle" : "gray",
 											"itemtextvisible" : false
 										},
 										{
@@ -162,7 +162,7 @@
             <Attribute id="viewcontentsmaintain" value="true"/>
           </ViewTemplateInfo>
         </View>
-        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="29" top="238" width="607" height="226">
+        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="650" top="10" width="600" height="250">
           <Layouts>
             <Layout>
               <BasicChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
@@ -274,8 +274,8 @@
 											"fieldid" : "Busan",
 											"linetype" : "segment",
 											"pointvisible" : "true",
-											"linestyle" : "1px solid #ff7f0e",
-											"pointfillstyle" : "#ff7f0e",
+											"linestyle" : "1px solid gray",
+											"pointfillstyle" : "gray",
 											"itemtextvisible" : false
 										},
 										{
@@ -313,9 +313,7 @@
                 <Column id="Busan" type="BIGDECIMAL" size="80"/>
                 <Column id="Gwangju" type="BIGDECIMAL" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">
@@ -339,7 +337,7 @@
             <Attribute id="viewcontentsmaintain" value="true"/>
           </ViewTemplateInfo>
         </View>
-        <View id="View02" taborder="2" text="View02" viewdataset="viewdataset" left="27" top="482" width="545" height="221">
+        <View id="View02" taborder="2" text="View02" viewdataset="viewdataset" left="10" top="300" width="600" height="250">
           <Layouts>
             <Layout>
               <BasicChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
@@ -461,7 +459,7 @@
 											"fieldid" : "Busan",
 											"linetype" : "segment",
 											"linestyle" : "1px solid #ff7f0e",
-											"lineareafillstyle" : "#ff7f0e",
+											"lineareafillstyle" : "gray",
 											"pointfillstyle" : "#ff7f0e",
 											"itemtextvisible" : false
 										},
@@ -500,9 +498,7 @@
                 <Column id="Busan" type="BIGDECIMAL" size="80"/>
                 <Column id="Gwangju" type="BIGDECIMAL" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">
@@ -526,7 +522,7 @@
             <Attribute id="viewcontentsmaintain" value="true"/>
           </ViewTemplateInfo>
         </View>
-        <View id="View03" taborder="3" text="View03" viewdataset="viewdataset" left="10" top="742" width="600" height="188">
+        <View id="View03" taborder="3" text="View03" viewdataset="viewdataset" left="650" top="300" width="600" height="250">
           <Layouts>
             <Layout>
               <BasicChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
@@ -672,7 +668,7 @@
 											"fieldid" : "Busan",
 											"linetype" : "segment",
 											"barfillstyle" : "#ff7f0e",
-											"linestyle" : "1px solid #ff7f0e",
+											"linestyle" : "1px solid gray",
 											"lineareafillstyle" : "#ff7f0e",
 											"pointfillstyle" : "#ff7f0e",
 											"itemtextvisible" : false,
@@ -716,9 +712,7 @@
                 <Column id="Busan" type="BIGDECIMAL" size="80"/>
                 <Column id="Gwangju" type="BIGDECIMAL" size="80"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">

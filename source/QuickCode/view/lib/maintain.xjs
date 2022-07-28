@@ -20,14 +20,42 @@ this.oAttrViewContentsMaintain =	{
 
 //--------------------------------------------------------------------------------------------------------
 // 공통함수
-//--------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------
 /**
- * @class 기존 ViewContents에서 동일한 컴포넌트 Contents 반환
- * @param {string} sFieldId - Model Field ID
- * @param {string} sTag - Component Class ID
- * @param {string} sId - Component ID
- * @param {boolean} bInit - 초기화여부(true인 경우 기존 컴포넌트 Contents 반환안하고 기본 태그만 반환)
- * @return {Object} Component Contents
+ * @class Object에 속성값을 체크하여 없는경우 지정한 값을 리턴
+ * @param {Object} oObject - 체크 할 대상 Object
+ * @param {String} sProperty - 체크 할 대상 Property 명
+ * @param {String} nullVal	- Null인경우 대치값
+ * @return {String} 속성값이 Null인경우 지정한값, Null이 아닌경우 속성값
+ */
+this.lfn_NvlProperty = function(oObject, sProperty, nullVal)
+{
+	var ret;
+	
+	try 
+	{
+		// Property 값이 있는 경우 Property 반환
+		if(this.lfn_IsNotNull(oObject) && oObject.hasOwnProperty(sProperty)) {
+			ret = oObject[sProperty];
+		}
+		
+		// Null인 경우 nullVal값 반환
+		if(this.lfn_IsNull(ret)) {
+			ret = nullVal;
+		}
+	}
+	catch (e) 
+	{
+		return ret;
+	}
+	
+	return ret;
+};
+
+/**
+ * @class 기존 Contents 유지 할지 여부 반환
+ * @param {Boolean} bMaintain - 체크용 값(입력하지 않은 경우 this.oGenerationAttr.attributes.viewcontentsmaintain 사용)
+ * @return {Boolean} Contents 유지 할지 여부
  */
 this.lfn_GetUseOrgViewContents = function(bMaintain)
 {
@@ -40,7 +68,15 @@ this.lfn_GetUseOrgViewContents = function(bMaintain)
 	return bUse;
 };
 
-this.lfn_GetObjectContents = function(oTarget, sElem, sKey, sId)
+/**
+ * @class Contents에서 해당하는 Contents 반환
+ * @param {Object} oTarget - 대상 Contents Object
+ * @param {String} sElem - 부모 Property 명
+ * @param {String} sKey	- 체크 할 Property 명
+ * @param {String} sValue - 체크 할 Property 값
+ * @return {Object} Contents
+ */
+this.lfn_GetObjectContents = function(oTarget, sElem, sKey, sValue)
 {
 	var oObject;
 	var oContents;
@@ -53,12 +89,19 @@ this.lfn_GetObjectContents = function(oTarget, sElem, sKey, sId)
 			oObject = oTarget;
 		}
 		
-		oContents = this.lfn_GetMatchObject(oObject, sKey, sId);
+		oContents = this.lfn_GetMatchObject(oObject, sKey, sValue);
 	}
 	
 	return oContents;
 };
 
+/**
+ * @class Object에 해당하는 Contents 반환
+ * @param {Object} oObject - 대상 Object
+ * @param {String} sKey	- 체크 할 Property 명
+ * @param {String} sValue - 체크 할 Property 값
+ * @return {Object} Contents
+ */
 this.lfn_GetMatchObject = function(oObject, sKey, sValue)
 {
 	var oRet;
@@ -83,14 +126,19 @@ this.lfn_GetMatchObject = function(oObject, sKey, sValue)
 	return oRet;
 };
 
-
-this.lfn_GetUserCompContents = function(bInit)
+/**
+ * @class 사용자가 직접 추가한 컴포넌트 Contents를 반환
+ * @param {Boolean} bMaintain - Contents값 유지여부
+ * @return {Object} Contents
+ */
+this.lfn_GetUserCompContents = function(bMaintain)
 {
-	if (this.lfn_IsNull(bInit))		bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+	if (this.lfn_IsNull(bMaintain))		bMaintain = this.oGenerationAttr.attributes.viewcontentsmaintain;
 	
 	var oModelOrg;
 	var oCompField;
 	
+	// Contents값 유지여부 설정값 체크
 	if (this.lfn_GetUseOrgViewContents())
 	{
 		oModelOrg = this.oContentsOrg.View.Model;
@@ -105,17 +153,18 @@ this.lfn_GetUserCompContents = function(bInit)
  * @param {string} sFieldId - Model Field ID
  * @param {string} sTag - Component Class ID
  * @param {string} sId - Component ID
- * @param {boolean} bInit - 초기화여부(true인 경우 기존 컴포넌트 Contents 반환안하고 기본 태그만 반환)
+ * @param {Boolean} bMaintain - Contents값 유지여부
  * @return {Object} Component Contents
  */
-this.lfn_GetCompContents = function(sFieldId, sTag, sId, bInit)
+this.lfn_GetCompContents = function(sFieldId, sTag, sId, bMaintain)
 {
-	if (this.lfn_IsNull(bInit))		bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+	if (this.lfn_IsNull(bMaintain))		bMaintain = this.oGenerationAttr.attributes.viewcontentsmaintain;
 	
 	var oCompField;
 	var oCompField;
 	var oComp;
 	
+	// Contents값 유지여부 설정값 체크
 	if (this.lfn_GetUseOrgViewContents())
 	{
 		oModelOrg = this.oContentsOrg.View.Model;
@@ -136,13 +185,23 @@ this.lfn_GetCompContents = function(sFieldId, sTag, sId, bInit)
 	return oComp;
 };
 
-this.lfn_GetCellContents = function(oBandContents, sId, nCol, nRow, bInit)
+/**
+ * @class 기존 ViewContents에서 동일한 Cell Contents 반환
+ * @param {Object} oBandContents - Band Contents
+ * @param {String} sId - Cell ID
+ * @param {Number} nCol - 사용자가 입력한 정보인 경우 Column Index
+ * @param {Number} nRow - 사용자가 입력한 정보인 경우 Row Index
+ * @param {Boolean} bMaintain - Contents값 유지여부
+ * @return {Object} Cell Contents
+ */
+this.lfn_GetCellContents = function(oBandContents, sId, nCol, nRow, bMaintain)
 {
-	if (this.lfn_IsNull(bInit))		bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+	if (this.lfn_IsNull(bMaintain))		bMaintain = this.oGenerationAttr.attributes.viewcontentsmaintain;
 	
 	var oCell;
 	var oBandCells;
 	
+	// Contents값 유지여부 설정값 체크
 	if (this.lfn_GetUseOrgViewContents())
 	{
 		if (this.lfn_IsNotNull(oBandContents))
@@ -184,14 +243,15 @@ this.lfn_GetCellContents = function(oBandContents, sId, nCol, nRow, bInit)
  * @param {string} sId - oChartContents에서 Sub Contents ID
  * @return {Object} Chart Sub Contents
  */
-this.lfn_GetChartContents = function(oChartContents, oBaseContents, sElem, sValue, bInit)
+this.lfn_GetChartContents = function(oChartContents, oBaseContents, sElem, sValue, bMaintain)
 {
 	if (this.lfn_IsNull(sValue))		sValue = oBaseContents["id"];
-	if (this.lfn_IsNull(bInit))			bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+	if (this.lfn_IsNull(bMaintain))			bMaintain = this.oGenerationAttr.attributes.viewcontentsmaintain;
     
 	var oObject;
 	var oContents;
     
+	// Contents값 유지여부 설정값 체크
     if (this.lfn_GetUseOrgViewContents())
     {
         if (this.lfn_IsNotNull(oChartContents))
@@ -214,13 +274,21 @@ this.lfn_GetChartContents = function(oChartContents, oBaseContents, sElem, sValu
     return oContents;
 };
 
-this.lfn_GetUserCompChartContents = function(oChartContents, sTag, bInit)
+/**
+ * @class 사용자가 직접 추가한 Chart Element Contents를 반환(fieldid가 없는 경우를 직접 입력한 값으로 구분함)
+ * @param {Object} oChartContents - Chart Contents
+ * @param {string} sTag - oChartContents에서 Sub Contents ID
+ * @param {Boolean} bMaintain - Contents값 유지여부
+ * @return {Object} Contents
+ */
+this.lfn_GetUserCompChartContents = function(oChartContents, sTag, bMaintain)
 {
-    if (this.lfn_IsNull(bInit))        bInit = this.oGenerationAttr.attributes.viewcontentsmaintain;
+    if (this.lfn_IsNull(bMaintain))        bMaintain = this.oGenerationAttr.attributes.viewcontentsmaintain;
     
     var aAllContents;
     var aUserContents;
     
+	// Contents값 유지여부 설정값 체크
     if (this.lfn_GetUseOrgViewContents())
     {
         if (this.lfn_IsNotNull(oChartContents) && this.lfn_IsNotNull(sTag))

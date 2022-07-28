@@ -480,8 +480,8 @@ fn_GetCategoryAxes = function(oCategoryField, oChartContentsOrg)
 	if(this.lfn_IsNotNull(oCategoryField)) {
 		arrMaskInfo = this.lfn_GetDataTypeMask(oCategoryField.datatype);
 		oCategoryAxes["fieldid"] = oCategoryField.id;
-		oCategoryAxes["labelmask"] = arrMaskInfo[0];
-		oCategoryAxes["labeltype"] = arrMaskInfo[1];
+		oCategoryAxes["labelmask"] = this.lfn_NvlProperty(oCategoryAxes, "labelmask", arrMaskInfo[0]);
+		oCategoryAxes["labeltype"] = this.lfn_NvlProperty(oCategoryAxes, "labeltype", arrMaskInfo[1]);
 	}
 	
 	return oCategoryAxes;
@@ -513,8 +513,8 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field, oChartC
 		oFieldy = arrAxisYField[0];				// 첫번째 시리즈 기준으로 축값 설정
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy.datatype);
 		oValueAxes["fieldid"] = oFieldy.id;
-		oValueAxes["labelmask"] = arrMaskInfo[0];
-		oValueAxes["labeltype"] = arrMaskInfo[1];
+		oValueAxes["labelmask"] = this.lfn_NvlProperty(oValueAxes, "labelmask", arrMaskInfo[0]);
+		oValueAxes["labeltype"] = this.lfn_NvlProperty(oValueAxes, "labeltype", arrMaskInfo[1]);
 	}
 	
 	arrValueAxes.push(oValueAxes);
@@ -530,8 +530,8 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field, oChartC
 		oValueAxes["id"] = sValueAxesId;
 		oValueAxes["fieldid"] = oFieldy1.id;
 		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[1]);
-		oValueAxes["labelmask"] = arrMaskInfo[0];
-		oValueAxes["labeltype"] = arrMaskInfo[1];
+		oValueAxes["labelmask"] = this.lfn_NvlProperty(oValueAxes, "labelmask", arrMaskInfo[0]);
+		oValueAxes["labeltype"] = this.lfn_NvlProperty(oValueAxes, "labeltype", arrMaskInfo[1]);
 		
 		arrValueAxes.push(oValueAxes);
 	}
@@ -547,8 +547,8 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field, oChartC
 		oValueAxes["id"] = sValueAxesId;
 		oValueAxes["fieldid"] = oFieldy2.id;
 		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[2]);
-		oValueAxes["labelmask"] = arrMaskInfo[0];
-		oValueAxes["labeltype"] = arrMaskInfo[1];
+		oValueAxes["labelmask"] = this.lfn_NvlProperty(oValueAxes, "labelmask", arrMaskInfo[0]);
+		oValueAxes["labeltype"] = this.lfn_NvlProperty(oValueAxes, "labeltype", arrMaskInfo[1]);
 		
 		arrValueAxes.push(oValueAxes);
 	}
@@ -596,10 +596,10 @@ fn_GetSeries = function(arrSeriesField, oChartContentsOrg)
 		
 		// [BarChart] 시리즈 색상처리
 		if (nCount == 1)	{				// 시리즈 1개
-			oSeries["barfillstyle"] = this.arrBaseChartColor.toString();
+			oSeries["barfillstyle"] = this.lfn_NvlProperty(oSeries, "barfillstyle", this.arrBaseChartColor.toString());
 		} else {
-			oSeries["barfillstyle"] = this.lfn_GetChartColor(i);
-			oSeries["barlinestyle"] = this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i);
+			oSeries["barfillstyle"] = this.lfn_NvlProperty(oSeries, "barfillstyle", this.lfn_GetChartColor(i));
+			oSeries["barlinestyle"] = this.lfn_NvlProperty(oSeries, "barlinestyle", (this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i)));
 		}
 		
 		// 데이터 출력설정
@@ -609,8 +609,8 @@ fn_GetSeries = function(arrSeriesField, oChartContentsOrg)
 			arrMaskInfo = this.lfn_GetDataTypeMask(oField.datatype);
 			
 			oSeries["itemtextvisible"]		= true;
-			oSeries["itemtextmask"]			= arrMaskInfo[0];
-			oSeries["itemtexttype"]			= arrMaskInfo[1];
+			oSeries["itemtextmask"]			= this.lfn_NvlProperty(oSeries, "itemtextmask", arrMaskInfo[0]);
+			oSeries["itemtexttype"]			= this.lfn_NvlProperty(oSeries, "itemtexttype", arrMaskInfo[1]);
 			
 			// [BarChart]
 			oSeries["baritemtextposition"]	= sItemTextPosition;			
@@ -630,7 +630,7 @@ fn_GetSeries = function(arrSeriesField, oChartContentsOrg)
 		
 		// [BarChart] 중복(Overlapping) 차트일떄 일때 사이즈 설정
 		if (sChartDisplay == "overlapping") {
-			oSeries["barsize"] = nBarSizeMax - (i * nBarSizeGap);
+			oSeries["barsize"] = this.lfn_NvlProperty(oSeries, "barsize", (nBarSizeMax - (i * nBarSizeGap)));
 			//this.lfn_Log("barsize : " + oSeries["barsize"]);
 		}
 		
