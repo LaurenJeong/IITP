@@ -21,13 +21,28 @@
 include "view_lib::util.xjs";
 include "view_lib::common.xjs";
 include "view_lib::chart.xjs";
+include "view_lib::maintain.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
+//-----------------------------------------------------------------------------------------------
+// View 관련 상수
+//-----------------------------------------------------------------------------------------------
 // View 여백
-this.VIEW_PADDING = "20";
+this.VIEW_PADDING = "";
+//-----------------------------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------------------------
+// BubbleChartViewTemplate 변수
+//-----------------------------------------------------------------------------------------------
 this.SERIES_LINE_STYLE = "1px solid";				// 시리즈 선 스타일
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// ViewTemplate 공통변수(변경불가)
+//-----------------------------------------------------------------------------------------------
+this.CHART_CLASS_ID = "BubbleChart";
+//-----------------------------------------------------------------------------------------------
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -200,7 +215,8 @@ fn_GetViewAttributeList = function() {
                                 "enumlist" : ["none", "lefttop", "centertop", "righttop", "leftmiddle", "centermiddle", "rightmiddle", "leftbottom", "centerbottom", "rightbottom"],
                                 "description": "값 표시 위치"
                             }
-							, this.oAttrViewPadding
+							, this.oAttrViewPadding						// View 여백(사용안하는 경우 주석)
+							, this.oAttrViewContentsMaintain            // 컴포넌트 컨텐츠 유지 여부
                         ]
                   };
 				  
@@ -280,6 +296,8 @@ fn_GetModel = function(){
 	var oChartAttr = {};
 	var oTitle = {};
 	var oLegend = {};
+	var oTooltip = {};
+    var oBoard = {};
 	
 	var sTitletext = this.oGenerationAttr.attributes.titletext;
 	var sSubTitletext = this.oGenerationAttr.attributes.subtitletext;
@@ -297,7 +315,7 @@ fn_GetModel = function(){
 	var arrSeriesField = new Array(); 
 	
 	var sDisplaytype, sSeriesName;
-	
+	var sFieldId;
 	
 	//차트에서 사용할 모델 Field ID 리스트 만들기
     for(i=0;i<nFieldCount;i++)
@@ -344,8 +362,18 @@ fn_GetModel = function(){
 		}
     }
 	
+	sFieldId = arrField.join(",");
+	
 	// 차트 기본속성 셋팅
-	oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	var oChartOrg = this.lfn_GetCompContents(sFieldId, this.CHART_CLASS_ID, this.oBaseChartAttr.id);
+	var oChartContentsOrg;
+	
+	if (oChartOrg.hasOwnProperty(this.CHART_CLASS_ID)) {
+		oChartAttr = oChartOrg["attribute"];
+		oChartContentsOrg = oChartOrg[this.CHART_CLASS_ID][0]["value"];
+	} else {
+		oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	}
 	
 	// View 여백 설정
 	oChartAttr["left"] = this.VIEW_PADDING_LEFT;
@@ -357,7 +385,7 @@ fn_GetModel = function(){
 	oChartAttr["enableanimation"] = this.oGenerationAttr.attributes.enableanimation;
 	
 	// 타이틀설정
-	oTitle = this.lfn_CloneObject(this.oBaseTitle);
+	oTitle = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseTitle);
 	if (this.lfn_IsNotNull(sTitletext) || this.lfn_IsNotNull(sSubTitletext)) {
 		oTitle["text"] = sTitletext;
 		oTitle["subtext"] = sSubTitletext;
@@ -366,46 +394,45 @@ fn_GetModel = function(){
 	}
 				
 	// 범례 설정
-	oLegend = this.lfn_CloneObject(this.oBaseLegend);
+	oLegend = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseLegend);
 	if (this.lfn_IsNotNull(sLegendPosition) && sLegendPosition != "none")
 	{
 		oLegend["align"] = sLegendPosition;
 		oLegend["visible"] = true;
 	}
 	
+	// 툴팁 설정
+	oTooltip = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseTooltip);
+	
+	// Board 설정
+	oBoard = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseBoard);
+	
+	// 차트 컨텐츠
+	var oChartContents = { "tag" : this.CHART_CLASS_ID, "attribute" : oChartAttr};
+	oChartContents[this.CHART_CLASS_ID] = [
+											{
+												"tag"	: "Contents",
+												"value"	: {
+													"title" 		: oTitle,
+													"legend" 		: oLegend,
+													"tooltip" 		: oTooltip,
+													"board" 		: oBoard,
+													"valueaxes" 	: fn_GetValueAxes(oBubbleField,nSeriesCnt,oChartContentsOrg),
+													"seriesset" 	: fn_GetSeries(oBubbleField,nSeriesCnt,oChartContentsOrg)
+												}
+											}
+										];
+	
 	//차트 컴포넌트 추가
 	var oModel = this.oContents.View.Model;
-    oModel[oModel.length] = {
-            "fieldid" : arrField.join(","),
-            "Components" :
-            [
-                {
-                    "tag" : "BubbleChart",
-                    "attribute" : oChartAttr,
-                    "BubbleChart" :
-                    [
-                        {
-                            "tag"	: "Contents",
-							"value"	: {
-								"title" 		: oTitle,
-								"legend" 		: oLegend,
-								"tooltip" 		: this.oBaseTooltip,
-								"board" 		: this.oBaseBoard,
-								"valueaxes" 	: fn_GetValueAxes(oBubbleField,nSeriesCnt),
-								"seriesset" 	: fn_GetSeries(oBubbleField,nSeriesCnt)
-							}
-                        }
-                    ]
-                }
-            ]
-        }
-
+    oModel[oModel.length] = { "fieldid" : sFieldId, "Components" : [oChartContents]};
+	
 	//생성할 Model 정보 리턴
     return oModel;
 };
 
 // [BubbleChart] 데이터 축 설정
-fn_GetValueAxes = function(oBubbleField,nCount)
+fn_GetValueAxes = function(oBubbleField,nCount,oChartContentsOrg)
 {
 	var sXAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.xaxistitletext);
 	var sYAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.yaxistitletext);
@@ -416,6 +443,7 @@ fn_GetValueAxes = function(oBubbleField,nCount)
 	
 	var sFirstSeriesName, arrFirstBubbleField;
 	var oFieldX, oFieldY;
+	var sValueAxesId;
 	
 	// [BubbleChart] 첫번째 시리즈 기준으로 축생성
 	if (nCount > 0)
@@ -431,40 +459,48 @@ fn_GetValueAxes = function(oBubbleField,nCount)
 	
 	// x축 추가
 	oValueAxes = {};
-	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
-	oValueAxes["id"]		= "valueaxis" + "x";
+	sValueAxesId = "valueaxis" + "x";
+	oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis,"valueaxes",sValueAxesId);
+	oValueAxes["id"] = sValueAxesId;
 	oValueAxes["titletext"]	= this.lfn_Trim(sXAxisTitleText);
 	
 	if (this.lfn_IsNull(oFieldX)) {
 		this.lfn_Log("seriesx가 설정되지 않았습니다.","error");
 	} else {
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldX.datatype);
-		oValueAxes["labelmask"] = arrMaskInfo[0];
-		oValueAxes["labeltype"] = arrMaskInfo[1];
+		oValueAxes["fieldid"] = oFieldy.id;
+		oValueAxes["labelmask"] = this.lfn_NvlProperty(oValueAxes, "labelmask", arrMaskInfo[0]);
+		oValueAxes["labeltype"] = this.lfn_NvlProperty(oValueAxes, "labeltype", arrMaskInfo[1]);
 	}
 	
 	arrValueAxes.push(oValueAxes);
 	
 	// y축 추가
 	oValueAxes = {};
-	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
-	oValueAxes["id"] = "valueaxis" + "y";
+	sValueAxesId = "valueaxis" + "y";
+	oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis,"valueaxes",sValueAxesId);
+	oValueAxes["id"] = sValueAxesId;
 	oValueAxes["titletext"]	= this.lfn_Trim(sYAxisTitleText);
 
 	if (this.lfn_IsNull(oFieldY)) {
 		this.lfn_Log("seriesy가 설정되지 않았습니다.","error");
 	} else {
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldY.datatype);
-		oValueAxes["labelmask"] = arrMaskInfo[0];
-		oValueAxes["labeltype"] = arrMaskInfo[1];
+		oValueAxes["fieldid"] = oFieldy.id;
+		oValueAxes["labelmask"] = this.lfn_NvlProperty(oValueAxes, "labelmask", arrMaskInfo[0]);
+		oValueAxes["labeltype"] = this.lfn_NvlProperty(oValueAxes, "labeltype", arrMaskInfo[1]);
 	}
 	arrValueAxes.push(oValueAxes);
+	
+	// 사용자 추가 valueaxes를 추가
+	var aUserContents = this.lfn_GetUserCompChartContents(oChartContentsOrg, "valueaxes");
+	if (this.lfn_IsNotNull(aUserContents))	arrValueAxes = arrValueAxes.concat(aUserContents);
 
     return arrValueAxes;
 }
 
 // [BubbleChart] 시리즈 셋팅
-fn_GetSeries = function(oBubbleField,nCount)
+fn_GetSeries = function(oBubbleField,nCount,oChartContentsOrg)
 {
 	var sItemTextPosition = this.oGenerationAttr.attributes.itemtextposition;
 	
@@ -508,17 +544,19 @@ fn_GetSeries = function(oBubbleField,nCount)
 		// 한글제거(String으로 입력받은 시리즈명을 기준으로 id설정)
 		sSeriesId = sSeriesName.replace(/[^a-z|0-9]/gi,"");
 		sSeriesId = "series" + this.lfn_Decode(sSeriesId, "", "", "_" + sSeriesId);
+		sSeriesId = this.lfn_GetCompId(sSeriesId);
 		
 		oSeries = {};
-		oSeries = this.lfn_CloneObject(this.oBaseSeriesBubble);
-		oSeries["id"] = this.lfn_GetCompId(sSeriesId);
+		oSeries = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseSeriesBubble,"seriesset",sSeriesId);
+		oSeries["id"] = sSeriesId;
 		oSeries["titletext"] = sSeriesName;
 		oSeries["valuecolumn"] = "bind:" + oFieldSeriesX.id;
 		oSeries["value2column"] = "bind:" + oFieldSeriesY.id;
+		oSeries["fieldid"] = oField.id;
 		
 		// [BubbleChart] 시리즈 색상처리
-		oSeries["fillstyle"] = this.lfn_GetChartColor(i);
-		oSeries["linestyle"] = this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i);
+		oSeries["fillstyle"] = this.lfn_NvlProperty(oSeries, "fillstyle", this.lfn_GetChartColor(i));
+		oSeries["linestyle"] = this.lfn_NvlProperty(oSeries, "linestyle", (this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i)));
 		
 		if (this.lfn_IsNotNull(oFieldSeriesB)) {
 			if (this.lfn_GetDataTypeMask(oFieldSeriesB.datatype)[2] != "number") {
@@ -526,7 +564,7 @@ fn_GetSeries = function(oBubbleField,nCount)
 			}
 		
 			oSeries["value3column"] = "bind:" + oFieldSeriesB.id;
-			oSeries["opacity"] = "0.5";
+			oSeries["opacity"] = this.lfn_NvlProperty(oSeries, "opacity", "0.5");
 		}
 		
 		// 데이터 출력설정
@@ -536,8 +574,8 @@ fn_GetSeries = function(oBubbleField,nCount)
 			arrMaskInfo = this.lfn_GetDataTypeMask(oFieldSeriesX.datatype);
 			
 			oSeries["itemtextvisible"] = true;
-			oSeries["itemtextmask"]			= arrMaskInfo[0];
-			oSeries["itemtexttype"]			= arrMaskInfo[1];
+			oSeries["itemtextmask"]			= this.lfn_NvlProperty(oSeries, "itemtextmask", arrMaskInfo[0]);
+			oSeries["itemtexttype"]			= this.lfn_NvlProperty(oSeries, "itemtexttype", arrMaskInfo[1]);
 			
 			// [BubbleChart]
 			oSeries["itemtextposition"] = sItemTextPosition;
@@ -545,6 +583,10 @@ fn_GetSeries = function(oBubbleField,nCount)
 		
 		arrSeries.push(oSeries);
 	}
+	
+	// 사용자 추가 seriesset를 추가
+	var aUserContents = this.lfn_GetUserCompChartContents(oChartContentsOrg, "seriesset");
+	if (this.lfn_IsNotNull(aUserContents))	arrSeries = arrSeries.concat(aUserContents);
 	
     return arrSeries;
 }

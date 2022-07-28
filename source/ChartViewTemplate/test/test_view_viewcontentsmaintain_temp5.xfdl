@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="test_chart_gauge" width="1280" height="720" titletext="GaugeChart, BarGaugeChart">
+  <Form id="test_chart_gauge" width="1280" height="900" titletext="GaugeChart, BarGaugeChart, BubbleChart">
     <Layouts>
-      <Layout height="720" width="1280">
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="27" top="25" width="437" height="361" background="#e1e1e1">
+      <Layout height="900" width="1280">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="10" width="400" height="360" background="#e1e1e1">
           <Layouts>
             <Layout>
               <GaugeChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" gaugetype="circular" enableanimation="true" categorycolumn="bind:ID_1">
@@ -153,7 +153,7 @@
             <Attribute id="viewcontentsmaintain" value="true"/>
           </ViewTemplateInfo>
         </View>
-        <View id="View03" taborder="3" text="View03" viewdataset="viewdataset" left="473" top="24" width="406" height="363" background="#e1e1e1">
+        <View id="View03" taborder="3" text="View03" viewdataset="viewdataset" left="450" top="10" width="400" height="360" background="#e1e1e1">
           <Layouts>
             <Layout>
               <GaugeChart id="chart" left="10" top="10" right="10" bottom="10" legendspacing="10px" binddataset="viewdataset" gaugetype="circular" enableanimation="true" categorycolumn="bind:ID_1">
@@ -301,7 +301,7 @@
             <Attribute id="viewcontentsmaintain" value="true"/>
           </ViewTemplateInfo>
         </View>
-        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="931" top="27" width="190" height="392" background="#e1e1e1">
+        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="900" top="10" width="190" height="360" background="#e1e1e1">
           <Layouts>
             <Layout>
               <GaugeChart id="chart" left="10" top="10" right="10" bottom="10" legendspacing="10px" binddataset="viewdataset" gaugetype="vertical" enableanimation="true" categorycolumn="bind:ID_2">
@@ -443,7 +443,7 @@
             <Attribute id="viewcontentsmaintain" value="true"/>
           </ViewTemplateInfo>
         </View>
-        <View id="View02" taborder="2" text="View02" viewdataset="viewdataset" left="35" top="480" width="626" height="220" background="#e1e1e1">
+        <View id="View02" taborder="2" text="View02" viewdataset="viewdataset" left="10" top="400" width="600" height="220" background="#e1e1e1">
           <Layouts>
             <Layout>
               <GaugeChart id="chart" left="10" top="10" right="10" bottom="10" legendspacing="10px" binddataset="viewdataset" gaugetype="horizontal" enableanimation="true" categorycolumn="bind:ID_TOT">
@@ -585,6 +585,312 @@
             <Attribute id="viewcontentsmaintain" value="true"/>
           </ViewTemplateInfo>
         </View>
+        <View id="View04" taborder="4" text="View04" viewdataset="viewdataset" left="650" top="400" width="600" height="220" background="#e1e1e1">
+          <Layouts>
+            <Layout>
+              <BubbleChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" enableanimation="true">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter",
+										"background" : "red"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisx",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "green",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "",
+											"fieldid" : "VALUE_1",
+											"labelmask" : "",
+											"labeltype" : "number"
+										},
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "blue",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "",
+											"fieldid" : "VALUE_1",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"id" : "seriesSeriesname",
+											"titletext" : "seriesname",
+											"valuecolumn" : "bind:AGE",
+											"value2column" : "bind:WEIGHT",
+											"fieldid" : "WEIGHT",
+											"fillstyle" : "#1f77b4",
+											"linestyle" : "1px solid #1f77b4",
+											"itemtextvisible" : false,
+											"selecttype" : "select"
+										},
+										{
+											"id" : "series1"
+										}
+									]
+								}]]></Contents>
+              </BubbleChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ID" type="STRING" size="80"/>
+                <Column id="AGE" type="BIGDECIMAL" size="80"/>
+                <Column id="WEIGHT" type="BIGDECIMAL" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="scattermodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="ID" description="" displaytype="none" seriesname=""/>
+              <Field id="AGE" description="" displaytype="seriesx" seriesname=""/>
+              <Field id="WEIGHT" description="" displaytype="seriesy" seriesname=""/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="ID,AGE,WEIGHT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="BubbleChartViewTemplate.xviewgen">
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="itemtextposition" value="none"/>
+            <Attribute id="viewcontentsmaintain" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View05" taborder="5" text="View05" viewdataset="viewdataset" left="10" top="650" width="600" height="220" background="#e1e1e1">
+          <Layouts>
+            <Layout>
+              <BubbleChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" enableanimation="true">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter",
+										"background" : "red"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisx",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "green",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "",
+											"fieldid" : "VALUE_1",
+											"labelmask" : "",
+											"labeltype" : "number"
+										},
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "blue",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "",
+											"fieldid" : "VALUE_1",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"id" : "series1",
+											"titletext" : "1",
+											"valuecolumn" : "bind:LIFE_EXPECTANCY_1",
+											"value2column" : "bind:FERTILITY_RATE_1",
+											"fieldid" : "POPULATION_3",
+											"fillstyle" : "#1f77b4",
+											"linestyle" : "1px solid #1f77b4",
+											"value3column" : "bind:POPULATION_1",
+											"opacity" : "0.5",
+											"itemtextvisible" : false,
+											"selecttype" : "select"
+										},
+										{
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"id" : "series2",
+											"titletext" : "2",
+											"valuecolumn" : "bind:LIFE_EXPECTANCY_2",
+											"value2column" : "bind:FERTILITY_RATE_2",
+											"fieldid" : "POPULATION_3",
+											"fillstyle" : "#ff7f0e",
+											"linestyle" : "1px solid #ff7f0e",
+											"value3column" : "bind:POPULATION_2",
+											"opacity" : "0.5",
+											"itemtextvisible" : false
+										},
+										{
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"id" : "series3",
+											"titletext" : "3",
+											"valuecolumn" : "bind:LIFE_EXPECTANCY_3",
+											"value2column" : "bind:FERTILITY_RATE_3",
+											"fieldid" : "POPULATION_3",
+											"fillstyle" : "#2ca02c",
+											"linestyle" : "1px solid #2ca02c",
+											"value3column" : "bind:POPULATION_3",
+											"opacity" : "0.5",
+											"itemtextvisible" : false
+										},
+										{
+											"id" : "series4"
+										}
+									]
+								}]]></Contents>
+              </BubbleChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="REGION_1" type="STRING" size="80"/>
+                <Column id="ID_1" type="STRING" size="80"/>
+                <Column id="LIFE_EXPECTANCY_1" type="BIGDECIMAL" size="80"/>
+                <Column id="FERTILITY_RATE_1" type="BIGDECIMAL" size="80"/>
+                <Column id="POPULATION_1" type="BIGDECIMAL" size="80"/>
+                <Column id="REGION_2" type="STRING" size="80"/>
+                <Column id="ID_2" type="STRING" size="80"/>
+                <Column id="LIFE_EXPECTANCY_2" type="BIGDECIMAL" size="80"/>
+                <Column id="FERTILITY_RATE_2" type="BIGDECIMAL" size="80"/>
+                <Column id="POPULATION_2" type="BIGDECIMAL" size="80"/>
+                <Column id="REGION_3" type="STRING" size="80"/>
+                <Column id="ID_3" type="STRING" size="80"/>
+                <Column id="LIFE_EXPECTANCY_3" type="BIGDECIMAL" size="80"/>
+                <Column id="FERTILITY_RATE_3" type="BIGDECIMAL" size="80"/>
+                <Column id="POPULATION_3" type="BIGDECIMAL" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="bubblemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="REGION_1" description="" displaytype="none" seriesname=""/>
+              <Field id="ID_1" description="" displaytype="none" seriesname=""/>
+              <Field id="LIFE_EXPECTANCY_1" description="" displaytype="seriesx" seriesname="1"/>
+              <Field id="FERTILITY_RATE_1" description="" displaytype="seriesy" seriesname="1"/>
+              <Field id="POPULATION_1" description="" displaytype="bubblesize" seriesname="1"/>
+              <Field id="REGION_2" description="" displaytype="none" seriesname=""/>
+              <Field id="ID_2" description="" displaytype="none" seriesname=""/>
+              <Field id="LIFE_EXPECTANCY_2" description="" displaytype="seriesx" seriesname="2"/>
+              <Field id="FERTILITY_RATE_2" description="" displaytype="seriesy" seriesname="2"/>
+              <Field id="POPULATION_2" description="" displaytype="bubblesize" seriesname="2"/>
+              <Field id="REGION_3" description="" displaytype="none" seriesname=""/>
+              <Field id="ID_3" description="" displaytype="none" seriesname=""/>
+              <Field id="LIFE_EXPECTANCY_3" description="" displaytype="seriesx" seriesname="3"/>
+              <Field id="FERTILITY_RATE_3" description="" displaytype="seriesy" seriesname="3"/>
+              <Field id="POPULATION_3" description="" displaytype="bubblesize" seriesname="3"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="REGION_1,ID_1,LIFE_EXPECTANCY_1,FERTILITY_RATE_1,POPULATION_1,REGION_2,ID_2,LIFE_EXPECTANCY_2,FERTILITY_RATE_2,POPULATION_2,REGION_3,ID_3,LIFE_EXPECTANCY_3,FERTILITY_RATE_3,POPULATION_3"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="BubbleChartViewTemplate.xviewgen">
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="itemtextposition" value="none"/>
+            <Attribute id="viewcontentsmaintain" value="true"/>
+          </ViewTemplateInfo>
+        </View>
       </Layout>
     </Layouts>
     <Objects>
@@ -620,12 +926,148 @@
       <DsCopyDataAction id="DsCopyDataAction03" targetview="View03" copytype="replace" fromdataset="dsData" fromview="test_chart">
         <Contents/>
       </DsCopyDataAction>
+      <Dataset id="dsScatter">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="AGE" type="BIGDECIMAL" size="256"/>
+          <Column id="WEIGHT" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="AGE">8</Col>
+            <Col id="WEIGHT">12</Col>
+            <Col id="ID">1</Col>
+          </Row>
+          <Row>
+            <Col id="AGE">4</Col>
+            <Col id="WEIGHT">5.5</Col>
+            <Col id="ID">2</Col>
+          </Row>
+          <Row>
+            <Col id="AGE">11</Col>
+            <Col id="WEIGHT">14</Col>
+            <Col id="ID">3</Col>
+          </Row>
+          <Row>
+            <Col id="AGE">4</Col>
+            <Col id="WEIGHT">5</Col>
+            <Col id="ID">4</Col>
+          </Row>
+          <Row>
+            <Col id="AGE">3</Col>
+            <Col id="WEIGHT">3.5</Col>
+            <Col id="ID">5</Col>
+          </Row>
+          <Row>
+            <Col id="AGE">6.5</Col>
+            <Col id="WEIGHT">7</Col>
+            <Col id="ID">6</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsBubble">
+        <ColumnInfo>
+          <Column id="REGION_1" type="STRING" size="256"/>
+          <Column id="ID_1" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY_1" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_1" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_1" type="BIGDECIMAL" size="256"/>
+          <Column id="REGION_2" type="STRING" size="256"/>
+          <Column id="ID_2" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY_2" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_2" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_2" type="BIGDECIMAL" size="256"/>
+          <Column id="REGION_3" type="STRING" size="256"/>
+          <Column id="ID_3" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY_3" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_3" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_3" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_1">80.66</Col>
+            <Col id="FERTILITY_RATE_1">1.67</Col>
+            <Col id="POPULATION_1">33739900</Col>
+            <Col id="LIFE_EXPECTANCY_2">79.84</Col>
+            <Col id="FERTILITY_RATE_2">1.36</Col>
+            <Col id="POPULATION_2">81902307</Col>
+            <Col id="LIFE_EXPECTANCY_3">72.73</Col>
+            <Col id="FERTILITY_RATE_3">2.78</Col>
+            <Col id="POPULATION_3">79716203</Col>
+            <Col id="ID_1">CAN</Col>
+            <Col id="ID_2">DEU</Col>
+            <Col id="ID_3">EGY</Col>
+            <Col id="REGION_1">North America</Col>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_2">78.6</Col>
+            <Col id="FERTILITY_RATE_2">1.84</Col>
+            <Col id="POPULATION_2">5523095</Col>
+            <Col id="LIFE_EXPECTANCY_3">72.49</Col>
+            <Col id="FERTILITY_RATE_3">1.7</Col>
+            <Col id="POPULATION_3">73137148</Col>
+            <Col id="ID_1">USA</Col>
+            <Col id="LIFE_EXPECTANCY_1">78.09</Col>
+            <Col id="FERTILITY_RATE_1">2.05</Col>
+            <Col id="POPULATION_1">307007000</Col>
+            <Col id="ID_2">DNK</Col>
+            <Col id="ID_3">IRN</Col>
+            <Col id="REGION_1">North America</Col>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_2">80.05</Col>
+            <Col id="FERTILITY_RATE_2">2</Col>
+            <Col id="POPULATION_2">61801570</Col>
+            <Col id="LIFE_EXPECTANCY_3">68.09</Col>
+            <Col id="FERTILITY_RATE_3">4.77</Col>
+            <Col id="POPULATION_3">31090763</Col>
+            <Col id="ID_2">GBR</Col>
+            <Col id="ID_3">IRQ</Col>
+            <Col id="ID_1"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+            <Col id="REGION_1"/>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_3">81.55</Col>
+            <Col id="FERTILITY_RATE_3">2.96</Col>
+            <Col id="POPULATION_3">7485600</Col>
+            <Col id="LIFE_EXPECTANCY_2">68.6</Col>
+            <Col id="FERTILITY_RATE_2">1.54</Col>
+            <Col id="POPULATION_2">141850000</Col>
+            <Col id="ID_2">RUS</Col>
+            <Col id="ID_3">ISR</Col>
+            <Col id="ID_1"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+            <Col id="REGION_1"/>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction03_00" targetview="View04" copytype="replace" fromdataset="dsScatter" fromview="test_chart">
+        <Contents/>
+      </DsCopyDataAction>
+      <DsCopyDataAction id="DsCopyDataAction03_00_00" targetview="View05" copytype="replace" fromdataset="dsBubble" fromview="test_chart">
+        <Contents/>
+      </DsCopyDataAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Form Init" triggerview="test_chart_gauge" triggerobj="test_chart_gauge" targetaction="DsCopyDataAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Form Init" triggerview="test_chart_gauge" triggerobj="test_chart_gauge" targetaction="DsCopyDataAction01" condition=""/>
       <TriggerItem id="item2" triggertype="Form Init" triggerview="test_chart_gauge" triggerobj="test_chart_gauge" targetaction="DsCopyDataAction02" condition=""/>
       <TriggerItem id="item3" triggertype="Form Init" triggerview="test_chart_gauge" triggerobj="test_chart_gauge" targetaction="DsCopyDataAction03" condition=""/>
+      <TriggerItem id="item4" triggertype="Form Init" triggerview="test_chart_gauge" triggerobj="test_chart_gauge" targetaction="DsCopyDataAction03_00" condition=""/>
+      <TriggerItem id="item5" triggertype="Form Init" triggerview="test_chart_gauge" triggerobj="test_chart_gauge" targetaction="DsCopyDataAction03_00_00" condition=""/>
     </Trigger>
   </Form>
 </FDL>
