@@ -19,11 +19,22 @@
 include "view_lib::util.xjs";
 include "view_lib::common.xjs";
 include "view_lib::chart.xjs";
+include "view_lib::maintain.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
+//-----------------------------------------------------------------------------------------------
+// View 관련 상수
+//-----------------------------------------------------------------------------------------------
 // View 여백
-this.VIEW_PADDING = "20";
+this.VIEW_PADDING = "";
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// ViewTemplate 공통변수(변경불가)
+//-----------------------------------------------------------------------------------------------
+this.CHART_CLASS_ID = "GaugeChart";
+//-----------------------------------------------------------------------------------------------
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -249,7 +260,8 @@ fn_GetViewAttributeList = function() {
                                 "enumlist" : ["none", "start", "middle", "end", "gaugecenter"],
                                 "description": "값 표시 위치"
                             }
-							, this.oAttrViewPadding
+							, this.oAttrViewPadding						// View 여백(사용안하는 경우 주석)
+							, this.oAttrViewContentsMaintain            // 컴포넌트 컨텐츠 유지 여부
                         ]
                   };
 				  
@@ -324,6 +336,8 @@ fn_GetModel = function(){
 	var oChartAttr = {};
 	var oTitle = {};
 	var oLegend = {};
+	var oTooltip = {};
+    var oBoard = {};
 	var oIndicator = {};
 	
 	var sIndicator = this.oGenerationAttr.attributes.visibleindicator;
@@ -369,8 +383,18 @@ fn_GetModel = function(){
 		}
     }
 	
+	sFieldId = arrField.join(",");
+	
 	// 차트 기본속성 셋팅
-	oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	var oChartOrg = this.lfn_GetCompContents(sFieldId, this.CHART_CLASS_ID, this.oBaseChartAttr.id);
+	var oChartContentsOrg;
+	
+	if (oChartOrg.hasOwnProperty(this.CHART_CLASS_ID)) {
+		oChartAttr = oChartOrg["attribute"];
+		oChartContentsOrg = oChartOrg[this.CHART_CLASS_ID][0]["value"];
+	} else {
+		oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	}
 	
 	// View 여백 설정
 	oChartAttr["left"] = this.VIEW_PADDING_LEFT;
@@ -382,14 +406,14 @@ fn_GetModel = function(){
 	oChartAttr["gaugetype"] = "circular";
 	
 	// 인디케이터 설정
-	oIndicator = this.lfn_CloneObject(this.oBaseIndicator);
+	oIndicator = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseIndicator);
 	oIndicator["visible"] = sIndicator;
 	
 	// 에니메이션 설정
 	oChartAttr["enableanimation"] = this.oGenerationAttr.attributes.enableanimation;
 	
 	// 타이틀설정
-	oTitle = this.lfn_CloneObject(this.oBaseTitle);
+	oTitle = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseTitle);
 	if (this.lfn_IsNotNull(sTitletext) || this.lfn_IsNotNull(sSubTitletext)) {
 		oTitle["text"] = sTitletext;
 		oTitle["subtext"] = sSubTitletext;
@@ -398,12 +422,18 @@ fn_GetModel = function(){
 	}
 				
 	// 범례 설정
-	oLegend = this.lfn_CloneObject(this.oBaseLegend);
+	oLegend = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseLegend);
 	if (this.lfn_IsNotNull(sLegendPosition) && sLegendPosition != "none")
 	{
 		oLegend["align"] = sLegendPosition;
 		oLegend["visible"] = true;
 	}
+	
+	// 툴팁 설정
+	oTooltip = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseTooltip);
+	
+	// Board 설정
+	oBoard = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseBoard);
 	
 	// 카테고리 설정
 	if(this.lfn_IsNull(oCategoryField)) {
@@ -412,40 +442,33 @@ fn_GetModel = function(){
 		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
 	}
 	
+	// 차트 컨텐츠
+	var oChartContents = { "tag" : this.CHART_CLASS_ID, "attribute" : oChartAttr};
+	oChartContents[this.CHART_CLASS_ID] = [
+											{
+												"tag"	: "Contents",
+												"value"	: {
+													"title" 		: oTitle,
+													"legend" 		: oLegend,
+													"tooltip" 		: oTooltip,
+													"board" 		: oBoard,
+													"indicator"		: oIndicator,
+													"valueaxes" 	: fn_GetValueAxes(arrSeriesField,oChartContentsOrg),
+													"seriesset" 	: fn_GetSeries(arrSeriesField,oChartContentsOrg)
+												}
+											}
+										];
+	
 	//차트 컴포넌트 추가
 	var oModel = this.oContents.View.Model;
-    oModel[oModel.length] = {
-            "fieldid" : arrField.join(","),
-            "Components" :
-            [
-                {
-                    "tag" : "GaugeChart",
-                    "attribute" : oChartAttr,
-                    "GaugeChart" :
-                    [
-                        {
-                            "tag"	: "Contents",
-							"value"	: {
-								"title" 		: oTitle,
-								"legend" 		: oLegend,
-								"tooltip" 		: this.oBaseTooltip,
-								"board" 		: this.oBaseBoard,
-								"indicator"		: oIndicator,
-								"valueaxes" 	: fn_GetValueAxes(arrSeriesField),
-								"seriesset" 	: fn_GetSeries(arrSeriesField)
-							}
-                        }
-                    ]
-                }
-            ]
-        }
-
+    oModel[oModel.length] = { "fieldid" : sFieldId, "Components" : [oChartContents]};
+	
 	//생성할 Model 정보 리턴
     return oModel;
 };
 
 // 데이터 축 설정
-fn_GetValueAxes = function(arrAxisYField)
+fn_GetValueAxes = function(arrAxisYField, oChartContentsOrg)
 {
 	var nGaugeMin = nexacro.toNumber(this.oGenerationAttr.attributes.gaugemin,0);		// [GaugeChart]	
 	var nGaugeMax = nexacro.toNumber(this.oGenerationAttr.attributes.gaugemax,100);		// [GaugeChart]	
@@ -455,22 +478,25 @@ fn_GetValueAxes = function(arrAxisYField)
 	
 	var arrMaskInfo = new Array();
 	var oField;
+	var sValueAxesId;
 	
 	// 기본y축 추가
 	oValueAxes = {};
-	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
-	oValueAxes["id"] = "valueaxis";
+	sValueAxesId = "valueaxis" + "y";
+	oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis,"valueaxes",sValueAxesId);
+	oValueAxes["id"] = sValueAxesId;
 	oValueAxes["tickmin"] = nGaugeMin;
 	oValueAxes["tickmax"] = nGaugeMax;
-	oValueAxes["tickinterval"] = "10";
+	oValueAxes["tickinterval"] = this.lfn_NvlProperty(oValueAxes, "tickinterval", "10");
 	
 	if (arrAxisYField.length == 0) {
 		this.lfn_Log("series가 설정되지 않았습니다.","warn");
 	} else {
 		oFieldy = arrAxisYField[0];				// 첫번째 시리즈 기준으로 축값 설정
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy.datatype);
-		oValueAxes["labelmask"] = arrMaskInfo[0];
-		oValueAxes["labeltype"] = arrMaskInfo[1];
+		oValueAxes["fieldid"] = oFieldy.id;
+		oValueAxes["labelmask"] = this.lfn_NvlProperty(oValueAxes, "labelmask", arrMaskInfo[0]);
+		oValueAxes["labeltype"] = this.lfn_NvlProperty(oValueAxes, "labeltype", arrMaskInfo[1]);
 	}
 	
 	arrValueAxes.push(oValueAxes);
@@ -479,7 +505,7 @@ fn_GetValueAxes = function(arrAxisYField)
 };
 
 // 시리즈 셋팅
-fn_GetSeries = function(arrSeriesField)
+fn_GetSeries = function(arrSeriesField, oChartContentsOrg)
 {
 	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
 	var nStartAngle = this.oGenerationAttr.attributes.startangle;
@@ -518,6 +544,7 @@ fn_GetSeries = function(arrSeriesField)
 	
 	var arrSeries = new Array();
 	var oSeries;
+	var sSeriesId;
 	
 	var oField;
 	var arrMaskInfo = new Array();
@@ -528,12 +555,14 @@ fn_GetSeries = function(arrSeriesField)
 	for(var i=0;i<nCount;i++)
 	{
 		oField = arrSeriesField[i];
+		sSeriesId = this.lfn_GetCompId("series" + " " + oField.id);
 		
 		oSeries = {};
-		oSeries = this.lfn_CloneObject(this.oBaseSeriesGauge);
-		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
+		oSeries = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseSeriesGauge,"seriesset",sSeriesId);
+		oSeries["id"] = sSeriesId;
 		oSeries["titletext"] = oField.label;
 		oSeries["valuecolumn"] = "bind:" + oField.id;
+		oSeries["fieldid"] = oField.id;
 		
 		// 각도설정
 		oSeries["startangle"] = nSetStartAngle;
@@ -541,16 +570,16 @@ fn_GetSeries = function(arrSeriesField)
 		
 		// 색상설정
 		if (sSetColor.indexOf("[") >= 0) {			// [GaugeChart] Array형식인 경우 userrange로 설정함.
-			oSeries["baropacity"] = "0";
-			oSeries["barsize"] = "0";
-			oSeries["opacity"] = "1";
+			oSeries["baropacity"] = this.lfn_NvlProperty(oSeries, "baropacity", "0");
+			oSeries["barsize"] = this.lfn_NvlProperty(oSeries, "barsize", "0");
+			oSeries["opacity"] = this.lfn_NvlProperty(oSeries, "opacity", "1");
 			oSeries["userrange"] = sSetColor;
 			oSeries["innerradius"] = nInnerRadius;
 			oSeries["userrangeinnerradius"] = nInnerRadius;
 		} else {									// [GaugeChart] 색상을 설정한 경우
 			oSeries["barfillstyle"] = sSetColor;
 			oSeries["barlinestyle"] = "1px solid " + sSetColor;
-			oSeries["opacity"] = "0.5";
+			oSeries["opacity"] = this.lfn_NvlProperty(oSeries, "opacity", "0.5");
 			oSeries["fillstyle"] = sSetColor;
 			oSeries["linestyle"] = "1px solid " + sSetColor;
 			oSeries["itemtextcolor"] = sSetColor;
@@ -564,13 +593,13 @@ fn_GetSeries = function(arrSeriesField)
 			arrMaskInfo = this.lfn_GetDataTypeMask(oField.datatype);
 			
 			oSeries["itemtextvisible"] 		= true;
-			oSeries["itemtextmask"]			= arrMaskInfo[0];
-			oSeries["itemtexttype"]			= arrMaskInfo[1];
+			oSeries["itemtextmask"]			= this.lfn_NvlProperty(oSeries, "itemtextmask", arrMaskInfo[0]);
+			oSeries["itemtexttype"]			= this.lfn_NvlProperty(oSeries, "itemtexttype", arrMaskInfo[1]);
 			
 			oSeries["itemtextposition"] 	= sItemTextPosition;
 			
 			if (sIndicator == "true" && sItemTextPosition == "gaugecenter") {
-				oSeries["itemtextgap"] = "0 50";
+				oSeries["itemtextgap"] = this.lfn_NvlProperty(oSeries, "itemtextgap", "0 50");
 			}
 		}
 		
