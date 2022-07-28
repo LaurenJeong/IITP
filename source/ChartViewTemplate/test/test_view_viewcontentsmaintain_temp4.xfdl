@@ -189,117 +189,121 @@
             <Layout>
               <RadarChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" radartype="polygon" enableanimation="true" categorycolumn="bind:catName">
                 <Contents><![CDATA[{
-	"title": {
-		"id": "title",
-		"textfont": "normal 700 17px/normal 'Malgun Gothic'",
-		"padding": "0px 0px 5px",
-		"subtextcolor": "gray",
-		"subtextfont": "italic 8/normal 'Malgun Gothic'",
-		"visible": false
-	},
-	"legend": {
-		"id": "legend",
-		"padding": "3px 10px 3px 10px",
-		"itemtextfont": "9pt 'Malgun Gothic'",
-		"itemtextcolor": "#4c4c4c",
-		"itemautofit": true,
-		"markertextgap": "5",
-		"markertype": "circle",
-		"verticalitemgap": "5",
-		"linestyle": "1px dashed #4c4c4c",
-		"visible": true,
-		"align": "rightcenter",
-		"background": "red"
-	},
-	"tooltip": {
-		"id": "tooltip",
-		"background": "#4b4b4b",
-		"linestyle": "0px none",
-		"textcolor": "white",
-		"textfont": "10pt/normal 'Malgun Gothic'",
-		"padding": "5px"
-	},
-	"board": {
-		"id": "board"
-	},
-	"categoryaxis": {
-		"id": "categoryaxis",
-		"titletextcolor": "#4c4c4c",
-		"titletextfont": "bold 9pt 'Malgun Gothic'",
-		"labeltextcolor": "green",
-		"labeltextfont": "9pt 'Malgun Gothic'",
-		"axislinestyle": "1px solid #525252",
-		"ticklinestyle": "1px solid #525252",
-		"boardlinestyle": "1px solid #d0d0d0",
-		"ticksize": "5",
-		"labelgap": "5",
-		"labelmask": "",
-		"labeltype": "normal"
-	},
-	"valueaxes": [
-		{
-			"id": "valueaxisy",
-			"boardlinevisible": true,
-			"boardlinestyle": "1px solid #d0d0d0",
-			"titletextcolor": "#4c4c4c",
-			"titletextfont": "bold 9pt 'Malgun Gothic'",
-			"labeltextcolor": "blue",
-			"labeltextfont": "9pt/normal 'Malgun Gothic'",
-			"ticklinestyle": "1px solid #525252",
-			"axislinestyle": "1px solid #525252",
-			"labelgap": "5",
-			"ticksize": "5",
-			"autotickscale": "10",
-			"labelmask": "",
-			"labeltype": "number"
-		}
-	],
-	"seriesset": [
-		{
-			"linevisible": true,
-			"itemtextfont": "8pt 'Malgun Gothic'",
-			"lineareaopacity": "0.5",
-			"pointsize": "7",
-			"id": "seriesYear2020",
-			"titletext": "2020",
-			"valuecolumn": "bind:year2020",
-			"linestyle": "1px solid #1f77b4",
-			"pointlinestyle": "1px solid #1f77b4",
-			"lineareafillstyle": "#1f77b4",
-			"pointfillstyle": "#1f77b4",
-			"itemtextvisible": false,
-			"selecttype": "select"
-		},
-		{
-			"linevisible": true,
-			"itemtextfont": "8pt 'Malgun Gothic'",
-			"lineareaopacity": "0.5",
-			"pointsize": "7",
-			"id": "seriesYear2021",
-			"titletext": "2021",
-			"valuecolumn": "bind:year2021",
-			"linestyle": "1px solid gray",
-			"pointlinestyle": "1px solid #ff7f0e",
-			"lineareafillstyle": "#ff7f0e",
-			"pointfillstyle": "#ff7f0e",
-			"itemtextvisible": false
-		},
-		{
-			"linevisible": true,
-			"itemtextfont": "8pt 'Malgun Gothic'",
-			"lineareaopacity": "0.5",
-			"pointsize": "7",
-			"id": "seriesYear2022",
-			"titletext": "2022",
-			"valuecolumn": "bind:year2022",
-			"linestyle": "1px solid #2ca02c",
-			"pointlinestyle": "1px solid #2ca02c",
-			"lineareafillstyle": "#2ca02c",
-			"pointfillstyle": "#2ca02c",
-			"itemtextvisible": false
-		}
-	]
-}]]></Contents>
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter",
+										"background" : "red"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 9pt 'Malgun Gothic'",
+										"labeltextcolor" : "green",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "blue",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"labelmask" : "",
+											"labeltype" : "number",
+											"fieldid" : "year2020",
+											"tickmin" : "0",
+											"tickmax" : "100",
+											"ticks" : "5"
+										}
+									],
+									"seriesset" : [
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2020",
+											"titletext" : "2020",
+											"valuecolumn" : "bind:year2020",
+											"linestyle" : "1px solid #1f77b4",
+											"pointlinestyle" : "1px solid #1f77b4",
+											"lineareafillstyle" : "#1f77b4",
+											"pointfillstyle" : "#1f77b4",
+											"itemtextvisible" : false,
+											"selecttype" : "select"
+										},
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2021",
+											"titletext" : "2021",
+											"valuecolumn" : "bind:year2021",
+											"linestyle" : "1px solid gray",
+											"pointlinestyle" : "1px solid #ff7f0e",
+											"lineareafillstyle" : "#ff7f0e",
+											"pointfillstyle" : "#ff7f0e",
+											"itemtextvisible" : false
+										},
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2022",
+											"titletext" : "2022",
+											"valuecolumn" : "bind:year2022",
+											"linestyle" : "1px solid #2ca02c",
+											"pointlinestyle" : "1px solid #2ca02c",
+											"lineareafillstyle" : "#2ca02c",
+											"pointfillstyle" : "#2ca02c",
+											"itemtextvisible" : false
+										}
+									]
+								}]]></Contents>
               </RadarChart>
             </Layout>
           </Layouts>
@@ -342,108 +346,112 @@
             <Layout>
               <RoseChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:catName">
                 <Contents><![CDATA[{
-	"title": {
-		"id": "title",
-		"textfont": "normal 700 17px/normal 'Malgun Gothic'",
-		"padding": "0px 0px 5px",
-		"subtextcolor": "gray",
-		"subtextfont": "italic 8/normal 'Malgun Gothic'",
-		"visible": false
-	},
-	"legend": {
-		"id": "legend",
-		"padding": "3px 10px 3px 10px",
-		"itemtextfont": "9pt 'Malgun Gothic'",
-		"itemtextcolor": "#4c4c4c",
-		"itemautofit": true,
-		"markertextgap": "5",
-		"markertype": "circle",
-		"verticalitemgap": "5",
-		"linestyle": "1px dashed #4c4c4c",
-		"visible": true,
-		"align": "rightcenter",
-		"background": "red"
-	},
-	"tooltip": {
-		"id": "tooltip",
-		"background": "#4b4b4b",
-		"linestyle": "0px none",
-		"textcolor": "white",
-		"textfont": "10pt/normal 'Malgun Gothic'",
-		"padding": "5px"
-	},
-	"board": {
-		"id": "board"
-	},
-	"categoryaxis": {
-		"id": "categoryaxis",
-		"titletextcolor": "#4c4c4c",
-		"titletextfont": "bold 9pt 'Malgun Gothic'",
-		"labeltextcolor": "green",
-		"labeltextfont": "9pt 'Malgun Gothic'",
-		"axislinestyle": "1px solid #525252",
-		"ticklinestyle": "1px solid #525252",
-		"boardlinestyle": "1px solid #d0d0d0",
-		"ticksize": "5",
-		"labelgap": "5",
-		"labelmask": "",
-		"labeltype": "normal"
-	},
-	"valueaxes": [
-		{
-			"id": "valueaxisy",
-			"boardlinevisible": true,
-			"boardlinestyle": "1px solid #d0d0d0",
-			"titletextcolor": "#4c4c4c",
-			"titletextfont": "bold 9pt 'Malgun Gothic'",
-			"labeltextcolor": "blue",
-			"labeltextfont": "9pt/normal 'Malgun Gothic'",
-			"ticklinestyle": "1px solid #525252",
-			"axislinestyle": "1px solid #525252",
-			"labelgap": "5",
-			"ticksize": "5",
-			"autotickscale": "10",
-			"labelmask": "",
-			"labeltype": "number"
-		}
-	],
-	"seriesset": [
-		{
-			"linevisible": true,
-			"itemtextfont": "8pt 'Malgun Gothic'",
-			"lineareaopacity": "0.5",
-			"pointsize": "7",
-			"id": "seriesYear2020",
-			"titletext": "2020",
-			"valuecolumn": "bind:year2020",
-			"fillstyle": "#1f77b4",
-			"itemtextvisible": false,
-			"selecttype": "select"
-		},
-		{
-			"linevisible": true,
-			"itemtextfont": "8pt 'Malgun Gothic'",
-			"lineareaopacity": "0.5",
-			"pointsize": "7",
-			"id": "seriesYear2021",
-			"titletext": "2021",
-			"valuecolumn": "bind:year2021",
-			"fillstyle": "gray",
-			"itemtextvisible": false
-		},
-		{
-			"linevisible": true,
-			"itemtextfont": "8pt 'Malgun Gothic'",
-			"lineareaopacity": "0.5",
-			"pointsize": "7",
-			"id": "seriesYear2022",
-			"titletext": "2022",
-			"valuecolumn": "bind:year2022",
-			"fillstyle": "#2ca02c",
-			"itemtextvisible": false
-		}
-	]
-}]]></Contents>
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter",
+										"background" : "red"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 9pt 'Malgun Gothic'",
+										"labeltextcolor" : "green",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "blue",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"labelmask" : "",
+											"labeltype" : "number",
+											"fieldid" : "year2020",
+											"tickmin" : "0",
+											"tickmax" : "100",
+											"ticks" : "5"
+										}
+									],
+									"seriesset" : [
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2020",
+											"titletext" : "2020",
+											"valuecolumn" : "bind:year2020",
+											"fillstyle" : "#1f77b4",
+											"itemtextvisible" : false,
+											"selecttype" : "select"
+										},
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2021",
+											"titletext" : "2021",
+											"valuecolumn" : "bind:year2021",
+											"fillstyle" : "gray",
+											"itemtextvisible" : false
+										},
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2022",
+											"titletext" : "2022",
+											"valuecolumn" : "bind:year2022",
+											"fillstyle" : "#2ca02c",
+											"itemtextvisible" : false
+										}
+									]
+								}]]></Contents>
               </RoseChart>
             </Layout>
           </Layouts>
