@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_view_viewcontentsmaintain_temp6" width="1280" height="720" titletext="WaterfallChart">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="10" width="600" height="300" background="#e1e1e1">
+          <Layouts>
+            <Layout>
+              <FloatChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" waterfall="true" rotateaxis="false" waterfallsumtext="Gross" enableanimation="true" categorycolumn="bind:DAY">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 9pt 'Malgun Gothic'",
+										"labeltextcolor" : "green",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "",
+										"labelmask" : "",
+										"labeltype" : "normal",
+										"fieldid" : "DAY"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "blue",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"labelmask" : "",
+											"labeltype" : "number",
+											"titletext" : "",
+											"fieldid" : "VALUE_1"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "series",
+											"barvisible" : true,
+											"linevisible" : false,
+											"barsize" : "50",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"baropacity" : "0.8",
+											"positivebarlinestyle" : "0px solid",
+											"negativebarlinestyle" : "0px solid",
+											"waterfallsumbarlinestyle" : "0px solid",
+											"valuecolumn" : "bind:FLUCTUATION",
+											"positivebarfillstyle" : "#1f77b4",
+											"negativebarfillstyle" : "#ff7f0e",
+											"waterfallsumbarfillstyle" : "#2ca02c",
+											"itemtextvisible" : true,
+											"itemtextmask" : "",
+											"itemtexttype" : "text",
+											"itemtextposition" : "outside",
+											"selecttype" : "select",
+											"itemtext" : "expr:'차이 : ' + FLUCTUATION",
+											"fieldid" : "FLUCTUATION"
+										}
+									]
+								}]]></Contents>
+              </FloatChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="DAY" type="STRING" size="80"/>
+                <Column id="FLUCTUATION" type="FLOAT" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="waterfallmodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="DAY" description="" displaytype="category"/>
+              <Field id="FLUCTUATION" description="" displaytype="series"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="DAY,FLUCTUATION"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="WaterfallChartViewTemplate.xviewgen">
+            <Attribute id="waterfallsumtext" value="Gross"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="itemtextposition" value="outside"/>
+            <Attribute id="viewpadding" value="20"/>
+            <Attribute id="viewcontentsmaintain" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View01" taborder="1" text="View00" viewdataset="viewdataset" left="650" top="10" width="600" height="300" background="#e1e1e1">
+          <Layouts>
+            <Layout>
+              <FloatChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:CAREER">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 9pt 'Malgun Gothic'",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "x축",
+										"labelmask" : "",
+										"labeltype" : "normal",
+										"labeltextcolor" : "green",
+										"fieldid" : "CAREER"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltextcolor" : "blue",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "y축",
+											"labelmask" : "",
+											"labeltype" : "number",
+											"fieldid" : "VALUE_1"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "series",
+											"barvisible" : true,
+											"linevisible" : false,
+											"barsize" : "50",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"baropacity" : "0.8",
+											"positivebarlinestyle" : "0px solid",
+											"negativebarlinestyle" : "0px solid",
+											"valuecolumn" : "bind:TOP_25",
+											"value2column" : "bind:BOTTOM_25",
+											"positivebarfillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"negativebarfillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"itemtextvisible" : true,
+											"itemtextmask" : "",
+											"itemtexttype" : "text",
+											"itemtextposition" : "middle",
+											"itemtext" : "expr:TOP_25 + '~' + BOTTOM_25",
+											"fieldid" : "TOP_25"
+										}
+									]
+								}]]></Contents>
+              </FloatChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="CAREER" type="STRING" size="80"/>
+                <Column id="BOTTOM_25" type="INT" size="80"/>
+                <Column id="TOP_25" type="INT" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="floatmodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="CAREER" description="" displaytype="category"/>
+              <Field id="BOTTOM_25" description="" displaytype="seriesfrom"/>
+              <Field id="TOP_25" description="" displaytype="seriesto"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="CAREER,BOTTOM_25,TOP_25"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FloatChartViewTemplate.xviewgen">
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="categoryaxistitletext" value="x축"/>
+            <Attribute id="valueaxistitletext" value="y축"/>
+            <Attribute id="itemtextposition" value="middle"/>
+            <Attribute id="viewpadding" value="20"/>
+            <Attribute id="viewcontentsmaintain" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View01_00" taborder="2" text="View01" viewdataset="viewdataset" left="10" top="350" width="1240" height="300" background="#e1e1e1">
+          <Layouts>
+            <Layout>
+              <FloatChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" isdatetimevalue="true" rotateaxis="true" enableanimation="true" categorycolumn="bind:ROOM_NM">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 9pt 'Malgun Gothic'",
+										"labeltextcolor" : "green",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "",
+										"fieldid" : "ROOM_NM",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"opposite" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"labeltype" : "normal",
+											"labeltextcolor" : "blue",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"axislinestyle" : "1px solid #d0d0d0",
+											"tickinterval" : "",
+											"titletext" : ""
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "series",
+											"barvisible" : true,
+											"linevisible" : false,
+											"barsize" : "50",
+											"itemtextcolor" : "#ffffff",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"baropacity" : "0.8",
+											"positivebarlinestyle" : "0px solid",
+											"negativebarlinestyle" : "1px solid #ffffff",
+											"valuecolumn" : "bind:TO",
+											"fieldid" : "TO",
+											"value2column" : "bind:FROM",
+											"value3column" : "bind:PERCENT",
+											"positivebarfillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"negativebarfillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"itemtextvisible" : true,
+											"itemtextmask" : "@@@@-@@-@@",
+											"itemtexttype" : "normal",
+											"itemtextposition" : "middle"
+										}
+									]
+								}]]></Contents>
+              </FloatChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ROOM_NM" type="STRING" size="80"/>
+                <Column id="FROM" type="DATE" size="80"/>
+                <Column id="TO" type="DATE" size="80"/>
+                <Column id="DEPT_NM" type="STRING" size="80"/>
+                <Column id="PERCENT" type="FLOAT" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="timelinemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="ROOM_NM" description="" displaytype="category"/>
+              <Field id="FROM" description="" displaytype="seriesfrom"/>
+              <Field id="TO" description="" displaytype="seriesto"/>
+              <Field id="DEPT_NM" description="" displaytype="none"/>
+              <Field id="PERCENT" description="" displaytype="seriespercent"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="ROOM_NM,FROM,TO,DEPT_NM,PERCENT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="TimelineChartViewTemplate.xviewgen">
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="itemtextposition" value="middle"/>
+            <Attribute id="viewpadding" value="20"/>
+            <Attribute id="viewcontentsmaintain" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="DAY" type="STRING" size="256"/>
+          <Column id="FLUCTUATION" type="FLOAT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="DAY">Monday</Col>
+            <Col id="FLUCTUATION">10</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Tuesday</Col>
+            <Col id="FLUCTUATION">10</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Wednesday</Col>
+            <Col id="FLUCTUATION">5</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Thusday</Col>
+            <Col id="FLUCTUATION">-2</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Friday</Col>
+            <Col id="FLUCTUATION">-5</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Saturday</Col>
+            <Col id="FLUCTUATION">6</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Sunday</Col>
+            <Col id="FLUCTUATION">-5</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="View00" copytype="replace" fromdataset="dsData" fromview="test_view_viewcontentsmaintain_temp6">
+        <Contents/>
+      </DsCopyDataAction>
+      <Dataset id="dsData2">
+        <ColumnInfo>
+          <Column id="CAREER" type="STRING" size="256"/>
+          <Column id="BOTTOM_25" type="INT" size="256"/>
+          <Column id="TOP_25" type="INT" size="256"/>
+          <Column id="AVERAGE" type="FLOAT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CAREER">1년 미만</Col>
+            <Col id="BOTTOM_25">23490 </Col>
+            <Col id="TOP_25">35143 </Col>
+            <Col id="AVERAGE">92</Col>
+          </Row>
+          <Row>
+            <Col id="CAREER">1~3년 미만</Col>
+            <Col id="BOTTOM_25">25056 </Col>
+            <Col id="TOP_25">41582 </Col>
+            <Col id="AVERAGE">89</Col>
+          </Row>
+          <Row>
+            <Col id="CAREER">3~5년 미만</Col>
+            <Col id="BOTTOM_25">26858 </Col>
+            <Col id="TOP_25">47835 </Col>
+            <Col id="AVERAGE">87</Col>
+          </Row>
+          <Row>
+            <Col id="CAREER">5~10년 미만</Col>
+            <Col id="BOTTOM_25">30545 </Col>
+            <Col id="TOP_25">58301 </Col>
+            <Col id="AVERAGE">85</Col>
+          </Row>
+          <Row>
+            <Col id="CAREER">10~15년 미만</Col>
+            <Col id="BOTTOM_25">37185 </Col>
+            <Col id="TOP_25">73113 </Col>
+            <Col id="AVERAGE">82</Col>
+          </Row>
+          <Row>
+            <Col id="CAREER">15~20년 미만</Col>
+            <Col id="BOTTOM_25">44249 </Col>
+            <Col id="TOP_25">85176 </Col>
+            <Col id="AVERAGE">82</Col>
+          </Row>
+          <Row>
+            <Col id="CAREER">20~25년 미만</Col>
+            <Col id="BOTTOM_25">52093 </Col>
+            <Col id="TOP_25">96537 </Col>
+            <Col id="AVERAGE">82</Col>
+          </Row>
+          <Row>
+            <Col id="CAREER">25년 이상</Col>
+            <Col id="BOTTOM_25">64035 </Col>
+            <Col id="TOP_25">103580 </Col>
+            <Col id="AVERAGE">85</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction00_00" targetview="View01" copytype="replace" fromdataset="dsData2" fromview="test_view_viewcontentsmaintain_temp6">
+        <Contents/>
+      </DsCopyDataAction>
+      <Dataset id="dsData3">
+        <ColumnInfo>
+          <Column id="ROOM_NM" type="STRING" size="256"/>
+          <Column id="FROM" type="DATE" size="256"/>
+          <Column id="TO" type="DATE" size="256"/>
+          <Column id="DEPT_NM" type="STRING" size="256"/>
+          <Column id="PERCENT" type="FLOAT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ROOM_NM">제우스</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220222</Col>
+            <Col id="DEPT_NM">인사총무팀</Col>
+            <Col id="PERCENT">50</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아프로디테</Col>
+            <Col id="FROM">20220223</Col>
+            <Col id="TO">20220228</Col>
+            <Col id="DEPT_NM">제품구현그룹</Col>
+            <Col id="PERCENT">70</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">포세이돈</Col>
+            <Col id="FROM">20220222</Col>
+            <Col id="TO">20220224</Col>
+            <Col id="DEPT_NM">제품관리그룹</Col>
+            <Col id="PERCENT">0</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">아테나</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220221</Col>
+            <Col id="DEPT_NM">NX14팀</Col>
+            <Col id="PERCENT">10</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">헤르메스</Col>
+            <Col id="FROM">20220225</Col>
+            <Col id="TO">20220226</Col>
+            <Col id="DEPT_NM">융합기술개발팀</Col>
+            <Col id="PERCENT">100</Col>
+          </Row>
+          <Row>
+            <Col id="ROOM_NM">에스티아</Col>
+            <Col id="FROM">20220220</Col>
+            <Col id="TO">20220228</Col>
+            <Col id="DEPT_NM">일본사업팀</Col>
+            <Col id="PERCENT">80</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction01" targetview="View01_00" fromview="test_view_viewcontentsmaintain_temp6" fromdataset="dsData3" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="test_view_viewcontentsmaintain_temp6" triggerobj="test_view_viewcontentsmaintain_temp6" targetaction="DsCopyDataAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Form Init" triggerview="test_view_viewcontentsmaintain_temp6" triggerobj="test_view_viewcontentsmaintain_temp6" targetaction="DsCopyDataAction00_00" condition=""/>
+      <TriggerItem id="item2" triggertype="Form Init" triggerview="test_view_viewcontentsmaintain_temp6" triggerobj="test_view_viewcontentsmaintain_temp6" targetaction="DsCopyDataAction01" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>
