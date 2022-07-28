@@ -19,11 +19,22 @@
 include "view_lib::util.xjs";
 include "view_lib::common.xjs";
 include "view_lib::chart.xjs";
+include "view_lib::maintain.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
+//-----------------------------------------------------------------------------------------------
+// View 관련 상수
+//-----------------------------------------------------------------------------------------------
 // View 여백
-this.VIEW_PADDING = "20";
+this.VIEW_PADDING = "";
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// ViewTemplate 공통변수(변경불가)
+//-----------------------------------------------------------------------------------------------
+this.CHART_CLASS_ID = "RoseChart";
+//-----------------------------------------------------------------------------------------------
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -185,7 +196,8 @@ fn_GetViewAttributeList = function() {
                                 "enumlist" : ["none", "lefttop", "centertop", "righttop", "leftmiddle", "centermiddle", "rightmiddle", "leftbottom", "centerbottom", "rightbottom"],
                                 "description": "값 표시 위치"
                             }
-							, this.oAttrViewPadding
+							, this.oAttrViewPadding						// View 여백(사용안하는 경우 주석)
+							, this.oAttrViewContentsMaintain            // 컴포넌트 컨텐츠 유지 여부
                         ]
                   };
 				  
@@ -261,6 +273,8 @@ fn_GetModel = function(){
 	var oChartAttr = {};
 	var oTitle = {};
 	var oLegend = {};
+	var oTooltip = {};
+    var oBoard = {};
 	
 	var sTitletext = this.oGenerationAttr.attributes.titletext;
 	var sSubTitletext = this.oGenerationAttr.attributes.subtitletext;
@@ -300,8 +314,18 @@ fn_GetModel = function(){
 		}
     }
 	
+	sFieldId = arrField.join(",");
+	
 	// 차트 기본속성 셋팅
-	oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	var oChartOrg = this.lfn_GetCompContents(sFieldId, this.CHART_CLASS_ID, this.oBaseChartAttr.id);
+	var oChartContentsOrg;
+	
+	if (oChartOrg.hasOwnProperty(this.CHART_CLASS_ID)) {
+		oChartAttr = oChartOrg["attribute"];
+		oChartContentsOrg = oChartOrg[this.CHART_CLASS_ID][0]["value"];
+	} else {
+		oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	}
 	
 	// View 여백 설정
 	oChartAttr["left"] = this.VIEW_PADDING_LEFT;
@@ -313,7 +337,7 @@ fn_GetModel = function(){
 	oChartAttr["enableanimation"] = this.oGenerationAttr.attributes.enableanimation;
 	
 	// 타이틀설정
-	oTitle = this.lfn_CloneObject(this.oBaseTitle);
+	oTitle = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseTitle);
 	if (this.lfn_IsNotNull(sTitletext) || this.lfn_IsNotNull(sSubTitletext)) {
 		oTitle["text"] = sTitletext;
 		oTitle["subtext"] = sSubTitletext;
@@ -322,12 +346,18 @@ fn_GetModel = function(){
 	}
 				
 	// 범례 설정
-	oLegend = this.lfn_CloneObject(this.oBaseLegend);
+	oLegend = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseLegend);
 	if (this.lfn_IsNotNull(sLegendPosition) && sLegendPosition != "none")
 	{
 		oLegend["align"] = sLegendPosition;
 		oLegend["visible"] = true;
 	}
+	
+	// 툴팁 설정
+	oTooltip = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseTooltip);
+	
+	// Board 설정
+	oBoard = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseBoard);
 	
 	// 카테고리 설정
 	if(this.lfn_IsNull(oCategoryField)) {
@@ -336,40 +366,33 @@ fn_GetModel = function(){
 		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
 	}
 	
+	// 차트 컨텐츠
+	var oChartContents = { "tag" : this.CHART_CLASS_ID, "attribute" : oChartAttr};
+	oChartContents[this.CHART_CLASS_ID] = [
+											{
+												"tag"	: "Contents",
+												"value"	: {
+													"title" 		: oTitle,
+													"legend" 		: oLegend,
+													"tooltip" 		: oTooltip,
+													"board" 		: oBoard,
+													"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField,oChartContentsOrg),
+													"valueaxes" 	: fn_GetValueAxes(arrSeriesField,oChartContentsOrg),
+													"seriesset" 	: fn_GetSeries(arrSeriesField,oChartContentsOrg)
+												}
+											}
+										];
+	
 	//차트 컴포넌트 추가
 	var oModel = this.oContents.View.Model;
-    oModel[oModel.length] = {
-            "fieldid" : arrField.join(","),
-            "Components" :
-            [
-                {
-                    "tag" : "RoseChart",
-                    "attribute" : oChartAttr,
-                    "RoseChart" :
-                    [
-                        {
-                            "tag"	: "Contents",
-							"value"	: {
-								"title" 		: oTitle,
-								"legend" 		: oLegend,
-								"tooltip" 		: this.oBaseTooltip,
-								"board" 		: this.oBaseBoard,
-								"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField),
-								"valueaxes" 	: fn_GetValueAxes(arrSeriesField),
-								"seriesset" 	: fn_GetSeries(arrSeriesField)
-							}
-                        }
-                    ]
-                }
-            ]
-        }
+    oModel[oModel.length] = { "fieldid" : sFieldId, "Components" : [oChartContents]};
 
 	//생성할 Model 정보 리턴
     return oModel;
 };
 
 // 카테고리 축 설정
-fn_GetCategoryAxes = function(oCategoryField)
+fn_GetCategoryAxes = function(oCategoryField, oChartContentsOrg)
 {
 	var arrMaskInfo = new Array();
 	
@@ -377,38 +400,41 @@ fn_GetCategoryAxes = function(oCategoryField)
 	
 	// 카테고리축 추가
 	oCategoryAxes = {};
-	oCategoryAxes = this.lfn_CloneObject(this.oBaseCategoryaxis);
+	oCategoryAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseCategoryaxis);
 	
 	if(this.lfn_IsNotNull(oCategoryField)) {
 		arrMaskInfo = this.lfn_GetDataTypeMask(oCategoryField.datatype);
-		oCategoryAxes["labelmask"] = arrMaskInfo[0];
-		oCategoryAxes["labeltype"] = arrMaskInfo[1];
+		oCategoryAxes["labelmask"] = this.lfn_NvlProperty(oCategoryAxes, "labelmask", arrMaskInfo[0]);
+		oCategoryAxes["labeltype"] = this.lfn_NvlProperty(oCategoryAxes, "labeltype", arrMaskInfo[1]);
 	}
 	
 	return oCategoryAxes;
 };
 
 // 데이터 축 설정
-fn_GetValueAxes = function(arrAxisYField)
+fn_GetValueAxes = function(arrAxisYField, oChartContentsOrg)
 {
 	var arrValueAxes = new Array();
 	var oValueAxes;
 	
 	var arrMaskInfo = new Array();
 	var oField;
+	var sValueAxesId;
 	
 	// 기본y축 추가
 	oValueAxes = {};
-	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
-	oValueAxes["id"] = "valueaxis" + "y";
+	sValueAxesId = "valueaxis" + "y";
+	oValueAxes = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseValueaxis,"valueaxes",sValueAxesId);
+	oValueAxes["id"] = sValueAxesId;
 	
 	if (arrAxisYField.length == 0) {
 		this.lfn_Log("series가 설정되지 않았습니다.","warn");
 	} else {
 		oFieldy = arrAxisYField[0];				// 첫번째 시리즈 기준으로 축값 설정
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy.datatype);
-		oValueAxes["labelmask"] = arrMaskInfo[0];
-		oValueAxes["labeltype"] = arrMaskInfo[1];
+		oValueAxes["fieldid"] = oFieldy.id;
+		oValueAxes["labelmask"] = this.lfn_NvlProperty(oValueAxes, "labelmask", arrMaskInfo[0]);
+		oValueAxes["labeltype"] = this.lfn_NvlProperty(oValueAxes, "labeltype", arrMaskInfo[1]);
 	}
 	
 	arrValueAxes.push(oValueAxes);
@@ -417,7 +443,7 @@ fn_GetValueAxes = function(arrAxisYField)
 }
 
 // 시리즈 셋팅
-fn_GetSeries = function(arrSeriesField)
+fn_GetSeries = function(arrSeriesField, oChartContentsOrg)
 {
 	var sItemTextPosition = this.oGenerationAttr.attributes.itemtextposition;
 	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
@@ -426,6 +452,7 @@ fn_GetSeries = function(arrSeriesField)
 	var oSeries;
 	
 	var oField;
+	var sSeriesId;
 	
 	var arrMaskInfo = new Array();
 	
@@ -435,18 +462,19 @@ fn_GetSeries = function(arrSeriesField)
 	for(var i=0;i<nCount;i++)
 	{
 		oField = arrSeriesField[i];
+		sSeriesId = this.lfn_GetCompId("series" + " " + oField.id);
 		
 		oSeries = {};
-		oSeries = this.lfn_CloneObject(this.oBaseSeriesRadar);
-		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
+		oSeries = this.lfn_GetChartContents(oChartContentsOrg,this.oBaseSeriesRadar,"seriesset",sSeriesId);
+		oSeries["id"] = sSeriesId;
 		oSeries["titletext"] = oField.label;
 		oSeries["valuecolumn"] = "bind:" + oField.id;
 		
 		// [RoseChart] 시리즈의 색상처리
 		if (nCount == 1)	{				// 시리즈 1개
-			oSeries["fillstyle"] = this.arrBaseChartColor.toString();
+			oSeries["fillstyle"] = this.lfn_NvlProperty(oSeries, "fillstyle", this.arrBaseChartColor.toString());
 		} else {
-			oSeries["fillstyle"] = this.lfn_GetChartColor(i);
+			oSeries["fillstyle"] = this.lfn_NvlProperty(oSeries, "fillstyle", this.lfn_GetChartColor(i));
 		}
 		
 		// 데이터 출력설정
@@ -456,8 +484,8 @@ fn_GetSeries = function(arrSeriesField)
 			arrMaskInfo = this.lfn_GetDataTypeMask(oField.datatype);
 			
 			oSeries["itemtextvisible"] 		= true;
-			oSeries["itemtextmask"]			= arrMaskInfo[0];
-			oSeries["itemtexttype"]			= arrMaskInfo[1];
+			oSeries["itemtextmask"]			= this.lfn_NvlProperty(oSeries, "itemtextmask", arrMaskInfo[0]);
+			oSeries["itemtexttype"]			= this.lfn_NvlProperty(oSeries, "itemtexttype", arrMaskInfo[1]);
 			
 			oSeries["lineitemtextposition"] = sItemTextPosition;
 		}

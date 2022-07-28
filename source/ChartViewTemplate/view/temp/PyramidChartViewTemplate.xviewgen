@@ -451,10 +451,6 @@ fn_GetSeries = function(arrSeriesField,oChartContentsOrg)
 		arrSeries.push(oSeries);
 	}
 	
-	// 사용자 추가 seriesset를 추가
-	var aUserContents = this.lfn_GetUserCompChartContents(oChartContentsOrg, "seriesset");
-	if (this.lfn_IsNotNull(aUserContents))	arrSeries = arrSeries.concat(aUserContents);
-	
     return arrSeries;
 }
 
