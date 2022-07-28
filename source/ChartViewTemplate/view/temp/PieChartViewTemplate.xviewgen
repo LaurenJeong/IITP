@@ -486,14 +486,14 @@ fn_GetSeries = function(arrSeriesField,oChartContentsOrg)
 		
 		// [PieChart] 시리즈 색상처리
 		if (nCount == 1)	{				// 시리즈 1개
-			oSeries["fillstyle"] = this.arrBaseChartColor.toString();
+			oSeries["fillstyle"] = this.lfn_NvlProperty(oSeries, "fillstyle", this.arrBaseChartColor.toString());
 		} else {
-			oSeries["fillstyle"] = this.lfn_GetChartColor(i);
+			oSeries["fillstyle"] = this.lfn_NvlProperty(oSeries, "fillstyle", this.lfn_GetChartColor(i));
 		}
 		
 		// 데이터 출력설정
-		oSeries["itemtextmask"]			= arrMaskInfo[0];
-		oSeries["itemtexttype"]			= arrMaskInfo[1];
+		oSeries["itemtextmask"]			= this.lfn_NvlProperty(oSeries, "itemtextmask", arrMaskInfo[0]);
+		oSeries["itemtexttype"]			= this.lfn_NvlProperty(oSeries, "itemtexttype", arrMaskInfo[1]);
 			
 		arrSeries.push(oSeries);
 	}
