@@ -116,7 +116,7 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
     var vResult = "";
 
     //trace(">> fieldarray : " + fieldarray);
-    //trace(">> contents : " + contents);
+    trace(">> contents : " + contents);
     //trace(">> generationattr : " + generationattr);
 	
 	//Set Generation Info
@@ -290,6 +290,7 @@ fn_GetFieldUserAttributeList = function ()
 fn_GetLayout = function()
 {
 	var oLayouts = this.oContents.View.View[0];
+	oLayouts["tag"] = "Layouts";
 	oLayouts["Layouts"] = [];
 	
 	var sDirection		= this.oGenerationAttr.attributes.direction;

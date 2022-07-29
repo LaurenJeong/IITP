@@ -332,6 +332,7 @@ fn_GetFieldUserAttributeList = function ()
 fn_GetLayout = function()
 {
 	var oLayouts = this.oContents.View.View[0];
+	oLayouts["tag"] = "Layouts";
 	oLayouts["Layouts"] = [];
 	
 	var sDirection		= this.DIRECTION;
