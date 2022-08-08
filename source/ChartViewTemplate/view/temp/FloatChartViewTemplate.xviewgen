@@ -84,9 +84,9 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
     var vResult = "";
 	
 	// Preview용 데이터 생성여부
-	var bPreviewData = false;
+	var bPreviewMode = false;
 	
-	vResult = fn_GetViewGeneration(fieldarray, contents, generationattr, bPreviewData);
+	vResult = fn_GetViewGeneration(fieldarray, contents, generationattr, bPreviewMode);
 	
 	 //뷰 컴포넌트 정보 리턴
     return vResult;
@@ -99,16 +99,16 @@ fn_GetViewGenerationPreview = function(fieldarray, contents, generationattr)
     var vResult = "";
 	
 	// Preview용 데이터 생성여부
-	var bPreviewData = true;
+	var bPreviewMode = true;
 	
-	vResult = fn_GetViewGeneration(fieldarray, contents, generationattr, bPreviewData);
+	vResult = fn_GetViewGeneration(fieldarray, contents, generationattr, bPreviewMode);
 	
 	 //뷰 컴포넌트 정보 리턴
     return vResult;
 };
 
 // ViewGeneration 결과 반환 함수
-fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewData)
+fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewMode)
 {
 	//리턴 값
     var vResult = "";
@@ -128,13 +128,13 @@ fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewDa
 	this.lfn_SetViewPadding();
 
 	//모델정보 생성 함수 호출
-	fn_GetModel(bPreviewData);
+	fn_GetModel(bPreviewMode);
 
 	//InitValue 정보 생성 함수 호출
     this.oContents.View.InitValue = fn_GetInitValue();
 
 	//Object 정보 생성 함수 호출
-    this.oContents.View.Objects = fn_GetObjects(bPreviewData);
+    this.oContents.View.Objects = fn_GetObjects(bPreviewMode);
 
 	//Script 정보 생성 함수 호출
     this.oContents.View.Script = fn_GetScript();
@@ -288,7 +288,7 @@ fn_GetFieldUserAttributeList = function ()
  * Return       : model contents (JSON format)
  * Description  : Function to generate a component source based on field information of the model entered by the user
  *---------------------------------------------------------------------------------------------*/
-fn_GetModel = function(bPreviewData)
+fn_GetModel = function(bPreviewMode)
 {
 	// Chart Attribute
 	var oChartAttr = {};
@@ -379,7 +379,7 @@ fn_GetModel = function(bPreviewData)
 	}
 	
 	// Preview모드일때 Field 예외처리
-	if (bPreviewData == true)
+	if (bPreviewMode == true)
 	{
 		// category없는 경우 예외처리
 		if(this.lfn_IsNull(oCategoryField))
@@ -561,7 +561,7 @@ fn_GetInitValue = function()
  * Return       : objects contents (JSON format)
  * Description  : Function to generate <Objects> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetObjects = function(bPreviewData)
+fn_GetObjects = function(bPreviewMode)
 {
 
 	//오브젝트 정보 초기화
@@ -584,7 +584,7 @@ fn_GetObjects = function(bPreviewData)
                     "tag": "Rows",
                     "attribute": {},
 					//데이터셋 로우정보 설정함수 호출
-                    "Rows": fn_GetDsRows(bPreviewData)
+                    "Rows": fn_GetDsRows(bPreviewMode)
                 }
             ]
         }
@@ -662,7 +662,7 @@ fn_GetDsColumns = function()
  * Return       : dataset row(s) data
  * Description  : Function to generate <Row> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetDsRows = function(bPreviewData)
+fn_GetDsRows = function(bPreviewMode)
 {
     var i;
     var oRows = [];
@@ -672,7 +672,7 @@ fn_GetDsRows = function(bPreviewData)
     var sFieldId;
 
     //로우 개수
-    var nRowCnt = bPreviewData == true ? 5 : 0;
+    var nRowCnt = bPreviewMode == true ? 5 : 0;
 
     //컬럼 개수
     var nColCnt = this.oFieldArray.fieldcount;
@@ -682,7 +682,7 @@ fn_GetDsRows = function(bPreviewData)
         oRow = [];
 		
 		// Preview일때 임시데이터 생성
-		if (bPreviewData == true)
+		if (bPreviewMode == true)
 		{
 			oRow = this.lfn_GetPreviewData(this.oFieldArray,i);
 		}
