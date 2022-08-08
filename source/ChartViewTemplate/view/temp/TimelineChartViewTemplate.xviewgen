@@ -78,8 +78,38 @@ this.VIEW_PADDING = "20";
  *                            !!! This is a required function. !!!                             *
  *                            !!! Do not delete it. !!!                                        *
  *---------------------------------------------------------------------------------------------*/
-fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) {
+fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
+{
+	//리턴 값
+    var vResult = "";
+	
+	// Preview용 데이터 생성여부
+	var bPreviewData = false;
+	
+	vResult = fn_GetViewGeneration(fieldarray, contents, generationattr, bPreviewData);
+	
+	 //뷰 컴포넌트 정보 리턴
+    return vResult;
+};
 
+// Preview용 Generation 함수(Chart는 Dataset에 Data가 없는 경우 Preview가 표시되지 않아 기능추가)
+fn_GetViewGenerationPreview = function(fieldarray, contents, generationattr)
+{
+	//리턴 값
+    var vResult = "";
+	
+	// Preview용 데이터 생성여부
+	var bPreviewData = true;
+	
+	vResult = fn_GetViewGeneration(fieldarray, contents, generationattr, bPreviewData);
+	
+	 //뷰 컴포넌트 정보 리턴
+    return vResult;
+};
+
+// ViewGeneration 결과 반환 함수
+fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewData)
+{
 	//리턴 값
     var vResult = "";
 
@@ -87,25 +117,24 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) {
 	//trace(">> contents : " + contents);
     //trace(">> generationattr : " + generationattr);
 
-    //Make Generation Info
+     //Set Generation Info
 	//this.oFieldArray : Model Information as JSON Object
 	//this.oContents : View Component Information as JSON Object
 	//this.oContents.View.Model : Model Information Initialization
 	//this.oGenerationAttr : Setting Information as JSON Object
-	//this.oUseFieldArray : Use Model Information as JSON Object
 	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, false);
 
 	// View Padding 설정
 	this.lfn_SetViewPadding();
 
 	//모델정보 생성 함수 호출
-	fn_GetModel();
+	fn_GetModel(bPreviewData);
 
 	//InitValue 정보 생성 함수 호출
     this.oContents.View.InitValue = fn_GetInitValue();
 
 	//Object 정보 생성 함수 호출
-    this.oContents.View.Objects = fn_GetObjects();
+    this.oContents.View.Objects = fn_GetObjects(bPreviewData);
 
 	//Script 정보 생성 함수 호출
     this.oContents.View.Script = fn_GetScript();
@@ -118,8 +147,6 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) {
     //뷰 컴포넌트 정보 리턴
     return vResult;
 };
-
-
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetViewAttributeList
  * Return       : View generation attribute list (JSON format)
@@ -262,8 +289,8 @@ fn_GetFieldUserAttributeList = function ()
  * Return       : model contents (JSON format)
  * Description  : Function to generate a component source based on field information of the model entered by the user
  *---------------------------------------------------------------------------------------------*/
-fn_GetModel = function(){
-
+fn_GetModel = function(bPreviewData)
+{
 	// Chart Attribute
 	var oChartAttr = {};
 	var oTitle = {};
@@ -356,6 +383,24 @@ fn_GetModel = function(){
 		this.lfn_Log("category가 설정되지 않았습니다.","warn");
 	} else {
 		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
+	}
+	
+	// Preview모드일때 Field 예외처리
+	if (bPreviewData == true)
+	{
+		// category없는 경우 예외처리
+		if(this.lfn_IsNull(oCategoryField))
+		{
+			oCategoryField = this.lfn_Nvl(this.oFieldArray.fields.find(oField => oField.datatype == "STRING"),this.oFieldArray.fields[0]);
+			oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
+		}
+		
+		// series없는 경우 예외처리
+		if(arrSeriesField.length==0)
+		{
+			// 숫자형 데이터 filter
+			arrSeriesField = this.oFieldArray.fields.filter(oField => oField.datatype == "INT" || oField.datatype == "FLOAT" || oField.datatype == "BIGDECIMAL");
+		}
 	}
 	
 	//차트 컴포넌트 추가
@@ -523,27 +568,10 @@ fn_GetSeries = function(arrSeriesField)
  * Return       : initvalue contents (JSON format)
  * Description  : Function to generate <InitValue> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetInitValue = function(){
-
+fn_GetInitValue = function()
+{
     var oInitValue = [];
-    /*
-    oInitValue =
-    [
-        {
-            "tag" : "initValue",
-            "initValue" :
-            [
-                {
-                    "tag" : "Button",
-                    "attribute" :
-                    {
-                        "id" : "btnSearch", "text" : "Search11"
-                    }
-                }
-            ]
-        }
-    ];
-    */
+	
     return oInitValue;
 };
 
@@ -556,8 +584,8 @@ fn_GetInitValue = function(){
  * Return       : objects contents (JSON format)
  * Description  : Function to generate <Objects> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetObjects = function(){
-
+fn_GetObjects = function(bPreviewData)
+{
 	//오브젝트 정보 초기화
     var oObjects = [];
 
@@ -578,7 +606,7 @@ fn_GetObjects = function(){
                     "tag": "Rows",
                     "attribute": {},
 					//데이터셋 로우정보 설정함수 호출
-                    "Rows": fn_GetDsRows()
+                    "Rows": fn_GetDsRows(bPreviewData)
                 }
             ]
         }
@@ -596,8 +624,8 @@ fn_GetObjects = function(){
  * Return       : script contents (JSON format)
  * Description  : Function to generate <Script> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetScript = function(){
-
+fn_GetScript = function()
+{
 	//스크립트 정보 초기화
     var oScript = {};
 
@@ -612,7 +640,8 @@ fn_GetScript = function(){
  * Return       : dataset column(s) data
  * Description  : Function to generate <Column> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetDsColumns = function(){
+fn_GetDsColumns = function()
+{
     var i;
     var oColumns = [];
 
@@ -654,7 +683,8 @@ fn_GetDsColumns = function(){
  * Return       : dataset row(s) data
  * Description  : Function to generate <Row> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetDsRows = function(){
+fn_GetDsRows = function(bPreviewData)
+{
     var i;
     var oRows = [];
     var oRow = [];
@@ -663,7 +693,7 @@ fn_GetDsRows = function(){
     var sFieldId;
 
     //로우 개수
-    var nRowCnt = 1;
+    var nRowCnt = bPreviewData == true ? 5 : 0;
 
     //컬럼 개수
     var nColCnt = this.oFieldArray.fieldcount;
@@ -671,6 +701,12 @@ fn_GetDsRows = function(){
     for(i=0;i<nRowCnt;i++)
     {
         oRow = [];
+		
+		// Preview일때 임시데이터 생성
+		if (bPreviewData == true)
+		{
+			oRow = this.lfn_GetPreviewData(this.oFieldArray,i);
+		}
 
         //Row정보 Rows에 추가
         oRows[i] = {"tag": "Row",    "attribute": {},"Row": oRow};

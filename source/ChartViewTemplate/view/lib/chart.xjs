@@ -357,4 +357,57 @@ this.lfn_GetDataTypeMask= function(sDataType, sChartType)
 	
 	return [sMask, sMaskType, sDataGroup];
 };
-]]></Script>
+
+/**
+ * @class Preview용 데이터 반환
+ * @param {object} oFieldArray - Field JSON Array
+ * @param {number} nRowIndex - Dataset Row Index
+ * @return {object} Row Data JSON Array
+ */
+this.lfn_GetPreviewData= function(oFieldArray, nRowIndex)
+{
+	var oRow = [];
+	
+	var oField;
+    var sFieldId;
+	var sDataType;
+	var sValue;
+	
+	var oCol;
+	
+	//컬럼 개수
+    var nColCnt = oFieldArray.fieldcount;
+	
+	for(j=0;j<nColCnt;j++)
+	{
+		oField = oFieldArray.fields[j];
+
+		sFieldId = oField.id;
+		sDataType = this.lfn_IsNullEmpty(oField.datatype).toUpperCase();
+		
+		// 데이터 형식에 따라 데이터 기본값제공
+		switch(sDataType) {
+			case "INT":
+			case "FLOAT":
+			case "BIGDECIMAL":
+				sValue = Math.floor(Math.random()*100);						// 0~100
+				break;
+			case "DATE":
+				sValue = this.lfn_AddDate(this.lfn_GetDate(),nRowIndex);	// 오늘날짜 + nRowIndex
+				break;
+			default:
+				sValue = String.fromCharCode((65 + nRowIndex));				// A~Z + nRowIndex
+				break;
+		}
+		
+		oCol = {
+					"tag" : "Col",
+					"attribute" : {"id" : sFieldId},
+					"value" : sValue
+				};
+		
+		oRow.push(oCol);
+	}
+	
+	return oRow;
+};]]></Script>
