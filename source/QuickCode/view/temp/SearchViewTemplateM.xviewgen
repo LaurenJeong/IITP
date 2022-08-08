@@ -517,6 +517,9 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight)
 	
 	//Create Field Tag
 	oField = {"fieldid" : this.VIEW_COMP_FIELD_ID, "Components" : []};
+	
+	oComp = this.lfn_GetCompContents(this.VIEW_COMP_FIELD_ID, "Button", "btnSearch");
+	this.lfn_Log(oComp);
 
 	//If the lookup button creation location is rightfull
 	if(sSearchButtonType=="rightfull")
@@ -526,15 +529,13 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight)
 		nCompWidth	= this.SEARCH_BUTTON_WIDTH;
 		nCompBottom	= this.VIEW_PADDING_BOTTOM;
 
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : "btnSearch", "top" : nCompTop, "width" : nCompWidth, "right" : nCompRight, "bottom" : nCompBottom,
-				"cssclass" : sSearchButtonCssClass, "text" : sSearchButtonText
-			}
-		};
+		// 조회버튼 속성 설정
+		oComp.attribute["top"]			= nCompTop;
+		oComp.attribute["width"]		= nCompWidth;
+		oComp.attribute["right"]		= nCompRight;
+		oComp.attribute["bottom"]		= nCompBottom;
+		oComp.attribute["cssclass"]		= sSearchButtonCssClass;
+		oComp.attribute["text"]			= sSearchButtonText;
 
 		//Set area excluding lookup button area as component production area
 		nViewCompWidth = nViewCompWidth - this.SEARCH_BUTTON_WIDTH - this.SEARCH_BUTTON_H_SPACE;
@@ -546,20 +547,20 @@ fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight)
 		nCompRight 	= this.VIEW_PADDING_RIGHT;
 		nCompBottom = this.VIEW_PADDING_BOTTOM;
 		nCompHeight = this.SEARCH_BUTTON_HEIGHT;
-
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : "btnSearch", "left" : nCompLeft, "height" : nCompHeight, "right" : nCompRight, "bottom" : nCompBottom,
-				"cssclass" : sSearchButtonCssClass, "text" : sSearchButtonText
-			}
-		};
+		
+		// 조회버튼 속성 설정
+		oComp.attribute["left"]			= nCompLeft;
+		oComp.attribute["height"]		= nCompHeight;
+		oComp.attribute["right"]		= nCompRight;
+		oComp.attribute["bottom"]		= nCompBottom;
+		oComp.attribute["cssclass"]		= sSearchButtonCssClass;
+		oComp.attribute["text"]			= sSearchButtonText;
 
 		//Set area excluding lookup button area as component production area
 		nViewCompHeight = nViewCompHeight - this.SEARCH_BUTTON_HEIGHT - this.SEARCH_BUTTON_V_SPACE;
 	}
+	
+	oField.Components[0] = oComp;
 
 	//Add Lookup Button Tag
 	oModel[oModel.length] = oField;
