@@ -105,7 +105,8 @@
               <Div id="divTitle" left="0" top="0" height="30" right="0">
                 <Layouts>
                   <Layout>
-                    <Static id="staTitle" left="0" top="0" height="30" width="178" text="DM개별발송대상자목록조회" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="DM개별발송대상자목록조회" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                    <Static id="staTotCnt" left="staTitle:5" top="0" height="30" width="50" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_totalCount"/>
                   </Layout>
                 </Layouts>
               </Div>
@@ -280,7 +281,7 @@
           </ModelInfo>
           <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
             <Attribute id="titletext" value="DM개별발송대상자목록조회"/>
-            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="usetotalcount" value="true"/>
             <Attribute id="headbandsize" value="30"/>
             <Attribute id="bodybandsize" value="30"/>
             <Attribute id="summbandsize" value="-1"/>
@@ -335,7 +336,7 @@
       </Layout>
     </Layouts>
     <Objects>
-      <APIInzentTranAction id="APIInzentTranAction00" serviceurl="http://59.10.169.3:28080/test.do" inputdatasets="SI=view_search.form.viewdataset " outputdatasets="view_page.form.viewdataset=SO  view_master.form.viewdataset=SO_grid2">
+      <APIInzentTranAction id="APIInzentTranAction00" serviceurl="http://59.10.169.3:28080/test.do" inputdatasets="SI=view_search.form.viewdataset " outputdatasets="view_page.form.viewdataset=SO  view_master.form.viewdataset=SO_grid2" onerror="APIInzentTranAction00_onerror" onsuccess="APIInzentTranAction00_onsuccess">
         <Contents><![CDATA[{
     "model":{
         "modelinfo":[
@@ -421,8 +422,16 @@ this.APIInzentTranAction00_onerror = function(obj:nexacro.Action, e:nexacro.Tran
 this.APIInzentTranAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
 	trace("onsuccess >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
+	
+	// 전체건수 표시 처리
+	this.fnSetTotalCount(this.view_master.form.viewdataset.rowcount);
 };
 
+this.fnSetTotalCount = function(nCount)
+{
+	this.view_master.form.divTitle.form.staTotCnt.set_text("(총 <b v='true'><fc v='#da291c'>" + nCount + "</fc></b>건)");
+	this.view_master.form.divTitle.form.resetScroll();
+};
 ]]></Script>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="view_search" triggerobj="btnSearch" targetaction="APIInzentTranAction00" condition=""/>
