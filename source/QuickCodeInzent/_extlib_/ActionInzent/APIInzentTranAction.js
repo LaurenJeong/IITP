@@ -21,6 +21,8 @@ if (!nexacro.APIInzentTranAction)
     //===============================================================
 	nexacro.APIInzentTranAction.prototype._TRAN_CALLBACK_NM = "gfnTranActionCallback";		// Action공통 Callback함수명
 	
+	nexacro.APIInzentTranAction.prototype._SVC_URL
+	
 	//===============================================================		
     // nexacro.APIInzentTranAction : Create & Destroy		
     //===============================================================		

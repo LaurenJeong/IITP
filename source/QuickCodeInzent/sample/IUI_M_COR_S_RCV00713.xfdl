@@ -105,7 +105,7 @@
               <Div id="divTitle" left="0" top="0" height="30" right="0">
                 <Layouts>
                   <Layout>
-                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="DM개별발송대상자목록조회" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                    <Static id="staTitle" left="0" top="0" height="30" width="178" text="DM개별발송대상자목록조회" fittocontents="width" cssclass="sta_WF_subtitle"/>
                   </Layout>
                 </Layouts>
               </Div>
@@ -290,10 +290,10 @@
           <Layouts>
             <Layout>
               <Static id="staNextPageExsYn1S1Bg" left="0" top="0" width="1004" height="40" cssclass="sta_fieldbox"/>
-              <Static id="staNextPageExsYn1S1Label" left="0" top="0" width="120" height="40" text="다음페이지존재여부1_S1" cssclass="sta_labelbox"/>
-              <Edit id="edtNextPageExsYn1S1" left="125" top="5" width="110" height="30"/>
-              <Static id="staGrid2CntLabel" left="240" top="0" width="120" height="40" text="그리드카운트" cssclass="sta_labelbox"/>
-              <Edit id="edtGrid2Cnt" left="365" top="5" width="110" height="30"/>
+              <Static id="staNextPageExsYn1S1Label" left="0" top="0" width="150" height="40" text="다음페이지존재여부1_S1" cssclass="sta_labelbox"/>
+              <Edit id="edtNextPageExsYn1S1" left="155" top="5" width="140" height="30" cssclass="com_WF_View" readonly="true"/>
+              <Static id="staGrid2CntLabel" left="300" top="0" width="150" height="40" text="그리드카운트" cssclass="sta_labelbox"/>
+              <Edit id="edtGrid2Cnt" left="455" top="5" width="140" height="30" cssclass="com_WF_View" readonly="true"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -313,8 +313,8 @@
           </Bind>
           <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00713" modelid="SO" filepath="API_TEST\IUI_M_COR_S_RCV00713.xmodel">
             <Fields>
-              <Field id="NEXT_PAGE_EXS_YN_1_S1" comptype="edit" fieldwidth="120" fieldheight="40px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="grid2_cnt" comptype="edit" fieldwidth="120" fieldheight="40px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="NEXT_PAGE_EXS_YN_1_S1" comptype="edit" fieldwidth="150" fieldheight="40px" labelwidth="150" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="grid2_cnt" comptype="edit" fieldwidth="150" fieldheight="40px" labelwidth="150" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
             </Fields>
             <Components>
               <Component id="staNextPageExsYn1S1Bg" fields="NEXT_PAGE_EXS_YN_1_S1"/>
@@ -324,7 +324,7 @@
               <Component id="edtGrid2Cnt" fields="grid2_cnt"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="FreeformReadonlyViewTemplate.xviewgen">
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="halign" value="left"/>
             <Attribute id="valign" value="top"/>
@@ -421,7 +421,9 @@ this.APIInzentTranAction00_onerror = function(obj:nexacro.Action, e:nexacro.Tran
 this.APIInzentTranAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
 	trace("onsuccess >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
-};]]></Script>
+};
+
+]]></Script>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="view_search" triggerobj="btnSearch" targetaction="APIInzentTranAction00" condition=""/>
     </Trigger>

@@ -67,7 +67,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -153,10 +153,10 @@
           <Layouts>
             <Layout>
               <Static id="staNextPageExsYn5Bg" left="0" top="0" width="1004" height="40" cssclass="sta_fieldbox"/>
-              <Static id="staNextPageExsYn5Label" left="0" top="0" width="120" height="40" text="다음페이지존재여부5" cssclass="sta_labelbox"/>
-              <Edit id="edtNextPageExsYn5" left="125" top="5" width="110" height="30"/>
-              <Static id="staGrid5CntLabel" left="240" top="0" width="120" height="40" text="grid5_cnt" cssclass="sta_labelbox"/>
-              <Edit id="edtGrid5Cnt" left="365" top="5" width="110" height="30"/>
+              <Static id="staNextPageExsYn5Label" left="0" top="0" width="150" height="40" text="다음페이지존재여부5" cssclass="sta_labelbox"/>
+              <Edit id="edtNextPageExsYn5" left="155" top="5" width="140" height="30" cssclass="com_WF_View" readonly="true"/>
+              <Static id="staGrid5CntLabel" left="300" top="0" width="150" height="40" text="grid5_cnt" cssclass="sta_labelbox"/>
+              <Edit id="edtGrid5Cnt" left="455" top="5" width="140" height="30" cssclass="com_WF_View" readonly="true"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -176,8 +176,8 @@
           </Bind>
           <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00567" modelid="SO" filepath="API_TEST\IUI_M_COR_S_RCV00567.xmodel">
             <Fields>
-              <Field id="NEXT_PAGE_EXS_YN5" comptype="edit" fieldwidth="120" fieldheight="40px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="grid5_cnt" comptype="edit" fieldwidth="120" fieldheight="40px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="NEXT_PAGE_EXS_YN5" comptype="edit" fieldwidth="150" fieldheight="40px" labelwidth="150" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="grid5_cnt" comptype="edit" fieldwidth="150" fieldheight="40px" labelwidth="150" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
             </Fields>
             <Components>
               <Component id="staNextPageExsYn5Bg" fields="NEXT_PAGE_EXS_YN5"/>
@@ -187,7 +187,7 @@
               <Component id="edtGrid5Cnt" fields="grid5_cnt"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="FreeformReadonlyViewTemplate.xviewgen">
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="halign" value="left"/>
             <Attribute id="valign" value="top"/>
@@ -199,44 +199,7 @@
     </Layouts>
     <Objects>
       <APIInzentTranAction id="APIInzentTranAction00" servicemodel="IUI_M_COR_S_RCV00567" serviceurl="http://59.10.169.3:28080/test.do" inputdatasets="SI=view_search.form.viewdataset " outputdatasets="view_page.form.viewdataset=SO  view_master.form.viewdataset=SO_grid5" onerror="APIInzentTranAction00_onerror" onsuccess="APIInzentTranAction00_onsuccess">
-        <Contents><![CDATA[{
-    "model":{
-        "modelinfo":[
-                {
-                "viewid":"view_search",
-                "modelid":"SI",
-                "iotype":"input"
-                }
-        ],
-        "input":[
-            {
-                "name":"view_search:MNG_CHRG_EMPNO",
-                "viewid":"view_search",
-                "fieldid":"MNG_CHRG_EMPNO",
-                "value":""
-            },
-            {
-                "name":"view_search:LOAN_NO",
-                "viewid":"view_search",
-                "fieldid":"LOAN_NO",
-                "value":""
-            },
-            {
-                "name":"view_search:PAGE_MG5",
-                "viewid":"view_search",
-                "fieldid":"PAGE_MG5",
-                "value":""
-            },
-            {
-                "name":"view_search:PAGE_NO5",
-                "viewid":"view_search",
-                "fieldid":"PAGE_NO5",
-                "value":""
-            }
-        ]
-    },
-"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>COR</Col><Col id='SvcID'>ISD_IUI_M_COR_S_RCV00567</Col><Col id='IFID'>IUI_M_COR_S_RCV00567</Col><Col id='UUID'>20220809150429105</Col><Col id='BizCode'>RCV</Col><Col id='ChlCode'>IUI</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SO_grid5</Col><Col id='iotype'>output</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data[0].FormData.grid5</Col></Row></Rows></Dataset>"
-}]]></Contents>
+        <Contents/>
       </APIInzentTranAction>
     </Objects>
     <Script type="xscript5.1"><![CDATA[
