@@ -21,7 +21,7 @@ if (!nexacro.APIInzentTranAction)
     //===============================================================
 	nexacro.APIInzentTranAction.prototype._TRAN_CALLBACK_NM = "gfnTranActionCallback";		// Action공통 Callback함수명
 	
-	nexacro.APIInzentTranAction.prototype._SVC_URL
+	nexacro.APIInzentTranAction.prototype._INZENT_SVC_URL = "http://59.10.169.3:28080/";
 	
 	//===============================================================		
     // nexacro.APIInzentTranAction : Create & Destroy		
@@ -168,6 +168,12 @@ if (!nexacro.APIInzentTranAction)
 		
 		var objForm = this.gfnGetForm();
 		
+		// TODO : Inzent용 Service URL 전환
+		if (this.gfnIsNull(sService) == false) {
+			sService = nexacro.replaceAll(sService,this._INZENT_SVC_URL,"svc::");
+		}
+		
+		// Inzent용 Dataset 생성 및 InputDataset 정보 반환
 		var sAddInDs = this.gfnSetInzentDataset(objForm);
 		if (this.gfnIsNull(sAddInDs) == false) {
 			sInDs = sAddInDs + " " + sInDs;
