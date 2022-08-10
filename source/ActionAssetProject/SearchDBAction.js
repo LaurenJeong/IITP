@@ -33,14 +33,14 @@ if (!nexacro.SearchDBAction)
 		if(this.on_fire_canrun("userdata")!=false)
 		{	
 			//Transaction에서 사용할 Param정보 가져오기
-			var sId = this.id;
-			var sUrl = this.serviceurl;
+			var sSvcId = this.id;
+			var sService = this.serviceurl;
 			var sInDs = this.inputdatasets;
 			var sOutDs = this.outputdatasets;
 			var sArgs = this.args;
-			var sCallBack = this._TRAN_CALLBACK_NM;
+			var sCallback = this._TRAN_CALLBACK_NM;
 			
-			this.gfnTransaction(sId, sUrl, sInDs, sOutDs, sArgs, sCallBack);
+			this.gfnTransaction(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback);
 		}
 	};
 	
@@ -120,22 +120,22 @@ if (!nexacro.SearchDBAction)
 		return true;	
 	};
 	
-	nexacro.SearchDBAction.prototype.on_fire_onsuccess = function (sId, nErrorCd, sErrorMsg)
+	nexacro.SearchDBAction.prototype.on_fire_onsuccess = function (sSvcId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onsuccess;
 		if (event && event._has_handlers)
 		{
-			var evt = new nexacro.TranActionSuccessEventInfo(this, "onsuccess", sId, nErrorCd, sErrorMsg); //TODO
+			var evt = new nexacro.TranActionSuccessEventInfo(this, "onsuccess", sSvcId, nErrorCd, sErrorMsg); //TODO
 			event._fireEvent(this, evt);
 		}
 	};
 	
-	nexacro.SearchDBAction.prototype.on_fire_onerror = function (sId, nErrorCd, sErrorMsg)
+	nexacro.SearchDBAction.prototype.on_fire_onerror = function (sSvcId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onerror;
 		if (event && event._has_handlers)
 		{
-			var evt = new nexacro.TranActionErrorEventInfo(this, "onerror", sId, nErrorCd, sErrorMsg); //TODO
+			var evt = new nexacro.TranActionErrorEventInfo(this, "onerror", sSvcId, nErrorCd, sErrorMsg); //TODO
 			event._fireEvent(this, evt);
 		}
 	};
@@ -164,29 +164,29 @@ if (!nexacro.SearchDBAction)
 		var objForm = this.gfnGetForm();
 		
 		//Action Scope에 있는 CallBack 함수가 호출되도록 설정
-		objForm.fnTranActionCallback = this.fnTranActionCallback;
+		objForm.gfnTranActionCallback = this.gfnTranActionCallback;
 		
 		if (this.gfnIsNull(objForm.targetTranAction))		objForm.targetTranAction = {};
-		objForm.targetTranAction[sId] = this;
+		objForm.targetTranAction[sSvcId] = this;
 		
 		//Transaction 호출
-		objForm.transaction(sId, sUrl, sInDs, sOutDs, sArgs, sCallBack, sAsync);
+		objForm.transaction(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
 	};
 	
-	nexacro.SearchDBAction.prototype.gfnTranActionCallback = function(sId, nErrorCd, sErrorMsg)
+	nexacro.SearchDBAction.prototype.gfnTranActionCallback = function(sSvcId, nErrorCd, sErrorMsg)
 	{
-		var objTarget = this.targetTranAction[sId];
+		var objTarget = this.targetTranAction[sSvcId];
 		if (objTarget == undefined || objTarget == null)		return;
 		
 		//ErrorCode가 -1보다 클 경우 onsuccess 이벤트 호출
 		if(nErrorCd>-1)
 		{
-			objTarget.on_fire_onsuccess(sId, nErrorCd, sErrorMsg);
+			objTarget.on_fire_onsuccess(sSvcId, nErrorCd, sErrorMsg);
 		}
 		//ErrorCode가 0보다 작을 경우 onerror 이벤트 호출
 		else
 		{
-			objTarget.on_fire_onerror(sId, nErrorCd, sErrorMsg);
+			objTarget.on_fire_onerror(sSvcId, nErrorCd, sErrorMsg);
 		}
 	};
 	
