@@ -1,0 +1,52 @@
+﻿{
+    "version" : "21.0.0.1",
+    "runtime" :
+    {
+        "target" :
+        {
+            "os" : "windows"
+        },
+        "framework" :
+        [    
+        "./nexacrolib/framework/Framework.js"
+        ],
+        "component" :
+        [    
+        "./nexacrolib/component/CompBase.js",
+        "./nexacrolib/component/ComComp.js",
+        "./nexacrolib/component/Grid.js",
+        "./nexacrolib/component/ListView.js"
+        ],
+        "environment" :
+        [    
+        {
+        "file":"./environment.xml.js"
+        }
+        ],
+        "screen" :
+        [    
+        {"id":"Desktop_screen","type":"desktop","themeid":"theme::default"}
+        ],
+        "xadl" :
+        [
+        {"screenid":"Desktop_screen","launch":"./developer_application.xadl.js","quickview":"./preview.xadl.quickview.js","form":[]}
+        ],  
+        "protocol" :
+        {
+            "adaptors" :
+            []
+        },
+        "resource" :
+        {
+
+        },
+		"deploy" :
+        {
+
+        },
+        "userfont" :
+        [
+
+        ]
+    }
+}
