@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="IUI_M_COR_S_RCV00713" width="1024" height="720" titletext="DM개별발송대상자목록조회">
+    <Layouts>
+      <Layout height="720" width="1024">
+        <View id="view_search" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="10" height="85" _vaild="[]" right="10">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staMngChrgEmpnoLabel" left="10" top="10" width="95" height="30" text="관리담당사원번호" cssclass="sta_label"/>
+              <Edit id="edtMngChrgEmpno" left="110" top="10" width="110" height="30"/>
+              <Static id="staCustnoLabel" left="225" top="10" width="95" height="30" text="고객번호" cssclass="sta_label"/>
+              <Edit id="edtCustno" left="325" top="10" width="110" height="30"/>
+              <Static id="staLoanNoLabel" left="440" top="10" width="95" height="30" text="대출번호" cssclass="sta_label"/>
+              <Edit id="edtLoanNo" left="540" top="10" width="110" height="30"/>
+              <Static id="staDplrExpcDtLabel" left="655" top="10" width="95" height="30" text="기한이익상실예정일자" cssclass="sta_label"/>
+              <Calendar id="calDplrExpcDt" left="755" top="10" width="110" height="30"/>
+              <Static id="staDplrExpcEndDtS8Label" left="10" top="45" width="95" height="30" text="기한이익상실예정종료일자_S8" cssclass="sta_label"/>
+              <Calendar id="calDplrExpcEndDtS8" left="110" top="45" width="110" height="30"/>
+              <Static id="staDplrDtLabel" left="225" top="45" width="95" height="30" text="기한이익상실일자" cssclass="sta_label"/>
+              <Calendar id="calDplrDt" left="325" top="45" width="110" height="30"/>
+              <Static id="staDplrEndDtS8Label" left="440" top="45" width="95" height="30" text="기한이익상실종료일자_S8" cssclass="sta_label"/>
+              <Calendar id="calDplrEndDtS8" left="540" top="45" width="110" height="30"/>
+              <Static id="staStdDtLabel" left="655" top="45" width="95" height="30" text="기준일자" cssclass="sta_label"/>
+              <Calendar id="calStdDt" left="755" top="45" width="110" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="PAGE_NO_1_N5" type="BIGDECIMAL" size="5"/>
+                <Column id="PAGE_MG_1_N5" type="BIGDECIMAL" size="5"/>
+                <Column id="MNG_CHRG_EMPNO" type="STRING" size="8"/>
+                <Column id="CUSTNO" type="STRING" size="10"/>
+                <Column id="LOAN_NO" type="STRING" size="14"/>
+                <Column id="DPLR_EXPC_DT" type="STRING" size="8"/>
+                <Column id="DPLR_EXPC_END_DT_S8" type="STRING" size="8"/>
+                <Column id="DPLR_DT" type="STRING" size="8"/>
+                <Column id="DPLR_END_DT_S8" type="STRING" size="8"/>
+                <Column id="STD_DT" type="STRING" size="8"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtMngChrgEmpno" compid="edtMngChrgEmpno" propid="value" datasetid="viewdataset" columnid="MNG_CHRG_EMPNO"/>
+            <BindItem id="bind_edtCustno" compid="edtCustno" propid="value" datasetid="viewdataset" columnid="CUSTNO"/>
+            <BindItem id="bind_edtLoanNo" compid="edtLoanNo" propid="value" datasetid="viewdataset" columnid="LOAN_NO"/>
+            <BindItem id="bind_calDplrExpcDt" compid="calDplrExpcDt" propid="value" datasetid="viewdataset" columnid="DPLR_EXPC_DT"/>
+            <BindItem id="bind_calDplrExpcEndDtS8" compid="calDplrExpcEndDtS8" propid="value" datasetid="viewdataset" columnid="DPLR_EXPC_END_DT_S8"/>
+            <BindItem id="bind_calDplrDt" compid="calDplrDt" propid="value" datasetid="viewdataset" columnid="DPLR_DT"/>
+            <BindItem id="bind_calDplrEndDtS8" compid="calDplrEndDtS8" propid="value" datasetid="viewdataset" columnid="DPLR_END_DT_S8"/>
+            <BindItem id="bind_calStdDt" compid="calStdDt" propid="value" datasetid="viewdataset" columnid="STD_DT"/>
+          </Bind>
+          <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00713" modelid="SI" filepath="API_TEST\IUI_M_COR_S_RCV00713.xmodel">
+            <Fields>
+              <Field id="PAGE_MG_1_N5" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="PAGE_NO_1_N5" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="MNG_CHRG_EMPNO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="CUSTNO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="LOAN_NO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="DPLR_EXPC_DT" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="DPLR_EXPC_END_DT_S8" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="DPLR_DT" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="DPLR_END_DT_S8" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="STD_DT" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staMngChrgEmpnoLabel" fields="MNG_CHRG_EMPNO"/>
+              <Component id="edtMngChrgEmpno" fields="MNG_CHRG_EMPNO"/>
+              <Component id="staCustnoLabel" fields="CUSTNO"/>
+              <Component id="edtCustno" fields="CUSTNO"/>
+              <Component id="staLoanNoLabel" fields="LOAN_NO"/>
+              <Component id="edtLoanNo" fields="LOAN_NO"/>
+              <Component id="staDplrExpcDtLabel" fields="DPLR_EXPC_DT"/>
+              <Component id="calDplrExpcDt" fields="DPLR_EXPC_DT"/>
+              <Component id="staDplrExpcEndDtS8Label" fields="DPLR_EXPC_END_DT_S8"/>
+              <Component id="calDplrExpcEndDtS8" fields="DPLR_EXPC_END_DT_S8"/>
+              <Component id="staDplrDtLabel" fields="DPLR_DT"/>
+              <Component id="calDplrDt" fields="DPLR_DT"/>
+              <Component id="staDplrEndDtS8Label" fields="DPLR_END_DT_S8"/>
+              <Component id="calDplrEndDtS8" fields="DPLR_END_DT_S8"/>
+              <Component id="staStdDtLabel" fields="STD_DT"/>
+              <Component id="calStdDt" fields="STD_DT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="view_master" taborder="1" text="View01" viewdataset="viewdataset" left="10" top="view_search:10" right="10" bottom="60">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="DM개별발송대상자목록조회" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_GDS_LCL_NM" col="0" row="0" text="상품대분류명"/>
+                      <Cell id="cell_GDS_NM" col="1" row="0" text="상품명"/>
+                      <Cell id="cell_LOAN_NO" col="2" row="0" text="대출번호"/>
+                      <Cell id="cell_CUST_NM" col="3" row="0" text="고객명"/>
+                      <Cell id="cell_SENDSTATUS" col="4" row="0" text="상태"/>
+                      <Cell id="cell_OVRD_MCNT" col="5" row="0" text="연체개월수"/>
+                      <Cell id="cell_OVRD_DCNT" col="6" row="0" text="연체일수"/>
+                      <Cell id="cell_SETL_DD" col="7" row="0" text="결제일"/>
+                      <Cell id="cell_OVRD_PIAM_AMT" col="8" row="0" text="연체원리금금액"/>
+                      <Cell id="cell_DLAY_INT_AMT" col="9" row="0" text="지연이자금액"/>
+                      <Cell id="cell_COST_TAMT" col="10" row="0" text="비용총액"/>
+                      <Cell id="cell_THMM_BILL_AMT" col="11" row="0" text="당월청구금액"/>
+                      <Cell id="cell_BILL_AMT" col="12" row="0" text="청구금액"/>
+                      <Cell id="cell_DPLR_EXPC_DT" col="13" row="0" text="기한이익상실예정일자"/>
+                      <Cell id="cell_DPLR_DT" col="14" row="0" text="기한이익상실일자"/>
+                      <Cell id="cell_DPLR_TYPE_NM_S10" col="15" row="0" text="기한이익상실유형명_S10"/>
+                      <Cell id="cell_MNG_CHGR_NM" col="16" row="0" text="관리담당자명"/>
+                      <Cell id="cell_FLPY_NTH" col="17" row="0" text="완납회차"/>
+                      <Cell id="cell_DBT_DIV_S10" col="18" row="0" text="채무구분_S10"/>
+                      <Cell id="cell_AGRE_INT_RT" col="19" row="0" text="약정이자율"/>
+                      <Cell id="cell_BNK_NM" col="20" row="0" text="은행명"/>
+                      <Cell id="cell_ACNO" col="21" row="0" text="계좌번호"/>
+                      <Cell id="cell_DEPR_NM" col="22" row="0" text="예금주명"/>
+                      <Cell id="cell_THNG_NM" col="23" row="0" text="물건명"/>
+                      <Cell id="cell_VHRNO" col="24" row="0" text="차량번호"/>
+                      <Cell id="cell_MNG_DPT_NM" col="25" row="0" text="관리부서명"/>
+                      <Cell id="cell_CPNO" col="26" row="0" text="휴대전화번호"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_GDS_LCL_NM" col="0" row="0" text="bind:GDS_LCL_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_GDS_NM" col="1" row="0" text="bind:GDS_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_LOAN_NO" col="2" row="0" text="bind:LOAN_NO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_CUST_NM" col="3" row="0" text="bind:CUST_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_SENDSTATUS" col="4" row="0" text="bind:SENDSTATUS" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_OVRD_MCNT" col="5" row="0" text="bind:OVRD_MCNT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_OVRD_DCNT" col="6" row="0" text="bind:OVRD_DCNT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_SETL_DD" col="7" row="0" text="bind:SETL_DD" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_OVRD_PIAM_AMT" col="8" row="0" text="bind:OVRD_PIAM_AMT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_DLAY_INT_AMT" col="9" row="0" text="bind:DLAY_INT_AMT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_COST_TAMT" col="10" row="0" text="bind:COST_TAMT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_THMM_BILL_AMT" col="11" row="0" text="bind:THMM_BILL_AMT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_BILL_AMT" col="12" row="0" text="bind:BILL_AMT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_DPLR_EXPC_DT" col="13" row="0" text="bind:DPLR_EXPC_DT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_DPLR_DT" col="14" row="0" text="bind:DPLR_DT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_DPLR_TYPE_NM_S10" col="15" row="0" text="bind:DPLR_TYPE_NM_S10" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_MNG_CHGR_NM" col="16" row="0" text="bind:MNG_CHGR_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_FLPY_NTH" col="17" row="0" text="bind:FLPY_NTH" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_DBT_DIV_S10" col="18" row="0" text="bind:DBT_DIV_S10" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_AGRE_INT_RT" col="19" row="0" text="bind:AGRE_INT_RT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_BNK_NM" col="20" row="0" text="bind:BNK_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_ACNO" col="21" row="0" text="bind:ACNO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_DEPR_NM" col="22" row="0" text="bind:DEPR_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_THNG_NM" col="23" row="0" text="bind:THNG_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_VHRNO" col="24" row="0" text="bind:VHRNO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_MNG_DPT_NM" col="25" row="0" text="bind:MNG_DPT_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_CPNO" col="26" row="0" text="bind:CPNO" displaytype="normal" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="GDS_LCL_NM" type="STRING" size="200"/>
+                <Column id="GDS_NM" type="STRING" size="200"/>
+                <Column id="LOAN_NO" type="STRING" size="14"/>
+                <Column id="CUST_NM" type="STRING" size="200"/>
+                <Column id="SENDSTATUS" type="BIGDECIMAL" size="22"/>
+                <Column id="OVRD_MCNT" type="BIGDECIMAL" size="18"/>
+                <Column id="OVRD_DCNT" type="BIGDECIMAL" size="18"/>
+                <Column id="SETL_DD" type="STRING" size="2"/>
+                <Column id="OVRD_PIAM_AMT" type="BIGDECIMAL" size="18"/>
+                <Column id="DLAY_INT_AMT" type="BIGDECIMAL" size="18"/>
+                <Column id="COST_TAMT" type="BIGDECIMAL" size="18"/>
+                <Column id="THMM_BILL_AMT" type="BIGDECIMAL" size="18"/>
+                <Column id="BILL_AMT" type="BIGDECIMAL" size="18"/>
+                <Column id="DPLR_EXPC_DT" type="STRING" size="8"/>
+                <Column id="DPLR_DT" type="STRING" size="8"/>
+                <Column id="DPLR_TYPE_NM_S10" type="STRING" size="10"/>
+                <Column id="MNG_CHGR_NM" type="STRING" size="200"/>
+                <Column id="FLPY_NTH" type="BIGDECIMAL" size="9"/>
+                <Column id="DBT_DIV_S10" type="STRING" size="10"/>
+                <Column id="AGRE_INT_RT" type="BIGDECIMAL" size="13"/>
+                <Column id="BNK_NM" type="STRING" size="200"/>
+                <Column id="ACNO" type="STRING" size="30"/>
+                <Column id="DEPR_NM" type="STRING" size="200"/>
+                <Column id="THNG_NM" type="STRING" size="200"/>
+                <Column id="VHRNO" type="STRING" size="20"/>
+                <Column id="MNG_DPT_NM" type="STRING" size="200"/>
+                <Column id="CPNO" type="STRING" size="30"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00713" modelid="SO_grid2" filepath="API_TEST\IUI_M_COR_S_RCV00713.xmodel">
+            <Fields>
+              <Field id="GDS_LCL_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="GDS_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="LOAN_NO" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="CUST_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="SENDSTATUS" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="OVRD_MCNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="OVRD_DCNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="SETL_DD" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="OVRD_PIAM_AMT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DLAY_INT_AMT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="COST_TAMT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="THMM_BILL_AMT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="BILL_AMT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DPLR_EXPC_DT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DPLR_DT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DPLR_TYPE_NM_S10" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="MNG_CHGR_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="FLPY_NTH" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DBT_DIV_S10" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="AGRE_INT_RT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="BNK_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ACNO" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DEPR_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="THNG_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="VHRNO" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="MNG_DPT_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="CPNO" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="GDS_LCL_NM,GDS_NM,LOAN_NO,CUST_NM,SENDSTATUS,OVRD_MCNT,OVRD_DCNT,SETL_DD,OVRD_PIAM_AMT,DLAY_INT_AMT,COST_TAMT,THMM_BILL_AMT,BILL_AMT,DPLR_EXPC_DT,DPLR_DT,DPLR_TYPE_NM_S10,MNG_CHGR_NM,FLPY_NTH,DBT_DIV_S10,AGRE_INT_RT,BNK_NM,ACNO,DEPR_NM,THNG_NM,VHRNO,MNG_DPT_NM,CPNO"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="DM개별발송대상자목록조회"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="view_page" taborder="2" viewdataset="viewdataset" left="10" right="10" text="view_page" top="view_master:10" bottom="10">
+          <Layouts>
+            <Layout>
+              <Static id="staNextPageExsYn1S1Bg" left="0" top="0" width="1004" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNextPageExsYn1S1Label" left="0" top="0" width="120" height="40" text="다음페이지존재여부1_S1" cssclass="sta_labelbox"/>
+              <Edit id="edtNextPageExsYn1S1" left="125" top="5" width="110" height="30"/>
+              <Static id="staGrid2CntLabel" left="240" top="0" width="120" height="40" text="그리드카운트" cssclass="sta_labelbox"/>
+              <Edit id="edtGrid2Cnt" left="365" top="5" width="110" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="NEXT_PAGE_EXS_YN_1_S1" type="STRING" size="1"/>
+                <Column id="grid2_cnt" type="BIGDECIMAL" size="5"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtNextPageExsYn1S1" compid="edtNextPageExsYn1S1" propid="value" datasetid="viewdataset" columnid="NEXT_PAGE_EXS_YN_1_S1"/>
+            <BindItem id="bind_edtGrid2Cnt" compid="edtGrid2Cnt" propid="value" datasetid="viewdataset" columnid="grid2_cnt"/>
+          </Bind>
+          <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00713" modelid="SO" filepath="API_TEST\IUI_M_COR_S_RCV00713.xmodel">
+            <Fields>
+              <Field id="NEXT_PAGE_EXS_YN_1_S1" comptype="edit" fieldwidth="120" fieldheight="40px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="grid2_cnt" comptype="edit" fieldwidth="120" fieldheight="40px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staNextPageExsYn1S1Bg" fields="NEXT_PAGE_EXS_YN_1_S1"/>
+              <Component id="staNextPageExsYn1S1Label" fields="NEXT_PAGE_EXS_YN_1_S1"/>
+              <Component id="edtNextPageExsYn1S1" fields="NEXT_PAGE_EXS_YN_1_S1"/>
+              <Component id="staGrid2CntLabel" fields="grid2_cnt"/>
+              <Component id="edtGrid2Cnt" fields="grid2_cnt"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <APIInzentTranAction id="APIInzentTranAction00" serviceurl="http://59.10.169.3:28080/test.do" inputdatasets="SI=view_search.form.viewdataset " outputdatasets="view_page.form.viewdataset=SO  view_master.form.viewdataset=SO_grid2">
+        <Contents><![CDATA[{
+    "model":{
+        "modelinfo":[
+                {
+                "viewid":"view_search",
+                "modelid":"SI",
+                "iotype":"input"
+                }
+        ],
+        "input":[
+            {
+                "name":"view_search:PAGE_NO_1_N5",
+                "viewid":"view_search",
+                "fieldid":"PAGE_NO_1_N5",
+                "value":""
+            },
+            {
+                "name":"view_search:PAGE_MG_1_N5",
+                "viewid":"view_search",
+                "fieldid":"PAGE_MG_1_N5",
+                "value":""
+            },
+            {
+                "name":"view_search:MNG_CHRG_EMPNO",
+                "viewid":"view_search",
+                "fieldid":"MNG_CHRG_EMPNO",
+                "value":""
+            },
+            {
+                "name":"view_search:CUSTNO",
+                "viewid":"view_search",
+                "fieldid":"CUSTNO",
+                "value":""
+            },
+            {
+                "name":"view_search:LOAN_NO",
+                "viewid":"view_search",
+                "fieldid":"LOAN_NO",
+                "value":""
+            },
+            {
+                "name":"view_search:DPLR_EXPC_DT",
+                "viewid":"view_search",
+                "fieldid":"DPLR_EXPC_DT",
+                "value":""
+            },
+            {
+                "name":"view_search:DPLR_EXPC_END_DT_S8",
+                "viewid":"view_search",
+                "fieldid":"DPLR_EXPC_END_DT_S8",
+                "value":""
+            },
+            {
+                "name":"view_search:DPLR_DT",
+                "viewid":"view_search",
+                "fieldid":"DPLR_DT",
+                "value":""
+            },
+            {
+                "name":"view_search:DPLR_END_DT_S8",
+                "viewid":"view_search",
+                "fieldid":"DPLR_END_DT_S8",
+                "value":""
+            },
+            {
+                "name":"view_search:STD_DT",
+                "viewid":"view_search",
+                "fieldid":"STD_DT",
+                "value":""
+            }
+        ]
+    },
+"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>COR</Col><Col id='SvcID'>ISD_IUI_M_COR_S_RCV00713</Col><Col id='IFID'>IUI_M_COR_S_RCV00713</Col><Col id='UUID'>20220808152037274</Col><Col id='BizCode'>RCV</Col><Col id='ChlCode'>IUI</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SO_grid2</Col><Col id='iotype'>output</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data[0].FormData.grid2</Col></Row></Rows></Dataset>"
+}]]></Contents>
+      </APIInzentTranAction>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.APIInzentTranAction00_onerror = function(obj:nexacro.Action, e:nexacro.TranActionErrorEventInfo)
+{
+	trace("onerror >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
+};
+
+this.APIInzentTranAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
+{
+	trace("onsuccess >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
+};]]></Script>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="view_search" triggerobj="btnSearch" targetaction="APIInzentTranAction00" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>

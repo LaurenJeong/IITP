@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="IUI_M_COR_S_RCV00567" width="1024" height="720" titletext="법비용환급대출번호기준목록조회">
+    <Layouts>
+      <Layout height="720" width="1024">
+        <View id="view_search" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="10" height="50" _vaild="[]" right="10">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staMngChrgEmpnoLabel" left="10" top="10" width="95" height="30" text="관리담당사원번호" cssclass="sta_label"/>
+              <Edit id="edtMngChrgEmpno" left="110" top="10" width="110" height="30"/>
+              <Static id="staLoanNoLabel" left="225" top="10" width="95" height="30" text="대출번호" cssclass="sta_label"/>
+              <Edit id="edtLoanNo" left="325" top="10" width="110" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="MNG_CHRG_EMPNO" type="STRING" size="8"/>
+                <Column id="LOAN_NO" type="STRING" size="14"/>
+                <Column id="PAGE_MG5" type="BIGDECIMAL" size="5"/>
+                <Column id="PAGE_NO5" type="BIGDECIMAL" size="5"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtMngChrgEmpno" compid="edtMngChrgEmpno" propid="value" datasetid="viewdataset" columnid="MNG_CHRG_EMPNO"/>
+            <BindItem id="bind_edtLoanNo" compid="edtLoanNo" propid="value" datasetid="viewdataset" columnid="LOAN_NO"/>
+          </Bind>
+          <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00567" modelid="SI" filepath="API_TEST\IUI_M_COR_S_RCV00567.xmodel">
+            <Fields>
+              <Field id="PAGE_NO5" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="PAGE_MG5" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="MNG_CHRG_EMPNO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="LOAN_NO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staMngChrgEmpnoLabel" fields="MNG_CHRG_EMPNO"/>
+              <Component id="edtMngChrgEmpno" fields="MNG_CHRG_EMPNO"/>
+              <Component id="staLoanNoLabel" fields="LOAN_NO"/>
+              <Component id="edtLoanNo" fields="LOAN_NO"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="view_master" taborder="1" text="View01" viewdataset="viewdataset" left="10" top="view_search:10" right="10" bottom="60">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="법비용환급대출번호기준목록조회" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_LOAN_NO" col="0" row="0" text="대출번호"/>
+                      <Cell id="cell_CUST_NM" col="1" row="0" text="고객명"/>
+                      <Cell id="cell_BNK_CD" col="2" row="0" text="은행코드"/>
+                      <Cell id="cell_TRX_DT" col="3" row="0" text="거래일자"/>
+                      <Cell id="cell_TRX_AMT" col="4" row="0" text="거래금액"/>
+                      <Cell id="cell_MNRC_ACC_DEPR_NM" col="5" row="0" text="입금계좌예금주명"/>
+                      <Cell id="cell_GDS_NM" col="6" row="0" text="상품명"/>
+                      <Cell id="cell_RMK" col="7" row="0" text="비고"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_LOAN_NO" col="0" row="0" text="bind:LOAN_NO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_CUST_NM" col="1" row="0" text="bind:CUST_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_BNK_CD" col="2" row="0" text="bind:BNK_CD" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_TRX_DT" col="3" row="0" text="bind:TRX_DT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_TRX_AMT" col="4" row="0" text="bind:TRX_AMT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_MNRC_ACC_DEPR_NM" col="5" row="0" text="bind:MNRC_ACC_DEPR_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_GDS_NM" col="6" row="0" text="bind:GDS_NM" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_RMK" col="7" row="0" text="bind:RMK" displaytype="normal" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="LOAN_NO" type="STRING" size="14"/>
+                <Column id="CUST_NM" type="STRING" size="200"/>
+                <Column id="BNK_CD" type="STRING" size="3"/>
+                <Column id="TRX_DT" type="STRING" size="8"/>
+                <Column id="TRX_AMT" type="BIGDECIMAL" size="18"/>
+                <Column id="MNRC_ACC_DEPR_NM" type="STRING" size="200"/>
+                <Column id="GDS_NM" type="STRING" size="200"/>
+                <Column id="RMK" type="STRING" size="4000"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00567" modelid="SO_grid5" filepath="API_TEST\IUI_M_COR_S_RCV00567.xmodel">
+            <Fields>
+              <Field id="LOAN_NO" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="CUST_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="BNK_CD" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="TRX_DT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="TRX_AMT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="MNRC_ACC_DEPR_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="GDS_NM" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="RMK" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="LOAN_NO,CUST_NM,BNK_CD,TRX_DT,TRX_AMT,MNRC_ACC_DEPR_NM,GDS_NM,RMK"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="법비용환급대출번호기준목록조회"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="view_page" taborder="2" viewdataset="viewdataset" left="10" right="10" text="view_page" top="670" bottom="10">
+          <Layouts>
+            <Layout>
+              <Static id="staNextPageExsYn5Bg" left="0" top="0" width="1004" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNextPageExsYn5Label" left="0" top="0" width="120" height="40" text="다음페이지존재여부5" cssclass="sta_labelbox"/>
+              <Edit id="edtNextPageExsYn5" left="125" top="5" width="110" height="30"/>
+              <Static id="staGrid5CntLabel" left="240" top="0" width="120" height="40" text="grid5_cnt" cssclass="sta_labelbox"/>
+              <Edit id="edtGrid5Cnt" left="365" top="5" width="110" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="NEXT_PAGE_EXS_YN5" type="STRING" size="1"/>
+                <Column id="grid5_cnt" type="BIGDECIMAL" size="5"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtNextPageExsYn5" compid="edtNextPageExsYn5" propid="value" datasetid="viewdataset" columnid="NEXT_PAGE_EXS_YN5"/>
+            <BindItem id="bind_edtGrid5Cnt" compid="edtGrid5Cnt" propid="value" datasetid="viewdataset" columnid="grid5_cnt"/>
+          </Bind>
+          <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00567" modelid="SO" filepath="API_TEST\IUI_M_COR_S_RCV00567.xmodel">
+            <Fields>
+              <Field id="NEXT_PAGE_EXS_YN5" comptype="edit" fieldwidth="120" fieldheight="40px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="grid5_cnt" comptype="edit" fieldwidth="120" fieldheight="40px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staNextPageExsYn5Bg" fields="NEXT_PAGE_EXS_YN5"/>
+              <Component id="staNextPageExsYn5Label" fields="NEXT_PAGE_EXS_YN5"/>
+              <Component id="edtNextPageExsYn5" fields="NEXT_PAGE_EXS_YN5"/>
+              <Component id="staGrid5CntLabel" fields="grid5_cnt"/>
+              <Component id="edtGrid5Cnt" fields="grid5_cnt"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <APIInzentTranAction id="APIInzentTranAction00" servicemodel="IUI_M_COR_S_RCV00567" serviceurl="http://59.10.169.3:28080/test.do" inputdatasets="SI=view_search.form.viewdataset " outputdatasets="view_page.form.viewdataset=SO  view_master.form.viewdataset=SO_grid5" onerror="APIInzentTranAction00_onerror" onsuccess="APIInzentTranAction00_onsuccess">
+        <Contents><![CDATA[{
+    "model":{
+        "modelinfo":[
+                {
+                "viewid":"view_search",
+                "modelid":"SI",
+                "iotype":"input"
+                }
+        ],
+        "input":[
+            {
+                "name":"view_search:MNG_CHRG_EMPNO",
+                "viewid":"view_search",
+                "fieldid":"MNG_CHRG_EMPNO",
+                "value":""
+            },
+            {
+                "name":"view_search:LOAN_NO",
+                "viewid":"view_search",
+                "fieldid":"LOAN_NO",
+                "value":""
+            },
+            {
+                "name":"view_search:PAGE_MG5",
+                "viewid":"view_search",
+                "fieldid":"PAGE_MG5",
+                "value":""
+            },
+            {
+                "name":"view_search:PAGE_NO5",
+                "viewid":"view_search",
+                "fieldid":"PAGE_NO5",
+                "value":""
+            }
+        ]
+    },
+"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>COR</Col><Col id='SvcID'>ISD_IUI_M_COR_S_RCV00567</Col><Col id='IFID'>IUI_M_COR_S_RCV00567</Col><Col id='UUID'>20220809150429105</Col><Col id='BizCode'>RCV</Col><Col id='ChlCode'>IUI</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SO_grid5</Col><Col id='iotype'>output</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data[0].FormData.grid5</Col></Row></Rows></Dataset>"
+}]]></Contents>
+      </APIInzentTranAction>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.APIInzentTranAction00_onerror = function(obj:nexacro.Action, e:nexacro.TranActionErrorEventInfo)
+{
+	trace("onerror >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
+};
+
+this.APIInzentTranAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
+{
+	trace("onsuccess >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
+};]]></Script>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="view_search" triggerobj="btnSearch" targetaction="APIInzentTranAction00" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>
