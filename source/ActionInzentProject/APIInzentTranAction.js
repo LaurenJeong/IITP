@@ -25,7 +25,7 @@ if (!nexacro.APIInzentTranAction)
 	
 	// Inzent Service URL prefix로 전환용
 	nexacro.APIInzentTranAction.prototype._INZENT_SVC_PREFIX	= "svc::";						// prefix ID
-	nexacro.APIInzentTranAction.prototype._INZENT_SVC_URL		= "http://59.10.169.3:28080/";	// Inzent Service URL
+	nexacro.APIInzentTranAction.prototype._INZENT_SVC_URL		= "http://172.10.12.58:28080/";	// Inzent Service URL
 	
 	//===============================================================
     // nexacro.APIInzentTranAction : Action관련 공통함수
