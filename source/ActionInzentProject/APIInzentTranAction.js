@@ -94,6 +94,7 @@ if (!nexacro.APIInzentTranAction)
 			console.log("[" + sType + "] " + this.name + " > " + sMsg);
 		}
 	};
+	
 	//===============================================================		
     // nexacro.APIInzentTranAction : Create & Destroy		
     //===============================================================		
@@ -255,7 +256,7 @@ if (!nexacro.APIInzentTranAction)
 		var dStartDate = new Date();
 		var sStartTime = dStartDate.getTime();
 		
-		// 1. callback에서 처리할 서비스 정보 저장
+		// callback에서 처리할 서비스 정보 저장
 		var objSvcId = { 
 			svcId		: sSvcId
 		  , svcUrl    	: sService
@@ -267,6 +268,7 @@ if (!nexacro.APIInzentTranAction)
 		//Action Scope에 있는 CallBack 함수가 호출되도록 설정
 		objForm.gfnTranActionCallback = this.gfnTranActionCallback;
 		
+		// Action정보를 폼에 설정
 		if (this.gfnIsNull(objForm.targetTranAction))		objForm.targetTranAction = {};
 		objForm.targetTranAction[sSvcId] = this;
 		
@@ -286,6 +288,7 @@ if (!nexacro.APIInzentTranAction)
 		var objTarget = this.targetTranAction[sSvcId];
 		if (objTarget == undefined || objTarget == null)		return;
 		
+		// Transaction Log
 		objTarget.gfnLog("ElapseTime >> " + nElapseTime + ", ErrorCd >> " + nErrorCd + ", ErrorMsg >> " + sErrorMsg);
 		
 		//ErrorCode가 -1보다 클 경우 onsuccess 이벤트 호출

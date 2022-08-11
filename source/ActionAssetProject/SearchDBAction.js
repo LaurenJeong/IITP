@@ -143,6 +143,7 @@ if (!nexacro.SearchDBAction)
 	//===============================================================		
     // nexacro.DsCopyRowDataAction : 공통함수 전환부분
     //===============================================================
+	// Transaction
 	nexacro.SearchDBAction.prototype.gfnTransaction = function(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync)
 	{	
 		if (this.gfnIsNull(sSvcId) || this.gfnIsNull(sService))
@@ -163,20 +164,44 @@ if (!nexacro.SearchDBAction)
 		
 		var objForm = this.gfnGetForm();
 		
+		// Log처리용
+		var dStartDate = new Date();
+		var sStartTime = dStartDate.getTime();
+		
+		// callback에서 처리할 서비스 정보 저장
+		var objSvcId = { 
+			svcId		: sSvcId
+		  , svcUrl    	: sService
+		  , callback	: sCallback
+		  , isAsync   	: bAsync
+		  , startTime	: sStartTime
+		};
+		
 		//Action Scope에 있는 CallBack 함수가 호출되도록 설정
 		objForm.gfnTranActionCallback = this.gfnTranActionCallback;
 		
+		// Action정보를 폼에 설정
 		if (this.gfnIsNull(objForm.targetTranAction))		objForm.targetTranAction = {};
 		objForm.targetTranAction[sSvcId] = this;
 		
 		//Transaction 호출
-		objForm.transaction(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
+		objForm.transaction(JSON.stringify(objSvcId), sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
 	};
 	
-	nexacro.SearchDBAction.prototype.gfnTranActionCallback = function(sSvcId, nErrorCd, sErrorMsg)
+	// Transaction Callback
+	nexacro.SearchDBAction.prototype.gfnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
 	{
+		var objSvcId = JSON.parse(svcId);
+		var sSvcId = objSvcId.svcId;
+		
+		var dEndDate = new Date();
+		var nElapseTime = (dEndDate.getTime() - objSvcId.startTime) / 1000;
+		
 		var objTarget = this.targetTranAction[sSvcId];
 		if (objTarget == undefined || objTarget == null)		return;
+		
+		// Transaction Log
+		objTarget.gfnLog("ElapseTime >> " + nElapseTime + ", ErrorCd >> " + nErrorCd + ", ErrorMsg >> " + sErrorMsg);
 		
 		//ErrorCode가 -1보다 클 경우 onsuccess 이벤트 호출
 		if(nErrorCd>-1)

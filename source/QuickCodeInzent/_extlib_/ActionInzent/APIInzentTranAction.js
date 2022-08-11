@@ -286,6 +286,7 @@ if (!nexacro.APIInzentTranAction)
 		var objTarget = this.targetTranAction[sSvcId];
 		if (objTarget == undefined || objTarget == null)		return;
 		
+		// Transaction Log
 		objTarget.gfnLog("ElapseTime >> " + nElapseTime + ", ErrorCd >> " + nErrorCd + ", ErrorMsg >> " + sErrorMsg);
 		
 		//ErrorCode가 -1보다 클 경우 onsuccess 이벤트 호출
