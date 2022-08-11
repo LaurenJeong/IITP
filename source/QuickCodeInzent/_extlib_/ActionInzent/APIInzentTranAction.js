@@ -19,9 +19,51 @@ if (!nexacro.APIInzentTranAction)
 	//===============================================================
     // nexacro.APIInzentTranAction : 변수선언 부분
     //===============================================================
-	nexacro.APIInzentTranAction.prototype._TRAN_CALLBACK_NM = "gfnTranActionCallback";		// Action공통 Callback함수명
+	nexacro.APIInzentTranAction.prototype._TRAN_CALLBACK_NM		= "gfnTranActionCallback";		// Action공통 Callback함수명
 	
-	nexacro.APIInzentTranAction.prototype._INZENT_SVC_URL = "http://59.10.169.3:28080/";
+	// Inzent Service URL prefix로 전환용
+	nexacro.APIInzentTranAction.prototype._INZENT_SVC_PREFIX	= "svc::";						// prefix ID
+	nexacro.APIInzentTranAction.prototype._INZENT_SVC_URL		= "http://59.10.169.3:28080/";	// Inzent Service URL
+	
+	//===============================================================
+    // nexacro.APIInzentTranAction : Action관련 공통함수
+    //===============================================================
+	/**
+	 * Action에서 targetview 기준으로 form 반환
+	 * @return {Object} Form 객체
+	 */
+	// run()에서만 동작함.
+	nexacro.APIInzentTranAction.prototype.gfnGetForm = function ()				
+	{				
+		//var objView 		= this._findViewObject(this.targetview);
+		var objView 		= this.getTargetView();
+		var objForm;
+		
+		if(objView)objForm = objView.form;		
+		else objForm = this.parent;
+				
+		return objForm;			
+	};
+	
+	//===============================================================
+    // nexacro.APIInzentTranAction : 공통함수(Util)
+    //===============================================================
+	/**
+	 * @class 값이 존재하는지 여부 체크 <br>
+	 * @param {String} sValue	
+	 * @return {Boolean} true/false
+	 * @example
+	 * var bNull = this.gfnIsNull("aaa");	// false
+	 */
+	nexacro.APIInzentTranAction.prototype.gfnIsNull = function (Val)				
+	{				
+		if (new String(Val).valueOf() == "undefined") return true;			
+		if (Val == null) return true;			
+		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
+		if (Val.length == 0) return true;			
+					
+		return false;			
+	};
 	
 	//===============================================================		
     // nexacro.APIInzentTranAction : Create & Destroy		
@@ -148,6 +190,7 @@ if (!nexacro.APIInzentTranAction)
 	//===============================================================		
     // nexacro.DsCopyRowDataAction : 공통함수 전환부분
     //===============================================================
+	// Transaction
 	nexacro.APIInzentTranAction.prototype.gfnTransaction = function(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync)
 	{	
 		if (this.gfnIsNull(sSvcId) || this.gfnIsNull(sService))
@@ -170,7 +213,7 @@ if (!nexacro.APIInzentTranAction)
 		
 		// TODO : Inzent용 Service URL 전환
 		if (this.gfnIsNull(sService) == false) {
-			sService = nexacro.replaceAll(sService,this._INZENT_SVC_URL,"svc::");
+			sService = nexacro.replaceAll(sService,this._INZENT_SVC_URL,this._INZENT_SVC_PREFIX);
 		}
 		
 		// Inzent용 Dataset 생성 및 InputDataset 정보 반환
@@ -189,6 +232,7 @@ if (!nexacro.APIInzentTranAction)
 		objForm.transaction(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
 	};
 	
+	// Transaction Callback
 	nexacro.APIInzentTranAction.prototype.gfnTranActionCallback = function(sSvcId, nErrorCd, sErrorMsg)
 	{
 		var objTarget = this.targetTranAction[sSvcId];
@@ -206,10 +250,14 @@ if (!nexacro.APIInzentTranAction)
 		}
 	};
 	
+	// Inzent 통신용 Dataset 생성 및 InputDataset 정보 반환
 	nexacro.APIInzentTranAction.prototype.gfnSetInzentDataset = function(objForm)
 	{
-		var sReference = this.getContents("reference");
+		var sReference = this.getContents("reference");		// Action 내 reference 정보 
 		
+		if (this.gfnIsNull(sReference))		return "";
+		
+		// DomParser용 Reference Tag 추가
 		sReference = "<Reference>" + sReference + "</Reference>";
 	
 		var domPar = new nexacro.DomParser();
@@ -222,85 +270,57 @@ if (!nexacro.APIInzentTranAction)
 		var sDatasetXML;
 		var bRet;
 		
+		// Inzent 연동용 input dataset Array
 		var aInzentDs = new Array();
 
+		// reference 정보를 Dom객체로 전환
 		domDoc = domPar.parseFromString(sReference);
 		
+		// reference Node
 		referenceNode = domDoc.firstChild;
-		if(!referenceNode)
-			return "";
+		if(!referenceNode)		return "";
 		
+		// 첫번째 Node
 		childNode = referenceNode.firstChild;
 		
 		while(childNode)
 		{
-			sDatasetId = childNode.getAttribute("id");
-			sDatasetXML = objXml.serializeToString(childNode);
-			
-			// Input Dataset용 Array
-			aInzentDs.push(sDatasetId+"="+sDatasetId);
-			
-			bRet = objForm.isValidObject(sDatasetId);
-			
-			if (bRet)
+			// Dataset Tag일때 
+			if (childNode.tagName == "Dataset" && childNode.hasAttributes("id"))
 			{
-				oDataset = objForm.all[sDatasetId];
-			}
-			else
-			{
-				oDataset = new Dataset();
-				objForm.addChild(sDatasetId, oDataset);
+				sDatasetId = childNode.getAttribute("id");
+				sDatasetXML = objXml.serializeToString(childNode);
+				oDataset = null;
+				
+				// Input Dataset용 Array
+				aInzentDs.push(sDatasetId+"="+sDatasetId);
+				
+				// Form에 Dataset있는지 체크
+				bRet = objForm.isValidObject(sDatasetId);
+				
+				// Form에 Dataset이 있는 경우 oDataset에 셋팅, 없는 경우 생성 후 셋팅
+				if (bRet)
+				{
+					oDataset = objForm.all[sDatasetId];
+				}
+				else
+				{
+					oDataset = new Dataset();
+					objForm.addChild(sDatasetId, oDataset);
+				}
+				
+				// Dataset에 XML Load
+				if (oDataset)
+				{
+					oDataset.loadXML(sDatasetXML);
+				}
 			}
 			
-			if (oDataset != null)
-			{
-				oDataset.loadXML(sDatasetXML);
-			}
-			
+			// 다음 Node
 			childNode = childNode.nextSibling;
 		}
 		
 		// Return Input Ds
 		return aInzentDs.join(" ");
-	};
-	
-	//===============================================================
-    // nexacro.Action : Action관련 공통함수
-    //===============================================================
-	/**
-	 * Action에서 targetview 기준으로 form 반환
-	 * @return {Object} Form 객체
-	 */
-	// run()에서만 동작함.
-	nexacro.APIInzentTranAction.prototype.gfnGetForm = function ()				
-	{				
-		//var objView 		= this._findViewObject(this.targetview);
-		var objView 		= this.getTargetView();
-		var objForm;
-		
-		if(objView)objForm = objView.form;		
-		else objForm = this.parent;
-				
-		return objForm;			
-	};
-	
-	//===============================================================
-    // nexacro.Action : 공통함수(Util)
-    //===============================================================
-	/**
-	 * @class 값이 존재하는지 여부 체크 <br>
-	 * @param {String} sValue	
-	 * @return {Boolean} true/false
-	 * @example
-	 * var bNull = this.gfnIsNull("aaa");	// false
-	 */
-	nexacro.APIInzentTranAction.prototype.gfnIsNull = function (Val)				
-	{				
-		if (new String(Val).valueOf() == "undefined") return true;			
-		if (Val == null) return true;			
-		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
-		if (Val.length == 0) return true;			
-					
-		return false;			
 	};
 }
