@@ -416,12 +416,12 @@
     <Script type="xscript5.1"><![CDATA[
 this.APIInzentTranAction00_onerror = function(obj:nexacro.Action, e:nexacro.TranActionErrorEventInfo)
 {
-	trace("onerror >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
+	//trace("onerror >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
 };
 
 this.APIInzentTranAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
-	trace("onsuccess >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
+	//trace("onsuccess >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
 	
 	// 전체건수 표시 처리
 	this.fnSetTotalCount(this.view_master.form.viewdataset.rowcount);

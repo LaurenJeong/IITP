@@ -19,6 +19,8 @@ if (!nexacro.APIInzentTranAction)
 	//===============================================================
     // nexacro.APIInzentTranAction : 변수선언 부분
     //===============================================================
+	nexacro.APIInzentTranAction.prototype._LOG_LEVEL			= -1;							// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
+	
 	nexacro.APIInzentTranAction.prototype._TRAN_CALLBACK_NM		= "gfnTranActionCallback";		// Action공통 Callback함수명
 	
 	// Inzent Service URL prefix로 전환용
@@ -65,6 +67,33 @@ if (!nexacro.APIInzentTranAction)
 		return false;			
 	};
 	
+	/**
+	 * 로그 출력
+	 * @param {String} sMsg 로그 출력 문자열
+	 * @param {String} sType 로그 타입("debug","info","warn","error")	
+	 */
+	nexacro.APIInzentTranAction.prototype.gfnLog = function(sMsg, sType)
+	{
+		var arrLogLevel = ["debug","info","warn","error"];
+	
+		if(sType == undefined)	sType = "debug";
+		var nLvl = arrLogLevel.indexOf(sType);
+		
+		if (nLvl < this._LOG_LEVEL)		return;
+		
+		if (system.navigatorname == "nexacro DesignMode"
+			|| system.navigatorname == "nexacro") {
+			if (sMsg instanceof Object) {
+				for(var x in sMsg){
+					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
+				}
+			} else {
+				trace("[" + sType + "] " + this.name + " > " + sMsg);
+			}
+		} else {
+			console.log("[" + sType + "] " + this.name + " > " + sMsg);
+		}
+	};
 	//===============================================================		
     // nexacro.APIInzentTranAction : Create & Destroy		
     //===============================================================		
@@ -222,6 +251,19 @@ if (!nexacro.APIInzentTranAction)
 			sInDs = sAddInDs + " " + sInDs;
 		}
 		
+		// Log처리용
+		var dStartDate = new Date();
+		var sStartTime = dStartDate.getTime();
+		
+		// 1. callback에서 처리할 서비스 정보 저장
+		var objSvcId = { 
+			svcId		: sSvcId
+		  , svcUrl    	: sService
+		  , callback	: sCallback
+		  , isAsync   	: bAsync
+		  , startTime	: sStartTime
+		};
+		
 		//Action Scope에 있는 CallBack 함수가 호출되도록 설정
 		objForm.gfnTranActionCallback = this.gfnTranActionCallback;
 		
@@ -229,14 +271,22 @@ if (!nexacro.APIInzentTranAction)
 		objForm.targetTranAction[sSvcId] = this;
 		
 		//Transaction 호출
-		objForm.transaction(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
+		objForm.transaction(JSON.stringify(objSvcId), sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
 	};
 	
 	// Transaction Callback
-	nexacro.APIInzentTranAction.prototype.gfnTranActionCallback = function(sSvcId, nErrorCd, sErrorMsg)
+	nexacro.APIInzentTranAction.prototype.gfnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
 	{
+		var objSvcId = JSON.parse(svcId);
+		var sSvcId = objSvcId.svcId;
+		
+		var dEndDate = new Date();
+		var nElapseTime = (dEndDate.getTime() - objSvcId.startTime) / 1000;
+		
 		var objTarget = this.targetTranAction[sSvcId];
 		if (objTarget == undefined || objTarget == null)		return;
+		
+		objTarget.gfnLog("ElapseTime >> " + nElapseTime + ", ErrorCd >> " + nErrorCd + ", ErrorMsg >> " + sErrorMsg);
 		
 		//ErrorCode가 -1보다 클 경우 onsuccess 이벤트 호출
 		if(nErrorCd>-1)
