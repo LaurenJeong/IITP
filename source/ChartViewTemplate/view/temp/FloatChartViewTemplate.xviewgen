@@ -308,7 +308,7 @@ fn_GetModel = function(bPreviewMode)
 	var oCategoryField;
 	
 	var arrField = new Array(); 
-	var arrSeriesField = new Array(2);			// [seriesto, seriesfrom]
+	var arrSeriesField = new Array();			// [seriesto, seriesfrom]
 
 	var sDisplaytype, sValueaxes;
 	
@@ -391,8 +391,11 @@ fn_GetModel = function(bPreviewMode)
 		// series없는 경우 예외처리
 		if(arrSeriesField.length==0)
 		{
-			// 숫자형 데이터 filter
-			arrSeriesField = this.oFieldArray.fields.filter(oField => oField.datatype == "INT" || oField.datatype == "FLOAT" || oField.datatype == "BIGDECIMAL");
+			var oFilterField = this.oFieldArray.fields.filter(oField => oField.datatype == "INT" || oField.datatype == "FLOAT" || oField.datatype == "BIGDECIMAL");
+			if (this.lfn_IsNotNull(oFilterField) && oFilterField.length >= 2)
+			{
+				arrSeriesField = [oFilterField[0],oFilterField[1]];
+			}
 		}
 	}
 	
