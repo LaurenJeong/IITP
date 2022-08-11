@@ -895,101 +895,58 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 {
 	var sScript = "";
 	
-	/*
-	this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+	// Expand버튼 동작 스크립트 - sUseExpandButton : ["none", "open","close"]
+	if (sUseExpandButton == "open" || sUseExpandButton == "close")
 	{
-		if (obj.cssclass == '" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "') {
-			this." + sViewNm + ".form.lfn_Title_SetSearchOpenClose(obj,'open');
-		} else {
-			this." + sViewNm + ".form.lfn_Title_SetSearchOpenClose(obj,'close');
-		}
-	};
-
-	this.lfn_Title_SetSearchOpenClose = function(obj,sStatus)
-	{
-		var objForm = obj.parent;
-		var objView = objForm.parent;
+		// expand 토글버튼 클릭 이벤트 함수
+		sScript += "this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)";
+		sScript += "{";
+		sScript += "	if (obj.cssclass == '" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "') {";
+		sScript += "		this." + sViewNm + ".form.lfn_Title_SetSearchOpenClose(obj,'open');";
+		sScript += "	} else {";
+		sScript += "		this." + sViewNm + ".form.lfn_Title_SetSearchOpenClose(obj,'close');";
+		sScript += "	}";
+		sScript += "};";
 		
-		if (sStatus == 'close') {
-			objView.set_height('" + this.TITLE_AREA_HEIGHT + "');
-			objView.set_formscrolltype('none');
-			obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');
-		} else {
-			if (objView._openHeight > 0) {
-				objView.set_height(objView._openHeight);
-			} else {
-				objView.set_bottom(objView._openBottom);
-			}
-			objView.set_formscrolltype(objView._formscrolltype);
-			obj.set_cssclass('" + this.EXPAND_BUTTON_CLOSE_CSSCLASS + "');
-		}
+		// expand 토글 함수
+		sScript += "this.lfn_Title_SetSearchOpenClose = function(obj,sStatus)";
+		sScript += "{";
+		sScript += "	var objForm = obj.parent.parent.parent;";
+		sScript += "	var objView = objForm.parent;";
+		sScript += "	";
+		sScript += "	if (sStatus == 'close') {";
+		sScript += "		objView.set_height('" + this.TITLE_AREA_HEIGHT + "');";
+		sScript += "		objView.set_formscrolltype('none');";
+		sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');";
+		sScript += "	} else {";
+		sScript += "		if (objView._openHeight > 0) {";
+		sScript += "			objView.set_height(objView._openHeight);";
+		sScript += "		} else {";
+		sScript += "			objView.set_bottom(objView._openBottom);";
+		sScript += "		}";
+		sScript += "		objView.set_formscrolltype(objView._formscrolltype);";
+		sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_CLOSE_CSSCLASS + "');";
+		sScript += "	}";
+		sScript += "	";
+		sScript += "	objView['_openclose'] = sStatus;";
+		sScript += "	";
+		sScript += "	objView.parent.resetScroll();";
+		sScript += "};";
 		
-		objView['_openclose'] = sStatus;
-		
-		objView.parent.resetScroll();
-	};
-	
-	this.lfn_Title_SetViewInit = function(obj,sStatus)
-	{
-		var objView = obj.parent;
-		objView._openclose = sStatus;
-		objView._openHeight = objView.height;
-		objView._openBottom = objView.bottom;
-		objView._formscrolltype = objView.formscrolltype;
-		this.lfn_Title_SetSearchOpenClose(obj.btnExpand,sStatus);
-	};
+		// View 사이즈 초기값 설정 함수(onload시 호출됨)
+		sScript += "this.lfn_Title_SetViewInit = function(obj,sStatus)";
+		sScript += "{";
+		sScript += "	var objView = obj.parent;";
+		sScript += "	objView._openclose = sStatus;";
+		sScript += "	objView._openHeight = objView.height;";
+		sScript += "	objView._openBottom = objView.bottom;";
+		sScript += "	objView._formscrolltype = objView.formscrolltype;";
+		sScript += "	this.lfn_Title_SetSearchOpenClose(obj."+this.DIV_TITLE_ID+".form."+"btnExpand,sStatus);";
+		sScript += "};";
 
-	this.ViewNm.form.lfn_Title_SetViewInit(this,'" + sUseExpandButton + "');
-	*/
-	
-	// expand 토글버튼 클릭 이벤트 함수
-	sScript += "this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)";
-	sScript += "{";
-	sScript += "	if (obj.cssclass == '" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "') {";
-	sScript += "		this." + sViewNm + ".form.lfn_Title_SetSearchOpenClose(obj,'open');";
-	sScript += "	} else {";
-	sScript += "		this." + sViewNm + ".form.lfn_Title_SetSearchOpenClose(obj,'close');";
-	sScript += "	}";
-	sScript += "};";
-	
-	// expand 토글 함수
-	sScript += "this.lfn_Title_SetSearchOpenClose = function(obj,sStatus)";
-	sScript += "{";
-	sScript += "	var objForm = obj.parent.parent.parent;";
-	sScript += "	var objView = objForm.parent;";
-	sScript += "	";
-	sScript += "	if (sStatus == 'close') {";
-	sScript += "		objView.set_height('" + this.TITLE_AREA_HEIGHT + "');";
-	sScript += "		objView.set_formscrolltype('none');";
-	sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');";
-	sScript += "	} else {";
-	sScript += "		if (objView._openHeight > 0) {";
-	sScript += "			objView.set_height(objView._openHeight);";
-	sScript += "		} else {";
-	sScript += "			objView.set_bottom(objView._openBottom);";
-	sScript += "		}";
-	sScript += "		objView.set_formscrolltype(objView._formscrolltype);";
-	sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_CLOSE_CSSCLASS + "');";
-	sScript += "	}";
-	sScript += "	";
-	sScript += "	objView['_openclose'] = sStatus;";
-	sScript += "	";
-	sScript += "	objView.parent.resetScroll();";
-	sScript += "};";
-	
-	// View 사이즈 초기값 설정 함수(onload시 호출됨)
-	sScript += "this.lfn_Title_SetViewInit = function(obj,sStatus)";
-	sScript += "{";
-	sScript += "	var objView = obj.parent;";
-	sScript += "	objView._openclose = sStatus;";
-	sScript += "	objView._openHeight = objView.height;";
-	sScript += "	objView._openBottom = objView.bottom;";
-	sScript += "	objView._formscrolltype = objView.formscrolltype;";
-	sScript += "	this.lfn_Title_SetSearchOpenClose(obj."+this.DIV_TITLE_ID+".form."+"btnExpand,sStatus);";
-	sScript += "};";
-
-	//View onload시 호출 
-	sScript += "this.lfn_Title_SetViewInit(this,'" + sUseExpandButton + "');";
+		//View onload시 호출 
+		sScript += "this.lfn_Title_SetViewInit(this,'" + sUseExpandButton + "');";
+	}
 	
 	return sScript;
 };]]></Script>
