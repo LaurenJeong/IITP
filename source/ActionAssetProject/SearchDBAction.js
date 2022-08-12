@@ -178,7 +178,7 @@ if (!nexacro.SearchDBAction)
 		};
 		
 		//Action Scope에 있는 CallBack 함수가 호출되도록 설정
-		objForm.gfnTranActionCallback = this.gfnTranActionCallback;
+		objForm.fnTranActionCallback = this.fnTranActionCallback;
 		
 		// Action정보를 폼에 설정
 		if (this.gfnIsNull(objForm.targetTranAction))		objForm.targetTranAction = {};
@@ -189,7 +189,7 @@ if (!nexacro.SearchDBAction)
 	};
 	
 	// Transaction Callback
-	nexacro.SearchDBAction.prototype.gfnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
+	nexacro.SearchDBAction.prototype.fnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
 	{
 		var objSvcId = JSON.parse(svcId);
 		var sSvcId = objSvcId.svcId;
