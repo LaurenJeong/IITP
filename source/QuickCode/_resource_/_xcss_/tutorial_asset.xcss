@@ -1,21 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XCSS version="1.0"><![CDATA[/*** QuickCode 샘플용 css ***/
 
-/*** SearchViewTemplate ***/
-.Static.sta_label
+/************************************************************************************************/
+/*********************************** LoginViewTemplate ******************************************/
+/************************************************************************************************/
+.Static.sta_LI_login_label
+{
+	font : bold 13px "Malgun Gothic","Arial","Gulim";
+	-nexa-border : 0px none;
+	-nexa-padding : 0px 5px 0px 5px;
+}
+.Button.btn_LI_login
+{
+	font : normal bold 16px/normal "Malgun Gothci","Arial","Gulim";
+	background : #006ddd;
+	-nexa-border : 1px solid #c7c7c7;
+	color : #ffffff;
+}
+.Button.btn_LI_login[status=mouseover]
+{
+	background : #0052a6;
+	color : #ffffff;
+	-nexa-border : 1px solid #0052a6;
+}
+.Button.btn_LI_login[status=focused]
+{
+	background : #0052a6;
+	color : #ffffff;
+	-nexa-border : 1px solid #0052a6;
+}
+.CheckBox.chk_LI_login
+{
+	font : bold 13px "Arial","Malgun Gothic","Gulim";
+}
+.CheckBox.chk_LI_login[userstatus=selected]
+{
+	color : #0265c5;
+}
+
+/************************************************************************************************/
+/*********************************** SearchViewTemplate *****************************************/
+/************************************************************************************************/
+.Static.sta_WF_label
 {
 	font : bold 13px "Arial","Malgun Gothic","Gulim";
 	-nexa-border : 0px none;
 	-nexa-padding : 0px 5px 0px 5px;
 }
-.Static.sta_label_essential
+.Static.sta_WF_label_essential
 {
 	font : bold 13px "Arial","Malgun Gothic","Gulim";
 	-nexa-border : 0px none;
 	-nexa-padding : 0px 5px 0px 5px;
 	color : #f56800;
 }
-.Static.sta_searchbox
+.Static.sta_WF_searchbox
 {
 	background : #f7f7f7;
 	-nexa-border : 1px solid #c7c7c7;
@@ -23,7 +62,7 @@
 	-nexa-padding : 0px 5px 0px 5px;
 }
 
-.Button.btn_search,.Button.btn_search[status=focused],.Button.btn_search[userstatus=selected]
+.Button.btn_WF_search,.Button.btn_WF_search[status=focused],.Button.btn_WF_search[userstatus=selected]
 {
 	background : #834694;
 	color : #ffffff;
@@ -32,35 +71,37 @@
 	-nexa-border : 1px solid #6f397e;
 	-nexa-text-align : center;
 }
-.Button.btn_search[status=mouseover]
+.Button.btn_WF_search[status=mouseover]
 {
 	background : #6f397e;
 	color : #ffffff;
 	-nexa-border : 1px solid #6f397e;
 }
-.Button.btn_search[userstatus=pushed]
+.Button.btn_WF_search[userstatus=pushed]
 {
 	background : #6f397e;
 	color : #ffffff;
 	-nexa-border : 1px solid #6f397e;
 	-nexa-text-decoration : underline;
 }
-.Button.btn_search[status=disabled]
+.Button.btn_WF_search[status=disabled]
 {
 	background : #dddddd;
 	color : #aaaaaa;
 	-nexa-border : 1px solid #aaaaaa;
 }
 
-/*** FreeformViewTemplate ***/
-.Static.sta_labelbox
+/************************************************************************************************/
+/********************************** FreeformViewTemplate ****************************************/
+/************************************************************************************************/
+.Static.sta_WF_labelbox
 {
 	background : #f7f7f7;
 	-nexa-border : 1px solid #c7c7c7;
 	-nexa-text-align : right;
 	-nexa-padding : 0px 5px 0px 5px;
 }
-.Static.sta_labelbox_essential
+.Static.sta_WF_labelbox_essential
 {
 	background : #f7f7f7;
 	-nexa-border : 1px solid #c7c7c7;
@@ -68,7 +109,7 @@
 	-nexa-padding : 0px 5px 0px 5px;
 	color : #f56800;
 }
-.Static.sta_fieldbox
+.Static.sta_WF_fieldbox
 {
 	-nexa-border : 1px solid #c7c7c7;
 	-nexa-padding : 0px 5px 0px 5px;
@@ -90,7 +131,7 @@
 	-nexa-padding : 0px 0px 0px 0px;
 }
 /* 전체건수 Static */
-.Static.sta_WF_totalCount
+.Static.sta_WF_total_count
 {
 	color : #505050;
 	-nexa-word-wrap : none;
@@ -105,76 +146,82 @@
 	-nexa-icon : url('imagerc::img_WF_title_close.png');
 }
 
-/*** GridViewTemplate ***/
-.Grid .head .row .cell.essential
+/************************************************************************************************/
+/************************************ GridViewTemplate ******************************************/
+/************************************************************************************************/
+.Grid .head .row .cell.cell_WF_essential
 {
 	color : #f56800;
 }
 
-/*** TreeViewTemplate ***/
+/************************************************************************************************/
+/************************************ TreeViewTemplate ******************************************/
+/************************************************************************************************/
 /* 접고, 펼치기 버튼 */
-.Button.btn_WF_Treecollapse
+.Button.btn_WF_tree_collapse
 {
 	-nexa-text-align 	: center;
 	-nexa-vertical-align 	: middle;
-	background 		: url('imagerc::btn_WF_Treecollapse.png') no-repeat center center #ffffff;
+	background 		: url('imagerc::btn_WF_tree_collapse.png') no-repeat center center #ffffff;
 }
-.Button.btn_WF_Treecollapse[status=mouseover],.Button.btn_WF_Treecollapse[status=focused]
+.Button.btn_WF_tree_collapse[status=mouseover],.Button.btn_WF_tree_collapse[status=focused]
 {
-	background : url('imagerc::btn_WF_Treecollapse.png') no-repeat center center #fefefe;
+	background : url('imagerc::btn_WF_tree_collapse.png') no-repeat center center #fefefe;
 }
-.Button.btn_WF_Treecollapse[userstatus=pushed],.Button.btn_WF_Treecollapse[userstatus=selected]
+.Button.btn_WF_tree_collapse[userstatus=pushed],.Button.btn_WF_tree_collapse[userstatus=selected]
 {
-	background : url('imagerc::btn_WF_Treecollapse.png') no-repeat center center #e9e9e9;
+	background : url('imagerc::btn_WF_tree_collapse.png') no-repeat center center #e9e9e9;
 }
-.Button.btn_WF_Treeexpand
+.Button.btn_WF_tree_expand
 {
 	-nexa-text-align 	: center;
 	-nexa-vertical-align 	: middle;
-	background 		: url('imagerc::btn_WF_Treeexpand.png') no-repeat center center #ffffff;
+	background 		: url('imagerc::btn_WF_tree_expand.png') no-repeat center center #ffffff;
 }
-.Button.btn_WF_Treeexpand[status=mouseover],.Button.btn_WF_Treeexpand[status=focused]
+.Button.btn_WF_tree_expand[status=mouseover],.Button.btn_WF_tree_expand[status=focused]
 {
-	background : url('imagerc::btn_WF_Treeexpand.png') no-repeat center center #fefefe;
+	background : url('imagerc::btn_WF_tree_expand.png') no-repeat center center #fefefe;
 }
 
-.Button.btn_WF_Treeexpand[userstatus=pushed],.Button.btn_WF_Treeexpand[userstatus=selected]
+.Button.btn_WF_tree_expand[userstatus=pushed],.Button.btn_WF_tree_expand[userstatus=selected]
 {
-	background : url('imagerc::btn_WF_Treeexpand.png') no-repeat center center #e9e9e9;
+	background : url('imagerc::btn_WF_tree_expand.png') no-repeat center center #e9e9e9;
 }
 /* 테스트용 cssclass */
-.Grid.grd_WF_treetest
+.Grid.grd_WF_tree_noline
 {
 	color : #101010;
 	-nexa-border : 1px solid #c7c7c7;
 }
-.Grid.grd_WF_treetest[status=focused]
+.Grid.grd_WF_tree_noline[status=focused]
 {
 	color : #ffffff;
 }
-.Grid.grd_WF_treetest .body .row .cell
+.Grid.grd_WF_tree_noline .body .row .cell
 {
 	color : #101010;
 	-nexa-border : 0px none;
 }
-.Grid.grd_WF_treetest .body .row .cell[status=mouseover]
+.Grid.grd_WF_tree_noline .body .row .cell[status=mouseover]
 {
 	background : #e7e7e7;
 	color : #101010;
 	-nexa-border : 0px none;
 }
-.Grid.grd_WF_treetest .body .row .cell[userstatus=selected],.Grid.grd_WF_treetest .body .row .cell[status=focused]
+.Grid.grd_WF_tree_noline .body .row .cell[userstatus=selected],.Grid.grd_WF_tree_noline .body .row .cell[status=focused]
 {
 	background : #a1c4e8;
 	-nexa-border : 0px none;
 }
 
-.Grid .body .row .cell.cell_treetest .celltreeitem .treeitemtext
+.Grid .body .row .cell.cell_tree_blue .celltreeitem .treeitemtext
 {
 	color : #0078ff;
 }
 
-/*** FreeformReadonlyViewTemplate ***/
+/************************************************************************************************/
+/****************************** FreeformReadonlyViewTemplate ************************************/
+/************************************************************************************************/
 /* 텍스트만 보여지는 타입 class */
 .Calendar.com_WF_View,
 .Calendar.com_WF_View[status=mouseover],.Calendar.com_WF_View[status=focused],.Calendar.com_WF_View[status=readonly],
@@ -201,8 +248,11 @@
 	-nexa-icon : url('imagerc::blank.png');
 }
 
-/*** 기타 ***/
-.View.viw_test_bg
+/************************************************************************************************/
+/******************************************** 기타 *********************************************/
+/************************************************************************************************/
+/* View 배경 css */
+.View.viw_bg
 {
 	background : #eeeeee;
 }]]></XCSS>

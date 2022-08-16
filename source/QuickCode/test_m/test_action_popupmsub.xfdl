@@ -16,9 +16,9 @@
         <View id="viwSearch" taborder="0" viewdataset="viewdataset" left="20" top="70" height="160" right="20">
           <Layouts>
             <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
-              <Button id="btnSearch" left="20" height="60" right="20" bottom="10" cssclass="btn_search" text="Search" onclick="viwSearch_btnSearch_onclick"/>
-              <Static id="staNameLabel" left="20" top="10" width="105" height="60" text="성명" cssclass="sta_label"/>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
+              <Button id="btnSearch" left="20" height="60" right="20" bottom="10" cssclass="btn_WF_search" text="Search" onclick="viwSearch_btnSearch_onclick"/>
+              <Static id="staNameLabel" left="20" top="10" width="105" height="60" text="성명" cssclass="sta_WF_label"/>
               <Edit id="edtName" left="130" top="10" width="220" height="60"/>
             </Layout>
           </Layouts>
@@ -37,7 +37,7 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="SearchModel001" filepath="sample\Search.xmodel">
             <Fields>
-              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staNameLabel" fields="Name"/>
@@ -50,8 +50,8 @@
             <Attribute id="valign" value="top"/>
             <Attribute id="searchbuttontype" value="bottomfull"/>
             <Attribute id="searchbuttontext" value="Search"/>
-            <Attribute id="searchbuttoncssclass" value="btn_search"/>
-            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
+            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
           </ViewTemplateInfo>
         </View>
         <View id="viwList" taborder="4" viewdataset="viewdataset" left="20" top="viwSearch:20" right="20" bottom="100">

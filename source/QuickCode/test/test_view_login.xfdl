@@ -5,15 +5,15 @@
       <Layout height="720" width="1280">
         <Static id="Static00_00_01" taborder="1" text="right" left="10" top="14" width="295" height="25" cssclass="sta_WF_title02"/>
         <Static id="Static00_00_01_00" taborder="2" text="bottom" left="10" top="270" width="295" height="25" cssclass="sta_WF_title02"/>
-        <View id="View01" taborder="3" text="View01" viewdataset="viewdataset" left="10" top="305" width="630" height="241" cssclass="viw_test_bg">
+        <View id="View01" taborder="3" text="View01" viewdataset="viewdataset" left="10" top="305" width="630" height="241" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Button id="btnLogin" left="20" height="60" right="20" bottom="20" cssclass="btn_login" text="Login"/>
-              <Static id="staIdLabel" left="20" top="20" width="95" height="40" text="아이디" cssclass="sta_login_label"/>
+              <Button id="btnLogin" left="20" height="60" right="20" bottom="20" cssclass="btn_LI_login" text="Login"/>
+              <Static id="staIdLabel" left="20" top="20" width="95" height="40" text="아이디" cssclass="sta_LI_login_label"/>
               <Edit id="edtId" left="120" top="20" height="40" width="510" password="false"/>
-              <Static id="staPwLabel" left="20" top="65" width="95" height="40" text="패스워드" cssclass="sta_login_label"/>
+              <Static id="staPwLabel" left="20" top="65" width="95" height="40" text="패스워드" cssclass="sta_LI_login_label"/>
               <Edit id="edtPw" left="120" top="65" height="40" width="510" password="false"/>
-              <CheckBox id="chkSaveId" left="120" top="110" height="40" right="0" text="Save User ID" cssclass="chk_login"/>
+              <CheckBox id="chkSaveId" left="120" top="110" height="40" right="0" text="Save User ID" cssclass="chk_LI_login"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -33,8 +33,8 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="LoginModel001" filepath="sample\Login.xmodel">
             <Fields>
-              <Field id="ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_login_label"/>
-              <Field id="PW" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_login_label"/>
+              <Field id="ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_LI_login_label"/>
+              <Field id="PW" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_LI_login_label"/>
             </Fields>
             <Components>
               <Component id="btnLogin" fields="_viewcomp"/>
@@ -47,22 +47,22 @@
           <ViewTemplateInfo filepath="LoginViewTemplate.xviewgen">
             <Attribute id="loginbuttontype" value="bottom"/>
             <Attribute id="loginbuttontext" value="Login"/>
-            <Attribute id="loginbuttoncssclass" value="btn_login"/>
+            <Attribute id="loginbuttoncssclass" value="btn_LI_login"/>
             <Attribute id="saveidcheckboxuse" value="true"/>
             <Attribute id="saveidcheckboxtext" value="Save User ID"/>
-            <Attribute id="saveidcheckboxcssclass" value="chk_login"/>
+            <Attribute id="saveidcheckboxcssclass" value="chk_LI_login"/>
             <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="49" width="630" height="191" cssclass="viw_test_bg">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="49" width="630" height="191" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Button id="btnLogin" top="20" width="100" right="20" height="85" cssclass="btn_login" text="Login"/>
-              <Static id="staIdLabel" left="20" top="20" width="95" height="40" text="아이디" cssclass="sta_login_label"/>
+              <Button id="btnLogin" top="20" width="100" right="20" height="85" cssclass="btn_LI_login" text="Login"/>
+              <Static id="staIdLabel" left="20" top="20" width="95" height="40" text="아이디" cssclass="sta_LI_login_label"/>
               <Edit id="edtId" left="120" top="20" height="40" right="btnLogin:10" password="false"/>
-              <Static id="staPwLabel" left="20" top="65" width="95" height="40" text="패스워드" cssclass="sta_login_label"/>
+              <Static id="staPwLabel" left="20" top="65" width="95" height="40" text="패스워드" cssclass="sta_LI_login_label"/>
               <Edit id="edtPw" left="120" top="65" height="40" right="btnLogin:10" password="false"/>
-              <CheckBox id="chkSaveId" left="120" top="110" height="40" right="btnLogin:10" text="Save User ID" cssclass="chk_login"/>
+              <CheckBox id="chkSaveId" left="120" top="110" height="40" right="btnLogin:10" text="Save User ID" cssclass="chk_LI_login"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -82,8 +82,8 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="LoginModel001" filepath="sample\Login.xmodel">
             <Fields>
-              <Field id="ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_login_label"/>
-              <Field id="PW" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_login_label"/>
+              <Field id="ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_LI_login_label"/>
+              <Field id="PW" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="" labelwidth="100" labelcssclass="sta_LI_login_label"/>
             </Fields>
             <Components>
               <Component id="btnLogin" fields="_viewcomp"/>
@@ -96,10 +96,10 @@
           <ViewTemplateInfo filepath="LoginViewTemplate.xviewgen">
             <Attribute id="loginbuttontype" value="right"/>
             <Attribute id="loginbuttontext" value="Login"/>
-            <Attribute id="loginbuttoncssclass" value="btn_login"/>
+            <Attribute id="loginbuttoncssclass" value="btn_LI_login"/>
             <Attribute id="saveidcheckboxuse" value="true"/>
             <Attribute id="saveidcheckboxtext" value="Save User ID"/>
-            <Attribute id="saveidcheckboxcssclass" value="chk_login"/>
+            <Attribute id="saveidcheckboxcssclass" value="chk_LI_login"/>
             <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>

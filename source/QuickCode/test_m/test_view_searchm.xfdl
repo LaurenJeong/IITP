@@ -8,13 +8,13 @@
         <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="0" top="40" height="331" right="0">
           <Layouts>
             <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
-              <Button id="btnSearch" left="20" height="60" right="20" bottom="20" cssclass="btn_search" text="Search"/>
-              <Static id="staCompanyLabel" left="20" top="20" width="105" height="60" text="회사명" cssclass="sta_label"/>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
+              <Button id="btnSearch" left="20" height="60" right="20" bottom="20" cssclass="btn_WF_search" text="Search"/>
+              <Static id="staCompanyLabel" left="20" top="20" width="105" height="60" text="회사명" cssclass="sta_WF_label"/>
               <Edit id="edtCompany" left="130" top="20" width="330" height="60"/>
-              <Static id="staDepartmentLabel" left="20" top="90" width="105" height="60" text="부서명" cssclass="sta_label"/>
+              <Static id="staDepartmentLabel" left="20" top="90" width="105" height="60" text="부서명" cssclass="sta_WF_label"/>
               <Edit id="edtDepartment" left="130" top="90" width="330" height="60"/>
-              <Static id="staNameLabel" left="20" top="160" width="105" height="60" text="성명" cssclass="sta_label"/>
+              <Static id="staNameLabel" left="20" top="160" width="105" height="60" text="성명" cssclass="sta_WF_label"/>
               <Edit id="edtName" left="130" top="160" width="330" height="60"/>
             </Layout>
           </Layouts>
@@ -37,9 +37,9 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="SearchModel001" filepath="sample\Search.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Department" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Company" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Department" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -58,24 +58,24 @@
             <Attribute id="valign" value="top"/>
             <Attribute id="searchbuttontype" value="bottomfull"/>
             <Attribute id="searchbuttontext" value="Search"/>
-            <Attribute id="searchbuttoncssclass" value="btn_search"/>
-            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
+            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
           </ViewTemplateInfo>
         </View>
         <View id="View01" taborder="3" text="View01" viewdataset="viewdataset" left="0" top="418" height="390" right="0">
           <Layouts>
             <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
-              <Button id="btnSearch" top="20" width="80" right="20" bottom="20" cssclass="btn_search" text="Search"/>
-              <Static id="staCompanyLabel" left="20" top="20" width="95" height="60" text="회사명" cssclass="sta_label"/>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
+              <Button id="btnSearch" top="20" width="80" right="20" bottom="20" cssclass="btn_WF_search" text="Search"/>
+              <Static id="staCompanyLabel" left="20" top="20" width="95" height="60" text="회사명" cssclass="sta_WF_label"/>
               <Edit id="edtCompany" left="120" top="20" width="240" height="60"/>
-              <Static id="staDepartmentLabel" left="20" top="90" width="95" height="60" text="부서명" cssclass="sta_label"/>
+              <Static id="staDepartmentLabel" left="20" top="90" width="95" height="60" text="부서명" cssclass="sta_WF_label"/>
               <Edit id="edtDepartment" left="120" top="90" width="240" height="60"/>
-              <Static id="staNameLabel" left="20" top="160" width="95" height="60" text="성명" cssclass="sta_label"/>
+              <Static id="staNameLabel" left="20" top="160" width="95" height="60" text="성명" cssclass="sta_WF_label"/>
               <Edit id="edtName" left="120" top="160" width="240" height="60"/>
-              <Static id="staPhoneLabel" left="20" top="230" width="95" height="60" text="전화번호" cssclass="sta_label"/>
+              <Static id="staPhoneLabel" left="20" top="230" width="95" height="60" text="전화번호" cssclass="sta_WF_label"/>
               <Edit id="edtPhone" left="120" top="230" width="240" height="60"/>
-              <Static id="staEmailLabel" left="20" top="300" width="95" height="60" text="이메일주소" cssclass="sta_label"/>
+              <Static id="staEmailLabel" left="20" top="300" width="95" height="60" text="이메일주소" cssclass="sta_WF_label"/>
               <Edit id="edtEmail" left="120" top="300" width="240" height="60"/>
             </Layout>
           </Layouts>
@@ -102,11 +102,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="SearchModel001" filepath="sample\Search.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Department" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Phone" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Email" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Company" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Department" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Phone" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Email" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -129,8 +129,8 @@
             <Attribute id="valign" value="top"/>
             <Attribute id="searchbuttontype" value="rightfull"/>
             <Attribute id="searchbuttontext" value="Search"/>
-            <Attribute id="searchbuttoncssclass" value="btn_search"/>
-            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
+            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
           </ViewTemplateInfo>
         </View>
       </Layout>

@@ -5,14 +5,14 @@
       <Layout height="930" width="480">
         <Static id="Static00_00" taborder="0" text="left | top" left="5" top="5" width="295" height="25" cssclass="sta_WF_title02"/>
         <Static id="Static00_00_00" taborder="1" text="title | close | left | top" left="5" top="490" width="295" height="25" cssclass="sta_WF_title02"/>
-        <View id="View00" taborder="2" viewdataset="viewdataset" left="10" top="40" height="390" cssclass="viw_test_bg" right="10">
+        <View id="View00" taborder="2" viewdataset="viewdataset" left="10" top="40" height="390" cssclass="viw_bg" right="10">
           <Layouts>
             <Layout type="horizontal" flexwrap="wrap" horizontalgap="5" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="start" spacing="20px">
-              <Static id="staCompanyLabel" left="20" top="19" width="100%" height="40" text="회사명" cssclass="sta_label"/>
+              <Static id="staCompanyLabel" left="20" top="19" width="100%" height="40" text="회사명" cssclass="sta_WF_label"/>
               <Edit id="edtCompany" left="460" top="19" width="440" height="60"/>
-              <Static id="staDepartmentLabel" left="20" top="78" width="100%" height="40" text="부서명" cssclass="sta_label"/>
+              <Static id="staDepartmentLabel" left="20" top="78" width="100%" height="40" text="부서명" cssclass="sta_WF_label"/>
               <Edit id="edtDepartment" left="460" top="78" width="440" height="60"/>
-              <Static id="staNameLabel" left="20" top="137" width="100%" height="40" text="성명" cssclass="sta_label"/>
+              <Static id="staNameLabel" left="20" top="137" width="100%" height="40" text="성명" cssclass="sta_WF_label"/>
               <Edit id="edtName" left="460" top="137" width="440" height="60"/>
             </Layout>
           </Layouts>
@@ -35,9 +35,9 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Department" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Company" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Department" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyLabel" fields="Company"/>
@@ -55,7 +55,7 @@
             <Attribute id="verticalgap" value="5"/>
           </ViewTemplateInfo>
         </View>
-        <View id="View00_00" taborder="3" viewdataset="viewdataset" left="10" top="525" height="390" cssclass="viw_test_bg" right="10">
+        <View id="View00_00" taborder="3" viewdataset="viewdataset" left="10" top="525" height="390" cssclass="viw_bg" right="10">
           <Layouts>
             <Layout type="horizontal" flexwrap="wrap" horizontalgap="5" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="start" spacing="10px">
               <Div id="divTitle" left="10" top="10" height="30" width="100%">
@@ -66,11 +66,11 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Static id="staCompanyLabel" left="10" top="39" width="100%" height="40" text="회사명" cssclass="sta_label"/>
+              <Static id="staCompanyLabel" left="10" top="39" width="100%" height="40" text="회사명" cssclass="sta_WF_label"/>
               <Edit id="edtCompany" left="460" top="39" width="450" height="60"/>
-              <Static id="staDepartmentLabel" left="10" top="98" width="100%" height="40" text="부서명" cssclass="sta_label"/>
+              <Static id="staDepartmentLabel" left="10" top="98" width="100%" height="40" text="부서명" cssclass="sta_WF_label"/>
               <Edit id="edtDepartment" left="460" top="98" width="450" height="60"/>
-              <Static id="staNameLabel" left="10" top="157" width="100%" height="40" text="성명" cssclass="sta_label"/>
+              <Static id="staNameLabel" left="10" top="157" width="100%" height="40" text="성명" cssclass="sta_WF_label"/>
               <Edit id="edtName" left="460" top="157" width="450" height="60"/>
             </Layout>
           </Layouts>
@@ -94,9 +94,9 @@
           <Script><![CDATA[this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){if (obj.cssclass == 'btn_WF_title_open') {this.View00_00.form.lfn_Title_SetSearchOpenClose(obj,'open');} else {this.View00_00.form.lfn_Title_SetSearchOpenClose(obj,'close');}};this.lfn_Title_SetSearchOpenClose = function(obj,sStatus){var objForm = obj.parent.parent.parent;var objView = objForm.parent;if (sStatus == 'close') {objView.set_height('30');objView.set_formscrolltype('none');obj.set_cssclass('btn_WF_title_open');} else {if (objView._openHeight > 0) {objView.set_height(objView._openHeight);} else {objView.set_bottom(objView._openBottom);}objView.set_formscrolltype(objView._formscrolltype);obj.set_cssclass('btn_WF_title_close');}objView['_openclose'] = sStatus;objView.parent.resetScroll();};this.lfn_Title_SetViewInit = function(obj,sStatus){var objView = obj.parent;objView._openclose = sStatus;objView._openHeight = objView.height;objView._openBottom = objView.bottom;objView._formscrolltype = objView.formscrolltype;this.lfn_Title_SetSearchOpenClose(obj.divTitle.form.btnExpand,sStatus);};this.lfn_Title_SetViewInit(this,'close');]]></Script>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Department" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Company" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Department" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>

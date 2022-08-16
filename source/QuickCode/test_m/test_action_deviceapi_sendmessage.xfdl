@@ -3,12 +3,12 @@
   <Form id="test_action_deviceapi_sendmessage" width="480" height="720" titletext="문자전송 테스트">
     <Layouts>
       <Layout height="720" mobileorientation="portrait" width="480">
-        <Static id="staCompanyBg" left="20" top="60" height="60" cssclass="sta_fieldbox" taborder="6" right="20"/>
-        <Static id="staCompanyBg00" left="20" top="119" height="237" cssclass="sta_fieldbox" taborder="7" right="20"/>
+        <Static id="staCompanyBg" left="20" top="60" height="60" cssclass="sta_WF_fieldbox" taborder="6" right="20"/>
+        <Static id="staCompanyBg00" left="20" top="119" height="237" cssclass="sta_WF_fieldbox" taborder="7" right="20"/>
         <Static id="Static00" taborder="0" text="문자 메시지 전송" left="10" top="10" height="40" cssclass="sta_WF_title02" right="319" width="151" fittocontents="width"/>
         <Edit id="edtPhone" taborder="1" left="155" top="70" height="40" value="01012345678" text="01012345678" right="30"/>
-        <Static id="staCompanyLabel" left="20" top="60" width="125" height="60" text="전화번호" cssclass="sta_labelbox" taborder="2"/>
-        <Static id="staCompanyLabel00" left="20" top="119" width="125" height="237" text="문자메시지" cssclass="sta_labelbox" taborder="3"/>
+        <Static id="staCompanyLabel" left="20" top="60" width="125" height="60" text="전화번호" cssclass="sta_WF_labelbox" taborder="2"/>
+        <Static id="staCompanyLabel00" left="20" top="119" width="125" height="237" text="문자메시지" cssclass="sta_WF_labelbox" taborder="3"/>
         <TextArea id="txtSendMessage" taborder="4" left="155" top="130" height="217" right="30"/>
         <Button id="btnSendMessage" taborder="5" text="문자보내기" left="20" top="376" height="60" right="20" onclick="btnSendMessage_onclick"/>
         <CheckBox id="chkOnCanEvent" taborder="8" text="Action 실행여부" left="Static00:20" top="10" width="171" height="40" value="true" fittocontents="width"/>
