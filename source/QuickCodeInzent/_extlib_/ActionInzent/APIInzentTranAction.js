@@ -21,7 +21,7 @@ if (!nexacro.APIInzentTranAction)
     //===============================================================
 	nexacro.APIInzentTranAction.prototype._LOG_LEVEL			= -1;							// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 	
-	nexacro.APIInzentTranAction.prototype._TRAN_CALLBACK_NM		= "gfnTranActionCallback";		// Action공통 Callback함수명
+	nexacro.APIInzentTranAction.prototype._TRAN_CALLBACK_NM		= "fnTranActionCallback";		// Action공통 Callback함수명
 	
 	// Inzent Service URL prefix로 전환용
 	nexacro.APIInzentTranAction.prototype._INZENT_SVC_PREFIX	= "svc::";						// prefix ID
@@ -266,7 +266,7 @@ if (!nexacro.APIInzentTranAction)
 		};
 		
 		//Action Scope에 있는 CallBack 함수가 호출되도록 설정
-		objForm.gfnTranActionCallback = this.gfnTranActionCallback;
+		objForm.fnTranActionCallback = this.fnTranActionCallback;
 		
 		// Action정보를 폼에 설정
 		if (this.gfnIsNull(objForm.targetTranAction))		objForm.targetTranAction = {};
@@ -277,7 +277,7 @@ if (!nexacro.APIInzentTranAction)
 	};
 	
 	// Transaction Callback
-	nexacro.APIInzentTranAction.prototype.gfnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
+	nexacro.APIInzentTranAction.prototype.fnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
 	{
 		var objSvcId = JSON.parse(svcId);
 		var sSvcId = objSvcId.svcId;
