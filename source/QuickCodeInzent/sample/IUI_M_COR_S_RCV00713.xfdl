@@ -106,7 +106,6 @@
                 <Layouts>
                   <Layout>
                     <Static id="staTitle" left="0" top="0" height="30" width="120" text="DM개별발송대상자목록조회" fittocontents="width" cssclass="sta_WF_subtitle"/>
-                    <Static id="staTotCnt" left="staTitle:5" top="0" height="30" width="50" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_total_count"/>
                   </Layout>
                 </Layouts>
               </Div>
@@ -281,7 +280,7 @@
           </ModelInfo>
           <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
             <Attribute id="titletext" value="DM개별발송대상자목록조회"/>
-            <Attribute id="usetotalcount" value="true"/>
+            <Attribute id="usetotalcount" value="false"/>
             <Attribute id="headbandsize" value="30"/>
             <Attribute id="bodybandsize" value="30"/>
             <Attribute id="summbandsize" value="-1"/>
@@ -290,15 +289,13 @@
         <View id="view_page" taborder="2" viewdataset="viewdataset" left="10" right="10" text="view_page" top="view_master:10" bottom="10">
           <Layouts>
             <Layout>
-              <Static id="staNextPageExsYn1S1Bg" left="0" top="0" width="1004" height="40" cssclass="sta_WF_fieldbox"/>
-              <Static id="staNextPageExsYn1S1Label" left="0" top="0" width="150" height="40" text="다음페이지존재여부1_S1" cssclass="sta_WF_labelbox"/>
-              <Edit id="edtNextPageExsYn1S1" left="155" top="5" width="140" height="30" cssclass="com_WF_View" readonly="true"/>
-              <Static id="staGrid2CntLabel" left="300" top="0" width="150" height="40" text="그리드카운트" cssclass="sta_WF_labelbox"/>
-              <Edit id="edtGrid2Cnt" left="455" top="5" width="140" height="30" cssclass="com_WF_View" readonly="true"/>
+              <Static id="staTotCnt" top="0" height="30" width="100" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_total_count" _text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;{0}&lt;/fc&gt;&lt;/b&gt;건)" _fieldid="grid2_cnt" left="0"/>
+              <Button id="btnPrev" top="0" width="60" height="30" text="이전" enable="false" _fieldid="NEXT_PAGE_EXS_YN_1_S1" right="65"/>
+              <Button id="btnNext" top="0" width="60" height="30" text="다음" enable="false" _fieldid="NEXT_PAGE_EXS_YN_1_S1" right="0"/>
             </Layout>
           </Layouts>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" onload="view_page.form.fn_viewdataset_onload">
               <ColumnInfo>
                 <Column id="NEXT_PAGE_EXS_YN_1_S1" type="STRING" size="1"/>
                 <Column id="grid2_cnt" type="BIGDECIMAL" size="5"/>
@@ -312,25 +309,25 @@
             <BindItem id="bind_edtNextPageExsYn1S1" compid="edtNextPageExsYn1S1" propid="value" datasetid="viewdataset" columnid="NEXT_PAGE_EXS_YN_1_S1"/>
             <BindItem id="bind_edtGrid2Cnt" compid="edtGrid2Cnt" propid="value" datasetid="viewdataset" columnid="grid2_cnt"/>
           </Bind>
+          <Script><![CDATA[this.fn_viewdataset_onload = function(obj:nexacro.NormalDataset,e:nexacro.DSLoadEventInfo){if (e.reason == Dataset.REASON_LOAD){var oStaCount = obj.parent.staTotCnt;var sDataCount = oStaCount._text;sDataCount = sDataCount.replace('{0}',obj.getColumn(0,oStaCount._fieldid));oStaCount.set_text(sDataCount);var oBtnNext = obj.parent.btnNext;var sNextData = obj.getColumn(0,oBtnNext._fieldid);var bEnable = sNextData == 'Y' ? true : false;oBtnNext.set_enable(bEnable);obj.parent.resetScroll();}};]]></Script>
           <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00713" modelid="SO" filepath="API_TEST\IUI_M_COR_S_RCV00713.xmodel">
             <Fields>
-              <Field id="NEXT_PAGE_EXS_YN_1_S1" comptype="edit" fieldwidth="150" fieldheight="40px" labelwidth="150" cssclass="" labelcssclass="sta_WF_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="grid2_cnt" comptype="edit" fieldwidth="150" fieldheight="40px" labelwidth="150" cssclass="" labelcssclass="sta_WF_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="grid2_cnt" fielddatatype="datacount"/>
+              <Field id="NEXT_PAGE_EXS_YN_1_S1" fielddatatype="usenextbutton"/>
             </Fields>
             <Components>
-              <Component id="staNextPageExsYn1S1Bg" fields="NEXT_PAGE_EXS_YN_1_S1"/>
-              <Component id="staNextPageExsYn1S1Label" fields="NEXT_PAGE_EXS_YN_1_S1"/>
-              <Component id="edtNextPageExsYn1S1" fields="NEXT_PAGE_EXS_YN_1_S1"/>
-              <Component id="staGrid2CntLabel" fields="grid2_cnt"/>
-              <Component id="edtGrid2Cnt" fields="grid2_cnt"/>
+              <Component id="staTotCnt" fields="grid2_cnt"/>
+              <Component id="btnPrev" fields="NEXT_PAGE_EXS_YN_1_S1"/>
+              <Component id="btnNext" fields="NEXT_PAGE_EXS_YN_1_S1"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="FreeformReadonlyViewTemplate.xviewgen">
-            <Attribute id="direction" value="horizontal"/>
-            <Attribute id="halign" value="left"/>
-            <Attribute id="valign" value="top"/>
-            <Attribute id="useexpandbutton" value="none"/>
-            <Attribute id="usefieldbox" value="true"/>
+          <ViewTemplateInfo filepath="PagingPrevNextViewTemplate.xviewgen">
+            <Attribute id="buttonposition" value="right"/>
+            <Attribute id="usedatacount" value="true"/>
+            <Attribute id="useprevbutton" value="true"/>
+            <Attribute id="prevbuttontext" value="이전"/>
+            <Attribute id="usenextbutton" value="true"/>
+            <Attribute id="nextbuttontext" value="다음"/>
           </ViewTemplateInfo>
         </View>
       </Layout>
@@ -412,6 +409,40 @@
 "reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>COR</Col><Col id='SvcID'>ISD_IUI_M_COR_S_RCV00713</Col><Col id='IFID'>IUI_M_COR_S_RCV00713</Col><Col id='UUID'>20220808152037274</Col><Col id='BizCode'>RCV</Col><Col id='ChlCode'>IUI</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SO_grid2</Col><Col id='iotype'>output</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data[0].FormData.grid2</Col></Row></Rows></Dataset>"
 }]]></Contents>
       </APIInzentTranAction>
+      <Dataset id="viewdataset">
+        <ColumnInfo>
+          <ConstColumn id="NEXT_PAGE_EXS_YN_1_S1" type="STRING" size="1" value="N"/>
+          <ConstColumn id="grid2_cnt" type="BIGDECIMAL" size="5" value="100"/>
+          <Column id="GDS_LCL_NM" type="STRING" size="200"/>
+          <Column id="GDS_NM" type="STRING" size="200"/>
+          <Column id="LOAN_NO" type="STRING" size="14"/>
+          <Column id="CUST_NM" type="STRING" size="200"/>
+          <Column id="SENDSTATUS" type="BIGDECIMAL" size="22"/>
+          <Column id="OVRD_MCNT" type="BIGDECIMAL" size="18"/>
+          <Column id="OVRD_DCNT" type="BIGDECIMAL" size="18"/>
+          <Column id="SETL_DD" type="STRING" size="2"/>
+          <Column id="OVRD_PIAM_AMT" type="BIGDECIMAL" size="18"/>
+          <Column id="DLAY_INT_AMT" type="BIGDECIMAL" size="18"/>
+          <Column id="COST_TAMT" type="BIGDECIMAL" size="18"/>
+          <Column id="THMM_BILL_AMT" type="BIGDECIMAL" size="18"/>
+          <Column id="BILL_AMT" type="BIGDECIMAL" size="18"/>
+          <Column id="DPLR_EXPC_DT" type="STRING" size="8"/>
+          <Column id="DPLR_DT" type="STRING" size="8"/>
+          <Column id="DPLR_TYPE_NM_S10" type="STRING" size="10"/>
+          <Column id="MNG_CHGR_NM" type="STRING" size="200"/>
+          <Column id="FLPY_NTH" type="BIGDECIMAL" size="9"/>
+          <Column id="DBT_DIV_S10" type="STRING" size="10"/>
+          <Column id="AGRE_INT_RT" type="BIGDECIMAL" size="13"/>
+          <Column id="BNK_NM" type="STRING" size="200"/>
+          <Column id="ACNO" type="STRING" size="30"/>
+          <Column id="DEPR_NM" type="STRING" size="200"/>
+          <Column id="THNG_NM" type="STRING" size="200"/>
+          <Column id="VHRNO" type="STRING" size="20"/>
+          <Column id="MNG_DPT_NM" type="STRING" size="200"/>
+          <Column id="CPNO" type="STRING" size="30"/>
+        </ColumnInfo>
+        <Rows/>
+      </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[
 this.APIInzentTranAction00_onerror = function(obj:nexacro.Action, e:nexacro.TranActionErrorEventInfo)
@@ -422,17 +453,7 @@ this.APIInzentTranAction00_onerror = function(obj:nexacro.Action, e:nexacro.Tran
 this.APIInzentTranAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
 	//trace("onsuccess >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
-	
-	// 전체건수 표시 처리
-	this.fnSetTotalCount(this.view_master.form.viewdataset.rowcount);
-};
-
-this.fnSetTotalCount = function(nCount)
-{
-	this.view_master.form.divTitle.form.staTotCnt.set_text("(총 <b v='true'><fc v='#da291c'>" + nCount + "</fc></b>건)");
-	this.view_master.form.divTitle.form.resetScroll();
-};
-]]></Script>
+};]]></Script>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="view_search" triggerobj="btnSearch" targetaction="APIInzentTranAction00" condition=""/>
     </Trigger>
