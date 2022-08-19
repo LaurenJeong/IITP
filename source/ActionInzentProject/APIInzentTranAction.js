@@ -132,19 +132,19 @@ if (!nexacro.APIInzentTranAction)
 		
 		if (nLvl < this._LOG_LEVEL)		return;
 		
-		var sMsg = "";
+		var sLog = "";
 		
 		if (sMsg instanceof Object) {
-			sMsg = "[" + sType + "] " + this.name + " > " + JSON.stringify(sMsg, null, "\t");
+			sLog = "[" + sType + "] " + this.name + " > " + JSON.stringify(sMsg, null, "\t");
 		} else {
-			sMsg = "[" + sType + "] " + this.name + " > " + sMsg;
+			sLog = "[" + sType + "] " + this.name + " > " + sMsg;
 		}
 		
 		if (system.navigatorname == "nexacro DesignMode"
 			|| system.navigatorname == "nexacro") {
-			trace(sMsg);
+			trace(sLog);
 		} else {
-			console.log(sMsg);
+			console.log(sLog);
 		}
 	};
 	
@@ -370,6 +370,9 @@ if (!nexacro.APIInzentTranAction)
 	{
 		var oModelList = this.getContents("model");		// Action 내 model 정보 
 		
+		//this.gfnLog("model >>> ");
+		//this.gfnLog(oModelList);
+		
 		if (!oModelList)
             return;
 		
@@ -453,6 +456,7 @@ if (!nexacro.APIInzentTranAction)
 		
 		var oExtraList = this.getContents("extra");		// Action 내 extra 정보 
 		
+		//this.gfnLog("extra >>> ");
 		//this.gfnLog(oExtraList);
 		
 		if (!oExtraList)
@@ -470,6 +474,9 @@ if (!nexacro.APIInzentTranAction)
 	nexacro.APIInzentTranAction.prototype.gfnSetInzentDataset = function(objForm)
 	{
 		var sReference = this.getContents("reference");		// Action 내 reference 정보 
+		
+		//this.gfnLog("reference >>> ");
+		//this.gfnLog(sReference);
 		
 		if (this.gfnIsNull(sReference))		return "";
 		
