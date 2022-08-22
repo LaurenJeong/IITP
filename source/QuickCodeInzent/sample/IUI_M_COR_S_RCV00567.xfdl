@@ -12,6 +12,7 @@
               <Edit id="edtMngChrgEmpno" left="160" top="10" width="150" height="30"/>
               <Static id="staLoanNoLabel" left="315" top="10" width="145" height="30" text="대출번호" cssclass="sta_WF_label"/>
               <Edit id="edtLoanNo" left="465" top="10" width="150" height="30"/>
+              <Static id="Static00" taborder="6" text="PAGE_NO5" left="685" top="8" width="63" height="32"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -32,6 +33,7 @@
           <Bind>
             <BindItem id="bind_edtMngChrgEmpno" compid="edtMngChrgEmpno" propid="value" datasetid="viewdataset" columnid="MNG_CHRG_EMPNO"/>
             <BindItem id="bind_edtLoanNo" compid="edtLoanNo" propid="value" datasetid="viewdataset" columnid="LOAN_NO"/>
+            <BindItem id="item0" compid="Static00" propid="text" datasetid="viewdataset" columnid="PAGE_NO5"/>
           </Bind>
           <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00567" modelid="SI" filepath="API_TEST\IUI_M_COR_S_RCV00567.xmodel">
             <Fields>
@@ -172,6 +174,7 @@
           </Objects>
           <Bind>
             <BindItem id="bind_edtGrid5Cnt" compid="edtGrid5Cnt" propid="value" datasetid="viewdataset" columnid="grid5_cnt"/>
+            <BindItem id="item0" compid="Static00" propid="text" datasetid="viewdataset" columnid="grid5_cnt"/>
           </Bind>
           <Script><![CDATA[this.fn_viewdataset_onload = function(obj:nexacro.NormalDataset,e:nexacro.DSLoadEventInfo){if (e.reason == Dataset.REASON_LOAD){var oStaCount = obj.parent.staTotCnt;var sDataCount = oStaCount._text;sDataCount = sDataCount.replace('{0}',obj.getColumn(0,oStaCount._fieldid));oStaCount.set_text(sDataCount);var oBtnNext = obj.parent.btnNext;var sNextData = obj.getColumn(0,oBtnNext._fieldid);var bEnable = sNextData == 'Y' ? true : false;oBtnNext.set_enable(bEnable);obj.parent.resetScroll();}};]]></Script>
           <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00567" modelid="SO" filepath="API_TEST\IUI_M_COR_S_RCV00567.xmodel">
@@ -194,6 +197,7 @@
             <Attribute id="nextbuttontext" value="다음"/>
           </ViewTemplateInfo>
         </View>
+        <Button id="Button00" taborder="3" text="Button00" left="574" top="67" width="74" height="26" onclick="Button00_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -216,7 +220,7 @@
 "reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>COR</Col><Col id='SvcID'>ISD_IUI_M_COR_S_RCV00567</Col><Col id='IFID'>IUI_M_COR_S_RCV00567</Col><Col id='UUID'>20220809150429105</Col><Col id='BizCode'>RCV</Col><Col id='ChlCode'>IUI</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SO_grid5</Col><Col id='iotype'>output</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data[0].FormData.grid5</Col></Row></Rows></Dataset>"
 }]]></Contents>
       </APIInzentTranAction>
-      <APIInzentTranAction id="APIInzentTranAction01" serviceurl="http://172.10.12.58:28080/test.do" inputdatasets="SI=view_search.form.viewdataset " outputdatasets="view_page.form.viewdataset=SO  view_master.form.viewdataset=SO_grid5">
+      <APIInzentTranAction id="APIInzentTranAction01" serviceurl="http://172.10.12.58:28080/test.do" inputdatasets="SI=view_search.form.viewdataset " outputdatasets="view_page.form.viewdataset=SO  view_master.form.viewdataset=SO_grid5" servicemodel="IUI_M_COR_S_RCV00567">
         <Contents><![CDATA[{
     "model":[
         {
@@ -227,7 +231,7 @@
                 {
                     "name":"view_search:PAGE_NO5",
                     "fieldid":"PAGE_NO5",
-                    "value":"expr:nexacro.toNumber(this.parent.view_search.form.viewdataset.getColumn(0,'PAGE_NO5'),0) + 1"
+                    "value":"expr:nexacro.toNumber([PAGE_NO5],0) + 1"
                 }
             ]
         }
@@ -237,6 +241,10 @@
         {
             "name":"param1",
             "value":"B"
+        },
+        {
+            "name":"param2",
+            "value":"expr:nexacro.toNumber([view_search:PAGE_NO5])"
         }
     ],
 "reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>COR</Col><Col id='SvcID'>ISD_IUI_M_COR_S_RCV00567</Col><Col id='IFID'>IUI_M_COR_S_RCV00567</Col><Col id='UUID'>20220809150429105</Col><Col id='BizCode'>RCV</Col><Col id='ChlCode'>IUI</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SO_grid5</Col><Col id='iotype'>output</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data[0].FormData.grid5</Col></Row></Rows></Dataset>"
@@ -252,6 +260,11 @@ this.APIInzentTranAction00_onerror = function(obj:nexacro.Action, e:nexacro.Tran
 this.APIInzentTranAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
 	//trace("onsuccess >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
+};
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.APIInzentTranAction01.run();
 };
 ]]></Script>
     <Trigger>
