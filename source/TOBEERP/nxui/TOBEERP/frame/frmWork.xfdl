@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmWork" width="1120" height="768" titletext="New Form" onload="frmWork_onload" onactivate="frmWork_onactivate" onclose="frmWork_onclose">
+    <Layouts>
+      <Layout height="768" mobileorientation="landscape" width="1120">
+        <Div id="divWork" taborder="0" left="0" top="0" right="0" bottom="0" minwidth="1120" maxwidth="" border="0px none"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    frmMdi
+*  @FileName	frmMdi.xfdl
+*  @Desction	재고 관리 시스템 MDI : 화면이 열리면 tab 생성
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+this.fvWinId = null;
+this.fvMenuNM = null;
+this.fvFormURL = null;
+
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.frmWork_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	
+	var objOwnerFrame = this.getOwnerFrame();
+
+	this.fvWinId   = objOwnerFrame.param.FORM_ID;
+	this.fvMenuNM = objOwnerFrame.param.MENU_NM;
+	this.fvFormURL = objOwnerFrame.param.FORM_URL;
+	
+	this.divWork.set_url(this.fvFormURL);
+	this.divWork.form.resetScroll();
+};
+
+this.frmWork_onactivate = function(obj:nexacro.Form,e:nexacro.ActivateEventInfo)
+{
+	this.application.MdiFrame.form.fn_ActiveTabPage(this.fvWinId);
+	
+	var objVFrame02 = this.application.VFSet02;
+	
+	this.divWork.form.resetScroll();
+	return;	
+};
+
+this.frmWork_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	this.application.MdiFrame.form.fn_DeleteTabpage(this.fvWinId);
+};
+
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+/**
+* Function Name : fn_setFavoriteButton
+* Description   : 즐겨찾기 버튼 생성
+* Arguments     : objForm - 즐겨찾기 버튼을 생성할 화면 Form - 각 화면의 onload에서 호출
+* Return        : none
+*/
+this.fn_setFavoriteButton = function(objForm)
+{
+	var objOwnerFrame = objForm.getOwnerFrame();
+	var sMenuId		= objOwnerFrame.param.MENU_ID;
+	var sMenuNm		= objOwnerFrame.param.MENU_NM;
+	var sMenuNavi	= objOwnerFrame.param.MENU_NAVI;
+	
+	var sTitleId = "staTitle";
+	var sNaviId = "staNavi";
+	var sFavId = "btnFavMenu";
+	
+	var nLeft = 10;
+	var nTop = 10;
+	var nHeight = 34;
+	var ntWidth = 34;
+	var nRight = 10;
+	
+	// Title 생성
+	var objTitle = objForm.components[sTitleId];
+	if (objForm.gfn_isNull(objTitle))
+	{
+		objTitle = new Static(sTitleId, nLeft, nTop, null, nHeight, 310, null);
+		objTitle.set_text(sMenuNm);
+		objTitle.set_cssclass("sta_WF_title01");
+		objTitle.set_fittocontents("width");
+		objForm.addChild(sTitleId,objTitle);
+		objTitle.show();
+	}
+	
+	// Menu Navi 생성
+	var objNavi = objForm.components[sNaviId];
+	if (objForm.gfn_isNull(objNavi))
+	{
+		objNavi = new Static(sNaviId, null, nTop, 300, nHeight, nRight, null);
+		objNavi.set_text(sMenuNavi);
+		objNavi.set_cssclass("sta_WF_navi");
+		objNavi.set_usedecorate("true");
+		objNavi.set_fittocontents("width");
+		objForm.addChild(sNaviId,objNavi);
+		objNavi.show();
+	}
+	
+	// 즐겨찾기 버튼 생성
+	nLeft = sTitleId + ":0";
+	
+	var objButton = new Button();
+	
+	objButton.init(sFavId,nLeft,nTop,ntWidth,nHeight,null,null);		
+	objButton.set_text("");
+	
+	var sClassName = this.fn_retunCssClass(sMenuId);
+	objButton.set_cssclass(sClassName);
+	
+	objButton.addEventHandler("onclick",this.favorite_onclick, this);
+	
+	objForm.addChild(sFavId,objButton);
+	objButton.show();
+}
+
+/**
+* Function Name : fn_retunCssClass
+* Description   : 즐겨찾기 버튼 클래스 변경 - 즐겨찾기 추가/ 삭제 시 클래스 조회
+* Arguments     : sId - 메뉴 ID(MENU_CD)
+* Return        : rtnClass - 클래스명
+*/
+this.fn_retunCssClass = function(sId)
+{
+	var objMenuDs = this.application.gdsLeftMenu;
+	var nRow = objMenuDs.findRow("MENU_CD", sId);
+	
+	var sFavCheck = objMenuDs.getColumn(nRow,"FAV_CHECK");
+
+	var rtnClass = "";
+	if(sFavCheck == 1)
+	{
+		rtnClass = "btn_WF_favorite_active";
+	}
+	else
+	{
+		rtnClass = "btn_WF_favorite";
+	}
+	
+	return rtnClass;
+}
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description favorite onclick event : 동적으로 추가된 즐겨찾기 버튼 클릭 이벤트
+ */
+this.favorite_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objOwnerFrame = obj.parent.getOwnerFrame();
+	var sMenuId = objOwnerFrame.param.MENU_ID;
+	
+	var objMenuDs = this.application.gdsLeftMenu;
+	var nRow = objMenuDs.findRow("MENU_CD", sMenuId);
+	
+	var sFavChk = objMenuDs.getColumn(nRow,"FAV_CHECK");
+	
+	if(sFavChk == 1)
+	{
+		objMenuDs.setColumn(nRow,"FAV_CHECK",0);
+	}
+	else
+	{
+		objMenuDs.setColumn(nRow,"FAV_CHECK",1);
+	}
+}
+]]></Script>
+  </Form>
+</FDL>

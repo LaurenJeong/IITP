@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="productmanufact" width="700" height="435" titletext="제조회사" onload="productmanufact_onload" onkeydown="productmanufact_onkeydown">
+    <Layouts>
+      <Layout height="435" width="700">
+        <Static id="Static01_00_00_00" taborder="14" left="20" top="55" height="40" cssclass="sta_cm_box01L" right="22" text=""/>
+        <Grid id="grdManufacList" taborder="2" left="20" top="153" width="258" height="263" autofittype="col" binddataset="dsManufacture">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="70"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="회사명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:MENUFACTURE_NAME"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnAdd" taborder="3" text="추가" top="115" width="55" height="28" cssclass="btn_WF_add01" right="149" onclick="btnAdd_onclick"/>
+        <Button id="btnDelete" taborder="10" text="삭제" top="115" width="60" height="28" cssclass="btn_WF_delete01" right="83" onclick="btnDelete_onclick"/>
+        <Button id="btnSave" taborder="11" text="저장" top="115" width="55" height="28" cssclass="btn_WF_save01" right="22" onclick="btnSave_onclick"/>
+        <Static id="staedtName" taborder="15" text="회사명" left="288" top="153" width="110" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static08" taborder="16" left="398" top="153" height="40" cssclass="sta_cm_box02L" right="22"/>
+        <Edit id="edtName" taborder="4" left="407" top="159" width="145" height="28" text=" "/>
+        <Static id="stacboArea" taborder="17" text="지역" left="288" top="192" width="110" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static08_00" taborder="18" left="398" top="192" height="40" cssclass="sta_cm_box02L" right="22"/>
+        <Static id="Static01_01" taborder="19" text="주소" left="288" top="309" width="110" height="107" cssclass="sta_cm_box01L"/>
+        <Static id="Static08_01" taborder="13" left="398" top="309" height="107" cssclass="sta_cm_box02L" right="22"/>
+        <Edit id="edtPostalCode" taborder="6" left="407" top="314" width="145" height="28" text=" "/>
+        <Edit id="edtAddress1" taborder="8" left="407" top="348" width="270" height="28" text=" "/>
+        <Static id="Static01_01_00" taborder="20" text="전화번호" left="288" top="231" width="110" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="Static01_01_00_00" taborder="21" text="팩스번호" left="288" top="270" width="110" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="staMiddlebar" taborder="22" text="제조 회사" left="20" top="20" height="28" cssclass="sta_WF_title02" right="22" onclick="divManufactCo_staMiddlebar_onclick"/>
+        <Combo id="cboArea" taborder="5" text="서울" left="407" top="198" width="145" height="28" value="서울" index="-1" innerdataset="gdsArea" codecolumn="code" datacolumn="value"/>
+        <Button id="btnPostal" taborder="7" text="우편번호" left="558" top="314" width="70" height="28" cssclass="btn_cm_basic01" onclick="btnPostal_onclick"/>
+        <Button id="btnClose" taborder="12" top="20" width="28" height="28" right="22" cssclass="btn_WF_popup_close" onclick="btnClose_onclick"/>
+        <Edit id="edtAddress2" taborder="9" left="407" top="382" width="270" height="28" text=" "/>
+        <Static id="Static08_00_00" taborder="23" left="398" top="231" height="40" cssclass="sta_cm_box02L" right="22"/>
+        <Static id="Static08_00_00_00" taborder="24" left="398" top="270" height="40" cssclass="sta_cm_box02L" right="22"/>
+        <Static id="Static02_00" taborder="25" text="회사명" left="20" top="55" width="60" height="40" cssclass="sta_cm_box01L"/>
+        <Edit id="edtSearch" taborder="0" left="87" top="61" width="200" height="28" autoselect="true" onkeydown="edtSearch_onkeydown"/>
+        <Button id="btnSearch" taborder="1" text="조회(F8)" top="61" width="70" height="28" cssclass="btn_WF_search" left="293" onclick="btnSearch_onclick"/>
+        <MaskEdit id="mdtStaffName" taborder="26" top="237" width="145" height="28" format="@@@-@@@@-@@@@" type="string" autoselect="true" left="407" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput"/>
+        <MaskEdit id="mdtStaffName00" taborder="27" top="275" width="145" height="28" format="@@@-@@@@-@@@@" type="string" autoselect="true" left="407" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsManufacture" onrowposchanged="dsManufacture_onrowposchanged">
+        <ColumnInfo>
+          <Column id="MENUFACTURE_CODE" type="STRING" size="256"/>
+          <Column id="MENUFACTURE_NAME" type="STRING" size="256"/>
+          <Column id="MENUFACTURE_TELNUM" type="STRING" size="256"/>
+          <Column id="MENUFACTURE_FAXNUM" type="STRING" size="256"/>
+          <Column id="MENUFACTURE_POSTALCODE" type="STRING" size="256"/>
+          <Column id="MENUFACTURE_ADRESS1" type="STRING" size="256"/>
+          <Column id="MENUFACTURE_ADRESS2" type="STRING" size="256"/>
+          <Column id="MANUFACTURE_AREA" type="STRING" size="256"/>
+          <Column id="MENUFACTURE_SEQ" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    productmanufact
+*  @FileName	productmanufact.xfdl
+*  @Desction	제조회사 관리 (팝업)
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+ this.productmanufact_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+};
+
+/**
+ * @description form onkeydown
+ */
+this.productmanufact_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 119)
+	{
+		this.fn_search();
+	}
+	else if(e.keycode == 27)
+	{
+		this.close();
+	}
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+ */
+this.fn_callback = function(strSvcID, nErrorCode, strErrorMag)
+{
+	if(nErrorCode < 0)
+	{
+		trace("nErrorCode :: " + nErrorCode);
+		return;
+	}
+	
+	if(strSvcID == "saveProductManufacture")
+	{
+		alert("저장 되었습니다.");
+	}
+	else if(strSvcID == "selectProductGroup")
+	{
+		this.grdManufacList.setFocus();
+	}	
+};
+
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**
+ * @description 제조회사 조회
+ */
+this.fn_search = function()
+{
+	var strArgument = "";
+	var sSearch = this.edtSearch.value;
+	if(!this.gfn_isNull(sSearch))
+	{
+		strArgument += " argSearch=" + sSearch;
+	}
+	
+	var strSvcID = "selectProductGroup";
+	var strURL = "IP::getproductmanufacture.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsManufacture=dsmanufacture";
+	var strCallbackFunc = "fn_callback";
+		strArgument += " argDB=" + this.application.gvDBurl;
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 제조회사 저장
+ */
+this.fn_save = function()
+{
+	var strSvcID = "saveProductManufacture";
+	var strURL = "IP::setproductmanufacture.jsp"
+	var strInDatasets = "dsmanufacture=dsManufacture:U";
+	var strOutDatasets = "";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+ * @description POPUP CALLBACK
+ */
+this.popupCallBack = function(sFormId, sArg)
+{
+	if(sFormId=="popupPostcode")
+	{
+		this.dsManufacture.setColumn(this.dsManufacture.rowposition,"MENUFACTURE_POSTALCODE",this.postcode);
+		this.dsManufacture.setColumn(this.dsManufacture.rowposition,"MENUFACTURE_ADRESS1",this.address1);
+	}
+};
+
+/**
+* Function Name : fn_initSave
+* Description   : 거래처 저장 세팅 (필수 입력 값 확인)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSave = function()
+{
+	var allList = [this.edtName,this.cboArea];
+	if(!this.gfn_validCheck(allList,this.dsManufacture))
+	{
+		return;
+	}
+	
+	this.fn_save();
+};
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description btnClose onclick event : 팝업 닫기(X) 버튼 클릭
+ */
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+/**
+ * @description btnSearch onclick event : 조회 버튼 클릭 (품목 조회)
+ */
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_search();
+};
+
+/**
+ * @description btnAdd onclick event : 추가 버튼 클릭
+ */
+this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsManufacture.addRow();
+};
+
+/**
+ * @description btnDelete onclick event : 삭제 버튼 클릭
+ */
+this.btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsManufacture.deleteRow(this.dsManufacture.rowposition);
+};
+
+/**
+ * @description btnSave onclick event : 저장 버튼 클릭
+ */
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSave();
+};
+
+/**
+ * @description btnPostCode onclick event : 우편번호 버튼 클릭
+ */
+this.btnPostal_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var oArg = {};
+	
+	//우편번호 조회 팝업
+	this.gfn_showModal("popupPostcode", oArg, "TO_BE::postcodepopup.xfdl", "popupCallBack", this, 540, 330, false, false, null);
+};
+
+/**
+ * @description edtSearch onkeydown event : 회사명 검색영역 키다운 이벤트 발생
+ */
+this.edtSearch_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 13)
+	{
+		this.fn_search();
+	}
+};
+
+this.dsManufacture_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	var sMaskValue = this.dsManufacture.getColumn(e.newrow,"MENUFACTURE_TELNUM");
+	var sMaskValue2 = this.dsManufacture.getColumn(e.newrow,"MENUFACTURE_FAXNUM");
+
+	this.mdtStaffName.set_format(this.gfn_setCellTelMaskFormat(sMaskValue));
+	this.mdtStaffName00.set_format(this.gfn_setCellTelMaskFormat(sMaskValue2));
+};
+
+/**
+ * @description MaskEdit (mdtStaffName,mdtStaffName00) onchanged event : 연락처(전화번호, 팩스번호) 변경시 마스크 적용
+ */
+this.MaskEdit_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInfo)
+{
+	var sValue = e.postvalue;
+	this.gfn_makePhoneNumMask(obj, sValue);
+};
+
+/**
+ * @description MaskEdit (mdtStaffName,mdtStaffName00) oninput event : 연락처(전화번호, 팩스번호) 입력시 마스크 적용
+ */
+this.MaskEdit_oninput = function(obj:nexacro.MaskEdit,e:nexacro.InputEventInfo)
+{
+	obj.set_format("@@@@@@@@@@@");
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="edtName" propid="value" datasetid="dsManufacture" columnid="MENUFACTURE_NAME"/>
+      <BindItem id="item1" compid="cboArea" propid="value" datasetid="dsManufacture" columnid="MANUFACTURE_AREA"/>
+      <BindItem id="item4" compid="edtPostalCode" propid="value" datasetid="dsManufacture" columnid="MENUFACTURE_POSTALCODE"/>
+      <BindItem id="item5" compid="edtAddress1" propid="value" datasetid="dsManufacture" columnid="MENUFACTURE_ADRESS1"/>
+      <BindItem id="item6" compid="edtAddress2" propid="value" datasetid="dsManufacture" columnid="MENUFACTURE_ADRESS2"/>
+      <BindItem id="item7" compid="mdtStaffName" propid="value" datasetid="dsManufacture" columnid="MENUFACTURE_TELNUM"/>
+      <BindItem id="item8" compid="mdtStaffName00" propid="value" datasetid="dsManufacture" columnid="MENUFACTURE_FAXNUM"/>
+    </Bind>
+  </Form>
+</FDL>

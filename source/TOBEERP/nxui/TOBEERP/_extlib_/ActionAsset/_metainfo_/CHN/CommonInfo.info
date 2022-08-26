@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <EnumInfo id="ExportType">
+    <Enum name="excel" description="Worksheet 97 - 2003 Files (*.xls)"/>
+    <Enum name="excel2007" description="Worksheet Files (*.xlsx)"/>
+    <Enum name="hancell2010" description="Hancell 2010 Files (*.cell)"/>
+    <Enum name="hancell2014" description="Hancell Files (*.cell)"/>
+    <Enum name="csv" description="CSV (*.csv)"/>
+    <Enum name="txt" description="TXT (*.txt)"/>
+  </EnumInfo>
+  <EnumInfo id="ImportType">
+    <Enum name="excel" description="Worksheet 97 - 2003 Files (*.xls)"/>
+    <Enum name="excel2007" description="Worksheet Files (*.xlsx)"/>
+    <Enum name="hancell2014" description="Hancell Files (*.cell)"/>
+    <Enum name="csv" description="CSV (*.csv)"/>
+    <Enum name="txt" description="TXT (*.txt)"/>
+  </EnumInfo>
+  <EnumInfo id="PopupReturnType" description="">
+    <Enum name="none" description=""/>
+    <Enum name="currow" description=""/>
+    <Enum name="changedata" description=""/>
+    <Enum name="alldata" description=""/>
+  </EnumInfo>
+  <EnumInfo id="CheckMode" description="RequiredValidationAction 필수입력 체크모드">
+    <Enum name="allrow" description="모든 row에 대해서 체크"/>
+    <Enum name="modified" description="변경된 row에 대해서만 체크(default)"/>
+  </EnumInfo>
+  <EnumInfo id="DeleteType" description="">
+    <Enum name="delete" description=""/>
+    <Enum name="clear" description=""/>
+  </EnumInfo>
+  <EnumInfo id="ResetType">
+    <Enum name="all" description=""/>
+    <Enum name="row" description=""/>
+  </EnumInfo>
+  <EnumInfo id="CopyType" description="">
+    <Enum name="replace" description=""/>
+    <Enum name="append" description=""/>
+  </EnumInfo>
+  <RefreshInfo id="targetview">
+    <Property name="targetcomp"/>
+  </RefreshInfo>
+  <RefreshInfo id="servicemodel">
+    <Property name="serviceurl"/>
+    <Property name="inputdatasets"/>
+    <Property name="outputdatasets"/>
+  </RefreshInfo>
+</MetaInfo>

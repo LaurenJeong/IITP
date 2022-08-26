@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmMdi" width="1070" height="35" titletext="New Form" onload="frmMdi_onload" scrollbartype="none" scrolltype="none">
+    <Layouts>
+      <Layout height="35" mobileorientation="landscape" width="1070">
+        <Static id="Static00" taborder="0" left="0" top="0" height="35" right="0" cssclass="sta_mdi_bg01"/>
+        <Tab id="tabMdi" taborder="1" tabindex="0" left="0" top="0" right="95" cssclass="tab_mdi_menu" showextrabutton="true" onchanged="tabMdi_onchanged" onextrabuttonclick="tabMdi_onextrabuttonclick" height="320" tabbuttonheight="35">
+          <Tabpages>
+            <Tabpage id="Tabpage2"/>
+          </Tabpages>
+        </Tab>
+        <Button id="btn_MdiPrev" taborder="2" top="-1" width="35" height="36" right="68" cssclass="btn_mdi_prev" visible="false"/>
+        <Button id="btn_MdiNext" taborder="3" top="-1" width="35" height="36" right="34" cssclass="btn_mdi_next" visible="false"/>
+        <Button id="btnCloseAll" taborder="4" top="-1" width="35" height="36" right="0" cssclass="btn_mdi_close" onclick="btnCloseAll_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    frmMdi
+*  @FileName	frmMdi.xfdl
+*  @Desction	재고 관리 시스템 MDI : 화면이 열리면 tab 생성
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.frmMdi_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	
+	//tab 초기화를 위한 현재 탭 삭제
+	this.tabMdi.removeTabpage(0);
+};
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+/**
+* Function Name : fn_AddTabPage
+* Description   : 탭 페이지 추가
+* Arguments     : pvWinId - 생성된 화면 id
+*				: pvMenuNm - 선택된 메뉴명
+* Return        : none
+*/
+this.fn_AddTabPage = function(pvWinId, pvMenuNm)
+{
+	this.tabMdi.insertTabpage(pvWinId, -1, "", pvMenuNm);
+};
+
+/**
+* Function Name : fn_DeleteTabpage
+* Description   : 탭 페이지 삭제
+* Arguments     : pvWinId - 생성된 화면 id
+* Return        : none
+*/
+this.fn_DeleteTabpage = function(pvWinId)
+{
+	var nCnt = this.tabMdi.getTabpageCount();
+	for(var i=0; i<nCnt; i++)
+	{
+		if(this.tabMdi.tabpages[i].name == pvWinId)
+		{
+			this.tabMdi.removeTabpage(i); 
+			this.application.LeftFrame.form.fn_DelOpenMenu(pvWinId);
+			return;
+		}
+	}
+};
+
+
+/**
+* Function Name : fn_ActiveTabPage
+* Description   : 탭 페이지 활성화 - 이미 생성된 화면이 다시 활성화 될 때 탭 위치
+* Arguments     : pvWinId - 생성된 화면 id
+* Return        : none
+*/
+this.fn_ActiveTabPage = function(pvWinId)
+{
+	var nCnt = this.tabMdi.getTabpageCount();
+	if(nCnt > 0)
+	{
+		this.application.TopFrame.form.fn_closeMain();
+	}
+	
+	for(var i=0; i<nCnt; i++)
+	{	
+		if(this.tabMdi.tabpages[i].name == pvWinId)
+		{
+			this.tabMdi.set_tabindex(i);
+			
+			return;
+		}
+	}
+};
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description tabMdi onchanged event : 탭 선택 변경
+ */
+this.tabMdi_onchanged = function(obj:nexacro.Tab,e:nexacro.TabIndexChangeEventInfo)
+{
+	var sWinId = obj.tabpages[e.postindex].name;
+	
+	this.application.WorkFrame[sWinId].form.setFocus();
+};
+
+/**
+ * @description tabMdi onextrabuttonclick event : 탭 닫기 버튼 클릭
+ */
+this.tabMdi_onextrabuttonclick = function(obj:nexacro.Tab,e:nexacro.TabMouseEventInfo)
+{
+	var sWinId = obj.tabpages[e.index].name;
+	obj.removeTabpage(e.index);
+	
+	this.application.WorkFrame[sWinId].form.close();
+
+	this.application.LeftFrame.form.fn_DelOpenMenu(sWinId);
+};
+
+/**
+ * @description btnCloseAll onclick event : 전체닫기 (오른쪽 X) 버튼 클릭 - 열린 화면 모두 닫기 후 메인화면 활성화
+ */
+this.btnCloseAll_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var WorkFrame = this.application.WorkFrame.all;
+	
+	for(var i=WorkFrame.length-1; i>=0; i--) 
+	{		
+		WorkFrame[i].form.close();
+		this.tabMdi.removeTabpage(i);
+		
+		if(i < 1)
+		{
+			this.application.TopFrame.form.fn_openMain();
+		}
+	}	
+	
+	var WorkFrame = this.application.WorkFrame.all;
+	for(var i=WorkFrame.length-1; i>=0; i--) 
+	{
+		WorkFrame[i].form.close();
+		this.tabMdi.removeTabpage(i);
+	}
+};
+]]></Script>
+  </Form>
+</FDL>

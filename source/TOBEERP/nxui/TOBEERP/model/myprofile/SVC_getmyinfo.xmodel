@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="dsemployee" name="직원목록" iotype="output" description="">
+      <Field required="true" id="BUSINESS_LICENSE_NUM" label="사업자등록번호" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="true" id="CORPORATE_NAME" label="상호명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="true" id="COMPANY_NAME" label="회사명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="true" id="REPRESENTATIVE_NAME" label="대표자명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="true" id="REPRESENTATIVE_SOCIAL_NUM" label="대표자 주민등록번호" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="true" id="BUSINESS_CONDITION" label="업태" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="true" id="BUSINESS_TYPE" label="종목" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="CORPORATE_AREA" label="지역" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="CORPORATE_EMAIL" label="이메일" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="CORPORATE_HOMEPAGE" label="홈페이지" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="CORPORATE_TELNUM" label="전화번호" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="CORPORATE_FAXNUM" label="팩스번호" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="CORPORATE_POSTAL_CODE" label="우편번호" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="CORPORATE_ADRESS1" label="주소" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="CORPORATE_ADRESS2" label="상세주소" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="MEMO" label="메모" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="OFFICAIL_SEAL_FILE" label="직인이미지 파일명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="COMPANY_CODE" label="업체코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="CONDITION_VALUE" label="업태명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+  </Models>
+  <Service id="getmyinfo" name="자사정보" url="getmyinfo.jsp"/>
+</ModelInfo>
+</Root>

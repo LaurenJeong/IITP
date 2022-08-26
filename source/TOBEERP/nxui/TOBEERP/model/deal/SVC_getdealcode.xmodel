@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="dstype" name="거래타입" iotype="output" description="">
+      <Field required="false" id="code" label="거래타입코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="거래타입명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+    <Model id="dssalesman" name="영업직원" iotype="output" description="">
+      <Field required="false" id="code" label="직원코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="직원명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+    <Model id="dsdealtype" name="과세유형" iotype="output" description="">
+      <Field required="false" id="code" label="과세유형코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="과세유형명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+    <Model id="dscoportype" name="업체타입" iotype="output" description="업체타입(업체구분)">
+      <Field required="false" id="code" label="업체타입코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="업체타입명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+    <Model id="dsunit" name="품목단가" iotype="output" description="">
+      <Field required="false" id="code" label="단가코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="단가명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+    <Model id="dscondition" name="사용업태" iotype="output" description="">
+      <Field required="false" id="code" label="업태코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="업태명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+  </Models>
+  <Service id="getdealcode" name="거래원장 초기 코드 조회" url="getdealcode.jsp"/>
+</ModelInfo>
+</Root>

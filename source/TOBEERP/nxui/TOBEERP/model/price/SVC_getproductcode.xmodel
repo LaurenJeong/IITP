@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="dsasset" name="자산구분" iotype="output" description="">
+      <Field required="false" id="code" label="label0" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="label1" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+    <Model id="dsgroup" name="품목구분" iotype="output" description="">
+      <Field required="false" id="code" label="구분코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="구분명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="asset" label="자산구분코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+    <Model id="dsmanufacture" name="제조회사" iotype="output" description="">
+      <Field required="false" id="code" label="제조회사코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="제조회사명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+    <Model id="dsunit" name="품폭단가" iotype="output" description="">
+      <Field required="false" id="code" label="단가코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="단가명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+    <Model id="dsstatus" name="거래상태" iotype="output" description="">
+      <Field required="false" id="code" label="거래상태코드" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="value" label="거래상태명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    </Model>
+  </Models>
+  <Service id="getproductcode" name="제품가격 초기 코드 조회" url="getproductcode.jsp"/>
+</ModelInfo>
+</Root>

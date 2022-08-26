@@ -1,0 +1,1312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="estimate" width="1120" height="810" titletext="견적관리" onload="estimate_onload" onkeydown="estimate_onkeydown" onsize="estimate_onsize">
+    <Layouts>
+      <Layout height="810" mobileorientation="landscape" width="1120">
+        <Static id="staTitle" taborder="19" text="견적 관리" left="10" top="10" height="34" cssclass="sta_WF_title01" right="10" fittocontents="width"/>
+        <Grid id="grdList" taborder="7" left="10" top="199" binddataset="dsEstimate" autofittype="col" height="600" right="580">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="120"/>
+                <Column size="80"/>
+                <Column size="200"/>
+                <Column size="82"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="견적일"/>
+                <Cell col="1" text="구분"/>
+                <Cell col="2" text="상호명"/>
+                <Cell col="3" text="처리상태"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="date" text="bind:ESTIMATE_DATE"/>
+                <Cell col="1" text="bind:ESTIMATE_TYPE" displaytype="combotext" combodataset="dsType" combocodecol="code" combodatacol="value" cssclass="expr:ESTIMATE_TYPE  == &quot;pS&quot; ? &quot;grd_WF_red&quot; : &quot;grd_WF_blue&quot;"/>
+                <Cell col="2" text="bind:CUSTOMER_NAME" textAlign="center"/>
+                <Cell col="3" text="bind:ESTIMATE_STATUS" combodataset="dsStatus" combocodecol="code" combodatacol="value" displaytype="combotext"/>
+              </Band>
+            </Format>
+            <Format id="middle">
+              <Columns>
+                <Column size="120"/>
+                <Column size="80"/>
+                <Column size="150"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="견적일"/>
+                <Cell col="1" text="구분"/>
+                <Cell col="2" text="상호명"/>
+                <Cell col="3" text="처리상태"/>
+                <Cell col="4" text="영업사원"/>
+                <Cell col="5" text="연락처"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="date" text="bind:ESTIMATE_DATE"/>
+                <Cell col="1" text="bind:ESTIMATE_TYPE" displaytype="combotext" combodataset="dsType" combocodecol="code" combodatacol="value" cssclass="expr:ESTIMATE_TYPE  == &quot;pS&quot; ? &quot;grd_WF_red&quot; : &quot;grd_WF_blue&quot;"/>
+                <Cell col="2" text="bind:CUSTOMER_NAME" textAlign="center"/>
+                <Cell col="3" text="bind:ESTIMATE_STATUS" combodataset="dsStatus" combocodecol="code" combodatacol="value" displaytype="combotext"/>
+                <Cell col="4" text="bind:SALESMAN_CODE" displaytype="combotext" combodataset="dsSalesman" combocodecol="code" combodatacol="value"/>
+                <Cell col="5" text="bind:STAFF_TELNUM" displaytype="mask" maskeditformat="expr:comp.parent.gfn_setCellTelMaskFormat(STAFF_TELNUM)" maskedittype="string" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static01_01" taborder="20" left="10" top="54" height="79" cssclass="sta_cm_box01L" right="10"/>
+        <Static id="Static02_00" taborder="21" text="견적일" left="10" top="54" width="63" height="40" cssclass="sta_WF_name"/>
+        <Calendar id="calSearchStart" taborder="0" left="75" top="60" width="120" height="28" autoselect="true"/>
+        <Calendar id="calSearchEnd" taborder="1" left="212" top="60" width="120" height="28" autoselect="true"/>
+        <Static id="Static05_00" taborder="22" text="~" left="198" top="60" width="11" height="28" cssclass="sta_cm_text12C"/>
+        <Tab id="tabDetail" taborder="9" top="199" height="600" cssclass="tab_WF_basic" onchanged="tabDetail_onchanged" onkeydown="tabDetail_onkeydown" right="10" width="560" tabindex="1">
+          <Tabpages>
+            <Tabpage id="info" text="견적서 정보  (&lt;)">
+              <Layouts>
+                <Layout>
+                  <Static id="stacalEstimateDate" taborder="21" text="견적일" left="10" top="10" width="110" height="40" cssclass="sta_WF_titleStar"/>
+                  <Static id="Static08" taborder="22" top="10" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <Static id="staedtCode" taborder="23" text="견적번호" left="10" top="49" width="110" height="40" cssclass="sta_WF_titleStar"/>
+                  <Static id="Static03" taborder="24" top="49" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <Static id="Static05" taborder="25" top="88" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <Static id="Static07" taborder="26" top="127" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <Static id="Static16" taborder="27" top="166" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <Edit id="edtCode" taborder="2" top="55" width="145" height="28" enable="false" right="283" autoselect="true"/>
+                  <Static id="stacboStatus" taborder="28" text="처리상태" top="10" width="110" height="40" cssclass="sta_WF_titleStar" right="163"/>
+                  <Calendar id="calEstimateDate" taborder="0" top="16" width="145" height="28" right="283" value="20201212" autoselect="true"/>
+                  <Combo id="cboStatus" taborder="1" top="16" width="145" height="28" value="" index="-1" right="8" innerdataset="dsStatus" codecolumn="code" datacolumn="value" text="" autoselect="true"/>
+                  <Static id="Static16_00" taborder="29" top="205" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <Static id="Static16_00_00" taborder="30" top="244" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <Static id="Static16_01" taborder="31" top="283" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <Static id="Static07_00_00_00" taborder="32" top="322" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <Static id="Static22" taborder="33" text="특이사항" left="10" top="361" width="110" height="40" cssclass="sta_cm_box01L"/>
+                  <Static id="Static23" taborder="34" top="361" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <TextArea id="txtETC" taborder="17" top="367" width="420" height="28" right="8" autoselect="true"/>
+                  <Static id="Static01_00_00_00_01" taborder="35" text="연락처" top="322" width="110" height="40" cssclass="sta_cm_box01L" right="163"/>
+                  <Edit id="edtEmail" taborder="15" top="328" width="145" height="28" right="283" autoselect="true"/>
+                  <Static id="Static09_01" taborder="36" text="이메일" left="10" top="322" width="110" height="40" cssclass="sta_cm_box01L"/>
+                  <Static id="Static09_00_00" taborder="37" text="지불조건" left="10" top="283" width="110" height="40" cssclass="sta_cm_box01L"/>
+                  <Combo id="cboPayment" taborder="13" top="289" width="145" height="28" value="" index="-1" right="283" innerdataset="dsPayment" codecolumn="code" datacolumn="value" autoselect="true"/>
+                  <Static id="Static01_00_00_00_00_00" taborder="38" text="납품일자" top="283" width="110" height="40" cssclass="sta_cm_box01L" right="163"/>
+                  <Calendar id="calDelivery" taborder="14" top="289" width="145" height="28" right="8" autoselect="true"/>
+                  <Static id="Static01_00_00_00_00" taborder="39" text="유효기간" top="244" width="110" height="40" cssclass="sta_cm_box01L" right="163"/>
+                  <Combo id="cboAddTax" taborder="11" top="252" width="145" height="28" value="" index="-1" right="283" innerdataset="dsSurtax" codecolumn="code" datacolumn="value" autoselect="true"/>
+                  <Static id="Static09" taborder="40" text="전화번호" left="10" top="205" width="110" height="40" cssclass="sta_cm_box01L"/>
+                  <Static id="Static09_00" taborder="41" text="부가세" left="10" top="244" width="110" height="40" cssclass="sta_cm_box01L"/>
+                  <Static id="Static01_00_00_00" taborder="42" text="팩스번호" top="205" width="110" height="40" cssclass="sta_cm_box01L" right="163"/>
+                  <Edit id="edtTitle" taborder="8" top="172" width="420" height="28" right="8" displaynulltext="견적제목을 작성해주세요." autoselect="true"/>
+                  <Static id="Static06" taborder="43" text="견적제목" left="10" top="166" width="110" height="40" cssclass="sta_cm_box01L"/>
+                  <Static id="stardoType" taborder="44" text="견적종류" left="10" top="88" width="110" height="40" cssclass="sta_WF_titleStar"/>
+                  <Radio id="rdoType" taborder="4" top="94" width="144" height="28" innerdataset="dsType" codecolumn="code" datacolumn="value" rowcount="1" right="284"/>
+                  <Static id="Static01_00_00" taborder="45" text="영업사원" top="88" width="110" height="40" cssclass="sta_cm_box01L" right="163"/>
+                  <Combo id="cboSalesman" taborder="5" top="94" width="145" height="28" value="" index="-1" right="8" innerdataset="dsSalesman" codecolumn="code" datacolumn="value" autoselect="true"/>
+                  <Static id="Static01_00_01" taborder="46" text="처리일자" top="49" width="110" height="40" right="163" cssclass="sta_cm_box01L"/>
+                  <Calendar id="calStatusDate" taborder="3" top="55" width="145" height="28" right="8" autoselect="true"/>
+                  <Static id="staedtCustomerName" taborder="47" text="상호명" left="10" top="127" width="110" height="40" cssclass="sta_WF_titleStar"/>
+                  <Edit id="edtCustomerName" taborder="6" top="133" width="144" height="28" right="284" enable="false"/>
+                  <Button id="btnSelectCustomer" taborder="7" text="거래처선택" top="133" width="90" height="28" cssclass="btn_cm_basic01" right="188" onclick="btnSelectCustomer_onclick"/>
+                  <Static id="Static09_01_00" taborder="48" text="직인 인쇄여부" left="10" top="400" width="110" height="40" cssclass="sta_cm_box01L"/>
+                  <Static id="Static23_00" taborder="49" top="400" height="40" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <CheckBox id="chkSeal" taborder="18" text="직인인쇄" top="406" width="81" height="28" value="true" right="347"/>
+                  <Static id="Static23_00_00" taborder="50" top="439" height="115" cssclass="sta_cm_box02L" right="10" width="428"/>
+                  <ImageViewer id="imgSeal" taborder="20" top="445" width="70" height="70" right="358"/>
+                  <Button id="btnSelectSeal" taborder="19" text="직인 선택" top="521" width="70" height="28" cssclass="btn_cm_basic01" right="358"/>
+                  <Static id="Static09_01_00_00" taborder="51" text="직인" left="10" top="439" width="110" height="115" cssclass="sta_cm_box01L"/>
+                  <MaskEdit id="mdtPhoneNum" taborder="9" top="211" width="145" height="28" type="string" left="130" autoselect="true" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput"/>
+                  <MaskEdit id="mdtPhoneNum00" taborder="10" top="211" width="145" height="28" type="string" left="405" autoselect="true" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput"/>
+                  <MaskEdit id="mdtPhoneNum01" taborder="16" top="328" width="145" height="28" type="string" left="405" autoselect="true" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput"/>
+                  <Combo id="cboExpiry" taborder="12" top="252" width="145" height="28" value="" index="-1" right="8" innerdataset="dsExpiry" codecolumn="term" datacolumn="value" autoselect="true"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="detail" text="견적 내역 ( &gt;)">
+              <Layouts>
+                <Layout>
+                  <Grid id="grdDetail" taborder="3" left="10" top="48" right="10" bottom="10" binddataset="dsEstimateDetail" autofittype="col" onexpanddown="tabDetail_detail_grdDetail_onexpanddown" autoenter="select">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="140"/>
+                          <Column size="60"/>
+                          <Column size="100"/>
+                          <Column size="80"/>
+                          <Column size="60"/>
+                          <Column size="100"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="38" band="head"/>
+                          <Row size="38"/>
+                          <Row size="30" band="summ"/>
+                          <Row size="30" band="summ"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell text="품목명" expandshow="show"/>
+                          <Cell col="1" text="단위"/>
+                          <Cell col="2" text="단가"/>
+                          <Cell col="3" text="할인금액"/>
+                          <Cell col="4" text="수량"/>
+                          <Cell col="5" text="금액"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell expandshow="show" text="bind:PRODUCT_NAME" editautoselect="true"/>
+                          <Cell col="1" text="bind:UNIT" combodataset="dsUnit" combocodecol="code" combodatacol="value" editautoselect="true" displaytype="combotext"/>
+                          <Cell col="2" text="bind:LAST_PRICE" displaytype="currency" editautoselect="true" edittype="normal"/>
+                          <Cell col="3" text="expr:UNIT_PRICE-LAST_PRICE" displaytype="currency" editautoselect="true"/>
+                          <Cell col="4" text="bind:AMOUNT" edittype="normal" displaytype="number" editautoselect="true" textAlign="center"/>
+                          <Cell col="5" displaytype="currency" editautoselect="true" text="bind:TOTAL_PRICE"/>
+                        </Band>
+                        <Band id="summary">
+                          <Cell text="세액" textAlign="right" padding="0px 5px 0px 0px"/>
+                          <Cell col="1" colspan="2" displaytype="currency" text="expr:dataset.getSum(&quot;parseInt(TOTAL_PRICE)&quot;) *0.1 " textAlign="right" padding="0px 5px 0px 0px"/>
+                          <Cell col="3" text="합계" textAlign="right" padding="0px 5px 0px 0px"/>
+                          <Cell col="4" colspan="2" text="expr:dataset.getSum(&quot;parseInt(TOTAL_PRICE)&quot;)" displaytype="currency" textAlign="right" padding="0px 5px 0px 0px"/>
+                          <Cell row="1" colspan="3" text="최종금액" textAlign="right" padding="0px 5px 0px 0px"/>
+                          <Cell row="1" col="3" colspan="3" text="expr:dataset.getSum(&quot;parseInt(TOTAL_PRICE)&quot;)*1.1" displaytype="currency" textAlign="right" padding="0px 5px 0px 0px"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Button id="btnDelete" taborder="2" text="삭제(Alt+Del)" width="90" height="28" cssclass="btn_cm_basic01" right="10" top="10" onclick="tabDetail_detail_btnDelete_onclick"/>
+                  <Button id="btnInsert" taborder="1" text="삽입(Alt+Ins)" width="90" height="28" cssclass="btn_cm_basic01" right="102" top="10" onclick="tabDetail_detail_btnInsert_onclick"/>
+                  <Button id="btnAdd" taborder="0" text="추가(Ins)" width="90" height="28" cssclass="btn_cm_basic01" right="194" top="10" onclick="tabDetail_detail_btnAdd_onclick"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+        <Button id="btnDelete" taborder="10" text="삭제" top="200" width="50" height="28" cssclass="btn_WF_delete01" right="79" onclick="btnDelete_onclick"/>
+        <Button id="btnAddEstimate" taborder="8" text="신규견적" top="200" width="64" height="28" cssclass="btn_WF_add01" right="135" onclick="btnAddEstimate_onclick"/>
+        <Button id="btnSave" taborder="11" text="저장 (F9)" top="200" width="64" height="28" cssclass="btn_WF_save01" right="9" onclick="btnSave_onclick"/>
+        <Static id="staNavi" taborder="23" text="· Home &gt; 영업구매 &gt; &lt;fs v='10'&gt;&lt;b v='true'&gt;견적관리&lt;/b&gt;&lt;/fs&gt;" top="10" width="263" height="34" right="10" cssclass="sta_WF_navi" usedecorate="true"/>
+        <Static id="Static03_00" taborder="24" text="거래처명" left="10" top="90" width="63" height="40" cssclass="sta_WF_name"/>
+        <Static id="Static11_00" taborder="25" text="처리상태" left="657" top="54" width="63" height="40" cssclass="sta_WF_name"/>
+        <Static id="Static08_00" taborder="26" text="견적제목" left="9" top="155" width="63" height="40" cssclass="sta_WF_name" visible="false"/>
+        <Combo id="cboSearchSalesman" taborder="17" left="485" top="96" width="120" height="28" innerdataset="dsSearchSalesman" codecolumn="code" datacolumn="value" onkeydown="Common_onkeydown" autoselect="true"/>
+        <Combo id="choSearchStatus" taborder="3" left="722" top="60" width="120" height="28" text="전체" value="" index="-1" innerdataset="dsSearchStatus" codecolumn="code" datacolumn="value" onkeydown="Common_onkeydown" autoselect="true"/>
+        <Button id="Button02" taborder="15" text="인쇄" top="90" width="75" height="40" cssclass="btn_cm_basic01" onclick="Button02_onclick" right="9" visible="false"/>
+        <Button id="btnCopy" taborder="13" text="견적서복사" top="143" width="120" height="40" cssclass="btn_cm_basic01" right="145" onclick="btnCopy_onclick"/>
+        <Button id="btnPaste" taborder="14" text="복사한견적서 추가" top="143" width="130" height="40" cssclass="btn_cm_basic01" right="10" onclick="btnPaste_onclick"/>
+        <Button id="btnSend" taborder="12" text="견적서전달" top="143" width="100" height="40" cssclass="btn_WF_save01" right="270" onclick="btnSend_onclick"/>
+        <Button id="btnConfirm" taborder="18" text="견적→매출처리" width="110" height="40" cssclass="btn_WF_red" top="143" right="375" onclick="btnConfirm_onclick" visible="false"/>
+        <Edit id="edtSearchCustomer" taborder="4" left="75" top="96" width="157" height="28" onkeydown="Common_onkeydown" autoselect="true"/>
+        <Static id="Static03_00_00" taborder="27" text="영업사원" left="419" top="90" width="63" height="40" cssclass="sta_WF_name"/>
+        <Edit id="edtSearchTitle" taborder="16" left="74" top="160" width="257" height="28" visible="false"/>
+        <Static id="Static11_00_00" taborder="28" text="견적종류" left="419" top="54" width="63" height="40" cssclass="sta_WF_name"/>
+        <Combo id="cboSearchType" taborder="2" left="485" top="60" width="120" height="28" text="전체" value="" index="-1" innerdataset="dsSearchType" codecolumn="code" datacolumn="value" onkeydown="Common_onkeydown" autoselect="true"/>
+        <Button id="btnCustomerSearch" taborder="5" text="찾기 (Alt+^)" top="96" width="95" height="28" cssclass="btn_cm_basic01" left="237" onclick="btnCustomerSearch_onclick"/>
+        <Button id="btnSearch" taborder="6" text="조회 (F8)" top="60" width="70" height="28" cssclass="btn_WF_add01" left="847" onclick="btnSearch_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsEstimate" onrowposchanged="dsEstimate_onrowposchanged" oncolumnchanged="dsEstimate_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="ESTIMATE_DATE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_STATUS" type="STRING" size="256"/>
+          <Column id="SALESMAN_CODE" type="STRING" size="256"/>
+          <Column id="CUSTOMER_CODE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_TYPE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_TITLE" type="STRING" size="256"/>
+          <Column id="TAX_TYPE" type="STRING" size="256"/>
+          <Column id="EXPIRY_TERM" type="STRING" size="256"/>
+          <Column id="PAYMENT_TYPE" type="STRING" size="256"/>
+          <Column id="DELIVERTY_DATE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_ETC" type="STRING" size="256"/>
+          <Column id="SEAL_CHECK" type="STRING" size="256"/>
+          <Column id="SEAL_IMAGE" type="STRING" size="256"/>
+          <Column id="TOTAL_PRICE" type="INT" size="256"/>
+          <Column id="TOTAL_AMOUNT" type="INT" size="256"/>
+          <Column id="TAX_PRICE" type="INT" size="256"/>
+          <Column id="DISCOUNT_PRICE" type="INT" size="256"/>
+          <Column id="ADDIN_PRICE" type="INT" size="256"/>
+          <Column id="ESTIMATE_CODE" type="STRING" size="256"/>
+          <Column id="UPDATE_DATE" type="STRING" size="256"/>
+          <Column id="CUSTOMER_NAME" type="STRING" size="256"/>
+          <Column id="CORPORATE_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_FAXNUM" type="STRING" size="256"/>
+          <Column id="STAFF_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_EMAIL" type="STRING" size="256"/>
+          <Column id="TEMP_CODE" type="STRING" size="256"/>
+          <Column id="SALESPERSON_CODE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsEstimateDetail" oncolumnchanged="dsEstimateDetail_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="ESTIMATEDETAIL_CODE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_DATE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_TYPE" type="STRING" size="256"/>
+          <Column id="CUSTOMER_CODE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_CODE" type="STRING" size="256"/>
+          <Column id="PRODUCT_CODE" type="STRING" size="256"/>
+          <Column id="PRODUCT_NAME" type="STRING" size="256"/>
+          <Column id="STANDARD" type="STRING" size="256"/>
+          <Column id="UNIT" type="STRING" size="256"/>
+          <Column id="UNIT_VALUE" type="STRING" size="256"/>
+          <Column id="UNIT_PRICE" type="INT" size="256"/>
+          <Column id="LAST_PRICE" type="INT" size="256"/>
+          <Column id="DISCOUNT_PRICE" type="STRING" size="256"/>
+          <Column id="AMOUNT" type="INT" size="256"/>
+          <Column id="SURTAX_TYPE" type="STRING" size="256"/>
+          <Column id="ETC" type="STRING" size="256"/>
+          <Column id="RECEIVING_PRICE" type="STRING" size="256"/>
+          <Column id="WHOLESALE_PRICE" type="STRING" size="256"/>
+          <Column id="RETAIL_PRICE" type="STRING" size="256"/>
+          <Column id="TEMP_CODE" type="STRING" size="256"/>
+          <Column id="TOTAL_PRICE" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsStatus">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSalesman">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSurtax">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsPayment">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">lS</Col>
+            <Col id="value">매입</Col>
+          </Row>
+          <Row>
+            <Col id="code">pS</Col>
+            <Col id="value">매출</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsSearchStatus">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSearchType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSearchSalesman">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsUnit">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCode">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCopy">
+        <ColumnInfo>
+          <Column id="ESTIMATE_DATE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_STATUS" type="STRING" size="256"/>
+          <Column id="SALESMAN_CODE" type="STRING" size="256"/>
+          <Column id="CUSTOMER_CODE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_TYPE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_TITLE" type="STRING" size="256"/>
+          <Column id="TAX_TYPE" type="STRING" size="256"/>
+          <Column id="EXPIRY_TERM" type="STRING" size="256"/>
+          <Column id="PAYMENT_TYPE" type="STRING" size="256"/>
+          <Column id="DELIVERTY_DATE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_ETC" type="STRING" size="256"/>
+          <Column id="SEAL_CHECK" type="STRING" size="256"/>
+          <Column id="SEAL_IMAGE" type="STRING" size="256"/>
+          <Column id="TOTAL_PRICE" type="STRING" size="256"/>
+          <Column id="TAX_PRICE" type="STRING" size="256"/>
+          <Column id="DISCOUNT_PRICE" type="STRING" size="256"/>
+          <Column id="ADDIN_PRICE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_CODE" type="STRING" size="256"/>
+          <Column id="UPDATE_DATE" type="STRING" size="256"/>
+          <Column id="CUSTOMER_NAME" type="STRING" size="256"/>
+          <Column id="CORPORATE_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_FAXNUM" type="STRING" size="256"/>
+          <Column id="STAFF_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_EMAIL" type="STRING" size="256"/>
+          <Column id="TEMP_CODE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCopyDetail">
+        <ColumnInfo>
+          <Column id="ESTIMATEDETAIL_CODE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_DATE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_TYPE" type="STRING" size="256"/>
+          <Column id="CUSTOMER_CODE" type="STRING" size="256"/>
+          <Column id="ESTIMATE_CODE" type="STRING" size="256"/>
+          <Column id="PRODUCT_CODE" type="STRING" size="256"/>
+          <Column id="PRODUCT_NAME" type="STRING" size="256"/>
+          <Column id="STANDARD" type="STRING" size="256"/>
+          <Column id="UNIT" type="STRING" size="256"/>
+          <Column id="UNIT_VALUE" type="STRING" size="256"/>
+          <Column id="UNIT_PRICE" type="STRING" size="256"/>
+          <Column id="LAST_PRICE" type="STRING" size="256"/>
+          <Column id="DISCOUNT_PRICE" type="STRING" size="256"/>
+          <Column id="AMOUNT" type="STRING" size="256"/>
+          <Column id="SURTAX_TYPE" type="STRING" size="256"/>
+          <Column id="ETC" type="STRING" size="256"/>
+          <Column id="RECEIVING_PRICE" type="STRING" size="256"/>
+          <Column id="WHOLESALE_PRICE" type="STRING" size="256"/>
+          <Column id="RETAIL_PRICE" type="STRING" size="256"/>
+          <Column id="TEMP_CODE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsExpiry">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+          <Column id="term" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    estimate
+*  @FileName	estimate.xfdl
+*  @Desction	견적관리
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+this.onchange = "non";
+this.customerCode = "";
+this.toDay = "";
+this.rtnCode = "";
+this.LoginGroup = "";
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.estimate_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	this.toDay = this.application.gvToday;
+	this.LoginGroup = this.application.gvLoginId;
+	
+	this.parent.parent.fn_setFavoriteButton(obj);
+		
+	this.gfn_setGridSize (this.grdList);
+	
+	var objConfig = {
+						objList		: this.dsEstimate,
+						objdetail	: this.dsEstimateDetail
+				    }
+	this.config = objConfig;
+	
+	this.fn_initCode();
+};
+
+/**
+ * @description form onkeydown
+ */
+this.estimate_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if(e.altkey)
+	{
+		if(e.keycode == 54)
+		{
+			//거래처명 팝업
+			this.fn_customerpopup("popupSearchCustomer","edt",this.edtSearchCustomer.value);
+		}
+		
+		if(e.keycode == 45)
+		{
+			this.fn_insertDetail();
+		}
+		
+		if(e.keycode == 46)
+		{
+			this.fn_deleteDetail();
+		}		
+	}
+	else if(e.keycode == 45)
+	{
+		this.fn_addDetail();
+	}
+	else if(e.keycode == 119)
+	{
+		this.fn_initSearch();
+	}
+	else if(e.keycode == 120)
+	{
+		this.fn_initSave();
+	}	
+};
+
+/**
+ * @description form onsize
+ */
+this.estimate_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	this.gfn_setGridSize (this.grdList);
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+ */
+this.fn_callback = function(strSvcID, nErrorCode, strErrorMag)
+{
+	if(nErrorCode < 0)
+	{
+		trace("nErrorCode ::: " + nErrorCode);
+		return;
+	}
+	
+	if(strSvcID == "selectCode")
+	{
+		this.fn_setCodeData();
+	}
+	else if(strSvcID == "selectEstimate")
+	{
+		this.grdList.setFocus();
+	}
+	else if(strSvcID == "selectEstimateCode")
+	{
+		var nRow = this.dsEstimate.rowposition;
+		this.dsEstimate.setColumn(nRow,"ESTIMATE_CODE",this.dsCode.getColumn(0,"code"));
+		this.dsEstimate.setColumn(nRow,"ESTIMATE_SEQ",this.dsCode.getColumn(0,"seq"));
+	}
+	else if(strSvcID == "selectEstimateCodeCopy")
+	{
+		this.fn_setCopyData();
+	}
+	else if(strSvcID =="saveEstimate")
+	{
+		alert("저장 되었습니다.");
+	}
+};
+
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**
+ * @description 초기 코드 조회
+ */
+this.fn_initCode = function()
+{
+	var strSvcID = "selectCode";
+	var strURL = "IP::getestimatecode.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsStatus=dsstatus dsType=dstype dsSalesman=dssalesman dsPayment=dspayment dsSurtax=dssurtax dsUnit=dsunit dsExpiry=dsexpiry";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 견적서 코드 중복데이터 확인
+ */ 
+this.fn_transEstimateCode = function(strType)
+{
+	var strSvcID = "";
+	
+	var sDate = "";
+	var sType = "";
+	var sCustomer = "";
+	var cRow = -1;	
+	
+	if(strType == "copy")
+	{
+		strSvcID = "selectEstimateCodeCopy";
+		
+		cRow = 0;
+		
+		sDate = this.dsCopy.getColumn(cRow, "ESTIMATE_DATE");
+		sType = this.dsCopy.getColumn(cRow, "ESTIMATE_TYPE");
+		sCustomer = this.dsCopy.getColumn(cRow, "CUSTOMER_CODE");
+	}
+	else
+	{
+		strSvcID = "selectEstimateCode";
+		
+		cRow = this.dsEstimate.rowposition;	
+		
+		sDate = this.toDay;
+		sType = this.dsEstimate.getColumn(cRow, "ESTIMATE_TYPE");
+		sCustomer = this.dsEstimate.getColumn(cRow, "CUSTOMER_CODE");
+	}
+		
+	var strURL = "IP::getestimatecodeselect.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsCode=dscode";
+	var strCallbackFunc = "fn_callback";
+	var	strArgument = "argDB=" + this.application.gvDBurl;
+		strArgument += " argDate=" + sDate;
+		strArgument += " argType=" + sType;
+		strArgument += " argCustomer=" + sCustomer;
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 견적서 조회
+ */
+this.fn_searchTrans = function(strArgument)
+{
+	this.dsEstimate.clearData();
+	this.dsEstimateDetail.clearData();
+	
+	var strSvcID = "selectEstimate";
+	var strURL = "IP::getestimatelist.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsEstimate=dsestimate dsEstimateDetail=dsestimatedetail";
+	var strCallbackFunc = "fn_callback";
+		strArgument += " argDB=" + this.application.gvDBurl;
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 견적서 저장
+ */
+this.fn_saveTrans = function()
+{
+	var strSvcID = "saveEstimate";
+	var strURL = "IP::setestimatelist.jsp"
+	var strInDatasets = "dsestimate=dsEstimate:U dsestimatedetail=dsEstimateDetail:U";
+	var strOutDatasets = "";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+}
+
+
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+ * @description POPUP CALLBACK
+ */ 
+this.popupCallBack = function(sFormId, sArg)
+{
+	if(sFormId == 'popupSearchCustomer')
+	{
+		if(!this.gfn_isNull(sArg))
+		{
+			this.edtSearchCustomer.set_value(sArg);
+		}
+	}
+	else if(sFormId == 'popupSelectCustomer')
+	{
+		if(!this.gfn_isNull(sArg))
+		{
+			this.dsEstimate.setColumn(this.dsEstimate.rowposition,"CUSTOMER_CODE",this.customerCode);
+			this.dsEstimate.setColumn(this.dsEstimate.rowposition,"CUSTOMER_NAME",sArg);
+			
+			this.fn_transEstimateCode("new");
+		}
+	}
+	else if(sFormId == 'popupProduct')
+	{
+		var cRow = this.dsEstimateDetail.rowposition;
+		if(cRow > -1)
+		{
+			var sRetailPrice = this.dsEstimateDetail.getColumn(cRow,"UNIT_PRICE");			
+			this.dsEstimateDetail.setColumn(cRow,"LAST_PRICE",sRetailPrice);
+			this.dsEstimateDetail.setColumn(cRow,"UNIT_PRICE",sRetailPrice);
+			this.dsEstimateDetail.setColumn(cRow,"AMOUNT",1);
+		}
+		
+		//상품 추가시 견적 타이틀 변경
+		var sEstimateTitle = this.dsEstimate.getColumn(this.dsEstimate.rowposition,"ESTIMATE_TITLE");
+		var sFirstProduct = sFirstProduct = this.dsEstimateDetail.getColumn(0,"PRODUCT_NAME");
+		
+		var	sTitle = sFirstProduct + " 외 " + this.dsEstimateDetail.getRowCount() + "건"
+		this.dsEstimate.setColumn(this.dsEstimate.rowposition,"ESTIMATE_TITLE",sTitle);
+	}
+};
+
+/**
+ * @description fn_customerpopup - 거래처 찾기 팝업
+ */
+this.fn_customerpopup = function (strId,strValue,strEditValue)
+{
+	var oArg = {
+					strCustomer : strEditValue,
+					strType		: strValue
+				};
+				
+	this.gfn_showModal(strId, oArg, "TO_BE::customerpopup.xfdl", "popupCallBack", this, 520, 330, false, false, null);
+};
+
+/**
+ * @description fn_productListpopup - 품목 조회 팝업
+ */
+this.fn_productListpopup = function(rowpos)
+{
+	var sCustomerCode = this.dsEstimate.getColumn(this.dsEstimate.rowposition,"CUSTOMER_CODE");
+	var oArg = {
+					rownum		: rowpos,
+					customercode : sCustomerCode
+				};
+	this.gfn_showModal("popupProduct", oArg, "TO_BE::productpopupdeal.xfdl", "popupCallBack", this, 520, 330, false, false, null);
+};
+
+/**
+* Function Name : fn_initSearch
+* Description   : 견적서 조회 세팅 (조회 검색 내역 만들기)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSearch = function()
+{
+	var sArgument = "";
+	
+	var nStartDay = this.calSearchStart.value;
+	var nEndDay = this.calSearchEnd.value;
+	var nSearchType = this.cboSearchType.value;
+	var nSearchCustomer = this.edtSearchCustomer.value;
+	var nSearchTitle = this.edtSearchTitle.value;
+	var nSearchStatus = this.choSearchStatus.value;
+	var nSearchSalesmanCode = this.cboSearchSalesman.value;
+	
+	if(!this.gfn_isNull(nStartDay))
+	{
+		sArgument += " argStartday=" + nStartDay;
+	}
+	
+	if(!this.gfn_isNull(nEndDay))
+	{
+		sArgument += " argEndDay=" + nEndDay;
+	}
+	
+	if(nSearchType != '99')
+	{
+		sArgument += " argType=" + nSearchType;
+	}
+	
+	if(!this.gfn_isNull(nSearchCustomer))
+	{
+		sArgument += " argCustomer=" + nSearchCustomer;
+	}
+	
+	if(nSearchStatus != '99')
+	{
+		sArgument += " argStatus=" + nSearchStatus;
+	}
+	
+	if(nSearchSalesmanCode != '99')
+	{
+		sArgument += " argSalesman=" + nSearchSalesmanCode;
+	}
+
+	this.fn_searchTrans(sArgument);
+}
+
+/**
+* Function Name : fn_initSave
+* Description   : 견적서 저장 세팅 (필수 입력 값 확인)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSave = function()
+{
+	var allList = [this.tabDetail.info.form.calEstimateDate, this.tabDetail.info.form.cboStatus, this.tabDetail.info.form.edtCode, this.tabDetail.info.form.rdoType, this.tabDetail.info.form.edtCustomerName];
+	if(!this.fn_validCheck(allList,this.dsEstimate))
+	{
+		return;
+	}
+	
+	this.dsEstimate.set_enableevent(false);
+	this.dsEstimateDetail.set_enableevent(false);
+	
+	var strFileter = this.dsEstimateDetail.filterstr;
+	this.dsEstimateDetail.set_filterstr("");
+	for(var i=0; i<this.dsEstimate.getRowCount(); i++)
+	{		
+		var sCode = this.dsEstimate.getColumn(i,"ESTIMATE_CODE");
+		this.dsEstimateDetail.set_filterstr("ESTIMATE_CODE=='"+sCode+"'");
+		
+		var nTotalAmount = this.dsEstimateDetail.getSum("parseInt(AMOUNT)");
+		var nTotalPrice = this.dsEstimateDetail.getSum("parseInt(TOTAL_PRICE)");
+		var nTotalUnit = this.dsEstimateDetail.getSum("parseInt(UNIT_PRICE*AMOUNT)");
+		var nTotalLast = this.dsEstimateDetail.getSum("parseInt(LAST_PRICE*AMOUNT)");
+		
+		this.dsEstimate.setColumn(i,"TOTAL_AMOUNT",nTotalAmount);
+		this.dsEstimate.setColumn(i,"TOTAL_PRICE",nTotalPrice);		
+		this.dsEstimate.setColumn(i,"DISCOUNT_PRICE",nTotalUnit-nTotalLast);
+	}
+	
+	this.dsEstimateDetail.set_filterstr(strFileter);
+	this.dsEstimateDetail.set_enableevent(true);
+	this.dsEstimate.set_enableevent(true);
+	
+	this.fn_saveTrans();
+}
+
+/**
+* Function Name : fn_setCodeData
+* Description   : 초기 코드 조회(fn_initCode) 후 화면처리
+* Arguments     : none
+* Return        : none
+*/
+this.fn_setCodeData = function ()
+{
+	this.dsSearchSalesman.copyData(this.dsSalesman);
+	this.dsSearchStatus.copyData(this.dsStatus);
+	this.dsSearchType.copyData(this.dsType);
+	
+	this.dsSearchSalesman.insertRow(0);
+	this.dsSearchSalesman.setColumn(0,"code","99");
+	this.dsSearchSalesman.setColumn(0,"value","전체");
+	
+	this.dsSearchStatus.insertRow(0);
+	this.dsSearchStatus.setColumn(0,"code","99");
+	this.dsSearchStatus.setColumn(0,"value","전체");
+	
+	this.dsSearchType.insertRow(0);
+	this.dsSearchType.setColumn(0,"code","99");
+	this.dsSearchType.setColumn(0,"value","전체");
+			
+	this.cboSearchType.set_index(0);
+	this.cboSearchSalesman.set_index(0);
+	this.choSearchStatus.set_index(0);
+	
+	//매출, 매입 권한에 따른 내역 확인
+	if(this.LoginGroup == "purchase")
+	{
+		this.cboSearchType.set_value("pS");
+		this.cboSearchType.set_enable(false);
+	}
+	else if(this.LoginGroup == "sales")
+	{
+		this.cboSearchType.set_value("lS");
+		this.cboSearchType.set_enable(false);
+	}
+};
+
+/**
+* Function Name : fn_setCopyData
+* Description   : 복사한 견적서 붙여넣기 후 처리
+* Arguments     : none
+* Return        : none
+*/
+this.fn_setCopyData = function ()
+{
+	var sSeq = this.dsCode.getColCount(0,"seq");
+	var sEstimateCode = this.dsCode.getColumn(0,"code");
+	
+	var sTempCode = "";
+	var arrCode = sEstimateCode.substr(0,13);
+	
+	var fRow = this.dsEstimate.findRow("ESTIMATE_CODE",sEstimateCode);
+	if(fRow > -1)
+	{
+		sSeq ++;
+		sEstimateCode = arrCode + sSeq.toString().padLeft(2, "0");
+	}
+	
+	var sExCode = this.dsCode.getColumn(0,"TEMP_CODE");
+	
+	this.dsCopy.setColumn(0,"ESTIMATE_CODE",sEstimateCode);
+	this.dsCopy.setColumn(0,"ESTIMATE_STATUS","00");
+			
+	var nRow = this.dsEstimate.addRow();		
+	this.dsEstimate.copyRow(nRow,this.dsCopy,0);
+	
+	//연락처 mask format
+	var sMaskValue = this.dsEstimate.getColumn(nRow,"CORPORATE_TELNUM");
+	var sMaskValue2 = this.dsEstimate.getColumn(nRow,"CORPORATE_FAXNUM");
+	var sMaskValue3 = this.dsEstimate.getColumn(nRow,"STAFF_TELNUM");
+
+	this.tabDetail.info.form.mdtPhoneNum.set_format(this.gfn_setCellTelMaskFormat(sMaskValue));
+	this.tabDetail.info.form.mdtPhoneNum00.set_format(this.gfn_setCellTelMaskFormat(sMaskValue2));
+	this.tabDetail.info.form.mdtPhoneNum01.set_format(this.gfn_setCellTelMaskFormat(sMaskValue3));
+	
+	var nDetailRow = 0;
+	for(var i=0; i<this.dsCopyDetail.getRowCount(); i++)
+	{
+		nDetailRow = this.dsEstimateDetail.addRow();
+		
+		this.dsEstimateDetail.copyRow(nDetailRow,this.dsCopyDetail,i);
+		this.dsEstimateDetail.setColumn(i,"ESTIMATE_CODE",sEstimateCode)
+	}
+	
+	this.dsEstimateDetail.set_filterstr("ESTIMATE_CODE=='"+sEstimateCode+"'");
+	this.dsEstimateDetail.set_rowposition(0);	
+};
+
+/**
+* Function Name : fn_insertDetail
+* Description   : 견적내역 추가(insert/삽입)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_insertDetail = function ()
+{
+	var sCode = this.dsEstimate.getColumn(this.dsEstimate.rowposition,"ESTIMATE_CODE");
+	if(this.fn_parentCodeValid())
+	{
+		var nRow = this.dsEstimateDetail.insertRow(this.dsEstimateDetail.rowposition);
+		this.dsEstimateDetail.setColumn(nRow,"ESTIMATE_CODE",sCode);
+		this.dsEstimateDetail.setColumn(nRow,"LAST_PRICE",0);
+		this.dsEstimateDetail.setColumn(nRow,"UNIT_PRICE",0);
+		this.dsEstimateDetail.setColumn(nRow,"AMOUNT",0);	
+	}
+};
+
+/**
+* Function Name : fn_addDetail
+* Description   : 견적내역 추가(addrow)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_addDetail = function ()
+{
+	var sCode = this.dsEstimate.getColumn(this.dsEstimate.rowposition,"ESTIMATE_CODE");
+	if(this.fn_parentCodeValid())
+	{
+		var nRow = this.dsEstimateDetail.addRow();
+		this.dsEstimateDetail.setColumn(nRow,"ESTIMATE_CODE",sCode);
+		this.dsEstimateDetail.setColumn(nRow,"LAST_PRICE",0);
+		this.dsEstimateDetail.setColumn(nRow,"UNIT_PRICE",0);
+		this.dsEstimateDetail.setColumn(nRow,"AMOUNT",0);	
+	}	
+};
+
+/**
+* Function Name : fn_deleteDetail
+* Description   : 견적내역 삭제
+* Arguments     : none
+* Return        : none
+*/
+this.fn_deleteDetail = function ()
+{
+	this.dsEstimateDetail.deleteRow(this.dsEstimateDetail.rowposition);
+};
+
+/**
+* Function Name : fn_estimateTypeChange
+* Description   : 견적타입 변경
+* Arguments     : strType : 변경된 거래 타입
+* Return        : none
+*/
+this.fn_estimateTypeChange = function(strType)
+{
+	if(strType == "lS")
+	{
+		this.btnConfirm.set_cssclass("btn_WF_red");
+		this.btnConfirm.set_text("견적→매출처리");
+	}
+	else
+	{
+		this.btnConfirm.set_cssclass("btn_WF_blue");
+		this.btnConfirm.set_text("견적→매입처리");
+	}
+};
+
+/**
+* Function Name : fn_parentCodeValid
+* Description   : validation check (견적서 정보 필수 입력 값 확인)
+* Arguments     : none
+* Return        : true/false (Null is false)
+*/
+this.fn_parentCodeValid = function ()
+{
+	if(this.gfn_isNull(this.tabDetail.info.form.calEstimateDate.value))
+	{
+		alert("날짜를 선택하세요.");
+		this.tabDetail.info.form.calEstimateDate.setFocus();
+		return false;
+	}
+	else if(this.gfn_isNull(this.tabDetail.info.form.edtCustomerName.value))
+	{
+		alert("거래처를 확인하세요");
+		this.tabDetail.info.form.edtCustomerName.setFocus();
+		this.tabDetail.set_tabindex(0);
+		return false;
+	}
+	
+	return true;
+};
+
+/**
+* Function Name : fn_validCheck
+* Description   : validation check (견적내역 필수 입력 값 확인) - 공통 라이브러리 함수와 상이
+* Arguments     : arrList - component list
+*         		: objDs   - Dataset
+* Return        : true/false (Null is false)
+*/
+this.fn_validCheck = function(arrList,objDs)
+{
+	var nRow = 0;
+	var sBindId = "";
+	var svalues;
+	var diparent = this.tabDetail.info.form;
+	for(var i=0; i<arrList.length; i++)
+	{
+		obj = arrList[i];
+		sBindId = this.gfn_findBindColumnId("tabDetail.info.form." + obj.name);
+		
+		if(this.gfn_isNull(sBindId) || sBindId == "CUSTOMER_NAME")
+		{
+			sBindId = "CUSTOMER_CODE";
+		}
+		
+		for(var k=0; k<objDs.getRowCount(); k++)
+		{
+			svalues = objDs.getColumn(k,sBindId);
+			
+			if(this.gfn_isNull(svalues))
+			{
+				var objStatic = diparent.components["sta" + obj.name];
+				var sNamed = objStatic.text;
+				
+				var strReturn = "";
+				if(!this.gfn_isNull(sNamed))
+				{
+					strReturn = "'"+sNamed+"' ";
+				}
+				alert(strReturn+"필수 입력값을 확인하세요");
+				
+				this.tabDetail.set_tabindex(0);
+				obj.setFocus();
+				
+				objDs.set_rowposition(k);
+				return false;
+			}
+		}
+	}
+	
+	var sProductCode = "";
+	for(var i=0; i<this.dsEstimateDetail.getRowCountNF(); i++)
+	{
+		var sProductCode = this.dsEstimateDetail.getColumnNF(i,"PRODUCT_CODE");
+		var sParentCode = this.dsEstimateDetail.getColumnNF(i,"ESTIMATE_CODE");
+		var fRow = 0;
+		if(this.gfn_isNull(sProductCode))
+		{
+			alert("품목을 선택하세요");
+			
+			fRow = this.dsEstimate.findRow("ESTIMATE_CODE",sParentCode);
+			this.dsEstimate.set_rowposition(fRow);
+			this.dsEstimateDetail.set_rowposition(i);
+			
+			this.tabDetail.set_tabindex(1);
+			
+			return false;
+		}
+	}
+	
+	return true;
+};
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description btnCustomerSearch onclick event : 거래처명 찾기 버튼 클릭
+ */
+this.btnCustomerSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_customerpopup("popupSearchCustomer","edt",this.edtSearchCustomer.value);
+};
+
+/**
+ * @description btnSelectCustomer onclick event : 견적서정보>거래처 찾기 버튼 클릭
+ */
+this.btnSelectCustomer_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_customerpopup("popupSelectCustomer","row",this.dsEstimate.rowposition);
+};
+
+/**
+ * @description btnSearch onclick event : 조회 버튼 클릭
+ */
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSearch();
+};
+
+/**
+ * @description btnAddEstimate onclick event : 신규견적 버튼 클릭
+ */
+this.btnAddEstimate_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var nRow = this.dsEstimate.addRow();
+	
+	this.dsEstimate.setColumn(nRow,"ESTIMATE_DATE",this.toDay);
+	this.dsEstimate.setColumn(nRow,"ESTIMATE_CODE","9999999");
+	this.tabDetail.info.form.rdoType.set_index(0);
+	this.tabDetail.info.form.cboStatus.set_index(0);
+	this.tabDetail.info.form.cboAddTax.set_index(0);
+	this.tabDetail.info.form.cboPayment.set_index(0);
+};
+
+/**
+ * @description btnDelete onclick event : 삭제 버튼 클릭
+ */
+this.btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsEstimate.deleteRow(this.dsEstimate.rowposition);
+};
+
+/**
+ * @description btnSave onclick event : 저장 버튼 클릭
+ */
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSave();
+};
+
+/**
+ * @description tabDetail_detail_btnAdd onclick event : 견적내역 > 추가 버튼 클릭
+ */
+this.tabDetail_detail_btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_addDetail();	
+};
+
+/**
+ * @description tabDetail_detail_btnInsert onclick event : 견적내역 > 삽입 버튼 클릭
+ */
+this.tabDetail_detail_btnInsert_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_insertDetail();
+};
+
+/**
+ * @description tabDetail_detail_btnDelete onclick event : 견적내역 > 삭제 버튼 클릭
+ */
+this.tabDetail_detail_btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_deleteDetail();
+};
+
+/**
+ * @description btnCopy onclick event : 견적서복사 버튼 클릭
+ */
+this.btnCopy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var nRow = this.dsEstimate.rowposition;
+	
+	this.dsEstimate.set_enableevent(false);
+	this.dsEstimateDetail.set_enableevent(false);
+	
+	this.dsCopy.deleteAll();
+	this.dsCopyDetail.deleteAll();
+		
+	var sEstimateCode = this.dsEstimate.getColumn(nRow , "ESTIMATE_CODE");
+	var sEstimateType = this.dsEstimate.getColumn(nRow , "ESTIMATE_TYPE");
+	
+	var cRow = this.dsCopy.addRow();
+	this.dsCopy.copyRow(0,this.dsEstimate,nRow);
+	this.dsCopy.setColumn(0,"ESTIMATE_CODE","9999999");
+	this.dsCopy.setColumn(0,"TEMP_CODE",sEstimateCode);
+		
+	var nDetailRow = 0;
+	var sDetailCode = "";
+	
+	this.dsCopyDetail.copyData(this.dsEstimateDetail,true);
+	
+	for(var i=0; i<this.dsEstimateDetail.getRowCount(); i++)
+	{
+		this.dsCopyDetail.setColumn(i,"ESTIMATE_CODE","9999999");
+		this.dsCopyDetail.setColumn(i,"TEMP_CODE",sEstimateCode);
+	}
+	
+	this.dsEstimateDetail.set_enableevent(true);
+	this.dsEstimate.set_enableevent(true);
+};
+
+/**
+ * @description btnPaste onclick event : 복사한견적서 추가 버튼 클릭
+ */
+this.btnPaste_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsCopy.setColumn(0,"ESTIMATE_DATE",this.toDay);
+	
+	this.fn_transEstimateCode("copy");	
+};
+
+/**
+ * @description btnSend onclick event : 견적서전달 버튼 클릭
+ */
+this.btnSend_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsEstimate.setColumn(this.dsEstimate.rowposition,"ESTIMATE_STATUS","02");
+	this.dsEstimate.setColumn(this.dsEstimate.rowposition,"UPDATE_DATE",this.toDay);
+};
+
+/**
+ * @description tabDetail_detail_grdDetail onexpanddown event : 견적내역 > 품목명 조회 - expand button click
+ */
+this.tabDetail_detail_grdDetail_onexpanddown = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+{
+	this.fn_productListpopup(e.row);
+};
+
+/**
+ * @description dsEstimate onrowposchanged event : 견적서 rowposition 변경
+ */
+this.dsEstimate_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	//연락처 mask format
+	var sMaskValue = this.dsEstimate.getColumn(e.newrow,"CORPORATE_TELNUM");
+	var sMaskValue2 = this.dsEstimate.getColumn(e.newrow,"CORPORATE_FAXNUM");
+	var sMaskValue3 = this.dsEstimate.getColumn(e.newrow,"STAFF_TELNUM");
+
+	this.tabDetail.info.form.mdtPhoneNum.set_format(this.gfn_setCellTelMaskFormat(sMaskValue));
+	this.tabDetail.info.form.mdtPhoneNum00.set_format(this.gfn_setCellTelMaskFormat(sMaskValue2));
+	this.tabDetail.info.form.mdtPhoneNum01.set_format(this.gfn_setCellTelMaskFormat(sMaskValue3));
+	
+	this.dsEstimateDetail.set_filterstr("");
+	var sEstimateCode = this.dsEstimate.getColumn(e.newrow,"ESTIMATE_CODE");
+	
+	if(this.gfn_isNull(sEstimateCode))
+	{
+		sEstimateCode = "9999999";
+	}
+
+	this.dsEstimateDetail.set_filterstr("ESTIMATE_CODE=='" + sEstimateCode+"'");
+	this.dsEstimateDetail.set_rowposition(0);
+	var sEstimateType = obj.getColumn(e.newrow,"ESTIMATE_TYPE");
+	
+	//견적서 타입 변경
+	this.fn_estimateTypeChange(sEstimateType);
+};
+
+/**
+ * @description Common onkeydown event : 조회영역 키다운 이벤트 발생
+ */
+this.Common_onkeydown = function(obj:nexacro.Combo,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 13)
+	{
+		this.fn_initSearch();
+	}
+};
+
+/**
+ * @description dsEstimate oncolumnchanged event : 견적서(견적서 정보) 값 변경 이벤트
+ */
+this.dsEstimate_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	if(e.columnid == "ESTIMATE_TYPE")
+	{
+		this.fn_estimateTypeChange(e.newvalue);
+	}
+};
+
+/**
+ * @description dsEstimateDetail oncolumnchanged event : 견적내역(상세) 값 변경 이벤트
+ */
+this.dsEstimateDetail_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	var nAmount = 0;
+	var nLastPrice = 0;
+	var nTotalPrice = 0;
+	if(e.columnid == "AMOUNT" || e.columnid == "LAST_PRICE")
+	{	
+		nAmount = this.dsEstimateDetail.getColumn(e.row , "AMOUNT");
+		nLastPrice = this.dsEstimateDetail.getColumn(e.row , "LAST_PRICE");
+		nUnitPrice = this.dsEstimateDetail.getColumn(e.row, "UNIT_PRICE");
+		
+		this.dsEstimateDetail.setColumn(e.row, "TOTAL_PRICE", nAmount*nLastPrice);		
+	}
+};
+
+/**
+ * @description tabDetail onkeydown event : 견적 탭 키다운 이벤트
+ */
+this.tabDetail_onkeydown = function(obj:nexacro.Tab,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 37)
+	{
+	// <
+		this.tabDetail.set_tabindex(0);
+	}
+	
+	if(e.keycode == 39)
+	{
+	// >
+		this.tabDetail.set_tabindex(1);
+	}
+};
+
+/**
+ * @description MaskEdit onchanged event : 연락처(전화번호) 변경시 마스크 적용
+ */
+this.MaskEdit_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInfo)
+{
+	var sValue = e.postvalue;
+	this.gfn_makePhoneNumMask(obj, sValue);
+};
+
+/**
+ * @description MaskEdit oninput event : 연락처(전화번호) 입력 시 마스크 적용
+ */
+this.MaskEdit_oninput = function(obj:nexacro.MaskEdit,e:nexacro.InputEventInfo)
+{
+	obj.set_format("@@@@@@@@@@@");
+};]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="tabDetail.info.form.calEstimateDate" propid="value" datasetid="dsEstimate" columnid="ESTIMATE_DATE"/>
+      <BindItem id="item1" compid="tabDetail.info.form.edtCode" propid="value" datasetid="dsEstimate" columnid="ESTIMATE_CODE"/>
+      <BindItem id="item2" compid="tabDetail.info.form.txtETC" propid="value" datasetid="dsEstimate" columnid="ESTIMATE_ETC"/>
+      <BindItem id="item4" compid="tabDetail.info.form.edtEmail" propid="value" datasetid="dsEstimate" columnid="CORPORATE_EMAIL"/>
+      <BindItem id="item5" compid="tabDetail.info.form.calDelivery" propid="value" datasetid="dsEstimate" columnid="DELIVERTY_DATE"/>
+      <BindItem id="item9" compid="tabDetail.info.form.edtTitle" propid="value" datasetid="dsEstimate" columnid="ESTIMATE_TITLE"/>
+      <BindItem id="item10" compid="tabDetail.info.form.cboStatus" propid="value" datasetid="dsEstimate" columnid="ESTIMATE_STATUS"/>
+      <BindItem id="item11" compid="tabDetail.info.form.cboPayment" propid="value" datasetid="dsEstimate" columnid="PAYMENT_TYPE"/>
+      <BindItem id="item12" compid="tabDetail.info.form.cboAddTax" propid="value" datasetid="dsEstimate" columnid="TAX_TYPE"/>
+      <BindItem id="item13" compid="tabDetail.info.form.cboSalesman" propid="value" datasetid="dsEstimate" columnid="SALESMAN_CODE"/>
+      <BindItem id="item14" compid="tabDetail.info.form.calStatusDate" propid="value" datasetid="dsEstimate" columnid="UPDATE_DATE"/>
+      <BindItem id="item15" compid="tabDetail.info.form.edtCustomerName" propid="value" datasetid="dsEstimate" columnid="CUSTOMER_NAME"/>
+      <BindItem id="item16" compid="tabDetail.info.form.rdoType" propid="value" datasetid="dsEstimate" columnid="ESTIMATE_TYPE"/>
+      <BindItem id="item17" compid="tabDetail.info.form.chkSeal" propid="value" datasetid="dsEstimate" columnid="SEAL_CHECK"/>
+      <BindItem id="item18" compid="tabDetail.info.form.imgSeal" propid="image" datasetid="dsEstimate" columnid="SEAL_IMAGE"/>
+      <BindItem id="item19" compid="tabDetail.info.form.mdtPhoneNum" propid="value" datasetid="dsEstimate" columnid="CORPORATE_TELNUM"/>
+      <BindItem id="item20" compid="mdtPhoneNum00" propid="value" datasetid="dsMyInfo" columnid="CORPORATE_FAXNUM"/>
+      <BindItem id="item7" compid="tabDetail.info.form.mdtPhoneNum00" propid="value" datasetid="dsEstimate" columnid="CORPORATE_FAXNUM"/>
+      <BindItem id="item21" compid="tabDetail.info.form.mdtPhoneNum01" propid="value" datasetid="dsEstimate" columnid="STAFF_TELNUM"/>
+      <BindItem id="item3" compid="tabDetail.info.form.cboExpiry" propid="value" datasetid="dsEstimate" columnid="EXPIRY_TERM"/>
+    </Bind>
+  </Form>
+</FDL>

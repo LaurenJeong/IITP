@@ -1,0 +1,696 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="customer" width="1120" height="980" titletext="거래처관리" onload="customer_onload" onsize="customer_onsize" onkeydown="customer_onkeydown">
+    <Layouts>
+      <Layout height="980" mobileorientation="landscape" width="1120">
+        <Static id="Static18_01" taborder="48" top="658" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="staTitle" taborder="49" text="거래처 관리" left="10" top="10" height="34" cssclass="sta_WF_title01" right="10" fittocontents="width"/>
+        <Static id="staedtBussLicense" taborder="50" text="사업자등록번호" top="199" width="140" height="40" cssclass="sta_WF_titleStar" right="510"/>
+        <Static id="Static08" taborder="51" top="160" height="40" cssclass="sta_cm_box02L" right="10" width="500" text=""/>
+        <Static id="staedtCorporNum" taborder="52" text="거래처명" top="160" width="140" height="40" cssclass="sta_WF_titleStar" right="510"/>
+        <Static id="Static03" taborder="53" top="199" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="staedtPresenName" taborder="54" text="대표자" top="238" width="140" height="40" cssclass="sta_WF_titleStar" right="510"/>
+        <Static id="Static05" taborder="55" top="238" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="Static06" taborder="56" text="주민등록번호" top="238" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="Static07" taborder="57" top="277" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="Static12" taborder="58" top="580" height="40" cssclass="sta_cm_box02L" text="" right="10" width="500"/>
+        <Static id="Static16" taborder="59" top="619" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="Static18" taborder="60" top="697" height="40" cssclass="sta_cm_box02L" right="10" width="535"/>
+        <Edit id="edtCorporNum" taborder="5" top="166" width="160" height="28" text="투비유통" right="340" autoselect="true"/>
+        <Edit id="edtPresenName" taborder="10" top="244" width="160" height="28" text="한나나" right="340" autoselect="true"/>
+        <Static id="Static03_00" taborder="61" top="433" height="109" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="stedtEstablishNum" taborder="62" text="종사업장번호" top="199" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Edit id="edtEstablishNum" taborder="9" top="205" width="160" height="28" text="217-81-46957" right="20" autoselect="true"/>
+        <Static id="stacboCoporType" taborder="63" text="업체구분" top="277" width="140" height="40" cssclass="sta_WF_titleStar" right="510"/>
+        <Static id="stacboBussCondition" taborder="64" text="업태" top="277" width="140" height="40" cssclass="sta_WF_titleStar" right="190"/>
+        <Grid id="grdList" taborder="3" left="10" top="160" binddataset="dsCustomer" height="811" autoenter="select" autofittype="col" right="660">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="180"/>
+                <Column size="100"/>
+                <Column size="150"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="거래처명"/>
+                <Cell col="1" text="대표자"/>
+                <Cell col="2" text="사업자 번호"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:CORPORATE_NAME" textAlign="center"/>
+                <Cell col="1" text="bind:REPRESENTATIVE_NAME" textAlign="center"/>
+                <Cell col="2" text="bind:BUSINESS_LICENSE_NUM" textAlign="center" displaytype="mask" maskeditformat="@@@-@@-@@@@@" maskedittype="string"/>
+              </Band>
+            </Format>
+            <Format id="middle">
+              <Columns>
+                <Column size="180"/>
+                <Column size="100"/>
+                <Column size="150"/>
+                <Column size="120"/>
+                <Column size="100"/>
+                <Column size="120"/>
+                <Column size="120"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="거래처명"/>
+                <Cell col="1" text="대표자"/>
+                <Cell col="2" text="사업자 번호"/>
+                <Cell col="3" text="연락처"/>
+                <Cell col="4" text="담당자"/>
+                <Cell col="5" text="업체구분"/>
+                <Cell col="6" text="업태"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:CORPORATE_NAME" textAlign="center"/>
+                <Cell col="1" text="bind:REPRESENTATIVE_NAME" textAlign="center"/>
+                <Cell col="2" text="bind:BUSINESS_LICENSE_NUM" textAlign="center" displaytype="mask" maskeditformat="@@@-@@-@@@@@" maskedittype="string"/>
+                <Cell col="3" text="bind:STAFF_TELNUM" textAlign="center" maskedittype="string" displaytype="mask" maskeditformat="expr:comp.parent.gfn_setCellTelMaskFormat(STAFF_TELNUM)"/>
+                <Cell col="4" text="bind:STAFF_NAME" textAlign="center"/>
+                <Cell col="5" textAlign="center" text="bind:CORPORATE_TYPE" combodataset="dsCoporType" combocodecol="code" combodatacol="value" displaytype="combotext"/>
+                <Cell col="6" text="bind:BUSINESS_CONDITION" combodataset="dsBussCondition" combocodecol="code" combodatacol="value" textAlign="center" displaytype="combotext"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="stmdtTelNum" taborder="65" text="전화" top="580" width="140" height="40" cssclass="sta_cm_box01L" right="510"/>
+        <Static id="Static13" taborder="66" text="주소" top="433" width="140" height="109" cssclass="sta_cm_box01L" right="510"/>
+        <Static id="stmdtFaxNum" taborder="67" text="팩스" top="619" width="140" height="40" cssclass="sta_cm_box01L" right="510"/>
+        <Static id="Static18_00" taborder="68" top="853" height="40" cssclass="sta_cm_box02L" text="" right="10" width="500"/>
+        <Static id="Static07_01" taborder="69" top="394" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="stedtAccFund" taborder="70" text="적립금" top="697" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="stedtPassword" taborder="71" text="수주비밀번호" top="853" width="140" height="40" cssclass="sta_cm_box01L" right="510"/>
+        <Static id="stEtc1" taborder="72" text="비고 1" top="892" width="140" height="40" cssclass="sta_cm_box01L" right="510"/>
+        <Static id="stEtc2" taborder="73" text="비고 2" top="931" width="140" height="40" cssclass="sta_cm_box01L" right="510"/>
+        <Static id="Static18_02" taborder="74" top="892" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="Static18_00_00" taborder="75" top="931" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Edit id="EdtEtc1" taborder="43" top="898" width="480" height="28" text="서울특별시 강남구 삼성1동 108-7 (인탑스빌딩)" right="20" autoselect="true"/>
+        <Edit id="edtEtc2" taborder="45" top="937" width="480" height="28" text="서울특별시 강남구 삼성1동 108-7 (인탑스빌딩)" right="20" autoselect="true"/>
+        <Static id="stedtEmail" taborder="76" top="658" width="140" height="40" cssclass="sta_cm_box01L" text="이메일" right="510"/>
+        <Static id="stedtHomepage" taborder="77" top="697" width="140" height="40" cssclass="sta_cm_box01L" text="홈페이지" right="510"/>
+        <Edit id="edtHomepage" taborder="28" top="703" width="160" height="28" right="340" autoselect="true"/>
+        <Edit id="edtEmail" taborder="27" top="664" width="160" height="28" right="340" autoselect="true"/>
+        <Static id="stamdtStaffPhone" taborder="78" text="연락처" top="394" width="140" height="40" right="510" cssclass="sta_cm_box01L"/>
+        <Combo id="cboBussCondition" taborder="13" top="283" width="160" height="28" value="" index="-1" right="20" innerdataset="dsBussCondition" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <Static id="staNavi" taborder="79" text="· Home &gt; 기초자료 &gt; &lt;fs v='10'&gt;&lt;b v='true'&gt;거래처관리&lt;/b&gt;&lt;/fs&gt;" top="10" width="263" height="34" right="10" cssclass="sta_WF_navi" usedecorate="true"/>
+        <Static id="Static01_00_00_00_00" taborder="80" left="10" top="54" height="40" cssclass="sta_cm_box01L" right="10"/>
+        <Button id="btnAdd" taborder="4" text="추가" top="114" width="76" height="36" cssclass="btn_WF_add01" right="174" onclick="btnAdd_onclick"/>
+        <Button id="btnDelete" taborder="44" text="삭제" top="114" width="76" height="36" cssclass="btn_WF_delete01" right="92" onclick="btnDelete_onclick"/>
+        <Button id="btnSave" taborder="46" text="저장 (F9)" top="114" width="76" height="36" cssclass="btn_WF_delete01" right="10" onclick="btnSave_onclick"/>
+        <Button id="btnPrint" taborder="47" text="인쇄" top="114" width="76" height="36" cssclass="btn_WF_delete01" right="256" visible="false"/>
+        <Edit id="edtAdress1" taborder="22" top="473" height="28" width="480" right="20" autoselect="true"/>
+        <Edit id="edtAdress2" taborder="23" top="507" height="28" width="480" right="20" autoselect="true"/>
+        <Button id="btnSearch" taborder="2" text="조회 (F8)" top="60" width="70" height="28" cssclass="btn_WF_add01" onclick="btnSearch_onclick" left="592"/>
+        <Combo id="cboCoporType" taborder="12" top="283" width="160" height="28" value="" index="-1" right="340" innerdataset="dsCoporType" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <MaskEdit id="mdtTelNum" taborder="25" top="586" width="160" height="28" format="@@@-@@@@-@@@@" type="string" right="340" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput" autoselect="true"/>
+        <MaskEdit id="mdtFaxNum" taborder="26" top="625" width="160" height="28" format="@@@-@@@@-@@@@" type="string" right="340" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput" autoselect="true"/>
+        <Static id="Static02_00_01_00" taborder="81" text="거래상태" left="387" top="54" width="63" height="40" cssclass="sta_cm_box01L"/>
+        <Combo id="choSearchStatus" taborder="1" text="" left="466" top="60" width="120" height="28" value="" index="-1" displaynulltext="전체" innerdataset="dsSearchDealStatus" codecolumn="code" datacolumn="value" autoselect="true" onkeydown="Common_onkeydown"/>
+        <MaskEdit id="mdtStaffPhone" taborder="18" top="400" width="160" height="28" format="@@@-@@@@-@@@@" type="string" right="340" autoselect="true" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput"/>
+        <Button id="btnPostCode" taborder="21" text="우편번호" top="439" width="70" height="28" cssclass="btn_cm_basic01" right="264" onclick="btnPostCode_onclick" enable="false"/>
+        <MaskEdit id="mdtPostalCode" taborder="20" top="439" width="160" height="28" right="340" enable="false" autoselect="true"/>
+        <Static id="staedtCorporCode" taborder="82" text="거래처코드" top="160" width="140" height="40" cssclass="sta_WF_titleStar" right="190"/>
+        <Edit id="edtCorporCode" taborder="6" top="166" width="84" height="28" text="투비유통" right="96" maxlength="3" tooltiptext="영문 3글자&#13;&#10;(예 ABC)" tooltiptype="hover" autoselect="true"/>
+        <Button id="btnCode" taborder="7" text="중복검사" top="166" width="70" height="28" cssclass="btn_cm_basic01" right="20" tooltiptext="대표코드를 알파벳 3글자로 설정하세요" onclick="btnCode_onclick" enable="false"/>
+        <Static id="Static07_00" taborder="83" top="316" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="staedtBussType" taborder="84" text="종목" top="316" width="140" height="40" cssclass="sta_WF_titleStar" right="510"/>
+        <Edit id="edtBussType" taborder="14" top="322" width="160" height="28" text="cboBussType" right="340" autoselect="true"/>
+        <Static id="stcalDealStart" taborder="85" text="거래개시일" top="316" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Calendar id="calDealStart" taborder="15" top="322" width="160" height="28" right="20" autoselect="true"/>
+        <Static id="Static07_00_00" taborder="86" top="355" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="staedtStaffName" taborder="87" text="담당자" top="355" width="140" height="40" right="510" cssclass="sta_cm_box01L"/>
+        <Edit id="edtStaffName" taborder="16" top="361" width="160" height="28" text="cboBussType" right="340" autoselect="true"/>
+        <Static id="stcalDealFinal" taborder="88" text="최종거래일" top="355" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Calendar id="calDealFinal" taborder="17" top="361" width="160" height="28" right="20" autoselect="true"/>
+        <Static id="stcboSalesman" taborder="89" text="담당 영업사원" top="394" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Combo id="cboSalesman" taborder="19" top="401" width="160" height="28" value="" index="-1" right="20" innerdataset="dsSalesman" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <Static id="Static07_01_01" taborder="90" top="541" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="stcboArea" taborder="91" text="지역" top="541" width="140" height="40" cssclass="sta_cm_box01L" right="510"/>
+        <Combo id="cboArea" taborder="24" top="547" width="160" height="28" value="" index="-1" right="340" innerdataset="dsArea" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <Static id="stedtLoanLimit" taborder="92" text="여신한도" top="541" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="Static06_01_01_00_00" taborder="93" text="미수금액" top="580" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="Static06_01_01_00_00_00" taborder="94" text="미지급액" top="619" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="stcalPayment" taborder="95" text="결제 약속일" top="658" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Calendar id="calPayment" taborder="34" top="664" width="160" height="28" right="20" autoselect="true"/>
+        <Static id="Static18_03" taborder="96" top="736" height="40" cssclass="sta_cm_box02L" right="10" width="535" text=""/>
+        <Static id="stStatus" taborder="97" text="거래상태" top="736" width="140" height="40" cssclass="sta_cm_box01L" right="510"/>
+        <Combo id="choDealStatus" taborder="29" top="742" width="160" height="28" value="" index="-1" right="340" innerdataset="dsDealStatus" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <Static id="stedtInitAccFund" taborder="98" text="초기적립금" top="736" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="Static18_03_00" taborder="99" top="775" height="40" cssclass="sta_cm_box02L" right="10" width="535"/>
+        <Static id="stcboUnitPrice" taborder="100" top="775" width="140" height="40" cssclass="sta_cm_box01L" text="거래단가" right="510"/>
+        <Combo id="cboUnitPrice" taborder="30" top="781" width="160" height="28" value="" index="-1" right="340" innerdataset="dsUnit" codecolumn="code" datacolumn="value" text="" autoselect="true"/>
+        <Static id="stedtDisCountRate" taborder="101" text="판매가 할인할증" top="775" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Edit id="edtDisCountRate" taborder="37" top="781" width="50" height="28" right="130" inputtype="normal,number" autoselect="true"/>
+        <Static id="Static09_00_00" taborder="102" text="% (10, -15)" top="775" width="61" height="40" right="65"/>
+        <Static id="Static18_03_00_00" taborder="103" top="814" height="40" cssclass="sta_cm_box02L" right="10" width="500"/>
+        <Static id="stchkSalesStatus" taborder="104" text="판매 할증여부" top="814" width="140" height="40" cssclass="sta_cm_box01L" right="510"/>
+        <CheckBox id="chkSalesStatus" taborder="38" text="할인" top="822" width="75" height="25" right="425"/>
+        <Static id="stedtAddTaxRate" taborder="105" text="부가가치세율" top="814" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Edit id="edtAddTaxRate" taborder="39" top="820" width="50" height="28" right="130" inputtype="normal,number" autoselect="true"/>
+        <Static id="Static09_01_00" taborder="106" text="%" top="814" width="17" height="40" right="109"/>
+        <CheckBox id="chkUnitDisplay" taborder="42" text="웹수발주에서 단가표시" top="853" width="148" height="40" right="66" value="true"/>
+        <Button id="btnGetLogin" taborder="41" text="로그인 정보 발급" top="859" width="110" height="28" cssclass="btn_cm_basic01" right="224" enable="false"/>
+        <Edit id="edtPassword" taborder="40" top="859" width="160" height="28" right="340" password="true" autoselect="true"/>
+        <Static id="Static02_00_00" taborder="107" text="거래처명" left="10" top="54" width="63" height="40" cssclass="sta_cm_box01L"/>
+        <Edit id="edtSearchCustomer" taborder="0" left="86" top="60" width="214" height="28" onkeydown="Common_onkeydown"/>
+        <MaskEdit id="MaskEdit00" taborder="11" top="244" width="160" height="28" type="string" format="@@@@@@-@{@@@@@@}" right="20" autoselect="true"/>
+        <MaskEdit id="edtBussLicense" taborder="8" top="205" width="160" height="28" type="string" format="@@@-@@-@@@@@" right="340" autoselect="true"/>
+        <MaskEdit id="nedtLoanLimit" taborder="31" top="547" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtUnCollected" taborder="32" top="586" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtUnpaid" taborder="33" top="625" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtAccFund" taborder="35" top="703" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtInitAccFund" taborder="36" top="742" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsCustomer" onrowposchanged="dsCustomer_onrowposchanged">
+        <ColumnInfo>
+          <Column id="BUSINESS_LICENSE_NUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_NAME" type="STRING" size="256"/>
+          <Column id="ESTABLISHMENT_NUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_TYPE" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_NAME" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_SOCIAL_NUM" type="STRING" size="256"/>
+          <Column id="BUSINESS_CONDITION" type="STRING" size="256"/>
+          <Column id="BUSINESS_TYPE" type="STRING" size="256"/>
+          <Column id="CORPORATE_AREA" type="STRING" size="256"/>
+          <Column id="STAFF_NAME" type="STRING" size="256"/>
+          <Column id="STAFF_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_EMAIL" type="STRING" size="256"/>
+          <Column id="CORPORATE_HOMEPAGE" type="STRING" size="256"/>
+          <Column id="CORPORATE_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_FAXNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_POSTAL_CODE" type="STRING" size="256"/>
+          <Column id="CORPORATE_ADRESS1" type="STRING" size="256"/>
+          <Column id="CORPORATE_ADRESS2" type="STRING" size="256"/>
+          <Column id="SALESPERSON_CODE" type="STRING" size="256"/>
+          <Column id="UNIT_PRICE_CODE" type="STRING" size="256"/>
+          <Column id="SALES_STATUS_CODE" type="STRING" size="256"/>
+          <Column id="ORDER_PASSWORD" type="STRING" size="256"/>
+          <Column id="DEAL_START_DATE" type="STRING" size="256"/>
+          <Column id="DEAL_FINAL_DATE" type="STRING" size="256"/>
+          <Column id="PAYMENT_DATE" type="STRING" size="256"/>
+          <Column id="LOAN_LIMIT" type="INT" size="256"/>
+          <Column id="UNCOLLECTED_AMOUNT" type="INT" size="256"/>
+          <Column id="UNPAID_AMOUNT" type="INT" size="256"/>
+          <Column id="ACCOUMULATE_FUND" type="INT" size="256"/>
+          <Column id="ADD_TAX_RATE" type="INT" size="256"/>
+          <Column id="DISCOUNT_EXTRA_RATE" type="INT" size="256"/>
+          <Column id="ETC1" type="STRING" size="256"/>
+          <Column id="ETC2" type="STRING" size="256"/>
+          <Column id="CORPORATE_CODE" type="STRING" size="256"/>
+          <Column id="UNIT_DISPLAY" type="STRING" size="256"/>
+          <Column id="INIT_ACCOUMULATE_FUND" type="INT" size="256"/>
+          <Column id="DEAL_STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsDealStatus">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsBussCondition">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCoporType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsArea">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSalesman">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsUnit">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="BUSINESS_LICENSE_NUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_NAME" type="STRING" size="256"/>
+          <Column id="ESTABLISHMENT_NUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_TYPE" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_NAME" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_SOCIAL_NUM" type="STRING" size="256"/>
+          <Column id="BUSINESS_CONDITION" type="STRING" size="256"/>
+          <Column id="BUSINESS_TYPE" type="STRING" size="256"/>
+          <Column id="CORPORATE_AREA" type="STRING" size="256"/>
+          <Column id="STAFF_NAME" type="STRING" size="256"/>
+          <Column id="STAFF_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_EMAIL" type="STRING" size="256"/>
+          <Column id="CORPORATE_HOMEPAGE" type="STRING" size="256"/>
+          <Column id="CORPORATE_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_FAXNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_POSTAL_CODE" type="STRING" size="256"/>
+          <Column id="CORPORATE_ADRESS1" type="STRING" size="256"/>
+          <Column id="CORPORATE_ADRESS2" type="STRING" size="256"/>
+          <Column id="SALESPERSON_CODE" type="STRING" size="256"/>
+          <Column id="UNIT_PRICE_CODE" type="STRING" size="256"/>
+          <Column id="SALES_STATUS_CODE" type="STRING" size="256"/>
+          <Column id="ORDER_PASSWORD" type="STRING" size="256"/>
+          <Column id="DEAL_START_DATE" type="STRING" size="256"/>
+          <Column id="DEAL_FINAL_DATE" type="STRING" size="256"/>
+          <Column id="PAYMENT_DATE" type="STRING" size="256"/>
+          <Column id="LOAN_LIMIT" type="STRING" size="256"/>
+          <Column id="UNCOLLECTED_AMOUNT" type="STRING" size="256"/>
+          <Column id="UNPAID_AMOUNT" type="STRING" size="256"/>
+          <Column id="ACCOUMULATE_FUND" type="STRING" size="256"/>
+          <Column id="ADD_TAX_RATE" type="STRING" size="256"/>
+          <Column id="DISCOUNT_EXTRA_RATE" type="STRING" size="256"/>
+          <Column id="ETC1" type="STRING" size="256"/>
+          <Column id="ETC2" type="STRING" size="256"/>
+          <Column id="CORPORATE_CODE" type="STRING" size="256"/>
+          <Column id="UNIT_DISPLAY" type="STRING" size="256"/>
+          <Column id="INIT_ACCOUMULATE_FUND" type="STRING" size="256"/>
+          <Column id="DEAL_STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCode">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSearchDealStatus">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    customer
+*  @FileName	customer.xfdl
+*  @Desction	거래처관리
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*  2021.01.26		nana			수정 (거래처 삭제 시 '거래 삭제'로 변경)
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+this.toDay = "";
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.customer_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	this.toDay = this.application.gvToday;
+	
+	this.parent.parent.fn_setFavoriteButton(obj);
+	
+	this.fn_initCode();
+	this.gfn_setGridSize(this.grdList);	
+};
+
+/**
+ * @description form onkeydown
+ */
+this.customer_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 119)
+	{
+		this.fn_initSearch();
+	} 
+	else if(e.keycode == 120)
+	{
+		this.fn_initSave();
+	}
+};
+
+/**
+ * @description form onsize
+ */
+this.customer_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	this.gfn_setGridSize(this.grdList);
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+ */
+this.fn_callback = function(strSvcID, nErrorCode, strErrorMag)
+{
+	if(nErrorCode > -1)
+	{
+		if(strSvcID == "saveCustomer")
+		{
+			alert("저장 되었습니다.");
+		}
+	}	
+	
+	if(strSvcID == "selectCustomerCode")
+	{
+		if(this.dsCode.getRowCount()>0)
+		{
+			alert("중복된 코드입니다. 다른 코드를 사용하세요");
+			this.edtCorporCode.setFocus();
+		}
+		else
+		{
+			alert("사용 가능 코드입니다");
+			this.edtCorporCode.setFocus();
+		}
+	}
+	else if(strSvcID == "selectCode")
+	{
+		this.dsSearchDealStatus.copyData(this.dsDealStatus);
+		this.dsSearchDealStatus.insertRow(0);
+		this.dsSearchDealStatus.setColumn(0,"code","99");
+		this.dsSearchDealStatus.setColumn(0,"value","전체");
+		
+		this.choSearchStatus.set_index(0);
+	}
+	else if(strSvcID == "selectCustomer")
+	{
+		//none
+	}
+};
+
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**
+ * @description 초기 코드 조회
+ */
+this.fn_initCode = function()
+{
+	var strSvcID = "selectCode";
+	var strURL = "IP::getcustomercode.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsDealStatus=dsdealstatus dsBussCondition=dsbusscondition dsCoporType=dscoportype dsArea=dsarea dsSalesman=dssalesman dsUnit=dsunit";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 거래처 조회
+ */
+this.fn_searchTrans = function(strArgument)
+{
+	var strSvcID = "selectCustomer";
+	var strURL = "IP::getcustomerlist.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsCustomer=dscustomer";
+	var strCallbackFunc = "fn_callback";
+		strArgument += " argDB=" + this.application.gvDBurl;
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 거래처 코드 중복데이터 확인
+ */
+this.fn_searchCode = function(strArgument)
+{
+	var strSvcID = "selectCustomerCode";
+	var strURL = "IP::getcustomercodeselect.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsCode=dscode";
+	var strCallbackFunc = "fn_callback";
+		strArgument += " argDB=" + this.application.gvDBurl;
+		
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 거래처 저장
+ */
+this.fn_saveTrans = function()
+{
+	var strSvcID = "saveCustomer";
+	var strURL = "IP::setcustomerlist.jsp"
+	var strInDatasets = "dscustomer=dsCustomer:U";
+	var strOutDatasets = "";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+}
+
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+ * @description POPUP CALLBACK
+ */
+this.popupCallBack = function(sFormId, sArg)
+{
+	if(sFormId=="popupPostcode")
+	{
+		this.dsCustomer.setColumn(this.dsCustomer.rowposition,"CORPORATE_POSTAL_CODE",this.postcode);
+		this.dsCustomer.setColumn(this.dsCustomer.rowposition,"CORPORATE_ADRESS1",this.address1);
+	}
+}; 
+
+/**
+* Function Name : fn_initSearch
+* Description   : 거래처 조회 세팅 (거래처 조회 검색 내역 만들기)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSearch = function()
+{
+	var sArgument = "";
+	if(!this.gfn_isNull(this.edtSearchCustomer.value))
+	{
+		sArgument += " argSearch=" + this.edtSearchCustomer.value;
+	}
+	
+	if(this.choSearchStatus.value != "99")
+	{
+		sArgument += " argStatus=" + this.choSearchStatus.value;
+	}
+	
+	this.fn_searchTrans(sArgument);
+}
+
+/**
+* Function Name : fn_initSave
+* Description   : 거래처 저장 세팅 (필수 입력 값 확인)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSave = function()
+{
+	//validation check
+	var allList = [this.edtCorporNum, this.edtCorporCode,this.edtBussLicense, this.edtPresenName, this.cboCoporType, this.cboBussCondition, this.edtBussType];
+	if(!this.gfn_validCheck(allList,this.dsCustomer))
+	{
+		return;
+	}
+	
+	this.fn_saveTrans();
+}
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description edtSearchCustomer,choSearchStatus onkeydown event : 조회영역 키다운 이벤트 발생
+ */
+this.Common_onkeydown = function(obj:nexacro.Combo,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode==13)
+	{
+		this.fn_initSearch();
+	}
+};
+
+/**
+ * @description btnSearch onclick event : 조회 버튼 클릭
+ */
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSearch();
+};
+
+/**
+ * @description btnSave onclick event : 저장 버튼 클릭
+ */
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSave();
+};
+
+/**
+ * @description btnAdd onclick event : 추가 버튼 클릭
+ */
+this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	var nRow = this.dsCustomer.addRow();
+	
+	this.dsCustomer.setColumn(nRow,"CORPORATE_TYPE",'t0');
+	this.dsCustomer.setColumn(nRow,"BUSINESS_CONDITION",'G');
+	this.dsCustomer.setColumn(nRow,"CORPORATE_AREA",'01');
+	this.dsCustomer.setColumn(nRow,"DEAL_STATUS",'s1');
+	this.dsCustomer.setColumn(nRow,"UNIT_PRICE_CODE",'u2');
+	this.dsCustomer.setColumn(nRow,"DEAL_START_DATE",this.toDay);
+	this.edtCorporNum.setFocus();
+};
+
+/**
+ * @description btnDelete onclick event : 삭제 버튼 클릭
+ */
+this.btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	alert("삭제된 거래처는 \n'거래삭제' 상태로 전환됩니다.");
+	this.dsCustomer.deleteRow(this.dsCustomer.rowposition);
+};
+
+/**
+ * @description btnCode onclick event : 중복검사(거래처 코드) 버튼 클릭
+ */
+this.btnCode_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(this.gfn_isNull(this.edtCorporNum.value))
+	{
+		alert("거래처명을 입력하세요.");
+		this.edtCorporNum.setFocus();
+		return;
+	}
+	
+	if(this.gfn_isNull(this.edtCorporCode.value))
+	{
+		alert("거래처코드를 입력하세요.");
+		this.edtCorporCode.setFocus();
+		return;
+	}
+	
+	var strCode = "argSearch="+this.edtCorporCode.value;	
+	this.fn_searchCode(strCode);
+};
+
+/**
+ * @description btnPostCode onclick event : 우편번호 버튼 클릭
+ */
+this.btnPostCode_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var oArg = {};
+				
+	//우편번호 조회 팝업
+	this.gfn_showModal("popupPostcode", oArg, "TO_BE::postcodepopup.xfdl", "popupCallBack", this, 540, 330, false, false, null);
+};
+
+/**
+ * @description dsCustomer onrowposchanged event : 거래처 수정 이벤트 발생
+ */
+this.dsCustomer_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if(this.dsCustomer.rowcount > 0)
+	{
+		this.btnPostCode.set_enable(true);
+		this.btnCode.set_enable(true);
+	}
+	else
+	{
+		this.btnPostCode.set_enable(false);
+		this.btnCode.set_enable(false);
+	}
+	
+	//연락처(전화번호, 팩스번호, 연락처) mask format 변경
+	var sMaskValue = this.dsCustomer.getColumn(e.newrow,"STAFF_TELNUM");
+	var sMaskValue2 = this.dsCustomer.getColumn(e.newrow,"CORPORATE_TELNUM");
+	var sMaskValue3 = this.dsCustomer.getColumn(e.newrow,"CORPORATE_FAXNUM");
+	
+	//mask format 변경
+	this.mdtStaffPhone.set_format(this.gfn_setCellTelMaskFormat(sMaskValue));
+	this.mdtTelNum.set_format(this.gfn_setCellTelMaskFormat(sMaskValue2));
+	this.mdtFaxNum.set_format(this.gfn_setCellTelMaskFormat(sMaskValue3));
+};
+
+/**
+ * @description MaskEdit onchanged event : 연락처(전화번호, 팩스번호, 연락처) 변경시 마스크 적용
+ */
+this.MaskEdit_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInfo)
+{
+	var sValue = e.postvalue;
+	this.gfn_makePhoneNumMask(obj, sValue);
+};
+
+/**
+ * @description MaskEdit oninput event : 연락처(전화번호, 팩스번호, 연락처) 입력 시 마스크 적용
+ */
+this.MaskEdit_oninput = function(obj:nexacro.MaskEdit,e:nexacro.InputEventInfo)
+{
+	obj.set_format("@@@@@@@@@@@");
+};]]></Script>
+    <Bind>
+      <BindItem id="item1" compid="edtCorporNum" propid="value" datasetid="dsCustomer" columnid="CORPORATE_NAME"/>
+      <BindItem id="item2" compid="edtPresenName" propid="value" datasetid="dsCustomer" columnid="REPRESENTATIVE_NAME"/>
+      <BindItem id="item4" compid="edtEstablishNum" propid="value" datasetid="dsCustomer" columnid="ESTABLISHMENT_NUM"/>
+      <BindItem id="item6" compid="chkUnitDisplay" propid="value" datasetid="dsCustomer" columnid="UNIT_DISPLAY"/>
+      <BindItem id="item7" compid="edtPassword" propid="value" datasetid="dsCustomer" columnid="ORDER_PASSWORD"/>
+      <BindItem id="item8" compid="EdtEtc1" propid="value" datasetid="dsCustomer" columnid="ETC1"/>
+      <BindItem id="item9" compid="edtEtc2" propid="value" datasetid="dsCustomer" columnid="ETC2"/>
+      <BindItem id="item10" compid="edtHomepage" propid="value" datasetid="dsCustomer" columnid="CORPORATE_HOMEPAGE"/>
+      <BindItem id="item11" compid="edtEmail" propid="value" datasetid="dsCustomer" columnid="CORPORATE_EMAIL"/>
+      <BindItem id="item12" compid="cboBussCondition" propid="value" datasetid="dsCustomer" columnid="BUSINESS_CONDITION"/>
+      <BindItem id="item13" compid="edtAdress1" propid="value" datasetid="dsCustomer" columnid="CORPORATE_ADRESS1"/>
+      <BindItem id="item14" compid="edtAdress2" propid="value" datasetid="dsCustomer" columnid="CORPORATE_ADRESS2"/>
+      <BindItem id="item15" compid="cboCoporType" propid="value" datasetid="dsCustomer" columnid="CORPORATE_TYPE"/>
+      <BindItem id="item17" compid="mdtTelNum" propid="value" datasetid="dsCustomer" columnid="CORPORATE_TELNUM"/>
+      <BindItem id="item18" compid="mdtFaxNum" propid="value" datasetid="dsCustomer" columnid="CORPORATE_FAXNUM"/>
+      <BindItem id="item20" compid="mdtStaffPhone" propid="value" datasetid="dsCustomer" columnid="STAFF_TELNUM"/>
+      <BindItem id="item21" compid="mdtPostalCode" propid="value" datasetid="dsCustomer" columnid="CORPORATE_POSTAL_CODE"/>
+      <BindItem id="item22" compid="edtCorporCode" propid="value" datasetid="dsCustomer" columnid="CORPORATE_CODE"/>
+      <BindItem id="item23" compid="edtBussType" propid="value" datasetid="dsCustomer" columnid="BUSINESS_TYPE"/>
+      <BindItem id="item24" compid="calDealStart" propid="value" datasetid="dsCustomer" columnid="DEAL_START_DATE"/>
+      <BindItem id="item25" compid="edtStaffName" propid="value" datasetid="dsCustomer" columnid="STAFF_NAME"/>
+      <BindItem id="item26" compid="calDealFinal" propid="value" datasetid="dsCustomer" columnid="DEAL_FINAL_DATE"/>
+      <BindItem id="item27" compid="cboSalesman" propid="value" datasetid="dsCustomer" columnid="SALESPERSON_CODE"/>
+      <BindItem id="item28" compid="cboArea" propid="value" datasetid="dsCustomer" columnid="CORPORATE_AREA"/>
+      <BindItem id="item32" compid="calPayment" propid="value" datasetid="dsCustomer" columnid="PAYMENT_DATE"/>
+      <BindItem id="item33" compid="choDealStatus" propid="value" datasetid="dsCustomer" columnid="DEAL_STATUS"/>
+      <BindItem id="item35" compid="cboUnitPrice" propid="value" datasetid="dsCustomer" columnid="UNIT_PRICE_CODE"/>
+      <BindItem id="item36" compid="edtDisCountRate" propid="value" datasetid="dsCustomer" columnid="DISCOUNT_EXTRA_RATE"/>
+      <BindItem id="item37" compid="chkSalesStatus" propid="value" datasetid="dsCustomer" columnid="SALES_STATUS_CODE"/>
+      <BindItem id="item38" compid="edtAddTaxRate" propid="value" datasetid="dsCustomer" columnid="ADD_TAX_RATE"/>
+      <BindItem id="item39" compid="MaskEdit00" propid="value" datasetid="dsCustomer" columnid="REPRESENTATIVE_SOCIAL_NUM"/>
+      <BindItem id="item3" compid="edtBussLicense" propid="value" datasetid="dsCustomer" columnid="BUSINESS_LICENSE_NUM"/>
+      <BindItem id="item0" compid="nedtLoanLimit" propid="value" datasetid="dsCustomer" columnid="LOAN_LIMIT"/>
+      <BindItem id="item16" compid="medtInitAccFund" propid="value" datasetid="dsCustomer" columnid="INIT_ACCOUMULATE_FUND"/>
+      <BindItem id="item19" compid="medtAccFund" propid="value" datasetid="dsCustomer" columnid="ACCOUMULATE_FUND"/>
+      <BindItem id="item40" compid="medtUnpaid" propid="value" datasetid="dsCustomer" columnid="UNPAID_AMOUNT"/>
+      <BindItem id="item41" compid="medtUnCollected" propid="value" datasetid="dsCustomer" columnid="UNCOLLECTED_AMOUNT"/>
+    </Bind>
+  </Form>
+</FDL>

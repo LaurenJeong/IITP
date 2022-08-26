@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="productgroups" width="520" height="330" titletext="품목구분" onload="productgroups_onload" onkeydown="productgroups_onkeydown">
+    <Layouts>
+      <Layout height="330" mobileorientation="landscape" width="520">
+        <Static id="Static01_00_00_00" taborder="11" left="20" top="55" height="40" cssclass="sta_cm_box01L" text="" right="20"/>
+        <Grid id="grdGroupList" taborder="2" left="20" top="153" width="206" height="157" autofittype="col" binddataset="dsGroups">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="70"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="구분명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:GROUP_VALUE"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnAdd" taborder="3" text="추가" top="115" width="55" height="28" cssclass="btn_WF_add01" right="143" onclick="btnAdd_onclick"/>
+        <Button id="btnDelete" taborder="8" text="삭제" top="115" width="60" height="28" cssclass="btn_WF_delete01" right="77" onclick="btnDelete_onclick"/>
+        <Button id="btnSave" taborder="9" text="저장" top="115" width="55" height="28" cssclass="btn_WF_save01" right="20" onclick="btnSave_onclick"/>
+        <Static id="stacboAsset" taborder="12" text="자산구분" left="236" top="153" width="110" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static08" taborder="13" left="346" top="153" height="40" cssclass="sta_cm_box02L" right="20"/>
+        <Static id="staedtGroup" taborder="14" text="구분명" left="236" top="192" width="110" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static08_00" taborder="15" left="346" top="192" height="40" cssclass="sta_cm_box02L" right="20"/>
+        <Static id="Static01_01_00" taborder="16" text="구분기준" left="236" top="231" width="110" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="Static01_01_00_00" taborder="17" text="구분코드" left="236" top="270" width="110" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="staMiddlebar" taborder="18" text="품목 구분" left="20" top="20" height="28" cssclass="sta_WF_title02" right="140" onclick="divManufactCo_staMiddlebar_onclick"/>
+        <Button id="btnClose" taborder="10" top="20" height="28" cssclass="btn_WF_popup_close" onclick="btnClose_onclick" right="20" width="28"/>
+        <Static id="Static08_00_00" taborder="19" left="346" top="231" height="40" cssclass="sta_cm_box02L" right="20"/>
+        <Static id="Static08_00_00_00" taborder="20" left="346" top="270" height="40" cssclass="sta_cm_box02L" right="20"/>
+        <Edit id="edtCode" taborder="7" left="356" top="276" width="145" height="28" text="02-2140-7700" enable="false" displaynulltext="자동생성" autoselect="true"/>
+        <Edit id="edtEtc" taborder="6" left="356" top="237" width="145" height="28" text="02-2140-7700" autoselect="true"/>
+        <Combo id="cboAsset" taborder="4" text="상품" left="356" top="159" width="145" height="28" index="-1" innerdataset="dsAsset" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <Edit id="edtGroup" taborder="5" left="356" top="198" width="145" height="28" text="02-2140-7700" autoselect="true"/>
+        <Button id="btnSearch" taborder="1" text="조회(F8)" top="61" width="70" height="28" cssclass="btn_WF_search" left="229" onclick="btnSearch_onclick"/>
+        <Combo id="cboSearchAsset" taborder="0" text="상품" left="95" top="61" width="129" height="28" value="" index="-1" innerdataset="dsSearchAsset" codecolumn="code" datacolumn="value" onkeydown="cboSearchAsset_onkeydown" autoselect="true"/>
+        <Static id="Static02_00" taborder="21" text="자산구분" left="20" top="55" width="70" height="40" cssclass="sta_cm_box01L"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsGroups">
+        <ColumnInfo>
+          <Column id="GROUP_CODE" type="STRING" size="256"/>
+          <Column id="GROUP_VALUE" type="STRING" size="256"/>
+          <Column id="GROUP_SEQ" type="STRING" size="256"/>
+          <Column id="ASSET_CODE" type="STRING" size="256"/>
+          <Column id="GROUP_STANDARD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsAsset">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSearchAsset">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    productgroups
+*  @FileName	productgroups.xfdl
+*  @Desction	품목 구분 관리 (팝업)
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.productgroups_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	
+	this.dsAsset.copyData(this.getOwnerFrame().objAssetDataset);
+	this.dsSearchAsset.copyData(this.getOwnerFrame().objAssetDataset);
+	
+	//get arguments
+	if (this.getOwnerFrame().strAssetcode != null) 
+	{
+		this.cboSearchAsset.set_value(this.getOwnerFrame().strAssetcode);
+	}
+	else
+	{
+		this.dsSearchAsset.insertRow(0);
+		this.dsSearchAsset.setColumn(0,"code","99");
+		this.dsSearchAsset.setColumn(0,"value","전체");
+		
+		this.cboSearchAsset.set_index(0);
+	}	
+};
+
+/**
+ * @description form onkeydown
+ */
+this.productgroups_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 119)
+	{
+		this.fn_search();
+	}
+	else if(e.keycode == 27)
+	{
+		this.close();
+	}
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+ */
+this.fn_callback = function(strSvcID, sErrorCode, sErrorMsg)
+{
+	if(sErrorCode < 0)
+	{
+		trace("sErrorCode :: " + sErrorCode);
+	}
+	
+	if(strSvcID == "saveProductGroup")
+	{
+		alert("저장 되었습니다.");
+	}
+	else if(strSvcID == "selectProductGroup")
+	{
+		this.grdGroupList.setFocus();
+	}
+};
+
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**
+ * @description 품목 구분 조회
+ */
+this.fn_search = function()
+{
+	var strArgument = "";
+	
+	var sSearch = this.cboSearchAsset.value;
+	if(sSearch != "99")
+	{
+		strArgument += "argAsset=" + sSearch;
+	}
+	
+	var strSvcID = "selectProductGroup";
+	var strURL = "IP::getproductgroup.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsGroups=dsgroup";
+	var strCallbackFunc = "fn_callback";
+		strArgument += " argDB=" + this.application.gvDBurl;
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+}
+
+/**
+ * @description 품목 구분 저장
+ */
+this.fn_save = function()
+{
+	var strSvcID = "saveProductGroup";
+	var strURL = "IP::setproductgroup.jsp"
+	var strInDatasets = "dsgroup=dsGroups:U";
+	var strOutDatasets = "";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+* Function Name : fn_initSave
+* Description   : 품목 구분 저장 세팅 (필수 입력 값 확인)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSave = function()
+{	
+	var allList = [this.cboAsset,this.edtGroup];
+	if(!this.gfn_validCheck(allList,this.dsGroups))
+	{
+		return;
+	}
+	
+	this.fn_save();
+};
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description btnClose onclick event : 팝업 닫기(X) 버튼 클릭
+ */
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.opener.dsGroups.copyData(this.dsGroups);
+	this.close();
+};
+
+/**
+ * @description btnSearch onclick event : 조회 버튼 클릭
+ */
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_search();
+};
+
+/**
+ * @description btnAdd onclick event : 추가 버튼 클릭
+ */
+this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsGroups.addRow();
+	this.cboAsset.setFocus();
+	this.cboAsset.set_index(0);
+};
+
+/**
+ * @description btnDelete onclick event : 삭제 버튼 클릭
+ */
+this.btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsGroups.deleteRow(this.dsGroups.rowposition);
+};
+
+/**
+ * @description btnSave onclick event : 저장 버튼 클릭
+ */
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSave();
+};
+
+/**
+ * @description cboSearchAsset onkeydown event : 자산구분(조회영역) 키다운 이벤트
+ */
+this.cboSearchAsset_onkeydown = function(obj:nexacro.Combo,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 13)
+	{
+		this.fn_search();
+	}
+};
+
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="cboAsset" propid="value" datasetid="dsGroups" columnid="ASSET_CODE"/>
+      <BindItem id="item1" compid="edtGroup" propid="value" datasetid="dsGroups" columnid="GROUP_VALUE"/>
+      <BindItem id="item2" compid="edtCode" propid="value" datasetid="dsGroups" columnid="GROUP_CODE"/>
+      <BindItem id="item3" compid="edtEtc" propid="value" datasetid="dsGroups" columnid="GROUP_STANDARD"/>
+    </Bind>
+  </Form>
+</FDL>

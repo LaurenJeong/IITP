@@ -1,0 +1,611 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="product" width="1120" height="790" titletext="품목관리" onload="product_onload" onkeydown="product_onkeydown" onsize="product_onsize">
+    <Layouts>
+      <Layout height="790" mobileorientation="landscape" width="1120">
+        <Static id="staTitle" taborder="35" text="품목 관리" left="10" top="10" height="34" cssclass="sta_WF_title01" right="10" fittocontents="width"/>
+        <Static id="Static08" taborder="36" top="160" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Static id="Static03" taborder="37" top="199" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Static id="Static05" taborder="38" top="238" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Static id="Static12" taborder="39" top="433" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Static id="Static16" taborder="40" top="472" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Static id="Static18" taborder="41" top="511" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Static id="Static21" taborder="42" top="550" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Edit id="edtProductCode" taborder="4" top="166" width="160" height="28" text="123-563-5623" right="340" autoselect="true" enable="false" displaynulltext="자동생성"/>
+        <Edit id="edtProductName" taborder="8" top="244" width="160" height="28" right="340" autoselect="true"/>
+        <Static id="stacboAsset" taborder="43" text="자산구분" top="160" width="140" height="40" cssclass="sta_WF_titleStar" right="190"/>
+        <Static id="Static03_00" taborder="44" top="316" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Edit id="edtColor" taborder="10" top="322" width="160" height="28" text="투비유통" right="340" autoselect="true"/>
+        <Static id="Static07_00" taborder="45" top="394" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Edit id="edtBarcode" taborder="13" top="400" width="160" height="28" right="340" autoselect="true"/>
+        <Static id="Static07_00_00_00" taborder="46" top="589" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Static id="Static12_00_00" taborder="47" top="628" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Static id="Static16_00" taborder="48" top="667" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Static id="Static18_00" taborder="49" top="706" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Static id="Static21_00" taborder="50" top="745" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <CheckBox id="chbTax" taborder="23" text="면세품" top="595" width="160" height="28" right="336"/>
+        <Static id="Static17_00_00" taborder="51" text="기초재고" top="706" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="Static19_00_00" taborder="52" text="안전재고" top="745" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="Static17_00_00_00" taborder="53" text="박스당 낱개" top="667" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Grid id="grdList" taborder="2" top="160" binddataset="dsProduct" left="10" height="625" right="660" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="170"/>
+                <Column size="110"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="품목명"/>
+                <Cell col="1" text="품목구분"/>
+                <Cell col="2" text="재고수량"/>
+                <Cell col="3" text="단위"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:PRODUCT_NAME"/>
+                <Cell col="1" text="bind:PRODUCT_GROUPS" textAlign="center" combodataset="dsGroups" combodatacol="value" combocodecol="code" displaytype="combotext"/>
+                <Cell col="2" text="bind:NOW_STOCK_COUNT" displaytype="number" padding="0px 5px 0px 0px"/>
+                <Cell col="3" text="bind:UNIT" textAlign="center" displaytype="combotext" combodataset="dsUnit" combocodecol="code" combodatacol="value"/>
+              </Band>
+            </Format>
+            <Format id="middle">
+              <Columns>
+                <Column size="150"/>
+                <Column size="110"/>
+                <Column size="110"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="품목명"/>
+                <Cell col="1" text="자산구분"/>
+                <Cell col="2" text="품목구분"/>
+                <Cell col="3" text="재고수량"/>
+                <Cell col="4" text="규격"/>
+                <Cell col="5" text="단위"/>
+                <Cell col="6" text="입고가"/>
+                <Cell col="7" text="도매가"/>
+                <Cell col="8" text="소매가"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:PRODUCT_NAME"/>
+                <Cell col="1" text="bind:ASSET_GROUPS" textAlign="center" displaytype="combotext" combodataset="dsAsset" combocodecol="code" combodatacol="value"/>
+                <Cell col="2" text="bind:PRODUCT_GROUPS" textAlign="center" displaytype="combotext" combodataset="dsGroups" combocodecol="code" combodatacol="value"/>
+                <Cell col="3" text="bind:NOW_STOCK_COUNT" displaytype="number"/>
+                <Cell col="4" text="bind:STANDARD" textAlign="center"/>
+                <Cell col="5" text="bind:UNIT" textAlign="center" displaytype="combotext" combodataset="dsUnit" combocodecol="code" combodatacol="value"/>
+                <Cell col="6" text="bind:RECEIVING_PRICE" displaytype="currency"/>
+                <Cell col="7" text="bind:WHOLESALE_PRICE" displaytype="currency"/>
+                <Cell col="8" text="bind:RETAIL_PRICE" displaytype="currency"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Combo id="cboAsset" taborder="5" text="상품" top="166" width="160" height="28" value="e0" index="0" innerdataset="dsAsset" codecolumn="code" datacolumn="value" right="20" autoselect="true" onitemchanged="cboAsset_onitemchanged"/>
+        <Combo id="cboGroups" taborder="6" top="205" width="160" height="28" value="" index="-1" right="340" innerdataset="dsGroups" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <Button id="btnGroup" taborder="7" text="구분관리 (Alt+M)" top="205" width="110" height="28" cssclass="btn_cm_basic01" onclick="btnGroup_onclick" right="224"/>
+        <Combo id="cboManufac" taborder="15" top="439" width="160" height="28" value="" index="-1" right="340" innerdataset="dsManufacture" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <Button id="btnManufact" taborder="16" text="회사관리 (Alt+^)" top="439" width="110" height="28" cssclass="btn_cm_basic01" onclick="btnManufact_onclick" right="224"/>
+        <Button id="Button03_01_00_00" taborder="14" text="최종코드검색" top="400" width="110" height="28" cssclass="btn_cm_basic01" enable="false" right="224"/>
+        <Static id="Static17_00_00_00_00" taborder="54" text="특별가1" top="472" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="Static17_00_00_01" taborder="55" text="특별가2" top="511" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="Static19_00_00_00" taborder="56" text="특별가3" top="550" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Static id="Static19_00_00_00_00" taborder="57" text="판매단가 할인할증율" top="589" width="140" height="40" cssclass="sta_cm_box01L" right="190"/>
+        <Edit id="edtArea" taborder="30" top="751" width="160" height="28" right="340" autoselect="true"/>
+        <Static id="Static05_00" taborder="58" top="355" height="40" cssclass="sta_cm_box02L" right="10" width="520"/>
+        <Button id="btnUnit" taborder="12" text="추가 (Alt+J)" top="361" width="110" height="28" cssclass="btn_cm_basic01" onclick="btnUnit_onclick" right="224"/>
+        <Combo id="cboUnit" taborder="11" top="361" width="160" height="28" value="" index="-1" text="" right="340" innerdataset="dsUnit" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <Static id="staNavi" taborder="59" text="· Home &gt; 재고관리 &gt; &lt;fs v='10'&gt;&lt;b v='true'&gt;품목관리&lt;/b&gt;&lt;/fs&gt;" top="10" width="263" height="34" right="10" cssclass="sta_WF_navi" usedecorate="true"/>
+        <Static id="Static01_00_00_00_00" taborder="60" left="10" top="54" height="40" cssclass="sta_cm_box01L" right="10"/>
+        <Button id="btnSearch" taborder="1" text="조회 (F8)" top="60" width="70" height="28" cssclass="btn_WF_add01" left="306" onclick="btnSearch_onclick"/>
+        <Button id="btnAdd" taborder="3" text="추가" top="114" width="76" height="36" cssclass="btn_WF_add01" right="176" onclick="btnAdd_onclick"/>
+        <Button id="btnDelete" taborder="32" text="삭제" top="114" width="76" height="36" cssclass="btn_WF_delete01" right="94" onclick="btnDelete_onclick"/>
+        <Button id="btnSave" taborder="33" text="저장 (F9)" top="114" width="76" height="36" cssclass="btn_WF_save01" right="12" onclick="btnSave_onclick"/>
+        <Button id="btnPrint" taborder="34" text="인쇄" top="114" width="76" height="36" cssclass="btn_WF_excel01" right="256" onclick="btnPrint_onclick" visible="false"/>
+        <Edit id="edtDiscountRate" taborder="24" top="595" width="94" height="28" right="86" autoselect="true"/>
+        <Static id="Static09_00_00" taborder="61" text="% (10, -15)" top="589" width="61" height="40" right="20"/>
+        <Static id="Static07" taborder="62" top="277" height="40" cssclass="sta_cm_box02L" right="10" width="451"/>
+        <Edit id="edtStandard" taborder="9" top="283" width="160" height="28" right="340" autoselect="true"/>
+        <Static id="Static01" taborder="63" text="품목코드" top="160" width="140" height="40" cssclass="sta_WF_titleStar" right="511"/>
+        <Static id="stacboGroups" taborder="64" text="품목구분" top="199" width="140" height="40" cssclass="sta_WF_titleStar" right="511"/>
+        <Static id="staedtProductName" taborder="65" text="품목명" top="238" width="140" height="40" cssclass="sta_WF_titleStar" right="511"/>
+        <Static id="Static06" taborder="66" text="규격" top="277" width="140" height="40" cssclass="sta_cm_box01L" right="511"/>
+        <Static id="stacboManufac" taborder="67" text="제조회사" top="433" width="140" height="40" cssclass="sta_WF_titleStar" right="511"/>
+        <Static id="staedtReceive" taborder="68" text="입고가" top="472" width="140" height="40" cssclass="sta_WF_titleStar" right="511"/>
+        <Static id="Static17" taborder="69" text="도매가" top="511" width="140" height="40" cssclass="sta_cm_box01L" right="511"/>
+        <Static id="Static19" taborder="70" text="소매가" top="550" width="140" height="40" cssclass="sta_cm_box01L" right="511"/>
+        <Static id="Static02_01" taborder="71" text="색상" top="316" width="140" height="40" cssclass="sta_cm_box01L" right="511"/>
+        <Static id="Static06_00" taborder="72" text="바코드" top="394" width="140" height="40" cssclass="sta_cm_box01L" right="511"/>
+        <Static id="Static11_00_00" taborder="73" text="재고수량" top="628" width="140" height="40" cssclass="sta_cm_box01L" right="511"/>
+        <Static id="Static15_00" taborder="74" text="박스수량" top="667" width="140" height="40" cssclass="sta_cm_box01L" right="511"/>
+        <Static id="Static17_00" taborder="75" text="낱개" top="706" width="140" height="40" cssclass="sta_cm_box01L" right="511"/>
+        <Static id="Static19_00" taborder="76" text="품목위치" top="745" width="140" height="40" cssclass="sta_cm_box01L" right="511"/>
+        <Static id="Static19_01" taborder="77" text="면세여부" top="589" width="140" height="40" cssclass="sta_cm_box01L" right="511"/>
+        <Static id="stacboUnit" taborder="78" text="단위" top="355" width="140" height="40" cssclass="sta_WF_titleStar" right="511"/>
+        <Static id="Static02_00_00" taborder="79" text="품목명" left="10" top="54" width="63" height="40" cssclass="sta_cm_box01L"/>
+        <Edit id="edtSearchCustomer" taborder="0" left="86" top="60" width="214" height="28" onkeydown="edtSearchCustomer_onkeydown"/>
+        <MaskEdit id="edtReceive" taborder="17" top="478" width="160" height="28" right="340" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtReceive00" taborder="18" top="517" width="160" height="28" right="340" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtReceive00_00" taborder="19" top="556" width="160" height="28" right="340" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtReceive01" taborder="20" top="478" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtReceive00_01" taborder="21" top="517" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtReceive00_00_00" taborder="22" top="556" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtSafetyCount" taborder="31" top="751" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtReceive00_02" taborder="28" top="712" width="160" height="28" right="340" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtReceive00_01_00" taborder="29" top="712" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtBasicStock" taborder="27" top="673" width="160" height="28" right="20" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtUnitCount" taborder="26" top="673" width="160" height="28" right="340" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="edtNowCount" taborder="25" top="634" width="160" height="28" right="340" format="###,###,###" enable="false" autoselect="true"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsProduct" oncolumnchanged="dsProduct_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="PRODUCT_CODE" type="STRING" size="256"/>
+          <Column id="PRODUCT_NAME" type="STRING" size="256"/>
+          <Column id="PRODUCT_GROUPS" type="STRING" size="256"/>
+          <Column id="ASSET_GROUPS" type="STRING" size="256"/>
+          <Column id="STANDARD" type="STRING" size="256"/>
+          <Column id="COLOR" type="STRING" size="256"/>
+          <Column id="UNIT" type="STRING" size="256"/>
+          <Column id="BARCODE" type="STRING" size="256"/>
+          <Column id="COMPANY_CODE" type="STRING" size="256"/>
+          <Column id="RECEIVING_PRICE" type="STRING" size="256"/>
+          <Column id="WHOLESALE_PRICE" type="STRING" size="256"/>
+          <Column id="RETAIL_PRICE" type="STRING" size="256"/>
+          <Column id="SPECIAL_PRICE1" type="STRING" size="256"/>
+          <Column id="SPECIAL_PRICE2" type="STRING" size="256"/>
+          <Column id="SPECIAL_PRICE3" type="STRING" size="256"/>
+          <Column id="TAX_FREE_CHECK" type="STRING" size="256"/>
+          <Column id="DISCOUNT_RATE" type="STRING" size="256"/>
+          <Column id="BASIC_STOCK_COUNT" type="STRING" size="256"/>
+          <Column id="NOW_STOCK_COUNT" type="STRING" size="256"/>
+          <Column id="BOX_COUNT" type="STRING" size="256"/>
+          <Column id="UNIT_COUNT" type="STRING" size="256"/>
+          <Column id="SAFETY_STOCK_COUNT" type="STRING" size="256"/>
+          <Column id="PRODUCT_STORAGE_AREA" type="STRING" size="256"/>
+          <Column id="COUNT_PER_BOX" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsManufacture">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsGroups">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+          <Column id="asset" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsUnit">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsAsset">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    product
+*  @FileName	product.xfdl
+*  @Desction	품목 관리
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.product_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();	
+	
+	this.parent.parent.fn_setFavoriteButton(obj);
+	
+	this.gfn_setGridSize(this.grdList);
+	
+	this.fn_initCode();	
+};
+
+/**
+ * @description form onkeydown
+ */
+this.product_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{	
+	if(e.altkey)
+	{
+		if(e.keycode == 54)
+		{
+			//제조회사 관리
+			this.fn_openpopManufacture();
+		}
+		else if(e.keycode == 77)
+		{
+			//구분관리
+			this.fn_openpopupGroupManager();
+		}
+		else if(e.keycode == 74)
+		{
+			//단위추가
+			this.fn_openpopUnitManager();
+		}
+	}
+	
+	if(e.keycode == 119)
+	{
+		this.fn_initSearch();
+	}
+	else if(e.keycode == 120)
+	{
+		this.fn_initSave();
+	}
+};
+
+/**
+ * @description form onsize
+ */
+this.product_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	this.gfn_setGridSize(this.grdList);
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+ */
+this.fn_callback = function(strSvcID, sErrorCode, sErrorMsg)
+{
+	if(sErrorCode < 0)
+	{
+		trace("sErrorCode ::: " + sErrorCode);
+		return;
+	}
+	
+	if(strSvcID =="selectChangeCode")
+	{
+		var nRow = this.dsProduct.rowposition;
+		
+		this.dsProduct.set_rowposition(-1);
+		this.dsProduct.set_rowposition(nRow);
+	}
+	else if(strSvcID == "saveProduct")
+	{
+		alert("저장 되었습니다.");
+	}
+};
+
+
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**
+ * @description 초기 코드 조회
+ */
+this.fn_initCode = function()
+{
+	var strSvcID = "selectProductCode";
+	var strURL = "IP::getproductcode.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsGroups=dsgroup dsAsset=dsasset dsManufacture=dsmanufacture dsUnit=dsunit";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 품목 조회
+ */
+this.fn_searchTrans = function(strArgument)
+{
+	var strSvcID = "selectProduct";
+	var strURL = "IP::getproductlist.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsProduct=dsproduct";
+	var strCallbackFunc = "fn_callback";
+		strArgument += " argDB=" + this.application.gvDBurl;
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 품목 저장
+ */
+this.fn_saveTrans = function()
+{
+	var strSvcID = "saveProduct";
+	var strURL = "IP::setproductlist.jsp"
+	var strInDatasets = "dsproduct=dsProduct:U";
+	var strOutDatasets = "";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+}
+
+/**
+ * @description 품목 코드 변경
+ */
+this.fn_setChangeCode = function(sOut)
+{
+	//sOut =>> "dsGroups=dsgroup dsAsset=dsasset dsManufacture=dsmanufacture dsUnit=dsunit";
+	var strSvcID = "selectChangeCode";
+	var strURL = "IP::getproductcode.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = sOut; 
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+ * @description POPUP CALLBACK
+ */
+this.popupCallBack = function(sFormId, sArg)
+{
+	var sOutDs = "";
+	if (sFormId=="popupGroups")
+	{
+		sOutDs = "dsGroups=dsgroup";
+	}
+	else if  (sFormId=="popupUnit")
+	{
+		sOutDs = "dsUnit=dsunit";
+	}
+	else if  (sFormId=="popupManufact")
+	{
+		sOutDs = "dsManufacture=dsmanufacture";
+	}
+	else
+	{
+		return;
+	}
+	
+	this.fn_setChangeCode(sOutDs);
+};
+
+/**
+ * @description fn_openpopManufacture : 회사관리(제조회사) 팝업
+ */
+this.fn_openpopManufacture = function()
+{
+	var sManufactureCode = this.cboManufac.value;
+	var oArg = {
+					strManufacture: sManufactureCode
+				};
+				
+	this.gfn_showModal("popupManufact", oArg, "TO_BE::productmanufact.xfdl", "popupCallBack", this, 700, 435, false, false, null);
+}
+
+/**
+ * @description fn_openpopupGroupManager : 구분관리(품목구분) 팝업
+ */
+this.fn_openpopupGroupManager = function()
+{
+	var sAssetCode = this.cboAsset.value;
+	var oArg = {
+					strGroupCode : this.cboGroups.value,
+					strAssetcode: sAssetCode,
+					objAssetDataset : this.dsAsset
+				};
+				
+	this.gfn_showModal("popupGroups", oArg, "TO_BE::productgroups.xfdl", "popupCallBack", this, 520, 330, false, false, null);
+}
+
+/**
+ * @description fn_openpopUnitManager : 추가(단위) 팝업
+ */
+this.fn_openpopUnitManager = function()
+{
+	this.gfn_showModal("popupUnit", "", "TO_BE::productunit.xfdl", "popupCallBack", this, 230, 435, false, false, null);
+}
+
+/**
+* Function Name : fn_initSearch
+* Description   : 품목 조회 세팅 (거래처 조회 검색 내역 만들기)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSearch = function()
+{
+	var sArgument = "";
+	
+	var sSearchCustomer = this.edtSearchCustomer.value;
+	
+	if(!this.gfn_isNull(sSearchCustomer))
+	{
+		sArgument = " argProduct="+sSearchCustomer;
+	}
+	
+	this.fn_searchTrans(sArgument);
+}
+
+/**
+* Function Name : fn_initSave
+* Description   : 품목 저장 세팅 (필수 입력 값 확인)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSave= function()
+{
+	var allList = [this.cboAsset,this.cboGroups,this.edtProductName,this.cboUnit,this.cboManufac,this.edtReceive];
+	if(!this.gfn_validCheck(allList,this.dsProduct))
+	{
+		return;
+	}
+	
+	this.fn_saveTrans();
+}
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description edtSearchCustomer onkeydown event : 조회영역 키다운 이벤트 발생
+ */
+this.edtSearchCustomer_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode ==13)
+	{
+		this.fn_initSearch();
+	}
+};
+
+/**
+ * @description btnSearch onclick event : 조회 버튼 클릭
+ */
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSearch();
+};
+
+/**
+ * @description btnAdd onclick event : 추가 버튼 클릭
+ */
+this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	var nRow = this.dsProduct.addRow();
+	this.dsProduct.setColumn(nRow, "BOX_COUNT",0);
+	this.dsProduct.setColumn(nRow, "COUNT_PER_BOX",0);
+	this.dsProduct.setColumn(nRow, "UNIT_COUNT",0);
+		
+	this.cboAsset.set_index(0);		
+};
+
+/**
+ * @description btnDelete onclick event : 삭제 버튼 클릭
+ */
+this.btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsProduct.deleteRow(this.dsProduct.rowposition);
+};
+
+/**
+ * @description btnSave onclick event : 저장 버튼 클릭
+ */
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSave();
+};
+
+/**
+ * @description btnManufact onclick event : 회사관리 버튼 클릭
+ */
+this.btnManufact_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_openpopManufacture();
+};
+
+/**
+ * @description btnGroup onclick event : 구분관리 버튼 클릭
+ */
+this.btnGroup_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_openpopupGroupManager();
+};
+
+/**
+ * @description btnUnit onclick event : 추가(단위) 버튼 클릭
+ */
+this.btnUnit_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_openpopUnitManager();
+};
+
+/**
+ * @description cboAsset onitemchanged event : 자산구분 콤보 변경
+ */
+this.cboAsset_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	var sAssetCode = this.cboAsset.value;
+	
+	this.dsGroups.set_filterstr("asset=='"+sAssetCode+"'");
+};
+
+/**
+ * @description dsProduct oncolumnchanged event : 품목 리스트 값 변경 이벤트
+ */
+this.dsProduct_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	var nBoxCount=0, nPerBox=0, nUnitCount=0;
+	var totalCount = 0;
+	
+	//재고수량 구하기
+	if(e.columnid == "BOX_COUNT" || e.columnid == "COUNT_PER_BOX" || e.columnid == "UNIT_COUNT")
+	{	
+		nBoxCount = this.dsProduct.getColumn(e.row, "BOX_COUNT");
+		nPerBox = this.dsProduct.getColumn(e.row, "COUNT_PER_BOX");
+		nUnitCount = this.dsProduct.getColumn(e.row, "UNIT_COUNT");
+		
+		totalCount = (nBoxCount*nPerBox) + parseInt(nUnitCount);
+		var nNowStock = this.dsProduct.getColumn(e.row,"NOW_STOCK_COUNT");
+		
+		this.dsProduct.setColumn(e.row,"NOW_STOCK_COUNT",totalCount);	
+	}
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="edtProductCode" propid="value" datasetid="dsProduct" columnid="PRODUCT_CODE"/>
+      <BindItem id="item1" compid="edtProductName" propid="value" datasetid="dsProduct" columnid="PRODUCT_NAME"/>
+      <BindItem id="item4" compid="edtColor" propid="value" datasetid="dsProduct" columnid="COLOR"/>
+      <BindItem id="item5" compid="edtBarcode" propid="value" datasetid="dsProduct" columnid="BARCODE"/>
+      <BindItem id="item7" compid="chbTax" propid="value" datasetid="dsProduct" columnid="TAX_FREE_CHECK"/>
+      <BindItem id="item8" compid="cboAsset" propid="value" datasetid="dsProduct" columnid="ASSET_GROUPS"/>
+      <BindItem id="item9" compid="cboGroups" propid="value" datasetid="dsProduct" columnid="PRODUCT_GROUPS"/>
+      <BindItem id="item10" compid="cboManufac" propid="value" datasetid="dsProduct" columnid="COMPANY_CODE"/>
+      <BindItem id="item17" compid="edtArea" propid="value" datasetid="dsProduct" columnid="PRODUCT_STORAGE_AREA"/>
+      <BindItem id="item21" compid="cboUnit" propid="value" datasetid="dsProduct" columnid="UNIT"/>
+      <BindItem id="item22" compid="edtDiscountRate" propid="value" datasetid="dsProduct" columnid="DISCOUNT_RATE"/>
+      <BindItem id="item23" compid="edtStandard" propid="value" datasetid="dsProduct" columnid="STANDARD"/>
+      <BindItem id="item24" compid="edtReceive" propid="value" datasetid="dsProduct" columnid="RECEIVING_PRICE"/>
+      <BindItem id="item2" compid="edtReceive00" propid="value" datasetid="dsProduct" columnid="WHOLESALE_PRICE"/>
+      <BindItem id="item25" compid="edtReceive00_00" propid="value" datasetid="dsProduct" columnid="RETAIL_PRICE"/>
+      <BindItem id="item3" compid="edtReceive01" propid="value" datasetid="dsProduct" columnid="SPECIAL_PRICE1"/>
+      <BindItem id="item6" compid="edtReceive00_01" propid="value" datasetid="dsProduct" columnid="SPECIAL_PRICE2"/>
+      <BindItem id="item26" compid="edtReceive00_00_00" propid="value" datasetid="dsProduct" columnid="SPECIAL_PRICE3"/>
+      <BindItem id="item12" compid="edtSafetyCount" propid="value" datasetid="dsProduct" columnid="SAFETY_STOCK_COUNT"/>
+      <BindItem id="item13" compid="edtReceive00_02" propid="value" datasetid="dsProduct" columnid="UNIT_COUNT"/>
+      <BindItem id="item27" compid="edtReceive00_01_00" propid="value" datasetid="dsProduct" columnid="BASIC_STOCK_COUNT"/>
+      <BindItem id="item28" compid="edtBasicStock" propid="value" datasetid="dsProduct" columnid="COUNT_PER_BOX"/>
+      <BindItem id="item29" compid="edtUnitCount" propid="value" datasetid="dsProduct" columnid="BOX_COUNT"/>
+      <BindItem id="item11" compid="edtNowCount" propid="value" datasetid="dsProduct" columnid="NOW_STOCK_COUNT"/>
+    </Bind>
+  </Form>
+</FDL>

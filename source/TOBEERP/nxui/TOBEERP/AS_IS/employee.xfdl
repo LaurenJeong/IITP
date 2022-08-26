@@ -1,0 +1,752 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="employee" width="1120" height="850" titletext="직원관리" onload="employee_onload" onkeydown="employee_onkeydown" onsize="employee_onsize">
+    <Layouts>
+      <Layout height="850" mobileorientation="landscape" width="1120">
+        <Grid id="grdList" taborder="22" left="10" top="160" binddataset="dsEmployee" right="580" height="602" autofittype="col" autoenter="select">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="120"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="직원명"/>
+                <Cell col="1" text="직급"/>
+                <Cell col="2" text="부서"/>
+                <Cell col="3" text="입사일"/>
+                <Cell col="4" text="연락처"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:EMPLOYEE_NAME" textAlign="center"/>
+                <Cell col="1" text="bind:POSITION" combodataset="dsPosition" combocodecol="code" combodatacol="value" displaytype="combotext" textAlign="center"/>
+                <Cell col="2" text="bind:DEPARTMENT" displaytype="combotext" combodataset="dsDepart" combocodecol="code" combodatacol="value" textAlign="center"/>
+                <Cell col="3" text="bind:JOIN_DATE" textAlign="center" displaytype="date"/>
+                <Cell col="4" text="bind:PHONE" textAlign="center" displaytype="mask" maskeditformat="expr:comp.parent.gfn_setCellTelMaskFormat(PHONE)" maskedittype="string"/>
+              </Band>
+            </Format>
+            <Format id="middle">
+              <Columns>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="120"/>
+                <Column size="150"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="직원명"/>
+                <Cell col="1" text="직급"/>
+                <Cell col="2" text="부서"/>
+                <Cell col="3" text="입사일"/>
+                <Cell col="4" text="재직여부"/>
+                <Cell col="5" text="연락처"/>
+                <Cell col="6" text="이메일"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:EMPLOYEE_NAME" textAlign="center"/>
+                <Cell col="1" text="bind:POSITION" combodataset="dsPosition" combocodecol="code" combodatacol="value" displaytype="combotext" textAlign="center"/>
+                <Cell col="2" text="bind:DEPARTMENT" displaytype="combotext" combodataset="dsDepart" combocodecol="code" combodatacol="value" textAlign="center"/>
+                <Cell col="3" text="bind:JOIN_DATE" textAlign="center" displaytype="date"/>
+                <Cell col="4" combodataset="dsStatus" combocodecol="code" combodatacol="value" text="bind:EMPLOYEE_STATUS" displaytype="combotext" textAlign="center"/>
+                <Cell col="5" text="bind:PHONE" textAlign="center" displaytype="mask" maskeditformat="expr:comp.parent.gfn_setCellTelMaskFormat(PHONE)" maskedittype="string"/>
+                <Cell col="6" text="bind:EMAIL" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnDelete" taborder="20" text="삭제" top="114" width="76" height="36" cssclass="btn_WF_delete01" right="92" onclick="btnDelete_onclick"/>
+        <Button id="btnSave" taborder="21" text="저장 (F9)" top="114" width="76" height="36" cssclass="btn_WF_delete01" right="10" onclick="btnSave_onclick"/>
+        <Button id="btnPrint" taborder="25" text="인쇄" top="114" width="76" height="36" cssclass="btn_WF_delete01" right="256" onclick="Button02_onclick" visible="false"/>
+        <Button id="btnAdd" taborder="3" text="추가" top="114" width="76" height="36" cssclass="btn_WF_add01" right="174" onclick="btnAdd_onclick"/>
+        <Static id="staTitle" taborder="28" text="직원 관리" left="10" top="10" height="34" cssclass="sta_WF_title01" right="10" fittocontents="width"/>
+        <Static id="staNavi" taborder="29" text="· Home &gt; 기초자료 &gt; &lt;fs v='10'&gt;&lt;b v='true'&gt;직원관리&lt;/b&gt;&lt;/fs&gt;" top="10" width="263" height="34" right="10" cssclass="sta_WF_navi" usedecorate="true"/>
+        <Static id="Static01_00_00_00_00" taborder="30" left="10" top="54" height="40" cssclass="sta_cm_box01L" right="10"/>
+        <Static id="Static02_00_00" taborder="31" text="구분" left="10" top="54" width="40" height="40" cssclass="sta_cm_box01L"/>
+        <Combo id="cboSearchTitle" taborder="0" text="이름" left="60" top="60" width="120" height="28" value="s01" index="0" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" onitemchanged="cboSearch_onitemchanged" autoselect="true">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="codecolumn">EMPLOYEE_NAME</Col>
+                <Col id="datacolumn">직원명</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">EMPLOYEE_CODE</Col>
+                <Col id="datacolumn">사번</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">DEPARTMENT</Col>
+                <Col id="datacolumn">부서</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">POSITION</Col>
+                <Col id="datacolumn">직급</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">GROUPS</Col>
+                <Col id="datacolumn">구분</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Combo>
+        <Combo id="choSearch" taborder="32" left="185" top="60" width="200" height="28" text="" visible="false" onkeydown="Common_onkeydown" autoselect="true"/>
+        <Button id="btnSearch" taborder="2" text="조회(F8)" top="60" width="70" height="28" cssclass="btn_WF_add01" onclick="btnSearch_onclick" left="391"/>
+        <Static id="stacboGroup" taborder="33" top="316" width="110" height="40" cssclass="sta_WF_titleStar" text="구분" right="460"/>
+        <Static id="Static07_00" taborder="34" top="316" height="40" cssclass="sta_cm_box02L" right="10" width="451"/>
+        <Static id="Static13_00" taborder="35" text="주소" top="472" width="110" height="109" cssclass="sta_cm_box01L" right="460"/>
+        <Static id="Static14_01" taborder="36" top="472" height="109" cssclass="sta_cm_box02L" right="10" width="451"/>
+        <Static id="Static22_01" taborder="37" text="메모" top="580" width="110" height="66" cssclass="sta_cm_box01L" right="460"/>
+        <Static id="Static23_00" taborder="38" top="580" height="66" cssclass="sta_cm_box02L" right="10" width="451"/>
+        <Static id="stacalJoinDate" taborder="39" text="입사일자" top="355" width="110" height="40" cssclass="sta_WF_titleStar" right="460"/>
+        <Static id="Static03_00_00" taborder="24" top="355" height="40" cssclass="sta_cm_box02L" right="10" width="451"/>
+        <Static id="Static14_00_00" taborder="40" top="160" height="157" cssclass="sta_cm_box02L" right="10" width="450"/>
+        <Static id="Static22_00_00" taborder="41" text="이력사항" top="645" width="110" height="117" cssclass="sta_cm_box01L" right="460"/>
+        <Static id="Static23_00_00_00" taborder="42" top="645" height="117" cssclass="sta_cm_box02L" right="10" text="" width="451"/>
+        <Static id="Static01_01_00" taborder="43" text="사진" top="160" width="110" height="157" cssclass="sta_cm_box01L" right="460"/>
+        <Static id="Static04_01_00_00" taborder="44" text="핸드폰" top="394" width="110" height="40" cssclass="sta_cm_box01L" right="460"/>
+        <Static id="Static03_00_00_00" taborder="45" top="394" height="40" cssclass="sta_cm_box02L" right="10" width="451"/>
+        <Edit id="edtSearch" taborder="1" left="185" top="60" width="200" height="28" onkeydown="Common_onkeydown" autoselect="true"/>
+        <MaskEdit id="mdtPostCode" taborder="14" top="478" width="145" height="28" right="306" autoselect="true"/>
+        <Button id="btnPostCode" taborder="15" text="우편번호" top="478" width="70" height="28" cssclass="btn_cm_basic01" right="230" onclick="btnPostCode_onclick" enable="false"/>
+        <Edit id="edtAddress1" taborder="16" top="512" width="431" height="28" right="20" autoselect="true"/>
+        <Edit id="edtAddress2" taborder="17" top="546" width="431" height="28" right="20" autoselect="true"/>
+        <TextArea id="taeMemo" taborder="18" top="586" width="431" height="53" right="20" autoselect="true"/>
+        <ImageViewer id="imgPhoto" taborder="27" top="166" width="100" height="111" right="351" stretch="fit"/>
+        <Button id="btnFileSelect" taborder="26" text="파일선택" top="283" width="100" height="28" cssclass="btn_cm_basic01" right="351" onclick="btnFileSelect_onclick" enable="false"/>
+        <Calendar id="calJoinDate" taborder="9" top="361" width="145" height="28" right="306" autoselect="true"/>
+        <Calendar id="calBreakDate" taborder="23" top="361" width="145" height="28" right="18" autoselect="true"/>
+        <MaskEdit id="mdtPhoneNum" taborder="10" top="400" width="145" height="28" format="@@@-@@@@-@@@@" type="string" right="306" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput" autoselect="true"/>
+        <Combo id="cboGroup" taborder="7" text=" " top="322" width="145" height="28" index="-1" value="" innerdataset="dsGroup" codecolumn="code" datacolumn="value" right="306" autoselect="true"/>
+        <Combo id="cboSex" taborder="8" text=" " top="322" width="145" height="28" index="-1" value="" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" right="18" autoselect="true">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="codecolumn">M</Col>
+                <Col id="datacolumn">남성</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">F</Col>
+                <Col id="datacolumn">여성</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Combo>
+        <Static id="stPhone" taborder="46" text="전화번호" top="433" width="110" height="40" cssclass="sta_cm_box01L" right="460"/>
+        <Static id="Static03_00_00_00_00" taborder="47" top="433" height="40" cssclass="sta_cm_box02L" right="10" width="451"/>
+        <MaskEdit id="mdtTelNum" taborder="12" top="439" width="145" height="28" format="@@@-@@@@-@@@@" type="string" right="306" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput" autoselect="true"/>
+        <Edit id="edtEmail" taborder="13" top="439" width="145" height="28" text="217-81-46957" right="18" autoselect="true"/>
+        <Combo id="cboStatus" taborder="11" text="Combo00" top="400" width="145" height="28" innerdataset="dsStatus" codecolumn="code" datacolumn="value" right="18" onitemchanged="cboStatus_onitemchanged" autoselect="true"/>
+        <Static id="Static03_01_00_00" taborder="48" top="277" height="40" cssclass="sta_cm_box02L" right="10" width="175"/>
+        <Edit id="edtName" taborder="4" top="166" width="145" height="28" text="217-81-46957" right="20" autoselect="true"/>
+        <Static id="Static06_00_00_00_00" taborder="49" text="이메일" top="433" width="110" height="40" cssclass="sta_cm_box01L" right="175"/>
+        <Static id="Static06_00_00_00" taborder="50" text="재직여부" top="394" width="110" height="40" cssclass="sta_cm_box01L" right="175"/>
+        <Static id="Static06_00_00" taborder="51" text="퇴사일자" top="355" width="110" height="40" cssclass="sta_cm_box01L" right="175"/>
+        <Static id="Static06_01_00_01" taborder="52" top="316" width="110" height="40" text="성별" right="175" cssclass="sta_cm_box01L"/>
+        <Static id="staedtName" taborder="53" text="이름" top="160" width="110" height="40" cssclass="sta_WF_titleStar" right="175"/>
+        <Static id="Static08_00" taborder="54" top="199" height="40" cssclass="sta_cm_box02L" right="10" width="175"/>
+        <Edit id="edtCode" taborder="19" top="205" width="145" height="28" text="투비유통" right="20" enable="false" displaynulltext="자동생성" autoselect="true"/>
+        <Static id="Static03_01" taborder="55" top="238" height="40" cssclass="sta_cm_box02L" right="10" width="175"/>
+        <Combo id="cboDepart" taborder="5" text=" " top="244" width="145" height="28" index="-1" value="" innerdataset="dsDepart" codecolumn="code" datacolumn="value" right="20" autoselect="true"/>
+        <Static id="Static03_01_00" taborder="56" top="277" height="40" cssclass="sta_cm_box02L" right="10" width="175"/>
+        <Combo id="cboPosition" taborder="6" text=" " top="283" width="145" height="28" index="-1" value="" innerdataset="dsPosition" codecolumn="code" datacolumn="value" right="20" autoselect="true"/>
+        <Static id="stacboPosition" taborder="57" text="직급" top="277" width="110" height="40" cssclass="sta_WF_titleStar" right="175"/>
+        <Static id="stacboDepart" taborder="58" text="부서" top="238" width="110" height="40" cssclass="sta_WF_titleStar" right="175"/>
+        <Static id="staedtCode" taborder="59" text="사번" top="199" width="110" height="40" cssclass="sta_WF_titleStar" right="175"/>
+        <TextArea id="taeCareer" taborder="60" top="651" width="431" height="105" right="20" autoselect="true"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsEmployee" onrowposchanged="dsEmployee_onrowposchanged">
+        <ColumnInfo>
+          <Column id="EMPLOYEE_CODE" type="STRING" size="256"/>
+          <Column id="EMPLOYEE_NAME" type="STRING" size="256"/>
+          <Column id="SEX" type="STRING" size="256"/>
+          <Column id="DEPARTMENT" type="STRING" size="256"/>
+          <Column id="POSITION" type="STRING" size="256"/>
+          <Column id="GROUPS" type="STRING" size="256"/>
+          <Column id="JOIN_DATE" type="STRING" size="256"/>
+          <Column id="BREAK_DATE" type="STRING" size="256"/>
+          <Column id="TELNUM" type="STRING" size="256"/>
+          <Column id="PHONE" type="STRING" size="256"/>
+          <Column id="POSTAL_CODE" type="STRING" size="256"/>
+          <Column id="ADRESS1" type="STRING" size="256"/>
+          <Column id="ADRESS2" type="STRING" size="256"/>
+          <Column id="MEMO" type="STRING" size="256"/>
+          <Column id="FILELIST_CODE" type="STRING" size="256"/>
+          <Column id="CAREERLIST" type="STRING" size="256"/>
+          <Column id="EMPLOYEE_STATUS" type="STRING" size="256"/>
+          <Column id="EMAIL" type="STRING" size="256"/>
+          <Column id="PHOTO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCareer">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsDepart">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsGroup">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsStatus">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsPosition">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileUpTransfer id="fileUpTrans"/>
+      <FileDialog id="fileDialog"/>
+      <Dataset id="dsList" onvaluechanged="dsList_onvaluechanged" oncolumnchanged="dsList_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="FILE_NAME" type="STRING" size="256"/>
+          <Column id="FILE_URL" type="STRING" size="256"/>
+          <Column id="FILE_ID" type="STRING" size="256"/>
+          <Column id="FILE_SIZE" type="STRING" size="256"/>
+          <Column id="FILE_PATH" type="STRING" size="256"/>
+          <Column id="FILE_TYPE" type="STRING" size="256"/>
+          <Column id="SAVE_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsDepartSearch">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsGroupSearch">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsPositionSearch">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    employee
+*  @FileName	employee.xfdl
+*  @Desction	직원관리
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*  2021.01.26		nana			수정 (직원 삭제 시 '퇴직'으로 변경 or 삭제 추가)
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+include "lib::lib_fileimageview.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+
+//service url : 사용경로 지정
+this.saveUrl = "";
+
+this.toDay = "";
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.employee_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	this.toDay = this.application.gvToday;
+	this.saveUrl = nexacro.getEnvironment().services["IP"].url;
+	this.parent.parent.fn_setFavoriteButton(obj);
+	
+	this.gfn_setGridSize(this.grdList);
+	
+	this.fn_initCode();
+	this.fn_initForm(this);	
+};
+
+/**
+ * @description form onkeydown
+ */
+this.employee_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 119)
+	{
+		this.fn_initSearch();
+	}
+	else if(e.keycode == 120)
+	{
+		this.fn_initSave();
+	}
+};
+
+/**
+ * @description form onsize
+ */
+this.employee_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	this.gfn_setGridSize(this.grdList);
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+ */
+this.fn_callback = function(strSvcID, nErrorCode, strErrorMag)
+{
+	if(nErrorCode < 0)
+	{
+		trace("nErrorCode:::" + nErrorCode);
+		return;
+	}
+	
+	if(strSvcID == "saveEmployee")
+	{
+		alert("저장 되었습니다.");
+	}	
+	else if(strSvcID == "selectCode")
+	{
+		this.dsDepartSearch.copyData(this.dsDepart);
+		this.dsGroupSearch.copyData(this.dsGroup);
+		this.dsPositionSearch.copyData(this.dsPosition);
+		
+		this.dsDepartSearch.insertRow(0);
+		this.dsDepartSearch.setColumn(0,"code","99");
+		this.dsDepartSearch.setColumn(0,"value","전체");
+		
+		this.dsGroupSearch.insertRow(0);
+		this.dsGroupSearch.setColumn(0,"code","99");
+		this.dsGroupSearch.setColumn(0,"value","전체");
+		
+		this.dsPositionSearch.insertRow(0);
+		this.dsPositionSearch.setColumn(0,"code","99");
+		this.dsPositionSearch.setColumn(0,"value","전체");
+	}
+	else if(strSvcID == "selectEmployee")
+	{
+		//none
+	}
+};
+
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**
+ * @description 초기 코드 조회
+ */
+this.fn_initCode = function()
+{
+	var strSvcID = "selectCode";
+	var strURL = "IP::getemployeecode.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsStatus=dsstatus dsPosition=dsposition dsDepart=dsdepart dsGroup=dsgroup";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 직원 조회
+ */
+this.fn_searchTrans = function(strArgument)
+{
+	var strSvcID = "selectEmployee";
+	var strURL = "IP::getemployeelist.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsEmployee=dsemployee";
+		strArgument += " argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 직원 저장
+ */
+this.fn_transSave = function()
+{
+	var strSvcID = "saveEmployee";
+	var strURL = "IP::setemployeelist.jsp"
+	var strInDatasets = "dsemployee=dsEmployee:U";
+	var strOutDatasets = "";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+* @description POPUP CALLBACK
+*/
+ this.popupCallBack = function(sFormId, sArg)
+{
+	if(sFormId=="popupPostcode")
+	{
+		this.dsEmployee.setColumn(this.dsEmployee.rowposition,"POSTAL_CODE",this.postcode);
+		this.dsEmployee.setColumn(this.dsEmployee.rowposition,"ADRESS1",this.address1);
+	}
+};
+
+/**
+* Function Name : fn_initForm
+* Description   : 파일 업로드 처리를 위한 초기 준비
+* Arguments     : obj : this
+* Return        : none
+*/
+this.fn_initForm = function(obj)
+{
+	var objConfig  = {
+                        objUpTrans	: this.fileUpTrans,
+                        objDialog 	: this.fileDialog,
+                        dsListId	: "dsList",						
+                        sFolerName	: "EMP_PHOTO",
+                        sSaveUrl	: this.saveUrl,
+                        sUploadUrl	: "fileUpload.jsp?fileFolder=",
+                        sDownloadSingleUrl	: "fileDownload.jsp",
+                        sDownloadMultiUrl	: "fileDownloadAll.jsp"
+                    }
+
+    //imageviewer init function
+    this.gfnFileImageViewFormLoad(obj, objConfig);
+};
+
+/**
+* Function Name : fn_initSearch
+* Description   : 직원 조회 세팅 (조회 검색 내역 만들기)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSearch = function()
+{
+	var sTitle = this.cboSearchTitle.value;
+	var sArgument = "";
+	
+	var	 sValue = "";
+	if(sTitle == "EMPLOYEE_NAME" || sTitle == "EMPLOYEE_CODE")
+	{	
+		if(!this.gfn_isNull(this.edtSearch.value))
+		{
+			sValue = this.edtSearch.value;
+			sArgument = "argTitle=" + sTitle + " argValue=" + sValue;
+		}
+	}
+	else
+	{
+		if(this.choSearch.value != "99")
+		{
+			sValue = this.choSearch.value;
+			sArgument = "argTitle=" + sTitle + " argValue=" + sValue;
+		}
+	}
+	
+	this.fn_searchTrans(sArgument);
+};
+
+/**
+* Function Name : fn_initSave
+* Description   : 직원 저장 세팅 (필수 입력 값 확인)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSave = function()
+{
+	var allList = [this.cboDepart,this.cboPosition,this.edtName,this.cboGroup,this.calJoinDate];
+	if(!this.gfn_validCheck(allList, this.dsEmployee))
+	{
+		return;
+	}
+
+	this.fn_transSave();
+};
+
+
+/**
+* Function Name : fn_setSearchInnerdataset
+* Description   : 조회조건변경 시 cboSearch inner dataset 변경
+* Arguments     : sId : 조회조건
+* Return        : none
+*/
+this.fn_setSearchInnerdataset = function(sId)
+{
+	if(sId == "DEPARTMENT")
+	{
+		//부서
+		this.choSearch.set_innerdataset("dsDepartSearch");
+		this.choSearch.set_codecolumn("code");
+		this.choSearch.set_datacolumn("value");
+	}
+	else if(sId == "POSITION")
+	{
+		//직급
+		this.choSearch.set_innerdataset("dsPositionSearch");
+		this.choSearch.set_codecolumn("code");
+		this.choSearch.set_datacolumn("value");
+	}
+	else if(sId == "GROUPS")
+	{
+		//구분
+		this.choSearch.set_innerdataset("dsGroupSearch");
+		this.choSearch.set_codecolumn("code");
+		this.choSearch.set_datacolumn("value");
+	}
+	
+	this.edtSearch.set_visible(false);
+	this.choSearch.set_visible(true);
+	this.choSearch.set_index(0);
+	this.choSearch.setFocus();
+};
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description btnSearch onclick event : 조회 버튼 클릭
+ */
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSearch();
+};
+
+/**
+ * @description btnAdd onclick event : 추가 버튼 클릭
+ */
+this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	this.dsEmployee.addRow();
+	
+	this.cboDepart.set_index(0);
+	this.cboPosition.set_index(0);
+	this.cboGroup.set_index(0);
+	this.cboSex.set_index(0);
+	this.cboStatus.set_index(0);
+	this.calJoinDate.set_value(this.application.gvToday);
+	
+	this.edtName.setFocus();	
+};
+
+/**
+ * @description btnDelete onclick event : 삭제 버튼 클릭
+ */
+this.btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(this.confirm("삭제 하시겠습니까?\n취소시 퇴사처리로 변경됩니다."))
+	{
+		this.dsEmployee.deleteRow(this.dsEmployee.rowposition);
+	}
+	else
+	{
+		this.dsEmployee.setColumn(this.dsEmployee.rowposition,"EMPLOYEE_STATUS",'st002');
+		this.dsEmployee.setColumn(this.dsEmployee.rowposition,"BREAK_DATE", this.toDay);
+	}
+};
+
+/**
+ * @description btnSave onclick event : 저장 버튼 클릭
+ */
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	this.fn_initSave();
+};
+
+/**
+ * @description cboSearch onitemchanged event : 조회조건 콤보 변경
+ */
+this.cboSearch_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	if(e.postvalue == "EMPLOYEE_CODE" || e.postvalue == "EMPLOYEE_NAME")
+	{
+		this.choSearch.set_visible(false);
+		this.edtSearch.set_visible(true);
+		
+		this.edtSearch.setFocus();
+	}
+	else
+	{
+		this.edtSearch.set_value("");
+		this.fn_setSearchInnerdataset(e.postvalue);	
+	}
+};
+
+/**
+ * @description btnFileSelect onclick event : 파일선택 버튼 클릭 (사진)
+ */
+this.btnFileSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//file dialog open
+    this.fileDialog.open('nexacro17', FileDialog.MULTILOAD);
+};
+
+/**
+ * @description cboStatus onitemchanged event : 재직상태 콤보 변경
+ */
+this.cboStatus_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	if(e.postindex >0)
+	{
+		//퇴직
+		this.calBreakDate.set_value(this.toDay);
+	}
+	else
+	{
+		this.calBreakDate.set_value("");
+	}
+};
+
+/**
+ * @description btnPostCode onclick event : 우편번호 버튼 클릭
+ */
+this.btnPostCode_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var oArg = {};
+	
+	//우편번호 조회 팝업
+	this.gfn_showModal("popupPostcode", oArg, "TO_BE::postcodepopup.xfdl", "popupCallBack", this, 540, 330, false, false, null);
+};
+
+/**
+ * @description edtSearchCustomer,choSearchStatus onkeydown event : 조회영역 키다운 이벤트 발생
+ */
+this.Common_onkeydown = function(obj:nexacro.Combo,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode ==13)
+	{
+		this.fn_initSearch();
+	}
+};
+
+/**
+ * @description dsList oncolumnchanged event : 이미지 파일 리스트 수정 이벤트 발생
+ */
+this.dsList_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	if(e.columnid == "SAVE_NAME")
+	{
+		var sImgUrl = nexacro.getEnvironment().services["IMG"].url;
+
+		var sImageType = obj.getColumn(e.row,"FILE_TYPE");
+		var sImageUrl = obj.getColumn(e.row,"FILE_URL");
+		var sImageSaveName = obj.getColumn(e.row,"SAVE_NAME");
+
+		//imageviewer connect image file
+		var bImgType = this.gfnIsImageMimeType(sImageType,sImageUrl);
+		
+		if(bImgType)
+		{
+			this.dsEmployee.setColumn(this.dsEmployee.rowposition,"PHOTO",sImageSaveName);
+			this.imgPhoto.set_image(sImgUrl +"EMP_PHOTO/"+ sImageSaveName);
+		}
+		else
+		{
+			alert("이미지 형식이 아닙니다.\n다시 선택해주세요");
+		}
+	}
+};
+
+/**
+ * @description dsEmployee onrowposchanged event : 직원 선택 rowposition 변경
+ */
+this.dsEmployee_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if(this.dsEmployee.rowcount > 0)
+	{
+		this.btnFileSelect.set_enable(true);
+		this.btnPostCode.set_enable(true);
+	}
+	else
+	{
+		this.btnFileSelect.set_enable(false);
+		this.btnPostCode.set_enable(false);
+	}
+	
+	//imageViewer 컴포넌트의 url 변경
+	var sImgUrl = nexacro.getEnvironment().services["IMG"].url;
+	var sImageSaveName = this.dsEmployee.getColumn(e.newrow,"PHOTO");
+	this.imgPhoto.set_image(sImgUrl +"EMP_PHOTO/"+ sImageSaveName);	
+	
+	//연락처 mask format
+	var sMaskValue = this.dsEmployee.getColumn(e.newrow,"PHONE");
+	var sMaskValue2 = this.dsEmployee.getColumn(e.newrow,"TELNUM");
+
+	this.mdtPhoneNum.set_format(this.gfn_setCellTelMaskFormat(sMaskValue));
+	this.mdtTelNum.set_format(this.gfn_setCellTelMaskFormat(sMaskValue2));
+};
+
+/**
+ * @description MaskEdit onchanged event : 연락처(핸드폰, 전화번호) 변경시 마스크 적용
+ */
+this.MaskEdit_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInfo)
+{
+	var sValue = e.postvalue;
+	this.gfn_makePhoneNumMask(obj, sValue);
+};
+
+/**
+ * @description MaskEdit oninput event : 연락처(핸드폰, 전화번호) 입력 시 마스크 적용
+ */
+this.MaskEdit_oninput = function(obj:nexacro.MaskEdit,e:nexacro.InputEventInfo)
+{
+	obj.set_format("@@@@@@@@@@@");
+};]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="mdtPostCode" propid="value" datasetid="dsEmployee" columnid="POSTAL_CODE"/>
+      <BindItem id="item1" compid="edtAddress1" propid="value" datasetid="dsEmployee" columnid="ADRESS1"/>
+      <BindItem id="item2" compid="edtAddress2" propid="value" datasetid="dsEmployee" columnid="ADRESS2"/>
+      <BindItem id="item3" compid="taeMemo" propid="value" datasetid="dsEmployee" columnid="MEMO"/>
+      <BindItem id="item4" compid="calJoinDate" propid="value" datasetid="dsEmployee" columnid="JOIN_DATE"/>
+      <BindItem id="item5" compid="calBreakDate" propid="value" datasetid="dsEmployee" columnid="BREAK_DATE"/>
+      <BindItem id="item6" compid="mdtPhoneNum" propid="value" datasetid="dsEmployee" columnid="PHONE"/>
+      <BindItem id="item7" compid="cboGroup" propid="value" datasetid="dsEmployee" columnid="GROUPS"/>
+      <BindItem id="item8" compid="cboSex" propid="value" datasetid="dsEmployee" columnid="SEX"/>
+      <BindItem id="item9" compid="mdtTelNum" propid="value" datasetid="dsEmployee" columnid="TELNUM"/>
+      <BindItem id="item10" compid="edtEmail" propid="value" datasetid="dsEmployee" columnid="EMAIL"/>
+      <BindItem id="item11" compid="cboStatus" propid="value" datasetid="dsEmployee" columnid="EMPLOYEE_STATUS"/>
+      <BindItem id="item15" compid="edtName" propid="value" datasetid="dsEmployee" columnid="EMPLOYEE_NAME"/>
+      <BindItem id="item12" compid="edtCode" propid="value" datasetid="dsEmployee" columnid="EMPLOYEE_CODE"/>
+      <BindItem id="item13" compid="cboDepart" propid="value" datasetid="dsEmployee" columnid="DEPARTMENT"/>
+      <BindItem id="item14" compid="cboPosition" propid="value" datasetid="dsEmployee" columnid="POSITION"/>
+      <BindItem id="item16" compid="taeCareer" propid="value" datasetid="dsEmployee" columnid="CAREERLIST"/>
+    </Bind>
+  </Form>
+</FDL>

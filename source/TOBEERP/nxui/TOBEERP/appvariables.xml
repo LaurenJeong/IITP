@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppVariables version="2.0">
+  <Datasets>
+    <Dataset id="gdsOpenList">
+      <ColumnInfo>
+        <Column id="code" type="STRING" size="256"/>
+        <Column id="caption" type="STRING" size="256"/>
+        <Column id="BTN_ID" type="STRING" size="256"/>
+        <Column id="BTN_EX_ID" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gdsLeftMenu" oncolumnchanged="gdsLeftMenu_oncolumnchanged">
+      <ColumnInfo>
+        <Column id="MENU_CD" type="STRING" size="256"/>
+        <Column id="UP_MENU_CD" type="STRING" size="256"/>
+        <Column id="MENU_NM" type="STRING" size="256"/>
+        <Column id="MENU_LVL" type="STRING" size="256"/>
+        <Column id="PGM_PATH" type="STRING" size="256"/>
+        <Column id="PGM_ID" type="STRING" size="256"/>
+        <Column id="FAV_CHECK" type="STRING" size="256"/>
+        <Column id="POP_CHECK" type="STRING" size="256"/>
+        <Column id="MENU_AUTH" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="MENU_CD">0001</Col>
+          <Col id="UP_MENU_CD">0000</Col>
+          <Col id="MENU_NM">기초자료</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="PGM_PATH"></Col>
+          <Col id="PGM_ID"></Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0011</Col>
+          <Col id="UP_MENU_CD">0001</Col>
+          <Col id="MENU_NM">자사정보</Col>
+          <Col id="PGM_PATH">TO_BE</Col>
+          <Col id="PGM_ID">myprofile.xfdl</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="FAV_CHECK">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0012</Col>
+          <Col id="UP_MENU_CD">0001</Col>
+          <Col id="MENU_NM">직원관리</Col>
+          <Col id="PGM_PATH">AS_IS</Col>
+          <Col id="PGM_ID">employee.xfdl</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="FAV_CHECK">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0013</Col>
+          <Col id="UP_MENU_CD">0001</Col>
+          <Col id="MENU_NM">거래처관리</Col>
+          <Col id="PGM_PATH">AS_IS</Col>
+          <Col id="PGM_ID">customer.xfdl</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="FAV_CHECK">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0014</Col>
+          <Col id="UP_MENU_CD">0001</Col>
+          <Col id="MENU_NM">제조회사</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="POP_CHECK">1</Col>
+          <Col id="PGM_PATH">AS_IS</Col>
+          <Col id="PGM_ID">productmanufact.xfdl</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0015</Col>
+          <Col id="UP_MENU_CD">0001</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="MENU_NM">기초재고</Col>
+          <Col id="FAV_CHECK">0</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0002</Col>
+          <Col id="UP_MENU_CD">0000</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="MENU_NM">재고관리</Col>
+          <Col id="FAV_CHECK">0</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0021</Col>
+          <Col id="UP_MENU_CD">0002</Col>
+          <Col id="MENU_NM">품목관리</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">AS_IS</Col>
+          <Col id="PGM_ID">product.xfdl</Col>
+          <Col id="FAV_CHECK">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0022</Col>
+          <Col id="UP_MENU_CD">0002</Col>
+          <Col id="MENU_NM">입출고내역및재고조정</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="FAV_CHECK">0</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0023</Col>
+          <Col id="UP_MENU_CD">0002</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="MENU_NM">입출고가격별재고내역</Col>
+          <Col id="FAV_CHECK">0</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0024</Col>
+          <Col id="UP_MENU_CD">0002</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">AS_IS</Col>
+          <Col id="PGM_ID">price.xfdl</Col>
+          <Col id="MENU_NM">거래처별제품가격</Col>
+          <Col id="FAV_CHECK">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0025</Col>
+          <Col id="UP_MENU_CD">0002</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="MENU_NM">품목단가일괄변경</Col>
+          <Col id="FAV_CHECK">0</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0026</Col>
+          <Col id="UP_MENU_CD">0002</Col>
+          <Col id="MENU_NM">품목보고서</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="PGM_PATH"></Col>
+          <Col id="PGM_ID"></Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0261</Col>
+          <Col id="UP_MENU_CD">0002</Col>
+          <Col id="MENU_NM">재고내역</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="PGM_PATH"></Col>
+          <Col id="PGM_ID"></Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0262</Col>
+          <Col id="UP_MENU_CD">0002</Col>
+          <Col id="MENU_NM">안전재고미달품목</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="PGM_PATH"></Col>
+          <Col id="PGM_ID"></Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0027</Col>
+          <Col id="UP_MENU_CD">0002</Col>
+          <Col id="MENU_NM">창고관리</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="PGM_PATH"></Col>
+          <Col id="PGM_ID"></Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0003</Col>
+          <Col id="UP_MENU_CD">0000</Col>
+          <Col id="MENU_NM">영업구매</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="MENU_AUTH">all</Col>
+          <Col id="PGM_PATH"></Col>
+          <Col id="PGM_ID"></Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0031</Col>
+          <Col id="UP_MENU_CD">0003</Col>
+          <Col id="MENU_NM">거래원장</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">AS_IS</Col>
+          <Col id="PGM_ID">deallist.xfdl</Col>
+          <Col id="FAV_CHECK">1</Col>
+          <Col id="MENU_AUTH">all</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0032</Col>
+          <Col id="UP_MENU_CD">0003</Col>
+          <Col id="MENU_NM">거래추가</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">AS_IS</Col>
+          <Col id="POP_CHECK">1</Col>
+          <Col id="MENU_AUTH">all</Col>
+          <Col id="PGM_ID">deallistpopup.xfdl</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0341</Col>
+          <Col id="UP_MENU_CD">0003</Col>
+          <Col id="MENU_NM">견적관리</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">AS_IS</Col>
+          <Col id="PGM_ID">estimate.xfdl</Col>
+          <Col id="FAV_CHECK">1</Col>
+          <Col id="MENU_AUTH">all</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0004</Col>
+          <Col id="UP_MENU_CD">0000</Col>
+          <Col id="MENU_NM">자산관리</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="PGM_PATH"></Col>
+          <Col id="PGM_ID"></Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0005</Col>
+          <Col id="UP_MENU_CD">0000</Col>
+          <Col id="MENU_NM">전자발행</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="PGM_PATH"></Col>
+          <Col id="PGM_ID"></Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0006</Col>
+          <Col id="UP_MENU_CD">0000</Col>
+          <Col id="MENU_NM">자료관리</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="PGM_PATH">AS_IS</Col>
+          <Col id="PGM_ID">fileimageview.xfdl</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsOpenMenu">
+      <ColumnInfo>
+        <Column id="MENU_CD" type="STRING" size="8"/>
+        <Column id="UP_MENU_CD" type="STRING" size="8"/>
+        <Column id="MENU_NM" type="STRING" size="50"/>
+        <Column id="MENU_LVL" type="BIGDECIMAL" size="22"/>
+        <Column id="PGM_PATH" type="STRING" size="200"/>
+        <Column id="PGM_ID" type="STRING" size="200"/>
+        <Column id="WINID" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gdsArea">
+      <ColumnInfo>
+        <Column id="code" type="STRING" size="256"/>
+        <Column id="value" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gdsAlram">
+      <ColumnInfo>
+        <Column id="code" type="STRING" size="256"/>
+        <Column id="titla" type="STRING" size="256"/>
+        <Column id="date" type="STRING" size="256"/>
+        <Column id="type" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+  </Datasets>
+  <Variables>
+    <Variable id="gvDBurl" initval="http://localhost:1433"/>
+    <Variable id="gvToday"/>
+    <Variable id="gvLoginId"/>
+  </Variables>
+  <DataObjects/>
+</AppVariables>

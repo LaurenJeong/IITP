@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="productpopupdeal" width="520" height="330" titletext="품목찾기 (거래)" onload="productpopupdeal_onload" onkeydown="productpopupdeal_onkeydown">
+    <Layouts>
+      <Layout height="330" mobileorientation="landscape" width="520">
+        <Static id="Static01_00_00_00" taborder="4" left="20" top="55" height="40" cssclass="sta_cm_box01L" text="" right="20"/>
+        <Grid id="grdProductList" taborder="2" left="20" top="105" width="480" height="205" binddataset="dsProduct" oncellclick="grdProductList_oncellclick" onkeydown="grdProductList_onkeydown">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="80"/>
+                <Column size="100"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="60"/>
+                <Column size="80"/>
+                <Column size="60"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="품목명"/>
+                <Cell col="1" text="판매가"/>
+                <Cell col="2" text="제조회사"/>
+                <Cell col="3" text="입고가"/>
+                <Cell col="4" text="도매가"/>
+                <Cell col="5" text="소매가"/>
+                <Cell col="6" text="단위"/>
+                <Cell col="7" text="규격"/>
+                <Cell col="8" text="색상"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:PRODUCT_NAME"/>
+                <Cell col="1" text="bind:LAST_PRICE" displaytype="currency"/>
+                <Cell col="2" text="bind:MENUFACTURE_NAME"/>
+                <Cell col="3" text="bind:RECEIVING_PRICE" displaytype="currency"/>
+                <Cell col="4" text="bind:WHOLESALE_PRICE" displaytype="currency"/>
+                <Cell col="5" text="bind:RETAIL_PRICE" displaytype="currency"/>
+                <Cell col="6" text="bind:UNIT_VALUE"/>
+                <Cell col="7" text="bind:STANDARD"/>
+                <Cell col="8" text="bind:COLOR"/>
+              </Band>
+            </Format>
+            <Format id="customer">
+              <Columns>
+                <Column size="130"/>
+                <Column size="100"/>
+                <Column size="95"/>
+                <Column size="85"/>
+                <Column size="70"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="품목명"/>
+                <Cell col="1" text="제조회사"/>
+                <Cell col="2" text="규격"/>
+                <Cell col="3" text="색상"/>
+                <Cell col="4" text="단위"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:PRODUCT_NAME"/>
+                <Cell col="1" text="bind:COMPANY_CODE" displaytype="combotext" combodataset="dsManufacture" combocodecol="code" combodatacol="value"/>
+                <Cell col="2"/>
+                <Cell col="3"/>
+                <Cell col="4"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staMiddlebar" taborder="5" text="품목 찾기" left="20" top="20" height="28" cssclass="sta_WF_title02" right="140" onclick="divManufactCo_staMiddlebar_onclick"/>
+        <Button id="btnClose" taborder="3" top="20" height="28" cssclass="btn_WF_popup_close" onclick="btnClose_onclick" right="20" width="28"/>
+        <Button id="btnSearch" taborder="1" text="조회(F8)" top="61" width="70" height="28" cssclass="btn_WF_search" left="356" onclick="btnSearch_onclick"/>
+        <Static id="Static02_00" taborder="6" text="품목명" left="20" top="55" width="69" height="40" cssclass="sta_cm_box01L"/>
+        <Edit id="edtSearch" taborder="0" left="97" top="61" width="253" height="28" onkeydown="edtSearch_onkeydown"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsProduct">
+        <ColumnInfo>
+          <Column id="PRODUCT_CODE" type="STRING" size="256"/>
+          <Column id="PRODUCT_NAME" type="STRING" size="256"/>
+          <Column id="PRODUCT_GROUPS" type="STRING" size="256"/>
+          <Column id="COLOR" type="STRING" size="256"/>
+          <Column id="STANDARD" type="STRING" size="256"/>
+          <Column id="UNIT" type="STRING" size="256"/>
+          <Column id="UNIT_VALUE" type="STRING" size="256"/>
+          <Column id="UNIT_PRICE" type="STRING" size="256"/>
+          <Column id="LAST_PRICE" type="STRING" size="256"/>
+          <Column id="RECEIVING_PRICE" type="STRING" size="256"/>
+          <Column id="WHOLESALE_PRICE" type="STRING" size="256"/>
+          <Column id="RETAIL_PRICE" type="STRING" size="256"/>
+          <Column id="SPECIAL_PRICE1" type="STRING" size="256"/>
+          <Column id="SPECIAL_PRICE2" type="STRING" size="256"/>
+          <Column id="SPECIAL_PRICE3" type="STRING" size="256"/>
+          <Column id="MENUFACTURE_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsManufacture">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    productpopupdeal
+*  @FileName	productpopupdeal.xfdl
+*  @Desction	품목찾기-거래처 사용 (팝업)
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+this.customercode = "";
+this.rowposition = -1;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.productpopupdeal_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	
+	//get arguments
+	if(this.getOwnerFrame().rownum != null)
+	{
+		this.rowposition = this.getOwnerFrame().rownum;
+	}
+	
+	if(this.getOwnerFrame().customercode != null)
+	{
+		this.customercode = this.getOwnerFrame().customercode;
+	}	
+};
+
+/**
+ * @description form onkeydown
+ */
+this.productpopupdeal_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode==119)
+	{
+		this.fn_initSearch();
+	}
+	else if(e.keycode == 27)
+	{
+		this.close();
+	}
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+ */
+this.fn_callback = function(strSvcID, sErrorCode, sErrorMsg)
+{
+	if(sErrorCode > -1)
+	{
+		if(strSvcID == "selectProduct")
+		{
+			this.grdProductList.setFocus();
+		}
+	}
+};
+
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**
+ * @description 품목명 조회
+ */
+this.fn_search = function(strArgument)
+{
+	var strSvcID = "selectProduct";
+	var strURL = "IP::getproductdeal.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsProduct=dsproduct";
+	var strCallbackFunc = "fn_callback";
+		strArgument += " argDB=" + this.application.gvDBurl;
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+}
+
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+* Function Name : fn_initSearch
+* Description   : 품목명 조회 세팅 (조회조건 확인)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSearch = function()
+{	
+	var sEdit = this.edtSearch.value;
+
+	var sArgument = "";
+	
+	if(!this.gfn_isNull(sEdit))
+	{
+		sArgument = "argSearch=" + sEdit;
+	}
+	
+	if(!this.gfn_isNull(this.customercode))
+	{
+		sArgument = " argCustomer=" + this.customercode;
+	}
+	
+	this.fn_search(sArgument);
+}
+
+/**
+* Function Name : fn_selectProduct
+* Description   : 품목선택시 opner dataset row에 데이터 복사 (copyrow)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_selectProduct = function()
+{
+	if(this.rowposition > -1)
+	{
+		this.opener.config.objdetail.copyRow(this.rowposition,this.dsProduct,this.dsProduct.rowposition);
+	}
+	
+	//팝업 닫기
+	this.close();
+}
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description btnClose onclick event : 팝업 닫기(X) 버튼 클릭
+ */
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+/**
+ * @description btnSearch onclick event : 조회 버튼 클릭 (품목 조회)
+ */
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSearch();
+};
+
+/**
+ * @description edtSearch onkeydown event : 품목 조회
+ */
+this.edtSearch_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 13)
+	{
+		this.fn_initSearch();
+	}
+};
+
+/**
+ * @description grdProductList oncellclick event : 품목 선택
+ */
+this.grdProductList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fn_selectProduct();
+};
+
+/**
+ * @description grdProductList onkeydown event : 품목 선택
+ */
+this.grdProductList_onkeydown = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 13)
+	{
+		this.fn_selectProduct();
+	}
+};]]></Script>
+  </Form>
+</FDL>
