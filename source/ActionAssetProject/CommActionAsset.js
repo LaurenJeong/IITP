@@ -84,17 +84,19 @@ if (!nexacro.CommActionAsset)
 		
 		if (nLvl < this._LOG_LEVEL)		return;
 		
+		var sLog = "";
+		
+		if (sMsg instanceof Object) {
+			sLog = "[" + sType + "] " + this.name + " > " + JSON.stringify(sMsg, null, "\t");
+		} else {
+			sLog = "[" + sType + "] " + this.name + " > " + sMsg;
+		}
+		
 		if (system.navigatorname == "nexacro DesignMode"
 			|| system.navigatorname == "nexacro") {
-			if (sMsg instanceof Object) {
-				for(var x in sMsg){
-					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
-				}
-			} else {
-				trace("[" + sType + "] " + this.name + " > " + sMsg);
-			}
+			trace(sLog);
 		} else {
-			console.log("[" + sType + "] " + this.name + " > " + sMsg);
+			console.log(sLog);
 		}
 	};
 	
