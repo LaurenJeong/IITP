@@ -45,7 +45,7 @@ this.USE_EXPAND_BUTTON		= "none";
 
 //////////////////////////////상수 설정부 START ////////////////////////////////////////////////////
 //Field Default Width
-this.FIELD_WIDTH			= "100%";
+this.FIELD_WIDTH			= "110";
 
 //Field Default Height
 this.FIELD_HEIGHT			= "40px";
@@ -64,9 +64,9 @@ this.COMP_BG_TYPE			= "static";
 
 //Component Padding
 this.COMP_PADDING_LEFT     = 5;
-this.COMP_PADDING_TOP      = 5;
+this.COMP_PADDING_TOP      = 6;
 this.COMP_PADDING_RIGHT    = 5;
-this.COMP_PADDING_BOTTOM   = 5;
+this.COMP_PADDING_BOTTOM   = 6;
 
 //Gap Between Components (Left and Right)
 this.COMP_SPACE     		  = 5;
@@ -78,10 +78,13 @@ this.LINE_SPACE     		  = 5;
 this.COMP_CSSCLASS		  = "";
 
 //Background Component Default CSS Class
-this.COMP_BG_CSSCLASS	  = "sta_WF_fieldbox";
+this.COMP_BG_CSSCLASS	  = "sta_cm_box02L";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS		  = "sta_WF_labelbox";
+this.LABEL_CSSCLASS		  = "sta_cm_box01L";
+
+//Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS	= "sta_WF_titleStar";
 
 //Background Component Use Type
 this.USE_COMP_BG		= "true";
@@ -1371,7 +1374,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.labelcssclass;
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 			//Import Row/Col Index where the Field will be located
 			nRowIdx = oFieldPosition.rowidx;
@@ -1547,7 +1550,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.labelcssclass;
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 			//Import Row/Col Index where the Field will be located
 			nRowIdx = oFieldPosition.rowidx;
