@@ -1,5 +1,5 @@
 ﻿{
-    "version" : "17.0.0.1",
+    "version" : "21.0.0.1",
     "runtime" :
     {
         "target" :
@@ -8,86 +8,24 @@
         },
         "framework" :
         [    
-        "./nexacro17lib/framework/SystemBase.js",
-        "./nexacro17lib/framework/SystemBase_HTML5.js",
-        "./nexacro17lib/framework/SystemBase_Runtime.js",
-        "./nexacro17lib/framework/BasicObjs.js",
-        "./nexacro17lib/framework/ErrorDefine.js",
-        "./nexacro17lib/framework/Platform_HTML5.js",
-        "./nexacro17lib/framework/Platform_Runtime.js",
-        "./nexacro17lib/framework/Platform.js",
-        "./nexacro17lib/framework/CssObjs.js",
-        "./nexacro17lib/framework/Device.js",
-        "./nexacro17lib/framework/Device_Android.js",
-        "./nexacro17lib/framework/Device_Windows.js",
-        "./nexacro17lib/framework/Device_iOS.js"
+        "./nexacrolib/framework/Framework.js"
         ],
         "component" :
         [    
-        "./nexacro17lib/component/CompBase/Element_HTML5.js",
-        "./nexacro17lib/component/CompBase/Element_Runtime.js",
-        "./nexacro17lib/component/CompBase/CompBase.js",
-        "./nexacro17lib/component/CompBase/CompEventBase.js",
-        "./nexacro17lib/component/CompBase/Data.js",
-        "./nexacro17lib/component/CompBase/EditBase.js",
-        "./nexacro17lib/component/CompBase/FormBase.js",
-        "./nexacro17lib/component/CompBase/TitleBar.js",
-        "./nexacro17lib/component/CompBase/StatusBar.js",
-        "./nexacro17lib/component/CompBase/FrameBase.js",
-        "./nexacro17lib/component/CompBase/ScrollBar.js",
-        "./nexacro17lib/component/CompBase/Step.js",
-        "./nexacro17lib/component/CompBase/Animation.js",
-        "./nexacro17lib/component/ComComp/Dataset.js",
-        "./nexacro17lib/component/ComComp/DomObject.js",
-        "./nexacro17lib/component/ComComp/Static.js",
-        "./nexacro17lib/component/ComComp/Button.js",
-        "./nexacro17lib/component/ComComp/Edit.js",
-        "./nexacro17lib/component/ComComp/MaskEdit.js",
-        "./nexacro17lib/component/ComComp/TextArea.js",
-        "./nexacro17lib/component/ComComp/lang/ko/ime.js",
-        "./nexacro17lib/component/ComComp/lang/ja/ime.js",
-        "./nexacro17lib/component/ComComp/ImageViewer.js",
-        "./nexacro17lib/component/ComComp/CheckBox.js",
-        "./nexacro17lib/component/ComComp/Radio.js",
-        "./nexacro17lib/component/ComComp/ListBox.js",
-        "./nexacro17lib/component/ComComp/Combo.js",
-        "./nexacro17lib/component/ComComp/Div.js",
-        "./nexacro17lib/component/ComComp/ProgressBar.js",
-        "./nexacro17lib/component/ComComp/PopupDiv.js",
-        "./nexacro17lib/component/ComComp/Menu.js",
-        "./nexacro17lib/component/ComComp/PopupMenu.js",
-        "./nexacro17lib/component/ComComp/Spin.js",
-        "./nexacro17lib/component/ComComp/DatePicker.js",
-        "./nexacro17lib/component/ComComp/Calendar.js",
-        "./nexacro17lib/component/ComComp/GroupBox.js",
-        "./nexacro17lib/component/ComComp/Tab.js",
-        "./nexacro17lib/component/ComComp/FileDialog.js",
-        "./nexacro17lib/component/ComComp/FileDownload.js",
-        "./nexacro17lib/component/ComComp/FileDownTransfer.js",
-        "./nexacro17lib/component/ComComp/FileUpload.js",
-        "./nexacro17lib/component/ComComp/FileUpTransfer.js",
-        "./nexacro17lib/component/ComComp/VideoPlayer.js",
-        "./nexacro17lib/component/ComComp/WebBrowser.js",
-        "./nexacro17lib/component/ComComp/GoogleMap.js",
-        "./nexacro17lib/component/ComComp/Sketch.js",
-        "./nexacro17lib/component/ComComp/ExportObject.js",
-        "./nexacro17lib/component/ComComp/ImportObject.js",
-        "./nexacro17lib/component/ComComp/Tray.js",
-        "./nexacro17lib/component/ComComp/Plugin.js",
-        "./nexacro17lib/component/ComComp/VirtualFile.js",
-        "./nexacro17lib/component/ComComp/Cell.js",
-        "./nexacro17lib/component/Grid/GridInfo.js",
-        "./nexacro17lib/component/Grid/Grid.js",
-        "./nexacro17lib/component/Chart/GraphicsChart.js",
-        "./nexacro17lib/component/Chart/ChartBase.js",
-        "./nexacro17lib/component/Chart/BasicChart.js",
-        "./nexacro17lib/component/Chart/BubbleChart.js",
-        "./nexacro17lib/component/Chart/PieChart.js",
-        "./nexacro17lib/component/Chart/RadarChart.js",
-        "./nexacro17lib/component/Chart/RoseChart.js",
-        "./nexacro17lib/component/Chart/GaugeChart.js",
-        "./nexacro17lib/component/Chart/FloatChart.js",
-        "./nexacro17lib/component/Chart/PyramidChart.js"
+        "./nexacrolib/component/CompBase.js",
+        "./nexacrolib/component/ComComp.js",
+        "./nexacrolib/component/Grid.js",
+        "./nexacrolib/component/Graphics.js",
+        "./nexacrolib/component/Chart/GraphicsChart.js",
+        "./nexacrolib/component/Chart/ChartBase.js",
+        "./nexacrolib/component/Chart/BasicChart.js",
+        "./nexacrolib/component/Chart/BubbleChart.js",
+        "./nexacrolib/component/Chart/PieChart.js",
+        "./nexacrolib/component/Chart/RadarChart.js",
+        "./nexacrolib/component/Chart/RoseChart.js",
+        "./nexacrolib/component/Chart/GaugeChart.js",
+        "./nexacrolib/component/Chart/FloatChart.js",
+        "./nexacrolib/component/Chart/PyramidChart.js"
         ],
         "environment" :
         [    
@@ -121,7 +59,12 @@
                 "timeout" : "30",
                 "retry" : "3",
                 "autoupdate" : "auto",
-                "updatetype" : "server"
+                "updatetype" : "server",
+            "common" : {
+                "updateurl" : "",
+                    "resources" :
+                    [{"type" : "Module", "file" : "nexacrolib.zip", "targetpath" : "", "version" : "0"}]
+                }
             },
             "osx" : {
                 "updateurl" : "",
@@ -136,7 +79,12 @@
 		"deploy" :
         {
             "windows" : {
-                "updateurl" : "./"
+                "updateurl" : "./",
+            "common" : {
+                "updateurl" : "",
+                    "resources" :
+                    [{"type" : "Module", "file" : "nexacrolib.zip", "targetpath" : "", "version" : "0"}]
+                }
             },
             "osx" : {
                 "updateurl" : "",

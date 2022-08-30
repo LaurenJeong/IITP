@@ -6,6 +6,8 @@
         {		
             var obj = null;
             
+			// global dataobject
+		
             // global dataset
 
             
@@ -30,7 +32,6 @@
             mainframe.set_showtitlebar("true");
             mainframe.set_showstatusbar("true");
             mainframe.on_createBodyFrame = this.mainframe_createBodyFrame;
-
             // tray
 
         };
@@ -49,9 +50,7 @@
             obj.set_border("0px none");
 			
             this.addChild(obj.name, obj);
-
             obj.set_formurl(nexacro._quickview_formurl);
-
             this.frame = obj;
             
             obj = null;
@@ -60,12 +59,13 @@
         this.on_initEvent = function()
         {
         };
-
 		// script Compiler
 
+		this.checkLicense("");
         
         this.loadPreloadList();
 
+        this.loadIncludeScript("ChartCtse_app.xadl");
     };
 }
 )();

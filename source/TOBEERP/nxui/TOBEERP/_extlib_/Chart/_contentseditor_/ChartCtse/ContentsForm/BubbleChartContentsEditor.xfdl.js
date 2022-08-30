@@ -330,7 +330,6 @@
 
             obj = new BubbleChart("Chart_Preview","210","25",null,null,"30","30",null,null,null,null,this);
             obj.set_taborder("3");
-            obj._setContents();
             this.addChild(obj.name, obj);
 
             obj = new PopupDiv("Popup_ColorsetTemplate","212","320","226","100",null,null,null,null,null,null,this);
@@ -397,7 +396,6 @@
             obj.getSetter("colorset").set("Color20c");
             obj.set_cssclass("btn_temp08");
             this.Popup_ColorsetTemplate.addChild(obj.name, obj);
-
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",800,500,this,function(p){});
@@ -405,6 +403,9 @@
             this.addLayout(obj.name, obj);
             
             // BindItem Information
+
+            
+            // TriggerItem Information
 
         };
         
@@ -1507,7 +1508,6 @@
             this.Popup_ColorsetTemplate.form.Btn_Temp7.addEventHandler("onclick",this.Popup_ColorsetTemplate_Btn_onclick,this);
             this.Popup_ColorsetTemplate.form.Btn_Temp8.addEventHandler("onclick",this.Popup_ColorsetTemplate_Btn_onclick,this);
         };
-
         this.loadIncludeScript("BubbleChartContentsEditor.xfdl");
         this.loadPreloadList();
         

@@ -348,7 +348,6 @@
 
             obj = new BasicChart("Chart_Preview","210","25",null,null,"30","30",null,null,null,null,this);
             obj.set_taborder("3");
-            obj._setContents();
             this.addChild(obj.name, obj);
 
             obj = new PopupDiv("Popup_SeriesTemplate_Bar","212","30","56","283",null,null,null,null,null,null,this);
@@ -459,7 +458,6 @@
             obj.getSetter("colorset").set("Color20c");
             obj.set_cssclass("btn_temp08");
             this.Popup_ColorsetTemplate.addChild(obj.name, obj);
-
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",800,500,this,function(p){});
@@ -467,6 +465,9 @@
             this.addLayout(obj.name, obj);
             
             // BindItem Information
+
+            
+            // TriggerItem Information
 
         };
         
@@ -1158,8 +1159,6 @@
 
         this.Popup_ColorsetTemplate_Btn_onclick = function(obj,e)
         {
-
-
         	var preselected_colorset = this._selected_colorset;
         	var postselected_colorset = obj.colorset;
         	this._selected_colorset = obj.colorset;
@@ -1171,8 +1170,6 @@
         	else
         	{
         	}
-
-
 
         	var popup = obj.parent.parent;
         	if (popup)
@@ -1196,7 +1193,8 @@
            if(obj.parent.Div00)
               obj.parent.Div00.setFocus();
 
-           objform.userNotifyCall(nexacro.CTSE.NotifyTypes.REFRESH_PROPERTY,obj.prop);
+           //objform.userNotifyCall(nexacro.CTSE.NotifyTypes.REFRESH_PROPERTY,obj.prop);
+           this.userNotifyCall(nexacro.CTSE.NotifyTypes.REFRESH_PROPERTY,obj.prop);
         };
 
         /* Form_ContentsEditor Util Function*/
@@ -1630,7 +1628,6 @@
             this.Popup_ColorsetTemplate.form.Btn_Temp7.addEventHandler("onclick",this.Popup_ColorsetTemplate_Btn_onclick,this);
             this.Popup_ColorsetTemplate.form.Btn_Temp8.addEventHandler("onclick",this.Popup_ColorsetTemplate_Btn_onclick,this);
         };
-
         this.loadIncludeScript("BasicChartContentsEditor.xfdl");
         this.loadPreloadList();
         

@@ -5,7 +5,8 @@
         this.on_loadAppVariables = function()
         {		
             var obj = null;
-            
+			// global dataobject
+		
             // global dataset
 
             
@@ -30,7 +31,6 @@
             mainframe.set_showtitlebar("true");
             mainframe.set_showstatusbar("true");
             mainframe.on_createBodyFrame = this.mainframe_createBodyFrame;        
-
             // tray
 
         };
@@ -53,7 +53,6 @@
         };
         
         // script Compiler
-
 
         this.checkLicense("");
         
