@@ -86,11 +86,20 @@ if (!nexacro.DsCopyDataAction)
 		} else {
 			v = nexacro._toString(v);
 			
-			var objForm = this.parent;
-			var objDs = objForm._findDataset(v);
-			if (this.targetdataset != v && objDs != undefined) {
+			if (this.targetdataset != v) {
 				this.targetdataset = v;
-				this._targetdataset = objDs;
+				this._targetdataset = null;
+				
+				var objView = this.getTargetView();	
+				if (objView)
+				{
+					var objForm = objView.form;
+					var objDs = objForm._findDataset(v);
+					
+					if (objDs != undefined) {
+						this._targetdataset = objDs;
+		 			}
+				}
 			}
 		}
 	};
@@ -115,11 +124,20 @@ if (!nexacro.DsCopyDataAction)
 		} else {
 			v = nexacro._toString(v);
 			
-			var objForm = this.parent;
-			var objDs = objForm._findDataset(v);
-			if (this.fromdataset != v && objDs != undefined) {
+			if (this.fromdataset != v) {
 				this.fromdataset = v;
-				this._fromdataset = objDs;
+				this._fromdataset = null;
+				
+				var objView = this._findViewObject(this.fromview);
+				if (objView)
+				{
+					var objForm = objView.form;
+					var objDs = objForm._findDataset(v);
+					
+					if (objDs != undefined) {
+						this._fromdataset = objDs;
+		 			}
+				}
 			}
 		}
 	};
