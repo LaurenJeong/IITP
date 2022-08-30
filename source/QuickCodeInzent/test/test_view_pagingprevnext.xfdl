@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_view_pagingprevnest" width="1024" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1024">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="67" width="352" height="30">
+          <Layouts>
+            <Layout>
+              <Static id="staTotCnt" top="0" height="30" width="100" fittocontents="width" usedecorate="true" cssclass="sta_WF_total_count" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" _text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;{0}&lt;/fc&gt;&lt;/b&gt;건)" left="0"/>
+              <Button id="btnPrev" top="0" width="60" height="30" text="이전" enable="false" right="65"/>
+              <Button id="btnNext" top="0" width="60" height="30" text="다음" enable="false" right="0"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset" onload="fn_viewdataset_onload">
+              <ColumnInfo>
+                <Column id="NEXT_PAGE_EXS_YN5" type="STRING" size="1"/>
+                <Column id="grid5_cnt" type="BIGDECIMAL" size="5"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00567" modelid="SO" filepath="API_TEST\IUI_M_COR_S_RCV00567.xmodel">
+            <Fields>
+              <Field id="grid5_cnt" fielddatatype="datacount"/>
+              <Field id="NEXT_PAGE_EXS_YN5" fielddatatype="usenextbutton"/>
+            </Fields>
+            <Components>
+              <Component id="staTotCnt" fields="grid5_cnt"/>
+              <Component id="btnPrev" fields="NEXT_PAGE_EXS_YN5"/>
+              <Component id="btnNext" fields="NEXT_PAGE_EXS_YN5"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="PagingPrevNextViewTemplate.xviewgen">
+            <Attribute id="buttonposition" value="right"/>
+            <Attribute id="usedatacount" value="true"/>
+            <Attribute id="useprevbutton" value="true"/>
+            <Attribute id="prevbuttontext" value="이전"/>
+            <Attribute id="usenextbutton" value="true"/>
+            <Attribute id="nextbuttontext" value="다음"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.View00_viewdataset_onload = function(obj:nexacro.NormalDataset,e:nexacro.DSLoadEventInfo)
+{
+	if (e.reason == Dataset.REASON_LOAD)
+	{
+		var sDataCount = this.View00.form.staTotCnt._text;
+		sDataCount.replace("{0}",obj.rowcount);
+		
+		this.View00.form.staTotCnt.set_text(sDataCount);
+	}
+};
+]]></Script>
+  </Form>
+</FDL>
