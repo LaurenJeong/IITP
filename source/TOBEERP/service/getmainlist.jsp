@@ -57,6 +57,18 @@ try {
 	DataSet dscustomer = new DataSet("dscustomer");
 	dscustomer.addColumn("CUSTOMER",DataTypes.STRING, 256);
 	dscustomer.addColumn("TOTAL_PRICE",DataTypes.STRING, 256);
+	
+	// 거래처별 판매현황 추가
+	DataSet dssalescustomer = new DataSet("dssalescustomer");
+	dssalescustomer.addColumn("CUSTOMER_NAME",DataTypes.STRING, 256);
+	dssalescustomer.addColumn("SALES_AMOUNT",DataTypes.INT, 256);
+	
+	// 매출/매입 현황 추가
+	DataSet dssales = new DataSet("dssales");
+	dssales.addColumn("DT_YYYYMM",DataTypes.STRING, 256);
+	dssales.addColumn("SALES_AMOUNT",DataTypes.INT, 256);
+	dssales.addColumn("RECEIPT_AMOUNT",DataTypes.INT, 256);
+	dssales.addColumn("PURCHASE_AMOUNT",DataTypes.INT, 256);
     
     /******* SQL query *************/
     String	SQL1  = "SELECT TOP 5 DEAL_CODE, TYPE_VALUE, DEAL_DATE , ADD_IN_TAX, CORPORATE_NAME, TOTAL_PRICE "+ "\n" +
@@ -104,10 +116,95 @@ try {
 			dscustomer.set(row, "CUSTOMER", rs3.getString("CORPORATE_NAME"));    
 			dscustomer.set(row, "TOTAL_PRICE", rs3.getString("SALES_TOTAL_PRICE"));
 	}
+	
+	// 거래처별 판매현황 데이터설정
+	row = 0;
+	row = dssalescustomer.newRow();
+	dssalescustomer.set(row, "CUSTOMER_NAME", "엠지상사");
+	dssalescustomer.set(row, "SALES_AMOUNT", 200);
+	row = dssalescustomer.newRow();
+	dssalescustomer.set(row, "CUSTOMER_NAME", "무화유통");
+	dssalescustomer.set(row, "SALES_AMOUNT", 600);
+	row = dssalescustomer.newRow();
+	dssalescustomer.set(row, "CUSTOMER_NAME", "아이마트");
+	dssalescustomer.set(row, "SALES_AMOUNT", 150);
+	row = dssalescustomer.newRow();
+	dssalescustomer.set(row, "CUSTOMER_NAME", "오키유통");
+	dssalescustomer.set(row, "SALES_AMOUNT", 450);
+	row = dssalescustomer.newRow();
+	dssalescustomer.set(row, "CUSTOMER_NAME", "인성마트");
+	dssalescustomer.set(row, "SALES_AMOUNT", 50);
+	
+	
+	// 매출/매입 현황 데이터설정
+	row = 0;
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.01");
+	dssales.set(row, "SALES_AMOUNT", 960);
+	dssales.set(row, "RECEIPT_AMOUNT", 850);
+	dssales.set(row, "PURCHASE_AMOUNT", 1080);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.02");
+	dssales.set(row, "SALES_AMOUNT", 380);
+	dssales.set(row, "RECEIPT_AMOUNT", 250);
+	dssales.set(row, "PURCHASE_AMOUNT", 530);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.03");
+	dssales.set(row, "SALES_AMOUNT", 510);
+	dssales.set(row, "RECEIPT_AMOUNT", 350);
+	dssales.set(row, "PURCHASE_AMOUNT", 830);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.04");
+	dssales.set(row, "SALES_AMOUNT", 1230);
+	dssales.set(row, "RECEIPT_AMOUNT", 150);
+	dssales.set(row, "PURCHASE_AMOUNT", 700);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.05");
+	dssales.set(row, "SALES_AMOUNT", 1010);
+	dssales.set(row, "RECEIPT_AMOUNT", 100);
+	dssales.set(row, "PURCHASE_AMOUNT", 550);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.06");
+	dssales.set(row, "SALES_AMOUNT", 980);
+	dssales.set(row, "RECEIPT_AMOUNT", 200);
+	dssales.set(row, "PURCHASE_AMOUNT", 680);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.07");
+	dssales.set(row, "SALES_AMOUNT", 1370);
+	dssales.set(row, "RECEIPT_AMOUNT", 300);
+	dssales.set(row, "PURCHASE_AMOUNT", 1020);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.08");
+	dssales.set(row, "SALES_AMOUNT", 840);
+	dssales.set(row, "RECEIPT_AMOUNT", 400);
+	dssales.set(row, "PURCHASE_AMOUNT", 680);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.09");
+	dssales.set(row, "SALES_AMOUNT", 1830);
+	dssales.set(row, "RECEIPT_AMOUNT", 350);
+	dssales.set(row, "PURCHASE_AMOUNT", 1570);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.10");
+	dssales.set(row, "SALES_AMOUNT", 770);
+	dssales.set(row, "RECEIPT_AMOUNT", 250);
+	dssales.set(row, "PURCHASE_AMOUNT", 930);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.11");
+	dssales.set(row, "SALES_AMOUNT", 690);
+	dssales.set(row, "RECEIPT_AMOUNT", 100);
+	dssales.set(row, "PURCHASE_AMOUNT", 530);
+	row = dssales.newRow();
+	dssales.set(row, "DT_YYYYMM", "2020.12");
+	dssales.set(row, "SALES_AMOUNT", 450);
+	dssales.set(row, "RECEIPT_AMOUNT", 200);
+	dssales.set(row, "PURCHASE_AMOUNT", 360);
+	
     /********* Adding Dataset to PlatformData ************/
     pdata.addDataSet(dsdeal);
     pdata.addDataSet(dsestimate);
     pdata.addDataSet(dscustomer);
+    pdata.addDataSet(dssalescustomer);
+    pdata.addDataSet(dssales);
     
     nErrorCode = 0;
     strErrorMsg = "SUCC";
