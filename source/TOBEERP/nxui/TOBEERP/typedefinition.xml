@@ -4,6 +4,7 @@
     <Module url="CompBase.json"/>
     <Module url="ComComp.json"/>
     <Module url="Grid.json"/>
+    <Module url="ListView.json"/>
     <Module url="DeviceAPI.json"/>
     <Module url="extlib::Chart.json"/>
     <Module url="History.json"/>
@@ -30,7 +31,10 @@
     <Component type="JavaScript" id="Calendar" classname="nexacro.Calendar" defaultheight="28" defaultwidth="120" prefixid="cal"/>
     <Component type="JavaScript" id="ImageViewer" classname="nexacro.ImageViewer" defaultwidth="120" prefixid="img"/>
     <Component type="JavaScript" id="ProgressBar" classname="nexacro.ProgressBar" defaultheight="28" defaultwidth="120" prefixid="prg"/>
-    <Component type="JavaScript" id="Plugin" classname="nexacro.Plugin"/>
+    <Component type="JavaScript" id="View" classname="nexacro.View" prefixid="view"/>
+    <Component type="JavaScript" id="ListView" classname="nexacro.ListView" prefixid="lsv"/>
+    <Component type="JavaScript" id="WebBrowser" classname="nexacro.WebBrowser" prefixid="web" defaultwidth="270" defaultheight="180"/>
+    <Component type="JavaScript" id="Plugin" classname="nexacro.Plugin" prefixid="plg"/>
     <Component type="JavaScript" id="Dataset" classname="nexacro.NormalDataset" prefixid="ds"/>
     <Component type="JavaScript" id="FileDownTransfer" classname="nexacro.FileDownTransfer"/>
     <Component type="JavaScript" id="FileUpTransfer" classname="nexacro.FileUpTransfer"/>
@@ -43,8 +47,6 @@
     <Component type="JavaScript" id="GaugeChart" classname="nexacro.GaugeChart" iconindex="403" iconextra="true" prefixid=""/>
     <Component type="JavaScript" id="PieChart" classname="nexacro.PieChart" iconindex="402" iconextra="true" prefixid=""/>
     <Component type="JavaScript" id="BubbleChart" classname="nexacro.BubbleChart" iconindex="401" iconextra="true"/>
-    <Component type="JavaScript" id="WebBrowser" classname="nexacro.WebBrowser"/>
-    <Component type="JavaScript" id="View" classname="nexacro.View" prefixid="view"/>
     <Component type="JavaScript" id="CommActionAsset" classname="nexacro.CommActionAsset" prefixid=""/>
     <Component type="JavaScript" id="SearchDBAction" classname="nexacro.SearchDBAction" prefixid=""/>
     <Component type="JavaScript" id="DsInsertDataAction" classname="nexacro.DsInsertDataAction" prefixid=""/>
@@ -81,6 +83,7 @@
     <Service prefixid="IP" type="JSP" version="0" cachelevel="none" include_subdir="false" communicationversion="0" url="http://172.10.12.108:8080/service/"/>
     <Service prefixid="DB" type="JSP" version="0" cachelevel="none" include_subdir="false" communicationversion="0" url="http://172.10.11.231:8080/"/>
     <Service prefixid="IMG" type="JSP" version="0" cachelevel="none" include_subdir="false" communicationversion="0" url="https:\\www.playnexacro.com\repository\ERP\"/>
+    <Service prefixid="_extlib_" type="form" url="./_extlib_/" version="0" cachelevel="none" include_subdir="true" communicationversion="0"/>
   </Services>
   <Protocols/>
   <Update/>
