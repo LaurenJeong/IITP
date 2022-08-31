@@ -1311,15 +1311,21 @@ fn_GetInitValue = function()
 fn_GetObjects = function()
 {
 	//Initialize Object
-    var oObjects = [];
+	var oObjects = [];
+	var oInner = [];
 
-    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
+	var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
 
-    //Object Information Setting
-    oObjects.push(oViewDataset);
+	//Object Information Setting
+	oObjects.push(oViewDataset);
 
-    //Return Object Information
-    return oObjects;
+	// InnerDataset 정보
+	oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+
+	oObjects = oObjects.concat(oInner);
+
+	//Return Object Information
+	return oObjects;
 };
 
 /*---------------------------------------------------------------------------------------------*

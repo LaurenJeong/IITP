@@ -30,8 +30,8 @@ this.arrCompIds = [];
 //컴포넌트 + 바인드 Field 목록
 this.arrBindItems = [];
 
-//validationRuleSet 목록
-this.arrValidationRules = [];
+//Grid, Listview Field별 cell정보
+this.oFieldCellInfo = {};
 
 // View에서 생성한 컴포넌트의 Field ID
 this.VIEW_COMP_FIELD_ID = "_viewcomp";
@@ -46,12 +46,6 @@ this.COMP_NAMING_RULE	= "C";
 /** @const {string} */
 // 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 this.LOG_LEVEL			= -1;
-//--------------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------------
-// 공통함수 관련 변수
-//--------------------------------------------------------------------------------------------------------
-this.VALID_USERPROP_ID = "_vaild";
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -293,7 +287,7 @@ this.lfn_MakeGenerationInfo = function(fieldarray, contents, generationattr, bUs
 	if (this.oContentsOrg.View.Model == null) {
 		this.oContentsOrg.View.Model = [];
 	}
-
+	
 	if (bUseComp) {
 		this.lfn_MakeUseFieldArray(fieldarray);
 	}
@@ -545,11 +539,12 @@ this.lfn_CalcAlignPos = function(sAlign, nParentSize, nSize)
  * Parameter    :
 				- sDatasetId : 데이터셋ID
 				- objFieldArr : 데이터셋으로 만들 Field 객체
-				- nRowCnt : 데이터셋 Row
+				- nRowCnt : 데이터셋 rowcount
+				- arrRows : 데이터셋 row 데이터 정보
  * Return       : 데이터셋 객체 Json 반환
  * Description  : 데이터셋 객체 Json 생성 함수
  *---------------------------------------------------------------------------------------------*/
-this.lfn_GetDataset = function(sDatasetId, objFieldArr, nRowCnt)
+this.lfn_GetDataset = function(sDatasetId, objFieldArr, nRowCnt, arrRows)
 {
 	var oDatasetInfo = {
             "tag": "Dataset",
@@ -565,7 +560,7 @@ this.lfn_GetDataset = function(sDatasetId, objFieldArr, nRowCnt)
                 "tag": "Rows",
                 "attribute": {},
                 //Load Row Information Setting Function
-                "Rows": this.lfn_GetDsRows(nRowCnt)
+                "Rows": this.lfn_GetDsRows(nRowCnt, arrRows)
             }]
         };
 
@@ -600,6 +595,7 @@ this.lfn_GetDsColumns = function(objFieldArr)
         oField = objFieldArr.fields[i];
 
         sFieldId 	= oField.id;
+		sLabel		= oField.label;
         sDataType 	= oField.datatype;
         sDataSize 	= oField.datasize;
 		sProp		= oField.prop;
@@ -616,6 +612,7 @@ this.lfn_GetDsColumns = function(objFieldArr)
 				}
 			};
 			
+			if(this.lfn_IsNotNull(sLabel))			oColumns[i]["attribute"]["description"] = sLabel;
 			if(this.lfn_IsNotNull(sProp))			oColumns[i]["attribute"]["prop"] = sProp;
 			if(this.lfn_IsNotNull(sSumText))		oColumns[i]["attribute"]["sumtext"] = sSumText;
 		}
@@ -631,7 +628,7 @@ this.lfn_GetDsColumns = function(objFieldArr)
  * Return       : dataset row(s) data
  * Description  : Function to generate <Row> source
  *---------------------------------------------------------------------------------------------*/
-this.lfn_GetDsRows = function(nRowCnt)
+this.lfn_GetDsRows = function(nRowCnt, arrRows)
 {
 	if (nRowCnt == null)		nRowCnt = 1;
 
@@ -639,12 +636,31 @@ this.lfn_GetDsRows = function(nRowCnt)
     var oRows = [];
     var oRow = [];
 
-    var oField;
-    var sFieldId;
+    var oRowInfo;
+	var oRowCol;
 
     for(i=0;i<nRowCnt;i++)
     {
         oRow = [];
+		
+		// Row 데이터 정보가 있는 경우 Row정보 생성
+		if (arrRows)
+		{
+			oRowInfo = arrRows[i];
+			
+			if (oRowInfo)
+			{
+				for(var oInfo in oRowInfo) {
+					oRowCol = {
+							"tag" : "Col",
+							"attribute" : {"id" : oInfo},
+							"value" : oRowInfo[oInfo]
+					};
+					
+					oRow.push(oRowCol);
+				}
+			}
+		}
 
         //Row정보 Rows에 추가
         oRows[i] = {"tag": "Row",    "attribute": {},"Row": oRow};
@@ -653,6 +669,201 @@ this.lfn_GetDsRows = function(nRowCnt)
     //Rows 정보 리턴
     return oRows;
 };
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetInnerDataset
+ * Parameter    :
+				- oFieldArray : model field data
+ * Return       : InnerDataset데이터셋 객체 Json Array 반환
+ * Description  : 모델의 innerdatasetinfo속성에 설정된 값 기준 데이터셋 객체 Json 생성 함수
+ ex) innerdatasetinfo 형식 예제
+  - 예제1) 컬럼 정보만 있는 경우
+		{
+			"columns":[{"id":"code","datatype":"STRING","innertype":"code"}
+						,{"id":"value","datatype":"STRING","innertype":"data"}]
+		}	
+  - 예제2) 컬럼, 데이터 있는 경우
+		{
+			"columns":[{"id":"code","datatype":"STRING","innertype":"code"}
+						,{"id":"value","datatype":"STRING","innertype":"data"}
+						,{"id":"etc1","datatype":"STRING","innertype":"none"}]
+			,"rows":[{"code":"00","value":"값1","etc1":"참고1"}
+					,{"code":"01","value":"값2","etc1":"참고2"}]
+		}
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetInnerDataset = function(objFieldArr)
+{
+	var oModels = this.oContents.View.Model;
+	
+	var oInnerDatasets = [];
+	
+	//모델 Field 개수 가져오기
+    var nCount = objFieldArr.fieldcount;
+	var nRowCount = 0;
+	
+	var oField;
+	var sFieldId, sFieldType, sDataType, sInnerInfo, sCodeField, sNameField;
+	var oInnerInfo, oColumnInfo, oRowInfo, oInfo;
+	var sInnerDatasetId, arrInnerField, oInnerDataset;
+	var arrInnerFields, oInnerField;
+	
+	var oFieldModel, oFieldComps, oFieldComp;
+	var sCompTag;
+	
+    //모델 Field 개수 만큼 컬럼 정보 만들기
+    for(i=0;i<nCount;i++)
+    {
+        oField = objFieldArr.fields[i];
+
+        sFieldId 	= oField.id;
+		sFieldType	= oField.fieldtype;
+        sDataType 	= oField.datatype;
+        sInnerInfo 	= oField.innerdatasetinfo;
+		
+		sInnerDatasetId = "";
+		sCodeField = "";
+		sNameField = "";
+		
+		if (this.lfn_IsNotNull(sInnerInfo))
+		{
+			if (sFieldType == "SelectOne" || sFieldType == "SelectAny")
+			{
+ 				oInnerInfo = JSON.parse(sInnerInfo.replace(/&quot;/g, '"'));
+				sInnerDatasetId = this.lfn_GetCompId("innerdataset" + "_" + sFieldId);
+				
+				oColumnInfo = oInnerInfo["columns"];
+				oRowInfo = oInnerInfo["rows"];
+				
+				if (oColumnInfo.length > 0)
+				{
+					arrInnerFields = new Array();
+					
+					// 1) InnerDataset 생성
+					// InnerDataset 컬럼정보 생성
+					for(j=0;j<oColumnInfo.length;j++)
+					{
+						oInfo = oColumnInfo[j];
+						
+						oInnerField = {
+							"id" : oInfo["id"]
+							, "datatype" : oInfo["datatype"] || "STRING"
+							, "datasize" : oInfo["datasize"] || "256"
+						};
+						
+						// InnerDataset code컬럼, name 컬럼 정보 설정
+						if (oInfo["innertype"] == "code") {
+							sCodeField = oInfo["id"];
+						} else if (oInfo["innertype"] == "data") {
+							sNameField = oInfo["id"];
+						}
+						
+						arrInnerFields.push(oInnerField);
+					}
+					
+					if (oRowInfo.length > 0)
+					{
+						nRowCount = oRowInfo.length;
+					}
+					
+					arrInnerField = {"fieldcount" : oColumnInfo.length, "fields" : arrInnerFields}
+					
+					// InnerDataset 객체정보 생성
+					oInnerDataset = this.lfn_GetDataset(sInnerDatasetId, arrInnerField, nRowCount, oRowInfo);
+					
+					// InnerDataset 반환정보에 추가
+					oInnerDatasets.push(oInnerDataset);
+					
+					// 2) 컴포넌트에 InnerDataset 설정
+					// fieldid에 해당하는 모델정보 찾기
+					oFieldModel = oModels.find(oModel => String("," + oModel.fieldid + ",").indexOf("," + sFieldId + ",") >= 0);
+					
+					// fieldid에 해당하는 모델에서 컴포넌트에 따라 Innerdataset 관련 속성 설정
+					if (oFieldModel)
+					{
+						oFieldComps = oFieldModel["Components"];
+						
+						for(k=0;k<oFieldComps.length;k++)
+						{
+							oFieldComp = oFieldComps[k];
+							sCompTag = oFieldComp["tag"];
+							
+							if (sCompTag == "Combo" || sCompTag == "Radio" || sCompTag == "ListBox")
+							{
+								oFieldComp["attribute"]["innerdataset"] = sInnerDatasetId;
+								
+								if (this.lfn_IsNotNull(sCodeField))	oFieldComp["attribute"]["codecolumn"] = sCodeField;
+								if (this.lfn_IsNotNull(sNameField))	oFieldComp["attribute"]["datacolumn"] = sNameField;
+							}
+							else if (sCompTag == "Grid")
+							{
+								// body 밴드에 InnerDataset 정보 셋팅
+								this.lfn_SetCellInnerDataset(oFieldComp, "body", this.oFieldCellInfo, sFieldId, sInnerDatasetId, sCodeField, sNameField);
+							}
+							else if (sCompTag == "ListView")
+							{
+								// body 밴드에 InnerDataset 정보 셋팅
+								this.lfn_SetCellInnerDataset(oFieldComp, "body", this.oFieldCellInfo, sFieldId, sInnerDatasetId, sCodeField, sNameField);
+								
+								// detail 밴드에 InnerDataset 정보 셋팅
+								this.lfn_SetCellInnerDataset(oFieldComp, "detail", this.oFieldCellInfo, sFieldId, sInnerDatasetId, sCodeField, sNameField);
+							}
+						}
+					}
+				}
+			}
+		}
+    }
+	
+	return oInnerDatasets;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_SetCellInnerDataset
+ * Parameter    :
+				- oComp : 대상 컴포넌트 컨텐츠 Json(Grid,ListView)
+				- sBand : 밴드유형
+				- oFieldCellInfo : Field별 Cell ID정보
+				- sFieldId : 설정할 Field ID
+				- sInnerDatasetId : InnerDataset 명
+				- sCodeField : InnerDataset Code Column ID
+				- sNameField : InnerDataset Name Column ID
+ * Return       : N/A
+ * Description  : Band에 InnerDataset 정보 셋팅 
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_SetCellInnerDataset = function(oComp, sBand, oFieldCellInfo, sFieldId, sInnerDatasetId, sCodeField, sNameField)
+{
+	var oFieldInfos, oFormat, oBand, oBandCells, oCell, oCellInfo;
+	
+	if (oFieldCellInfo.hasOwnProperty(sFieldId))
+	{
+		oFieldInfos = oFieldCellInfo[sFieldId][sBand];
+		
+		if (oFieldInfos.length > 0)
+		{
+			// Grid와 ListView 컴포넌트에서 Band객체 찾기
+			oFormat = oComp[oComp.tag][0]["Formats"][0]["Format"];
+			oBand = oFormat.find(oTag => oTag.tag == "Band" && oTag.attribute.id == sBand);
+			oBandCells = oBand["Band"];
+			
+			// Field별 Cell정보로 Cell에 Innerdataset관련 속성 설정
+			for(l=0;l<oFieldInfos.length;l++)
+			{
+				oCellInfo = oFieldInfos[l];
+				
+				oCell = oBandCells.find(oBandCell => oBandCell.attribute.id == oCellInfo.id);
+				
+				if (oCell.attribute.displaytype == "combotext" || oCell.attribute.displaytype == "combocontrol")
+				{
+					oCell["attribute"]["combodataset"] = sInnerDatasetId;
+		
+					if (this.lfn_IsNotNull(sCodeField))	oCell["attribute"]["combocodecol"] = sCodeField;
+					if (this.lfn_IsNotNull(sNameField))	oCell["attribute"]["combodatacol"] = sNameField;
+				}
+			}
+		
+		}
+	}
+}
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : lfn_GetBindItem
@@ -676,7 +887,7 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
         sCompId		= arrBindItem[i].compid;
 		sFieldId	= arrBindItem[i].fieldid;
         sCompType	= arrBindItem[i].comptype;
-
+		
 		if(sCompType=="static")
 		{
 			oBindItems[i] =
@@ -687,7 +898,19 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "text", "datasetid" : sBindDataset, "columnid" : sFieldId
 				}
 			}
-		}else
+		}
+		else if(sCompType=="imageviewer")
+		{
+			oBindItems[i] =
+			{
+				"tag" : "BindItem",
+				"attribute" :
+				{
+					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "image", "datasetid" : sBindDataset, "columnid" : sFieldId
+				}
+			}
+		}
+		else
 		{
 			oBindItems[i] =
 			{
@@ -706,7 +929,12 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
     return oBind;
 };
 
-
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_SetViewPadding
+ * Parameter    : N/A
+ * Return       : N/A
+ * Description  : viewpadding값 기준으로 view padding 전역변수 설정
+ *---------------------------------------------------------------------------------------------*/
 this.lfn_SetViewPadding = function()
 {
 	var sViewPadding = "";

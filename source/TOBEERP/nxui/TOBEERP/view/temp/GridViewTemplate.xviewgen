@@ -909,6 +909,9 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
     var sFieldId = "";
     var sLabel = "";
     var sCssClass;
+	var sCellId = "";
+	
+	var oCellInfo = [];
 
 	//If Layout is Set Up
 	if(oBaseLayout)
@@ -957,16 +960,29 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
 					//Set text value as label if there is text property value
 					if(sCellText)sLabel = sCellText;
 				}
-
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_head_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["head"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan});
+				
 				//Add Cell Tag on Head Band
 				oHeads[oHeads.length] =
 				{
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+nCol+"_"+nRow+"_"+sFieldId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan, "text": sLabel, "cssclass" : sCssClass
+						"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan, "text": sLabel, "cssclass" : sCssClass
 					}
 				};
+				
+				
 			}
 		}
 	}
@@ -985,13 +1001,26 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
 
 				sFieldId = oField.id;
 				sLabel = oField.label;
+				nCol = oHeads.length;
+				nRow = 0;
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_head_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["head"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow});
 
 				oHeads[oHeads.length] =
 				{
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+sFieldId, "col": oHeads.length, "row": 0, "text": sLabel
+						"id": sCellId, "col": nCol, "row": nRow, "text": sLabel
 					}
 				};
 			}
@@ -1030,6 +1059,9 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 	var sEditType;
 	var sCssClass = "";
 	var sCellCssClass = "";
+	var sCellId = "";
+	
+	var oCellInfo = [];
 
 	//If Layout is Set Up
 	if(oBaseLayout)
@@ -1113,6 +1145,17 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 				}
 
 				if(sCellCssClass)sCssClass = sCellCssClass;
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_body_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["body"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan});
 
 				//Add Cell Tag on Body Band
 				oBodys[oBodys.length] =
@@ -1120,7 +1163,7 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+nCol+"_"+nRow+"_"+sFieldId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan
+						"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan
 						, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
 					}
 				};
@@ -1145,12 +1188,26 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 				sDisplayType = oField.displaytype;
 				sEditType = oField.edittype;
 				sCssClass = oField.cssclass;
+				nCol = oBodys.length;
+				nRow = 0;
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_body_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["body"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow});
+				
 				oBodys[oBodys.length] =
 				{
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+sFieldId, "col": oBodys.length, "row": 0, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
+						"id": sCellId, "col": nCol, "row": nRow, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
 					}
 				};
 			}
@@ -1188,7 +1245,10 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
     var sLabel = "";
     var sSummProp;
 	var sCssClass = "";
-
+	var sCellId = "";
+	
+	var oCellInfo = [];
+	
 	//If Layout is Set Up
 	if(oBaseLayout)
 	{
@@ -1263,6 +1323,17 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 					//Set text value as label if there is text property value
 					if(sCellText)sLabel = sCellText;
 				}
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_summ_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["summ"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan});
 
 				//Add Cell Tag on Summ Band
 				oSumms[oSumms.length] =
@@ -1270,7 +1341,7 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+nCol+"_"+nRow+"_"+sFieldId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan, "text" : sLabel, "cssclass" : sCssClass
+						"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan, "text" : sLabel, "cssclass" : sCssClass
 					}
 				};
 			}
@@ -1291,13 +1362,26 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 
 				sFieldId = oField.id;
 				sLabel = oField.label;
+				nCol = oSumms.length;
+				nRow = 0;
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_summ_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["summ"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow});
 
 				oSumms[oSumms.length] =
 				{
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+sFieldId, "col": oSumms.length, "row": 0, "text" : ""
+						"id": "cell_summ_"+sFieldId, "col": nCol, "row": nRow, "text" : ""
 					}
 				};
 			}
@@ -1352,15 +1436,21 @@ fn_GetInitValue = function()
 fn_GetObjects = function()
 {
     //Initialize Object
-    var oObjects = [];
+	var oObjects = [];
+	var oInner = [];
 
-    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 0);
+	var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 0);
 
-    //Object Information Setting
-    oObjects.push(oViewDataset);
+	//Object Information Setting
+	oObjects.push(oViewDataset);
 
-    //Return Object Information
-    return oObjects;
+	// InnerDataset 정보
+	oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+
+	oObjects = oObjects.concat(oInner);
+
+	//Return Object Information
+	return oObjects;
 };
 
 /*---------------------------------------------------------------------------------------------*
