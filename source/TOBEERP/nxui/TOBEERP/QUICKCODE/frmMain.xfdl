@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmMain" width="1120" height="790" titletext="메인" onload="form_onload" cssclass="frm_mainBg">
+    <Layouts>
+      <Layout height="790" width="1120">
+        <View id="viewDeal" taborder="0" top="20" height="318" cssclass="viw_WF_box" width="345" left="20" viewdataset="viewdataset">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="20" top="20" height="40" right="20">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="25" width="120" text="거래 원장 (최근 5건)" fittocontents="width" cssclass="sta_WF_title02"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="20" top="60" right="20" bottom="17" binddataset="viewdataset" autofittype="col" cssclass="grid_WF_table">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="70" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="70" band="body"/>
+                      <Column size="90" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="40" band="head"/>
+                      <Row size="40" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_DEAL_TYPE" col="0" row="0" text="구분"/>
+                      <Cell id="cell_head_1_0_CUSTOMER_NAME" col="1" row="0" text="상호명"/>
+                      <Cell id="cell_head_2_0_TOTAL_PRICE" col="2" row="0" text="금액"/>
+                      <Cell id="cell_head_3_0_DEAL_DATE" col="3" row="0" text="거래날짜"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_DEAL_TYPE" col="0" row="0" text="bind:DEAL_TYPE" displaytype="normal" edittype="none" cssclass="expr:DEAL_TYPE == &quot;매입거래&quot; ? &quot;grd_WF_red&quot; : &quot;grd_WF_blue&quot; "/>
+                      <Cell id="cell_body_1_0_CUSTOMER_NAME" col="1" row="0" text="bind:CUSTOMER_NAME" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_2_0_TOTAL_PRICE" col="2" row="0" text="bind:TOTAL_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell id="cell_body_3_0_DEAL_DATE" col="3" row="0" text="bind:DEAL_DATE" displaytype="date" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="DEAL_CODE" type="STRING" size="80" description="거래코드"/>
+                <Column id="DEAL_TYPE" type="STRING" size="80" description="구분"/>
+                <Column id="CUSTOMER_NAME" type="STRING" size="80" description="상호명"/>
+                <Column id="TOTAL_PRICE" type="STRING" size="80" description="금액"/>
+                <Column id="DEAL_DATE" type="STRING" size="80" description="거래날짜"/>
+                <Column id="ADD_IN_TAX" type="STRING" size="80" description="단가액 세액포함"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="getmainlist" modelid="dsdeal" filepath="UI_TEST\main\getmainlist.xmodel">
+            <Fields>
+              <Field id="ADD_IN_TAX" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_CODE" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_TYPE" label="구분" description="" displaytype="normal" edittype="none" fieldwidth="70" cssclass="expr:DEAL_TYPE == &quot;매입거래&quot; ? &quot;grd_WF_red&quot; : &quot;grd_WF_blue&quot; " summprop="none" usecomp="true"/>
+              <Field id="CUSTOMER_NAME" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="TOTAL_PRICE" label="금액" description="" displaytype="currency" edittype="none" fieldwidth="70" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DEAL_DATE" label="거래날짜" description="" displaytype="date" edittype="none" fieldwidth="90" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="DEAL_TYPE,CUSTOMER_NAME,TOTAL_PRICE,DEAL_DATE"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="거래 원장 (최근 5건)"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="40"/>
+            <Attribute id="bodybandsize" value="40"/>
+            <Attribute id="summbandsize" value="-1"/>
+            <Attribute id="viewpadding" value="20 20 17"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewEstimate" taborder="1" top="20" height="318" cssclass="viw_WF_box" left="387" right="388" viewdataset="viewdataset">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="20" top="20" height="40" right="20">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="25" width="120" text="최근 견적사항" fittocontents="width" cssclass="sta_WF_title02"/>
+                    <Static id="staMore" taborder="1" text="더보기" top="0" height="25" right="0" cssclass="sta_WF_more" width="50" onclick="divEstimate_staMore_onclick"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="20" top="60" right="20" bottom="17" binddataset="viewdataset" cssclass="grid_WF_table" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="90" band="body"/>
+                      <Column size="70" band="body"/>
+                      <Column size="100" band="body"/>
+                      <Column size="55" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="40" band="head"/>
+                      <Row size="40" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_ESTIMATE_DATE" col="0" row="0" text="견적일"/>
+                      <Cell id="cell_head_1_0_ESTIMATE_TYPE" col="1" row="0" text="구분"/>
+                      <Cell id="cell_head_2_0_CORPORATE_NAME" col="2" row="0" text="상호명"/>
+                      <Cell id="cell_head_3_0_ESTIMATE_STATUS" col="3" row="0" text="상태"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_ESTIMATE_DATE" col="0" row="0" text="bind:ESTIMATE_DATE" displaytype="date" edittype="none"/>
+                      <Cell id="cell_body_1_0_ESTIMATE_TYPE" col="1" row="0" text="bind:ESTIMATE_TYPE" displaytype="combotext" edittype="none" cssclass="expr:ESTIMATE_TYPE == &quot;pS&quot; ? &quot;grd_WF_red&quot; : &quot;grd_WF_blue&quot;" combodataset="innerdatasetEstimateType" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_2_0_CORPORATE_NAME" col="2" row="0" text="bind:CORPORATE_NAME" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_3_0_ESTIMATE_STATUS" col="3" row="0" text="bind:ESTIMATE_STATUS" displaytype="combotext" edittype="none" combodataset="innerdatasetEstimateStatus" combocodecol="code" combodatacol="value"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ESTIMATE_DATE" type="STRING" size="80" description="견적일"/>
+                <Column id="ESTIMATE_TYPE" type="STRING" size="80" description="구분"/>
+                <Column id="CORPORATE_NAME" type="STRING" size="80" description="상호명"/>
+                <Column id="ESTIMATE_STATUS" type="STRING" size="80" description="상태"/>
+                <Column id="SALESMAN_CODE" type="STRING" size="80" description="직원코드"/>
+                <Column id="CUSTOMER_CODE" type="STRING" size="80" description="거래처코드"/>
+                <Column id="ESTIMATE_TITLE" type="STRING" size="80" description="견적제목"/>
+                <Column id="EXPIRY_TERM" type="STRING" size="80" description="유효기간코드"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetEstimateType">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">lS</Col>
+                  <Col id="value">매출</Col>
+                </Row>
+                <Row>
+                  <Col id="code">pS</Col>
+                  <Col id="value">매입</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetEstimateStatus">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">00</Col>
+                  <Col id="value">작성</Col>
+                </Row>
+                <Row>
+                  <Col id="code">01</Col>
+                  <Col id="value">요청</Col>
+                </Row>
+                <Row>
+                  <Col id="code">02</Col>
+                  <Col id="value">승인</Col>
+                </Row>
+                <Row>
+                  <Col id="code">03</Col>
+                  <Col id="value">반려</Col>
+                </Row>
+                <Row>
+                  <Col id="code">04</Col>
+                  <Col id="value">취소</Col>
+                </Row>
+                <Row>
+                  <Col id="code">05</Col>
+                  <Col id="value">완료</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="getmainlist" modelid="dsestimate" filepath="UI_TEST\main\getmainlist.xmodel">
+            <Fields>
+              <Field id="EXPIRY_TERM" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ESTIMATE_TITLE" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CUSTOMER_CODE" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SALESMAN_CODE" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ESTIMATE_DATE" description="" displaytype="date" edittype="none" fieldwidth="90" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ESTIMATE_TYPE" label="구분" description="" displaytype="combotext" edittype="none" fieldwidth="70" cssclass="expr:ESTIMATE_TYPE == &quot;pS&quot; ? &quot;grd_WF_red&quot; : &quot;grd_WF_blue&quot;" summprop="none" usecomp="true"/>
+              <Field id="CORPORATE_NAME" label="상호명" description="" displaytype="normal" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ESTIMATE_STATUS" label="상태" description="" displaytype="combotext" edittype="none" fieldwidth="55" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="ESTIMATE_DATE,ESTIMATE_TYPE,CORPORATE_NAME,ESTIMATE_STATUS"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="최근 견적사항"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="40"/>
+            <Attribute id="bodybandsize" value="40"/>
+            <Attribute id="summbandsize" value="-1"/>
+            <Attribute id="viewpadding" value="20 20 17"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewCustomerSales" taborder="2" top="20" height="318" cssclass="viw_WF_box" right="21" width="345" viewdataset="viewdataset">
+          <Layouts>
+            <Layout>
+              <PieChart id="chart" left="20" top="12" right="20" bottom="0" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:CUSTOMER">
+                <Contents><![CDATA[{
+	"title": {
+		"id": "title",
+		"textfont": "normal 700 17px/normal 'Arial,Malgun Gothic,Gulim'",
+		"padding": "0px 0px 5px",
+		"subtextcolor": "gray",
+		"subtextfont": "italic 8/normal 'Arial'",
+		"visible": true,
+		"text": "거래처별 판매현황(판매금액기준)",
+		"align": "topleft"
+	},
+	"legend": {
+		"id": "legend",
+		"padding": "3px 10px 3px 10px",
+		"itemtextfont": "9pt '맑은 고딕'",
+		"itemtextcolor": "#4c4c4c",
+		"itemautofit": "true",
+		"markertextgap": "5",
+		"markertype": "circle",
+		"verticalitemgap": "5",
+		"linestyle": "0px none",
+		"visible": true,
+		"align": "righttop"
+	},
+	"tooltip": {
+		"id": "tooltip",
+		"background": "#4b4b4b",
+		"linestyle": "0px none",
+		"textcolor": "white",
+		"textfont": "10pt/normal '맑은 고딕'",
+		"padding": "5px"
+	},
+	"board": {
+		"id": "board"
+	},
+	"seriesset": [
+		{
+			"radius": "70",
+			"opacity": "0.8",
+			"linestyle": "1px solid #ffffff",
+			"itemtextvisible": true,
+			"itemtextfont": "normal 12/normal '맑은 고딕'",
+			"itemtextguidelinestyle": "1px solid darkgray",
+			"itemtextguideopacity": "1",
+			"itemtextguidesize": "20",
+			"selectindent": "20",
+			"highlightvisible": true,
+			"highlightradius": "70",
+			"highlightopacity": "0.3",
+			"highlightfillstyle": "#ffffff",
+			"highlightlinestyle": "1px solid #ffffff",
+			"id": "seriesTotalPrice",
+			"titletext": "판매금액",
+			"valuecolumn": "bind:TOTAL_PRICE",
+			"fillstyle": "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+			"itemtexttype": "normal",
+			"tooltiptext": "expr:CUSTOMER + \"\\n\" + \"판매비율 : \" + parseInt(TOTAL_PRICE/dataset.getSum(\"TOTAL_PRICE\")*100) + \"%\\n\" + \"판매금액 : \" + nexacro.toNumber(TOTAL_PRICE)",
+			"itemtext": "expr:parseInt(TOTAL_PRICE/dataset.getSum(\"TOTAL_PRICE\")*100) + \"%\""
+		}
+	]
+}]]></Contents>
+              </PieChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="CUSTOMER" type="STRING" size="256" description="거래처명"/>
+                <Column id="TOTAL_PRICE" type="INT" size="256" description="판매금액"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="getmainlist" modelid="dssalescustomer" filepath="UI_TEST\main\getmainlist.xmodel">
+            <Fields>
+              <Field id="CUSTOMER" description="" displaytype="category"/>
+              <Field id="TOTAL_PRICE" description="" displaytype="series"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="CUSTOMER,TOTAL_PRICE"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="PieChartViewTemplate.xviewgen">
+            <Attribute id="charttype" value="pie"/>
+            <Attribute id="chartdisplay" value="circle"/>
+            <Attribute id="innerradius" value="50"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titletext" value="거래처별 판매현황(판매금액기준)"/>
+            <Attribute id="titlealign" value="topleft"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="viewpadding" value="12 20 0"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewSales" taborder="3" left="20" top="359" cssclass="viw_WF_box" right="21" bottom="20" viewdataset="viewdataset">
+          <Layouts>
+            <Layout>
+              <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:DT_YYYYMM" titlespacing="0px 0px 10px">
+                <Contents><![CDATA[{
+	"title": {
+		"id": "title",
+		"textfont": "normal 700 17px/normal 'Arial,Malgun Gothic,Gulim'",
+		"padding": "0px 0px 5px",
+		"subtextcolor": "gray",
+		"subtextfont": "italic 8/normal 'Arial'",
+		"visible": true,
+		"text": "1년간 매출/매입 현황",
+		"align": "topleft"
+	},
+	"legend": {
+		"id": "legend",
+		"padding": "3px 10px 3px 10px",
+		"itemtextfont": "9pt '맑은 고딕'",
+		"itemtextcolor": "#4c4c4c",
+		"itemautofit": "true",
+		"markertextgap": "5",
+		"markertype": "circle",
+		"verticalitemgap": "5",
+		"linestyle": "0px none",
+		"visible": true,
+		"align": "bottomcenter"
+	},
+	"tooltip": {
+		"id": "tooltip",
+		"background": "#4b4b4b",
+		"linestyle": "0px none",
+		"textcolor": "white",
+		"textfont": "10pt/normal '맑은 고딕'",
+		"padding": "5px"
+	},
+	"board": {
+		"id": "board"
+	},
+	"categoryaxis": {
+		"id": "categoryaxis",
+		"titletextcolor": "#4c4c4c",
+		"titletextfont": "bold 8pt '맑은 고딕'",
+		"titletextalign": "high",
+		"titlegap": "5",
+		"labeltextcolor": "#6f6f6f",
+		"labeltextfont": "9pt '맑은 고딕'",
+		"axislinestyle": "1px solid #525252",
+		"ticklinestyle": "1px solid #525252",
+		"boardlinestyle": "1px solid #d0d0d0",
+		"ticksize": "5",
+		"labelgap": "5",
+		"titletext": "",
+		"labelmask": "",
+		"labeltype": "normal"
+	},
+	"valueaxes": [
+		{
+			"id": "valueaxisy",
+			"boardlinevisible": true,
+			"boardlinestyle": "1px solid #d0d0d0",
+			"labeltextcolor": "#6f6f6f",
+			"labeltextfont": "9pt/normal '맑은 고딕'",
+			"titletextcolor": "#4c4c4c",
+			"titletextfont": "bold 8pt '맑은 고딕'",
+			"titlerotate": "0",
+			"titletextalign": "high",
+			"titlegap": "5",
+			"ticklinestyle": "1px solid #525252",
+			"axislinestyle": "1px solid #525252",
+			"labelgap": "5",
+			"ticksize": "5",
+			"autotickscale": "10",
+			"titletext": "(단위:원)",
+			"labelmask": "",
+			"labeltype": "number"
+		}
+	],
+	"seriesset": [
+		{
+			"barvisible": true,
+			"barsize": "75",
+			"barlinestyle": "1px solid",
+			"itemtextcolor": "#4c4c4c",
+			"itemtextfont": "normal 10/normal '맑은 고딕'",
+			"baritemtextgap": 5,
+			"id": "seriesSalesAmount",
+			"titletext": "매출액",
+			"valuecolumn": "bind:SALES_AMOUNT",
+			"barfillstyle": "#1f77b4",
+			"linestyle": "1px solid #1f77b4",
+			"lineareafillstyle": "#1f77b4",
+			"pointfillstyle": "#1f77b4",
+			"itemtextvisible": false,
+			"tooltiptext": "expr:\"매출액 : \" + SALES_AMOUNT + \"\\n\" + \"매입액 : \" + PURCHASE_AMOUNT + \"\\n\" + \"수금액 : \" + RECEIPT_AMOUNT "
+		},
+		{
+			"barvisible": true,
+			"barsize": "75",
+			"barlinestyle": "1px solid",
+			"itemtextcolor": "#4c4c4c",
+			"itemtextfont": "normal 10/normal '맑은 고딕'",
+			"baritemtextgap": 5,
+			"id": "seriesReceiptAmount",
+			"titletext": "수금액",
+			"valuecolumn": "bind:RECEIPT_AMOUNT",
+			"barfillstyle": "#ff7f0e",
+			"linestyle": "1px solid #ff7f0e",
+			"lineareafillstyle": "#ff7f0e",
+			"pointfillstyle": "#ff7f0e",
+			"itemtextvisible": false,
+			"tooltiptext": "expr:\"매출액 : \" + SALES_AMOUNT + \"\\n\" + \"매입액 : \" + PURCHASE_AMOUNT + \"\\n\" + \"수금액 : \" + RECEIPT_AMOUNT "
+		},
+		{
+			"barvisible": false,
+			"linevisible": true,
+			"pointsize": "7",
+			"pointlinestyle": "0px solid",
+			"itemtextcolor": "#4c4c4c",
+			"itemtextfont": "normal 10/normal '맑은 고딕'",
+			"lineitemtextgap": 5,
+			"pointitemtextgap": 5,
+			"id": "seriesPurchaseAmount",
+			"titletext": "매입액",
+			"valuecolumn": "bind:PURCHASE_AMOUNT",
+			"linetype": "segment",
+			"barfillstyle": "#2ca02c",
+			"linestyle": "1px solid #2ca02c",
+			"lineareafillstyle": "#2ca02c",
+			"pointfillstyle": "#2ca02c",
+			"itemtextvisible": false
+		}
+	]
+}]]></Contents>
+              </BasicChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="DT_YYYYMM" type="STRING" size="256" description="년월"/>
+                <Column id="SALES_AMOUNT" type="INT" size="256" description="매출액"/>
+                <Column id="PURCHASE_AMOUNT" type="INT" size="256" description="매입액"/>
+                <Column id="RECEIPT_AMOUNT" type="INT" size="256" description="수금액"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="getmainlist" modelid="dssales" filepath="UI_TEST\main\getmainlist.xmodel">
+            <Fields>
+              <Field id="DT_YYYYMM" description="" displaytype="category" seriesdisplay="bar" linetype="segment" valueaxes="y"/>
+              <Field id="SALES_AMOUNT" description="" displaytype="series" seriesdisplay="bar" linetype="segment" valueaxes="y"/>
+              <Field id="PURCHASE_AMOUNT" description="" displaytype="series" seriesdisplay="line" linetype="segment" valueaxes="y"/>
+              <Field id="RECEIPT_AMOUNT" description="" displaytype="series" seriesdisplay="bar" linetype="segment" valueaxes="y"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="DT_YYYYMM,SALES_AMOUNT,PURCHASE_AMOUNT,RECEIPT_AMOUNT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="CombinationChartViewTemplate.xviewgen">
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titletext" value="1년간 매출/매입 현황"/>
+            <Attribute id="titlealign" value="topleft"/>
+            <Attribute id="legendposition" value="bottomcenter"/>
+            <Attribute id="valueaxistitletext" value="(단위:원)"/>
+            <Attribute id="baritemtextposition" value="none"/>
+            <Attribute id="lineareaitemtextposition" value="none"/>
+            <Attribute id="viewpadding" value="20"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
+    <Objects>
+      <SearchDBAction id="SearchDBAction00" servicemodel="getmainlist" serviceurl="IP::getmainlist.jsp" outputdatasets="viewDeal.form.viewdataset=dsdeal viewEstimate.form.viewdataset=dsestimate viewSales.form.viewdataset=dssales viewCustomerSales.form.viewdataset=dssalescustomer">
+        <Contents/>
+      </SearchDBAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="frmMain" triggerobj="frmMain" targetaction="SearchDBAction00" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>

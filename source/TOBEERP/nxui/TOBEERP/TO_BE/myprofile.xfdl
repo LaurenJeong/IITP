@@ -1,188 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="myprofile" width="1120" height="650" titletext="자사정보" onload="form_onload">
+  <Form id="myprofile" width="1120" height="650" titletext="내정보" onload="myprofile_onload">
     <Layouts>
-      <Layout height="650" width="1120">
-        <View id="viewMaster" taborder="0" text="viewMaster" viewdataset="viewdataset" left="10" top="54" right="10" bottom="10">
-          <Layouts>
-            <Layout>
-              <Static id="staCorporatePostalCodeBg00" left="550" top="234" width="550" height="193" cssclass="sta_cm_box02L" taborder="42"/>
-              <Static id="staBusinessLicenseNumBg" left="0" top="0" width="1100" height="40" cssclass="sta_cm_box02L"/>
-              <Static id="staBusinessLicenseNumLabel" left="0" top="0" width="180" height="40" text="사업자등록번호" cssclass="sta_WF_titleStar"/>
-              <Edit id="edtBusinessLicenseNum" left="185" top="6" width="320" height="28"/>
-              <Static id="staCorporateNameLabel" left="550" top="0" width="180" height="40" text="상호명" cssclass="sta_WF_titleStar"/>
-              <Edit id="edtCorporateName" left="735" top="6" width="320" height="28"/>
-              <Static id="staCompanyNameBg" left="0" top="39" width="1100" height="40" cssclass="sta_cm_box02L"/>
-              <Static id="staCompanyNameLabel" left="0" top="39" width="180" height="40" text="회사명" cssclass="sta_WF_titleStar"/>
-              <Edit id="edtCompanyName" left="185" top="45" width="320" height="28"/>
-              <Static id="staBusinessConditionLabel" left="550" top="39" width="180" height="40" text="업태" cssclass="sta_WF_titleStar"/>
-              <Edit id="edtBusinessCondition" left="735" top="45" width="320" height="28"/>
-              <Static id="staRepresentativeNameBg" left="0" top="78" width="1100" height="40" cssclass="sta_cm_box02L"/>
-              <Static id="staRepresentativeNameLabel" left="0" top="78" width="180" height="40" text="대표자" cssclass="sta_WF_titleStar"/>
-              <Edit id="edtRepresentativeName" left="185" top="84" width="320" height="28"/>
-              <Static id="staBusinessTypeLabel" left="550" top="78" width="180" height="40" text="종목" cssclass="sta_WF_titleStar"/>
-              <Edit id="edtBusinessType" left="735" top="84" width="320" height="28"/>
-              <Static id="staRepresentativeSocialNumBg" left="0" top="117" width="1100" height="40" cssclass="sta_cm_box02L"/>
-              <Static id="staRepresentativeSocialNumLabel" left="0" top="117" width="180" height="40" text="주민등록번호" cssclass="sta_WF_titleStar"/>
-              <MaskEdit id="mskRepresentativeSocialNum" left="185" top="123" width="320" height="28" type="string" format="@@@@@@-@{@@@@@@}"/>
-              <Static id="staCorporateAreaLabel" left="550" top="117" width="180" height="40" text="지역" cssclass="sta_cm_box01L"/>
-              <Combo id="cmbCorporateArea" left="735" top="123" width="320" height="28" innerdataset="innerdatasetCorporateArea" codecolumn="code" datacolumn="value"/>
-              <Static id="staCorporateTelnumBg" left="0" top="156" width="1100" height="40" cssclass="sta_cm_box02L"/>
-              <Static id="staCorporateTelnumLabel" left="0" top="156" width="180" height="40" text="전화번호" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskCorporateTelnum" left="185" top="162" width="320" height="28" type="string" format="@@-@@@@-@@@@"/>
-              <Static id="staCorporateFaxnumLabel" left="550" top="156" width="180" height="40" text="팩스" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskCorporateFaxnum" left="735" top="162" width="320" height="28" type="string" format="@@-@@@@-@@@@"/>
-              <Static id="staCorporateEmailBg" left="0" top="195" width="1100" height="40" cssclass="sta_cm_box02L"/>
-              <Static id="staCorporateEmailLabel" left="0" top="195" width="180" height="40" text="이메일" cssclass="sta_cm_box01L"/>
-              <Edit id="edtCorporateEmail" left="185" top="201" width="320" height="28"/>
-              <Static id="staCorporateHomepageLabel" left="550" top="195" width="180" height="40" text="홈페이지" cssclass="sta_cm_box01L"/>
-              <Edit id="edtCorporateHomepage" left="735" top="201" width="320" height="28"/>
-              <Static id="staCorporatePostalCodeBg" left="0" top="234" width="550" height="110" cssclass="sta_cm_box02L"/>
-              <Static id="staCorporatePostalCodeLabel" left="0" top="234" width="180" height="110" text="주소" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskCorporatePostalCode" left="185" top="240" width="244" height="28"/>
-              <Edit id="edtCorporateAdress1" left="185" top="273" width="320" height="28"/>
-              <Edit id="edtCorporateAdress2" left="185" top="306" width="320" height="28"/>
-              <Static id="staOfficailSealFileLabel" left="550" top="234" width="180" height="193" text="직인" cssclass="sta_cm_box01L"/>
-              <ImageViewer id="imgOfficailSealFile" left="735" top="240" width="114" height="138"/>
-              <Static id="staMemoBg" left="0" top="343" width="550" height="83" cssclass="sta_cm_box02L"/>
-              <Static id="staMemoLabel" left="0" top="343" width="180" height="83" text="메모" cssclass="sta_cm_box01L"/>
-              <Edit id="edtMemo" left="185" top="350" width="320" height="69"/>
-              <Button id="Button03" taborder="40" text="우편번호" left="435" top="240" width="70" height="28" cssclass="btn_cm_basic01" enable="false"/>
-              <Button id="btnSelectSeal" taborder="41" text="직인선택" top="386" width="114" height="33" left="735" cssclass="btn_cm_basic01" enable="false"/>
-            </Layout>
-          </Layouts>
-          <Objects>
-            <Dataset id="viewdataset">
-              <ColumnInfo>
-                <Column id="BUSINESS_LICENSE_NUM" type="STRING" size="80" description="사업자등록번호"/>
-                <Column id="CORPORATE_NAME" type="STRING" size="80" description="상호명"/>
-                <Column id="COMPANY_NAME" type="STRING" size="80" description="회사명"/>
-                <Column id="REPRESENTATIVE_NAME" type="STRING" size="80" description="대표자"/>
-                <Column id="REPRESENTATIVE_SOCIAL_NUM" type="STRING" size="80" description="주민등록번호"/>
-                <Column id="BUSINESS_CONDITION" type="STRING" size="80" description="업태"/>
-                <Column id="BUSINESS_TYPE" type="STRING" size="80" description="종목"/>
-                <Column id="CORPORATE_AREA" type="STRING" size="80" description="지역"/>
-                <Column id="CORPORATE_EMAIL" type="STRING" size="80" description="이메일"/>
-                <Column id="CORPORATE_HOMEPAGE" type="STRING" size="80" description="홈페이지"/>
-                <Column id="CORPORATE_TELNUM" type="STRING" size="80" description="전화번호"/>
-                <Column id="CORPORATE_FAXNUM" type="STRING" size="80" description="팩스"/>
-                <Column id="CORPORATE_POSTAL_CODE" type="STRING" size="80" description="주소"/>
-                <Column id="CORPORATE_ADRESS1" type="STRING" size="80" description="주소"/>
-                <Column id="CORPORATE_ADRESS2" type="STRING" size="80" description="상세주소"/>
-                <Column id="MEMO" type="STRING" size="80" description="메모"/>
-                <Column id="OFFICAIL_SEAL_FILE" type="STRING" size="80" description="직인"/>
-              </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
-            </Dataset>
-            <Dataset id="innerdatasetCorporateArea">
-              <ColumnInfo>
-                <Column id="code" type="STRING" size="256"/>
-                <Column id="value" type="STRING" size="256"/>
-              </ColumnInfo>
-              <Rows/>
-            </Dataset>
-          </Objects>
-          <Bind>
-            <BindItem id="bind_edtBusinessLicenseNum" compid="edtBusinessLicenseNum" propid="value" datasetid="viewdataset" columnid="BUSINESS_LICENSE_NUM"/>
-            <BindItem id="bind_edtCorporateName" compid="edtCorporateName" propid="value" datasetid="viewdataset" columnid="CORPORATE_NAME"/>
-            <BindItem id="bind_edtCompanyName" compid="edtCompanyName" propid="value" datasetid="viewdataset" columnid="COMPANY_NAME"/>
-            <BindItem id="bind_edtBusinessCondition" compid="edtBusinessCondition" propid="value" datasetid="viewdataset" columnid="BUSINESS_CONDITION"/>
-            <BindItem id="bind_edtRepresentativeName" compid="edtRepresentativeName" propid="value" datasetid="viewdataset" columnid="REPRESENTATIVE_NAME"/>
-            <BindItem id="bind_edtBusinessType" compid="edtBusinessType" propid="value" datasetid="viewdataset" columnid="BUSINESS_TYPE"/>
-            <BindItem id="bind_mskRepresentativeSocialNum" compid="mskRepresentativeSocialNum" propid="value" datasetid="viewdataset" columnid="REPRESENTATIVE_SOCIAL_NUM"/>
-            <BindItem id="bind_cmbCorporateArea" compid="cmbCorporateArea" propid="value" datasetid="viewdataset" columnid="CORPORATE_AREA"/>
-            <BindItem id="bind_mskCorporateTelnum" compid="mskCorporateTelnum" propid="value" datasetid="viewdataset" columnid="CORPORATE_TELNUM"/>
-            <BindItem id="bind_mskCorporateFaxnum" compid="mskCorporateFaxnum" propid="value" datasetid="viewdataset" columnid="CORPORATE_FAXNUM"/>
-            <BindItem id="bind_edtCorporateEmail" compid="edtCorporateEmail" propid="value" datasetid="viewdataset" columnid="CORPORATE_EMAIL"/>
-            <BindItem id="bind_edtCorporateHomepage" compid="edtCorporateHomepage" propid="value" datasetid="viewdataset" columnid="CORPORATE_HOMEPAGE"/>
-            <BindItem id="bind_mskCorporatePostalCode" compid="mskCorporatePostalCode" propid="value" datasetid="viewdataset" columnid="CORPORATE_POSTAL_CODE"/>
-            <BindItem id="bind_edtCorporateAdress1" compid="edtCorporateAdress1" propid="value" datasetid="viewdataset" columnid="CORPORATE_ADRESS1"/>
-            <BindItem id="bind_edtCorporateAdress2" compid="edtCorporateAdress2" propid="value" datasetid="viewdataset" columnid="CORPORATE_ADRESS2"/>
-            <BindItem id="bind_imgOfficailSealFile" compid="imgOfficailSealFile" propid="image" datasetid="viewdataset" columnid="OFFICAIL_SEAL_FILE"/>
-            <BindItem id="bind_edtMemo" compid="edtMemo" propid="value" datasetid="viewdataset" columnid="MEMO"/>
-          </Bind>
-          <ModelInfo modelserviceid="model" serviceid="getmyinfo" modelid="dsmyinfo" filepath="UI_TEST\myprofile\getmyinfo.xmodel">
-            <Fields>
-              <Field id="BUSINESS_LICENSE_NUM" description="" comptype="edit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="CORPORATE_NAME" description="" comptype="edit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="COMPANY_NAME" description="" comptype="edit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="BUSINESS_CONDITION" description="" comptype="edit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="REPRESENTATIVE_NAME" label="대표자" description="" comptype="edit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="BUSINESS_TYPE" description="" comptype="edit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="REPRESENTATIVE_SOCIAL_NUM" label="주민등록번호" description="" comptype="maskedit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="CORPORATE_AREA" description="" comptype="combo" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="CORPORATE_TELNUM" description="" comptype="maskedit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="CORPORATE_FAXNUM" label="팩스" description="" comptype="maskedit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="CORPORATE_EMAIL" description="" comptype="edit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="CORPORATE_HOMEPAGE" description="" comptype="edit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="CORPORATE_POSTAL_CODE" label="주소" description="" comptype="maskedit" fieldwidth="254" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="CORPORATE_ADRESS1" description="" comptype="edit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="CORPORATE_ADRESS2" description="" comptype="edit" fieldwidth="330" fieldheight="40px" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="OFFICAIL_SEAL_FILE" label="직인" description="" comptype="imageviewer" fieldwidth="124" fieldheight="150" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="MEMO" description="" comptype="edit" fieldwidth="330" fieldheight="81" labelwidth="180" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-            </Fields>
-            <Components>
-              <Component id="staBusinessLicenseNumBg" fields="BUSINESS_LICENSE_NUM"/>
-              <Component id="staBusinessLicenseNumLabel" fields="BUSINESS_LICENSE_NUM"/>
-              <Component id="edtBusinessLicenseNum" fields="BUSINESS_LICENSE_NUM"/>
-              <Component id="staCorporateNameLabel" fields="CORPORATE_NAME"/>
-              <Component id="edtCorporateName" fields="CORPORATE_NAME"/>
-              <Component id="staCompanyNameBg" fields="COMPANY_NAME"/>
-              <Component id="staCompanyNameLabel" fields="COMPANY_NAME"/>
-              <Component id="edtCompanyName" fields="COMPANY_NAME"/>
-              <Component id="staBusinessConditionLabel" fields="BUSINESS_CONDITION"/>
-              <Component id="edtBusinessCondition" fields="BUSINESS_CONDITION"/>
-              <Component id="staRepresentativeNameBg" fields="REPRESENTATIVE_NAME"/>
-              <Component id="staRepresentativeNameLabel" fields="REPRESENTATIVE_NAME"/>
-              <Component id="edtRepresentativeName" fields="REPRESENTATIVE_NAME"/>
-              <Component id="staBusinessTypeLabel" fields="BUSINESS_TYPE"/>
-              <Component id="edtBusinessType" fields="BUSINESS_TYPE"/>
-              <Component id="staRepresentativeSocialNumBg" fields="REPRESENTATIVE_SOCIAL_NUM"/>
-              <Component id="staRepresentativeSocialNumLabel" fields="REPRESENTATIVE_SOCIAL_NUM"/>
-              <Component id="mskRepresentativeSocialNum" fields="REPRESENTATIVE_SOCIAL_NUM"/>
-              <Component id="staCorporateAreaLabel" fields="CORPORATE_AREA"/>
-              <Component id="cmbCorporateArea" fields="CORPORATE_AREA"/>
-              <Component id="staCorporateTelnumBg" fields="CORPORATE_TELNUM"/>
-              <Component id="staCorporateTelnumLabel" fields="CORPORATE_TELNUM"/>
-              <Component id="mskCorporateTelnum" fields="CORPORATE_TELNUM"/>
-              <Component id="staCorporateFaxnumLabel" fields="CORPORATE_FAXNUM"/>
-              <Component id="mskCorporateFaxnum" fields="CORPORATE_FAXNUM"/>
-              <Component id="staCorporateEmailBg" fields="CORPORATE_EMAIL"/>
-              <Component id="staCorporateEmailLabel" fields="CORPORATE_EMAIL"/>
-              <Component id="edtCorporateEmail" fields="CORPORATE_EMAIL"/>
-              <Component id="staCorporateHomepageLabel" fields="CORPORATE_HOMEPAGE"/>
-              <Component id="edtCorporateHomepage" fields="CORPORATE_HOMEPAGE"/>
-              <Component id="staCorporatePostalCodeBg" fields="CORPORATE_POSTAL_CODE"/>
-              <Component id="staCorporatePostalCodeLabel" fields="CORPORATE_POSTAL_CODE"/>
-              <Component id="mskCorporatePostalCode" fields="CORPORATE_POSTAL_CODE"/>
-              <Component id="edtCorporateAdress1" fields="CORPORATE_ADRESS1"/>
-              <Component id="edtCorporateAdress2" fields="CORPORATE_ADRESS2"/>
-              <Component id="staOfficailSealFileLabel" fields="OFFICAIL_SEAL_FILE"/>
-              <Component id="imgOfficailSealFile" fields="OFFICAIL_SEAL_FILE"/>
-              <Component id="staMemoBg" fields="MEMO"/>
-              <Component id="staMemoLabel" fields="MEMO"/>
-              <Component id="edtMemo" fields="MEMO"/>
-            </Components>
-          </ModelInfo>
-          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
-            <Attribute id="direction" value="horizontal"/>
-            <Attribute id="halign" value="left"/>
-            <Attribute id="valign" value="top"/>
-            <Attribute id="useexpandbutton" value="none"/>
-            <Attribute id="usefieldbox" value="true"/>
-            <Attribute id="format" value="{&quot;columnsize&quot;:[550,550],&quot;rowsize&quot;:[40,40,40,40,40,40,110,83],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;BUSINESS_LICENSE_NUM&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;CORPORATE_NAME&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;COMPANY_NAME&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;BUSINESS_CONDITION&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;REPRESENTATIVE_NAME&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;BUSINESS_TYPE&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;3&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;REPRESENTATIVE_SOCIAL_NUM&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;3&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;CORPORATE_AREA&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;4&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;CORPORATE_TELNUM&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;4&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;CORPORATE_FAXNUM&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;5&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;CORPORATE_EMAIL&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;5&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;CORPORATE_HOMEPAGE&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;6&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;CORPORATE_POSTAL_CODE&quot;,&quot;CORPORATE_ADRESS1&quot;,&quot;CORPORATE_ADRESS2&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;6&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;top&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;OFFICAIL_SEAL_FILE&quot;],&quot;rowspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;7&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;MEMO&quot;]}]}"/>
-          </ViewTemplateInfo>
-        </View>
+      <Layout height="650" mobileorientation="landscape" width="1120">
+        <Static id="Static08" taborder="16" left="119" top="54" height="40" cssclass="sta_cm_box02L" right="11"/>
+        <Static id="Static03" taborder="17" left="119" top="92" height="40" cssclass="sta_cm_box02L" right="11"/>
+        <Static id="Static05" taborder="18" left="119" top="131" height="40" cssclass="sta_cm_box02L" right="11"/>
+        <Static id="Static07" taborder="19" left="119" top="170" height="40" cssclass="sta_cm_box02L" right="11"/>
+        <Static id="Static14" taborder="20" left="119" top="287" height="110" cssclass="sta_cm_box02L" right="11"/>
+        <Static id="Static23" taborder="21" left="119" top="396" height="83" cssclass="sta_cm_box02L" right="11"/>
+        <Edit id="Edit00" taborder="0" left="200" top="60" width="320" height="28" text=" "/>
+        <Edit id="Edit01" taborder="2" left="200" top="98" width="320" height="28" text=" "/>
+        <Edit id="Edit02" taborder="4" left="200" top="136" width="320" height="28" text=" "/>
+        <TextArea id="TextArea00" taborder="13" left="200" top="403" width="320" height="69"/>
+        <Static id="Static05_00" taborder="22" left="119" top="248" height="40" cssclass="sta_cm_box02L" right="11"/>
+        <Static id="Static03_00" taborder="23" left="119" top="209" height="40" cssclass="sta_cm_box02L" right="11"/>
+        <Edit id="Edit00_00" taborder="1" left="749" top="60" width="320" height="28" text="217-81-46957"/>
+        <Combo id="cboArea" taborder="6" left="749" top="176" width="320" height="28" value="" index="-1" text="" innerdataset="gdsArea" codecolumn="code" datacolumn="value"/>
+        <Static id="staTitle" taborder="24" text="자사 정보" left="10" top="10" height="34" cssclass="sta_WF_title01" right="10" fittocontents="width"/>
+        <Static id="staNavi" taborder="25" text="· Home &gt; 기초자료 &gt; &lt;fs v='10'&gt;&lt;b v='true'&gt;자사정보&lt;/b&gt;&lt;/fs&gt;" top="10" width="263" height="34" right="10" cssclass="sta_WF_navi" usedecorate="true"/>
+        <Edit id="Edit07_00_00_00" taborder="7" left="200" top="254" width="320" height="28"/>
+        <Edit id="Edit07_00_00" taborder="8" left="749" top="254" width="320" height="28"/>
+        <MaskEdit id="MaskEdit04" taborder="9" left="200" top="295" width="244" height="28"/>
+        <Button id="Button03" taborder="10" text="우편번호" left="450" top="295" width="70" height="28" cssclass="btn_cm_basic01" enable="false"/>
+        <Edit id="Edit11" taborder="11" left="200" top="329" width="320" height="28"/>
+        <Edit id="Edit12" taborder="12" left="200" top="363" width="320" height="28"/>
+        <Static id="Static08_01" taborder="26" left="740" top="287" height="192" cssclass="sta_cm_box02L" right="10"/>
+        <Button id="btnSelectSeal" taborder="14" text="직인선택" top="437" width="114" height="33" left="749" cssclass="btn_cm_basic01" enable="false"/>
+        <ImageViewer id="imgSealFile" taborder="15" top="293" width="114" height="137" left="749" text=""/>
+        <Static id="Static01" taborder="27" text="사업자등록번호" left="10" top="54" width="180" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static02" taborder="28" text="회사명" left="10" top="92" width="180" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static04" taborder="29" text="대표자" left="10" top="131" width="180" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static06" taborder="30" text="주민등록번호" left="10" top="170" width="180" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static02_01" taborder="31" text="전화번호" left="10" top="209" width="180" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="Static04_01" taborder="32" text="이메일" left="10" top="248" width="180" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="Static13" taborder="33" text="주소" left="10" top="287" width="180" height="110" cssclass="sta_cm_box01L"/>
+        <Static id="Static22" taborder="34" text="메모" left="10" top="396" width="180" height="83" cssclass="sta_cm_box01L"/>
+        <Static id="Static01_00" taborder="35" text="상호명" left="559" top="54" width="180" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static01_00_04" taborder="36" text="업태" left="559" top="92" width="180" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static06_01" taborder="37" text="종목" left="559" top="131" width="180" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static06_01_00" taborder="38" left="559" top="170" width="180" height="40" cssclass="sta_cm_box01L" text="지역"/>
+        <Static id="Static02_01_00" taborder="39" text="팩스" left="559" top="209" width="180" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="Static06_00" taborder="40" text="홈페이지" left="559" top="248" width="180" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="Static01_01" taborder="41" text="직인" left="559" top="287" width="180" height="192" cssclass="sta_WF_titleStar"/>
+        <Edit id="edtType" taborder="5" left="749" top="136" width="320" height="28" text="217-81-46957"/>
+        <Edit id="edtType00" taborder="3" left="749" top="98" width="320" height="28" text="217-81-46957"/>
+        <MaskEdit id="mdtJumin" taborder="42" left="200" top="176" width="320" height="28" format="@@@@@@-@{@@@@@@}" type="string"/>
+        <MaskEdit id="mdtPhoneNum" taborder="43" top="215" width="320" height="28" format="@@-@@@@-@@@@" type="string" left="200" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput" value=" " autoselect="true"/>
+        <MaskEdit id="mdtPhoneNum00" taborder="44" top="215" width="320" height="28" format="@@-@@@@-@@@@" type="string" left="749" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput" value=" " autoselect="true"/>
       </Layout>
     </Layouts>
+    <Objects>
+      <Dataset id="dsMyInfo" onrowposchanged="dsMyInfo_onrowposchanged">
+        <ColumnInfo>
+          <Column id="BUSINESS_LICENSE_NUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_NAME" type="STRING" size="256"/>
+          <Column id="COMPANY_NAME" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_NAME" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_SOCIAL_NUM" type="STRING" size="256"/>
+          <Column id="BUSINESS_CONDITION" type="STRING" size="256"/>
+          <Column id="BUSINESS_TYPE" type="STRING" size="256"/>
+          <Column id="CORPORATE_AREA" type="STRING" size="256"/>
+          <Column id="CORPORATE_EMAIL" type="STRING" size="256"/>
+          <Column id="CORPORATE_HOMEPAGE" type="STRING" size="256"/>
+          <Column id="CORPORATE_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_FAXNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_POSTAL_CODE" type="STRING" size="256"/>
+          <Column id="CORPORATE_ADRESS1" type="STRING" size="256"/>
+          <Column id="CORPORATE_ADRESS2" type="STRING" size="256"/>
+          <Column id="MEMO" type="STRING" size="256"/>
+          <Column id="OFFICAIL_SEAL_FILE" type="STRING" size="256"/>
+          <Column id="COMPANY_CODE" type="STRING" size="256"/>
+          <Column id="CONDITION_VALUE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCondition"/>
+    </Objects>
     <Script type="xscript5.1"><![CDATA[/**
-*  @MenuPath    샘플 > OO관리
-*  @FileName	sample.xfdl
-*  @Desction	OO관리 화면
+*  @MenuPath    deallistpopup
+*  @FileName	deallistpopup.xfdl
+*  @Desction	거래상세
 *******************************************************************************
-*  2022.01.01		Creator			최초 생성
+*  2020.12.28		nana			최초 생성
 *******************************************************************************
 */
 
@@ -202,38 +101,64 @@ this.application = null;
 /**
  * @description form onload
  */
-this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+this.myprofile_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	// application 변수 셋팅
 	this.application = nexacro.getApplication();
 	
-	// Title 영역 셋팅
-	//this.parent.parent.fn_setFavoriteButton(obj);
+	this.parent.parent.fn_setFavoriteButton(obj);
+	
+	this.fn_selectMyInfo();
 };
 
 /**************************************************************************
  * CALLBACK 콜백 처리부분(Transaction)
  **************************************************************************/
- 
+/**
+ * @description Transaction CallBack 함수
+ */
+ this.fn_callback = function(strSvcID, nErrorCode, strErrorMag)
+{
+	var sImgUrl = nexacro.getEnvironment().services["IMG"].url;
+	
+	if(strSvcID == "selectMyInfo")
+	{
+		var sImgName = "sign.png";
+		sImgUrl += sImgName;
+		
+		this.imgSealFile.set_image(sImgUrl);		
+	}	
+};
+
 /**************************************************************************
  * CRUD 및 TRANSACTION 서비스 호출 처리
  **************************************************************************/
- 
+/**
+ * @description 내 정보 조회
+ */
+this.fn_selectMyInfo= function()
+{
+	var strSvcID = "selectMyInfo";
+	var strURL = "IP::getmyinfo.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsMyInfo=dsMyInfo";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc)
+};
+
 /**************************************************************************
  * 사용자 FUNCTION 영역
  **************************************************************************/
-
-/**************************************************************************
-* 각 COMPONENT 별 EVENT 영역
-**************************************************************************/
-/**
- * @description onrowposchanged event : 데이터 조회 후 연락처 포맷 변경 (다른 화면과 동일하게 진행)
+ /**
+ * @description dsMyInfo onrowposchanged event : 데이터 조회 후 연락처 포맷 변경 (다른 화면과 동일하게 진행)
  */
-this.viewMaster_viewdataset_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+this.dsMyInfo_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
 {
-	// 연락처(전화번호, 팩스번호) 마스크 적용
-	this.mskCorporateTelnum.set_format(this.gfn_setCellTelMaskFormat(obj.getColumn(e.newrow,"CORPORATE_TELNUM")));
-	this.mskCorporateFaxnum.set_format(this.gfn_setCellTelMaskFormat(obj.getColumn(e.newrow,"CORPORATE_FAXNUM")));
+	var sMaskValue = this.dsMyInfo.getColumn(e.newrow,"CORPORATE_TELNUM");
+	var sMaskValue2 = this.dsMyInfo.getColumn(e.newrow,"CORPORATE_FAXNUM");
+
+	this.mdtPhoneNum.set_format(this.gfn_setCellTelMaskFormat(sMaskValue));
+	this.mdtPhoneNum00.set_format(this.gfn_setCellTelMaskFormat(sMaskValue2));
 };
 
 /**
@@ -241,7 +166,8 @@ this.viewMaster_viewdataset_onrowposchanged = function(obj:nexacro.NormalDataset
  */
 this.MaskEdit_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInfo)
 {
-	this.gfn_makePhoneNumMask(obj, e.postvalue);
+	var sValue = e.postvalue;
+	this.gfn_makePhoneNumMask(obj, sValue);
 };
 
 /**
@@ -252,27 +178,24 @@ this.MaskEdit_oninput = function(obj:nexacro.MaskEdit,e:nexacro.InputEventInfo)
 	obj.set_format("@@@@@@@@@@@");
 };
 
-this.DsCopyDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
-{
-	trace("DsCopyDataAction00_onerror" + e.userdata);
-};
-
-this.DsCopyDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
-{
-	trace("DsCopyDataAction00_onsuccess");
-};
 ]]></Script>
-    <Objects>
-      <SearchDBAction id="SearchDBAction00" serviceurl="IP::getmyinfo.jsp" outputdatasets="viewMaster.form.viewdataset=dsmyinfo">
-        <Contents/>
-      </SearchDBAction>
-      <DsCopyDataAction id="DsCopyDataAction00" targetview="viewMaster" fromview="myprofile" copytype="replace" targetdataset="innerdatasetCorporateArea" fromdataset="gdsArea" onerror="DsCopyDataAction00_onerror" onsuccess="DsCopyDataAction00_onsuccess">
-        <Contents/>
-      </DsCopyDataAction>
-    </Objects>
-    <Trigger>
-      <TriggerItem id="item1" triggertype="Form Init" triggerview="myprofile" triggerobj="myprofile" targetaction="DsCopyDataAction00" condition=""/>
-      <TriggerItem id="item2" triggertype="Action Success" triggerview="myprofile" triggerobj="DsCopyDataAction00" targetaction="SearchDBAction00" condition=""/>
-    </Trigger>
+    <Bind>
+      <BindItem id="item0" compid="Edit00" propid="value" datasetid="dsMyInfo" columnid="BUSINESS_LICENSE_NUM"/>
+      <BindItem id="item1" compid="Edit00_00" propid="value" datasetid="dsMyInfo" columnid="CORPORATE_NAME"/>
+      <BindItem id="item2" compid="Edit01" propid="value" datasetid="dsMyInfo" columnid="COMPANY_NAME"/>
+      <BindItem id="item5" compid="Edit02" propid="value" datasetid="dsMyInfo" columnid="REPRESENTATIVE_NAME"/>
+      <BindItem id="item7" compid="TextArea00" propid="value" datasetid="dsMyInfo" columnid="MEMO"/>
+      <BindItem id="item11" compid="Edit07_00_00_00" propid="value" datasetid="dsMyInfo" columnid="CORPORATE_EMAIL"/>
+      <BindItem id="item12" compid="Edit07_00_00" propid="value" datasetid="dsMyInfo" columnid="CORPORATE_HOMEPAGE"/>
+      <BindItem id="item13" compid="MaskEdit04" propid="value" datasetid="dsMyInfo" columnid="CORPORATE_POSTAL_CODE"/>
+      <BindItem id="item14" compid="Edit11" propid="value" datasetid="dsMyInfo" columnid="CORPORATE_ADRESS1"/>
+      <BindItem id="item15" compid="Edit12" propid="value" datasetid="dsMyInfo" columnid="CORPORATE_ADRESS2"/>
+      <BindItem id="item8" compid="edtType" propid="value" datasetid="dsMyInfo" columnid="BUSINESS_TYPE"/>
+      <BindItem id="item9" compid="edtType00" propid="value" datasetid="dsMyInfo" columnid="CONDITION_VALUE"/>
+      <BindItem id="item10" compid="cboArea" propid="value" datasetid="dsMyInfo" columnid="CORPORATE_AREA"/>
+      <BindItem id="item16" compid="mdtJumin" propid="value" datasetid="dsMyInfo" columnid="REPRESENTATIVE_SOCIAL_NUM"/>
+      <BindItem id="item6" compid="mdtPhoneNum" propid="value" datasetid="dsMyInfo" columnid="CORPORATE_TELNUM"/>
+      <BindItem id="item3" compid="mdtPhoneNum00" propid="value" datasetid="dsMyInfo" columnid="CORPORATE_FAXNUM"/>
+    </Bind>
   </Form>
 </FDL>
