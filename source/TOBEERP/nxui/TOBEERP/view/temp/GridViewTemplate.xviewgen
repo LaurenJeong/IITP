@@ -32,7 +32,7 @@ this.VIEW_PADDING = "";
 // 타이틀 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------	
 //타이틀 영역 전체건수 표시여부
-this.USE_TOT_COUNT			= "true";
+this.USE_TOT_COUNT			= "false";
 //타이틀 영역 접기/펼치기 버튼 표시여부(Grid에서는 사용안함)
 this.USE_EXPAND_BUTTON		= "none";
 //--------------------------------------------------------------------------------------------------------	
@@ -40,9 +40,9 @@ this.USE_EXPAND_BUTTON		= "none";
 //--------------------------------------------------------------------------------------------------------
 // 그리드 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
-this.HEAD_BAND_SIZE			= 30;
-this.BODY_BAND_SIZE			= 30;
-this.SUMM_BAND_SIZE			= 30;
+this.HEAD_BAND_SIZE			= 38;
+this.BODY_BAND_SIZE			= 38;
+this.SUMM_BAND_SIZE			= -1;
 this.COL_SIZE				= 80;
 
 this.DISPLAY_TYPE			= "normal";
@@ -483,7 +483,7 @@ fn_GetViewAttributeList = function()
 								"description": "Set the View Summ Layout."
 
                             }
-							//, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
+							, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 
