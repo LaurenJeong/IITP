@@ -13,7 +13,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Grid id="grdList" left="20" top="60" right="20" bottom="17" binddataset="viewdataset" cssclass="grid_WF_table" autofittype="col">
+              <Grid id="grdList" left="20" top="60" right="20" bottom="17" binddataset="viewdataset" autofittype="col" cssclass="grid_WF_table">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -77,7 +77,7 @@
             <Attribute id="headbandsize" value="40"/>
             <Attribute id="bodybandsize" value="40"/>
             <Attribute id="summbandsize" value="-1"/>
-            <Attribute id="viewpadding" value="20"/>
+            <Attribute id="viewpadding" value="20 20 17"/>
           </ViewTemplateInfo>
         </View>
         <View id="viewEstimate" taborder="1" top="20" height="318" cssclass="viw_WF_box" left="387" right="388" viewdataset="viewdataset">
@@ -207,13 +207,13 @@
             <Attribute id="headbandsize" value="40"/>
             <Attribute id="bodybandsize" value="40"/>
             <Attribute id="summbandsize" value="-1"/>
-            <Attribute id="viewpadding" value="20"/>
+            <Attribute id="viewpadding" value="20 20 17"/>
           </ViewTemplateInfo>
         </View>
         <View id="viewCustomerSales" taborder="2" top="20" height="318" cssclass="viw_WF_box" right="21" width="345" viewdataset="viewdataset">
           <Layouts>
             <Layout>
-              <PieChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:CUSTOMER">
+              <PieChart id="chart" left="20" top="12" right="20" bottom="0" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:CUSTOMER">
                 <Contents><![CDATA[{
 	"title": {
 		"id": "title",
@@ -269,10 +269,9 @@
 			"titletext": "판매금액",
 			"valuecolumn": "bind:TOTAL_PRICE",
 			"fillstyle": "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
-			"itemtextmask": "",
-			"itemtexttype": "text",
-			"itemtext": "expr:parseInt(TOTAL_PRICE/dataset.getSum(\"TOTAL_PRICE\")*100) + \"%\"",
-			"tooltiptext": "expr:CUSTOMER + \"\\n\" + \"판매비율 : \" + parseInt(TOTAL_PRICE/dataset.getSum(\"TOTAL_PRICE\")*100) + \"%\\n\" + \"판매금액 : \" + nexacro.toNumber(TOTAL_PRICE)"
+			"itemtexttype": "normal",
+			"tooltiptext": "expr:CUSTOMER + \"\\n\" + \"판매비율 : \" + parseInt(TOTAL_PRICE/dataset.getSum(\"TOTAL_PRICE\")*100) + \"%\\n\" + \"판매금액 : \" + nexacro.toNumber(TOTAL_PRICE)",
+			"itemtext": "expr:parseInt(TOTAL_PRICE/dataset.getSum(\"TOTAL_PRICE\")*100) + \"%\""
 		}
 	]
 }]]></Contents>
@@ -305,13 +304,13 @@
             <Attribute id="titletext" value="거래처별 판매현황(판매금액기준)"/>
             <Attribute id="titlealign" value="topleft"/>
             <Attribute id="legendposition" value="rightcenter"/>
-            <Attribute id="viewpadding" value="20"/>
+            <Attribute id="viewpadding" value="12 20 0"/>
           </ViewTemplateInfo>
         </View>
         <View id="viewSales" taborder="3" left="20" top="359" cssclass="viw_WF_box" right="21" bottom="20" viewdataset="viewdataset">
           <Layouts>
             <Layout>
-              <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:DT_YYYYMM">
+              <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:DT_YYYYMM" titlespacing="0px 0px 10px">
                 <Contents><![CDATA[{
 	"title": {
 		"id": "title",
@@ -480,52 +479,7 @@
         </View>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[/**
-*  @MenuPath    메인
-*  @FileName	frmMain.xfdl
-*  @Desction	메인
-*******************************************************************************
-*  2022.01.01		Creator			최초 생성
-*******************************************************************************
-*/
-
-/**************************************************************************
- * include 영역 
- **************************************************************************/ 
-include "lib::libCommon.xjs";
-
-/**************************************************************************
- * FORM 변수 선언 영역
- **************************************************************************/
-this.application = null;
-
-/**************************************************************************
- * FORM EVENT 영역(onload)
- **************************************************************************/
-/**
- * @description form onload
- */
-this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
-{
-	// application 변수 셋팅
-	this.application = nexacro.getApplication();
-};
-
-/**************************************************************************
- * CALLBACK 콜백 처리부분(Transaction)
- **************************************************************************/
- 
-/**************************************************************************
- * CRUD 및 TRANSACTION 서비스 호출 처리
- **************************************************************************/
- 
-/**************************************************************************
- * 사용자 FUNCTION 영역
- **************************************************************************/
-
-/**************************************************************************
-* 각 COMPONENT 별 EVENT 영역
-**************************************************************************/]]></Script>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
     <Objects>
       <SearchDBAction id="SearchDBAction00" servicemodel="getmainlist" serviceurl="IP::getmainlist.jsp" outputdatasets="viewDeal.form.viewdataset=dsdeal viewEstimate.form.viewdataset=dsestimate viewSales.form.viewdataset=dssales viewCustomerSales.form.viewdataset=dssalescustomer">
         <Contents/>
