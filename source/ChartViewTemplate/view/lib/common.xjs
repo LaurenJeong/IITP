@@ -30,8 +30,6 @@ this.arrCompIds = [];
 //컴포넌트 + 바인드 Field 목록
 this.arrBindItems = [];
 
-//validationRuleSet 목록
-this.arrValidationRules = [];
 
 // View에서 생성한 컴포넌트의 Field ID
 this.VIEW_COMP_FIELD_ID = "_viewcomp";
@@ -46,12 +44,6 @@ this.COMP_NAMING_RULE	= "C";
 /** @const {string} */
 // 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 this.LOG_LEVEL			= -1;
-//--------------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------------
-// 공통함수 관련 변수
-//--------------------------------------------------------------------------------------------------------
-this.VALID_USERPROP_ID = "_vaild";
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -86,6 +78,8 @@ this.TITLE_AREA_COMP_SPACE				= 5;
 
 // Title ID
 this.TITLE_ID							= "staTitle";
+// Title 높이
+this.TITLE_HEIGHT						= 30;
 // Title Text (ViewTemplate에서 this.TITLE_TEXT 설정하지 않을때 기본값)
 this.TITLE_TEXT_BASE					= "";
 // Title fittocontents
@@ -99,6 +93,8 @@ this.TITLE_NOICON_CSSCLASS				= "sta_WF_subtitle_noicon";
 this.USE_TOT_COUNT_BASE					= "false";
 // TotalCount ID
 this.TOT_COUNT_ID						= "staTotCnt";
+// TotalCount 높이
+this.TOT_COUNT_HEIGHT					= 30;
 // TotalCount 기본Text
 this.TOT_COUNT_TEXT						= "(총 <b v='true'><fc v='#da291c'>0</fc></b>건)";
 // TotalCount fittocontents
@@ -545,11 +541,12 @@ this.lfn_CalcAlignPos = function(sAlign, nParentSize, nSize)
  * Parameter    :
 				- sDatasetId : 데이터셋ID
 				- objFieldArr : 데이터셋으로 만들 Field 객체
-				- nRowCnt : 데이터셋 Row
+				- nRowCnt : 데이터셋 rowcount
+				- arrRows : 데이터셋 row 데이터 정보
  * Return       : 데이터셋 객체 Json 반환
  * Description  : 데이터셋 객체 Json 생성 함수
  *---------------------------------------------------------------------------------------------*/
-this.lfn_GetDataset = function(sDatasetId, objFieldArr, nRowCnt)
+this.lfn_GetDataset = function(sDatasetId, objFieldArr, nRowCnt, arrRows)
 {
 	var oDatasetInfo = {
             "tag": "Dataset",
@@ -565,7 +562,7 @@ this.lfn_GetDataset = function(sDatasetId, objFieldArr, nRowCnt)
                 "tag": "Rows",
                 "attribute": {},
                 //Load Row Information Setting Function
-                "Rows": this.lfn_GetDsRows(nRowCnt)
+                "Rows": this.lfn_GetDsRows(nRowCnt, arrRows)
             }]
         };
 
@@ -585,6 +582,7 @@ this.lfn_GetDsColumns = function(objFieldArr)
     var oColumns = [];
 
     var oField;
+	var sLabel;
     var sFieldId;
     var sDataType;
     var sDataSize;
@@ -600,6 +598,7 @@ this.lfn_GetDsColumns = function(objFieldArr)
         oField = objFieldArr.fields[i];
 
         sFieldId 	= oField.id;
+		sLabel		= oField.label;
         sDataType 	= oField.datatype;
         sDataSize 	= oField.datasize;
 		sProp		= oField.prop;
@@ -616,6 +615,7 @@ this.lfn_GetDsColumns = function(objFieldArr)
 				}
 			};
 			
+			if(this.lfn_IsNotNull(sLabel))			oColumns[i]["attribute"]["description"] = sLabel;
 			if(this.lfn_IsNotNull(sProp))			oColumns[i]["attribute"]["prop"] = sProp;
 			if(this.lfn_IsNotNull(sSumText))		oColumns[i]["attribute"]["sumtext"] = sSumText;
 		}
@@ -631,7 +631,7 @@ this.lfn_GetDsColumns = function(objFieldArr)
  * Return       : dataset row(s) data
  * Description  : Function to generate <Row> source
  *---------------------------------------------------------------------------------------------*/
-this.lfn_GetDsRows = function(nRowCnt)
+this.lfn_GetDsRows = function(nRowCnt, arrRows)
 {
 	if (nRowCnt == null)		nRowCnt = 1;
 
@@ -639,12 +639,31 @@ this.lfn_GetDsRows = function(nRowCnt)
     var oRows = [];
     var oRow = [];
 
-    var oField;
-    var sFieldId;
+    var oRowInfo;
+	var oRowCol;
 
     for(i=0;i<nRowCnt;i++)
     {
         oRow = [];
+		
+		// Row 데이터 정보가 있는 경우 Row정보 생성
+		if (arrRows)
+		{
+			oRowInfo = arrRows[i];
+			
+			if (oRowInfo)
+			{
+				for(var oInfo in oRowInfo) {
+					oRowCol = {
+							"tag" : "Col",
+							"attribute" : {"id" : oInfo},
+							"value" : oRowInfo[oInfo]
+					};
+					
+					oRow.push(oRowCol);
+				}
+			}
+		}
 
         //Row정보 Rows에 추가
         oRows[i] = {"tag": "Row",    "attribute": {},"Row": oRow};
@@ -687,7 +706,19 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "text", "datasetid" : sBindDataset, "columnid" : sFieldId
 				}
 			}
-		}else
+		}
+		else if(sCompType=="imageviewer")
+		{
+			oBindItems[i] =
+			{
+				"tag" : "BindItem",
+				"attribute" :
+				{
+					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "image", "datasetid" : sBindDataset, "columnid" : sFieldId
+				}
+			}
+		}
+		else
 		{
 			oBindItems[i] =
 			{
@@ -706,7 +737,12 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
     return oBind;
 };
 
-
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_SetViewPadding
+ * Parameter    : N/A
+ * Return       : N/A
+ * Description  : viewpadding값 기준으로 view padding 전역변수 설정
+ *---------------------------------------------------------------------------------------------*/
 this.lfn_SetViewPadding = function()
 {
 	var sViewPadding = "";
@@ -821,7 +857,7 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton, 
 	sCssClass	= sUseExpandButton == "none" ? this.TITLE_CSSCLASS : this.TITLE_NOICON_CSSCLASS;
 	
 	nCompWidth	= 120;
-	nCompHeight	= this.TITLE_AREA_HEIGHT;
+	nCompHeight	= this.TITLE_HEIGHT;
 	nCompTop	= 0;
 		
 	arrComponents.push({
@@ -841,7 +877,7 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton, 
 		sCssClass	= this.TOT_COUNT_CSSCLASS;
 		
 		nCompWidth	= 50;
-		nCompHeight	= this.TITLE_AREA_HEIGHT;
+		nCompHeight	= this.TOT_COUNT_HEIGHT;
 		nCompLeft	= this.TITLE_ID + ":5";
 	
 		arrComponents.push({
