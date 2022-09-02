@@ -1008,16 +1008,8 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 						}
 					};
 
-			if(oField.comptype=="button")
-			{
-				oComp.attribute.text = oField.label;
-			}
-			//If the Component Type is Checkbox, add label text to the text properties
-			else if(oField.comptype=="checkbox")
-			{
-				oComp.attribute.text = oField.label;
-			}//If the Component Type is Static, add label text to the text properties
-			else if(oField.comptype=="static")
+			// 라벨을 text로 처리
+			if(oField.comptype=="button" || oField.comptype=="checkbox" || oField.comptype=="static")
 			{
 				oComp.attribute.text = oField.label;
 			}

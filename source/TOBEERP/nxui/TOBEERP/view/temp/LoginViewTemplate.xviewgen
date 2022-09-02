@@ -1277,33 +1277,23 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			oComp.attribute.right = nCompRight;
 		}
 
-
-		//If the Component Type is Button, add label text to the text properties
-		if(oField.comptype=="button")
+		//If the Component Type is Button,Checkbox,Static, add label text to the text properties
+		if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
 		{
 			oComp.attribute.text = oField.label;
 		}
-		//If the Component Type is Checkbox, add label text to the text properties
-		else if(oField.comptype=="checkbox")
+		else if(oField.comptype=="edit")
 		{
-			oComp.attribute.text = oField.label;
+			oComp.attribute.password = sPassWord;
 		}
-		//If the Component Type is Checkbox, add label text to the text properties
-		else if(oField.comptype=="static")
-		{
-			oComp.attribute.text = oField.label;
-		}else
-		{
-			if(oField.comptype=="edit")
-			{
-				oComp.attribute.password = sPassWord;
-			}
 
-			if(oField.displaynulltext)
-			{
-				oComp.attribute.displaynulltext = oField.displaynulltext;
-			}
+		if(oField.displaynulltext)
+		{
+			oComp.attribute.displaynulltext = oField.displaynulltext;
+		}
 
+		if(oField.comptype!="button")
+		{
 			//In order to process the Bind, add Id, Field Id to BindItems Array
 			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId};
 		}

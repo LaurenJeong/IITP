@@ -1190,21 +1190,14 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 					}
 				};
-		//If the Component Type is Button, add label text to the text properties
-		if(oField.comptype=="button")
+				
+		// 라벨을 text로 처리
+		if(oField.comptype=="button" || oField.comptype=="checkbox" || oField.comptype=="static")
 		{
 			oComp.attribute.text = oField.label;
 		}
-		//If the Component Type is Checkbox, add label text to the text properties
-		else if(oField.comptype=="checkbox")
-		{
-			oComp.attribute.text = oField.label;
-		}
-		//If the Component Type is Checkbox, add label text to the text properties
-		else if(oField.comptype=="static")
-		{
-			oComp.attribute.text = oField.label;
-		}else
+
+		if(oField.comptype!="button")
 		{
 			//In order to process the Bind, add Id, Field Id to BindItems Array
 			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId};

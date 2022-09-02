@@ -26,7 +26,7 @@ include "view_lib::common.xjs";
 // View 관련 상수
 //--------------------------------------------------------------------------------------------------------
 // View 여백
-this.VIEW_PADDING			= "10";
+this.VIEW_PADDING			= "6 5";
 // 컴포넌트 생성 방향("horizontal", "vertical")
 this.DIRECTION				= "horizontal";
 // 컴포넌트 생성 수평 정렬방식
@@ -58,10 +58,10 @@ this.SEARCH_BUTTON_CSSCLASS			= "btn_WF_add01";
 //--------------------------------------------------------------------------------------------------------
 
 //Field Default Width
-this.FIELD_WIDTH					= "100px";
+this.FIELD_WIDTH					= "150px";
 
 //Field Default Height
-this.FIELD_HEIGHT					= "30px";
+this.FIELD_HEIGHT					= "28px";
 
 //Label Default Width
 this.LABEL_WIDTH					= 100;
@@ -85,7 +85,7 @@ this.COMP_PADDING_RIGHT				= 0;
 this.COMP_PADDING_BOTTOM			= 0;
 
 //Gap Between Components (Left and Right)
-this.COMP_SPACE						= 5;
+this.COMP_SPACE						= 40;
 
 //Gap Between Components (Top and Bottom)
 this.LINE_SPACE						= 5;
@@ -1450,21 +1450,14 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 					}
 				};
-		//If the Component Type is Button, add label text to the text properties
-		if(oField.comptype=="button")
+				
+		//If the Component Type is Button,Checkbox,Static, add label text to the text properties
+		if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
 		{
 			oComp.attribute.text = oField.label;
 		}
-		//If the Component Type is Checkbox, add label text to the text properties
-		else if(oField.comptype=="checkbox")
-		{
-			oComp.attribute.text = oField.label;
-		}
-		//If the Component Type is Checkbox, add label text to the text properties
-		else if(oField.comptype=="static")
-		{
-			oComp.attribute.text = oField.label;
-		}else
+
+		if(oField.comptype!="button")
 		{
 			//In order to process the Bind, add Id, Field Id to BindItems Array
 			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId};
