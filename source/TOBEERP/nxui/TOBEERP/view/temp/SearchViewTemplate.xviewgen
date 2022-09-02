@@ -94,7 +94,10 @@ this.LINE_SPACE						= 5;
 this.COMP_CSSCLASS					= "";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS					= "sta_WF_name";
+this.LABEL_CSSCLASS					= "sta_WF_label";
+
+//Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS		= "sta_WF_labelStar";
 
 //Background Static Css Class
 this.SEARCH_BG_CSSCLASS				= "sta_cm_box01L";
@@ -1319,7 +1322,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		sCompCssClass = oField.cssclass;
 
 		//Import Label Css Class Id Value
-		sLabelCssClass = oField.labelcssclass;
+		sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 		//Import Row/Col Index where the Field will be located
 		nRowIdx = oFieldPosition.rowidx;
@@ -1455,6 +1458,11 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
 		{
 			oComp.attribute.text = oField.label;
+		}
+		// Radio 컴포넌트에서 한줄로 표시되도록 처리
+		else if(oField.comptype=="radio")
+		{
+			oComp.attribute.direction = "vertical";
 		}
 
 		if(oField.comptype!="button")

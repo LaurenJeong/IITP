@@ -1196,6 +1196,11 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		{
 			oComp.attribute.text = oField.label;
 		}
+		// Radio 컴포넌트에서 한줄로 표시되도록 처리
+		else if(oField.comptype=="radio")
+		{
+			oComp.attribute.direction = "vertical";
+		}
 
 		if(oField.comptype!="button")
 		{
