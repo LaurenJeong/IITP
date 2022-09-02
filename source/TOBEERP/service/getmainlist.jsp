@@ -54,14 +54,9 @@ try {
 	dsestimate.addColumn("EXPIRY_TERM",DataTypes.STRING, 256);
 	dsestimate.addColumn("CORPORATE_NAME",DataTypes.STRING, 256);
 	
-	DataSet dscustomer = new DataSet("dscustomer");
-	dscustomer.addColumn("CUSTOMER",DataTypes.STRING, 256);
-	dscustomer.addColumn("TOTAL_PRICE",DataTypes.STRING, 256);
-	
-	// 거래처별 판매현황 추가
 	DataSet dssalescustomer = new DataSet("dssalescustomer");
-	dssalescustomer.addColumn("CUSTOMER_NAME",DataTypes.STRING, 256);
-	dssalescustomer.addColumn("SALES_AMOUNT",DataTypes.INT, 256);
+	dssalescustomer.addColumn("CUSTOMER",DataTypes.STRING, 256);
+	dssalescustomer.addColumn("TOTAL_PRICE",DataTypes.INT, 256);
 	
 	// 매출/매입 현황 추가
 	DataSet dssales = new DataSet("dssales");
@@ -112,29 +107,10 @@ try {
 	rs3 = stmt.executeQuery(SQL3);  
 	while(rs3.next())
 	{
-			row = dscustomer.newRow();
-			dscustomer.set(row, "CUSTOMER", rs3.getString("CORPORATE_NAME"));    
-			dscustomer.set(row, "TOTAL_PRICE", rs3.getString("SALES_TOTAL_PRICE"));
+			row = dssalescustomer.newRow();
+			dssalescustomer.set(row, "CUSTOMER", rs3.getString("CORPORATE_NAME"));    
+			dssalescustomer.set(row, "TOTAL_PRICE", rs3.getString("SALES_TOTAL_PRICE"));
 	}
-	
-	// 거래처별 판매현황 데이터설정
-	row = 0;
-	row = dssalescustomer.newRow();
-	dssalescustomer.set(row, "CUSTOMER_NAME", "엠지상사");
-	dssalescustomer.set(row, "SALES_AMOUNT", 200);
-	row = dssalescustomer.newRow();
-	dssalescustomer.set(row, "CUSTOMER_NAME", "무화유통");
-	dssalescustomer.set(row, "SALES_AMOUNT", 600);
-	row = dssalescustomer.newRow();
-	dssalescustomer.set(row, "CUSTOMER_NAME", "아이마트");
-	dssalescustomer.set(row, "SALES_AMOUNT", 150);
-	row = dssalescustomer.newRow();
-	dssalescustomer.set(row, "CUSTOMER_NAME", "오키유통");
-	dssalescustomer.set(row, "SALES_AMOUNT", 450);
-	row = dssalescustomer.newRow();
-	dssalescustomer.set(row, "CUSTOMER_NAME", "인성마트");
-	dssalescustomer.set(row, "SALES_AMOUNT", 50);
-	
 	
 	// 매출/매입 현황 데이터설정
 	row = 0;
@@ -202,7 +178,6 @@ try {
     /********* Adding Dataset to PlatformData ************/
     pdata.addDataSet(dsdeal);
     pdata.addDataSet(dsestimate);
-    pdata.addDataSet(dscustomer);
     pdata.addDataSet(dssalescustomer);
     pdata.addDataSet(dssales);
     

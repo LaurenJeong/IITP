@@ -20,6 +20,16 @@ String dbUrl  = varList.getString("argDB");
 String customerCode = varList.getString("argCustomerCode");
 String productName = varList.getString("argProductName");
 String checked = varList.getString("argChecked");
+
+//QuickCode를 위해 Dataset으로 input조회조건 변경
+DataSet dsinput = reqdata.getDataSet("dsinput");
+
+if (dsinput != null && dsinput.hasData())
+{
+	customerCode = dsinput.getString(0, "CUSTOMER_CODE");
+	productName = dsinput.getString(0, "PRODUCT_NAME");
+	checked = dsinput.getString(0, "CHECKED");
+}
 		
 int nErrorCode = 0;
 String strErrorMsg = "START";
@@ -45,13 +55,15 @@ if(checked != null)
 	SQL += " AND p1.TRADING_TYPE='s2'";
 }
 
+log(SQL);
+
 try {
     rs = stmt.executeQuery(SQL);
 
     /********* Dataset Create ************/
     DataSet ds = new DataSet("dsprice");
     ds.addColumn("CUSTOMER_PRICE_CODE",DataTypes.STRING, 256);
-    ds.addColumn("PRICE_VERSION",DataTypes.STRING, 256);
+    ds.addColumn("PRICE_VERSION",DataTypes.INT, 256);
     ds.addColumn("CUSTOMER_CODE",DataTypes.STRING, 256);
     ds.addColumn("PRODUCT_CODE",DataTypes.STRING, 256);
     ds.addColumn("PRODUCT_NAME",DataTypes.STRING, 256);
@@ -62,15 +74,15 @@ try {
     ds.addColumn("BARCODE",DataTypes.STRING, 256);
     ds.addColumn("ASSET_GROUPS",DataTypes.STRING, 256);
     ds.addColumn("PRODUCT_GROUPS",DataTypes.STRING, 256);
-    ds.addColumn("LAST_PRICE",DataTypes.STRING, 256);    
-    ds.addColumn("RECEIVING_PRICE",DataTypes.STRING, 256);
-    ds.addColumn("WHOLESALE_PRICE",DataTypes.STRING, 256);
-    ds.addColumn("RETAIL_PRICE",DataTypes.STRING, 256);
-    ds.addColumn("SPECIAL_PRICE1",DataTypes.STRING, 256);
-    ds.addColumn("SPECIAL_PRICE2",DataTypes.STRING, 256);
-    ds.addColumn("SPECIAL_PRICE3",DataTypes.STRING, 256);
+    ds.addColumn("LAST_PRICE",DataTypes.INT, 256);    
+    ds.addColumn("RECEIVING_PRICE",DataTypes.INT, 256);
+    ds.addColumn("WHOLESALE_PRICE",DataTypes.INT, 256);
+    ds.addColumn("RETAIL_PRICE",DataTypes.INT, 256);
+    ds.addColumn("SPECIAL_PRICE1",DataTypes.INT, 256);
+    ds.addColumn("SPECIAL_PRICE2",DataTypes.INT, 256);
+    ds.addColumn("SPECIAL_PRICE3",DataTypes.INT, 256);
     ds.addColumn("TAX_FREE_CHECK",DataTypes.STRING, 256);
-    ds.addColumn("DISCOUNT_RATE",DataTypes.STRING, 256);
+    ds.addColumn("DISCOUNT_RATE",DataTypes.INT, 256);
     ds.addColumn("TRADING_TYPE",DataTypes.STRING, 256);    
     
     int row = 0;

@@ -28,6 +28,7 @@ ResultSet  rs2   = null;
 ResultSet  rs3   = null;
 ResultSet  rs4   = null;
 ResultSet  rs5	 = null;
+ResultSet  rs6	 = null;
 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
 stmt = conn.createStatement();
@@ -55,6 +56,10 @@ try {
     DataSet dsstatus = new DataSet("dsstatus");
     dsstatus.addColumn("code",DataTypes.STRING, 256);
     dsstatus.addColumn("value",DataTypes.STRING, 256);
+    
+    DataSet dscustomer = new DataSet("dscustomer");
+    dscustomer.addColumn("code",DataTypes.STRING, 256);
+    dscustomer.addColumn("value",DataTypes.STRING, 256);
     //select * from ERP_DEAL_STATUS
     
     /******* SQL query *************/
@@ -119,6 +124,19 @@ try {
 		dsstatus.set(row, "value", rs5.getString("STATUS_VALUE"));
 	}
 	
+	// QuickCode 샘플용 거래처 데이터 조회
+	String SQL6 = "select CORPORATE_CODE, CORPORATE_NAME from ERP_CUSTOMER WHERE DEAL_STATUS != 's3'";
+	row = 0;
+	   
+	rs6 = stmt.executeQuery(SQL6);  
+	
+	while(rs6.next())
+	{
+		row = dscustomer.newRow();
+		dscustomer.set(row, "code", rs6.getString("CORPORATE_CODE"));    
+		dscustomer.set(row, "value", rs6.getString("CORPORATE_NAME"));
+	}
+	
 
     /********* Adding Dataset to PlatformData ************/
     pdata.addDataSet(dsasset);
@@ -126,6 +144,7 @@ try {
     pdata.addDataSet(dsunit);
     pdata.addDataSet(dsmanufacture);
     pdata.addDataSet(dsstatus);
+    pdata.addDataSet(dscustomer);
 
     nErrorCode = 0;
     strErrorMsg = "SUCC";
