@@ -42,11 +42,11 @@ if (!nexacro.CommActionAsset)
 	pAction._POPUP_CALLBACK = "fnPopupActionCallback";			// 팝업 Callback함수(Action 내부에서 사용)
 	
 	// 대상 Action : ExcelExportAction, ExcelImportAction
-	pAction._COM_EXCEL_URL = "svc::XExportImport";				// XENI URL
+	pAction._COM_EXCEL_URL = "IP::XExportImport";				// XENI URL
 	
 	// 대상 Action : DsSetFirstCdAction
-	pAction._COM_CODE_COL = "COMN_CD";							// 공통코드 코드컬럼명
-	pAction._COM_NAME_COL = "COMN_CD_NM";						// 공통코드 코드명컬럼명
+	pAction._COM_CODE_COL = "code";								// 공통코드 코드컬럼명
+	pAction._COM_NAME_COL = "value";							// 공통코드 코드명컬럼명
 	
 	// 대상 Action : SearchDBAction
 	pAction._TRAN_CALLBACK_NM = "fnTranActionCallback";			// Action공통 Callback함수명
