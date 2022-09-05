@@ -44,17 +44,17 @@ if (!nexacro.DsCopyDataAction)
 			var objToDs 	= this._targetdataset;
 			var objFormDs	= this._fromdataset;
 			
-			if (objToDs == undefined)	objToDs 	= this.gfnGetDataset(objView,sTargetDs);
-			if (objFormDs == undefined)	objFormDs	= this.gfnGetDataset(objFromView,sFromDs);
+			if (this.gfnIsNull(objToDs))	objToDs 	= this.gfnGetDataset(objView,sTargetDs);
+			if (this.gfnIsNull(objFormDs))	objFormDs	= this.gfnGetDataset(objFromView,sFromDs);
 			
-			if (objToDs == undefined)
+			if (this.gfnIsNull(objToDs))
 			{
 				this.gfnLog("Dataset does not found.","info");
 				this.on_fire_onerror("error");
 				return;
 			}
 			
-			if (objFormDs == undefined)
+			if (this.gfnIsNull(objFormDs))
 			{
 				this.gfnLog("Dataset does not found.","info");
 				this.on_fire_onerror("error");
@@ -88,6 +88,7 @@ if (!nexacro.DsCopyDataAction)
 			
 			if (this.targetdataset != v) {
 				this.targetdataset = v;
+				this._targetdataset = null;
 				
 				var objView = this.getTargetView();	
 				if (objView)
@@ -98,10 +99,6 @@ if (!nexacro.DsCopyDataAction)
 					if (objDs != undefined) {
 						this._targetdataset = objDs;
 		 			}
-				}
-				else
-				{
-					this._targetdataset = null;
 				}
 			}
 		}
@@ -127,11 +124,20 @@ if (!nexacro.DsCopyDataAction)
 		} else {
 			v = nexacro._toString(v);
 			
-			var objForm = this.parent;
-			var objDs = objForm._findDataset(v);
-			if (this.fromdataset != v && objDs != undefined) {
+			if (this.fromdataset != v) {
 				this.fromdataset = v;
-				this._fromdataset = objDs;
+				this._fromdataset = null;
+				
+				var objView = this._findViewObject(this.fromview);
+				if (objView)
+				{
+					var objForm = objView.form;
+					var objDs = objForm._findDataset(v);
+					
+					if (objDs != undefined) {
+						this._fromdataset = objDs;
+		 			}
+				}
 			}
 		}
 	};

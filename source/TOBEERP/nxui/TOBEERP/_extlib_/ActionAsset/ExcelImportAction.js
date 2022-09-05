@@ -35,7 +35,7 @@ if (!nexacro.ExcelImportAction)
 		//Import the object set as TargetView			
 		var objView = this.getTargetView();	
 		
-		var sTarget = this.targetdataset;
+		var sTargetDs = this.targetdataset;
 			
 		var sSheetName = this.sheetname;			
 		var sStartCell = this.startcell;			
@@ -46,24 +46,14 @@ if (!nexacro.ExcelImportAction)
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
 		{			
-			//If the TargetView is set as View, not Form		
-			if(objView)objForm = objView.form;		
-			else objForm = this.parent;
+			var objDs = this._targetdataset;
 			
-			var objDs;
+			if (this.gfnIsNull(objDs))	objDs 	= this.gfnGetDataset(objView,sTargetDs);
 			
-			// Dataset 객체 찾기
-			if (sTarget) {				// targetgrid 설정시 해당 그리드
-				sTarget = sTarget.replace("@", "");
-				objDs = objForm._findDataset(sTarget);
-			} else {						// targetgrid 미설정시 View에 있는 Grid
-				objDs = objView.getViewDataset();
-			}
-			
-			if (objDs == undefined)
+			if (this.gfnIsNull(objDs))
 			{
 				objDs = new nexacro.NormalDataset("importdataset", objForm);
-				trace("Create Dataset : " + objDs.name);
+				this.gfnLog("Create Dataset : " + objDs.name);
 			}
 			
  			// Call Import
@@ -71,7 +61,7 @@ if (!nexacro.ExcelImportAction)
 		}		
 	};	
 	
-	nexacro.ExcelImportAction.prototype._targetdataset = "";
+	nexacro.ExcelImportAction.prototype._targetdataset = null;
 	nexacro.ExcelImportAction.prototype.set_targetdataset = function (v)				
 	{				
 		// TODO : enter your code here.
