@@ -461,6 +461,7 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	// Title 영역 셋팅
 	//this.parent.parent.fn_setFavoriteButton(obj);
+	
 };
 
 /**************************************************************************
@@ -485,10 +486,33 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
       <SearchDBAction id="SearchDBAction01" servicemodel="getmainlist" serviceurl="IP::getpricelist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=dsprice">
         <Contents/>
       </SearchDBAction>
+      <DsAddDataAction id="DsAddDataAction00" targetview="viewList">
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"viewList",
+            "modelid":"dsprice",
+            "iotype":"output",
+            "fieldlist":[
+                {
+                    "name":"viewList:TRADING_TYPE",
+                    "fieldid":"TRADING_TYPE",
+                    "value":"expr:[viewDetail:innerdatasetTradingType:0:code]"
+                }
+            ]
+        }
+    ]
+}]]></Contents>
+      </DsAddDataAction>
+      <DsDeleteDataAction id="DsDeleteDataAction00" targetview="viewList">
+        <Contents/>
+      </DsDeleteDataAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Form Init" triggerview="price" triggerobj="price" targetaction="SearchDBAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="viewButton" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
+      <TriggerItem id="item3" triggertype="Click" triggerview="viewButton" triggerobj="btnDelete" targetaction="DsDeleteDataAction00" condition=""/>
     </Trigger>
   </Form>
 </FDL>
