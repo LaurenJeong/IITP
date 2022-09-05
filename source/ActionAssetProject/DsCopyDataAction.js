@@ -44,17 +44,17 @@ if (!nexacro.DsCopyDataAction)
 			var objToDs 	= this._targetdataset;
 			var objFormDs	= this._fromdataset;
 			
-			if (objToDs == undefined)	objToDs 	= this.gfnGetDataset(objView,sTargetDs);
-			if (objFormDs == undefined)	objFormDs	= this.gfnGetDataset(objFromView,sFromDs);
+			if (this.gfnIsNull(objToDs))	objToDs 	= this.gfnGetDataset(objView,sTargetDs);
+			if (this.gfnIsNull(objFormDs))	objFormDs	= this.gfnGetDataset(objFromView,sFromDs);
 			
-			if (objToDs == undefined)
+			if (this.gfnIsNull(objToDs))
 			{
 				this.gfnLog("Dataset does not found.","info");
 				this.on_fire_onerror("error");
 				return;
 			}
 			
-			if (objFormDs == undefined)
+			if (this.gfnIsNull(objFormDs))
 			{
 				this.gfnLog("Dataset does not found.","info");
 				this.on_fire_onerror("error");

@@ -194,6 +194,7 @@
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
+        <Button id="Button00" taborder="20" text="Button00" left="411" top="22" width="69" height="28" onclick="Button00_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -212,7 +213,7 @@
       <DsDeleteSelectDataAction id="DsDeleteSelectDataAction00" targetview="View00" canrun="Common_canrun" onerror="Common_onerror" onsuccess="Common_onsuccess">
         <Contents/>
       </DsDeleteSelectDataAction>
-      <DsDeleteCheckedDataAction id="DsDeleteCheckedDataAction00" targetview="View00" targetdataset="View00.form.viewdataset" checkcolumnid="Check" canrun="Common_canrun" onerror="Common_onerror" onsuccess="Common_onsuccess">
+      <DsDeleteCheckedDataAction id="DsDeleteCheckedDataAction00" targetview="View00" targetdataset="viewdataset" checkcolumnid="Check" canrun="Common_canrun" onerror="Common_onerror" onsuccess="Common_onsuccess">
         <Contents/>
       </DsDeleteCheckedDataAction>
       <DsDeleteAllDataAction id="DsDeleteAllDataAction00" targetview="View00" deletetype="delete" canrun="Common_canrun" onerror="Common_onerror" onsuccess="Common_onsuccess">
@@ -286,6 +287,12 @@ this.Common_onerror = function(obj, e:nexacro.ActionErrorEventInfo)
 this.Common_onsuccess = function(obj, e:nexacro.ActionSuccessEventInfo)
 {
 	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : " + e.userdata);
-};]]></Script>
+};
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var ret = this._findDataset("View00.form.viewdataset");
+	trace(ret);
+};
+]]></Script>
   </Form>
 </FDL>

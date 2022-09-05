@@ -171,4 +171,114 @@ if (!nexacro.CommActionAsset)
 
 		return objDs;
 	};
+	
+	/**
+	 * Field의 value값 반환
+	 * @param {Object} oField - model Field 객체
+	 * @param {Object} oView - targetview가 아닌 경우 View 객체
+	 * @return Field의 value값 반환
+	 */
+	pAction.gfnGetFieldValue = function(oField, oView)
+	{
+		var sReturnValue;
+		
+		if (this.gfnIsNull(oField))				return;
+		
+		var sFieldName	= oField["name"];
+		var sFieldValue	= oField["value"];
+		
+		if (this.gfnIsNull(sFieldValue))		return;
+		
+		var sType = sFieldValue.toString().substr(0,5).toLowerCase();
+		
+		switch (sType)
+		{
+			case "expr:":
+				var sExprText = sFieldValue.toString().substr(5);
+				
+				// expr 전환시 기준이 될 view name
+				var sViewNm = oView ? oView.name : this.targetview;
+				
+				// expr Text 처리
+				sExprText = this.gfnGetExprText(sExprText,sViewNm);
+				
+				sReturnValue = eval(sExprText);
+				break;
+			default:
+				sReturnValue = sFieldValue;
+				break;
+		}
+		
+		//this.gfnLog(sFieldName + " : " +sReturnValue);
+		
+		return sReturnValue;
+	};
+	
+	/**
+	 * expr 형식일때 예약어 단축어 처리
+	 * @param {String} sExprText - expr 처리 대상 text
+	 * @param {String} sViewNm - 디폴트값용 View ID
+	 * @return 예약어 단축어 처리된 Text값
+	 */
+	pAction.gfnGetExprText = function(sExprText, sViewNm)
+	{
+		var sRetText = sExprText;
+		
+		// 1) '['와 ']' 사이값 추출
+		// [field] 형식 : targetview의 viewdataset field컬럼값 반환 
+		// [view:field] 형식 : view의 viewdataset field컬럼값 반환 
+		// [view:datasetid:field] 형식 : view의 datasetid field컬럼값 반환
+		// [view:datasetid:row:field] 형식 : view의 datasetid의 row행 field컬럼값 반환
+		var regEx = /(?<=\[)(.*?)(?=\])/g;
+		var sMatch;
+		var sView;
+		var sViewDataset;
+		var sColumnId;
+		var sRow;
+		var sReText;
+		
+		// 변환처리
+		while ((m = regEx.exec(sRetText)) !== null)
+		{
+			// This is necessary to avoid infinite loops with zero-width matches
+			if (m.index === regEx.lastIndex) {
+				regEx.lastIndex++;
+			}
+			
+			sMatch = m[0];
+			
+			var arrMatch = sMatch.split(":");
+			
+			if (arrMatch.length == 1) {				// [field] 형식
+				sView			= sViewNm;
+				sViewDataset	= "this.parent." + sView + ".form.viewdataset";
+				sRow			= sViewDataset + ".rowposition";
+				sColumnId		= arrMatch[0];
+			} else if (arrMatch.length == 2) {		// [view:field] 형식
+				sView			= arrMatch[0];
+				sViewDataset	= "this.parent." + sView + ".form.viewdataset";
+				sRow			= sViewDataset + ".rowposition";
+				sColumnId		= arrMatch[1];
+			} else if (arrMatch.length == 3) {		// [view:datasetid:field] 형식
+				sView			= arrMatch[0];
+				sViewDataset	= "this.parent." + sView + ".form." + arrMatch[1];
+				sRow			= sViewDataset + ".rowposition";
+				sColumnId		= arrMatch[2];
+			} else if (arrMatch.length == 4) {		// [view:datasetid:row:field] 형식
+				sView			= arrMatch[0];
+				sViewDataset	= "this.parent." + sView + ".form." + arrMatch[1];
+				sRow			= arrMatch[2];
+				sColumnId		= arrMatch[3];
+			} else {
+				continue;
+			}
+			
+			// 변환처리 : this.parent.[view].form.viewdataset.getColumn(this.parent.[view].form.viewdataset.rowposition,'[field]')
+			sReplace = sViewDataset + ".getColumn(" + sRow + ",'" + sColumnId + "')";
+			
+			sRetText = sRetText.replace("[" + sMatch + "]",sReplace);
+		}
+		
+		return sRetText;
+	};
 }

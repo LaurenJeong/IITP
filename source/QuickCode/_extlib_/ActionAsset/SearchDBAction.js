@@ -33,14 +33,14 @@ if (!nexacro.SearchDBAction)
 		if(this.on_fire_canrun("userdata")!=false)
 		{	
 			//Transaction에서 사용할 Param정보 가져오기
-			var sId = this.id;
-			var sUrl = this.serviceurl;
+			var sSvcId = this.id;
+			var sService = this.serviceurl;
 			var sInDs = this.inputdatasets;
 			var sOutDs = this.outputdatasets;
 			var sArgs = this.args;
-			var sCallBack = this._TRAN_CALLBACK_NM;
+			var sCallback = this._TRAN_CALLBACK_NM;
 			
-			this.gfnTransaction(sId, sUrl, sInDs, sOutDs, sArgs, sCallBack);
+			this.gfnTransaction(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback);
 		}
 	};
 	
@@ -120,22 +120,22 @@ if (!nexacro.SearchDBAction)
 		return true;	
 	};
 	
-	nexacro.SearchDBAction.prototype.on_fire_onsuccess = function (sId, nErrorCd, sErrorMsg)
+	nexacro.SearchDBAction.prototype.on_fire_onsuccess = function (sSvcId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onsuccess;
 		if (event && event._has_handlers)
 		{
-			var evt = new nexacro.TranActionSuccessEventInfo(this, "onsuccess", sId, nErrorCd, sErrorMsg); //TODO
+			var evt = new nexacro.TranActionSuccessEventInfo(this, "onsuccess", sSvcId, nErrorCd, sErrorMsg); //TODO
 			event._fireEvent(this, evt);
 		}
 	};
 	
-	nexacro.SearchDBAction.prototype.on_fire_onerror = function (sId, nErrorCd, sErrorMsg)
+	nexacro.SearchDBAction.prototype.on_fire_onerror = function (sSvcId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onerror;
 		if (event && event._has_handlers)
 		{
-			var evt = new nexacro.TranActionErrorEventInfo(this, "onerror", sId, nErrorCd, sErrorMsg); //TODO
+			var evt = new nexacro.TranActionErrorEventInfo(this, "onerror", sSvcId, nErrorCd, sErrorMsg); //TODO
 			event._fireEvent(this, evt);
 		}
 	};
@@ -143,6 +143,7 @@ if (!nexacro.SearchDBAction)
 	//===============================================================		
     // nexacro.DsCopyRowDataAction : 공통함수 전환부분
     //===============================================================
+	// Transaction
 	nexacro.SearchDBAction.prototype.gfnTransaction = function(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync)
 	{	
 		if (this.gfnIsNull(sSvcId) || this.gfnIsNull(sService))
@@ -163,31 +164,158 @@ if (!nexacro.SearchDBAction)
 		
 		var objForm = this.gfnGetForm();
 		
+		// Model Argument 처리 : 해당 데이터셋에 value값 설정
+		this.gfnSetModelArgument(objForm);
+		
+		// User Argument 처리 : transaction Argument로 추가
+		var sAddArg = this.gfnSetUserArgument(objForm);
+		if (this.gfnIsNull(sAddArg) == false) {
+			sArgs = sAddArg + " " + sArgs;
+		}
+		
+		// Log처리용
+		var dStartDate = new Date();
+		var sStartTime = dStartDate.getTime();
+		
+		// callback에서 처리할 서비스 정보 저장
+		var objSvcId = { 
+			svcId		: sSvcId
+		  , svcUrl    	: sService
+		  , callback	: sCallback
+		  , isAsync   	: bAsync
+		  , startTime	: sStartTime
+		};
+		
 		//Action Scope에 있는 CallBack 함수가 호출되도록 설정
 		objForm.fnTranActionCallback = this.fnTranActionCallback;
 		
+		// Action정보를 폼에 설정
 		if (this.gfnIsNull(objForm.targetTranAction))		objForm.targetTranAction = {};
-		objForm.targetTranAction[sId] = this;
+		objForm.targetTranAction[sSvcId] = this;
 		
 		//Transaction 호출
-		objForm.transaction(sId, sUrl, sInDs, sOutDs, sArgs, sCallBack, sAsync);
+		objForm.transaction(JSON.stringify(objSvcId), sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
 	};
 	
-	nexacro.SearchDBAction.prototype.gfnTranActionCallback = function(sId, nErrorCd, sErrorMsg)
+	// Transaction Callback
+	nexacro.SearchDBAction.prototype.fnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
 	{
-		var objTarget = this.targetTranAction[sId];
+		var objSvcId = JSON.parse(svcId);
+		var sSvcId = objSvcId.svcId;
+		
+		var dEndDate = new Date();
+		var nElapseTime = (dEndDate.getTime() - objSvcId.startTime) / 1000;
+		
+		var objTarget = this.targetTranAction[sSvcId];
 		if (objTarget == undefined || objTarget == null)		return;
+		
+		// Transaction Log
+		objTarget.gfnLog("ElapseTime >> " + nElapseTime + ", ErrorCd >> " + nErrorCd + ", ErrorMsg >> " + sErrorMsg);
 		
 		//ErrorCode가 -1보다 클 경우 onsuccess 이벤트 호출
 		if(nErrorCd>-1)
 		{
-			objTarget.on_fire_onsuccess(sId, nErrorCd, sErrorMsg);
+			objTarget.on_fire_onsuccess(sSvcId, nErrorCd, sErrorMsg);
 		}
 		//ErrorCode가 0보다 작을 경우 onerror 이벤트 호출
 		else
 		{
-			objTarget.on_fire_onerror(sId, nErrorCd, sErrorMsg);
+			objTarget.on_fire_onerror(sSvcId, nErrorCd, sErrorMsg);
 		}
 	};
 	
+	// Model Argument 처리 : 해당 데이터셋에 value값 설정
+	nexacro.SearchDBAction.prototype.gfnSetModelArgument = function(objForm)
+	{
+		var oModelList = this.getContents("model");		// Action 내 model 정보 
+		
+		//this.gfnLog("model >>> ");
+		//this.gfnLog(oModelList);
+		
+		if (!oModelList)
+            return;
+		
+		var sViewId;
+		var sModelId;
+		var sIOType;
+		var oFieldList;
+		
+		var oModel;
+		var oView;
+		var oViewDataset;
+		var oField;
+		
+		var nRow;
+		var sFieldValue;
+		
+		for (var i = 0; i < oModelList.length; i++)
+        {
+			oModel		= oModelList[i];
+			
+			sViewId		= oModel["viewid"];
+			sModelId	= oModel["modelid"];
+			sIOType		= oModel["iotype"];
+			oFieldList	= oModel["fieldlist"];
+			
+			// Model이 사용된 View 객체
+			oView		= objForm._findComponentForArrange(sViewId);
+			
+			if (oView)
+			{
+				oViewDataset = oView.getViewDataset();								// viewdataset
+				nRow = oViewDataset.rowposition ? oViewDataset.rowposition : 0;		// rowposition
+				
+				if (oViewDataset && oViewDataset._type_name == "Dataset")
+				{
+					for (var j = 0; j < oFieldList.length; j++)
+					{
+						oField = oFieldList[j];
+						
+						// Field의 value값 반환
+						sFieldValue = this.gfnGetFieldValue(oField, oView);
+						
+						// 데이터 셋팅
+						oViewDataset.setColumn(nRow, oField["fieldid"], sFieldValue);
+					}
+				}
+			}
+		}
+	};
+	
+	// User Argument 처리 : transaction Argument로 추가
+	nexacro.SearchDBAction.prototype.gfnSetUserArgument = function(objForm)
+	{
+		var sReturnValue = "";
+		
+		var oExtraList = this.getContents("extra");		// Action 내 extra 정보 
+		
+		//this.gfnLog("extra >>> ");
+		//this.gfnLog(oExtraList);
+		
+		if (!oExtraList)
+            return;
+		
+		var oExtra;
+		var sExtraName;
+		var sExtraValue;
+		
+		// oExtraList객체값을 transaction argument 형식으로 변환
+		//oExtraList.forEach(oExtra => sReturnValue += " " + oExtra["name"] + "=" + nexacro.wrapQuote(oExtra["value"]));
+		for (var i = 0; i < oExtraList.length; i++)
+		{
+			oExtra = oExtraList[i];
+			sExtraName = oExtra["name"];
+			
+			// Field의 value값 반환
+			sExtraValue = this.gfnGetFieldValue(oExtra);
+			
+			// transaction argument 형식으로 셋팅
+			sReturnValue += " " + sExtraName + "=" + nexacro.wrapQuote(sExtraValue);
+		}
+		
+		sReturnValue = sReturnValue.substr(1);
+		//this.gfnLog(sReturnValue);
+		
+		return sReturnValue;
+	};
 }

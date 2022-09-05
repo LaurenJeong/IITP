@@ -32,7 +32,7 @@ if (!nexacro.DsAddDataAction)
 		//Import the object set as TargetView			
 		var objView = this.getTargetView();	
 		
-		var sTarget = this.targetdataset;
+		var sTargetDs = this.targetdataset;
 			
 		var objDataset;
 		var objComp;
@@ -42,26 +42,32 @@ if (!nexacro.DsAddDataAction)
 		{
 			var objDs = this._targetdataset;
 			
-			if (objDs == undefined)		objDs 	= this.gfnGetDataset(objView,sTarget);
+			if (this.gfnIsNull(objDs))		objDs 	= this.gfnGetDataset(objView,sTargetDs);
 			
-			if (objDs == undefined)
+			if (this.gfnIsNull(objDs))
 			{
-				trace("[Info] Dataset does not found.");
+				this.gfnLog("Dataset does not found.","info");
 				this.on_fire_onerror("error");
 				return;
 			}
 			
  			// Call Function
- 			var rtn = this.gfnAddRow(objDs);
+ 			var nAddRow = this.gfnAddRow(objDs);
 			
-			if (rtn >= 0)
+			// Model Argument 처리 : 해당 데이터셋에 value값 설정
+			var ret1 = this.gfnSetModelArgument(objDs, nAddRow);
+			
+			// User Argument 처리 : 해당 데이터셋에 value값 설정
+			var ret2 = this.gfnSetUserArgument(objDs, nAddRow);
+			
+			if (nAddRow >= 0 && ret1 && ret2)
 			{
-				this.on_fire_onsuccess(rtn);
+				this.on_fire_onsuccess(nAddRow);
 				return;
 			}
 			else
 			{
-				this.on_fire_onerror(rtn);
+				this.on_fire_onerror(nAddRow);
 				return;
 			}
 		}		
@@ -78,11 +84,20 @@ if (!nexacro.DsAddDataAction)
 		} else {
 			v = nexacro._toString(v);
 			
-			var objForm = this.parent;
-			var objDs = objForm._findDataset(v);
-			if (this.targetdataset != v && objDs != undefined) {
+			if (this.targetdataset != v) {
 				this.targetdataset = v;
-				this._targetdataset = objDs;
+				this._targetdataset = null;
+				
+				var objView = this.getTargetView();	
+				if (objView)
+				{
+					var objForm = objView.form;
+					var objDs = objForm._findDataset(v);
+					
+					if (objDs != undefined) {
+						this._targetdataset = objDs;
+		 			}
+				}
 			}
 		}
 	};
@@ -151,9 +166,105 @@ if (!nexacro.DsAddDataAction)
 		// 행추가
 		nRow = objDs.addRow();
 		
-		// TODO : 추가된 행에 데이터 설정
-		//var oModelArg = this.getContents("model");
-		
 		return nRow;
+	};
+	
+	// Model Argument 처리 : 해당 데이터셋에 value값 설정(viewdataset용)
+	nexacro.DsAddDataAction.prototype.gfnSetModelArgument = function(objDs, nAddRow)
+	{
+		if (!objDs)							return false;
+		if (nAddRow < 0)					return false;
+		
+		if (objDs.id != "viewdataset")
+		{
+			this.gfnLog("viewdataset만 설정 할 수 있습니다.","info");
+			return true;
+		}
+		
+		var oModelList = this.getContents("model");		// Action 내 model 정보 
+		
+		//this.gfnLog("model >>> ");
+		//this.gfnLog(oModelList);
+		
+		if (!oModelList)					return true;
+		
+		var sViewId;
+		var sModelId;
+		var sIOType;
+		var oFieldList;
+		
+		var oModel;
+		var oView;
+		var oViewDataset;
+		var oField;
+		
+		var nRow;
+		var sFieldValue;
+		
+		var oParent = objDs.parent.parent;
+		var sParentId = oParent.id;
+		
+		for (var i = 0; i < oModelList.length; i++)
+        {
+			oModel		= oModelList[i];
+			
+			sViewId		= oModel["viewid"];
+			sModelId	= oModel["modelid"];
+			sIOType		= oModel["iotype"];
+			oFieldList	= oModel["fieldlist"];
+			
+			if (sParentId == sViewId)
+			{
+				// 컬럼 셋팅
+				for (var j = 0; j < oFieldList.length; j++)
+				{
+					oField = oFieldList[j];
+					
+					// Field의 value값 반환
+					sFieldValue = this.gfnGetFieldValue(oField, oParent);
+					
+					// 데이터 셋팅
+					objDs.setColumn(nAddRow, oField["fieldid"], sFieldValue);
+				}
+				
+				break;
+			}
+		}
+		
+		return true;
+	};
+	
+	// User Argument 처리 : 해당 데이터셋에 value값 설정
+	nexacro.DsAddDataAction.prototype.gfnSetUserArgument = function(objDs, nAddRow)
+	{
+		if (!objDs)							return false;
+		if (nAddRow < 0)					return false;
+		
+		var oExtraList = this.getContents("extra");		// Action 내 extra 정보 
+		
+		//this.gfnLog("extra >>> ");
+		//this.gfnLog(oExtraList);
+		
+		if (!oExtraList)		return true;
+		
+		var oExtra;
+		var sExtraName;
+		var sExtraValue;
+		
+		// oExtraList객체값을 transaction argument 형식으로 변환
+		//oExtraList.forEach(oExtra => sReturnValue += " " + oExtra["name"] + "=" + nexacro.wrapQuote(oExtra["value"]));
+		for (var i = 0; i < oExtraList.length; i++)
+		{
+			oExtra = oExtraList[i];
+			sExtraName = oExtra["name"];
+			
+			// Field의 value값 반환
+			sExtraValue = this.gfnGetFieldValue(oExtra);
+			
+			// 데이터 셋팅
+			objDs.setColumn(nAddRow, sExtraName, sExtraValue);
+		}
+		
+		return true;
 	};
 }

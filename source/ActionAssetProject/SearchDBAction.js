@@ -272,7 +272,7 @@ if (!nexacro.SearchDBAction)
 						oField = oFieldList[j];
 						
 						// Field의 value값 반환
-						sFieldValue = this.gfnGetFieldValue(oField, oView, oViewDataset);
+						sFieldValue = this.gfnGetFieldValue(oField, oView);
 						
 						// 데이터 셋팅
 						oViewDataset.setColumn(nRow, oField["fieldid"], sFieldValue);
@@ -280,88 +280,6 @@ if (!nexacro.SearchDBAction)
 				}
 			}
 		}
-	};
-	
-	// Field의 value값 반환
-	nexacro.SearchDBAction.prototype.gfnGetFieldValue = function(oField, oView)
-	{
-		var sReturnValue;
-		
-		if (this.gfnIsNull(oField))				return;
-		
-		var sFieldName	= oField["name"];
-		var sFieldValue	= oField["value"];
-		
-		if (this.gfnIsNull(sFieldValue))		return;
-		
-		var sType = sFieldValue.toString().substr(0,5).toLowerCase();
-		
-		switch (sType)
-		{
-			case "expr:":
-				var sExprText = sFieldValue.toString().substr(5);
-				
-				// expr 전환시 기준이 될 view name
-				var sViewNm = oView ? oView.name : this.targetview;
-				
-				// expr Text 처리
-				sExprText = this.gfnGetExprText(sExprText,sViewNm);
-				
-				sReturnValue = eval(sExprText);
-				break;
-			default:
-				sReturnValue = sFieldValue;
-				break;
-		}
-		
-		//this.gfnLog(sFieldName + " : " +sReturnValue);
-		
-		return sReturnValue;
-	};
-	
-	// expr Text 처리
-	nexacro.SearchDBAction.prototype.gfnGetExprText = function(sExprText, sViewNm)
-	{
-		var sRetText = sExprText;
-		
-		// 1) '['와 ']' 사이값 추출
-		// [field] 형식 : targetview의 viewdataset field컬럼값 반환 
-		// [view:field] 형식 : view의 viewdataset field컬럼값 반환 
-		var regEx = /(?<=\[)(.*?)(?=\])/g;
-		var sMatch;
-		var sView;
-		var sViewDataset;
-		var sColumnId;
-		var sReText;
-		
-		// 변환처리
-		while ((m = regEx.exec(sRetText)) !== null)
-		{
-			// This is necessary to avoid infinite loops with zero-width matches
-			if (m.index === regEx.lastIndex) {
-				regEx.lastIndex++;
-			}
-			
-			sMatch = m[0];
-			
-			var arrMatch = sMatch.split(":");
-			if (arrMatch.length < 2) {		// view설정안됨
-				sView		= sViewNm;
-				sColumnId	= arrMatch[0];
-			} else {
-				sView		= arrMatch[0];
-				sColumnId	= arrMatch[1];
-			}
-			
-			sViewDataset = "this.parent." + sView + ".form.viewdataset";
-			
-			// 변환처리 : this.parent.[view].form.viewdataset.getColumn(this.parent.[view].form.viewdataset.rowposition,'[field]')
-			sReplace = sViewDataset + ".getColumn(" + sViewDataset + ".rowposition,'" + sColumnId + "')";
-			
-			sRetText = sRetText.replace("[" + sMatch + "]",sReplace);
-		}
-		
-		return sRetText;
 	};
 	
 	// User Argument 처리 : transaction Argument로 추가

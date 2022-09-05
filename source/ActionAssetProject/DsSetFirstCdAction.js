@@ -51,7 +51,7 @@ if (!nexacro.DsSetFirstCdAction)
 		{			
 			var objComp = this.gfnGetTargetComp(sTarget);
 			
-			if (objComp == undefined)
+			if (this.gfnIsNull(objComp))
 			{
 				this.gfnLog("targetcomp does not found.","info");
 				this.on_fire_onerror("error");

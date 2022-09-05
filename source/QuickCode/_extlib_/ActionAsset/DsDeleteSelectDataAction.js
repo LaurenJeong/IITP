@@ -43,8 +43,7 @@ if (!nexacro.DsDeleteSelectDataAction)
 		if(this.on_fire_canrun()!=false)			
 		{			
 			//If the TargetView is set as View, not Form		
-			if(objView)objForm = objView.form;		
-			else objForm = this.parent;
+			var objForm = this.gfnGetForm();
 			
 			// Grid 객체 찾기
 			if (sTarget) {				// targetgrid 설정시 해당 그리드

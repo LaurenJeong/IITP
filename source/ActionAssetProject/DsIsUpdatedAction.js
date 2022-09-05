@@ -34,7 +34,7 @@ if (!nexacro.DsIsUpdatedAction)
 		//Import the object set as TargetView			
 		var objView = this.getTargetView();	
 		
-		var sTarget = this.targetdataset;
+		var sTargetDs = this.targetdataset;
 		var bCheckFilter = this.checkfilter;
 			
 		var objDataset;
@@ -43,23 +43,13 @@ if (!nexacro.DsIsUpdatedAction)
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
 		{			
-			//If the TargetView is set as View, not Form		
-			if(objView)objForm = objView.form;		
-			else objForm = this.parent;
+			var objDs = this._targetdataset;
 			
-			var objDs;
+			if (this.gfnIsNull(objDs))	objDs 	= this.gfnGetDataset(objView,sTargetDs);
 			
-			// Dataset 객체 찾기
-			if (sTarget) {				// targetgrid 설정시 해당 그리드
-				sTarget = sTarget.replace("@", "");
-				objDs = objForm._findDataset(sTarget);
-			} else {						// targetgrid 미설정시 View에 있는 Grid
-				objDs = objView.getViewDataset();
-			}
-			
-			if (objDs == undefined)
+			if (this.gfnIsNull(objDs))
 			{
-				trace("[Info] Dataset does not found.");
+				this.gfnLog("Dataset does not found.","info");
 				this.on_fire_onerror("error");
 				return;
 			}
@@ -77,23 +67,31 @@ if (!nexacro.DsIsUpdatedAction)
 		}	
 	};	
 	
-	nexacro.DsIsUpdatedAction.prototype._targetdataset = "";
+	nexacro.DsIsUpdatedAction.prototype._targetdataset = null;
 	nexacro.DsIsUpdatedAction.prototype.set_targetdataset = function (v)				
 	{				
-		// TODO : enter your code here.
 		if (v instanceof nexacro.NormalDataset) {
-			if (this.targetdataset != v) {			
-				this.targetdataset = v;
-				this._targetdataset = v.name;
+			if (this.targetdataset != v.name) {			
+				this.targetdataset = v.name;
+				this._targetdataset = v;
 			}		
 		} else {
 			v = nexacro._toString(v);
 			
-			var objForm = this.parent;
-			var objDs = objForm._findDataset(v);
-			if (this._targetdataset != v && objDs != undefined) {
-				this._targetdataset = v;
-				this.targetdataset = objDs;
+			if (this.targetdataset != v) {
+				this.targetdataset = v;
+				this._targetdataset = null;
+				
+				var objView = this.getTargetView();	
+				if (objView)
+				{
+					var objForm = objView.form;
+					var objDs = objForm._findDataset(v);
+					
+					if (objDs != undefined) {
+						this._targetdataset = objDs;
+		 			}
+				}
 			}
 		}
 	};
