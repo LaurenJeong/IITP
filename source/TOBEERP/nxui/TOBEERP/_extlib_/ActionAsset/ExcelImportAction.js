@@ -28,12 +28,10 @@ if (!nexacro.ExcelImportAction)
     // nexacro.ExcelImportAction : Method		
     //===============================================================		
     nexacro.ExcelImportAction.prototype.run = function()		
-	{	
-        //TODO
-		var objForm;			
-					
+	{			
 		//Import the object set as TargetView			
 		var objView = this.getTargetView();	
+		var objForm = this.gfnGetForm();
 		
 		var sTargetDs = this.targetdataset;
 			
@@ -64,20 +62,28 @@ if (!nexacro.ExcelImportAction)
 	nexacro.ExcelImportAction.prototype._targetdataset = null;
 	nexacro.ExcelImportAction.prototype.set_targetdataset = function (v)				
 	{				
-		// TODO : enter your code here.
 		if (v instanceof nexacro.NormalDataset) {
-			if (this.targetdataset != v) {			
-				this.targetdataset = v;
-				this._targetdataset = v.name;
+			if (this.targetdataset != v.name) {			
+				this.targetdataset = v.name;
+				this._targetdataset = v;
 			}		
 		} else {
 			v = nexacro._toString(v);
 			
-			var objForm = this.parent;
-			var objDs = objForm._findDataset(v);
-			if (this._targetdataset != v && objDs != undefined) {
-				this._targetdataset = v;
-				this.targetdataset = objDs;
+			if (this.targetdataset != v) {
+				this.targetdataset = v;
+				this._targetdataset = null;
+				
+				var objView = this.getTargetView();	
+				if (objView)
+				{
+					var objForm = objView.form;
+					var objDs = objForm._findDataset(v);
+					
+					if (objDs != undefined) {
+						this._targetdataset = objDs;
+		 			}
+				}
 			}
 		}
 	};

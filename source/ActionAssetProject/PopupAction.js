@@ -178,6 +178,20 @@ if (!nexacro.PopupAction)
 		}
 	};
 	
+	nexacro.PopupAction.prototype.set_popupdatatype = function (v)				
+	{
+		var popupdatatype_enum = ["none","copyrow","adddata","replace"];
+		if (v && popupdatatype_enum.indexOf(v) == -1) {
+			return;
+		}
+		
+		// TODO : enter your code here.			
+		v = nexacro._toString(v);			
+		if (this.popupdatatype != v) {			
+			this.popupdatatype = v;		
+		}			
+	};
+	
 	//===============================================================		
     // nexacro.PopupAction : Event		
     //===============================================================
@@ -277,9 +291,12 @@ if (!nexacro.PopupAction)
 	// 리턴값 설정
 	nexacro.PopupAction.prototype.gfnSetPopupReturn = function(sParam)
 	{
+		var sPopupDataType = this.popupdatatype;
 		var oTargetView = this.getTargetView();
 		
-		if (!this.gfnIsNull(oTargetView) && !this.gfnIsNull(sParam))
+		// 리턴 데이터 처리
+		if (!this.gfnIsNull(oTargetView) && !this.gfnIsNull(sParam) 
+			&& !this.gfnIsNull(sPopupDataType) && sPopupDataType != "none")
 		{
 			var objDs = oTargetView.getViewDataset();
 			
@@ -295,6 +312,7 @@ if (!nexacro.PopupAction)
 			var sParamDsId = "dsPopupParam";
 			var objParam = JSON.parse(sParam);
 			var objParamDs = this.gfnGetDataset(oTargetView,sParamDsId);
+			var nARow;
 			
 			if (this.gfnIsNull(objParamDs))
 			{
@@ -306,8 +324,29 @@ if (!nexacro.PopupAction)
 			// 모델정보에 따라 복사할 컬럼값 설정
 			var strColInfo = this.gfnGetCopyColInfo(oTargetView);
 			
-			// 컬럼정보 기준으로 copyRow;
-			objDs.copyRow(objDs.rowposition,objParamDs,0,strColInfo);
+			if (sPopupDataType == "copyrow")										// 0번째 데이터만 복사
+			{
+				objDs.copyRow(objDs.rowposition,objParamDs,0,strColInfo);
+			}
+			else if (sPopupDataType == "adddata" || sPopupDataType == "replace")	// 모든 데이터 복사
+			{
+				objDs.set_enableevent(false);
+				
+				// replace 인 경우 기존 데이터 삭제
+				if (sPopupDataType == "replace")
+				{
+					objDs.clearData();
+				}
+				
+				// 모든 데이터 복사
+				for(i=0; i< objParamDs.rowcount; i++)
+				{
+					nARow = objDs.addRow();
+					objDs.copyRow(nARow,objParamDs,i,strColInfo);
+				}
+				
+				objDs.set_enableevent(true);
+			}
 		}
 		
 		this.on_fire_onsuccess(sParam);

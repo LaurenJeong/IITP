@@ -43,6 +43,12 @@
     <Enum name="replace" description="데이터를 전환"/>
     <Enum name="append" description="기존 데이터에 추가"/>
   </EnumInfo>
+  <EnumInfo id="PopupDataType" description="팝업데이터처리타입">
+    <Enum name="none" description="데이터를 처리하지 않음."/>
+    <Enum name="copyrow" description="반환된 첫번째 데이터를 현재 데이터에 복사"/>
+    <Enum name="adddata" description="반환된 데이터를 현재 데이터에 추가"/>
+    <Enum name="replace" description="반환된 데이터로 데이터를 교체"/>
+  </EnumInfo>
   <RefreshInfo id="targetview">
     <Property name="targetcomp"/>
     <Property name="targetdataset"/>

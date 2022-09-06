@@ -13,6 +13,7 @@
       <Property name="popupid" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" defaultvalue="popup" group="Action"/>
       <Property name="title" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" defaultvalue="New Form" group="Action"/>
       <Property name="targetview" group="Action" subgroup="" refreshinfo="" edittype="ViewObjList" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Action을 수행할 View 오브젝트를 설정하는 속성입니다." csspropertyname="" normalpropertyname="targetview"/>
+      <Property name="popupdatatype" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="Enum" defaultvalue="copyrow" enuminfo="PopupDataType" description="팝업에서 반환된 데이터를 처리 할 방법을 설정합니다." group="Action"/>
     </PropertyInfo>
     <CSSInfo>
       <PropertyInfo/>
@@ -33,7 +34,7 @@
         <Syntax text="onerror(obj:nexacro.PopupAction, e:nexacro.ActionErrorEventInfo)">
           <Return type="" description=""/>
           <Arguments>
-          	<Argument name="obj" type="nexacro.PopupAction" in="" out="" option="" variable="" description=""/>
+            <Argument name="obj" type="nexacro.PopupAction" in="" out="" option="" variable="" description=""/>
             <Argument name="e" type="nexacro.ActionErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
           </Arguments>
         </Syntax>
@@ -42,7 +43,7 @@
         <Syntax text="onsuccess(obj:nexacro.PopupAction, e:nexacro.ActionSuccessEventInfo)">
           <Return type="" description=""/>
           <Arguments>
-          	<Argument name="obj" type="nexacro.PopupAction" in="" out="" option="" variable="" description=""/>
+            <Argument name="obj" type="nexacro.PopupAction" in="" out="" option="" variable="" description=""/>
             <Argument name="e" type="nexacro.ActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
           </Arguments>
         </Syntax>
