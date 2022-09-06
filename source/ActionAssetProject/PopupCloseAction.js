@@ -28,9 +28,7 @@ if (!nexacro.PopupCloseAction)
     // nexacro.PopupCloseAction : Method		
     //===============================================================		
     nexacro.PopupCloseAction.prototype.run = function()		
-	{	
-        var objForm;			
-					
+	{			
 		//Import the object set as TargetView			
 		var objView = this.getTargetView();	
 		
@@ -45,9 +43,7 @@ if (!nexacro.PopupCloseAction)
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
 		{			
-			//If the TargetView is set as View, not Form		
-			if(objView)objForm = objView.form;		
-			else objForm = this.parent;
+			var objForm = this.gfnGetForm();
 			
 			var sXML = "";
 			

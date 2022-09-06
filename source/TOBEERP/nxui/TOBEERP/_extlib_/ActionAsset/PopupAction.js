@@ -55,7 +55,10 @@ if (!nexacro.PopupAction)
 			
 			//Action Scope에 있는 CallBack 함수가 호출되도록 설정
 			objForm.fnPopupActionCallback = this.fnPopupActionCallback;
-			objForm.targetPopupAction = this;
+			
+			// Action정보를 폼에 설정
+			if (this.gfnIsNull(objForm.targetPopupAction))		objForm.targetPopupAction = {};
+			objForm.targetPopupAction[sPopupId] = this;
 			
 			if (this.gfnIsNull(objArgs)) {
 				objArgs = {};
@@ -262,8 +265,82 @@ if (!nexacro.PopupAction)
 		nexacro.open(sPopupId, sFormUrl, objOwnerFrame, objArgs, sOpt, nLeft, nTop, nWidth, nHeight, objForm);
 	};
 	
+	// PopupCallback 함수
 	nexacro.PopupAction.prototype.fnPopupActionCallback = function(sId, sParam)
 	{
-		this.targetPopupAction.on_fire_onsuccess(sParam);
+		var objTarget = this.targetPopupAction[sId];
+		if (objTarget == undefined || objTarget == null)		return;
+		
+		objTarget.gfnSetPopupReturn(sParam);
 	};
+	
+	// 리턴값 설정
+	nexacro.PopupAction.prototype.gfnSetPopupReturn = function(sParam)
+	{
+		var oTargetView = this.getTargetView();
+		
+		if (!this.gfnIsNull(oTargetView) && !this.gfnIsNull(sParam))
+		{
+			var objDs = oTargetView.getViewDataset();
+			
+			if (this.gfnIsNull(objDs))
+			{
+				this.gfnLog("viewdataset이 없습니다.","info");
+				this.on_fire_onerror();
+				return;
+			}
+			
+			// 팝업 리턴데이터용 데이터셋
+			var oForm = oTargetView.form;
+			var sParamDsId = "dsPopupParam";
+			var objParam = JSON.parse(sParam);
+			var objParamDs = this.gfnGetDataset(oTargetView,sParamDsId);
+			
+			if (this.gfnIsNull(objParamDs))
+			{
+				objParamDs = new nexacro.NormalDataset(sParamDsId, oForm);
+			}
+			
+			objParamDs.loadXML(objParam.dataset);
+			
+			// 모델정보에 따라 복사할 컬럼값 설정
+			var strColInfo = this.gfnGetCopyColInfo(oTargetView);
+			
+			// 컬럼정보 기준으로 copyRow;
+			objDs.copyRow(objDs.rowposition,objParamDs,0,strColInfo);
+		}
+		
+		this.on_fire_onsuccess(sParam);
+	};
+	
+	// Model Argument 처리 : 설정된 모델정보만 복사
+	nexacro.PopupAction.prototype.gfnGetCopyColInfo = function(oTargetView)
+	{
+		var strColInfo = "";
+		
+		// Model Argument 있는지 확인
+		var oModelList = this.getContents("model");		// Action 내 model 정보 
+		
+		// 설정한 Model Argument가 있는 경우 복사할 컬럼정보설정
+		if (oModelList)
+		{
+			var arrColInfo = new Array();
+			var oFieldList;
+			
+			// targetview에 해당하는 Model Argument만 처리
+			var oModel = oModelList.find(oModel => oModel["viewid"] = oTargetView.id);
+			
+			// fieldlist정보로 strColInfo 설정 : "fieldid1=value1,fieldid2=value2" 형식
+			if (oModel)
+			{
+				oFieldList	= oModel["fieldlist"];
+				oFieldList.forEach(oField => arrColInfo.push(oField["fieldid"] + "=" + oField["value"]));
+				strColInfo = arrColInfo.join(",");
+			}
+		}
+		
+		return strColInfo;
+	};
+	
+	
 }
