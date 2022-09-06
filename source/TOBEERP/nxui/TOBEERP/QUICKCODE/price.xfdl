@@ -119,29 +119,29 @@
               <Edit id="edtBarcode" left="940" top="45" width="155" height="28" enable="false"/>
               <Static id="staLastPriceBg" left="0" top="78" width="1100" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staLastPriceLabel" left="0" top="78" width="110" height="40" text="최종판매가" cssclass="sta_WF_titleStar"/>
-              <MaskEdit id="mskLastPrice" left="115" top="84" width="155" height="28" format="#,###"/>
+              <MaskEdit id="mskLastPrice" left="115" top="84" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staReceivingPriceLabel" left="275" top="78" width="110" height="40" text="입고가" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskReceivingPrice" left="390" top="84" width="155" height="28" format="#,###"/>
+              <MaskEdit id="mskReceivingPrice" left="390" top="84" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staWholesalePriceLabel" left="550" top="78" width="110" height="40" text="도매가" cssclass="sta_WF_titleStar"/>
-              <MaskEdit id="mskWholesalePrice" left="665" top="84" width="155" height="28" format="#,###"/>
+              <MaskEdit id="mskWholesalePrice" left="665" top="84" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staRetailPriceLabel" left="825" top="78" width="110" height="40" text="소매가" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskRetailPrice" left="940" top="84" width="155" height="28" format="#,###"/>
+              <MaskEdit id="mskRetailPrice" left="940" top="84" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staSpecialPrice1Bg" left="0" top="117" width="1100" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staSpecialPrice1Label" left="0" top="117" width="110" height="40" text="특별가1" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskSpecialPrice1" left="115" top="123" width="155" height="28" format="#,###"/>
+              <MaskEdit id="mskSpecialPrice1" left="115" top="123" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staSpecialPrice2Label" left="275" top="117" width="110" height="40" text="특별가2" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskSpecialPrice2" left="390" top="123" width="155" height="28" format="#,###"/>
+              <MaskEdit id="mskSpecialPrice2" left="390" top="123" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staSpecialPrice3Label" left="550" top="117" width="110" height="40" text="특별가3" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskSpecialPrice3" left="665" top="123" width="155" height="28" format="#,###"/>
+              <MaskEdit id="mskSpecialPrice3" left="665" top="123" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staTaxFreeCheckBg" left="0" top="156" width="1100" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staTaxFreeCheckLabel" left="0" top="156" width="110" height="40" text="면세여부" cssclass="sta_cm_box01L"/>
               <CheckBox id="chkTaxFreeCheck" left="115" top="162" width="155" height="28" text="면세품"/>
               <Static id="staDiscountRateLabel" left="275" top="156" width="110" height="40" text="판매단가&#13;&#10;할인할증율" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskDiscountRate" left="390" top="162" width="60" height="28"/>
+              <MaskEdit id="mskDiscountRate" left="390" top="162" width="64" height="28" autoselect="true"/>
               <Static id="staTradingTypeLabel" left="550" top="156" width="110" height="40" text="거래여부" cssclass="sta_cm_box01L"/>
               <Radio id="rdoTradingType" left="665" top="162" width="430" height="28" direction="vertical" innerdataset="innerdatasetTradingType" codecolumn="code" datacolumn="value"/>
               <Static id="Static09_00_00" taborder="39" text="% (10, -15)" top="164" width="61" height="25" left="460"/>
-              <Button id="btnProductSelect" taborder="40" text="품목선택" top="6" width="110" height="28" cssclass="btn_cm_basic01" onclick="btnProductSelect_onclick" left="390" enableevent="false"/>
+              <Button id="btnProductSelect" taborder="40" text="품목선택" top="6" width="110" height="28" cssclass="btn_cm_basic01" onclick="btnProductSelect_onclick" left="390"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -507,7 +507,7 @@ this.DsAddDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.Action
 
 this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.ActionSuccessEventInfo)
 {
-	if (e.userdata)
+	if (e.userdata)		// 고객별 최종판매가 설정
 	{
 		var nRow = this.viewList.form.viewdataset.rowposition;
 		var sCustomerCode = this.viewList.form.viewdataset.getColumn(nRow,"CUSTOMER_CODE");
@@ -576,15 +576,20 @@ this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.Actio
       <DsDeleteDataAction id="DsDeleteDataAction00" targetview="viewList">
         <Contents/>
       </DsDeleteDataAction>
-      <PopupAction id="PopupAction00" formurl="QUICKCODE::productpopup.xfdl" popupstyle="modal" popupid="popupProduct" title="품목찾기" targetview="viewList" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess">
+      <PopupAction id="PopupAction00" formurl="QUICKCODE::productpopup.xfdl" popupstyle="modal" popupid="popupProduct" title="품목찾기" targetview="viewList" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" popupdatatype="copyrow">
         <Contents/>
       </PopupAction>
+      <SearchDBAction id="SearchDBAction02" servicemodel="getpricelist" serviceurl="IP::setpricelist.jsp" inputdatasets="dsprice=viewList.form.viewdataset:U">
+        <Contents/>
+      </SearchDBAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Form Init" triggerview="price" triggerobj="price" targetaction="SearchDBAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction01" condition=""/>
-      <TriggerItem id="item2" triggertype="Click" triggerview="viewButton" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="viewButton" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition="this.viewSearch.form.cmbCustomerCode.index!=-1"/>
       <TriggerItem id="item3" triggertype="Click" triggerview="viewButton" triggerobj="btnDelete" targetaction="DsDeleteDataAction00" condition=""/>
+      <TriggerItem id="item4" triggertype="Click" triggerview="viewButton" triggerobj="btnSave" targetaction="SearchDBAction02" condition=""/>
+      <TriggerItem id="item5" triggertype="Click" triggerview="viewDetail" triggerobj="btnProductSelect" targetaction="PopupAction00" condition="this.viewList.form.viewdataset.rowposition&gt;=0"/>
     </Trigger>
   </Form>
 </FDL>
