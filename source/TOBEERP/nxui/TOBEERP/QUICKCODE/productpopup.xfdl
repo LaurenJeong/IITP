@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="productpopup" width="520" height="330" titletext="품목찾기">
+    <Layouts>
+      <Layout height="330" mobileorientation="landscape" width="520">
+        <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="20" top="55" height="40" right="20">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_cm_box01L"/>
+              <Button id="btnSearch" width="70" height="28" right="5" bottom="6" cssclass="btn_WF_add01" text="조회"/>
+              <Static id="staProductLabel" left="5" top="6" width="95" height="28" text="품목명" cssclass="sta_WF_label"/>
+              <Edit id="edtProduct" left="105" top="6" width="280" height="28"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="PRODUCT" type="STRING" size="80" description="품목명"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtProduct" compid="edtProduct" propid="value" datasetid="viewdataset" columnid="PRODUCT"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="getproductlist" modelid="dsinput" filepath="UI_TEST\product\getproductlist.xmodel">
+            <Fields>
+              <Field id="PRODUCT" description="" comptype="edit" fieldwidth="100%" fieldheight="28px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staProductLabel" fields="PRODUCT"/>
+              <Component id="edtProduct" fields="PRODUCT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="조회"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_add01"/>
+            <Attribute id="searchbgcssclass" value="sta_cm_box01L"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="20" top="viewSearch:10" right="20" bottom="20">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" oncellclick="viewList_grdList_oncellclick" onkeydown="viewList_grdList_onkeydown">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="260" band="body"/>
+                      <Column size="200" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="38" band="head"/>
+                      <Row size="38" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_PRODUCT_NAME" col="0" row="0" text="품목명"/>
+                      <Cell id="cell_head_1_0_COMPANY_CODE" col="1" row="0" text="제조회사"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_PRODUCT_NAME" col="0" row="0" text="bind:PRODUCT_NAME" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_COMPANY_CODE" col="1" row="0" text="bind:COMPANY_CODE" displaytype="combotext" edittype="none" combodataset="innerdatasetCompanyCode" combocodecol="code" combodatacol="value"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="PRODUCT_CODE" type="STRING" size="80" description="품목코드"/>
+                <Column id="PRODUCT_NAME" type="STRING" size="80" description="품목명"/>
+                <Column id="PRODUCT_GROUPS" type="STRING" size="80" description="품목구분"/>
+                <Column id="ASSET_GROUPS" type="STRING" size="80" description="자산구분코드"/>
+                <Column id="STANDARD" type="STRING" size="80" description="품목단가"/>
+                <Column id="COLOR" type="STRING" size="80" description="색상"/>
+                <Column id="UNIT" type="STRING" size="80" description="단위"/>
+                <Column id="BARCODE" type="STRING" size="80" description="바코드"/>
+                <Column id="COMPANY_CODE" type="STRING" size="80" description="제조회사"/>
+                <Column id="RECEIVING_PRICE" type="INT" size="80" description="입고가"/>
+                <Column id="WHOLESALE_PRICE" type="INT" size="80" description="도매가"/>
+                <Column id="RETAIL_PRICE" type="INT" size="80" description="소매가"/>
+                <Column id="SPECIAL_PRICE1" type="INT" size="80" description="특별가1"/>
+                <Column id="SPECIAL_PRICE2" type="INT" size="80" description="특별가2"/>
+                <Column id="SPECIAL_PRICE3" type="INT" size="80" description="특별가3"/>
+                <Column id="TAX_FREE_CHECK" type="STRING" size="80" description="면세여부"/>
+                <Column id="DISCOUNT_RATE" type="INT" size="80" description="판매단가 할인할증율"/>
+                <Column id="BASIC_STOCK_COUNT" type="INT" size="80" description="기초재고"/>
+                <Column id="NOW_STOCK_COUNT" type="INT" size="80" description="재고수량"/>
+                <Column id="BOX_COUNT" type="INT" size="80" description="박스수량"/>
+                <Column id="UNIT_COUNT" type="INT" size="80" description="박스당 낱개"/>
+                <Column id="SAFETY_STOCK_COUNT" type="INT" size="80" description="안전재고"/>
+                <Column id="PRODUCT_STORAGE_AREA" type="STRING" size="80" description="품목위치"/>
+                <Column id="COUNT_PER_BOX" type="INT" size="80" description="낱개"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetCompanyCode">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="getproductlist" modelid="dsproduct" filepath="UI_TEST\product\getproductlist.xmodel">
+            <Fields>
+              <Field id="COUNT_PER_BOX" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_STORAGE_AREA" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SAFETY_STOCK_COUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="UNIT_COUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="BOX_COUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="NOW_STOCK_COUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="BASIC_STOCK_COUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DISCOUNT_RATE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="TAX_FREE_CHECK" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SPECIAL_PRICE3" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SPECIAL_PRICE2" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SPECIAL_PRICE1" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="RETAIL_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="WHOLESALE_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="RECEIVING_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="BARCODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="UNIT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="COLOR" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="STANDARD" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ASSET_GROUPS" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_GROUPS" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_NAME" displaytype="normal" edittype="none" fieldwidth="260" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="COMPANY_CODE" label="제조회사" displaytype="combotext" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="PRODUCT_NAME,COMPANY_CODE"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="38"/>
+            <Attribute id="bodybandsize" value="38"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="staMiddlebar" taborder="2" text="품목 찾기" left="20" top="20" height="28" cssclass="sta_WF_title02" right="140" onclick="divManufactCo_staMiddlebar_onclick"/>
+        <Button id="btnClose" taborder="3" top="20" height="28" cssclass="btn_WF_popup_close" onclick="btnClose_onclick" right="20" width="28"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <SearchDBAction id="SearchDBAction00" servicemodel="getproductlist" serviceurl="IP::getproductcode.jsp" outputdatasets="viewList.form.innerdatasetCompanyCode=dsmanufacture">
+        <Contents/>
+      </SearchDBAction>
+      <SearchDBAction id="SearchDBAction01" servicemodel="getmainlist" serviceurl="IP::getproductlist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=dsproduct">
+        <Contents/>
+      </SearchDBAction>
+      <PopupCloseAction id="PopupCloseAction00" targetview="productpopup" returntype="none">
+        <Contents/>
+      </PopupCloseAction>
+      <PopupCloseAction id="PopupCloseAction01" targetview="viewList" returntype="currow">
+        <Contents/>
+      </PopupCloseAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="productpopup" triggerobj="productpopup" targetaction="SearchDBAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="productpopup" triggerobj="btnClose" targetaction="PopupCloseAction00" condition=""/>
+      <TriggerItem id="item3" triggertype="Click" triggerview="viewList" triggerobj="grdList" targetaction="PopupCloseAction01" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[
+/**
+ * @description grdProductList oncellclick event : 품목 선택
+ */
+this.viewList_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.PopupCloseAction01.run();
+};
+
+/**
+ * @description grdProductList onkeydown event : 품목 선택
+ */
+this.viewList_grdList_onkeydown = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 13)
+	{
+		this.PopupCloseAction01.run();
+	}
+};
+]]></Script>
+  </Form>
+</FDL>
