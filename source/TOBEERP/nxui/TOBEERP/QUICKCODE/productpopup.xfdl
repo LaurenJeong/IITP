@@ -6,10 +6,10 @@
         <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="20" top="55" height="40" right="20">
           <Layouts>
             <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_cm_box01L"/>
-              <Button id="btnSearch" width="70" height="28" right="5" bottom="6" cssclass="btn_WF_add01" text="조회"/>
-              <Static id="staProductLabel" left="5" top="6" width="95" height="28" text="품목명" cssclass="sta_WF_label"/>
-              <Edit id="edtProduct" left="105" top="6" width="280" height="28"/>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_cm_box01L" taborder="3"/>
+              <Button id="btnSearch" width="70" height="28" right="5" bottom="6" cssclass="btn_WF_add01" text="조회" taborder="2"/>
+              <Static id="staProductLabel" left="5" top="6" width="95" height="28" text="품목명" cssclass="sta_WF_label" taborder="0"/>
+              <Edit id="edtProduct" left="105" top="6" width="280" height="28" onkeydown="viewSearch_edtProduct_onkeydown" taborder="1"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -158,7 +158,7 @@
       <SearchDBAction id="SearchDBAction00" servicemodel="getproductlist" serviceurl="IP::getproductcode.jsp" outputdatasets="viewList.form.innerdatasetCompanyCode=dsmanufacture">
         <Contents/>
       </SearchDBAction>
-      <SearchDBAction id="SearchDBAction01" servicemodel="getmainlist" serviceurl="IP::getproductlist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=dsproduct">
+      <SearchDBAction id="SearchDBAction01" servicemodel="getmainlist" serviceurl="IP::getproductlist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=dsproduct" onsuccess="SearchDBAction01_onsuccess">
         <Contents/>
       </SearchDBAction>
       <PopupCloseAction id="PopupCloseAction00" targetview="productpopup" returntype="none">
@@ -174,7 +174,25 @@
       <TriggerItem id="item2" triggertype="Click" triggerview="productpopup" triggerobj="btnClose" targetaction="PopupCloseAction00" condition=""/>
       <TriggerItem id="item3" triggertype="Click" triggerview="viewList" triggerobj="grdList" targetaction="PopupCloseAction01" condition=""/>
     </Trigger>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[/**
+ * @description edtSearch onkeydown event : 품목 조회
+ */
+this.viewSearch_edtProduct_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 13)
+	{
+		this.SearchDBAction01.run();
+	}
+};
+
+/**
+ * @description Transaction CallBack 함수
+ */
+this.SearchDBAction01_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
+{
+	this.viewList.form.grdList.setFocus();
+};
+
 /**
  * @description grdProductList oncellclick event : 품목 선택
  */
@@ -193,6 +211,9 @@ this.viewList_grdList_onkeydown = function(obj:nexacro.Grid,e:nexacro.KeyEventIn
 		this.PopupCloseAction01.run();
 	}
 };
+
+
+
 ]]></Script>
   </Form>
 </FDL>

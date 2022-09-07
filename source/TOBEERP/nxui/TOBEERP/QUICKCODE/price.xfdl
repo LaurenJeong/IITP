@@ -11,7 +11,7 @@
               <Static id="staCustomerCodeLabel" left="5" top="6" width="95" height="28" text="거래처코드" cssclass="sta_WF_labelStar"/>
               <Combo id="cmbCustomerCode" left="105" top="6" width="150" height="28" innerdataset="innerdatasetCustomerCode" codecolumn="code" datacolumn="value"/>
               <Static id="staProductNameLabel" left="295" top="6" width="95" height="28" text="품목명" cssclass="sta_WF_name"/>
-              <Edit id="edtProductName" left="395" top="6" width="150" height="28"/>
+              <Edit id="edtProductName" left="395" top="6" width="150" height="28" onkeydown="viewSearch_edtProductName_onkeydown"/>
               <CheckBox id="chkChecked" left="584" top="6" width="150" height="28" text="무거래 제품 제외"/>
             </Layout>
           </Layouts>
@@ -101,14 +101,14 @@
         <View id="viewDetail" taborder="2" text="viewDetail" viewdataset="viewdataset" left="10" top="viewButton:6" right="10" height="196" sourceview="viewList">
           <Layouts>
             <Layout>
-              <Static id="staProductNameBg" left="0" top="0" width="1100" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staProductNameBg" left="0" top="0" height="40" cssclass="sta_cm_box02L" right="0"/>
               <Static id="staProductNameLabel" left="0" top="0" width="110" height="40" text="품목명" cssclass="sta_WF_titleStar"/>
               <Edit id="edtProductName" left="115" top="6" width="270" height="28" enable="false"/>
               <Static id="staAssetGroupsLabel" left="550" top="0" width="110" height="40" text="자산구분" cssclass="sta_WF_titleStar"/>
               <Combo id="cmbAssetGroups" left="665" top="6" width="155" height="28" innerdataset="innerdatasetAssetGroups" codecolumn="code" datacolumn="value" enable="false"/>
               <Static id="staProductGroupsLabel" left="825" top="0" width="110" height="40" text="품목구분" cssclass="sta_WF_titleStar"/>
               <Combo id="cmbProductGroups" left="940" top="6" width="155" height="28" innerdataset="innerdatasetProductGroups" codecolumn="code" datacolumn="value" enable="false"/>
-              <Static id="staStandardBg" left="0" top="39" width="1100" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staStandardBg" left="0" top="39" height="40" cssclass="sta_cm_box02L" right="0"/>
               <Static id="staStandardLabel" left="0" top="39" width="110" height="40" text="규격" cssclass="sta_cm_box01L"/>
               <Edit id="edtStandard" left="115" top="45" width="155" height="28" enable="false"/>
               <Static id="staColorLabel" left="275" top="39" width="110" height="40" text="색상" cssclass="sta_cm_box01L"/>
@@ -117,7 +117,7 @@
               <Combo id="cmbUnit" left="665" top="45" width="155" height="28" innerdataset="innerdatasetUnit" codecolumn="code" datacolumn="value" enable="false"/>
               <Static id="staBarcodeLabel" left="825" top="39" width="110" height="40" text="바코드" cssclass="sta_cm_box01L"/>
               <Edit id="edtBarcode" left="940" top="45" width="155" height="28" enable="false"/>
-              <Static id="staLastPriceBg" left="0" top="78" width="1100" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staLastPriceBg" left="0" top="78" height="40" cssclass="sta_cm_box02L" right="0"/>
               <Static id="staLastPriceLabel" left="0" top="78" width="110" height="40" text="최종판매가" cssclass="sta_WF_titleStar"/>
               <MaskEdit id="mskLastPrice" left="115" top="84" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staReceivingPriceLabel" left="275" top="78" width="110" height="40" text="입고가" cssclass="sta_cm_box01L"/>
@@ -126,14 +126,14 @@
               <MaskEdit id="mskWholesalePrice" left="665" top="84" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staRetailPriceLabel" left="825" top="78" width="110" height="40" text="소매가" cssclass="sta_cm_box01L"/>
               <MaskEdit id="mskRetailPrice" left="940" top="84" width="155" height="28" format="#,###" autoselect="true"/>
-              <Static id="staSpecialPrice1Bg" left="0" top="117" width="1100" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staSpecialPrice1Bg" left="0" top="117" height="40" cssclass="sta_cm_box02L" right="0"/>
               <Static id="staSpecialPrice1Label" left="0" top="117" width="110" height="40" text="특별가1" cssclass="sta_cm_box01L"/>
               <MaskEdit id="mskSpecialPrice1" left="115" top="123" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staSpecialPrice2Label" left="275" top="117" width="110" height="40" text="특별가2" cssclass="sta_cm_box01L"/>
               <MaskEdit id="mskSpecialPrice2" left="390" top="123" width="155" height="28" format="#,###" autoselect="true"/>
               <Static id="staSpecialPrice3Label" left="550" top="117" width="110" height="40" text="특별가3" cssclass="sta_cm_box01L"/>
               <MaskEdit id="mskSpecialPrice3" left="665" top="123" width="155" height="28" format="#,###" autoselect="true"/>
-              <Static id="staTaxFreeCheckBg" left="0" top="156" width="1100" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staTaxFreeCheckBg" left="0" top="156" height="40" cssclass="sta_cm_box02L" right="0"/>
               <Static id="staTaxFreeCheckLabel" left="0" top="156" width="110" height="40" text="면세여부" cssclass="sta_cm_box01L"/>
               <CheckBox id="chkTaxFreeCheck" left="115" top="162" width="155" height="28" text="면세품"/>
               <Static id="staDiscountRateLabel" left="275" top="156" width="110" height="40" text="판매단가&#13;&#10;할인할증율" cssclass="sta_cm_box01L"/>
@@ -141,7 +141,7 @@
               <Static id="staTradingTypeLabel" left="550" top="156" width="110" height="40" text="거래여부" cssclass="sta_cm_box01L"/>
               <Radio id="rdoTradingType" left="665" top="162" width="430" height="28" direction="vertical" innerdataset="innerdatasetTradingType" codecolumn="code" datacolumn="value"/>
               <Static id="Static09_00_00" taborder="39" text="% (10, -15)" top="164" width="61" height="25" left="460"/>
-              <Button id="btnProductSelect" taborder="40" text="품목선택" top="6" width="110" height="28" cssclass="btn_cm_basic01" onclick="btnProductSelect_onclick" left="390"/>
+              <Button id="btnProductSelect" taborder="40" text="품목선택" top="6" width="110" height="28" cssclass="btn_cm_basic01" left="390" enable="false"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -352,7 +352,7 @@
             </Layout>
           </Layouts>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" onrowposchanged="viewList_viewdataset_onrowposchanged">
               <ColumnInfo>
                 <Column id="CUSTOMER_PRICE_CODE" type="STRING" size="80" description="거래처별단가코드"/>
                 <Column id="PRICE_VERSION" type="INT" size="80" description="단가버전"/>
@@ -494,12 +494,15 @@ this.fn_productListpopup = function(rowpos)
 		var sCustomerCode = this.viewList.form.viewdataset.rowcount > 0 ?  this.viewList.form.viewdataset.getColumn(0,"CUSTOMER_CODE") : this.viewSearch.form.cmbCustomerCode.value;
 		this.viewList.form.viewdataset.setColumn(rowpos,"CUSTOMER_CODE",sCustomerCode);
 	}
-				
+			
 	this.PopupAction00.run();
 };
 /**************************************************************************
 * 각 COMPONENT 별 EVENT 영역
 **************************************************************************/
+/**
+ * @description btnAdd onclick event : 추가 버튼 클릭
+ */
 this.DsAddDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
 {
 	this.fn_productListpopup(e.userdata);
@@ -547,6 +550,34 @@ this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.Actio
 		this.viewDetail.form.mskLastPrice.setFocus();
 	}
 };
+
+/**
+ * @description Edit onkeydown event : 품목명 검색영역 키다운 이벤트 발생
+ */
+this.viewSearch_Edit_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode ==13)
+	{
+		this.SearchDBAction01.run();
+	}
+};
+
+/**
+ * @description dsPrice onrowposchanged event : 제품가격 dataset rowposition 변경
+ */
+this.viewList_viewdataset_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	//신규인 경우에만 제품선택 가능
+	// if(this.dsPrice.rowcount > 0)
+	if(obj.getRowType(e.newrow) == Dataset.ROWTYPE_INSERT)
+	{
+		this.viewDetail.form.btnProductSelect.set_enable(true);
+	}
+	else
+	{
+		this.viewDetail.form.btnProductSelect.set_enable(false);
+	}
+};
 ]]></Script>
     <Objects>
       <SearchDBAction id="SearchDBAction00" servicemodel="getpricelist" serviceurl="IP::getproductcode.jsp" inputdatasets="" outputdatasets="viewSearch.form.innerdatasetCustomerCode=dscustomer viewDetail.form.innerdatasetAssetGroups=dsasset viewDetail.form.innerdatasetProductGroups=dsgroup viewDetail.form.innerdatasetUnit=dsunit viewDetail.form.innerdatasetTradingType=dsstatus viewList.form.innerdatasetCompanyCode=dsmanufacture viewList.form.innerdatasetUnit=dsunit">
@@ -579,17 +610,29 @@ this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.Actio
       <PopupAction id="PopupAction00" formurl="QUICKCODE::productpopup.xfdl" popupstyle="modal" popupid="popupProduct" title="품목찾기" targetview="viewList" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" popupdatatype="copyrow">
         <Contents/>
       </PopupAction>
+      <DsIsUpdatedAction id="DsIsUpdatedAction00" targetview="viewList" checkfilter="false">
+        <Contents/>
+      </DsIsUpdatedAction>
       <SearchDBAction id="SearchDBAction02" servicemodel="getpricelist" serviceurl="IP::setpricelist.jsp" inputdatasets="dsprice=viewList.form.viewdataset:U">
         <Contents/>
       </SearchDBAction>
+      <MessageAction id="MessageAction00" message="변경된 데이터가 없습니다." targetview="price" messagetype="alert">
+        <Contents/>
+      </MessageAction>
+      <MessageAction id="MessageAction01" message="저장 되었습니다." messagetype="alert">
+        <Contents/>
+      </MessageAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Form Init" triggerview="price" triggerobj="price" targetaction="SearchDBAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction01" condition=""/>
       <TriggerItem id="item2" triggertype="Click" triggerview="viewButton" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition="this.viewSearch.form.cmbCustomerCode.index!=-1"/>
       <TriggerItem id="item3" triggertype="Click" triggerview="viewButton" triggerobj="btnDelete" targetaction="DsDeleteDataAction00" condition=""/>
-      <TriggerItem id="item4" triggertype="Click" triggerview="viewButton" triggerobj="btnSave" targetaction="SearchDBAction02" condition=""/>
-      <TriggerItem id="item5" triggertype="Click" triggerview="viewDetail" triggerobj="btnProductSelect" targetaction="PopupAction00" condition="this.viewList.form.viewdataset.rowposition&gt;=0"/>
+      <TriggerItem id="item6" triggertype="Click" triggerview="viewButton" triggerobj="btnSave" targetaction="DsIsUpdatedAction00" condition=""/>
+      <TriggerItem id="item4" triggertype="Action Success" triggerview="price" triggerobj="DsIsUpdatedAction00" targetaction="SearchDBAction02" condition=""/>
+      <TriggerItem id="item7" triggertype="Action Fail" triggerview="price" triggerobj="DsIsUpdatedAction00" targetaction="MessageAction00" condition=""/>
+      <TriggerItem id="item8" triggertype="Action Success" triggerview="price" triggerobj="SearchDBAction02" targetaction="MessageAction01" condition=""/>
+      <TriggerItem id="item5" triggertype="Click" triggerview="viewDetail" triggerobj="btnProductSelect" targetaction="PopupAction00" condition=""/>
     </Trigger>
   </Form>
 </FDL>

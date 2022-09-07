@@ -29,11 +29,6 @@ if (!nexacro.PopupAction)
 	//===============================================================
 	nexacro.PopupAction.prototype.run = function()
 	{
-		trace("11111111111111111111");
-		
-		//TODO
-		var objForm;
-		
 		//TargetView로 설정된 오브젝트 가져오기
 		var objView = this.getTargetView();
 		
@@ -51,9 +46,20 @@ if (!nexacro.PopupAction)
 		//canrun 이벤트의 리턴값이 false가 아닐경우
 		if(this.on_fire_canrun("userdata")!=false)
 		{
-			//TargetView가 Form이 아닌 View로 설정되었을 경우
-			if(objView)objForm = objView.form;
-			else objForm = this.parent;
+			if (this.gfnIsNull(sPopupId))
+			{
+				this.gfnLog("popupid가 설정되지 않았습니다.","error");
+				this.on_fire_onerror("error");
+				return;
+			}
+			if (this.gfnIsNull(sFormUrl))
+			{
+				this.gfnLog("formurl이 설정되지 않았습니다.","error");
+				this.on_fire_onerror("error");
+				return;
+			}
+			
+			var objForm = this.gfnGetForm();
 			
 			//Action Scope에 있는 CallBack 함수가 호출되도록 설정
 			objForm.fnPopupActionCallback = this.fnPopupActionCallback;
@@ -62,9 +68,8 @@ if (!nexacro.PopupAction)
 			if (this.gfnIsNull(objForm.targetPopupAction))		objForm.targetPopupAction = {};
 			objForm.targetPopupAction[sPopupId] = this;
 			
-			if (this.gfnIsNull(objArgs)) {
-				objArgs = {};
-			}
+			// User Argument 처리 : 팝업 Argument로 설정
+			objArgs = this.gfnSetUserArgument(objArgs);
 			
 			objArgs._PUPUP_STYLE = sPopupStyle;
 			
@@ -165,17 +170,24 @@ if (!nexacro.PopupAction)
 	nexacro.PopupAction.prototype._args;
 	nexacro.PopupAction.prototype.set_args = function (v)
 	{
-		// TODO : enter your code here.
-		v = nexacro._toString(v);
-		if (this.args != v) {
-			this.args = v;
-			
-			if(this.gfnIsNull(this.args)==false)
-			{
-				this._args = JSON.parse(this.args);
-			}else
-			{
-				this._args = null;
+		if (v instanceof Object) {
+			this._args = v;
+			this.args = null;
+		} else {
+			trace("String");
+			// TODO : enter your code here.
+			v = nexacro._toString(v);
+			if (this.args != v) {
+				this.args = v;
+				
+				if(this.gfnIsNull(this.args)==false)
+				{
+					this._args = JSON.parse(this.args);
+				}
+				else
+				{
+					this._args = null;
+				}
 			}
 		}
 	};
@@ -324,7 +336,7 @@ if (!nexacro.PopupAction)
 			objParamDs.loadXML(objParam.dataset);
 			
 			// 모델정보에 따라 복사할 컬럼값 설정
-			var strColInfo = this.gfnGetCopyColInfo(oTargetView);
+			var strColInfo = this.gfnSetModelArgument(oTargetView);
 			
 			if (sPopupDataType == "copyrow")										// 0번째 데이터만 복사
 			{
@@ -355,7 +367,7 @@ if (!nexacro.PopupAction)
 	};
 	
 	// Model Argument 처리 : 설정된 모델정보만 복사
-	nexacro.PopupAction.prototype.gfnGetCopyColInfo = function(oTargetView)
+	nexacro.PopupAction.prototype.gfnSetModelArgument = function(oTargetView)
 	{
 		var strColInfo = "";
 		
@@ -381,5 +393,31 @@ if (!nexacro.PopupAction)
 		}
 		
 		return strColInfo;
+	};
+	
+	// User Argument 처리 : 팝업 Argument로 설정
+	nexacro.PopupAction.prototype.gfnSetUserArgument = function(objArgs)
+	{
+		if (this.gfnIsNull(objArgs)) {
+			objArgs = {};
+		}
+			
+		var oExtraList = this.getContents("extra");		// Action 내 extra 정보 
+		
+		if (!oExtraList)		return objArgs;
+		
+		for (var i = 0; i < oExtraList.length; i++)
+		{
+			oExtra = oExtraList[i];
+			sExtraName = oExtra["name"];
+			
+			// Field의 value값 반환
+			sExtraValue = this.gfnGetFieldValue(oExtra);
+			
+			// 데이터 셋팅
+			objArgs[sExtraName] = sExtraValue;
+		}
+		
+		return objArgs;
 	};
 }
