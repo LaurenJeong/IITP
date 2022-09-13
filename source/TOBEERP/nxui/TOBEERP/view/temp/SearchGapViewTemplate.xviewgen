@@ -26,7 +26,7 @@ include "view_lib::common.xjs";
 // View 관련 상수
 //--------------------------------------------------------------------------------------------------------
 // View 여백(top/right/bottom/left)
-this.VIEW_PADDING			= "5 10 10 5";
+this.VIEW_PADDING			= "6 5";
 // 컴포넌트 생성 방향
 this.DIRECTION				= "horizontal";
 // 컴포넌트 생성 수평 정렬방식
@@ -39,10 +39,10 @@ this.VALIGN					= "top";
 // 조회 버튼 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
 //Lookup Button Default Width
-this.SEARCH_BUTTON_WIDTH			= 100;
+this.SEARCH_BUTTON_WIDTH			= 70;
 
 //Lookup Button Default Height
-this.SEARCH_BUTTON_HEIGHT			= 30;
+this.SEARCH_BUTTON_HEIGHT			= 28;
 
 // 조회버튼과 컴포넌트와의 가로 간격
 this.SEARCH_BUTTON_H_SPACE			= 20;
@@ -58,16 +58,16 @@ this.SEARCH_BUTTON_CSSCLASS			= "btn_WF_add01";
 //--------------------------------------------------------------------------------------------------------
 
 //Field Default Width
-this.COMP_WIDTH						= "100px";
+this.COMP_WIDTH						= "150px";
 
 //Field Default Height
-this.COMP_HEIGHT					= "30px";
+this.COMP_HEIGHT					= "28px";
 
 //Label Default Width
 this.LABEL_WIDTH					= 100;
 
 //Label Default Height
-this.LABEL_HEIGHT					= 30;
+this.LABEL_HEIGHT					= 28;
 
 //Component Default Type
 this.COMP_TYPE						= "edit";
@@ -76,16 +76,19 @@ this.COMP_TYPE						= "edit";
 this.LABEL_TYPE						= "static";
 
 //Label Padding
-this.LABEL_PADDING					= "5 0 0 5";
+this.LABEL_PADDING					= "0 5 5 0";
 
 //Component Padding
-this.COMP_PADDING					= "5 0 0 5";
+this.COMP_PADDING					= "0 0 5 0";
 
 //Component Default CSS Class
 this.COMP_CSSCLASS					= "";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS					= "sta_WF_name";
+this.LABEL_CSSCLASS					= "sta_WF_label";
+
+//Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS		= "sta_WF_labelStar";
 
 //Background Static Css Class
 this.SEARCH_BG_CSSCLASS				= "sta_cm_box01L";
@@ -1210,7 +1213,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		sCompCssClass = oField.cssclass;
 
 		//Import Label Css Class Id Value
-		sLabelCssClass = oField.labelcssclass;
+		sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 		sLabelText = oField.label;
 

@@ -473,26 +473,6 @@ this.lfn_CalcPaddingToSpace = function(sType, nIdx1, nIdx2, nPadding, nSpace, bL
 	//Component Padding Formula = (Component Left/Right Padding * Component number
 	//Component Space Formula = (Left/Top Padding of the First Component + Right/Bottom Padding of Last Component + Space * Component number)
 	//Calculate difference = Component Padding Formula - Component Space Formula
-// 	if(bLayout==true)
-// 	{
-// 		if(sType=="Col")
-// 		{
-// 			nTemp = ((this.COMP_PADDING_LEFT+this.COMP_PADDING_RIGHT) * nIdx1) - (this.COMP_PADDING_LEFT + this.COMP_PADDING_RIGHT + (this.COMP_SPACE * nIdx2));
-// 		}else
-// 		{
-// 			nTemp = ((this.COMP_PADDING_TOP+this.COMP_PADDING_BOTTOM) * nIdx1) - (this.COMP_PADDING_TOP + this.COMP_PADDING_BOTTOM + (this.LINE_SPACE * nIdx2));
-// 		}
-// 	}else
-// 	{
-// 		if(sType=="Col")
-// 		{
-// 			nTemp = (this.COMP_PADDING_RIGHT * nIdx1) - (this.COMP_PADDING_RIGHT + (this.COMP_SPACE * nIdx2));
-// 		}else
-// 		{
-// 			nTemp = -(this.LINE_SPACE * nIdx2);
-// 		}
-// 	}
-
 	if(bLayout==true)
 	{
 		if(sType=="Col")
@@ -728,6 +708,7 @@ this.lfn_GetInnerDataset = function(objFieldArr)
 		sInnerDatasetId = "";
 		sCodeField = "";
 		sNameField = "";
+		nRowCount = 0;
 		
 		if (this.lfn_IsNotNull(sInnerInfo))
 		{
