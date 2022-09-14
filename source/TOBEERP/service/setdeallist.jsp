@@ -66,11 +66,12 @@ try {
     for( i = 0; i < dsdeal.getRemovedRowCount(); i++ )
     {
         String sCode = dsdeal.getRemovedData(i, "DEAL_CODE").toString();
-        SQL = "DELETE FROM ERP_DEAL WHERE DEAL_CODE = '" + sCode + "'";
-        stmt.executeUpdate(SQL);
         
         SQLDetail = "DELETE FROM ERP_DEALDETAIL WHERE DEAL_CODE = '" + sCode + "'";
         stmtd.executeUpdate(SQLDetail);
+        
+        SQL = "DELETE FROM ERP_DEAL WHERE DEAL_CODE = '" + sCode + "'";
+        stmt.executeUpdate(SQL);
     }
 
     String sEstimateCode = "";
@@ -107,7 +108,7 @@ try {
 					"                 		 	ADD_RESERVE_FUND,\n" +
 					"                 		 	USE_RESERVE_FUND,\n" +
     				"           		      	ETC,		\n" +
-					"           		      	DEAL_STATUS,		\n" +					
+//					"           		      	DEAL_STATUS,		\n" +					
 					"                 		 	TAX_TYPE,\n" +
 					"                 		 	UNIT_PRICE,\n" +
 					"                 		 	TOTAL_PRICE,\n" +
@@ -135,7 +136,7 @@ try {
         			"'" 		+ dsGet(dsdeal, i, "ADD_RESERVE_FUND") 		+ "'," +
         			"'" 		+ dsGet(dsdeal, i, "USE_RESERVE_FUND") 			+ "'," +        			
 					"'" 		+ dsGet(dsdeal, i, "ETC") 			+ "'," +
-					"'" 		+ dsGet(dsdeal, i, "DEAL_STATUS") 			+ "'," +
+//					"'" 		+ dsGet(dsdeal, i, "DEAL_STATUS") 			+ "'," +
 					"'" 		+ dsGet(dsdeal, i, "TAX_TYPE") 			+ "'," +
 					"'" 		+ dsGet(dsdeal, i, "UNIT_PRICE") 			+ "'," +
 					"'" 		+ dsGet(dsdeal, i, "TOTAL_PRICE") 			+ "'," +
