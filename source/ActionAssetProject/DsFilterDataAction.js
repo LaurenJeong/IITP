@@ -50,7 +50,7 @@ if (!nexacro.DsFilterDataAction)
 			}
 			
  			// Call Function
- 			var rtn = this.gfnFilterData(objDs,sFilter,nInitRowPosition);
+ 			var rtn = this.gfnFilterData(objView, objDs, sFilter, nInitRowPosition);
 			
 			if(rtn==0)
 			{
@@ -169,13 +169,22 @@ if (!nexacro.DsFilterDataAction)
 	 * @param {String} sFilter - 필터 String
 	 * @return N/A
 	 */   
-	nexacro.DsFilterDataAction.prototype.gfnFilterData = function (objDs,sFilter,nInitRowPosition)
+	nexacro.DsFilterDataAction.prototype.gfnFilterData = function (objView, objDs, sFilter, nInitRowPosition)
 	{
-		var sFilterStr = sFilter;
+		var sFilterStr = "";
 		var sFilterModel = "";
 		
 		objDs.set_enableevent(false);
 		
+		// Filter 문자열 처리
+		if (!this.gfnIsNull(sFilter))
+		{
+			var sViewNm = objView ? objView.name : "";
+			
+			sFilterStr = this.gfnGetExprText(sFilter,sViewNm);
+		}
+		
+		// Model Argument로 Filter문자열 생성
 		sFilterModel = this.gfnSetModelArgument(objDs);
 		
 		if (!this.gfnIsNull(sFilterModel))
@@ -183,15 +192,20 @@ if (!nexacro.DsFilterDataAction)
 			sFilterStr += (this.gfnIsNull(sFilterStr) ? "" : " && ") + sFilterModel;
 		}
 		
+		// Filter값 초기화(Filter값이 설정되지 않은 경우 기존 Filter값 초기화 하기위해...)
+		objDs.filter("");
+		
+		// Filter값이 있는 경우 Filter
 		if (!this.gfnIsNull(sFilterStr))
 		{
-			objDs.filter("");
 			objDs.filter(sFilterStr);
 		}
 		
 		objDs.set_enableevent(true);
 		
-		if (!this.gfnIsNull(nInitRowPosition))
+		// Filter 후 rowposition 초기화
+		if (!this.gfnIsNull(nInitRowPosition) 
+			&& objDs.rowcount > nexacro.toNumber(nInitRowPosition,objDs.rowcount))
 		{
 			objDs.set_rowposition(nInitRowPosition);
 		}

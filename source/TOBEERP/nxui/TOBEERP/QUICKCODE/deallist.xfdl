@@ -128,41 +128,40 @@
         <View id="divList" taborder="4" text="divList" left="10" top="btnList:-1" height="300" right="10" formscrolltype="none" cssclass="div_WF_listview" viewdataset="viewdataset">
           <Layouts>
             <Layout>
-              <Grid id="grdList" left="10" top="56" right="10" bottom="10" binddataset="viewdataset">
+              <Grid id="grdList" left="10" top="56" right="10" bottom="10" binddataset="viewdataset" autofittype="col">
                 <Formats>
                   <Format id="default">
                     <Columns>
-                      <Column size="100" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="100" band="body"/>
-                      <Column size="100" band="body"/>
-                      <Column size="100" band="body"/>
-                      <Column size="100" band="body"/>
-                      <Column size="80" band="body"/>
+                      <Column size="100"/>
+                      <Column size="80"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="80"/>
                     </Columns>
                     <Rows>
                       <Row size="38" band="head"/>
-                      <Row size="38" band="body"/>
+                      <Row size="38"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_head_0_0_DEAL_DATE" col="0" row="0" text="거래일"/>
-                      <Cell id="cell_head_1_0_DEAL_TYPE" col="1" row="0" text="구분"/>
-                      <Cell id="cell_head_2_0_TOTAL_PRICE" col="2" row="0" text="합계금액"/>
-                      <Cell id="cell_head_3_0_PS_PAYMENT_PRICE" col="3" row="0" text="수금금액"/>
-                      <Cell id="cell_head_4_0_lS_PAYMENT_PRICE" col="4" row="0" text="지급금액"/>
-                      <Cell id="cell_head_5_0_STATEMENT_BALANCE_PRICE" col="5" row="0" text="전표잔액"/>
-                      <Cell id="cell_head_6_0_ESTIMATE_CODE" col="6" row="0" text="견적서코드"/>
+                      <Cell id="cell_head_0_0_DEAL_DATE" text="거래일"/>
+                      <Cell col="1" id="cell_head_1_0_DEAL_TYPE" text="구분"/>
+                      <Cell col="2" id="cell_head_2_0_TOTAL_PRICE" text="합계금액"/>
+                      <Cell col="3" id="cell_head_3_0_PS_PAYMENT_PRICE" text="수금금액"/>
+                      <Cell col="4" id="cell_head_4_0_lS_PAYMENT_PRICE" text="지불금액"/>
+                      <Cell col="5" id="cell_head_5_0_STATEMENT_BALANCE_PRICE" text="전표잔액"/>
+                      <Cell col="6" id="cell_head_6_0_ESTIMATE_CODE" text="견적서"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_body_0_0_DEAL_DATE" col="0" row="0" text="bind:DEAL_DATE" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_1_0_DEAL_TYPE" col="1" row="0" text="bind:DEAL_TYPE" displaytype="combotext" edittype="none" combodataset="innerdatasetDealType" combocodecol="code" combodatacol="value"/>
-                      <Cell id="cell_body_2_0_TOTAL_PRICE" col="2" row="0" text="bind:TOTAL_PRICE" displaytype="currency" edittype="none"/>
-                      <Cell id="cell_body_3_0_PS_PAYMENT_PRICE" col="3" row="0" text="bind:PS_PAYMENT_PRICE" displaytype="currency" edittype="none"/>
-                      <Cell id="cell_body_4_0_lS_PAYMENT_PRICE" col="4" row="0" text="bind:lS_PAYMENT_PRICE" displaytype="currency" edittype="none"/>
-                      <Cell id="cell_body_5_0_STATEMENT_BALANCE_PRICE" col="5" row="0" text="bind:STATEMENT_BALANCE_PRICE" displaytype="currency" edittype="none"/>
-                      <Cell id="cell_body_6_0_ESTIMATE_CODE" col="6" row="0" text="bind:ESTIMATE_CODE" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_0_DEAL_DATE" text="bind:DEAL_DATE" displaytype="date" edittype="none"/>
+                      <Cell col="1" id="cell_body_1_0_DEAL_TYPE" text="bind:DEAL_TYPE" displaytype="combotext" edittype="none" cssclass="expr:DEAL_TYPE == &quot;pS&quot; ? &quot;grd_WF_red&quot; : &quot;grd_WF_blue&quot;" combodataset="innerdatasetDealType" combocodecol="code" combodatacol="value"/>
+                      <Cell col="2" id="cell_body_2_0_TOTAL_PRICE" text="bind:TOTAL_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell col="3" id="cell_body_3_0_PS_PAYMENT_PRICE" text="bind:PS_PAYMENT_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell col="4" id="cell_body_4_0_lS_PAYMENT_PRICE" text="bind:lS_PAYMENT_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell col="5" id="cell_body_5_0_STATEMENT_BALANCE_PRICE" text="bind:STATEMENT_BALANCE_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell col="6" id="cell_body_6_0_ESTIMATE_CODE" text="expr:this.gfn_isNull(ESTIMATE_CODE) ? &quot;ok&quot; : &quot;&quot;" displaytype="normal" edittype="none"/>
                     </Band>
-                    <Band id="summary"/>
                   </Format>
                 </Formats>
               </Grid>
@@ -174,13 +173,35 @@
                 <Column id="DEAL_CODE" type="STRING" size="80" description="거래코드"/>
                 <Column id="DEAL_DATE" type="STRING" size="80" description="거래일"/>
                 <Column id="DEAL_TYPE" type="STRING" size="80" description="구분"/>
+                <Column id="DEAL_TITLE" type="STRING" size="80" description="거래명"/>
+                <Column id="TOTAL_AMOUNT" type="INT" size="80" description="매입/매출액"/>
                 <Column id="CUSTOMER_CODE" type="STRING" size="80" description="거래처코드"/>
+                <Column id="ADD_IN_TAX" type="STRING" size="80" description="단가액 세액포함"/>
+                <Column id="ACCOUNT_BILL" type="STRING" size="80" description="세금,계산서 수취"/>
+                <Column id="SALESMAN_CODE" type="STRING" size="80" description="직원코드"/>
+                <Column id="BEFORE_PRICE" type="INT" size="80" description="판매가"/>
+                <Column id="DISCOUNT_PRICE" type="INT" size="80" description="할인가"/>
+                <Column id="LAST_PRICE" type="INT" size="80" description="최종확정가"/>
+                <Column id="CREDIT_PRICE" type="INT" size="80" description="외상"/>
+                <Column id="CASH_PRICE" type="INT" size="80" description="현금지급"/>
+                <Column id="ACCOUNT_PRICE" type="INT" size="80" description="계좌이체"/>
+                <Column id="BILL_PRICE" type="INT" size="80" description="어음"/>
+                <Column id="CARD_PRICE" type="INT" size="80" description="카드지급"/>
+                <Column id="ACCOUMULATE_FUND" type="STRING" size="80" description="적립금잔고"/>
+                <Column id="ADD_RESERVE_FUND" type="INT" size="80" description="적립금추가금액"/>
+                <Column id="USE_RESERVE_FUND" type="INT" size="80" description="적릭금사용금액"/>
+                <Column id="ETC" type="STRING" size="80" description="참고사항"/>
+                <Column id="DEAL_STATUS" type="STRING" size="80" description="거래상태"/>
+                <Column id="DEAL_SEQ" type="INT" size="80" description="거래순서"/>
                 <Column id="TAX_TYPE" type="STRING" size="80" description="과세유형"/>
+                <Column id="UNIT_PRICE" type="INT" size="80" description="할인전금액"/>
                 <Column id="TOTAL_PRICE" type="INT" size="80" description="합계금액"/>
+                <Column id="PAYMENT_PRICE" type="INT" size="80" description="지급액계"/>
+                <Column id="TAX_PRICE" type="INT" size="80" description="세액"/>
                 <Column id="PS_PAYMENT_PRICE" type="INT" size="256" description="수금금액"/>
-                <Column id="lS_PAYMENT_PRICE" type="INT" size="256" description="지급금액"/>
+                <Column id="lS_PAYMENT_PRICE" type="INT" size="256" description="지불금액"/>
                 <Column id="STATEMENT_BALANCE_PRICE" type="INT" size="256" description="전표잔액"/>
-                <Column id="ESTIMATE_CODE" type="STRING" size="80" description="견적서코드"/>
+                <Column id="ESTIMATE_CODE" type="STRING" size="80" description="견적서"/>
               </ColumnInfo>
               <Rows/>
             </Dataset>
@@ -194,16 +215,38 @@
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="getdeallist" modelid="dsdeal" filepath="UI_TEST\deal\getdeallist.xmodel">
             <Fields>
+              <Field id="TAX_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PAYMENT_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="UNIT_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
               <Field id="TAX_TYPE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_SEQ" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_STATUS" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ETC" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="USE_RESERVE_FUND" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ADD_RESERVE_FUND" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ACCOUMULATE_FUND" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CARD_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="BILL_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ACCOUNT_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CASH_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CREDIT_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="LAST_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DISCOUNT_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="BEFORE_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SALESMAN_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ACCOUNT_BILL" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ADD_IN_TAX" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
               <Field id="CUSTOMER_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="TOTAL_AMOUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_TITLE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
               <Field id="DEAL_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="DEAL_DATE" displaytype="normal" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="DEAL_TYPE" label="구분" displaytype="combotext" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DEAL_DATE" displaytype="date" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DEAL_TYPE" label="구분" displaytype="combotext" edittype="none" fieldwidth="80" cssclass="expr:DEAL_TYPE == &quot;pS&quot; ? &quot;grd_WF_red&quot; : &quot;grd_WF_blue&quot;" summprop="none" usecomp="true"/>
               <Field id="TOTAL_PRICE" label="합계금액" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PS_PAYMENT_PRICE" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="lS_PAYMENT_PRICE" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="lS_PAYMENT_PRICE" label="지불금액" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
               <Field id="STATEMENT_BALANCE_PRICE" datatype="INT" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="ESTIMATE_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ESTIMATE_CODE" label="견적서" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="grdList" fields="DEAL_DATE,DEAL_TYPE,TOTAL_PRICE,PS_PAYMENT_PRICE,lS_PAYMENT_PRICE,STATEMENT_BALANCE_PRICE,ESTIMATE_CODE"/>
@@ -221,54 +264,53 @@
         <View id="divDetail" taborder="6" text="divDetail" left="10" top="btnDetail:-1" height="300" formscrolltype="none" cssclass="div_WF_listview" right="10" viewdataset="viewdataset">
           <Layouts>
             <Layout>
-              <Grid id="grdList" left="10" top="10" right="10" bottom="10" binddataset="viewdataset">
+              <Grid id="grdList" left="10" top="10" right="10" bottom="10" binddataset="viewdataset" autofittype="col">
                 <Formats>
                   <Format id="default">
                     <Columns>
-                      <Column size="150" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="100" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="150" band="body"/>
-                      <Column size="150" band="body"/>
-                      <Column size="80" band="body"/>
+                      <Column size="150"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="100"/>
+                      <Column size="80"/>
+                      <Column size="150"/>
+                      <Column size="150"/>
+                      <Column size="80"/>
                     </Columns>
                     <Rows>
                       <Row size="38" band="head"/>
-                      <Row size="38" band="body"/>
+                      <Row size="38"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_head_0_0_PRODUCT_NAME" col="0" row="0" text="품목명"/>
-                      <Cell id="cell_head_1_0_STANDARD" col="1" row="0" text="규격"/>
-                      <Cell id="cell_head_2_0_UNIT" col="2" row="0" text="단위"/>
-                      <Cell id="cell_head_3_0_AMOUNT" col="3" row="0" text="수량"/>
-                      <Cell id="cell_head_4_0_UNIT_PRICE" col="4" row="0" text="단가"/>
-                      <Cell id="cell_head_5_0_DISCOUNT_PRICE" col="5" row="0" text="할인"/>
-                      <Cell id="cell_head_6_0_LAST_PRICE" col="6" row="0" text="금액"/>
-                      <Cell id="cell_head_7_0_TAX_PRICE" col="7" row="0" text="세액"/>
-                      <Cell id="cell_head_8_0_ETC" col="8" row="0" text="비고"/>
+                      <Cell id="cell_head_0_0_PRODUCT_NAME" text="품목명"/>
+                      <Cell col="1" id="cell_head_1_0_STANDARD" text="규격"/>
+                      <Cell col="2" id="cell_head_2_0_UNIT" text="단위"/>
+                      <Cell col="3" id="cell_head_3_0_AMOUNT" text="수량"/>
+                      <Cell col="4" id="cell_head_4_0_UNIT_PRICE" text="단가"/>
+                      <Cell col="5" id="cell_head_5_0_DISCOUNT_PRICE" text="할인"/>
+                      <Cell col="6" id="cell_head_6_0_LAST_PRICE" text="금액"/>
+                      <Cell col="7" id="cell_head_7_0_TAX_PRICE" text="세액"/>
+                      <Cell col="8" id="cell_head_8_0_ETC" text="비고"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_body_0_0_PRODUCT_NAME" col="0" row="0" text="bind:PRODUCT_NAME" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_1_0_STANDARD" col="1" row="0" text="bind:STANDARD" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_2_0_UNIT" col="2" row="0" text="bind:UNIT" displaytype="combotext" edittype="none" combodataset="innerdatasetUnit" combocodecol="code" combodatacol="value"/>
-                      <Cell id="cell_body_3_0_AMOUNT" col="3" row="0" text="bind:AMOUNT" displaytype="number" edittype="none"/>
-                      <Cell id="cell_body_4_0_UNIT_PRICE" col="4" row="0" text="bind:UNIT_PRICE" displaytype="currency" edittype="none"/>
-                      <Cell id="cell_body_5_0_DISCOUNT_PRICE" col="5" row="0" text="bind:DISCOUNT_PRICE" displaytype="currency" edittype="none"/>
-                      <Cell id="cell_body_6_0_LAST_PRICE" col="6" row="0" text="bind:LAST_PRICE" displaytype="currency" edittype="none"/>
-                      <Cell id="cell_body_7_0_TAX_PRICE" col="7" row="0" text="bind:TAX_PRICE" displaytype="currency" edittype="none"/>
-                      <Cell id="cell_body_8_0_ETC" col="8" row="0" text="bind:ETC" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_0_PRODUCT_NAME" text="bind:PRODUCT_NAME" displaytype="normal" edittype="none"/>
+                      <Cell col="1" id="cell_body_1_0_STANDARD" text="bind:STANDARD" displaytype="normal" edittype="none"/>
+                      <Cell col="2" id="cell_body_2_0_UNIT" text="bind:UNIT" displaytype="combotext" edittype="none" combodataset="innerdatasetUnit" combocodecol="code" combodatacol="value"/>
+                      <Cell col="3" id="cell_body_3_0_AMOUNT" text="bind:AMOUNT" displaytype="number" edittype="none"/>
+                      <Cell col="4" id="cell_body_4_0_UNIT_PRICE" text="bind:UNIT_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell col="5" id="cell_body_5_0_DISCOUNT_PRICE" text="expr:UNIT_PRICE-LAST_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell col="6" id="cell_body_6_0_LAST_PRICE" text="expr:LAST_PRICE * AMOUNT" displaytype="currency" edittype="none"/>
+                      <Cell col="7" id="cell_body_7_0_TAX_PRICE" text="expr:(LAST_PRICE * AMOUNT) * 0.1" displaytype="currency" edittype="none"/>
+                      <Cell col="8" id="cell_body_8_0_ETC" text="bind:ETC" displaytype="normal" edittype="none"/>
                     </Band>
-                    <Band id="summary"/>
                   </Format>
                 </Formats>
               </Grid>
             </Layout>
           </Layouts>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" loadfiltermode="reset">
               <ColumnInfo>
                 <Column id="PRODUCT_NAME" type="STRING" size="80" description="품목명"/>
                 <Column id="STANDARD" type="STRING" size="80" description="규격"/>
@@ -599,6 +641,23 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 /**************************************************************************
  * 사용자 FUNCTION 영역
  **************************************************************************/
+/**
+ * @description  거래내역에 따라 버튼 셋팅
+ */
+this.fnSetDealButton = function()
+{
+	//거래내역이 있으면 전표확인, 전표삭제 활성화, 없으면 비활성화
+	if(this.divList.form.viewdataset.getRowCount() > 0)
+	{
+		this.viewButton.form.btnOpendetail.set_enable(true);
+		this.viewButton.form.btnDelete.set_enable(true);
+	}
+	else
+	{
+		this.viewButton.form.btnOpendetail.set_enable(false);
+		this.viewButton.form.btnDelete.set_enable(false);
+	}
+};
 /**************************************************************************
 * 각 COMPONENT 별 EVENT 영역
 **************************************************************************/
@@ -663,6 +722,15 @@ this.viewSearch_cmbTitle_onitemchanged = function(obj:nexacro.Combo,e:nexacro.It
 	this.viewSearch.form.calStartday.set_value(nStartDate);
 	this.viewSearch.form.calEndday.set_value(nEndDate);
 };
+
+/**
+ * @description dsDealCustomer onrowposchanged event : 거래처 rowposition (영역) 변경
+ */
+this.DsFilterDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	//거래내역이 있으면 전표확인, 전표삭제 활성화, 없으면 비활성화
+	this.fnSetDealButton();
+};
 ]]></Script>
     <Objects>
       <SearchDBAction id="SearchDBAction00" servicemodel="getdealcode" serviceurl="IP::getdealcode.jsp" outputdatasets="viewSearch.form.innerdatasetCustomer=dscustomer divList.form.innerdatasetDealType=dstype viewSearch.form.innerdatasetSalesman=dssalesman divDetail.form.innerdatasetUnit=dsunit">
@@ -677,12 +745,62 @@ this.viewSearch_cmbTitle_onitemchanged = function(obj:nexacro.Combo,e:nexacro.It
       <SearchDBAction id="SearchDBAction01" servicemodel="getdealcode" serviceurl="IP::getdeallist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset   " outputdatasets="divList.form.viewdataset=dsdeal divDetail.form.viewdataset=dsdetail viewCustomerList.form.viewdataset=dsdealcustomer">
         <Contents/>
       </SearchDBAction>
+      <DsFilterDataAction id="DsFilterDataAction00" targetview="divDetail" initrowposition="0" onsuccess="DsFilterDataAction00_onsuccess">
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"divDetail",
+            "modelid":"dsdetail",
+            "iotype":"output",
+            "fieldlist":[
+                {
+                    "name":"divDetail:DEAL_CODE",
+                    "fieldid":"DEAL_CODE",
+                    "value":"expr:[divList:DEAL_CODE]"
+                }
+            ]
+        }
+    ]
+}]]></Contents>
+      </DsFilterDataAction>
+      <DsFilterDataAction id="DsFilterDataAction01" targetview="divList" initrowposition="0">
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"divList",
+            "modelid":"dsdeal",
+            "iotype":"output",
+            "fieldlist":[
+                {
+                    "name":"divList:CUSTOMER_CODE",
+                    "fieldid":"CUSTOMER_CODE",
+                    "value":"expr:[viewCustomerList:CUSTOMER_CODE]"
+                }
+            ]
+        }
+    ]
+}]]></Contents>
+      </DsFilterDataAction>
+      <MessageAction id="MessageAction00" message="거래를 삭제하시겠습니까?" targetview="deallist" messagetype="confirm">
+        <Contents/>
+      </MessageAction>
+      <DsDeleteDataAction id="DsDeleteDataAction00" targetview="divList">
+        <Contents/>
+      </DsDeleteDataAction>
+      <SearchDBAction id="SearchDBAction02" servicemodel="getdeallist" serviceurl="IP::setdeallist.jsp" inputdatasets="dsdeal=divList.form.viewdataset:U dsdeallist=divDetail.form.viewdataset:U">
+        <Contents/>
+      </SearchDBAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Form Init" triggerview="deallist" triggerobj="deallist" targetaction="SearchDBAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Action Success" triggerview="deallist" triggerobj="SearchDBAction00" targetaction="DsSetFirstCdAction00" condition=""/>
       <TriggerItem id="item2" triggertype="Action Success" triggerview="deallist" triggerobj="SearchDBAction00" targetaction="DsSetFirstCdAction01" condition=""/>
       <TriggerItem id="item3" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction01" condition=""/>
+      <TriggerItem id="item4" triggertype="Row Change" triggerview="divList" triggerobj="viewdataset" targetaction="DsFilterDataAction00" condition=""/>
+      <TriggerItem id="item5" triggertype="Row Change" triggerview="viewCustomerList" triggerobj="viewdataset" targetaction="DsFilterDataAction01" condition=""/>
+      <TriggerItem id="item6" triggertype="Click" triggerview="viewButton" triggerobj="btnDelete" targetaction="MessageAction00" condition=""/>
+      <TriggerItem id="item7" triggertype="Action Success" triggerview="deallist" triggerobj="MessageAction00" targetaction="DsDeleteDataAction00" condition=""/>
+      <TriggerItem id="item8" triggertype="Action Success" triggerview="deallist" triggerobj="DsDeleteDataAction00" targetaction="SearchDBAction02" condition=""/>
     </Trigger>
   </Form>
 </FDL>

@@ -191,7 +191,7 @@ if (!nexacro.DsFilterDataAction)
 		
 		objDs.set_enableevent(true);
 		
-		if (!this.gfnIsNull(nInitRowPosition))
+		if (!this.gfnIsNull(nInitRowPosition) && objDs.rowcount > nexacro.toNumber(nInitRowPosition,-1))
 		{
 			objDs.set_rowposition(nInitRowPosition);
 		}
