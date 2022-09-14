@@ -60,6 +60,7 @@ try {
     DataSet dscustomer = new DataSet("dscustomer");
     dscustomer.addColumn("code",DataTypes.STRING, 256);
     dscustomer.addColumn("value",DataTypes.STRING, 256);
+    dscustomer.addColumn("unit",DataTypes.STRING, 256);
     //select * from ERP_DEAL_STATUS
     
     /******* SQL query *************/
@@ -125,7 +126,7 @@ try {
 	}
 	
 	// QuickCode 샘플용 거래처 데이터 조회
-	String SQL6 = "select CORPORATE_CODE, CORPORATE_NAME from ERP_CUSTOMER WHERE DEAL_STATUS != 's3'";
+	String SQL6 = "select CORPORATE_CODE, CORPORATE_NAME, UNIT_PRICE_CODE from ERP_CUSTOMER WHERE DEAL_STATUS != 's3'";
 	row = 0;
 	   
 	rs6 = stmt.executeQuery(SQL6);  
@@ -135,6 +136,7 @@ try {
 		row = dscustomer.newRow();
 		dscustomer.set(row, "code", rs6.getString("CORPORATE_CODE"));    
 		dscustomer.set(row, "value", rs6.getString("CORPORATE_NAME"));
+		dscustomer.set(row, "unit", rs6.getString("UNIT_PRICE_CODE"));
 	}
 	
 

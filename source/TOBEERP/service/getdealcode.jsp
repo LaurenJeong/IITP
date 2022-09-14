@@ -29,6 +29,7 @@ ResultSet  rs3   = null;
 ResultSet  rs4   = null;
 ResultSet  rs5   = null;
 ResultSet  rs6   = null;
+ResultSet  rs7	 = null;
 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
 stmt = conn.createStatement();
@@ -61,6 +62,11 @@ try {
     DataSet dscondition = new DataSet("dscondition");
     dscondition.addColumn("code",DataTypes.STRING, 256);
     dscondition.addColumn("value",DataTypes.STRING, 256);
+    
+    DataSet dscustomer = new DataSet("dscustomer");
+    dscustomer.addColumn("code",DataTypes.STRING, 256);
+    dscustomer.addColumn("value",DataTypes.STRING, 256);
+    dscustomer.addColumn("unit",DataTypes.STRING, 256);
     //select * from ERP_DEAL_STATUS
     
     /******* SQL query *************/
@@ -137,6 +143,20 @@ try {
 		dscondition.set(row, "code",  rs6.getString("CONDITION_CODE"));    
 		dscondition.set(row, "value", rs6.getString("CONDITION_VALUE"));
 	}
+	
+	// QuickCode 샘플용 거래처 데이터 조회
+	String SQL7 = "select CORPORATE_CODE, CORPORATE_NAME, UNIT_PRICE_CODE from ERP_CUSTOMER WHERE DEAL_STATUS != 's3'";
+	row = 0;
+	   
+	rs7 = stmt.executeQuery(SQL7);  
+	
+	while(rs7.next())
+	{
+		row = dscustomer.newRow();
+		dscustomer.set(row, "code", rs7.getString("CORPORATE_CODE"));    
+		dscustomer.set(row, "value", rs7.getString("CORPORATE_NAME"));
+		dscustomer.set(row, "unit", rs7.getString("UNIT_PRICE_CODE"));
+	}
 	//
     /********* Adding Dataset to PlatformData ************/
     pdata.addDataSet(dstype);
@@ -145,6 +165,7 @@ try {
     pdata.addDataSet(dscoportype);
     pdata.addDataSet(dsunit);
     pdata.addDataSet(dscondition);
+    pdata.addDataSet(dscustomer);
     
     nErrorCode = 0;
     strErrorMsg = "SUCC";

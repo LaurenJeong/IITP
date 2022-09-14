@@ -55,8 +55,6 @@ if(checked != null)
 	SQL += " AND p1.TRADING_TYPE='s2'";
 }
 
-log(SQL);
-
 try {
     rs = stmt.executeQuery(SQL);
 

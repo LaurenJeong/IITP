@@ -18,6 +18,14 @@ PlatformData reqdata = req.getData();
 VariableList varList = reqdata.getVariableList();
 String dbUrl  = varList.getString("argDB");
 String sSearch  = varList.getString("argProduct");
+
+//QuickCode를 위해 Dataset으로 input조회조건 변경
+DataSet dsinput = reqdata.getDataSet("dsinput");
+
+if (dsinput != null && dsinput.hasData())
+{
+	sSearch = dsinput.getString(0, "PRODUCT");
+}
 		
 int nErrorCode = 0;
 String strErrorMsg = "START";

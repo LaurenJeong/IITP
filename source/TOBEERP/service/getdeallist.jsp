@@ -6,6 +6,13 @@
 
 <%@ page contentType="text/xml; charset=utf-8" %>
 
+<%!
+public static boolean isNull(String str)
+{
+    return str == null || str.length() == 0;
+}
+%>
+
 <%
 /****** Service API initialization ******/
 PlatformData pdata = new PlatformData();
@@ -29,21 +36,28 @@ String dealcode  = varList.getString("argDealCode");
 
 String sWhere = null;
 String sWhereCustomer = null;
-if(customercode != null)
+
+//QuickCode를 위해 Dataset으로 input조회조건 변경
+DataSet dsinput = reqdata.getDataSet("dsinput");
+
+if (dsinput != null && dsinput.hasData())
 {
-	if(sWhere == null)
-	{
-		sWhere = " WHERE ERP_CUSTOMER.CORPORATE_NAME LIKE '%"+customercode+"%'";
-		sWhereCustomer = " WHERE ERP_CUSTOMER.CORPORATE_NAME LIKE '%"+customercode+"%'";
-	}
+	customercode = dsinput.getString(0, "CUSTOMER");
+	title = dsinput.getString(0, "TITLE");
+	startday = dsinput.getString(0, "STARTDAY");
+	endday = dsinput.getString(0, "ENDDAY");
+	salesmancode = dsinput.getString(0, "SALESMAN");
+	typecode = dsinput.getString(0, "TYPE");
+	statuscode = dsinput.getString(0, "STATUS");
+	dealcode = dsinput.getString(0, "DEAL_CODE");
 }
 
-if(startday != null)
+if(!isNull(startday))
 {
 	sWhere = " WHERE ERP_DEAL.DEAL_DATE = '"+startday+"'"; 
 }
 
-if(endday != null)
+if(!isNull(endday))
 {
 	if(sWhere == null)
 	{
@@ -54,8 +68,22 @@ if(endday != null)
 		sWhere = " WHERE ERP_DEAL.DEAL_DATE <= '"+endday+"' AND ERP_DEAL.DEAL_DATE >= '"+startday+"'";
 	}
 }
+
+if(!isNull(customercode))
+{
+	if(sWhere == null)
+	{
+		sWhere = " WHERE (ERP_CUSTOMER.CORPORATE_NAME LIKE '%"+customercode+"%' OR ERP_CUSTOMER.CORPORATE_CODE = '"+customercode+"')";
+		sWhereCustomer = " WHERE ERP_CUSTOMER.CORPORATE_NAME LIKE '%"+customercode+"%'";
+	}
+	else
+	{
+		sWhere += " AND (ERP_CUSTOMER.CORPORATE_NAME LIKE '%"+customercode+"%' OR ERP_CUSTOMER.CORPORATE_CODE = '"+customercode+"')";
+		sWhereCustomer += "  AND ERP_CUSTOMER.CORPORATE_NAME LIKE '%"+customercode+"%'";
+	}
+}
 	
-if(typecode != null)
+if(!isNull(typecode))
 {
 	if(sWhere == null)
 	{
@@ -67,7 +95,7 @@ if(typecode != null)
 	}
 }
 	
-if(statuscode != null)
+if(!isNull(statuscode))
 {
 	if(sWhere == null)
 	{
@@ -79,7 +107,7 @@ if(statuscode != null)
 	}
 }
 	
-if(salesmancode != null)
+if(!isNull(salesmancode))
 {
 	if(sWhere == null)
 	{
@@ -102,13 +130,17 @@ else
 	sWhereCustomer += " AND ERP_DEAL_CUSTOMER.CUSTOMER_CODE = ERP_CUSTOMER.CORPORATE_CODE "; 
 }
 
-if(dealcode != null)
+if(!isNull(dealcode))
 {
 	sWhere = " WHERE ERP_DEAL.CUSTOMER_CODE = ERP_CUSTOMER.CORPORATE_CODE AND ERP_DEAL.DEAL_CODE='"+dealcode+"' ";
 	sWhereCustomer = "";
 }
 
-String SQL = "SELECT * FROM ERP_DEAL, ERP_CUSTOMER" + sWhere + "  ORDER BY ERP_DEAL.DEAL_DATE DESC";
+String SQL = "SELECT * ";
+SQL += " , CASE WHEN ERP_DEAL.DEAL_TYPE = 'pS' THEN ERP_DEAL.PAYMENT_PRICE ELSE 0 END PS_PAYMENT_PRICE";
+SQL += " , CASE WHEN ERP_DEAL.DEAL_TYPE = 'lS' THEN ERP_DEAL.PAYMENT_PRICE ELSE 0 END lS_PAYMENT_PRICE";
+SQL += " , TOTAL_PRICE-PAYMENT_PRICE STATEMENT_BALANCE_PRICE";
+SQL += " FROM ERP_DEAL, ERP_CUSTOMER"+ sWhere + "  ORDER BY ERP_DEAL.DEAL_DATE DESC"; 
 		
 int nErrorCode = 0;
 String strErrorMsg = "START";
@@ -135,7 +167,7 @@ stmt4 = conn.createStatement();
 /******* SQL query *************/
 
 try {
-//	System.out.println(SQL);
+	//System.out.println(SQL);
     rs = stmt.executeQuery(SQL);
 
     /********* Dataset Create ************/
@@ -144,31 +176,34 @@ try {
     dsdeal.addColumn("DEAL_DATE",DataTypes.STRING, 256);
     dsdeal.addColumn("DEAL_TYPE",DataTypes.STRING, 256);
     dsdeal.addColumn("DEAL_TITLE",DataTypes.STRING, 256);
-    dsdeal.addColumn("TOTAL_AMOUNT",DataTypes.STRING, 256);
+    dsdeal.addColumn("TOTAL_AMOUNT",DataTypes.INT, 256);
     dsdeal.addColumn("CUSTOMER_CODE",DataTypes.STRING, 256);
     dsdeal.addColumn("ADD_IN_TAX",DataTypes.STRING, 256);
     dsdeal.addColumn("ACCOUNT_BILL",DataTypes.STRING, 256);
     dsdeal.addColumn("SALESMAN_CODE",DataTypes.STRING, 256);
-    dsdeal.addColumn("BEFORE_PRICE",DataTypes.STRING, 256);
-    dsdeal.addColumn("DISCOUNT_PRICE",DataTypes.STRING, 256);
-    dsdeal.addColumn("LAST_PRICE",DataTypes.STRING, 256);    
-    dsdeal.addColumn("CREDIT_PRICE",DataTypes.STRING, 256);
-    dsdeal.addColumn("CASH_PRICE",DataTypes.STRING, 256);
-    dsdeal.addColumn("ACCOUNT_PRICE",DataTypes.STRING, 256);
-    dsdeal.addColumn("BILL_PRICE",DataTypes.STRING, 256);
-    dsdeal.addColumn("CARD_PRICE",DataTypes.STRING, 256);
+    dsdeal.addColumn("BEFORE_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("DISCOUNT_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("LAST_PRICE",DataTypes.INT, 256);    
+    dsdeal.addColumn("CREDIT_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("CASH_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("ACCOUNT_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("BILL_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("CARD_PRICE",DataTypes.INT, 256);
     dsdeal.addColumn("ESTIMATE_CODE",DataTypes.STRING, 256);
     dsdeal.addColumn("ACCOUMULATE_FUND",DataTypes.STRING, 256);
-    dsdeal.addColumn("ADD_RESERVE_FUND",DataTypes.STRING, 256);
-    dsdeal.addColumn("USE_RESERVE_FUND",DataTypes.STRING, 256);
+    dsdeal.addColumn("ADD_RESERVE_FUND",DataTypes.INT, 256);
+    dsdeal.addColumn("USE_RESERVE_FUND",DataTypes.INT, 256);
     dsdeal.addColumn("ETC",DataTypes.STRING, 256);
     dsdeal.addColumn("DEAL_STATUS",DataTypes.STRING, 256);    
-    dsdeal.addColumn("DEAL_SEQ",DataTypes.STRING, 256);
+    dsdeal.addColumn("DEAL_SEQ",DataTypes.INT, 256);
     dsdeal.addColumn("TAX_TYPE",DataTypes.STRING, 256);
-    dsdeal.addColumn("UNIT_PRICE",DataTypes.STRING, 256);
-    dsdeal.addColumn("TOTAL_PRICE",DataTypes.STRING, 256);
-    dsdeal.addColumn("PAYMENT_PRICE",DataTypes.STRING, 256);
-    dsdeal.addColumn("TAX_PRICE",DataTypes.STRING, 256);
+    dsdeal.addColumn("UNIT_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("TOTAL_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("PAYMENT_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("TAX_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("PS_PAYMENT_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("lS_PAYMENT_PRICE",DataTypes.INT, 256);
+    dsdeal.addColumn("STATEMENT_BALANCE_PRICE",DataTypes.INT, 256);
     
     DataSet dsdetail = new DataSet("dsdetail");
     dsdetail.addColumn("DEAL_CODE",DataTypes.STRING, 256);   
@@ -247,6 +282,9 @@ try {
         dsdeal.set(row, "UNIT_PRICE", rs.getString("UNIT_PRICE"));
         dsdeal.set(row, "TOTAL_PRICE", rs.getString("TOTAL_PRICE"));
         dsdeal.set(row, "PAYMENT_PRICE", rs.getString("PAYMENT_PRICE"));
+        dsdeal.set(row, "PS_PAYMENT_PRICE", rs.getString("PS_PAYMENT_PRICE"));
+        dsdeal.set(row, "lS_PAYMENT_PRICE", rs.getString("lS_PAYMENT_PRICE"));
+        dsdeal.set(row, "STATEMENT_BALANCE_PRICE", rs.getString("STATEMENT_BALANCE_PRICE"));
         dsdeal.set(row, "TAX_PRICE", rs.getString("TAX_PRICE"));
        
         
@@ -293,10 +331,14 @@ try {
    	while(rs1.next())
  	{
    		sCustomerdistint =  rs1.getString("CUSTOMER_CODE");
-   		SQLDealCustomer = "SELECT * FROM ERP_DEAL_CUSTOMER,ERP_CUSTOMER" + 
+   		SQLDealCustomer = "SELECT * " + 
+   						" , PURCHASE_TOTAL_PRICE - PURCHASE_PAYMENT_PRICE AS NON_PURCHASE_PAYMENT" + 
+   						" , SALES_TOTAL_PRICE - SALES_PAYMENT_PRICE AS NON_SALES_PAYMENT" +
+   						" , SALES_TOTAL_PRICE - SALES_PAYMENT_PRICE - PURCHASE_TOTAL_PRICE - PURCHASE_PAYMENT_PRICE AS NON_TOTAL_PAYMENT" +
+						" FROM ERP_DEAL_CUSTOMER,ERP_CUSTOMER" + 
    				          " WHERE ERP_DEAL_CUSTOMER.CUSTOMER_CODE = ERP_CUSTOMER.CORPORATE_CODE" +
    						  " AND CUSTOMER_CODE='"+sCustomerdistint+"'";
-   		
+   		//System.out.println(SQLDealCustomer);
    		rs3= stmt3.executeQuery(SQLDealCustomer);
    		
    		while(rs3.next())
@@ -322,9 +364,9 @@ try {
 	   		dsdealcustomer.set(customerRow, "REPRESENT_NAME", rs3.getString("REPRESENTATIVE_NAME"));
 	   		dsdealcustomer.set(customerRow, "CORPORATE_TYPE", rs3.getString("CORPORATE_TYPE"));
 	   		
-	   		dsdealcustomer.set(customerRow, "NON_PURCHASE_PAYMENT", 0);
-	   		dsdealcustomer.set(customerRow, "NON_SALES_PAYMENT", 0);
-	   		dsdealcustomer.set(customerRow, "NON_TOTAL_PAYMENT", 0);
+	   		dsdealcustomer.set(customerRow, "NON_PURCHASE_PAYMENT", rs3.getString("NON_PURCHASE_PAYMENT"));
+	   		dsdealcustomer.set(customerRow, "NON_SALES_PAYMENT", rs3.getString("NON_SALES_PAYMENT"));
+	   		dsdealcustomer.set(customerRow, "NON_TOTAL_PAYMENT", rs3.getString("NON_TOTAL_PAYMENT"));
    		}
  	}
 
