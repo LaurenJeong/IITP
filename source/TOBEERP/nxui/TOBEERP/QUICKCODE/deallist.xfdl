@@ -372,31 +372,31 @@
             <Layout>
               <Static id="staPurchaseTotalPriceBg" left="0" top="0" width="547" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staPurchaseTotalPriceLabel" left="0" top="0" width="110" height="40" text="매입합계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskPurchaseTotalPrice" left="115" top="6" width="153" height="28" autoselect="true" format="###,###,###"/>
+              <MaskEdit id="mskPurchaseTotalPrice" left="115" top="5" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
               <Static id="staSalesTotalPriceLabel" left="273" top="0" width="110" height="40" text="매출합계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskSalesTotalPrice" left="388" top="6" width="153" height="28" autoselect="true" format="###,###,###"/>
+              <MaskEdit id="mskSalesTotalPrice" left="388" top="5" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
               <Static id="staPurchasePaymentPriceBg" left="0" top="39" width="547" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staPurchasePaymentPriceLabel" left="0" top="39" width="110" height="40" text="지급합계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskPurchasePaymentPrice" left="115" top="45" width="153" height="28" autoselect="true" format="###,###,###"/>
+              <MaskEdit id="mskPurchasePaymentPrice" left="115" top="44" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
               <Static id="staSalesPaymentPriceLabel" left="273" top="39" width="110" height="40" text="수금합계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskSalesPaymentPrice" left="388" top="45" width="153" height="28" autoselect="true" format="###,###,###"/>
+              <MaskEdit id="mskSalesPaymentPrice" left="388" top="44" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
               <Static id="staPurchaseDiscountBg" left="0" top="78" width="547" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staPurchaseDiscountLabel" left="0" top="78" width="110" height="40" text="지급할인" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskPurchaseDiscount" left="115" top="84" width="153" height="28" autoselect="true" format="###,###,###"/>
+              <MaskEdit id="mskPurchaseDiscount" left="115" top="83" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
               <Static id="staSalesDiscountLabel" left="273" top="78" width="110" height="40" text="수금할인" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskSalesDiscount" left="388" top="84" width="153" height="28" autoselect="true" format="###,###,###"/>
+              <MaskEdit id="mskSalesDiscount" left="388" top="83" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
               <Static id="staNonPurchasePaymentBg" left="0" top="117" width="547" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staNonPurchasePaymentLabel" left="0" top="117" width="110" height="40" text="미지급계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskNonPurchasePayment" left="115" top="123" width="153" height="28" autoselect="true" format="###,###,###"/>
+              <MaskEdit id="mskNonPurchasePayment" left="115" top="122" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
               <Static id="staNonSalesPaymentLabel" left="273" top="117" width="110" height="40" text="미수금계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskNonSalesPayment" left="388" top="123" width="153" height="28" autoselect="true" format="###,###,###"/>
+              <MaskEdit id="mskNonSalesPayment" left="388" top="122" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
               <Static id="staNonTotalPaymentLabel" left="273" top="156" width="110" height="40" text="지급할금액" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskNonTotalPayment" left="388" top="162" width="153" height="28" autoselect="true" format="###,###,###"/>
+              <MaskEdit id="mskNonTotalPayment" left="388" top="161" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
               <Static id="staAccoumulateFundBg" left="0" top="195" width="547" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staAccoumulateFundLabel" left="0" top="195" width="110" height="40" text="적립금" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskAccoumulateFund" left="115" top="201" width="153" height="28" autoselect="true" format="###,###,###"/>
-              <Static id="staPaymentDateLabel" left="273" top="195" width="110" height="40" text="결제약속일" cssclass="sta_WF_titleStar"/>
-              <Calendar id="calPaymentDate" left="388" top="201" width="153" height="28"/>
+              <MaskEdit id="mskAccoumulateFund" left="115" top="200" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
+              <Static id="staPaymentDateLabel" left="273" top="195" width="110" height="40" text="결제약속일" cssclass="sta_cm_box01L"/>
+              <Calendar id="calPaymentDate" left="388" top="200" width="153" height="30" cssclass="" readonly="true" buttonsize="0"/>
               <Static id="Static08_00_00_00" taborder="27" text="(미수금계 - 미지급계)" top="156" width="273" height="40" cssclass="sta_cm_box01L" right="274" textAlign="right"/>
             </Layout>
           </Layouts>
@@ -436,17 +436,17 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="getdeallist" modelid="dsdealcustomer" filepath="UI_TEST\deal\getdeallist.xmodel">
             <Fields>
-              <Field id="PURCHASE_TOTAL_PRICE" label="매입합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="SALES_TOTAL_PRICE" label="매출합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="PURCHASE_PAYMENT_PRICE" label="지급합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="SALES_PAYMENT_PRICE" label="수금합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="PURCHASE_DISCOUNT" label="지급할인" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="SALES_DISCOUNT" label="수금할인" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="NON_PURCHASE_PAYMENT" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="NON_SALES_PAYMENT" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="NON_TOTAL_PAYMENT" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="ACCOUMULATE_FUND" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
-              <Field id="PAYMENT_DATE" label="결제약속일" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="PURCHASE_TOTAL_PRICE" label="매입합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="SALES_TOTAL_PRICE" label="매출합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="PURCHASE_PAYMENT_PRICE" label="지급합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="SALES_PAYMENT_PRICE" label="수금합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="PURCHASE_DISCOUNT" label="지급할인" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="SALES_DISCOUNT" label="수금할인" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="NON_PURCHASE_PAYMENT" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="NON_SALES_PAYMENT" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="NON_TOTAL_PAYMENT" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="ACCOUMULATE_FUND" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="PAYMENT_DATE" label="결제약속일" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
             </Fields>
             <Components>
               <Component id="staPurchaseTotalPriceBg" fields="PURCHASE_TOTAL_PRICE"/>
@@ -478,7 +478,7 @@
               <Component id="calPaymentDate" fields="PAYMENT_DATE"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="FreeformReadonlyViewTemplate.xviewgen">
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="halign" value="left"/>
             <Attribute id="valign" value="top"/>
@@ -615,7 +615,7 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.LoginGroup = this.application.gvLoginId;
 	
 	// Title 영역 셋팅
-	//this.parent.parent.fn_setFavoriteButton(obj);
+	this.parent.parent.fn_setFavoriteButton(obj);
 	
 	this.viewSearch.form.cmbTitle.set_index(0);
 	
@@ -790,6 +790,48 @@ this.DsFilterDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.Act
       <SearchDBAction id="SearchDBAction02" servicemodel="getdeallist" serviceurl="IP::setdeallist.jsp" inputdatasets="dsdeal=divList.form.viewdataset:U dsdeallist=divDetail.form.viewdataset:U">
         <Contents/>
       </SearchDBAction>
+      <PopupAction id="PopupAction00" formurl="TO_BE::deallistpopup.xfdl" popupstyle="modal" popupid="popupdeallist" title="거래추가" targetview="deallist" popupdatatype="none" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1">
+        <Contents><![CDATA[{
+    "extra":
+    [
+        {
+            "name":"strStatus",
+            "value":"add"
+        }
+    ]
+}]]></Contents>
+      </PopupAction>
+      <PopupAction id="PopupAction01" formurl="TO_BE::deallistpopup.xfdl" popupstyle="modal" popupid="popupdeallist" title="전표열기" targetview="divList" popupdatatype="none" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1">
+        <Contents><![CDATA[{
+    "extra":
+    [
+        {
+            "name":"strStatus",
+            "value":"open"
+        },
+        {
+            "name":"strType",
+            "value":"expr:[DEAL_TYPE]"
+        },
+        {
+            "name":"strDealCode",
+            "value":"expr:[DEAL_CODE]"
+        },
+        {
+            "name":"strCostCode",
+            "value":"expr:[CUSTOMER_CODE]"
+        },
+        {
+            "name":"strDate",
+            "value":"expr:[DEAL_DATE]"
+        },
+        {
+            "name":"strCheck",
+            "value":"expr:[ADD_IN_TAX]"
+        }
+    ]
+}]]></Contents>
+      </PopupAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Form Init" triggerview="deallist" triggerobj="deallist" targetaction="SearchDBAction00" condition=""/>
@@ -801,6 +843,8 @@ this.DsFilterDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.Act
       <TriggerItem id="item6" triggertype="Click" triggerview="viewButton" triggerobj="btnDelete" targetaction="MessageAction00" condition=""/>
       <TriggerItem id="item7" triggertype="Action Success" triggerview="deallist" triggerobj="MessageAction00" targetaction="DsDeleteDataAction00" condition=""/>
       <TriggerItem id="item8" triggertype="Action Success" triggerview="deallist" triggerobj="DsDeleteDataAction00" targetaction="SearchDBAction02" condition=""/>
+      <TriggerItem id="item9" triggertype="Click" triggerview="viewButton" triggerobj="btnAdddealdetail" targetaction="PopupAction00" condition=""/>
+      <TriggerItem id="item10" triggertype="Click" triggerview="viewButton" triggerobj="btnOpendetail" targetaction="PopupAction01" condition=""/>
     </Trigger>
   </Form>
 </FDL>
