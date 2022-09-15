@@ -250,23 +250,12 @@ this.MaskEdit_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInf
 this.MaskEdit_oninput = function(obj:nexacro.MaskEdit,e:nexacro.InputEventInfo)
 {
 	obj.set_format("@@@@@@@@@@@");
-};
-
-this.DsCopyDataAction00_onerror = function(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)
-{
-	trace("DsCopyDataAction00_onerror" + e.userdata);
-};
-
-this.DsCopyDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
-{
-	trace("DsCopyDataAction00_onsuccess");
-};
-]]></Script>
+};]]></Script>
     <Objects>
       <SearchDBAction id="SearchDBAction00" serviceurl="IP::getmyinfo.jsp" outputdatasets="viewMaster.form.viewdataset=dsmyinfo">
         <Contents/>
       </SearchDBAction>
-      <DsCopyDataAction id="DsCopyDataAction00" targetview="viewMaster" fromview="myprofile" copytype="replace" targetdataset="innerdatasetCorporateArea" fromdataset="gdsArea" onerror="DsCopyDataAction00_onerror" onsuccess="DsCopyDataAction00_onsuccess">
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="viewMaster" fromview="myprofile" copytype="replace" targetdataset="innerdatasetCorporateArea" fromdataset="gdsArea">
         <Contents/>
       </DsCopyDataAction>
     </Objects>

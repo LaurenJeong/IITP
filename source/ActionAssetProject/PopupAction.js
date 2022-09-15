@@ -73,16 +73,8 @@ if (!nexacro.PopupAction)
 			
 			objArgs._PUPUP_STYLE = sPopupStyle;
 			
-			//Modeless 팝업 호출
-			if(sPopupStyle=="modeless")
-			{
-				this.gfnModeless(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, this._POPUP_CALLBACK);
-			}
-			//Modal 팝업 호출
-			else
-			{
-				this.gfnShowModal(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, this._POPUP_CALLBACK);
-			}
+			// 팝업 호출
+			this.gfnOpenPopup(sPopupStyle, sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, this._POPUP_CALLBACK);
 		}
 	};
 	
@@ -174,7 +166,6 @@ if (!nexacro.PopupAction)
 			this._args = v;
 			this.args = null;
 		} else {
-			trace("String");
 			// TODO : enter your code here.
 			v = nexacro._toString(v);
 			if (this.args != v) {
@@ -243,54 +234,105 @@ if (!nexacro.PopupAction)
 	//===============================================================		
     // nexacro.PopupAction : 공통함수 전환부분
     //===============================================================
-	nexacro.PopupAction.prototype.gfnShowModal = function (sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
+	nexacro.PopupAction.prototype.gfnOpenPopup = function (sPopupStyle, sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
 	{
-		//Modal 팝업으로 사용할 ChildFrame 생성
-		var objChildFrame = new ChildFrame();
+		var objApp = nexacro.getApplication();
 		
 		//부모 Frame 정보 가져오기
 		var objOwnerFrame = objForm.getOwnerFrame();
-		
 		var sOpenAlignType = "";
+		var bAutoSize = false;
 		
-		//
-		if (this.gfnIsNull(nLeft))nLeft = 0;
-		
-		if (this.gfnIsNull(nTop))nTop = 0;
-		
-		if (this.gfnIsNull(nWidth)) nWidth = 400;
-		
-		if (this.gfnIsNull(nHeight)) nHeight = 300;
-		
-		if(nLeft==-1)sOpenAlignType = "center ";
-		
-		if(nTop==-1)sOpenAlignType += "middle";
-		
-		objChildFrame.init(sPopupId, nLeft, nTop, nWidth, nHeight, null, null, sFormUrl);
-		objChildFrame.set_openalign(sOpenAlignType);
-				
-		objChildFrame.showModal(objOwnerFrame, objArgs, objForm, sCallback, true);
-	};
+		if (this.gfnIsNull(nLeft))nLeft = -1;
+		if (this.gfnIsNull(nTop))nTop = -1;
+		if (this.gfnIsNull(nWidth)) nWidth = -1;
+		if (this.gfnIsNull(nHeight)) nHeight = -1;
 	
-	nexacro.PopupAction.prototype.gfnModeless = function(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
-	{
-		var objOwnerFrame = objForm.getOwnerFrame();
+		// 모바일인 경우 팝업사이즈 모두 입력하지 않았을때 full사이즈로 호출되도록 처리
+		if (nexacro._getCurrentScreenType() != "desktop")
+		{
+			//l,t,w,h 모두 기입하지 않으면 full
+			if (nLeft == -1 && nTop == -1 && nWidth == -1 && nHeight == -1)
+			{
+				bAutoSize = false;
+				
+				if (nWidth == -1 || nWidth > objApp.mainframe.width)
+				{	
+					nWidth = objApp.mainframe.width;
+				}
+				
+				if (nHeight == -1 || nHeight > nexacro.getApplication().mainframe.height)
+				{
+					nHeight = objApp.mainframe.height;
+				}            
+			}
+			
+			// 런타임 접속시 modal로만 동작되도록 수정(모바일 NRE에서는 open미지원)
+			if (system.navigatorname == "nexacro") 
+			{
+				sPopupStyle = "modal";
+			}
+		}
 		
-		if (this.gfnIsNull(nLeft))nLeft = 0;
+		if(nLeft == -1 && nTop == -1) 
+		{		
+			sOpenAlignType = "center middle";
+			
+			if (system.navigatorname == "nexacro") {
+// 				var curX = objApp.mainframe.left;
+// 				var curY = objApp.mainframe.top;
+				var curX = system.clientToScreenX(objApp.mainframe, 0);
+				var curY = system.clientToScreenY(objApp.mainframe, 0);
+			}else{
+				var curX = window.screenLeft;
+				var curY = window.screenTop;
+			}
+			
+			nLeft	= curX + (objApp.mainframe.width / 2) - Math.round(nWidth / 2);
+			nTop	= curY + (objApp.mainframe.height / 2) - Math.round(nHeight / 2) ;		
+		}else{
+			nLeft	=  this.parent.getOffsetLeft() + nLeft;
+			nTop	=  this.parent.getOffsetTop() + nTop;
+		}
 		
-		if (this.gfnIsNull(nTop))nTop = 0;
+		if (nWidth == -1 || nHeight == -1) {
+			bAutoSize = true;
+		}
+			
+		//this.gfnLog("nLeft : " + nLeft + " nTop : " + nTop + " nWidth : " + nWidth + " nHeight : " + nHeight);
 		
-		if (this.gfnIsNull(nWidth)||nWidth==-1) nWidth = 400;
-		
-		if (this.gfnIsNull(nHeight)||nHeight==-1) nHeight = 300;
-		
-		if(nLeft==-1)nLeft = system.clientToScreenX(objForm, 0) + (objForm.getOffsetWidth() / 2) - (nWidth/2);
-		
-		if(nTop==-1)nTop = system.clientToScreenY(objForm, 0) + (objForm.getOffsetHeight() / 2) - (nHeight/2);
-		
-		var sOpt = "showtitlebar=true";
-		
-		nexacro.open(sPopupId, sFormUrl, objOwnerFrame, objArgs, sOpt, nLeft, nTop, nWidth, nHeight, objForm);
+		if(sPopupStyle == "modeless")
+		{
+			var sOpenStyle= "showtitlebar=true showstatusbar=false showontaskbar=true showcascadetitletext=false resizable=true autosize=" + bAutoSize +" titletext="+sTitle;
+			
+			// 중복팝업 체크
+			var arrPopFrame = nexacro.getPopupFrames();
+			if (arrPopFrame[sPopupId]) {	
+				if (system.navigatorname == "nexacro") {
+					arrPopFrame[sPopupId].setFocus();
+				} else {	
+					arrPopFrame[sPopupId]._getWindowHandle().focus();
+				}
+			}
+			else {
+				nexacro.open(sPopupId, sFormUrl, objOwnerFrame, objArgs, sOpenStyle, nLeft, nTop, nWidth, nHeight, objForm);
+			}
+		}
+		else
+		{
+			var newChild = new nexacro.ChildFrame;		
+			newChild.init(sPopupId, nLeft, nTop, nWidth, nHeight, null, null, sFormUrl);
+			
+			newChild.set_dragmovetype("none");
+			newChild.set_showtitlebar(false);		//titlebar는 안보임
+			newChild.set_autosize(bAutoSize);	
+			newChild.set_resizable(false);			//resizable 안됨
+			if(!this.gfnIsNull(sTitle)) newChild.set_titletext(sTitle);
+			newChild.set_showstatusbar(false);		//statusbar는 안보임
+			newChild.set_openalign(sOpenAlignType);
+			
+			newChild.showModal(objOwnerFrame, objArgs, objForm, sCallback, true);
+		}
 	};
 	
 	// PopupCallback 함수

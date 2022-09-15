@@ -222,6 +222,8 @@ if (!nexacro.CommActionAsset)
 	 */
 	pAction.gfnGetExprText = function(sExprText, sViewNm)
 	{
+		if (this.gfnIsNull(sExprText))				return sExprText;
+		
 		var sRetText = sExprText;
 		
 		// 1) '['와 ']' 사이값 추출

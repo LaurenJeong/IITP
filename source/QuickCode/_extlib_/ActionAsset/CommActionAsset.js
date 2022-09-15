@@ -165,7 +165,7 @@ if (!nexacro.CommActionAsset)
 		} else if (sDatasetId) {				// targetgrid 설정시 해당 그리드
 			objDsNm = sDatasetId.replace("@", "");
 			objDs = objForm._findDataset(objDsNm);
-		} else {						// targetgrid 미설정시 View에 있는 Grid
+		} else if(objView instanceof nexacro.View){						// targetgrid 미설정시 View에 있는 Grid
 			objDs = objView.getViewDataset();
 		}
 
@@ -222,6 +222,8 @@ if (!nexacro.CommActionAsset)
 	 */
 	pAction.gfnGetExprText = function(sExprText, sViewNm)
 	{
+		if (this.gfnIsNull(sExprText))				return sExprText;
+		
 		var sRetText = sExprText;
 		
 		// 1) '['와 ']' 사이값 추출

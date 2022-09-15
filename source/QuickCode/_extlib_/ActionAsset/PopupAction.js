@@ -29,9 +29,6 @@ if (!nexacro.PopupAction)
 	//===============================================================
 	nexacro.PopupAction.prototype.run = function()
 	{
-		//TODO
-		var objForm;
-		
 		//TargetView로 설정된 오브젝트 가져오기
 		var objView = this.getTargetView();
 		
@@ -49,30 +46,35 @@ if (!nexacro.PopupAction)
 		//canrun 이벤트의 리턴값이 false가 아닐경우
 		if(this.on_fire_canrun("userdata")!=false)
 		{
-			//TargetView가 Form이 아닌 View로 설정되었을 경우
-			if(objView)objForm = objView.form;
-			else objForm = this.parent;
+			if (this.gfnIsNull(sPopupId))
+			{
+				this.gfnLog("popupid가 설정되지 않았습니다.","error");
+				this.on_fire_onerror("error");
+				return;
+			}
+			if (this.gfnIsNull(sFormUrl))
+			{
+				this.gfnLog("formurl이 설정되지 않았습니다.","error");
+				this.on_fire_onerror("error");
+				return;
+			}
+			
+			var objForm = this.gfnGetForm();
 			
 			//Action Scope에 있는 CallBack 함수가 호출되도록 설정
 			objForm.fnPopupActionCallback = this.fnPopupActionCallback;
-			objForm.targetPopupAction = this;
 			
-			if (this.gfnIsNull(objArgs)) {
-				objArgs = {};
-			}
+			// Action정보를 폼에 설정
+			if (this.gfnIsNull(objForm.targetPopupAction))		objForm.targetPopupAction = {};
+			objForm.targetPopupAction[sPopupId] = this;
+			
+			// User Argument 처리 : 팝업 Argument로 설정
+			objArgs = this.gfnSetUserArgument(objArgs);
 			
 			objArgs._PUPUP_STYLE = sPopupStyle;
 			
-			//Modeless 팝업 호출
-			if(sPopupStyle=="modeless")
-			{
-				this.gfnModeless(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, this._POPUP_CALLBACK);
-			}
-			//Modal 팝업 호출
-			else
-			{
-				this.gfnShowModal(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, this._POPUP_CALLBACK);
-			}
+			// 팝업 호출
+			this.gfnOpenPopup(sPopupStyle, sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, this._POPUP_CALLBACK);
 		}
 	};
 	
@@ -160,19 +162,39 @@ if (!nexacro.PopupAction)
 	nexacro.PopupAction.prototype._args;
 	nexacro.PopupAction.prototype.set_args = function (v)
 	{
-		// TODO : enter your code here.
-		v = nexacro._toString(v);
-		if (this.args != v) {
-			this.args = v;
-			
-			if(this.gfnIsNull(this.args)==false)
-			{
-				this._args = JSON.parse(this.args);
-			}else
-			{
-				this._args = null;
+		if (v instanceof Object) {
+			this._args = v;
+			this.args = null;
+		} else {
+			// TODO : enter your code here.
+			v = nexacro._toString(v);
+			if (this.args != v) {
+				this.args = v;
+				
+				if(this.gfnIsNull(this.args)==false)
+				{
+					this._args = JSON.parse(this.args);
+				}
+				else
+				{
+					this._args = null;
+				}
 			}
 		}
+	};
+	
+	nexacro.PopupAction.prototype.set_popupdatatype = function (v)				
+	{
+		var popupdatatype_enum = ["none","copyrow","adddata","replace"];
+		if (v && popupdatatype_enum.indexOf(v) == -1) {
+			return;
+		}
+		
+		// TODO : enter your code here.			
+		v = nexacro._toString(v);			
+		if (this.popupdatatype != v) {			
+			this.popupdatatype = v;		
+		}			
 	};
 	
 	//===============================================================		
@@ -212,58 +234,225 @@ if (!nexacro.PopupAction)
 	//===============================================================		
     // nexacro.PopupAction : 공통함수 전환부분
     //===============================================================
-	nexacro.PopupAction.prototype.gfnShowModal = function (sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
+	nexacro.PopupAction.prototype.gfnOpenPopup = function (sPopupStyle, sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
 	{
-		//Modal 팝업으로 사용할 ChildFrame 생성
-		var objChildFrame = new ChildFrame();
+		var objApp = nexacro.getApplication();
 		
 		//부모 Frame 정보 가져오기
 		var objOwnerFrame = objForm.getOwnerFrame();
-		
 		var sOpenAlignType = "";
+		var bAutoSize = false;
 		
-		//
-		if (this.gfnIsNull(nLeft))nLeft = 0;
-		
-		if (this.gfnIsNull(nTop))nTop = 0;
-		
-		if (this.gfnIsNull(nWidth)) nWidth = 400;
-		
-		if (this.gfnIsNull(nHeight)) nHeight = 300;
-		
-		if(nLeft==-1)sOpenAlignType = "center ";
-		
-		if(nTop==-1)sOpenAlignType += "middle";
-		
-		objChildFrame.init(sPopupId, nLeft, nTop, nWidth, nHeight, null, null, sFormUrl);
-		objChildFrame.set_openalign(sOpenAlignType);
+		if (this.gfnIsNull(nLeft))nLeft = -1;
+		if (this.gfnIsNull(nTop))nTop = -1;
+		if (this.gfnIsNull(nWidth)) nWidth = -1;
+		if (this.gfnIsNull(nHeight)) nHeight = -1;
+	
+		// 모바일인 경우 팝업사이즈 모두 입력하지 않았을때 full사이즈로 호출되도록 처리
+		if (nexacro._getCurrentScreenType() != "desktop")
+		{
+			if (nLeft == -1 && nTop == -1 && nWidth == -1 && nHeight == -1) 	//l,t,w,h 모두 기입하지 않으면 full
+			{
+				bAutoSize = false;
 				
-		objChildFrame.showModal(objOwnerFrame, objArgs, objForm, sCallback, true);
+				if (nWidth == -1 || nWidth > objApp.mainframe.width)
+				{	
+					nWidth = objApp.mainframe.width;
+				}
+				
+				if (nHeight == -1 || nHeight > nexacro.getApplication().mainframe.height)
+				{
+					nHeight = objApp.mainframe.height;
+				}            
+			}
+		}
+		
+		if(nLeft == -1 && nTop == -1) 
+		{		
+			sOpenAlignType = "center middle";
+			
+			if (system.navigatorname == "nexacro") {
+// 				var curX = objApp.mainframe.left;
+// 				var curY = objApp.mainframe.top;
+				var curX = system.clientToScreenX(objApp.mainframe, 0);
+				var curY = system.clientToScreenY(objApp.mainframe, 0);
+			}else{
+				var curX = window.screenLeft;
+				var curY = window.screenTop;
+			}
+			
+			nLeft	= curX + (objApp.mainframe.width / 2) - Math.round(nWidth / 2);
+			nTop	= curY + (objApp.mainframe.height / 2) - Math.round(nHeight / 2) ;		
+		}else{
+			nLeft	=  this.parent.getOffsetLeft() + nLeft;
+			nTop	=  this.parent.getOffsetTop() + nTop;
+		}
+		
+		if (nWidth == -1 || nHeight == -1) {
+			bAutoSize = true;
+		}
+			
+		//this.gfnLog("nLeft : " + nLeft + " nTop : " + nTop + " nWidth : " + nWidth + " nHeight : " + nHeight);
+		
+		if(sPopupStyle == "modeless")
+		{
+			var sOpenStyle= "showtitlebar=true showstatusbar=false showontaskbar=true showcascadetitletext=false resizable=true autosize=" + bAutoSize +" titletext="+sTitle;
+			
+			// 중복팝업 체크
+			var arrPopFrame = nexacro.getPopupFrames();
+			if (arrPopFrame[sPopupId]) {	
+				if (system.navigatorname == "nexacro") {
+					arrPopFrame[sPopupId].setFocus();
+				} else {	
+					arrPopFrame[sPopupId]._getWindowHandle().focus();
+				}
+			}
+			else {
+				nexacro.open(sPopupId, sFormUrl, objOwnerFrame, objArgs, sOpenStyle, nLeft, nTop, nWidth, nHeight, objForm);
+			}
+		}
+		else
+		{
+			var newChild = new nexacro.ChildFrame;		
+			newChild.init(sPopupId, nLeft, nTop, nWidth, nHeight, null, null, sFormUrl);
+			
+			newChild.set_dragmovetype("none");
+			newChild.set_showtitlebar(false);		//titlebar는 안보임
+			newChild.set_autosize(bAutoSize);	
+			newChild.set_resizable(false);			//resizable 안됨
+			if(!this.gfnIsNull(sTitle)) newChild.set_titletext(sTitle);
+			newChild.set_showstatusbar(false);		//statusbar는 안보임
+			newChild.set_openalign(sOpenAlignType);
+			
+			newChild.showModal(objOwnerFrame, objArgs, objForm, sCallback, true);
+		}
 	};
 	
-	nexacro.PopupAction.prototype.gfnModeless = function(sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
-	{
-		var objOwnerFrame = objForm.getOwnerFrame();
-		
-		if (this.gfnIsNull(nLeft))nLeft = 0;
-		
-		if (this.gfnIsNull(nTop))nTop = 0;
-		
-		if (this.gfnIsNull(nWidth)||nWidth==-1) nWidth = 400;
-		
-		if (this.gfnIsNull(nHeight)||nHeight==-1) nHeight = 300;
-		
-		if(nLeft==-1)nLeft = system.clientToScreenX(objForm, 0) + (objForm.getOffsetWidth() / 2) - (nWidth/2);
-		
-		if(nTop==-1)nTop = system.clientToScreenY(objForm, 0) + (objForm.getOffsetHeight() / 2) - (nHeight/2);
-		
-		var sOpt = "showtitlebar=true";
-		
-		nexacro.open(sPopupId, sFormUrl, objOwnerFrame, objArgs, sOpt, nLeft, nTop, nWidth, nHeight, objForm);
-	};
-	
+	// PopupCallback 함수
 	nexacro.PopupAction.prototype.fnPopupActionCallback = function(sId, sParam)
 	{
-		this.targetPopupAction.on_fire_onsuccess(sParam);
+		var objTarget = this.targetPopupAction[sId];
+		if (objTarget == undefined || objTarget == null)		return;
+		
+		objTarget.gfnSetPopupReturn(sParam);
+	};
+	
+	// 리턴값 설정
+	nexacro.PopupAction.prototype.gfnSetPopupReturn = function(sParam)
+	{
+		var sPopupDataType = this.popupdatatype;
+		var oTargetView = this.getTargetView();
+		
+		// 리턴 데이터 처리
+		if (!this.gfnIsNull(oTargetView) && !this.gfnIsNull(sParam) 
+			&& !this.gfnIsNull(sPopupDataType) && sPopupDataType != "none")
+		{
+			var objDs = oTargetView.getViewDataset();
+			
+			if (this.gfnIsNull(objDs))
+			{
+				this.gfnLog("viewdataset이 없습니다.","info");
+				this.on_fire_onerror();
+				return;
+			}
+			
+			// 팝업 리턴데이터용 데이터셋
+			var oForm = oTargetView.form;
+			var sParamDsId = "dsPopupParam";
+			var objParam = JSON.parse(sParam);
+			var objParamDs = this.gfnGetDataset(oTargetView,sParamDsId);
+			var nARow;
+			
+			if (this.gfnIsNull(objParamDs))
+			{
+				objParamDs = new nexacro.NormalDataset(sParamDsId, oForm);
+			}
+			
+			objParamDs.loadXML(objParam.dataset);
+			
+			// 모델정보에 따라 복사할 컬럼값 설정
+			var strColInfo = this.gfnSetModelArgument(oTargetView);
+			
+			if (sPopupDataType == "copyrow")										// 0번째 데이터만 복사
+			{
+				objDs.copyRow(objDs.rowposition,objParamDs,0,strColInfo);
+			}
+			else if (sPopupDataType == "adddata" || sPopupDataType == "replace")	// 모든 데이터 복사
+			{
+				objDs.set_enableevent(false);
+				
+				// replace 인 경우 기존 데이터 삭제
+				if (sPopupDataType == "replace")
+				{
+					objDs.clearData();
+				}
+				
+				// 모든 데이터 복사
+				for(i=0; i< objParamDs.rowcount; i++)
+				{
+					nARow = objDs.addRow();
+					objDs.copyRow(nARow,objParamDs,i,strColInfo);
+				}
+				
+				objDs.set_enableevent(true);
+			}
+		}
+		
+		this.on_fire_onsuccess(sParam);
+	};
+	
+	// Model Argument 처리 : 설정된 모델정보만 복사
+	nexacro.PopupAction.prototype.gfnSetModelArgument = function(oTargetView)
+	{
+		var strColInfo = "";
+		
+		// Model Argument 있는지 확인
+		var oModelList = this.getContents("model");		// Action 내 model 정보 
+		
+		// 설정한 Model Argument가 있는 경우 복사할 컬럼정보설정
+		if (oModelList)
+		{
+			var arrColInfo = new Array();
+			var oFieldList;
+			
+			// targetview에 해당하는 Model Argument만 처리
+			var oModel = oModelList.find(oModel => oModel["viewid"] = oTargetView.id);
+			
+			// fieldlist정보로 strColInfo 설정 : "fieldid1=value1,fieldid2=value2" 형식
+			if (oModel)
+			{
+				oFieldList	= oModel["fieldlist"];
+				oFieldList.forEach(oField => arrColInfo.push(oField["fieldid"] + "=" + oField["value"]));
+				strColInfo = arrColInfo.join(",");
+			}
+		}
+		
+		return strColInfo;
+	};
+	
+	// User Argument 처리 : 팝업 Argument로 설정
+	nexacro.PopupAction.prototype.gfnSetUserArgument = function(objArgs)
+	{
+		if (this.gfnIsNull(objArgs)) {
+			objArgs = {};
+		}
+			
+		var oExtraList = this.getContents("extra");		// Action 내 extra 정보 
+		
+		if (!oExtraList)		return objArgs;
+		
+		for (var i = 0; i < oExtraList.length; i++)
+		{
+			oExtra = oExtraList[i];
+			sExtraName = oExtra["name"];
+			
+			// Field의 value값 반환
+			sExtraValue = this.gfnGetFieldValue(oExtra);
+			
+			// 데이터 셋팅
+			objArgs[sExtraName] = sExtraValue;
+		}
+		
+		return objArgs;
 	};
 }

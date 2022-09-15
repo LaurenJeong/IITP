@@ -28,13 +28,11 @@ if (!nexacro.PopupCloseAction)
     // nexacro.PopupCloseAction : Method		
     //===============================================================		
     nexacro.PopupCloseAction.prototype.run = function()		
-	{	
-        var objForm;			
-					
+	{			
 		//Import the object set as TargetView			
 		var objView = this.getTargetView();	
 		
-		var sTarget = this.targetcomp;
+		var sTargetDs = this.targetdataset;
 		var sReturnType = this.returntype;
 			
 		var objDataset;
@@ -45,28 +43,21 @@ if (!nexacro.PopupCloseAction)
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
 		{			
-			//If the TargetView is set as View, not Form		
-			if(objView)objForm = objView.form;		
-			else objForm = this.parent;
+			var objForm = this.gfnGetForm();
 			
 			var sXML = "";
 			
 			if (sReturnType != "none")
 			{
-				var objDs;
 				var oRetParam = this._returnparam;
 				
-				// Dataset 객체 찾기
-				if (sTarget) {				// targetgrid 설정시 해당 그리드
-					sTarget = sTarget.replace("@", "");
-					objDs = objForm._findDataset(sTarget);
-				} else {						// targetgrid 미설정시 View에 있는 Grid
-					objDs = objView.getViewDataset();
-				}
+				var objDs = this._targetdataset;
+			
+				if (this.gfnIsNull(objDs))		objDs 	= this.gfnGetDataset(objView,sTargetDs);
 				
 				if (this.gfnIsNull(objDs))
 				{
-					this.gfnLog("Dataset does not found.", "info");
+					this.gfnLog("Dataset does not found.","info");
 					this.on_fire_onerror("error");
 					return;
 				}
@@ -114,9 +105,9 @@ if (!nexacro.PopupCloseAction)
 			if (sPopupStyle == "modeless") {
 				
 				var oOpener			= objChildForm.opener;
-				var sAction			= oOpener.targetPopupAction;
+				var sAction			= oOpener.targetPopupAction[objChildFrame.id];
 				
-				sAction.on_fire_onsuccess(sRet);
+				sAction.gfnSetPopupReturn(sRet);
 			}
 			
 			// 팝업창 닫기
@@ -124,22 +115,31 @@ if (!nexacro.PopupCloseAction)
 		}		
 	};
 	
-	nexacro.PopupCloseAction.prototype._targetcomp = null;				// 객체
-	nexacro.PopupCloseAction.prototype.set_targetcomp = function (v)				
+	nexacro.PopupCloseAction.prototype._targetdataset = null;
+	nexacro.PopupCloseAction.prototype.set_targetdataset = function (v)				
 	{				
-		// TODO : enter your code here.
-		if (v instanceof nexacro.NormalDataset
-			|| v instanceof nexacro.Grid) {
-			if (this.targetcomp != v.name) {			
-				this.targetcomp = v.name;
-				this._targetcomp = v;
+		if (v instanceof nexacro.NormalDataset) {
+			if (this.targetdataset != v.name) {			
+				this.targetdataset = v.name;
+				this._targetdataset = v;
 			}		
 		} else {
 			v = nexacro._toString(v);
 			
-			if (this.targetcomp != v) {			
-				this.targetcomp = v;
-				this._targetcomp = null;
+			if (this.targetdataset != v) {
+				this.targetdataset = v;
+				this._targetdataset = null;
+				
+				var objView = this.getTargetView();	
+				if (objView)
+				{
+					var objForm = objView.form;
+					var objDs = objForm._findDataset(v);
+					
+					if (objDs != undefined) {
+						this._targetdataset = objDs;
+		 			}
+				}
 			}
 		}
 	};
