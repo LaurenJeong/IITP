@@ -111,7 +111,8 @@ this.gfn_ipcontrol = function ()
 	//nexacro.getEnvironment().services["IP"].url = arrSplit[0] + "//" + currentIp + "/TOBE_ERP/service/"; 
 	
 	//Application 에  저장된 변수 값 변경 방법 : DB 접속 URL 변경
-	objApp.gvDBurl = "172.10.12.58:1433";	
+	//[QuickCode] argDB를 사용자가 안보내기 위해 Cookie로 적용해놓음.
+	objApp.gvDBurl = nexacro.getCookieVariable("argDB");	
 };
 
 /**************************************************************************
