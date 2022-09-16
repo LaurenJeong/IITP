@@ -140,7 +140,7 @@ this.fn_selectMyInfo= function()
 	var strSvcID = "selectMyInfo";
 	var strURL = "IP::getmyinfo.jsp"
 	var strInDatasets = "";
-	var strOutDatasets = "dsMyInfo=dsMyInfo";
+	var strOutDatasets = "dsMyInfo=dsmyinfo";
 	var strArgument = "argDB=" + this.application.gvDBurl;
 	var strCallbackFunc = "fn_callback";
 	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc)
