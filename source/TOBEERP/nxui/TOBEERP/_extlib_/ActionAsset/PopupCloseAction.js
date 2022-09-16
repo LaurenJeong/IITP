@@ -105,9 +105,9 @@ if (!nexacro.PopupCloseAction)
 			if (sPopupStyle == "modeless") {
 				
 				var oOpener			= objChildForm.opener;
-				var sAction			= oOpener.targetPopupAction;
+				var sAction			= oOpener.targetPopupAction[objChildFrame.id];
 				
-				sAction.on_fire_onsuccess(sRet);
+				sAction.gfnSetPopupReturn(sRet);
 			}
 			
 			// 팝업창 닫기

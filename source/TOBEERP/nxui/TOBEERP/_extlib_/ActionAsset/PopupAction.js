@@ -166,7 +166,6 @@ if (!nexacro.PopupAction)
 			this._args = v;
 			this.args = null;
 		} else {
-			trace("String");
 			// TODO : enter your code here.
 			v = nexacro._toString(v);
 			if (this.args != v) {
@@ -237,73 +236,77 @@ if (!nexacro.PopupAction)
     //===============================================================
 	nexacro.PopupAction.prototype.gfnOpenPopup = function (sPopupStyle, sPopupId, sTitle, sFormUrl, nLeft, nTop, nWidth, nHeight, objArgs, objForm, sCallback)
 	{
-		//Modal 팝업으로 사용할 ChildFrame 생성
-		var objChildFrame = new ChildFrame();
-		
 		var objApp = nexacro.getApplication();
 		
 		//부모 Frame 정보 가져오기
 		var objOwnerFrame = objForm.getOwnerFrame();
-		
 		var sOpenAlignType = "";
-		
-		var bAutoSize = true;
+		var bAutoSize = false;
 		
 		if (this.gfnIsNull(nLeft))nLeft = -1;
-		
 		if (this.gfnIsNull(nTop))nTop = -1;
-		
 		if (this.gfnIsNull(nWidth)) nWidth = -1;
-		
 		if (this.gfnIsNull(nHeight)) nHeight = -1;
-		
+	
 		// 모바일인 경우 팝업사이즈 모두 입력하지 않았을때 full사이즈로 호출되도록 처리
 		if (nexacro._getCurrentScreenType() != "desktop")
 		{
-			if (nLeft == -1 && nTop == -1 && nWidth == -1 && nHeight == -1) 	//l,t,w,h 모두 기입하지 않으면 full
+			//l,t,w,h 모두 기입하지 않으면 full
+			if (nLeft == -1 && nTop == -1 && nWidth == -1 && nHeight == -1)
 			{
 				bAutoSize = false;
 				
-				if (nWidth == -1 || nWidth > nexacro.getApplication().mainframe.width)
+				if (nWidth == -1 || nWidth > objApp.mainframe.width)
 				{	
-					nWidth = nexacro.getApplication().mainframe.width;
+					nWidth = objApp.mainframe.width;
 				}
 				
 				if (nHeight == -1 || nHeight > nexacro.getApplication().mainframe.height)
 				{
-					nHeight = nexacro.getApplication().mainframe.height;
+					nHeight = objApp.mainframe.height;
 				}            
+			}
+			
+			// 런타임 접속시 modal로만 동작되도록 수정(모바일 NRE에서는 open미지원)
+			if (system.navigatorname == "nexacro") 
+			{
+				sPopupStyle = "modal";
 			}
 		}
 		
 		if(nLeft == -1 && nTop == -1) 
 		{		
 			sOpenAlignType = "center middle";
+			
 			if (system.navigatorname == "nexacro") {
-				var curX = objApp.mainframe.left;
-				var curY = objApp.mainframe.top;
+// 				var curX = objApp.mainframe.left;
+// 				var curY = objApp.mainframe.top;
+				var curX = system.clientToScreenX(objApp.mainframe, 0);
+				var curY = system.clientToScreenY(objApp.mainframe, 0);
 			}else{
 				var curX = window.screenLeft;
 				var curY = window.screenTop;
 			}
 			
-			nLeft   =  curX + (objApp.mainframe.width / 2) - Math.round(nWidth / 2);
-			nTop    = curY + (objApp.mainframe.height / 2) - Math.round(nHeight / 2) ;		
-			
+			nLeft	= curX + (objApp.mainframe.width / 2) - Math.round(nWidth / 2);
+			nTop	= curY + (objApp.mainframe.height / 2) - Math.round(nHeight / 2) ;		
 		}else{
-			nLeft   =  this.getOffsetLeft() + nLeft;
-			nTop   =  this.getOffsetTop() + nTop;
+			nLeft	=  this.parent.getOffsetLeft() + nLeft;
+			nTop	=  this.parent.getOffsetTop() + nTop;
+		}
+		
+		if (nWidth == -1 || nHeight == -1) {
+			bAutoSize = true;
 		}
 			
 		//this.gfnLog("nLeft : " + nLeft + " nTop : " + nTop + " nWidth : " + nWidth + " nHeight : " + nHeight);
 		
-		var objParentFrame = objForm.getOwnerFrame();
-
 		if(sPopupStyle == "modeless")
 		{
-			var sOpenStyle= "showtitlebar=true showstatusbar=false showontaskbar=true showcascadetitletext=false resizable=true autosize=false titletext="+sTitle;
+			var sOpenStyle= "showtitlebar=true showstatusbar=false showontaskbar=true showcascadetitletext=false resizable=true autosize=" + bAutoSize +" titletext="+sTitle;
+			
+			// 중복팝업 체크
 			var arrPopFrame = nexacro.getPopupFrames();
-
 			if (arrPopFrame[sPopupId]) {	
 				if (system.navigatorname == "nexacro") {
 					arrPopFrame[sPopupId].setFocus();
@@ -312,7 +315,7 @@ if (!nexacro.PopupAction)
 				}
 			}
 			else {
-				nexacro.open(sPopupId, sFormUrl, objParentFrame, objArgs, sOpenStyle, nLeft, nTop, nWidth, nHeight, objForm);
+				nexacro.open(sPopupId, sFormUrl, objOwnerFrame, objArgs, sOpenStyle, nLeft, nTop, nWidth, nHeight, objForm);
 			}
 		}
 		else

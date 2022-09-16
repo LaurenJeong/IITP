@@ -181,11 +181,15 @@ if (!nexacro.CommActionAsset)
 	pAction.gfnGetFieldValue = function(oField, oView)
 	{
 		var sReturnValue;
+		var sFieldValue;
 		
 		if (this.gfnIsNull(oField))				return;
 		
-		var sFieldName	= oField["name"];
-		var sFieldValue	= oField["value"];
+		if (oField instanceof Object) {
+			sFieldValue	= oField["value"];
+		} else {
+			sFieldValue	= oField;
+		}
 		
 		if (this.gfnIsNull(sFieldValue))		return;
 		
@@ -208,8 +212,6 @@ if (!nexacro.CommActionAsset)
 				sReturnValue = sFieldValue;
 				break;
 		}
-		
-		//this.gfnLog(sFieldName + " : " +sReturnValue);
 		
 		return sReturnValue;
 	};

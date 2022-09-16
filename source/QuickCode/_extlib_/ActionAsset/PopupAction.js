@@ -251,7 +251,8 @@ if (!nexacro.PopupAction)
 		// 모바일인 경우 팝업사이즈 모두 입력하지 않았을때 full사이즈로 호출되도록 처리
 		if (nexacro._getCurrentScreenType() != "desktop")
 		{
-			if (nLeft == -1 && nTop == -1 && nWidth == -1 && nHeight == -1) 	//l,t,w,h 모두 기입하지 않으면 full
+			//l,t,w,h 모두 기입하지 않으면 full
+			if (nLeft == -1 && nTop == -1 && nWidth == -1 && nHeight == -1)
 			{
 				bAutoSize = false;
 				
@@ -264,6 +265,12 @@ if (!nexacro.PopupAction)
 				{
 					nHeight = objApp.mainframe.height;
 				}            
+			}
+			
+			// 런타임 접속시 modal로만 동작되도록 수정(모바일 NRE에서는 open미지원)
+			if (system.navigatorname == "nexacro") 
+			{
+				sPopupStyle = "modal";
 			}
 		}
 		
