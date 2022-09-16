@@ -181,7 +181,7 @@ if (!nexacro.DsFilterDataAction)
 		{
 			var sViewNm = objView ? objView.name : "";
 			
-			sFilterStr = this.gfnGetExprText(sFilter,sViewNm);
+			sFilterStr = this.gfnGetFieldValue(sFilter,sViewNm);
 		}
 		
 		// Model Argument로 Filter문자열 생성

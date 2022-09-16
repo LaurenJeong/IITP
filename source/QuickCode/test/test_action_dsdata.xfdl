@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="test_action_dsadddata" width="1280" height="720" titletext="DS 추가삭제 테스트">
+  <Form id="test_action_dsdata" width="1280" height="720" titletext="DS 테스트">
     <Layouts>
       <Layout height="720" width="1280">
         <Button id="btnAdd" taborder="1" text="마지막행 추가" left="5" top="50" width="100" height="30"/>
@@ -96,10 +96,10 @@
         <Edit id="Edit00" taborder="17" left="215" top="465" width="145" height="30" value="Department=='부서1'" text="Department=='부서1'"/>
         <Button id="btnCopy3" taborder="18" text="전체 복사(추가)" left="110" top="465" width="100" height="30"/>
         <Button id="btnCopy4" taborder="19" text="필터 복사(추가)" left="470" top="465" width="100" height="30" onclick="btnCopy4_onclick"/>
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="5" top="159" width="600" height="257">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="5" top="159" width="600" height="258">
           <Layouts>
             <Layout>
-              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" selecttype="multirow">
+              <Grid id="grdList" left="0" top="32" right="0" bottom="0" binddataset="viewdataset" selecttype="multirow">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -194,7 +194,9 @@
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
-        <Button id="Button00" taborder="20" text="Button00" left="411" top="22" width="69" height="28" onclick="Button00_onclick"/>
+        <Edit id="Edit01" taborder="20" left="5" top="155" width="145" height="30" value="Department=='부서1'" text="Department=='부서1'"/>
+        <Button id="btnFilter" taborder="21" text="필터" left="155" top="155" width="100" height="30"/>
+        <Button id="btnFilter2" taborder="22" text="필터 풀기" left="260" top="155" width="100" height="30"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -243,22 +245,30 @@
       <DsCopyRowDataAction id="DsCopyRowDataAction00" targetview="View01" fromview="View00" canrun="Common_canrun" onerror="Common_onerror" onsuccess="Common_onsuccess">
         <Contents/>
       </DsCopyRowDataAction>
+      <DsFilterDataAction id="DsFilterDataAction00" targetview="View00" filter="expr:this.parent.Edit01.value">
+        <Contents/>
+      </DsFilterDataAction>
+      <DsFilterDataAction id="DsFilterDataAction01" targetview="View00" initrowposition="0">
+        <Contents/>
+      </DsFilterDataAction>
     </Objects>
     <Trigger>
-      <TriggerItem id="item0" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd2" targetaction="DsInsertDataAction00" condition=""/>
-      <TriggerItem id="item2" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnAdd3" targetaction="DsInsertDataAction01" condition=""/>
-      <TriggerItem id="item3" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel" targetaction="DsDeleteDataAction00" condition=""/>
-      <TriggerItem id="item4" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel2" targetaction="DsDeleteSelectDataAction00" condition=""/>
-      <TriggerItem id="item5" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel3" targetaction="DsDeleteCheckedDataAction00" condition=""/>
-      <TriggerItem id="item6" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel4" targetaction="DsDeleteAllDataAction00" condition=""/>
-      <TriggerItem id="item7" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnDel5" targetaction="DsDeleteAllDataAction01" condition=""/>
-      <TriggerItem id="item8" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnReset" targetaction="DsResetDataAction00" condition=""/>
-      <TriggerItem id="item9" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnReset2" targetaction="DsResetDataAction01" condition=""/>
-      <TriggerItem id="item10" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnCopy" targetaction="DsCopyDataAction00" condition=""/>
-      <TriggerItem id="item11" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnReset3" targetaction="DsResetDataAction02" condition=""/>
-      <TriggerItem id="item12" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnCopy3" targetaction="DsCopyDataAction02" condition=""/>
-      <TriggerItem id="item13" triggertype="Click" triggerview="test_action_dsadddata" triggerobj="btnCopyRow" targetaction="DsCopyRowDataAction00" condition=""/>
+      <TriggerItem id="item0" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnAdd2" targetaction="DsInsertDataAction00" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnAdd3" targetaction="DsInsertDataAction01" condition=""/>
+      <TriggerItem id="item3" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnDel" targetaction="DsDeleteDataAction00" condition=""/>
+      <TriggerItem id="item4" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnDel2" targetaction="DsDeleteSelectDataAction00" condition=""/>
+      <TriggerItem id="item5" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnDel3" targetaction="DsDeleteCheckedDataAction00" condition=""/>
+      <TriggerItem id="item6" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnDel4" targetaction="DsDeleteAllDataAction00" condition=""/>
+      <TriggerItem id="item7" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnDel5" targetaction="DsDeleteAllDataAction01" condition=""/>
+      <TriggerItem id="item8" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnReset" targetaction="DsResetDataAction00" condition=""/>
+      <TriggerItem id="item9" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnReset2" targetaction="DsResetDataAction01" condition=""/>
+      <TriggerItem id="item10" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnCopy" targetaction="DsCopyDataAction00" condition=""/>
+      <TriggerItem id="item11" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnReset3" targetaction="DsResetDataAction02" condition=""/>
+      <TriggerItem id="item12" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnCopy3" targetaction="DsCopyDataAction02" condition=""/>
+      <TriggerItem id="item13" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnCopyRow" targetaction="DsCopyRowDataAction00" condition=""/>
+      <TriggerItem id="item14" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnFilter" targetaction="DsFilterDataAction00" condition=""/>
+      <TriggerItem id="item15" triggertype="Click" triggerview="test_action_dsdata" triggerobj="btnFilter2" targetaction="DsFilterDataAction01" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[this.btnCopy2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -287,11 +297,6 @@ this.Common_onerror = function(obj, e:nexacro.ActionErrorEventInfo)
 this.Common_onsuccess = function(obj, e:nexacro.ActionSuccessEventInfo)
 {
 	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : " + e.userdata);
-};
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	var ret = this._findDataset("View00.form.viewdataset");
-	trace(ret);
 };
 ]]></Script>
   </Form>

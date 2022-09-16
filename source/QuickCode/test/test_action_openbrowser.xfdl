@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_action_openbrowser" width="1120" height="650" titletext="브라우저실행">
+    <Layouts>
+      <Layout height="650" width="1120">
+        <Button id="Button03" taborder="0" left="300" top="151" width="100" height="30" text="Open Google"/>
+        <View id="View00" taborder="1" text="View00" viewdataset="viewdataset" left="302" top="224" width="448" height="50">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_WF_search" text="Search"/>
+              <Static id="staAddressLabel" left="10" top="10" width="95" height="30" text="Address" cssclass="sta_WF_label"/>
+              <Edit id="edtAddress" left="110" top="10" width="208" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="address" type="STRING" size="256" description="Address"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="address">https://www.google.com/</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtAddress" compid="edtAddress" propid="value" datasetid="viewdataset" columnid="address"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="svcQuickCodeTutorial" modelid="tutorial_DetailEmployee" filepath="svcQuickCodeTutorial.xmodel">
+            <Fields>
+              <Field id="address" required="false" comptype="edit" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staAddressLabel" fields="address"/>
+              <Component id="edtAddress" fields="address"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
+            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
+    <Objects>
+      <OpenBrowserAction id="OpenBrowserAction00" url="https://www.google.com/" newwindow="true" targetview="test_action_openbrowser">
+        <Contents/>
+      </OpenBrowserAction>
+      <OpenBrowserAction id="OpenBrowserAction01" url="expr:[address]" newwindow="true" targetview="View00">
+        <Contents/>
+      </OpenBrowserAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="test_action_openbrowser" triggerobj="Button03" targetaction="OpenBrowserAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="View00" triggerobj="btnSearch" targetaction="OpenBrowserAction01" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>
