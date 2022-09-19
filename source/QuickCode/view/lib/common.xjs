@@ -380,6 +380,9 @@ this.lfn_GetCompClass = function(sCompType)
 		case "grid" : oCompClass.classId = "Grid";
 						oCompClass.prefix = "grd";
 						break;
+		case "webview" : oCompClass.classId = "WebView";
+						oCompClass.prefix = "web";
+						break;
 		default : oCompClass.classId = "Static";
 				  oCompClass.prefix = "sta";
 	}
@@ -715,6 +718,17 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 				"attribute" :
 				{
 					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "image", "datasetid" : sBindDataset, "columnid" : sFieldId
+				}
+			}
+		}
+		else if(sCompType=="webview")
+		{
+			oBindItems[i] =
+			{
+				"tag" : "BindItem",
+				"attribute" :
+				{
+					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "url", "datasetid" : sBindDataset, "columnid" : sFieldId
 				}
 			}
 		}

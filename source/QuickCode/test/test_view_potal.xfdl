@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_view_potal" width="1120" height="650" titletext="Potal 테스트">
+    <Layouts>
+      <Layout height="650" width="1120">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="6" top="9" width="754" height="541">
+          <Layouts>
+            <Layout>
+              <Static id="staTitle" left="0" top="0" width="754" height="40"/>
+              <ImageViewer id="imgImageurl" left="0" top="40" width="754" height="180"/>
+              <WebView id="webWeburl" left="0" top="220" width="754" bottom="0"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="title" type="STRING" size="80" description="타이틀"/>
+                <Column id="imageurl" type="STRING" size="80"/>
+                <Column id="weburl" type="STRING" size="80" description="웹 URL"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_staTitle" compid="staTitle" propid="text" datasetid="viewdataset" columnid="title"/>
+            <BindItem id="bind_imgImageurl" compid="imgImageurl" propid="image" datasetid="viewdataset" columnid="imageurl"/>
+            <BindItem id="bind_webWeburl" compid="webWeburl" propid="url" datasetid="viewdataset" columnid="weburl"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="PotalModel001" filepath="sample\Potal.xmodel">
+            <Fields>
+              <Field id="title" description="" comptype="static" fieldwidth="100%" fieldheight="100%" cssclass=""/>
+              <Field id="imageurl" label="" description="" comptype="imageviewer" fieldwidth="100%" fieldheight="100%" cssclass=""/>
+              <Field id="weburl" description="" comptype="webview" fieldwidth="100%" fieldheight="100%" cssclass=""/>
+            </Fields>
+            <Components>
+              <Component id="staTitle" fields="title"/>
+              <Component id="imgImageurl" fields="imageurl"/>
+              <Component id="webWeburl" fields="weburl"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="PotalViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="format" value="{&quot;columnsize&quot;:[754],&quot;rowsize&quot;:[40,180,250],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;title&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;imageurl&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;weburl&quot;]}]}"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="title" type="STRING" size="80" description="타이틀"/>
+          <Column id="imageurl" type="STRING" size="80"/>
+          <Column id="weburl" type="STRING" size="80" description="웹 URL"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="title">PotalViewTemplate</Col>
+            <Col id="imageurl">http://support.tobesoft.co.kr/Support/_resource_/_theme_/CSHomepage2/images/sta_MF_banner01.png?nexaversion=0</Col>
+            <Col id="weburl">http://support.tobesoft.co.kr/</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="View00" fromview="test_view_potal" fromdataset="dsData" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="test_view_potal" triggerobj="test_view_potal" targetaction="DsCopyDataAction00" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>
