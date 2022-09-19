@@ -29,9 +29,9 @@
               <Combo id="cmbCorporateArea" left="735" top="123" width="320" height="28" innerdataset="innerdatasetCorporateArea" codecolumn="code" datacolumn="value"/>
               <Static id="staCorporateTelnumBg" left="0" top="156" width="1100" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staCorporateTelnumLabel" left="0" top="156" width="180" height="40" text="전화번호" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskCorporateTelnum" left="185" top="162" width="320" height="28" type="string" format="@@-@@@@-@@@@"/>
+              <MaskEdit id="mskCorporateTelnum" left="185" top="162" width="320" height="28" type="string" format="@@-@@@@-@@@@" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput"/>
               <Static id="staCorporateFaxnumLabel" left="550" top="156" width="180" height="40" text="팩스" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskCorporateFaxnum" left="735" top="162" width="320" height="28" type="string" format="@@-@@@@-@@@@"/>
+              <MaskEdit id="mskCorporateFaxnum" left="735" top="162" width="320" height="28" type="string" format="@@-@@@@-@@@@" onchanged="MaskEdit_onchanged" oninput="MaskEdit_oninput"/>
               <Static id="staCorporateEmailBg" left="0" top="195" width="1100" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staCorporateEmailLabel" left="0" top="195" width="180" height="40" text="이메일" cssclass="sta_cm_box01L"/>
               <Edit id="edtCorporateEmail" left="185" top="201" width="320" height="28"/>
@@ -52,7 +52,7 @@
             </Layout>
           </Layouts>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" onrowposchanged="viewMaster_viewdataset_onrowposchanged">
               <ColumnInfo>
                 <Column id="BUSINESS_LICENSE_NUM" type="STRING" size="80" description="사업자등록번호"/>
                 <Column id="CORPORATE_NAME" type="STRING" size="80" description="상호명"/>
