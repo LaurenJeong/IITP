@@ -45,6 +45,8 @@ if (!nexacro.OpenBrowserAction)
 			// expr 처리
 			var sExprText = this.gfnGetFieldValue(sUrl);
 			
+			this.gfnLog(this.gfnCheckUrl(sExprText));
+			
 			// url 형태를 체크
 			if (!this.gfnCheckUrl(sExprText))
 			{
@@ -116,10 +118,10 @@ if (!nexacro.OpenBrowserAction)
 	//===============================================================		
     // nexacro.OpenBrowserAction : 공통함수 전환부분
     //===============================================================
-	// 도메인 url 형태를 체크하는 함수
+	// 도메인 url 형태를 체크하는 함수(도메인 형태, http:// https:// 포함)
 	nexacro.OpenBrowserAction.prototype.gfnCheckUrl = function(sUrl)
 	{
-		var regEx = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?/g;
+		var regEx = /^((http(s?))\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/g;
 		
 		return regEx.test(sUrl);
 	}
