@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_action_deviceapi_searchcontacts" width="480" height="650" titletext="연락처조회 테스트">
+    <Layouts>
+      <Layout height="650" mobileorientation="landscape" width="480">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="10" height="224" right="10">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" left="20" height="60" right="20" bottom="10" cssclass="btn_search" text="Search" onclick="View00_btnSearch_onclick"/>
+              <Static id="staSearchTypeLabel" left="20" top="10" width="105" height="60" text="검색조건" cssclass="sta_label"/>
+              <Combo id="cmbSearchType" left="130" top="10" width="310" height="60" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="2" text="contactname" value="contactname">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">all</Col>
+                      <Col id="datacolumn">all</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">phonenumbers</Col>
+                      <Col id="datacolumn">phonenumbers</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">contactname</Col>
+                      <Col id="datacolumn">contactname</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">nickname</Col>
+                      <Col id="datacolumn">nickname</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">emails</Col>
+                      <Col id="datacolumn">emails</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">categories</Col>
+                      <Col id="datacolumn">categories</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">birthday</Col>
+                      <Col id="datacolumn">birthday</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">addresses</Col>
+                      <Col id="datacolumn">addresses</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">organizations</Col>
+                      <Col id="datacolumn">organizations</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">note</Col>
+                      <Col id="datacolumn">note</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Static id="staSearchValueLabel" left="20" top="80" width="105" height="60" text="검색값" cssclass="sta_label"/>
+              <Edit id="edtSearchValue" left="130" top="80" width="310" height="60"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="SEARCH_TYPE" type="STRING" size="80"/>
+                <Column id="SEARCH_VALUE" type="STRING" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="SEARCH_TYPE">contactname</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbSearchType" compid="cmbSearchType" propid="value" datasetid="viewdataset" columnid="SEARCH_TYPE"/>
+            <BindItem id="bind_edtSearchValue" compid="edtSearchValue" propid="value" datasetid="viewdataset" columnid="SEARCH_VALUE"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="SearchModel001" filepath="sample\ContactSet.xmodel">
+            <Fields>
+              <Field id="SEARCH_TYPE" description="" comptype="combo" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="SEARCH_VALUE" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staSearchTypeLabel" fields="SEARCH_TYPE"/>
+              <Component id="cmbSearchType" fields="SEARCH_TYPE"/>
+              <Component id="staSearchValueLabel" fields="SEARCH_VALUE"/>
+              <Component id="edtSearchValue" fields="SEARCH_VALUE"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplateM.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottomfull"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="10" top="View00:10" right="10" bottom="10">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="58" band="head"/>
+                      <Row size="58" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_UNIQUEID" col="0" row="0" text="식별자"/>
+                      <Cell id="cell_BIRTHDAY" col="1" row="0" text="생년월일"/>
+                      <Cell id="cell_NICKNAME" col="2" row="0" text="별명"/>
+                      <Cell id="cell_NOTE" col="3" row="0" text="메모"/>
+                      <Cell id="cell_CONTACTNAME" col="4" row="0" text="이름"/>
+                      <Cell id="cell_DISPLAYNAME" col="5" row="0" text="표시이름"/>
+                      <Cell id="cell_FAMILYNAME" col="6" row="0" text="성"/>
+                      <Cell id="cell_GIVENNAME" col="7" row="0" text="이름"/>
+                      <Cell id="cell_PHONENUMBER" col="8" row="0" text="전화번호"/>
+                      <Cell id="cell_ADDRESSES" col="9" row="0" text="주소"/>
+                      <Cell id="cell_COMPANY" col="10" row="0" text="회사"/>
+                      <Cell id="cell_DEPARTMENT" col="11" row="0" text="부서"/>
+                      <Cell id="cell_EMAILS" col="12" row="0" text="이메일"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_UNIQUEID" col="0" row="0" text="bind:UNIQUEID" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_BIRTHDAY" col="1" row="0" text="bind:BIRTHDAY" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_NICKNAME" col="2" row="0" text="bind:NICKNAME" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_NOTE" col="3" row="0" text="bind:NOTE" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_CONTACTNAME" col="4" row="0" text="bind:CONTACTNAME" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_DISPLAYNAME" col="5" row="0" text="bind:DISPLAYNAME" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_FAMILYNAME" col="6" row="0" text="bind:FAMILYNAME" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_GIVENNAME" col="7" row="0" text="bind:GIVENNAME" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_PHONENUMBER" col="8" row="0" text="bind:PHONENUMBER" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_ADDRESSES" col="9" row="0" text="bind:ADDRESSES" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_COMPANY" col="10" row="0" text="bind:COMPANY" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_DEPARTMENT" col="11" row="0" text="bind:DEPARTMENT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_EMAILS" col="12" row="0" text="bind:EMAILS" displaytype="normal" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="UNIQUEID" type="STRING" size="80"/>
+                <Column id="BIRTHDAY" type="STRING" size="80"/>
+                <Column id="NICKNAME" type="STRING" size="80"/>
+                <Column id="NOTE" type="STRING" size="80"/>
+                <Column id="CONTACTNAME" type="STRING" size="80"/>
+                <Column id="DISPLAYNAME" type="STRING" size="80"/>
+                <Column id="FAMILYNAME" type="STRING" size="80"/>
+                <Column id="GIVENNAME" type="STRING" size="80"/>
+                <Column id="PHONENUMBER" type="STRING" size="80"/>
+                <Column id="ADDRESSES" type="STRING" size="80"/>
+                <Column id="COMPANY" type="STRING" size="80"/>
+                <Column id="DEPARTMENT" type="STRING" size="80"/>
+                <Column id="EMAILS" type="STRING" size="80"/>
+              </ColumnInfo>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="GridModel001" filepath="sample\ContactSet.xmodel">
+            <Fields>
+              <Field id="UNIQUEID" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="BIRTHDAY" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="NICKNAME" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="NOTE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="CONTACTNAME" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DISPLAYNAME" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="FAMILYNAME" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="GIVENNAME" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PHONENUMBER" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ADDRESSES" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="COMPANY" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DEPARTMENT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="EMAILS" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="UNIQUEID,BIRTHDAY,NICKNAME,NOTE,CONTACTNAME,DISPLAYNAME,FAMILYNAME,GIVENNAME,PHONENUMBER,ADDRESSES,COMPANY,DEPARTMENT,EMAILS"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
+            <Attribute id="headbandsize" value="58"/>
+            <Attribute id="bodybandsize" value="58"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <DeviceAPISearchContactsActionM id="DeviceAPISearchContactsActionM00" targetview="View01" searchtarget="contactname" returndatatype="replace">
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"View01",
+            "modelid":"GridModel001",
+            "iotype":"output",
+            "fieldlist":[
+                {
+                    "name":"View01:UNIQUEID",
+                    "fieldid":"UNIQUEID",
+                    "value":"uniqueid"
+                },
+                {
+                    "name":"View01:BIRTHDAY",
+                    "fieldid":"BIRTHDAY",
+                    "value":"birthday"
+                },
+                {
+                    "name":"View01:NICKNAME",
+                    "fieldid":"NICKNAME",
+                    "value":"nickname"
+                },
+                {
+                    "name":"View01:NOTE",
+                    "fieldid":"NOTE",
+                    "value":"note"
+                },
+                {
+                    "name":"View01:CONTACTNAME",
+                    "fieldid":"CONTACTNAME",
+                    "value":"contactname"
+                },
+                {
+                    "name":"View01:DISPLAYNAME",
+                    "fieldid":"DISPLAYNAME",
+                    "value":"displayname"
+                },
+                {
+                    "name":"View01:FAMILYNAME",
+                    "fieldid":"FAMILYNAME",
+                    "value":"familyname"
+                },
+                {
+                    "name":"View01:GIVENNAME",
+                    "fieldid":"GIVENNAME",
+                    "value":"givenname"
+                },
+                {
+                    "name":"View01:PHONENUMBER",
+                    "fieldid":"PHONENUMBER",
+                    "value":"phonenumber"
+                },
+                {
+                    "name":"View01:ADDRESSES",
+                    "fieldid":"ADDRESSES",
+                    "value":"addresses"
+                },
+                {
+                    "name":"View01:COMPANY",
+                    "fieldid":"COMPANY",
+                    "value":"company"
+                },
+                {
+                    "name":"View01:DEPARTMENT",
+                    "fieldid":"DEPARTMENT",
+                    "value":"department"
+                },
+                {
+                    "name":"View01:EMAILS",
+                    "fieldid":"EMAILS",
+                    "value":"emails"
+                }
+            ]
+        }
+    ]
+}]]></Contents>
+      </DeviceAPISearchContactsActionM>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.View00_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.DeviceAPISearchContactsActionM00.set_searchtarget(this.View00.form.cmbSearchType.value);
+	this.DeviceAPISearchContactsActionM00.set_searchvalue(this.View00.form.edtSearchValue.value);
+	
+	this.DeviceAPISearchContactsActionM00.run();
+};]]></Script>
+  </Form>
+</FDL>

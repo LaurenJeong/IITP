@@ -17,7 +17,7 @@ if (!nexacro.DeviceAPIImagePickerActionM)
     nexacro.DeviceAPIImagePickerActionM.prototype._type_name = "DeviceAPIImagePickerActionM";
 	
 	//===============================================================		
-    // nexacro.DsCopyRowDataAction : 변수선언 부분
+    // nexacro.DeviceAPIImagePickerActionM : 변수선언 부분
     //===============================================================
 	nexacro.DeviceAPIImagePickerActionM.prototype._LOG_LEVEL		= -1;					// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 	nexacro.DeviceAPIImagePickerActionM.prototype._imagepicker;
