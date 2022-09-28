@@ -259,6 +259,35 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 			console.log(sLog);
 		}
 	};
+	
+	/**
+	 * 데이터셋 반환(sDatasetId가 입력되지 않는 경우 objView의 viewdataset 반환)
+	 * @param {Object} objView View 객체
+	 * @param {String} sDatasetId 데이터셋 ID
+	 * @return {Object} 데이터셋 객체
+	 */
+	// run()에서만 동작함.
+	nexacro.DeviceAPISearchContactsActionM.prototype.gfnGetDataset = function (objView, sDatasetId)
+	{
+		var objForm;
+		var objDs;
+		var objDsNm;
+		
+		if(objView)objForm = objView.form;		
+		else objForm = this.parent;
+		
+		// Dataset 객체 찾기
+		if (sDatasetId instanceof nexacro.NormalDataset) {				// targetgrid 설정시 해당 그리드
+			objDs = sDatasetId;
+		} else if (sDatasetId) {				// targetgrid 설정시 해당 그리드
+			objDsNm = sDatasetId.replace("@", "");
+			objDs = objForm._findDataset(objDsNm);
+		} else if(objView instanceof nexacro.View){						// targetgrid 미설정시 View에 있는 Grid
+			objDs = objView.getViewDataset();
+		}
+
+		return objDs;
+	};
 	//===============================================================		
     // nexacro.DeviceAPISearchContactsActionM : 공통함수 전환부분
     //===============================================================
