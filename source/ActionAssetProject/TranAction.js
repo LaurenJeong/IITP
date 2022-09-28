@@ -165,7 +165,7 @@ if (!nexacro.TranAction)
 		}
 	};
 	
-	nexacro.TranAction.prototype.on_fire_onerror = function (sId, nErrorCd, nErrorMsg)
+	nexacro.TranAction.prototype.on_fire_onerror = function (sId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onerror;
 		if (event && event._has_handlers)
