@@ -463,16 +463,23 @@ if (!nexacro.APIInzentTranAction)
 	// expr Text 처리
 	nexacro.APIInzentTranAction.prototype.gfnGetExprText = function(sExprText, sViewNm)
 	{
+		if (this.gfnIsNull(sExprText))				return sExprText;
+		
 		var sRetText = sExprText;
 		
 		// 1) '['와 ']' 사이값 추출
 		// [field] 형식 : targetview의 viewdataset field컬럼값 반환 
 		// [view:field] 형식 : view의 viewdataset field컬럼값 반환 
-		var regEx = /(?<=\[)(.*?)(?=\])/g;
+		// [view:datasetid:field] 형식 : view의 datasetid field컬럼값 반환
+		// [view:datasetid:row:field] 형식 : view의 datasetid의 row행 field컬럼값 반환
+		//var regEx = /(?<=\[)(.*?)(?=\])/g;
+		//var regEx = new RegExp('(?<=\\[)(.*?)(?=\\])','g');
+		var regEx = /\[.*?\]/g;
 		var sMatch;
 		var sView;
 		var sViewDataset;
 		var sColumnId;
+		var sRow;
 		var sReText;
 		
 		// 변환처리
@@ -483,21 +490,36 @@ if (!nexacro.APIInzentTranAction)
 				regEx.lastIndex++;
 			}
 			
-			sMatch = m[0];
+			sMatch = m[0].substring(1,  m[0].length-1);
 			
 			var arrMatch = sMatch.split(":");
-			if (arrMatch.length < 2) {		// view설정안됨
-				sView		= sViewNm;
-				sColumnId	= arrMatch[0];
+			
+			if (arrMatch.length == 1) {				// [field] 형식
+				sView			= sViewNm;
+				sViewDataset	= "this.parent." + sView + ".form.viewdataset";
+				sRow			= sViewDataset + ".rowposition";
+				sColumnId		= arrMatch[0];
+			} else if (arrMatch.length == 2) {		// [view:field] 형식
+				sView			= arrMatch[0];
+				sViewDataset	= "this.parent." + sView + ".form.viewdataset";
+				sRow			= sViewDataset + ".rowposition";
+				sColumnId		= arrMatch[1];
+			} else if (arrMatch.length == 3) {		// [view:datasetid:field] 형식
+				sView			= arrMatch[0];
+				sViewDataset	= "this.parent." + sView + ".form." + arrMatch[1];
+				sRow			= sViewDataset + ".rowposition";
+				sColumnId		= arrMatch[2];
+			} else if (arrMatch.length == 4) {		// [view:datasetid:row:field] 형식
+				sView			= arrMatch[0];
+				sViewDataset	= "this.parent." + sView + ".form." + arrMatch[1];
+				sRow			= arrMatch[2];
+				sColumnId		= arrMatch[3];
 			} else {
-				sView		= arrMatch[0];
-				sColumnId	= arrMatch[1];
+				continue;
 			}
 			
-			sViewDataset = "this.parent." + sView + ".form.viewdataset";
-			
 			// 변환처리 : this.parent.[view].form.viewdataset.getColumn(this.parent.[view].form.viewdataset.rowposition,'[field]')
-			sReplace = sViewDataset + ".getColumn(" + sViewDataset + ".rowposition,'" + sColumnId + "')";
+			sReplace = sViewDataset + ".getColumn(" + sRow + ",'" + sColumnId + "')";
 			
 			sRetText = sRetText.replace("[" + sMatch + "]",sReplace);
 		}
