@@ -12,7 +12,6 @@
               <Edit id="edtMngChrgEmpno" left="160" top="10" width="150" height="30"/>
               <Static id="staLoanNoLabel" left="315" top="10" width="145" height="30" text="대출번호" cssclass="sta_WF_label"/>
               <Edit id="edtLoanNo" left="465" top="10" width="150" height="30"/>
-              <Static id="Static00" taborder="6" text="PAGE_NO5" left="685" top="8" width="63" height="32"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -153,7 +152,7 @@
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
-        <View id="view_page" taborder="2" viewdataset="viewdataset" left="10" right="10" text="view_page" top="670" bottom="10">
+        <View id="view_page" taborder="2" viewdataset="viewdataset" left="10" right="10" text="view_page" bottom="10" height="40">
           <Layouts>
             <Layout>
               <Static id="staTotCnt" top="0" height="30" width="100" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_total_count" _text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;{0}&lt;/fc&gt;&lt;/b&gt;건)" _fieldid="grid5_cnt" left="0"/>
@@ -197,7 +196,6 @@
             <Attribute id="nextbuttontext" value="다음"/>
           </ViewTemplateInfo>
         </View>
-        <Button id="Button00" taborder="3" text="Button00" left="574" top="67" width="74" height="26" onclick="Button00_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -260,13 +258,7 @@ this.APIInzentTranAction00_onerror = function(obj:nexacro.Action, e:nexacro.Tran
 this.APIInzentTranAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
 	//trace("onsuccess >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
-};
-
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	this.APIInzentTranAction01.run();
-};
-]]></Script>
+};]]></Script>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="view_search" triggerobj="btnSearch" targetaction="APIInzentTranAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Click" triggerview="view_page" triggerobj="btnNext" targetaction="APIInzentTranAction01" condition=""/>

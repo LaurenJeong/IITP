@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ADL version="2.0">
-  <Application id="Application_Desktop" screenid="Desktop_screen" licenseurl="NexacroN_client_license.xml" onload="Application_onload">
+  <Application id="Application_Mobile" screenid="Mobile_screen" licenseurl="NexacroN_client_license.xml" onload="Application_onload">
     <Layout>
-      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="true" left="0" top="0" width="1280" height="720">
-        <ChildFrame id="WorkFrame" formurl="frame::frmAll.xfdl" showtitlebar="false"/>
+      <MainFrame id="mainframe" showtitlebar="false" showstatusbar="false" left="0" top="0" width="480" height="768" titletext="QuickCodeM" openalign="center middle">
+        <ChildFrame id="WorkFrame" showtitlebar="false" showstatusbar="false" formurl="frame_m::frmAll.xfdl"/>
       </MainFrame>
     </Layout>
-    <Style url="xcssrc::frame_template.xcss"/>
-    <Style url="xcssrc::tutorial_asset.xcss"/>
+    <Style url="xcssrc::frame_template_m.xcss"/>
+    <Style url="xcssrc::tutorial_asset_m.xcss"/>
   </Application>
   <Script type="xscript5.1"><![CDATA[
 this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
