@@ -42,7 +42,7 @@ if (!nexacro.CommActionAsset)
 	pAction._POPUP_CALLBACK = "fnPopupActionCallback";			// 팝업 Callback함수(Action 내부에서 사용)
 	
 	// 대상 Action : ExcelExportAction, ExcelImportAction
-	pAction._COM_EXCEL_URL = "svc::XExportImport";				// XENI URL
+	pAction._COM_EXCEL_URL = "svc::XExportImport.do";				// XENI URL
 	
 	// 대상 Action : DsSetFirstCdAction
 	pAction._COM_CODE_COL = "COMN_CD";							// 공통코드 코드컬럼명
@@ -233,7 +233,9 @@ if (!nexacro.CommActionAsset)
 		// [view:field] 형식 : view의 viewdataset field컬럼값 반환 
 		// [view:datasetid:field] 형식 : view의 datasetid field컬럼값 반환
 		// [view:datasetid:row:field] 형식 : view의 datasetid의 row행 field컬럼값 반환
-		var regEx = /(?<=\[)(.*?)(?=\])/g;
+		//var regEx = /(?<=\[)(.*?)(?=\])/g;
+		//var regEx = new RegExp('(?<=\\[)(.*?)(?=\\])','g');
+		var regEx = /\[.*?\]/g;
 		var sMatch;
 		var sView;
 		var sViewDataset;
@@ -249,7 +251,7 @@ if (!nexacro.CommActionAsset)
 				regEx.lastIndex++;
 			}
 			
-			sMatch = m[0];
+			sMatch = m[0].substring(1,  m[0].length-1);
 			
 			var arrMatch = sMatch.split(":");
 			
