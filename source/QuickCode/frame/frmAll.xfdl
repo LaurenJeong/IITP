@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frmAll" width="1280" height="720" titletext="WorkFrame">
+  <Form id="frmAll" width="1280" height="720" titletext="WorkFrame" onload="frmAll_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
         <Div id="divTop" taborder="0" left="0" top="0" height="65" right="0">
@@ -17,7 +17,7 @@
           <Layouts>
             <Layout>
               <Static id="stTitle" taborder="0" text="QuickCode" left="0" top="0" height="40" cssclass="sta_LF_title01" right="1"/>
-              <Grid id="grdLeftMenu" taborder="1" left="0" top="39" binddataset="gdsMenu" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="expand,all" oncellclick="divLeft_grdLeftMenu_oncellclick" cssclass="grd_LF_treeMenu" right="1" useselcolor="false" scrollbarsize="10">
+              <Grid id="grdLeftMenu" taborder="1" left="0" top="39" binddataset="dsMenu" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="expand,all" oncellclick="divLeft_grdLeftMenu_oncellclick" cssclass="grd_LF_treeMenu" right="1" useselcolor="false" scrollbarsize="10">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -45,19 +45,56 @@
         <Div id="divWork" taborder="3" left="200" top="65" bottom="30" right="10" url="frame::frmMain.xfdl"/>
       </Layout>
     </Layouts>
-    <Objects/>
-    <Script type="xscript5.1"><![CDATA[
+    <Objects>
+      <Dataset id="dsMenu">
+        <ColumnInfo>
+          <Column id="MENU_CD" type="STRING" size="256" description="메뉴코드"/>
+          <Column id="UP_MENU_CD" type="STRING" size="256" description="상위메뉴코드"/>
+          <Column id="MENU_NM" type="STRING" size="256" description="메뉴명"/>
+          <Column id="MENU_LVL" type="STRING" size="256" description="메뉴레벨(0부터시작)"/>
+          <Column id="PGM_PATH" type="STRING" size="256" description="화면 Services Prefix"/>
+          <Column id="PGM_ID" type="STRING" size="256" description="화면명"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  QuickCode 샘플
+*  @MenuPath    frame > frmMenu
+*  @FileName 	frmMenu.xfdl 
+*  @Creator 	Creator
+*  @CreateDate 	2021.05.31
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2021.05.31     	Creator		 				최초 생성 
+*******************************************************************************
+*/
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = nexacro.getApplication();
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.frmAll_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.dsMenu.copyData(this.objApp.gdsMenu);
+};
+
 this.divTop_stTitle_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 {
-	this.divWork.set_async(false);
-	this.divWork.set_url("frame::tempLayout.xfdl");
-	this.divWork.set_async(true);
+	this.divWork.set_url("");
 	this.divWork.set_url("frame::frmMain.xfdl");
 };
 
 this.divLeft_grdLeftMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	var sMenuId = this.dsLeftMenu.getColumn(e.row, "MENU_CD");
+	var sMenuId = this.dsMenu.getColumn(e.row, "MENU_CD");
 	this.fn_openMenu(sMenuId);
 };
 
@@ -68,7 +105,7 @@ this.fn_openMenu = function(sMenuId)
 	var sPGMID;
 	var sMenuNm;
 	
-	var objMenuDs = this.dsLeftMenu;
+	var objMenuDs = this.dsMenu;
 	
 	nFRow 		= objMenuDs.findRow("MENU_CD", sMenuId);
 	sPGMPATH 	= objMenuDs.getColumn(nFRow, "PGM_PATH");
@@ -110,6 +147,7 @@ this.gfnIsNull = function (pvVal)
 
 	return false;
 }
+
 
 ]]></Script>
   </Form>

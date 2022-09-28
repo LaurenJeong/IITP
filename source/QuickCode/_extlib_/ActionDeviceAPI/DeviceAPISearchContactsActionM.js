@@ -209,6 +209,8 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 	{
 		var event = this.onerror;
 		
+		this.gfnLog("on_fire_onerror : " + userdata);
+		
 		//이벤트가 존재하고 사용자가 정의한 이벤트 핸들러 함수가 있을 경우
 		if (event && event._has_handlers)
 		{
@@ -242,27 +244,62 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 		
 		if (nLvl < this._LOG_LEVEL)		return;
 		
+		var sLog = "";
+		
+		if (sMsg instanceof Object) {
+			sLog = "[" + sType + "] " + this.name + " > " + JSON.stringify(sMsg, null, "\t");
+		} else {
+			sLog = "[" + sType + "] " + this.name + " > " + sMsg;
+		}
+		
 		if (system.navigatorname == "nexacro DesignMode"
 			|| system.navigatorname == "nexacro") {
-			if (sMsg instanceof Object) {
-				for(var x in sMsg){
-					trace("[" + sType + "] " + this.name + " > " + x + " : " + sMsg[x]);
-				}
-			} else {
-				trace("[" + sType + "] " + this.name + " > " + sMsg);
-			}
+			trace(sLog);
 		} else {
-			console.log("[" + sType + "] " + this.name + " > " + sMsg);
+			console.log(sLog);
 		}
+	};
+	
+	/**
+	 * 데이터셋 반환(sDatasetId가 입력되지 않는 경우 objView의 viewdataset 반환)
+	 * @param {Object} objView View 객체
+	 * @param {String} sDatasetId 데이터셋 ID
+	 * @return {Object} 데이터셋 객체
+	 */
+	// run()에서만 동작함.
+	nexacro.DeviceAPISearchContactsActionM.prototype.gfnGetDataset = function (objView, sDatasetId)
+	{
+		var objForm;
+		var objDs;
+		var objDsNm;
+		
+		if(objView)objForm = objView.form;		
+		else objForm = this.parent;
+		
+		// Dataset 객체 찾기
+		if (sDatasetId instanceof nexacro.NormalDataset) {				// targetgrid 설정시 해당 그리드
+			objDs = sDatasetId;
+		} else if (sDatasetId) {				// targetgrid 설정시 해당 그리드
+			objDsNm = sDatasetId.replace("@", "");
+			objDs = objForm._findDataset(objDsNm);
+		} else if(objView instanceof nexacro.View){						// targetgrid 미설정시 View에 있는 Grid
+			objDs = objView.getViewDataset();
+		}
+
+		return objDs;
 	};
 	//===============================================================		
     // nexacro.DeviceAPISearchContactsActionM : 공통함수 전환부분
     //===============================================================
 	nexacro.DeviceAPISearchContactsActionM.prototype.fnActionContactSetOnsuccess = function(obj,e)
 	{
+		this.gfnLog("fnActionContactSetOnsuccess >>> e.reason : " + e.reason);
+		
 		// 1 : query()
 		if (e.reason == "1") 
 		{
+			this.gfnLog("e.contacts.length : " + e.contacts.length);
+			
 			if (e.contacts.length == 0) 
 			{
 				return;
@@ -288,6 +325,9 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 		var oTargetView = this.getTargetView();
 		var objDs = this._targetdataset;
 		
+		//this.gfnLog(arrContacts);
+		//this.gfnLog(sReturnDataType);
+		
 		// 리턴 데이터 처리
 		if (!this.gfnIsNull(arrContacts)
 			&& !this.gfnIsNull(sReturnDataType) && sReturnDataType != "none")
@@ -300,18 +340,19 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 			}
 			
 			var nDataCnt = arrContacts.length;
+			var nCRow = objDs.rowposition;
 			
 			if (sReturnDataType == "copyrow")										// 0번째 데이터만 복사
 			{
-				this.gfnSetModelArgument(objDs,objDs.rowposition,arrContacts[0]);
-				this.gfnSetUserArgument(objDs,objDs.rowposition,arrContacts[0]);
+				this.gfnSetModelArgument(objDs,nCRow,arrContacts[0]);
+				this.gfnSetUserArgument(objDs,nCRow,arrContacts[0]);
 			}
-			else if (sPopupDataType == "adddata" || sPopupDataType == "replace")	// 모든 데이터 복사
+			else if (sReturnDataType == "adddata" || sReturnDataType == "replace")	// 모든 데이터 복사
 			{
 				objDs.set_enableevent(false);
 				
 				// replace 인 경우 기존 데이터 삭제
-				if (sPopupDataType == "replace")
+				if (sReturnDataType == "replace")
 				{
 					objDs.clearData();
 				}
@@ -323,6 +364,9 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 					this.gfnSetModelArgument(objDs,nARow,arrContacts[i]);
 					this.gfnSetUserArgument(objDs,nARow,arrContacts[i]);
 				}
+				
+				// rowposition 유지
+				objDs.set_rowposition(nCRow);
 				
 				objDs.set_enableevent(true);
 			}
@@ -490,7 +534,7 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 			case "emails" :			// 이메일
 				if (oContact.emails.length > 0) 
                 {
-                    sValue = oContact.emails[0].street;
+                    sValue = oContact.emails[0].value;
                 }
 				break;
 			default : sValue = "";

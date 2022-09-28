@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_action_db" width="480" height="1350" titletext="tran 테스트">
+    <Layouts>
+      <Layout height="1350" width="480">
+        <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="20" top="230" height="331" right="20">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
+              <Button id="btnSearch" left="20" height="60" right="20" bottom="20" cssclass="btn_WF_search" text="Search"/>
+              <Static id="staCompanyLabel" left="20" top="20" width="105" height="60" text="Company" cssclass="sta_WF_label"/>
+              <Edit id="edtCompany" left="130" top="20" width="290" height="60"/>
+              <Static id="staDepartmentLabel" left="20" top="90" width="105" height="60" text="Department" cssclass="sta_WF_label"/>
+              <Edit id="edtDepartment" left="130" top="90" width="290" height="60"/>
+              <Static id="staNameLabel" left="20" top="160" width="105" height="60" text="Name" cssclass="sta_WF_label"/>
+              <Edit id="edtName" left="130" top="160" width="290" height="60"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="company" type="STRING" size="80" description="Company"/>
+                <Column id="department" type="STRING" size="80" description="Department"/>
+                <Column id="name" type="STRING" size="80" description="Name"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtCompany" compid="edtCompany" propid="value" datasetid="viewdataset" columnid="company"/>
+            <BindItem id="bind_edtDepartment" compid="edtDepartment" propid="value" datasetid="viewdataset" columnid="department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="name"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="Tran" modelid="input" filepath="sample\Tran.xmodel">
+            <Fields>
+              <Field id="company" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="department" required="false" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="name" required="false" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staCompanyLabel" fields="company"/>
+              <Component id="edtCompany" fields="company"/>
+              <Component id="staDepartmentLabel" fields="department"/>
+              <Component id="edtDepartment" fields="department"/>
+              <Component id="staNameLabel" fields="name"/>
+              <Component id="edtName" fields="name"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplateM.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottomfull"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
+            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="20" top="viewSearch:10" height="400" right="20">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="58" band="head"/>
+                      <Row size="58" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_company" col="0" row="0" text="Company"/>
+                      <Cell id="cell_department" col="1" row="0" text="Department"/>
+                      <Cell id="cell_name" col="2" row="0" text="Name"/>
+                      <Cell id="cell_position" col="3" row="0" text="Position"/>
+                      <Cell id="cell_phone" col="4" row="0" text="Phone"/>
+                      <Cell id="cell_address" col="5" row="0" text="Address"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_company" col="0" row="0" text="bind:company" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_department" col="1" row="0" text="bind:department" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_name" col="2" row="0" text="bind:name" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_position" col="3" row="0" text="bind:position" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_phone" col="4" row="0" text="bind:phone" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_address" col="5" row="0" text="bind:address" displaytype="normal" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="company" type="STRING" size="80" description="Company"/>
+                <Column id="department" type="STRING" size="80" description="Department"/>
+                <Column id="name" type="STRING" size="80" description="Name"/>
+                <Column id="position" type="STRING" size="80" description="Position"/>
+                <Column id="phone" type="STRING" size="80" description="Phone"/>
+                <Column id="address" type="STRING" size="256" description="Address"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="Tran" modelid="output" filepath="sample\Tran.xmodel">
+            <Fields>
+              <Field id="company" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="department" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="name" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="position" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="phone" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="address" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="company,department,name,position,phone,address"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
+            <Attribute id="headbandsize" value="58"/>
+            <Attribute id="bodybandsize" value="58"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <TextArea id="txtOutput" taborder="2" top="viewList:20" right="20" left="20" height="339"/>
+        <Static id="staTitle" left="20" top="10" height="40" width="110" text="데이터조회" fittocontents="width" cssclass="sta_WF_subtitle" taborder="4"/>
+        <CheckBox id="chkOnCanEvent" taborder="3" text="Action 실행여부" left="staTitle:10" top="10" width="181" height="40" value="true" fittocontents="width"/>
+        <Edit id="edtArg" taborder="5" left="20" top="70" height="60" value="datacnt=100" text="datacnt=100" right="200"/>
+        <Button id="btnSetArg" taborder="6" text="arg 설정" top="70" height="60" onclick="btnSetArg_onclick" right="20" width="170"/>
+        <Button id="btnError" taborder="7" text="Tran Error" left="20" top="140" height="60" right="20"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <SearchDBAction id="SearchDBAction00" servicemodel="Tran" serviceurl="svc::jsp/TransactionActionService01.jsp" inputdatasets="input=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=output" canrun="Common_canrun" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
+        <Contents/>
+      </SearchDBAction>
+      <SearchDBAction id="SearchDBAction01" servicemodel="Tran" serviceurl="svc::jsp/TransactionActionService02.jsp" canrun="Common_canrun" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
+        <Contents/>
+      </SearchDBAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_db" triggerobj="btnError" targetaction="SearchDBAction01" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[
+this.btnSetArg_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.SearchDBAction00.set_args(this.edtArg.value);
+};
+
+this.Common_canrun = function(obj, e:nexacro.ActionRunEventInfo)
+{
+	this.txtOutput.insertText("\n" + "Common_canrun " + obj.name +" : " + this.chkOnCanEvent.value);
+	
+	return this.chkOnCanEvent.value;
+};
+
+this.CommonTran_onerror = function(obj, e:nexacro.TranActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onerror : [" + e.errorcode + "] " + e.errormsg);
+};
+
+this.CommonTran_onsuccess = function(obj, e:nexacro.TranActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : [" + e.errorcode + "] " + e.errormsg);
+};
+]]></Script>
+  </Form>
+</FDL>

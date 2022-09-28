@@ -3,16 +3,16 @@
   <Form id="test_deviceapi" width="480" height="2160" titletext="DeviceAPI 테스트용">
     <Layouts>
       <Layout height="2160" width="480">
-        <Static id="Static00" taborder="0" text="전화연결" left="10" top="10" height="40" cssclass="sta_WF_title02" right="10"/>
-        <Edit id="edtPhone" taborder="1" left="30" top="60" height="60" value="01012345678" text="01012345678" right="150"/>
+        <Static id="Static00" taborder="0" text="전화연결" left="20" top="10" height="40" cssclass="sta_WF_title02" right="20"/>
+        <Edit id="edtPhone" taborder="1" left="20" top="60" height="60" value="01012345678" text="01012345678" right="150"/>
         <Button id="btnMakeCall" taborder="2" text="전화연결" top="60" width="120" height="60" onclick="btnMakeCall_onclick" right="20"/>
-        <Static id="Static00_00" taborder="3" text="문자보내기" left="10" top="140" height="40" cssclass="sta_WF_title02" right="10"/>
-        <TextArea id="txtSendMessage" taborder="4" left="30" top="190" height="237" right="20"/>
-        <Button id="btnSendMessage" taborder="5" text="문자보내기" left="30" top="441" height="60" right="20" onclick="btnSendMessage_onclick"/>
-        <Static id="Static00_00_00" taborder="6" text="연락처검색" left="10" top="521" height="40" cssclass="sta_WF_title02" right="368" width="102"/>
+        <Static id="Static00_00" taborder="3" text="문자보내기" left="20" top="140" height="40" cssclass="sta_WF_title02" right="20"/>
+        <TextArea id="txtSendMessage" taborder="4" left="20" top="190" height="237" right="20"/>
+        <Button id="btnSendMessage" taborder="5" text="문자보내기" left="20" top="441" height="60" right="20" onclick="btnSendMessage_onclick"/>
+        <Static id="Static00_00_00" taborder="6" text="연락처검색" left="20" top="521" height="40" cssclass="sta_WF_title02" width="115"/>
         <Edit id="edtName" taborder="7" left="220" top="571" height="60" text="01012345678" right="100"/>
         <Button id="btnSearch" taborder="8" text="검색" top="571" width="70" height="60" right="20" onclick="btnSearch_onclick"/>
-        <Grid id="Grid00" taborder="9" useinputpanel="false" binddataset="dsContactsInfo" autofittype="col" findtype="none" position="absolute" left="30" right="20" top="641" height="291">
+        <Grid id="Grid00" taborder="9" useinputpanel="false" binddataset="dsContactsInfo" autofittype="col" findtype="none" position="absolute" left="20" right="20" top="641" height="291">
           <Formats>
             <Format id="default">
               <Columns>
@@ -38,14 +38,14 @@
           </Formats>
         </Grid>
         <Static id="Static00_01" position="absolute" style="background:transparent;" left="Static00_00_00:30" width="111" top="520" height="43" taborder="10"/>
-        <Combo id="cbmType" taborder="11" text="contactname" left="30" top="571" width="180" height="60" innerdataset="dsQueryType" codecolumn="code" datacolumn="code" index="4" value="contactname"/>
-        <Static id="Static00_00_01" taborder="12" text="사진찍기" left="10" top="952" height="40" cssclass="sta_WF_title02" right="10"/>
-        <ImageViewer id="imgCamera" taborder="13" left="30" top="1071" width="430" height="309" stretch="fixaspectratio"/>
-        <Button id="btnCamera" taborder="14" text="사진찍기" left="30" top="1002" height="60" right="20" onclick="btnCamera_onclick"/>
-        <Static id="Static00_00_01_00" taborder="15" text="앨범 이미지 선택" left="10" top="1392" height="40" cssclass="sta_WF_title02" right="10"/>
-        <Button id="btnImagePicker" taborder="16" text="이미지 선택" left="30" top="1442" height="60" right="20" onclick="btnImagePicker_onclick"/>
-        <ImageViewer id="imgImagePicker" taborder="17" left="30" top="1511" width="430" height="309" stretch="fixaspectratio"/>
-        <TextArea id="txtOutput" taborder="18" left="30" top="imgImagePicker:20" right="20" height="300"/>
+        <Combo id="cbmType" taborder="11" text="contactname" left="20" top="571" width="180" height="60" innerdataset="dsQueryType" codecolumn="code" datacolumn="code" index="4" value="contactname"/>
+        <Static id="Static00_00_01" taborder="12" text="사진찍기" left="20" top="952" height="40" cssclass="sta_WF_title02" right="20"/>
+        <ImageViewer id="imgCamera" taborder="13" left="20" top="1071" height="309" stretch="fixaspectratio" right="20"/>
+        <Button id="btnCamera" taborder="14" text="사진찍기" left="20" top="1002" height="60" right="20" onclick="btnCamera_onclick"/>
+        <Static id="Static00_00_01_00" taborder="15" text="앨범 이미지 선택" left="20" top="1392" height="40" cssclass="sta_WF_title02" right="20"/>
+        <Button id="btnImagePicker" taborder="16" text="이미지 선택" left="20" top="1442" height="60" right="20" onclick="btnImagePicker_onclick"/>
+        <ImageViewer id="imgImagePicker" taborder="17" left="20" top="1511" height="309" stretch="fixaspectratio" right="20"/>
+        <TextArea id="txtOutput" taborder="18" left="20" top="imgImagePicker:20" right="20" height="300"/>
       </Layout>
     </Layouts>
     <Objects>

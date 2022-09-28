@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_action_message" width="480" height="650" titletext="메시지 테스트">
+    <Layouts>
+      <Layout height="650" width="480">
+        <Static id="Static00" taborder="0" text="메시지" left="20" top="10" height="40" cssclass="sta_WF_title02" width="89" fittocontents="width"/>
+        <CheckBox id="chkOnCanEvent" taborder="1" text="Action 실행여부" left="Static00:10" top="10" width="171" height="40" value="true" fittocontents="width"/>
+        <TextArea id="txtOutput" taborder="2" left="20" top="200" right="20" bottom="20"/>
+        <Button id="btnAlert" taborder="3" text="Alert" left="20" top="60" height="60" right="20"/>
+        <Button id="btnConfirm" taborder="4" text="Confirm" left="20" top="130" height="60" right="20"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.Common_canrun = function(obj, e:nexacro.ActionRunEventInfo)
+{
+	this.txtOutput.insertText("\n" + "Common_canrun " + obj.name + " : " + this.chkOnCanEvent.value);
+	
+	return this.chkOnCanEvent.value;
+};
+
+this.Common_onerror = function(obj, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onerror : " + e.userdata);
+};
+
+this.Common_onsuccess = function(obj, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : " + e.userdata);
+};]]></Script>
+    <Objects>
+      <MessageAction id="MessageAction00" message="알림" targetview="test_action_message" messagetype="alert" canrun="Common_canrun" onerror="Common_onerror" onsuccess="Common_onsuccess">
+        <Contents/>
+      </MessageAction>
+      <MessageAction id="MessageAction01" message="확인?" targetview="test_action_message" messagetype="confirm" canrun="Common_canrun" onerror="Common_onerror" onsuccess="Common_onsuccess">
+        <Contents/>
+      </MessageAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="test_action_message" triggerobj="Button03" targetaction="OpenBrowserAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="View00" triggerobj="btnSearch" targetaction="OpenBrowserAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="test_action_message" triggerobj="btnAlert" targetaction="MessageAction00" condition=""/>
+      <TriggerItem id="item3" triggertype="Click" triggerview="test_action_message" triggerobj="btnConfirm" targetaction="MessageAction01" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>

@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="test_action_popup" width="480" height="768" titletext="모바일 팝업 테스트">
+  <Form id="test_action_popupm" width="480" height="768" titletext="모바일 팝업 테스트">
     <Layouts>
-      <Layout height="768" width="480">
-        <Button id="btnPopup" taborder="0" text="팝업&#13;&#10;(선택데이터)" left="10" top="10" width="133" height="60"/>
-        <TextArea id="txaOutput" taborder="1" left="10" top="80" wordWrap="english" height="230" right="10"/>
-        <Button id="btnPopup2" taborder="2" text="팝업&#13;&#10;(전체데이터)" left="btnPopup:10" top="10" width="133" height="60"/>
-        <Button id="btnPopup3" taborder="3" text="팝업&#13;&#10;(변경데이터)" left="btnPopup2:10" top="10" width="133" height="60"/>
-        <View id="View00" taborder="4" text="View00" viewdataset="viewdataset" left="10" right="10" top="txaOutput:20" bottom="10">
+      <Layout height="768" mobileorientation="portrait" width="480">
+        <Button id="btnPopup" taborder="0" text="팝업&#13;&#10;(선택데이터)" left="10" top="50" width="133" height="60"/>
+        <TextArea id="txaOutput" taborder="1" left="10" top="120" wordWrap="english" height="230" right="10"/>
+        <Button id="btnPopup2" taborder="2" text="팝업&#13;&#10;(전체데이터)" left="btnPopup:10" top="50" width="133" height="60"/>
+        <Button id="btnPopup3" taborder="3" text="팝업&#13;&#10;(변경데이터)" left="btnPopup2:10" top="50" width="133" height="60"/>
+        <View id="View00" taborder="4" text="View00" viewdataset="viewdataset" left="10" right="10" top="txaOutput:20" bottom="0">
           <Layouts>
             <Layout>
-              <Div id="divTitle" left="0" top="0" height="30" right="0">
+              <Div id="divTitle" left="0" top="0" height="30" right="0" text="">
                 <Layouts>
                   <Layout>
                     <Static id="staTitle" left="0" top="0" height="30" width="170" text="팝업결과 데이터" fittocontents="width" cssclass="sta_WF_title02"/>
@@ -74,6 +74,8 @@
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
+        <Static id="Static00" taborder="5" text="브라우저실행" left="20" top="10" height="40" cssclass="sta_WF_title02" width="128" fittocontents="width"/>
+        <CheckBox id="chkOnCanEvent" taborder="6" text="Action 실행여부" left="158" top="10" width="171" height="40" value="true" fittocontents="width"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -84,22 +86,29 @@
           <Column id="name" type="STRING" size="80"/>
         </ColumnInfo>
       </Dataset>
-      <PopupAction id="PopupAction00" formurl="test_m::test_action_popupmsub.xfdl" popupstyle="modal" popupid="popup" title="선택데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}" targetview="View00" popupdatatype="replace">
+      <PopupAction id="PopupAction00" formurl="test_m::test_action_popupmsub.xfdl" popupstyle="modal" popupid="popup" title="선택데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}" targetview="View00" popupdatatype="replace" canrun="Common_canrun">
         <Contents/>
       </PopupAction>
-      <PopupAction id="PopupAction01" formurl="test_m::test_action_popupmsub.xfdl" popupstyle="modeless" popupid="popup" title="전체데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;alldata&quot;}" targetview="View00" popupdatatype="replace">
+      <PopupAction id="PopupAction01" formurl="test_m::test_action_popupmsub.xfdl" popupstyle="modeless" popupid="popup" title="전체데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;alldata&quot;}" targetview="View00" popupdatatype="replace" canrun="Common_canrun">
         <Contents/>
       </PopupAction>
-      <PopupAction id="PopupAction02" formurl="test_m::test_action_popupmsub.xfdl" popupstyle="modal" popupid="popup" title="변경데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;changedata&quot;}" targetview="View00" popupdatatype="replace">
+      <PopupAction id="PopupAction02" formurl="test_m::test_action_popupmsub.xfdl" popupstyle="modal" popupid="popup" title="변경데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;changedata&quot;}" targetview="View00" popupdatatype="replace" canrun="Common_canrun">
         <Contents/>
       </PopupAction>
     </Objects>
     <Trigger>
-      <TriggerItem id="item0" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup" targetaction="PopupAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup2" targetaction="PopupAction01" condition=""/>
-      <TriggerItem id="item2" triggertype="Click" triggerview="test_action_popup" triggerobj="btnPopup3" targetaction="PopupAction02" condition=""/>
+      <TriggerItem id="item0" triggertype="Click" triggerview="test_action_popupm" triggerobj="btnPopup" targetaction="PopupAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_popupm" triggerobj="btnPopup2" targetaction="PopupAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="test_action_popupm" triggerobj="btnPopup3" targetaction="PopupAction02" condition=""/>
     </Trigger>
-    <Script type="xscript5.1"><![CDATA[this.PopupAction00_onerror = function(obj:nexacro.PopupAction, e:nexacro.ActionErrorEventInfo)
+    <Script type="xscript5.1"><![CDATA[this.Common_canrun = function(obj, e:nexacro.ActionRunEventInfo)
+{
+	this.txaOutput.insertText("\n" + "Common_canrun " + obj.name +" : " + this.chkOnCanEvent.value);
+	
+	return this.chkOnCanEvent.value;
+};
+
+this.PopupAction00_onerror = function(obj:nexacro.PopupAction, e:nexacro.ActionErrorEventInfo)
 {
 	//trace("PopupAction00_onerror" + e.userdata);
 	this.txaOutput.insertText("\n" + "PopupAction00_onerror");

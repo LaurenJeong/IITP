@@ -1,12 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frameMainPage" width="480" height="610" titletext="메인화면" onload="frameMainPage_onload">
+  <Form id="frmMain" width="480" height="610" titletext="메인화면" onload="frmMain_onload">
     <Layouts>
       <Layout height="610" mobileorientation="portrait" width="480">
-        <Static id="Static00" taborder="0" text="메인화면" left="10" top="10" cssclass="sta_main_numbering" right="10" bottom="10"/>
+        <Static id="Static00" taborder="0" left="10" top="10" cssclass="sta_main_numbering" right="10" bottom="10"/>
+        <ListView id="lstMenu" taborder="1" left="20" top="20" binddataset="dsMenu" right="20" bottom="20" oncellclick="lstMenu_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Band id="body" width="210" height="70">
+                <Cell id="Cell00" left="5" top="5" right="5" bottom="5" text="bind:MENU_NM" displaytype="buttoncontrol" edittype="button" border="1px solid #cccccc" borderRadius="5px"/>
+              </Band>
+            </Format>
+          </Formats>
+        </ListView>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[]]></Script>
-    <Objects/>
+    <Script type="xscript5.1"><![CDATA[/**
+*  QuickCode 샘플
+*  @MenuPath    frame > frmMain
+*  @FileName 	frmMain.xfdl 
+*  @Creator 	Creator
+*  @CreateDate 	2021.05.31
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2021.05.31     	Creator		 				최초 생성 
+*******************************************************************************
+*/
+include "view_lib::util.xjs";
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = nexacro.getApplication();
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.frmMain_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.objApp.gdsMenuM.filter("");
+	this.objApp.gdsMenuM.filter("PGM_ID.toString().length>0");
+	this.dsMenu.copyData(this.objApp.gdsMenuM,true);
+	this.objApp.gdsMenuM.filter("");
+};
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+this.fnCallMenu = function(sMenuId, objArg)
+{	
+	var nFRow = this.dsMenu.findRow("MENU_CD",sMenuId);
+	
+	if (nFRow < 0)		return;
+	
+	var sMenuNm		= this.dsMenu.getColumn(nFRow, "MENU_NM");
+	var sPgmPath	= this.dsMenu.getColumn(nFRow, "PGM_PATH");
+	var sPgmId		= this.dsMenu.getColumn(nFRow, "PGM_ID");
+	var sPageUrl	= sPgmPath + "::" + sPgmId;
+	
+	if (this.lfn_IsNull(sPgmPath)|| this.lfn_IsNull(sPgmId))		return;
+	
+	var aArgs 	= (this.lfn_IsNull(objArg)) ? "" : objArg;   //넘어온 arguments
+	
+	var pThis = this.objApp.gvFrmAll;
+	
+    pThis.divMain.set_visible(false);
+    pThis.divCenter.set_visible(true);
+
+    pThis.divCenter.form.vscrollbar.set_pos(0);
+    pThis.divCenter.set_url(sPageUrl);
+    pThis.fnAction("MENU", false);    
+    
+    pThis.arguments = [];
+    pThis.arguments["aArgs"] = aArgs;
+};
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+this.lstMenu_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewClickEventInfo)
+{
+	var sMenuId = this.dsMenu.getColumn(e.row, "MENU_CD");
+	this.fnCallMenu(sMenuId);
+};]]></Script>
+    <Objects>
+      <Dataset id="dsMenu">
+        <ColumnInfo>
+          <Column id="MENU_CD" type="STRING" size="256" description="메뉴코드"/>
+          <Column id="UP_MENU_CD" type="STRING" size="256" description="상위메뉴코드"/>
+          <Column id="MENU_NM" type="STRING" size="256" description="메뉴명"/>
+          <Column id="MENU_LVL" type="STRING" size="256" description="메뉴레벨(0부터시작)"/>
+          <Column id="PGM_PATH" type="STRING" size="256" description="화면 Services Prefix"/>
+          <Column id="PGM_ID" type="STRING" size="256" description="화면명"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
   </Form>
 </FDL>

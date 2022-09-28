@@ -58,7 +58,7 @@ this.objApp = nexacro.getApplication();
 */
 this.frameMenu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
- 
+	this.dsMenu.copyData(this.objApp.gdsMenuM);
 };
 
 /************************************************************************************************
@@ -203,120 +203,6 @@ this.fnMenuSet = function(arrProw, sMenuId)
           <Column id="PGM_PATH" type="STRING" size="256" description="화면 Services Prefix"/>
           <Column id="PGM_ID" type="STRING" size="256" description="화면명"/>
         </ColumnInfo>
-        <Rows>
-          <Row>
-            <Col id="MENU_CD">S1000</Col>
-            <Col id="UP_MENU_CD">0</Col>
-            <Col id="MENU_NM">Sample</Col>
-            <Col id="MENU_LVL">0</Col>
-            <Col id="PGM_PATH"/>
-            <Col id="PGM_ID"/>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1000</Col>
-            <Col id="UP_MENU_CD">0</Col>
-            <Col id="MENU_NM">Test</Col>
-            <Col id="MENU_LVL">0</Col>
-            <Col id="PGM_PATH"/>
-            <Col id="PGM_ID"/>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1100</Col>
-            <Col id="UP_MENU_CD">T1000</Col>
-            <Col id="MENU_NM">ViewTemplate</Col>
-            <Col id="MENU_LVL">1</Col>
-            <Col id="PGM_PATH"/>
-            <Col id="PGM_ID"/>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1101</Col>
-            <Col id="UP_MENU_CD">T1100</Col>
-            <Col id="MENU_NM">조회조건</Col>
-            <Col id="MENU_LVL">2</Col>
-            <Col id="PGM_PATH">test_m</Col>
-            <Col id="PGM_ID">test_view_searchm.xfdl</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1200</Col>
-            <Col id="UP_MENU_CD">T1000</Col>
-            <Col id="MENU_NM">Action</Col>
-            <Col id="MENU_LVL">1</Col>
-            <Col id="PGM_PATH"/>
-            <Col id="PGM_ID"/>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1201</Col>
-            <Col id="UP_MENU_CD">T1200</Col>
-            <Col id="MENU_NM">팝업</Col>
-            <Col id="MENU_LVL">2</Col>
-            <Col id="PGM_PATH">test_m</Col>
-            <Col id="PGM_ID">test_action_popupm.xfdl</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1300</Col>
-            <Col id="UP_MENU_CD">T1000</Col>
-            <Col id="MENU_NM">DeviceAPI Action</Col>
-            <Col id="MENU_LVL">1</Col>
-            <Col id="PGM_PATH"/>
-            <Col id="PGM_ID"/>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1301</Col>
-            <Col id="UP_MENU_CD">T1300</Col>
-            <Col id="MENU_NM">전화</Col>
-            <Col id="MENU_LVL">2</Col>
-            <Col id="PGM_PATH">test_m</Col>
-            <Col id="PGM_ID">test_action_deviceapi_makecall.xfdl</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1302</Col>
-            <Col id="UP_MENU_CD">T1300</Col>
-            <Col id="MENU_NM">문자</Col>
-            <Col id="MENU_LVL">2</Col>
-            <Col id="PGM_PATH">test_m</Col>
-            <Col id="PGM_ID">test_action_deviceapi_sendmessage.xfdl</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1303</Col>
-            <Col id="UP_MENU_CD">T1300</Col>
-            <Col id="MENU_NM">연락처</Col>
-            <Col id="MENU_LVL">2</Col>
-            <Col id="PGM_PATH">test_m</Col>
-            <Col id="PGM_ID">test_action_deviceapi_searchcontacts.xfdl</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1304</Col>
-            <Col id="UP_MENU_CD">T1300</Col>
-            <Col id="MENU_NM">카메라</Col>
-            <Col id="MENU_LVL">2</Col>
-            <Col id="PGM_PATH">test_m</Col>
-            <Col id="PGM_ID">test_action_deviceapi_camera.xfdl</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1305</Col>
-            <Col id="UP_MENU_CD">T1300</Col>
-            <Col id="MENU_NM">사진앨범</Col>
-            <Col id="MENU_LVL">2</Col>
-            <Col id="PGM_PATH">test_m</Col>
-            <Col id="PGM_ID">test_action_deviceapi_imagepicker.xfdl</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1400</Col>
-            <Col id="UP_MENU_CD">T1000</Col>
-            <Col id="MENU_NM">Etc</Col>
-            <Col id="MENU_LVL">1</Col>
-            <Col id="PGM_PATH"/>
-            <Col id="PGM_ID"/>
-          </Row>
-          <Row>
-            <Col id="MENU_CD">T1401</Col>
-            <Col id="UP_MENU_CD">T1400</Col>
-            <Col id="MENU_NM">테스트</Col>
-            <Col id="MENU_LVL">2</Col>
-            <Col id="PGM_PATH">test_m</Col>
-            <Col id="PGM_ID">test_deviceapi.xfdl</Col>
-          </Row>
-        </Rows>
       </Dataset>
     </Objects>
   </Form>

@@ -36,6 +36,12 @@
     <Component type="JavaScript" id="View" classname="nexacro.View"/>
     <Component type="JavaScript" id="WebView" classname="nexacro.WebView"/>
     <Component type="JavaScript" id="Plugin" classname="nexacro.Plugin"/>
+    <Component type="JavaScript" id="Phone" classname="nexacro.Phone"/>
+    <Component type="JavaScript" id="Sms" classname="nexacro.Sms"/>
+    <Component type="JavaScript" id="ContactSet" classname="nexacro.ContactSet"/>
+    <Component type="JavaScript" id="Camera" classname="nexacro.Camera"/>
+    <Component type="JavaScript" id="ImagePicker" classname="nexacro.ImagePicker"/>
+    <Component type="JavaScript" id="CommActionAsset" classname="nexacro.CommActionAsset" prefixid=""/>
     <Component type="JavaScript" id="TranAction" classname="nexacro.TranAction" prefixid=""/>
     <Component type="JavaScript" id="ExcelImportAction" classname="nexacro.ExcelImportAction" prefixid=""/>
     <Component type="JavaScript" id="ExcelExportAction" classname="nexacro.ExcelExportAction" prefixid=""/>
@@ -53,19 +59,13 @@
     <Component type="JavaScript" id="DsResetDataAction" classname="nexacro.DsResetDataAction" prefixid=""/>
     <Component type="JavaScript" id="DsCopyDataAction" classname="nexacro.DsCopyDataAction" prefixid=""/>
     <Component type="JavaScript" id="DsCopyRowDataAction" classname="nexacro.DsCopyRowDataAction" prefixid=""/>
-    <Component type="JavaScript" id="Phone" classname="nexacro.Phone"/>
-    <Component type="JavaScript" id="Sms" classname="nexacro.Sms"/>
-    <Component type="JavaScript" id="ContactSet" classname="nexacro.ContactSet"/>
-    <Component type="JavaScript" id="Camera" classname="nexacro.Camera"/>
-    <Component type="JavaScript" id="ImagePicker" classname="nexacro.ImagePicker"/>
+    <Component type="JavaScript" id="SearchDBAction" classname="nexacro.SearchDBAction" prefixid=""/>
+    <Component type="JavaScript" id="DsFilterDataAction" classname="nexacro.DsFilterDataAction" prefixid=""/>
+    <Component type="JavaScript" id="OpenBrowserAction" classname="nexacro.OpenBrowserAction" prefixid=""/>
     <Component type="JavaScript" id="DeviceAPIMakeCallActionM" classname="nexacro.DeviceAPIMakeCallActionM" prefixid=""/>
     <Component type="JavaScript" id="DeviceAPIImagePickerActionM" classname="nexacro.DeviceAPIImagePickerActionM" prefixid=""/>
     <Component type="JavaScript" id="DeviceAPICameraActionM" classname="nexacro.DeviceAPICameraActionM" prefixid=""/>
     <Component type="JavaScript" id="DeviceAPISendMessageActionM" classname="nexacro.DeviceAPISendMessageActionM"/>
-    <Component type="JavaScript" id="SearchDBAction" classname="nexacro.SearchDBAction" prefixid=""/>
-    <Component type="JavaScript" id="CommActionAsset" classname="nexacro.CommActionAsset" prefixid=""/>
-    <Component type="JavaScript" id="DsFilterDataAction" classname="nexacro.DsFilterDataAction" prefixid=""/>
-    <Component type="JavaScript" id="OpenBrowserAction" classname="nexacro.OpenBrowserAction" prefixid=""/>
     <Component type="JavaScript" id="DeviceAPISearchContactsActionM" classname="nexacro.DeviceAPISearchContactsActionM" prefixid=""/>
   </Components>
   <Services>
@@ -76,14 +76,15 @@
     <Service prefixid="font" type="resource" url="./_resource_/_font_/" version="0" cachelevel="session" include_subdir="false"/>
     <Service prefixid="frame" type="form" url="./frame/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
     <Service prefixid="frame_m" type="form" url="./frame_m/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
-    <Service prefixid="svc" type="JSP" version="0" cachelevel="none" include_subdir="false" communicationversion="0" url="http://localhost:8080/DevPack/"/>
+    <Service prefixid="svc" type="JSP" version="0" cachelevel="none" include_subdir="false" communicationversion="0" url="http://localhost:8080/"/>
     <Service prefixid="model" type="model" url="./model/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
     <Service prefixid="view_lib" type="js" url="./view/lib/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
-    <Service prefixid="ActionAsset" type="form" url="./_extlib_/ActionAsset/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
+    <Service prefixid="_extlib_" type="form" url="./_extlib_/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
     <Service prefixid="sample" type="form" url="./sample/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
     <Service prefixid="sample_m" type="form" url="./sample_m/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
     <Service prefixid="test" type="form" url="./test/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
     <Service prefixid="test_m" type="form" url="./test_m/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
+    <Service prefixid="jsp" type="file" url="./jsp/" version="0" cachelevel="none" include_subdir="false" communicationversion="0"/>
   </Services>
   <Protocols/>
   <DeviceAdaptors/>
@@ -93,21 +94,14 @@
         <Resource type="Module" file="nexacrolib.zip" version="0" targetpath="" description=""/>
       </Version>
     </Os>
-    <Os name="Android" url="./" timeout="30" retry="3" autoupdate="auto" updatetype="update">
+    <Os name="Android" url="./" timeout="30" retry="3" autoupdate="auto" updatetype="server">
       <Version name="common">
-        <Resource type="Engine" file="quickcode_sample2.apk" version="1.0.3" targetpath="./"/>
-        <Resource type="Module" file="nexacrolib.zip" version="0" targetpath="./" description=""/>
-        <Resource type="File" file="Archive00.xzip" version="0" targetpath="./" description=""/>
-        <Resource type="Resource" file="Resource.zip" version="0" targetpath="./" description=""/>
+        <Resource type="Engine" file="N_JB_ios_159.apk" version="0" targetpath="./"/>
       </Version>
     </Os>
-    <Os name="iOS" url="./" timeout="30" retry="3" autoupdate="auto" updatetype="update">
+    <Os name="iOS" url="./" timeout="30" retry="3" autoupdate="auto" updatetype="server">
       <Version name="common">
-        <Resource type="Engine" file="https://cacao.tobesoft.co.kr:8443/~nexacro/appbuilder/M2/tops/785/app.plist" version="1.0.3" targetpath="./"/>
-        <Resource type="Module" file="nexacrolib.zip" version="0" targetpath="./" description=""/>
-        <Resource type="Engine" file="Run.zip" version="20220603130723" targetpath="./" description=""/>
-        <Resource type="File" file="Archive00.xzip" version="0" targetpath="./" description=""/>
-        <Resource type="Resource" file="Resource.zip" version="0" targetpath="./" description=""/>
+        <Resource type="Engine" file="https://cacao.tobesoft.co.kr:8443/~nexacro/appbuilder/apps/67/app.plist" version="0" targetpath="./"/>
       </Version>
     </Os>
   </Update>

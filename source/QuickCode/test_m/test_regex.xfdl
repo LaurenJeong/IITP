@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_regex" width="480" height="930" titletext="New Form">
+    <Layouts>
+      <Layout height="930" width="480">
+        <Button id="Button00" taborder="0" text="Button00" left="20" top="25" height="60" onclick="Button00_onclick" right="20"/>
+        <Button id="Button01" taborder="1" text="test value" left="20" top="95" height="60" onclick="Button01_onclick" right="20"/>
+        <Button id="Button02" taborder="2" text="[test]" left="20" top="165" height="60" onclick="Button02_onclick" right="20"/>
+        <Button id="Button03" taborder="3" text="[viwtest:test]" left="20" top="235" height="60" onclick="Button03_onclick" right="20"/>
+        <Button id="Button04" taborder="4" text="[viwtest:dstest:test]" left="20" top="305" height="60" onclick="Button04_onclick" right="20"/>
+        <Button id="Button05" taborder="5" text="[viwtest:dstest:1:test]" left="20" top="375" height="60" onclick="Button05_onclick" right="20"/>
+        <Button id="Button06" taborder="6" text="[test]+[test2]" left="20" top="445" height="60" onclick="Button06_onclick" right="20"/>
+        <TextArea id="txtOutput" taborder="7" left="20" top="Button06:10" right="20" bottom="10"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+// 	//var regEx = new RegExp('(?<=\[)(.*?)(?=\])','g');
+// 	var regEx = /(?<=\[)(.*?)(?=\])/g;
+// 	//var regEx = new RegExp('\\[(.*)\\]','g');
+// 	
+// 	var sRetText = "[address]";
+// 	
+// 	this.txtOutput.set_value(regEx.exec(sRetText));
+};
+
+this.gfnIsNull = function (Val)				
+	{
+		if (new String(Val).valueOf() == "undefined") return true;			
+		if (Val == null) return true;			
+		if (("x" + Val == "xNaN") && (new String(Val.length).valueOf() == "undefined")) return true;			
+		if (Val.length == 0) return true;			
+					
+		return false;			
+	};
+	
+this.gfnGetExprText = function(sExprText, sViewNm)
+	{
+		if (this.gfnIsNull(sExprText))				return sExprText;
+		
+		var sRetText = sExprText;
+		
+		// 1) '['와 ']' 사이값 추출
+		// [field] 형식 : targetview의 viewdataset field컬럼값 반환 
+		// [view:field] 형식 : view의 viewdataset field컬럼값 반환 
+		// [view:datasetid:field] 형식 : view의 datasetid field컬럼값 반환
+		// [view:datasetid:row:field] 형식 : view의 datasetid의 row행 field컬럼값 반환
+		//var regEx = /(?<=\[)(.*?)(?=\])/g;
+		//var regEx = new RegExp('(?<=\\[)(.*?)(?=\\])','g');
+		var regEx = /\[.*?\]/g;
+		var sMatch;
+		var sView;
+		var sViewDataset;
+		var sColumnId;
+		var sRow;
+		var sReText;
+		
+		// 변환처리
+		while ((m = regEx.exec(sRetText)) !== null)
+		{
+			// This is necessary to avoid infinite loops with zero-width matches
+			if (m.index === regEx.lastIndex) {
+				regEx.lastIndex++;
+			}
+			
+			sMatch = m[0].substring(1,  m[0].length-1);
+			
+			var arrMatch = sMatch.split(":");
+			
+			if (arrMatch.length == 1) {				// [field] 형식
+				sView			= sViewNm;
+				sViewDataset	= "this.parent." + sView + ".form.viewdataset";
+				sRow			= sViewDataset + ".rowposition";
+				sColumnId		= arrMatch[0];
+			} else if (arrMatch.length == 2) {		// [view:field] 형식
+				sView			= arrMatch[0];
+				sViewDataset	= "this.parent." + sView + ".form.viewdataset";
+				sRow			= sViewDataset + ".rowposition";
+				sColumnId		= arrMatch[1];
+			} else if (arrMatch.length == 3) {		// [view:datasetid:field] 형식
+				sView			= arrMatch[0];
+				sViewDataset	= "this.parent." + sView + ".form." + arrMatch[1];
+				sRow			= sViewDataset + ".rowposition";
+				sColumnId		= arrMatch[2];
+			} else if (arrMatch.length == 4) {		// [view:datasetid:row:field] 형식
+				sView			= arrMatch[0];
+				sViewDataset	= "this.parent." + sView + ".form." + arrMatch[1];
+				sRow			= arrMatch[2];
+				sColumnId		= arrMatch[3];
+			} else {
+				continue;
+			}
+			
+			// 변환처리 : this.parent.[view].form.viewdataset.getColumn(this.parent.[view].form.viewdataset.rowposition,'[field]')
+			sReplace = sViewDataset + ".getColumn(" + sRow + ",'" + sColumnId + "')";
+			
+			sRetText = sRetText.replace("[" + sMatch + "]",sReplace);
+		}
+		
+		return sRetText;
+	};
+
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sExprText = "test value";
+	var sViewNm = "viewTarget";
+	
+	this.txtOutput.set_value(this.gfnGetExprText(sExprText, sViewNm));
+};
+
+/*
+// [field] 형식 : targetview의 viewdataset field컬럼값 반환 
+// [view:field] 형식 : view의 viewdataset field컬럼값 반환 
+// [view:datasetid:field] 형식 : view의 datasetid field컬럼값 반환
+// [view:datasetid:row:field] 형식 : view의 datasetid의 row행 field컬럼값 반환
+*/
+this.Button02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sExprText = "[test]";
+	var sViewNm = "viewTarget";
+	
+	this.txtOutput.set_value(this.gfnGetExprText(sExprText, sViewNm));
+};
+
+this.Button03_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sExprText = "[viwtest:test]";
+	var sViewNm = "viewTarget";
+	
+	this.txtOutput.set_value(this.gfnGetExprText(sExprText, sViewNm));
+};
+
+this.Button04_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sExprText = "[viwtest:dstest:test]";
+	var sViewNm = "viewTarget";
+	
+	this.txtOutput.set_value(this.gfnGetExprText(sExprText, sViewNm));
+};
+
+this.Button05_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sExprText = "[viwtest:dstest:1:test]";
+	var sViewNm = "viewTarget";
+	
+	this.txtOutput.set_value(this.gfnGetExprText(sExprText, sViewNm));
+};
+
+this.Button06_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sExprText = "[test]+[test2]";
+	var sViewNm = "viewTarget";
+	
+	this.txtOutput.set_value(this.gfnGetExprText(sExprText, sViewNm));
+};
+]]></Script>
+  </Form>
+</FDL>

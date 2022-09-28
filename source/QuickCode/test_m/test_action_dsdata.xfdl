@@ -1,58 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="test_action_dsdata" width="1280" height="720" titletext="DS 테스트">
+  <Form id="test_action_dsdata" width="480" height="1870" titletext="DS 테스트">
     <Layouts>
-      <Layout height="720" width="1280">
-        <Button id="btnAdd" taborder="1" text="마지막행 추가" left="5" top="50" width="100" height="30"/>
-        <Button id="btnAdd2" taborder="2" text="첫행 추가" left="110" top="50" width="100" height="30"/>
-        <Button id="btnAdd3" taborder="3" text="현재위치에 추가" left="215" top="50" width="100" height="30"/>
-        <Button id="btnDel" taborder="4" text="현재 행 삭제" left="5" top="85" width="100" height="30"/>
-        <TextArea id="txtOutput" taborder="5" left="620" top="50" right="0" bottom="0"/>
-        <Button id="btnDel2" taborder="6" text="선택된 행 삭제" left="110" top="85" width="100" height="30"/>
-        <Button id="btnDel3" taborder="7" text="체크된 행 삭제" left="215" top="85" width="100" height="30"/>
-        <CheckBox id="chkOnCanEvent" taborder="8" text="canrun 반환값" left="5" top="6" width="100" height="30" value="true"/>
-        <Button id="btnDel4" taborder="9" text="전체 삭제" left="320" top="85" width="100" height="30"/>
-        <Button id="btnReset" taborder="10" text="현재 행 복구" left="5" top="120" width="100" height="30"/>
-        <Button id="btnReset2" taborder="11" text="전체 복구" left="110" top="120" width="100" height="30"/>
-        <Button id="btnDel5" taborder="12" text="전체 삭제&#13;&#10;(복구안됨)" left="425" top="85" width="100" height="30"/>
-        <Button id="btnCopy" taborder="13" text="전체 복사(전환)" left="5" top="465" width="100" height="30"/>
-        <Button id="btnCopyRow" taborder="14" text="행 복사" left="5" top="430" width="100" height="30"/>
-        <Button id="btnCopy2" taborder="15" text="필터 복사" left="365" top="465" width="100" height="30" onclick="btnCopy2_onclick"/>
-        <View id="View01" taborder="16" text="View01" viewdataset="viewdataset" left="5" top="501" width="600" height="205">
+      <Layout height="1870" width="480">
+        <Button id="btnAdd" taborder="1" text="마지막행 추가" left="20" top="60" width="145" height="60"/>
+        <Button id="btnAdd2" taborder="2" text="첫행 추가" left="175" top="60" width="109" height="60"/>
+        <Button id="btnAdd3" taborder="3" text="현재위치에 추가" left="294" top="60" width="163" height="60"/>
+        <Button id="btnDel" taborder="4" text="현재 행삭제" left="20" top="130" width="127" height="60"/>
+        <Button id="btnCopy4" taborder="19" text="필터 복사(추가)" left="139" top="1088" width="158" height="60" onclick="btnCopy4_onclick"/>
+        <View id="View01" taborder="16" text="View01" viewdataset="viewdataset" left="20" top="btnCopy4:10" height="418" right="20">
           <Layouts>
             <Layout>
               <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset">
                 <Formats>
                   <Format id="default">
                     <Columns>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
+                      <Column size="80"/>
+                      <Column size="120"/>
+                      <Column size="120"/>
+                      <Column size="120"/>
+                      <Column size="120"/>
+                      <Column size="120"/>
                     </Columns>
                     <Rows>
-                      <Row size="30" band="head"/>
-                      <Row size="30" band="body"/>
+                      <Row size="58" band="head"/>
+                      <Row size="58"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_Check" col="0" row="0" text="선택"/>
-                      <Cell id="cell_Company" col="1" row="0" text="회사명"/>
-                      <Cell id="cell_Department" col="2" row="0" text="부서명"/>
-                      <Cell id="cell_Name" col="3" row="0" text="성명"/>
-                      <Cell id="cell_Phone" col="4" row="0" text="전화번호"/>
-                      <Cell id="cell_Email" col="5" row="0" text="이메일주소"/>
+                      <Cell id="cell_Check" text="선택"/>
+                      <Cell col="1" id="cell_Company" text="회사명"/>
+                      <Cell col="2" id="cell_Department" text="부서명"/>
+                      <Cell col="3" id="cell_Name" text="성명"/>
+                      <Cell col="4" id="cell_Phone" text="전화번호"/>
+                      <Cell col="5" id="cell_Email" text="이메일주소"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_Check" col="0" row="0" text="bind:Check" displaytype="checkboxcontrol" edittype="checkbox"/>
-                      <Cell id="cell_Company" col="1" row="0" text="bind:Company" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Department" col="2" row="0" text="bind:Department" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Name" col="3" row="0" text="bind:Name" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Phone" col="4" row="0" text="bind:Phone" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Email" col="5" row="0" text="bind:Email" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Check" text="bind:Check" displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell col="1" id="cell_Company" text="bind:Company" displaytype="normal" edittype="normal"/>
+                      <Cell col="2" id="cell_Department" text="bind:Department" displaytype="normal" edittype="normal"/>
+                      <Cell col="3" id="cell_Name" text="bind:Name" displaytype="normal" edittype="normal"/>
+                      <Cell col="4" id="cell_Phone" text="bind:Phone" displaytype="normal" edittype="normal"/>
+                      <Cell col="5" id="cell_Email" text="bind:Email" displaytype="normal" edittype="normal"/>
                     </Band>
-                    <Band id="summary"/>
                   </Format>
                 </Formats>
               </Grid>
@@ -93,44 +82,49 @@
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
-        <Edit id="Edit00" taborder="17" left="215" top="465" width="145" height="30" value="Department=='부서1'" text="Department=='부서1'"/>
-        <Button id="btnCopy3" taborder="18" text="전체 복사(추가)" left="110" top="465" width="100" height="30"/>
-        <Button id="btnCopy4" taborder="19" text="필터 복사(추가)" left="470" top="465" width="100" height="30" onclick="btnCopy4_onclick"/>
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="5" top="159" width="600" height="258">
+        <TextArea id="txtOutput" taborder="5" left="20" top="View01:20" right="20" height="330"/>
+        <Button id="btnDel2" taborder="6" text="선택된 행삭제" left="157" top="130" width="145" height="60"/>
+        <Button id="btnDel3" taborder="7" text="체크된 행삭제" left="312" top="130" width="145" height="60"/>
+        <Static id="Static00" taborder="23" text="데이터" left="20" top="10" height="40" cssclass="sta_WF_title02" width="79" fittocontents="width"/>
+        <CheckBox id="chkOnCanEvent" taborder="8" text="canrun 반환값" left="Static00:10" top="10" width="100" height="40" value="true"/>
+        <Button id="btnDel4" taborder="9" text="전체 삭제" left="20" top="270" width="109" height="60"/>
+        <Button id="btnReset" taborder="10" text="현재 행 복구" left="20" top="340" width="133" height="60"/>
+        <Button id="btnReset2" taborder="11" text="전체 복구" left="163" top="340" width="109" height="60"/>
+        <Button id="btnDel5" taborder="12" text="전체 삭제&#13;&#10;(복구안됨)" left="139" top="270" width="115" height="60"/>
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="20" top="490" height="418" right="20">
           <Layouts>
             <Layout>
-              <Grid id="grdList" left="0" top="32" right="0" bottom="0" binddataset="viewdataset" selecttype="multirow">
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" selecttype="multirow">
                 <Formats>
                   <Format id="default">
                     <Columns>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
+                      <Column size="80"/>
+                      <Column size="120"/>
+                      <Column size="120"/>
+                      <Column size="120"/>
+                      <Column size="120"/>
+                      <Column size="120"/>
                     </Columns>
                     <Rows>
-                      <Row size="30" band="head"/>
-                      <Row size="30" band="body"/>
+                      <Row size="58" band="head"/>
+                      <Row size="58"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_Check" col="0" row="0" text="선택"/>
-                      <Cell id="cell_Company" col="1" row="0" text="회사명"/>
-                      <Cell id="cell_Department" col="2" row="0" text="부서명"/>
-                      <Cell id="cell_Name" col="3" row="0" text="성명"/>
-                      <Cell id="cell_Phone" col="4" row="0" text="전화번호"/>
-                      <Cell id="cell_Email" col="5" row="0" text="이메일주소"/>
+                      <Cell id="cell_Check" text="선택"/>
+                      <Cell col="1" id="cell_Company" text="회사명"/>
+                      <Cell col="2" id="cell_Department" text="부서명"/>
+                      <Cell col="3" id="cell_Name" text="성명"/>
+                      <Cell col="4" id="cell_Phone" text="전화번호"/>
+                      <Cell col="5" id="cell_Email" text="이메일주소"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_Check" col="0" row="0" text="bind:Check" displaytype="checkboxcontrol" edittype="checkbox"/>
-                      <Cell id="cell_Company" col="1" row="0" text="bind:Company" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Department" col="2" row="0" text="bind:Department" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Name" col="3" row="0" text="bind:Name" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Phone" col="4" row="0" text="bind:Phone" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_Email" col="5" row="0" text="bind:Email" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_Check" text="bind:Check" displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell col="1" id="cell_Company" text="bind:Company" displaytype="normal" edittype="normal"/>
+                      <Cell col="2" id="cell_Department" text="bind:Department" displaytype="normal" edittype="normal"/>
+                      <Cell col="3" id="cell_Name" text="bind:Name" displaytype="normal" edittype="normal"/>
+                      <Cell col="4" id="cell_Phone" text="bind:Phone" displaytype="normal" edittype="normal"/>
+                      <Cell col="5" id="cell_Email" text="bind:Email" displaytype="normal" edittype="normal"/>
                     </Band>
-                    <Band id="summary"/>
                   </Format>
                 </Formats>
               </Grid>
@@ -194,11 +188,16 @@
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
-        <Edit id="Edit01" taborder="20" left="5" top="155" width="145" height="30" value="Department=='부서1'" text="Department=='부서1'"/>
-        <Button id="btnFilter" taborder="21" text="필터" left="155" top="155" width="100" height="30"/>
-        <Button id="btnFilter2" taborder="22" text="필터 풀기" left="260" top="155" width="100" height="30"/>
-        <Button id="btnCheck" taborder="23" text="변경여부체크" left="215" top="120" width="100" height="30"/>
-        <Button id="btnCheck2" taborder="24" text="변경여부체크&#13;&#10;(필터데이터포함)" left="320" top="120" width="100" height="30"/>
+        <Button id="btnCopy" taborder="13" text="전체 복사(전환)" left="121" top="View00:30" width="158" height="60"/>
+        <Button id="btnCopyRow" taborder="14" text="행 복사" left="20" top="View00:30" width="91" height="60"/>
+        <Edit id="Edit00" taborder="17" left="20" top="btnCopy:20" height="60" value="Department=='부서1'" text="Department=='부서1'" right="20"/>
+        <Button id="btnCopy2" taborder="15" text="필터 복사" left="20" top="Edit00:10" width="109" height="60" onclick="btnCopy2_onclick"/>
+        <Button id="btnCopy3" taborder="18" text="전체 복사(추가)" left="289" top="View00:30" width="158" height="60"/>
+        <Edit id="Edit01" taborder="20" left="20" top="410" width="214" height="60" value="Department=='부서1'" text="Department=='부서1'"/>
+        <Button id="btnFilter" taborder="21" text="필터" left="244" top="410" width="66" height="60"/>
+        <Button id="btnFilter2" taborder="22" text="필터 풀기" left="320" top="410" width="109" height="60"/>
+        <Button id="btnCheck" taborder="24" text="변경여부체크" left="20" top="200" width="138" height="60"/>
+        <Button id="btnCheck2" taborder="25" text="변경여부체크&#13;&#10;(필터데이터포함)" left="168" top="200" width="169" height="60"/>
       </Layout>
     </Layouts>
     <Objects>

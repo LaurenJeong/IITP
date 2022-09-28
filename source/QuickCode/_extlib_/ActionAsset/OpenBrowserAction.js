@@ -33,7 +33,7 @@ if (!nexacro.OpenBrowserAction)
 		var bNewWindow = this.newwindow;
 		
         //canrun 이벤트의 리턴값이 false가 아닐경우
-		if(this.on_fire_canrun("userdata")!=false)
+		if(this.on_fire_canrun()!=false)
 		{
 			if (this.gfnIsNull(sUrl))
 			{

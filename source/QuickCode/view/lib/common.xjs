@@ -965,7 +965,7 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 		sScript += "	var objView = objForm.parent;";
 		sScript += "	";
 		sScript += "	if (sStatus == 'close') {";
-		sScript += "		objView.set_height('" + this.TITLE_AREA_HEIGHT + "');";
+		sScript += "		objView.set_height('" + this.VIEW_PADDING_TOP + "');";
 		sScript += "		objView.set_formscrolltype('none');";
 		sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');";
 		sScript += "	} else {";
