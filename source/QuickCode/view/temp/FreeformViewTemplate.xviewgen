@@ -806,6 +806,8 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 		//Import Field Information registered on the Model based on the Fields connected to the Cell
 		sFieldId =  arrFieldInCellList[j];
 		oField = arrFieldList.filter(arrFieldList=>arrFieldList.id==sFieldId)[0];
+		
+		if (this.lfn_IsNull(oField))	continue;
 
 		//Import Label Width Information set on the first Field
 		if(j==0)nLabelWidth = nexacro.toNumber(oField.labelwidth);
