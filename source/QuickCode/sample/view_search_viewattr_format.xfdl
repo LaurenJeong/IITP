@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="view_search_viewattr_format" width="1280" height="720" titletext="format">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <TextArea id="txaInfo" taborder="2" left="0" top="70" height="50" right="10" value="- format : Layout을 설정하기 위한 속성&#10;- format을 설정할 경우 direction, halign, valign 속성은 무시됩니다." readonly="true"/>
+        <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="1" text="설명" left="0" top="40" height="30" cssclass="sta_WF_title02" right="400"/>
+        <Static id="Static00_00_01" taborder="5" text="format" left="0" top="txaInfo:20" width="550" height="25" cssclass="sta_WF_notice01"/>
+        <View id="View01" taborder="3" viewdataset="viewdataset" left="0" top="Static00_00_01:0" width="550" height="160" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_WF_search" text="Search"/>
+              <Static id="staCompanyLabel" left="10" top="15" width="95" height="31" text="회사명" cssclass="sta_WF_label"/>
+              <Edit id="edtCompany" left="110" top="15" width="100" height="30"/>
+              <Static id="staDepartmentLabel" left="210" top="15" width="95" height="31" text="부서명" cssclass="sta_WF_label"/>
+              <Edit id="edtDepartment" left="310" top="15" width="100" height="30"/>
+              <Static id="staNameLabel" left="10" top="55" width="95" height="31" text="성명" cssclass="sta_WF_label"/>
+              <Edit id="edtName" left="110" top="55" width="100" height="30"/>
+              <Static id="staPhoneLabel" left="210" top="55" width="95" height="31" text="전화번호" cssclass="sta_WF_label"/>
+              <Edit id="edtPhone" left="310" top="55" width="100" height="30"/>
+              <Static id="staEmailLabel" left="10" top="95" width="95" height="30" text="이메일주소" cssclass="sta_WF_label"/>
+              <Edit id="edtEmail" left="110" top="95" width="100" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtCompany" compid="edtCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_edtDepartment" compid="edtDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="SearchModel001" filepath="sample\Search.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Department" description="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Phone" description="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Email" description="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="edtCompany" fields="Company"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="edtDepartment" fields="Department"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
+            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+            <Attribute id="format" value="{&quot;columnsize&quot;:[200,200],&quot;rowsize&quot;:[40,40,40],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Company&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Department&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Name&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Phone&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Email&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;}]}"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="Static00_00_01_00" taborder="6" text="format | merge | searchbuttontype='full'" left="565" top="txaInfo:20" width="550" height="25" cssclass="sta_WF_notice01"/>
+        <View id="View02" taborder="4" text="View02" viewdataset="viewdataset" left="565" top="Static00_00_01_00:0" width="550" height="160">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
+              <Button id="btnSearch" top="10" width="100" right="10" bottom="10" cssclass="btn_WF_search" text="Search"/>
+              <Static id="staCompanyLabel" left="10" top="15" width="95" height="31" text="회사명" cssclass="sta_WF_label"/>
+              <Edit id="edtCompany" left="110" top="15" width="100" height="30"/>
+              <Static id="staDepartmentLabel" left="210" top="15" width="95" height="31" text="부서명" cssclass="sta_WF_label"/>
+              <Edit id="edtDepartment" left="310" top="15" width="100" height="30"/>
+              <Static id="staNameLabel" left="10" top="55" width="95" height="31" text="성명" cssclass="sta_WF_label"/>
+              <Edit id="edtName" left="110" top="55" width="100" height="30"/>
+              <Static id="staPhoneLabel" left="215" top="55" width="95" height="31" text="전화번호" cssclass="sta_WF_label"/>
+              <Edit id="edtPhone" left="315" top="55" width="100" height="30"/>
+              <Static id="staEmailLabel" left="10" top="95" width="95" height="30" text="이메일주소" cssclass="sta_WF_label"/>
+              <Edit id="edtEmail" left="110" top="95" width="100" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtCompany" compid="edtCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_edtDepartment" compid="edtDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="SearchModel001" filepath="sample\Search.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Department" description="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Phone" description="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="Email" description="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="edtCompany" fields="Company"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="edtDepartment" fields="Department"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="full"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
+            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+            <Attribute id="format" value="{&quot;columnsize&quot;:[200,200],&quot;rowsize&quot;:[40,40,40],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Company&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Department&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Name&quot;,&quot;Phone&quot;],&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Email&quot;],&quot;colspan&quot;:&quot;2&quot;}]}"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

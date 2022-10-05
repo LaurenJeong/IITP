@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="view_search_fieldattr_comptype" width="1080" height="850" titletext="comptype">
+    <Layouts>
+      <Layout height="850" width="1080">
+        <TextArea id="txaInfo" taborder="3" left="0" top="70" height="40" right="10" value="- comptype : 필드에 표현 할 컴포넌트 타입" readonly="true"/>
+        <Grid id="Grid00" taborder="7" left="0" top="150" width="375" height="243" binddataset="dsFieldUserAttribute" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="200"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="id"/>
+                <Cell col="1" text="label"/>
+                <Cell col="2" text="comptype"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:id"/>
+                <Cell col="1" text="bind:label"/>
+                <Cell col="2" text="bind:comptype"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00_00" taborder="0" text="direction, halign, valign" left="0" top="Grid00:10" width="500" height="25" cssclass="sta_WF_notice01"/>
+        <Div id="divTitle" taborder="1" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="2" text="설명" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
+        <View id="View00" taborder="4" viewdataset="viewdataset" left="0" top="Static00_00:0" width="500" height="396" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_WF_search" text="Search"/>
+              <Static id="staTextLabel" left="10" top="10" width="95" height="30" text="TEXT" cssclass="sta_WF_label"/>
+              <Edit id="edtText" left="110" top="10" width="260" height="30"/>
+              <Static id="staTextareaLabel" left="10" top="45" width="95" height="30" text="TEXTAREA" cssclass="sta_WF_label"/>
+              <TextArea id="txtTextarea" left="110" top="45" width="260" height="30"/>
+              <Static id="staCheckLabel" left="10" top="80" width="95" height="30" text="CHECK" cssclass="sta_WF_label"/>
+              <CheckBox id="chkCheck" left="110" top="80" width="260" height="30" text="CHECK"/>
+              <Static id="staComboLabel" left="10" top="115" width="95" height="30" text="COMBO" cssclass="sta_WF_label"/>
+              <Combo id="cmbCombo" left="110" top="115" width="260" height="30"/>
+              <Static id="staDateLabel" left="10" top="150" width="95" height="30" text="DATE" cssclass="sta_WF_label"/>
+              <Calendar id="calDate" left="110" top="150" width="260" height="30"/>
+              <Static id="staDecotextLabel" left="10" top="185" width="95" height="30" text="DECOTEXT" cssclass="sta_WF_label"/>
+              <Static id="staDecotext_1" left="110" top="185" width="260" height="30" text="DECOTEXT"/>
+              <Static id="staNumberLabel" left="10" top="220" width="95" height="30" text="NUMBER" cssclass="sta_WF_label"/>
+              <MaskEdit id="mskNumber" left="110" top="220" width="260" height="30"/>
+              <Static id="staCurrencyLabel" left="10" top="255" width="95" height="30" text="CURRENCY" cssclass="sta_WF_label"/>
+              <Spin id="spnCurrency" left="110" top="255" width="260" height="30"/>
+              <Static id="staImageLabel" left="10" top="290" width="95" height="30" text="IMAGE" cssclass="sta_WF_label"/>
+              <ImageViewer id="imgImage" left="110" top="290" width="260" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="TEXT" type="STRING" size="80" description="TEXT"/>
+                <Column id="TEXTAREA" type="STRING" size="80" description="TEXTAREA"/>
+                <Column id="CHECK" type="STRING" size="80" description="CHECK"/>
+                <Column id="COMBO" type="STRING" size="80" description="COMBO"/>
+                <Column id="DATE" type="DATE" size="80" description="DATE"/>
+                <Column id="DECOTEXT" type="STRING" size="80" description="DECOTEXT"/>
+                <Column id="NUMBER" type="BIGDECIMAL" size="80" description="NUMBER"/>
+                <Column id="CURRENCY" type="BIGDECIMAL" size="80" description="CURRENCY"/>
+                <Column id="IMAGE" type="STRING" size="80" description="IMAGE"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtText" compid="edtText" propid="value" datasetid="viewdataset" columnid="TEXT"/>
+            <BindItem id="bind_txtTextarea" compid="txtTextarea" propid="value" datasetid="viewdataset" columnid="TEXTAREA"/>
+            <BindItem id="bind_chkCheck" compid="chkCheck" propid="value" datasetid="viewdataset" columnid="CHECK"/>
+            <BindItem id="bind_cmbCombo" compid="cmbCombo" propid="value" datasetid="viewdataset" columnid="COMBO"/>
+            <BindItem id="bind_calDate" compid="calDate" propid="value" datasetid="viewdataset" columnid="DATE"/>
+            <BindItem id="bind_staDecotext_1" compid="staDecotext_1" propid="value" datasetid="viewdataset" columnid="DECOTEXT"/>
+            <BindItem id="bind_mskNumber" compid="mskNumber" propid="value" datasetid="viewdataset" columnid="NUMBER"/>
+            <BindItem id="bind_spnCurrency" compid="spnCurrency" propid="value" datasetid="viewdataset" columnid="CURRENCY"/>
+            <BindItem id="bind_imgImage" compid="imgImage" propid="value" datasetid="viewdataset" columnid="IMAGE"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel002" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="TEXT" description="" comptype="edit" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="TEXTAREA" description="" comptype="textarea" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="CHECK" description="" comptype="checkbox" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="COMBO" description="" comptype="combo" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="DATE" description="" comptype="calendar" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="DECOTEXT" description="" comptype="static" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="NUMBER" description="" comptype="maskedit" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="CURRENCY" description="" comptype="spin" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="IMAGE" description="" comptype="imageviewer" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staTextLabel" fields="TEXT"/>
+              <Component id="edtText" fields="TEXT"/>
+              <Component id="staTextareaLabel" fields="TEXTAREA"/>
+              <Component id="txtTextarea" fields="TEXTAREA"/>
+              <Component id="staCheckLabel" fields="CHECK"/>
+              <Component id="chkCheck" fields="CHECK"/>
+              <Component id="staComboLabel" fields="COMBO"/>
+              <Component id="cmbCombo" fields="COMBO"/>
+              <Component id="staDateLabel" fields="DATE"/>
+              <Component id="calDate" fields="DATE"/>
+              <Component id="staDecotextLabel" fields="DECOTEXT"/>
+              <Component id="staDecotext_1" fields="DECOTEXT"/>
+              <Component id="staNumberLabel" fields="NUMBER"/>
+              <Component id="mskNumber" fields="NUMBER"/>
+              <Component id="staCurrencyLabel" fields="CURRENCY"/>
+              <Component id="spnCurrency" fields="CURRENCY"/>
+              <Component id="staImageLabel" fields="IMAGE"/>
+              <Component id="imgImage" fields="IMAGE"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
+            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="Static00_00_00" taborder="5" text="format" left="550" top="Grid00:10" width="500" height="25" cssclass="sta_WF_notice01"/>
+        <View id="View01" taborder="6" text="View01" viewdataset="viewdataset" left="550" top="Static00_00_00:0" width="500" height="396" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
+              <Button id="btnSearch" top="10" width="100" right="10" bottom="10" cssclass="btn_WF_search" text="Search"/>
+              <Static id="staTextLabel" left="10" top="15" width="95" height="31" text="TEXT" cssclass="sta_WF_label"/>
+              <Edit id="edtText" left="110" top="15" width="80" height="30"/>
+              <Static id="staTextareaLabel" left="190" top="15" width="95" height="31" text="TEXTAREA" cssclass="sta_WF_label"/>
+              <TextArea id="txtTextarea" left="290" top="15" width="80" height="30"/>
+              <Static id="staCheckLabel" left="10" top="55" width="95" height="31" text="CHECK" cssclass="sta_WF_label"/>
+              <CheckBox id="chkCheck" left="110" top="55" width="80" height="30" text="CHECK"/>
+              <Static id="staComboLabel" left="190" top="55" width="95" height="31" text="COMBO" cssclass="sta_WF_label"/>
+              <Combo id="cmbCombo" left="290" top="55" width="80" height="30"/>
+              <Static id="staDateLabel" left="10" top="95" width="95" height="31" text="DATE" cssclass="sta_WF_label"/>
+              <Calendar id="calDate" left="110" top="95" width="80" height="30"/>
+              <Static id="staDecotextLabel" left="190" top="95" width="95" height="31" text="DECOTEXT" cssclass="sta_WF_label"/>
+              <Static id="staDecotext_1" left="290" top="95" width="80" height="30" text="DECOTEXT"/>
+              <Static id="staNumberLabel" left="10" top="135" width="95" height="31" text="NUMBER" cssclass="sta_WF_label"/>
+              <MaskEdit id="mskNumber" left="110" top="135" width="80" height="30"/>
+              <Static id="staCurrencyLabel" left="190" top="135" width="95" height="31" text="CURRENCY" cssclass="sta_WF_label"/>
+              <Spin id="spnCurrency" left="290" top="135" width="80" height="30"/>
+              <Static id="staImageLabel" left="10" top="170" width="95" height="60" text="IMAGE" cssclass="sta_WF_label"/>
+              <ImageViewer id="imgImage" left="110" top="170" width="260" height="60"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="TEXT" type="STRING" size="80" description="TEXT"/>
+                <Column id="TEXTAREA" type="STRING" size="80" description="TEXTAREA"/>
+                <Column id="CHECK" type="STRING" size="80" description="CHECK"/>
+                <Column id="COMBO" type="STRING" size="80" description="COMBO"/>
+                <Column id="DATE" type="DATE" size="80" description="DATE"/>
+                <Column id="DECOTEXT" type="STRING" size="80" description="DECOTEXT"/>
+                <Column id="NUMBER" type="BIGDECIMAL" size="80" description="NUMBER"/>
+                <Column id="CURRENCY" type="BIGDECIMAL" size="80" description="CURRENCY"/>
+                <Column id="IMAGE" type="STRING" size="80" description="IMAGE"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtText" compid="edtText" propid="value" datasetid="viewdataset" columnid="TEXT"/>
+            <BindItem id="bind_txtTextarea" compid="txtTextarea" propid="value" datasetid="viewdataset" columnid="TEXTAREA"/>
+            <BindItem id="bind_chkCheck" compid="chkCheck" propid="value" datasetid="viewdataset" columnid="CHECK"/>
+            <BindItem id="bind_cmbCombo" compid="cmbCombo" propid="value" datasetid="viewdataset" columnid="COMBO"/>
+            <BindItem id="bind_calDate" compid="calDate" propid="value" datasetid="viewdataset" columnid="DATE"/>
+            <BindItem id="bind_staDecotext_1" compid="staDecotext_1" propid="value" datasetid="viewdataset" columnid="DECOTEXT"/>
+            <BindItem id="bind_mskNumber" compid="mskNumber" propid="value" datasetid="viewdataset" columnid="NUMBER"/>
+            <BindItem id="bind_spnCurrency" compid="spnCurrency" propid="value" datasetid="viewdataset" columnid="CURRENCY"/>
+            <BindItem id="bind_imgImage" compid="imgImage" propid="value" datasetid="viewdataset" columnid="IMAGE"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel002" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="TEXT" description="" comptype="edit" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="TEXTAREA" description="" comptype="textarea" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="CHECK" description="" comptype="checkbox" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="COMBO" description="" comptype="combo" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="DATE" description="" comptype="calendar" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="DECOTEXT" description="" comptype="static" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="NUMBER" description="" comptype="maskedit" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="CURRENCY" description="" comptype="spin" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="IMAGE" description="" comptype="imageviewer" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staTextLabel" fields="TEXT"/>
+              <Component id="edtText" fields="TEXT"/>
+              <Component id="staTextareaLabel" fields="TEXTAREA"/>
+              <Component id="txtTextarea" fields="TEXTAREA"/>
+              <Component id="staCheckLabel" fields="CHECK"/>
+              <Component id="chkCheck" fields="CHECK"/>
+              <Component id="staComboLabel" fields="COMBO"/>
+              <Component id="cmbCombo" fields="COMBO"/>
+              <Component id="staDateLabel" fields="DATE"/>
+              <Component id="calDate" fields="DATE"/>
+              <Component id="staDecotextLabel" fields="DECOTEXT"/>
+              <Component id="staDecotext_1" fields="DECOTEXT"/>
+              <Component id="staNumberLabel" fields="NUMBER"/>
+              <Component id="mskNumber" fields="NUMBER"/>
+              <Component id="staCurrencyLabel" fields="CURRENCY"/>
+              <Component id="spnCurrency" fields="CURRENCY"/>
+              <Component id="staImageLabel" fields="IMAGE"/>
+              <Component id="imgImage" fields="IMAGE"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="full"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
+            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+            <Attribute id="format" value="{&quot;columnsize&quot;:[180,180],&quot;rowsize&quot;:[40,40,40,40,60],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;TEXT&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;TEXTAREA&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;CHECK&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;COMBO&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;DATE&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;DECOTEXT&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;3&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;NUMBER&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;3&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;CURRENCY&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;4&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;IMAGE&quot;],&quot;colspan&quot;:&quot;2&quot;}]}"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="staFieldUserAttribute" taborder="8" text="Field User Attribute" left="0" top="txaInfo:10" height="30" cssclass="sta_WF_title02" right="10"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsFieldUserAttribute">
+        <ColumnInfo>
+          <Column id="id" type="STRING" size="256"/>
+          <Column id="label" type="STRING" size="256"/>
+          <Column id="comptype" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="id">TEXT</Col>
+            <Col id="label">TEXT</Col>
+            <Col id="comptype">edit</Col>
+          </Row>
+          <Row>
+            <Col id="id">TEXTAREA</Col>
+            <Col id="label">TEXTAREA</Col>
+            <Col id="comptype">textarea</Col>
+          </Row>
+          <Row>
+            <Col id="id">CHECK</Col>
+            <Col id="label">CHECK</Col>
+            <Col id="comptype">checkbox</Col>
+          </Row>
+          <Row>
+            <Col id="id">COMBO</Col>
+            <Col id="label">COMBO</Col>
+            <Col id="comptype">combo</Col>
+          </Row>
+          <Row>
+            <Col id="id">DATE</Col>
+            <Col id="label">DATE</Col>
+            <Col id="comptype">calendar</Col>
+          </Row>
+          <Row>
+            <Col id="id">DECOTEXT</Col>
+            <Col id="label">DECOTEXT</Col>
+            <Col id="comptype">static</Col>
+          </Row>
+          <Row>
+            <Col id="id">NUMBER</Col>
+            <Col id="label">NUMBER</Col>
+            <Col id="comptype">maskedit</Col>
+          </Row>
+          <Row>
+            <Col id="id">CURRENCY</Col>
+            <Col id="label">CURRENCY</Col>
+            <Col id="comptype">spin</Col>
+          </Row>
+          <Row>
+            <Col id="id">IMAGE</Col>
+            <Col id="label">IMAGE</Col>
+            <Col id="comptype">imageviewer</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
