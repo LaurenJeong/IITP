@@ -3,7 +3,7 @@
   <Form id="test_action_db" width="1120" height="650" titletext="tran 테스트">
     <Layouts>
       <Layout height="650" width="1120">
-        <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="10" top="50" height="50" width="750">
+        <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="10" top="100" height="50" width="750">
           <Layouts>
             <Layout>
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
@@ -60,7 +60,7 @@
             <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
           </ViewTemplateInfo>
         </View>
-        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="10" top="viewSearch:10" bottom="10" width="750">
+        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="10" top="viewSearch:10" bottom="-40" width="750">
           <Layouts>
             <Layout>
               <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset">
@@ -141,12 +141,13 @@
             <Attribute id="summbandsize" value="30"/>
           </ViewTemplateInfo>
         </View>
-        <TextArea id="txtOutput" taborder="2" top="50" right="10" bottom="10" left="770"/>
-        <Static id="staTitle" left="10" top="10" height="30" width="77" text="데이터조회" fittocontents="width" cssclass="sta_WF_subtitle" taborder="4"/>
-        <CheckBox id="chkOnCanEvent" taborder="3" text="Action 실행여부" left="staTitle:10" top="5" width="116" height="40" value="true" fittocontents="width"/>
-        <Edit id="edtArg" taborder="5" left="294" top="10" width="100" height="30" value="datacnt=100" text="datacnt=100"/>
-        <Button id="btnSetArg" taborder="6" text="arg 설정" left="400" top="10" width="89" height="30" onclick="btnSetArg_onclick"/>
-        <Button id="btnError" taborder="7" text="Tran Error" left="529" top="10" width="100" height="30"/>
+        <TextArea id="txtOutput" taborder="2" top="100" right="10" bottom="-40" left="770"/>
+        <Static id="staTitle" left="10" top="60" height="30" width="77" text="데이터조회" fittocontents="width" cssclass="sta_WF_subtitle" taborder="4"/>
+        <CheckBox id="chkOnCanEvent" taborder="3" text="Action 실행여부" left="staTitle:10" top="55" width="116" height="40" value="true" fittocontents="width"/>
+        <Edit id="edtArg" taborder="5" left="294" top="60" width="100" height="30" value="datacnt=100" text="datacnt=100"/>
+        <Button id="btnSetArg" taborder="6" text="arg 설정" left="400" top="60" width="89" height="30" onclick="btnSetArg_onclick"/>
+        <Button id="btnError" taborder="7" text="Tran Error" left="529" top="60" width="100" height="30"/>
+        <Div id="divTitle" taborder="8" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
       </Layout>
     </Layouts>
     <Objects>
