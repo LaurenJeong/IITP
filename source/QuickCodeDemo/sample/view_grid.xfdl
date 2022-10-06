@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="view_grid" width="1080" height="810" titletext="GridViewTemplate" cssclass="sta_WF_notice01">
+    <Layouts>
+      <Layout height="810" mobileorientation="landscape" width="1080">
+        <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="7" text="Grid 영역을 구성하기 위한 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="210" right="10" value="- 모델의 레이블 정보는 Head Band 구성에 활용&#10;- 모델의 필드 정보는 Body Band 구성에 활용&#10;- 모델의 필드, SumProp 정보로 Summ Band 구성&#10;- Head, Body, Summ을 다르게 구성할 경우를 위해 Head, Body, Summ 레이아웃을 각각 지정할 수 있도록 구성&#10;- 레이아웃을 미 지정했을 경우 Head, Body, Summ Band를 각각 1Row로 구성&#10;- View Attribute 중 head/body/summ bandsize를 -1설정 했을 경우 해당 밴드 생성 안함&#10;- Body 레이아웃을 미 지정했을 경우 Head 레이아웃을 이용하여 구성&#10;- 레이아웃 지정 시 Field 연결 없이 Text를 표현 해야 할 경우를 위해 Layout에 text UserProperty 추가&#10;- text expr를 사용하고자 하는 경우 레이아웃 UserProperty text를 활용&#10;- 레이아웃 Cell에 한 개 이상의 Field가 연결되었을 경우 Field + Field 형태로 표현&#10;    ex) Head의 경우 레이블 + 레이블&#10;    Body의 경우 expr:필드명 + 필드명(displaytype : normal, edittype : none)&#10;    Summ의 경우 expr:SummProp(필드명) + SummProp(필드명)" readonly="true"/>
+        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="340" height="165" right="10" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="상세내역" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                    <Static id="staTotCnt" left="staTitle:5" top="0" height="30" width="50" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_total_count"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="150" band="body"/>
+                      <Column size="150" band="body"/>
+                      <Column size="150" band="body"/>
+                      <Column size="200" band="body"/>
+                      <Column size="300" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_Company" col="0" row="0" text="회사명"/>
+                      <Cell id="cell_Department" col="1" row="0" text="부서명"/>
+                      <Cell id="cell_Name" col="2" row="0" text="성명"/>
+                      <Cell id="cell_Phone" col="3" row="0" text="전화번호"/>
+                      <Cell id="cell_Email" col="4" row="0" text="이메일주소"/>
+                      <Cell id="cell_Check" col="5" row="0" text="선택"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_Company" col="0" row="0" text="bind:Company" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_Department" col="1" row="0" text="bind:Department" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_Name" col="2" row="0" text="bind:Name" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_Phone" col="3" row="0" text="bind:Phone" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_Email" col="4" row="0" text="bind:Email" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_Check" col="5" row="0" text="bind:Check" displaytype="checkboxcontrol" edittype="checkbox"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+                <Column id="Check" type="STRING" size="80" description="선택"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Department" description="" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Name" description="" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Phone" description="" displaytype="normal" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Email" description="" displaytype="normal" edittype="none" fieldwidth="300" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Check" description="" displaytype="checkboxcontrol" edittype="checkbox" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="Company,Department,Name,Phone,Email,Check"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="상세내역"/>
+            <Attribute id="usetotalcount" value="true"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="253" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="165" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00_00_00" taborder="8" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsViewAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">titletext</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">Title Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">usetotalcount</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">Title영역에서 전체건수 Static 표시여부</Col>
+          </Row>
+          <Row>
+            <Col id="ID">headbandsize</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">Head Band의 기본 높이
+-1 설정 시 Head Band 생성 안함</Col>
+          </Row>
+          <Row>
+            <Col id="ID">bodybandsize</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">Body Band의 기본 높이
+-1 설정 시 Body Band 생성 안함</Col>
+          </Row>
+          <Row>
+            <Col id="ID">summbandsize</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">Summ Band의 기본 높이
+-1 설정 시 Summ Band 생성 안함</Col>
+          </Row>
+          <Row>
+            <Col id="ID">headformat</Col>
+            <Col id="TYPE">Layout</Col>
+            <Col id="DESCPTION">Head 영역의 Layout을 설정하기 위한 속성</Col>
+          </Row>
+          <Row>
+            <Col id="ID">bodyformat</Col>
+            <Col id="TYPE">Layout</Col>
+            <Col id="DESCPTION">Body 영역의 Layout을 설정하기 위한 속성</Col>
+          </Row>
+          <Row>
+            <Col id="ID">summformat</Col>
+            <Col id="TYPE">Layout</Col>
+            <Col id="DESCPTION">Summ 영역의 Layout을 설정하기 위한 속성</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsFieldUserAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">displaytype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">normal  | none | buttoncontrol…</Col>
+            <Col id="DESCPTION">Body Band Cell의 displaytype을 설정하기 위한 속성</Col>
+          </Row>
+          <Row>
+            <Col id="ID">edittype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">normal  | none | button | checkbox…</Col>
+            <Col id="DESCPTION">Body Band Cell의 edittype을 설정하기 위한 속성</Col>
+          </Row>
+          <Row>
+            <Col id="ID">fieldwidth</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">Col Size 설정을 위한 속성</Col>
+          </Row>
+          <Row>
+            <Col id="ID">cssclass</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">컴포넌트 생성시 사용할 CSS Class Id</Col>
+          </Row>
+          <Row>
+            <Col id="ID">summprop</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">Summ Band Cell에 필드 표현 시 사용할 집계 함수를 설정하는 속성</Col>
+            <Col id="TYPE_VALUE">none | avg | count | max | min | sum</Col>
+          </Row>
+          <Row>
+            <Col id="ID">usecomp</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">Cell 생성 여부</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

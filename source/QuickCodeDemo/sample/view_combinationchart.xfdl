@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="view_barchart" width="1080" height="810" titletext="CombinationChartViewTemplate" cssclass="sta_WF_notice01" onload="view_barchart_onload">
+    <Layouts>
+      <Layout height="810" mobileorientation="landscape" width="1080">
+        <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="7" text="막대그래프(Bar Chart)를 그려주는 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="Static00" taborder="10" text="- ColumnChart : 세로 막대그래프&#13;&#10;- BarChart : 가로 막대그래프" left="13" top="Static00_00:0" height="28" cssclass="sta_WF_notice02" width="1050" fittocontents="height"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00:5" height="210" right="10" readonly="true" value="- ColumnChart : 세로 막대그래프&#10;- BarChart : 가로 막대그래프"/>
+        <Static id="Static00_00_00" taborder="8" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="165" right="10" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Arial,Malgun Gothic,Gulim'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Arial'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt '맑은 고딕'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : "true",
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "0px none",
+										"visible" : true,
+										"align" : "rightcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal '맑은 고딕'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 8pt '맑은 고딕'",
+										"titletextalign" : "high",
+										"titlegap" : "5",
+										"labeltextcolor" : "#6f6f6f",
+										"labeltextfont" : "9pt '맑은 고딕'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal '맑은 고딕'",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 8pt '맑은 고딕'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"barvisible" : true,
+											"barsize" : "75",
+											"barlinestyle" : "1px solid #1f77b4",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "normal 10/normal '맑은 고딕'",
+											"baritemtextgap" : 5,
+											"id" : "seriesSeoul",
+											"titletext" : "서울지점",
+											"valuecolumn" : "bind:Seoul",
+											"barfillstyle" : "#1f77b4",
+											"itemtextvisible" : false
+										},
+										{
+											"barvisible" : true,
+											"barsize" : "75",
+											"barlinestyle" : "1px solid #ff7f0e",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "normal 10/normal '맑은 고딕'",
+											"baritemtextgap" : 5,
+											"id" : "seriesBusan",
+											"titletext" : "부산지점",
+											"valuecolumn" : "bind:Busan",
+											"barfillstyle" : "#ff7f0e",
+											"itemtextvisible" : false
+										},
+										{
+											"barvisible" : true,
+											"barsize" : "75",
+											"barlinestyle" : "1px solid #2ca02c",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "normal 10/normal '맑은 고딕'",
+											"baritemtextgap" : 5,
+											"id" : "seriesGwangju",
+											"titletext" : "광주지점",
+											"valuecolumn" : "bind:Gwangju",
+											"barfillstyle" : "#2ca02c",
+											"itemtextvisible" : false
+										}
+									]
+								}]]></Contents>
+              </BasicChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Month" type="STRING" size="80" description="월"/>
+                <Column id="Seoul" type="BIGDECIMAL" size="80" description="서울지점"/>
+                <Column id="Busan" type="BIGDECIMAL" size="80" description="부산지점"/>
+                <Column id="Gwangju" type="BIGDECIMAL" size="80" description="광주지점"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <Script><![CDATA[this.fn_Alert = function(){this.alert('MESSAGE')};]]></Script>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="Month" description="" displaytype="category" valueaxes="y" stackedgroupname=""/>
+              <Field id="Seoul" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
+              <Field id="Busan" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
+              <Field id="Gwangju" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="Month,Seoul,Busan,Gwangju"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="BarChartViewTemplate.xviewgen">
+            <Attribute id="charttype" value="column"/>
+            <Attribute id="chartdisplay" value="grouped"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="itemtextposition" value="none"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="443" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="165" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsViewAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">charttype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">막대차트 종류
+ - column : 세로 막대형 차트
+ - bar : 가로 막대형 차트</Col>
+            <Col id="TYPE_VALUE">column | bar</Col>
+          </Row>
+          <Row>
+            <Col id="ID">chartdisplay</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">차트의 유형을 설정
+ - grouped : 묶은 막대차트
+ - stacked : 누적 막대차트
+ - 100%stacked : 100% 기준 누적 막대차트
+ - overlapping : 중복 막대차트</Col>
+            <Col id="TYPE_VALUE">grouped | stacked | 100%stacked | overlapping</Col>
+          </Row>
+          <Row>
+            <Col id="ID">enableanimation</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">Series 에 애니메이션 효과를 적용 시킬지 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">titletext</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">타이틀 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">subtitletext</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">서브타이틀 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">titlealign</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">타이틀 표시 위치</Col>
+            <Col id="TYPE_VALUE">topleft | topcenter | topright ...</Col>
+          </Row>
+          <Row>
+            <Col id="ID">legendposition</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">범례 표시 위치</Col>
+            <Col id="TYPE_VALUE">none | topleft | topcenter | topright ...</Col>
+          </Row>
+          <Row>
+            <Col id="ID">categoryaxistitletext</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">데이터명축(x축) 타이틀 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">valueaxistitletext</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">데이터축(y축) 타이틀 Text(여러 축 설정시 ,를 구분자로 여러개 입력)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">itemtextposition</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">none | start | middle | end | outside</Col>
+            <Col id="DESCPTION">값 표시 위치</Col>
+          </Row>
+          <Row>
+            <Col id="ID">viewpadding</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">View 여백 설정(px)
+(숫자만 입력 가능하며, 빈칸으로 구분하여 설정가능합니다.)
+ - 1회 입력 : [1번째값] top/right/bottom/left 에 모두 적용
+ - 2회 입력 : [1번째값] top/bottom, [2번째값] right/left 에 적용
+ - 3회 입력 : [1번째값] top, [2번째값] right/left, [3번째값] bottom 에 적용
+ - 4회 입력 : [1번째값] top, [2번째값] right, [3번째값] bottom, [4번째값] left 에 적용</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsFieldUserAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">displaytype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">none | category | series</Col>
+            <Col id="DESCPTION">데이터 표현방식
+ - none : 사용안함
+ - category : 데이터명 Field(1개)
+ - series : 데이터값 Field(n개)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">valueaxes</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">y | y1 | y2</Col>
+            <Col id="DESCPTION">데이터축을 설정. y는 왼쪽, y1,y2는 오른쪽에 표시됨</Col>
+          </Row>
+          <Row>
+            <Col id="ID">stackedgroupname</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">누적(stacked) 차트에서 그룹핑하는 경우 명칭 설정.(chartdisplay이 'stacked','100%stacked'인 경우에만 동작)</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="Month" type="STRING" size="256"/>
+          <Column id="Seoul" type="INT" size="256"/>
+          <Column id="Busan" type="INT" size="256"/>
+          <Column id="Gwangju" type="INT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Month">Jan</Col>
+            <Col id="Seoul">77</Col>
+            <Col id="Busan">85</Col>
+            <Col id="Gwangju">45</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Feb</Col>
+            <Col id="Seoul">87</Col>
+            <Col id="Busan">75</Col>
+            <Col id="Gwangju">75</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Mar</Col>
+            <Col id="Seoul">88</Col>
+            <Col id="Busan">87</Col>
+            <Col id="Gwangju">65</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Apr</Col>
+            <Col id="Seoul">86</Col>
+            <Col id="Busan">78</Col>
+            <Col id="Gwangju">78</Col>
+          </Row>
+          <Row>
+            <Col id="Month">May</Col>
+            <Col id="Seoul">82</Col>
+            <Col id="Busan">84</Col>
+            <Col id="Gwangju">56</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Jun</Col>
+            <Col id="Seoul">80</Col>
+            <Col id="Busan">68</Col>
+            <Col id="Gwangju">65</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Jul</Col>
+            <Col id="Seoul">79</Col>
+            <Col id="Busan">57</Col>
+            <Col id="Gwangju">54</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Aug</Col>
+            <Col id="Seoul">72</Col>
+            <Col id="Busan">67</Col>
+            <Col id="Gwangju">79</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Sep</Col>
+            <Col id="Seoul">90</Col>
+            <Col id="Busan">87</Col>
+            <Col id="Gwangju">85</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Oct</Col>
+            <Col id="Seoul">95</Col>
+            <Col id="Busan">75</Col>
+            <Col id="Gwangju">79</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Nov</Col>
+            <Col id="Seoul">40</Col>
+            <Col id="Busan">84</Col>
+            <Col id="Gwangju">65</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Dec</Col>
+            <Col id="Seoul">60</Col>
+            <Col id="Busan">65</Col>
+            <Col id="Gwangju">79</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.view_barchart_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.viewSample.form.viewdataset.copyData(this.dsData);
+};
+]]></Script>
+  </Form>
+</FDL>

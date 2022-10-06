@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="basicmodel" iotype="output" description="BaiscChart용 Model" name="basicmodel">
+      <Field required="false" id="Month" label="월" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="Seoul" label="서울지점" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="Busan" label="부산지점" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="Gwangju" label="광주지점" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+    </Model>
+    <Model id="piemodel" name="piemodel" iotype="output" description="PieChart용 Model">
+      <Field required="false" id="DEVICE" label="디바이스" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="BROWSER_NAME" label="브라우저명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="SHARE" label="점유율" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="CHK" label="check" fieldtype="FreeText" datatype="STRING" datasize="1"/>
+    </Model>
+    <Model id="scattermodel" name="scattermodel" iotype="output" description="BubbleChart용 model">
+      <Field required="false" id="ID" label="ID" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="AGE" label="나이" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="WEIGHT" label="몸무게" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+    </Model>
+    <Model id="bubblemodel" name="bubblemodel" iotype="output" description="BubbleChart용 model">
+      <Field required="false" id="REGION_1" label="North America" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="ID_1" label="country" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="LIFE_EXPECTANCY_1" label="Life Expectancy" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="FERTILITY_RATE_1" label="Fertility Rate" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="POPULATION_1" label="Population" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="REGION_2" label="Europe" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="ID_2" label="country" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="LIFE_EXPECTANCY_2" label="Life Expectancy" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="FERTILITY_RATE_2" label="Fertility Rate" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="POPULATION_2" label="Population" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="REGION_3" label="Middle East" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="ID_3" label="country" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="LIFE_EXPECTANCY_3" label="Life Expectancy" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="FERTILITY_RATE_3" label="Fertility Rate" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="POPULATION_3" label="Population" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+    </Model>
+    <Model id="radarmodel" name="radarmodel" iotype="output" description="RadarChart용 model">
+      <Field required="false" id="catName" label="category" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="year2020" label="2020" fieldtype="FreeText" datatype="INT" datasize="80"/>
+      <Field required="false" id="year2021" label="2021" fieldtype="FreeText" datatype="INT" datasize="80"/>
+      <Field required="false" id="year2022" label="2022" fieldtype="FreeText" datatype="INT" datasize="80"/>
+    </Model>
+    <Model id="gaugemodel" name="gaugemodel" iotype="output" description="GaugeChart용 model">
+      <Field required="false" id="ID_1" label="male" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="VALUE_1" label="male value" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="ID_2" label="female" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="VALUE_2" label="female value" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+      <Field required="false" id="ID_TOT" label="totoal" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="VALUE_TOT" label="totoal value" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+    </Model>
+    <Model id="floatmodel" name="floatmodel" iotype="output" description="FloatChart 용 model">
+      <Field required="false" id="CAREER" label="경력" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="BOTTOM_25" label="하위25%" fieldtype="FreeText" datatype="INT" datasize="80"/>
+      <Field required="false" id="TOP_25" label="상위25%" fieldtype="FreeText" datatype="INT" datasize="80"/>
+      <Field required="false" id="AVERAGE" label="평균" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80"/>
+    </Model>
+    <Model id="waterfallmodel" name="waterfallmodel" iotype="output" description="WaterfallChart 용 model">
+      <Field required="false" id="DAY" label="요일" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="FLUCTUATION" label="증감값" fieldtype="FreeText" datatype="FLOAT" datasize="80"/>
+    </Model>
+    <Model id="timelinemodel" name="timelinemodel" iotype="output" description="TimeLineChart 용 model">
+      <Field required="false" id="ROOM_NM" label="회의실명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="FROM" label="시작시간" fieldtype="FreeText" datatype="DATE" datasize="80"/>
+      <Field required="false" id="TO" label="종료시간" fieldtype="FreeText" datatype="DATE" datasize="80"/>
+      <Field required="false" id="DEPT_NM" label="부서명" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="PERCENT" label="실행율" fieldtype="FreeText" datatype="FLOAT" datasize="80"/>
+    </Model>
+    <Model id="combinationmodel" name="combinationmodel" iotype="output" description="CombinationChart 용 Model">
+      <Field required="false" id="month" label="Month" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="rainfall" label="Rainfall" fieldtype="FreeText" datatype="FLOAT" datasize="80"/>
+      <Field required="false" id="temperature" label="Temperature" fieldtype="FreeText" datatype="FLOAT" datasize="80"/>
+      <Field required="false" id="pressure" label="Sea-Level Pressure" fieldtype="FreeText" datatype="FLOAT" datasize="80"/>
+    </Model>
+  </Models>
+  <Service id="" name="" url=""/>
+</ModelInfo>

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmTitle" width="1080" height="34" titletext="Title" onload="frmTitle_onload">
+    <Layouts>
+      <Layout height="34" width="1080">
+        <Static id="staTitle" taborder="0" left="0" top="0" height="34" cssclass="sta_WF_title01" right="510"/>
+        <Static id="staNavi" taborder="1" top="0" cssclass="sta_WF_navi" bottom="0" right="10" left="600"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.frmTitle_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var objDiv = this.fn_getWorkDiv(this);
+	
+	if(!this.gfnIsNull(objDiv))
+	{
+		var sMenuNm 	= objDiv["_menunm"];
+		var sMenuNavi 	= objDiv["_menunavi"];
+		
+		sMenuNavi = nexacro.replaceAll(sMenuNavi,"."," > ");
+		
+		this.staTitle.set_text(sMenuNm);
+		this.staNavi.set_text(sMenuNavi);
+	}
+};
+
+/*****************************************************************************
+함 수 명 칭 : gfnIsNull
+함 수 설 명 : 입력값 Null 체크 함수
+파 라 미 터 : pvVal – 입력값
+리 턴 내 용 : true/false 값이 Null일 경우 true
+*****************************************************************************/
+this.gfnIsNull = function (pvVal)
+{
+	if (new String(pvVal).valueOf() == "undefined") 
+	{
+		return true;
+	}
+	if (pvVal == null) 
+	{
+		return true;
+	}
+	if (("x" + pvVal == "xNaN") && (new String(pvVal.length).valueOf() == "undefined")) 
+	{
+		return true;
+	}
+	if (pvVal.length == 0) 
+	{
+		return true;
+	}
+
+	return false;
+};
+
+this.fn_getWorkDiv = function (obj)
+{
+	var objWorkDiv;
+	var objParent = obj.parent;
+	
+	while (true)
+	{
+		if (objParent instanceof nexacro.Div)
+		{
+			if (objParent.hasOwnProperty("_menuid"))
+			{
+				objWorkDiv = objParent;
+				break;
+			}
+		}
+		else if (objParent instanceof nexacro.ChildFrame )
+		{
+			break;
+		}
+		
+		objParent = objParent.parent;		
+	}
+	return objWorkDiv;
+};]]></Script>
+  </Form>
+</FDL>
