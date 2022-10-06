@@ -5,8 +5,88 @@
       <Layout height="1001" mobileorientation="landscape" width="1080">
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
-        <TextArea id="txaInfo" taborder="2" left="0" top="staInfo:0" height="80" right="10" value="- FreeForm 영역을 구성하기 위한 View Template&#10;- 하나의 필드는 레이블(Static) + 컴포넌트로 구성&#10;- direction, halign, valign 속성에 설정된 값으로 Field가 순서대로 배치되어 생성됨.&#10;- format 속성을 활용하여 여러 개의 필드를 하나의 Cell에 표현할 경우 1:N으로 레이블(Static) + 컴포넌트로 표현(레이블은 첫 번째 필드의 레이블정보로 표현)" readonly="true"/>
-        <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="txaInfo:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="11" text="FreeForm 영역을 구성하기 위한 View Template" left="0" top="staInfo:0" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="70" right="10" value="- 하나의 필드는 레이블(Static) + 컴포넌트로 구성&#10;- direction, halign, valign 속성에 설정된 값으로 Field가 순서대로 배치되어 생성됨.&#10;- format 속성을 활용하여 여러 개의 필드를 하나의 Cell에 표현할 경우 1:N으로 레이블(Static) + 컴포넌트로 표현(레이블은 첫 번째 필드의 레이블정보로 표현)" readonly="true"/>
+        <Static id="Static00_00_00" taborder="12" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <View id="viewSample" taborder="10" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="109" right="10" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="상세내역" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="staCompanyBg" left="0" top="30" width="1070" height="40" cssclass="sta_WF_fieldbox"/>
+              <Static id="staCompanyLabel" left="0" top="30" width="100" height="40" text="회사명" cssclass="sta_WF_labelbox_essential"/>
+              <Combo id="cmbCompany" left="105" top="35" width="150" height="30"/>
+              <Static id="staDepartmentLabel" left="260" top="30" width="100" height="40" text="부서명" cssclass="sta_WF_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="365" top="35" width="150" height="30"/>
+              <Static id="staNameLabel" left="520" top="30" width="100" height="40" text="성명" cssclass="sta_WF_labelbox_essential"/>
+              <Edit id="edtName" left="625" top="35" width="150" height="30"/>
+              <Static id="staPhoneLabel" left="780" top="30" width="100" height="40" text="전화번호" cssclass="sta_WF_labelbox"/>
+              <MaskEdit id="mskPhone" left="885" top="35" width="150" height="30"/>
+              <Static id="staEmailBg" left="0" top="69" width="1070" height="40" cssclass="sta_WF_fieldbox"/>
+              <Static id="staEmailLabel" left="0" top="69" width="100" height="40" text="이메일주소" cssclass="sta_WF_labelbox"/>
+              <Edit id="edtEmail" left="105" top="74" width="410" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_mskPhone" compid="mskPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="combo" fieldwidth="160" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_WF_labelbox_essential" usecomp="true"/>
+              <Field id="Department" description="" comptype="combo" fieldwidth="160" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_WF_labelbox_essential" usecomp="true"/>
+              <Field id="Name" description="" comptype="edit" fieldwidth="160" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_WF_labelbox_essential" usecomp="true"/>
+              <Field id="Phone" description="" comptype="maskedit" fieldwidth="160" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_WF_labelbox" usecomp="true"/>
+              <Field id="Email" description="" comptype="edit" fieldwidth="420" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_WF_labelbox" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="mskPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="titletext" value="상세내역"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
         <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="286" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
@@ -94,7 +174,7 @@
                   <Layout>
                     <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label 영역" cssclass="sta_WF_labelbox" taborder="0" bottom="-1"/>
                     <Static id="staTextLabel00" left="109" top="10" text="컴포넌트 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
-                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e69155" opacity="0.4" left="109" right="10" bottom="0"/>
+                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
                     <Static id="sta00_01" taborder="3" top="0" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="99" bottom="0"/>
                   </Layout>
                 </Layouts>
@@ -104,7 +184,7 @@
                   <Layout>
                     <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label 영역" cssclass="sta_WF_labelbox" taborder="0" bottom="-1"/>
                     <Static id="staTextLabel00" left="109" top="10" text="컴포넌트 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
-                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e69155" opacity="0.4" left="109" right="10" bottom="0"/>
+                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
                     <Static id="sta00_01" taborder="3" top="0" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="99" bottom="0"/>
                     <Static id="sta00_01_00" taborder="4" top="0" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
                   </Layout>
@@ -127,7 +207,7 @@
               <Static id="sta00_01" taborder="18" top="22" width="40" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="724" height="25"/>
               <Static id="sta00" taborder="19" top="52" height="25" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="724" width="40"/>
               <Static id="sta00_01_00" taborder="20" top="82" width="40" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" left="724" height="25"/>
-              <Static id="sta00_00" taborder="21" height="25" cssclass="sta_WF_guide_padding" background="#e69155" opacity="0.4" left="724" top="112" width="40"/>
+              <Static id="sta00_00" taborder="21" height="25" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="724" top="112" width="40"/>
               <Static id="staTextLabel02" left="569" top="22" width="40" cssclass="sta_WF_labelbox" taborder="22" height="25" border="1px solid #125dae" background="#f7f7f7"/>
               <Static id="Static00_04" taborder="23" left="609" top="22" height="25" cssclass="sta_WF_notice02" width="90" text="Field 영역"/>
             </Layout>
