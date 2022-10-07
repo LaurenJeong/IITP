@@ -7,9 +7,9 @@
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="7" text="막대그래프(Bar Chart)를 그려주는 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
         <Static id="Static00" taborder="10" text="- ColumnChart : 세로 막대그래프&#13;&#10;- BarChart : 가로 막대그래프" left="13" top="Static00_00:0" height="28" cssclass="sta_WF_notice02" width="1050" fittocontents="height"/>
-        <TextArea id="txaInfo" taborder="2" left="0" top="Static00:5" height="210" right="10" readonly="true" value="- ColumnChart : 세로 막대그래프&#10;- BarChart : 가로 막대그래프"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00:5" height="100" right="10" readonly="true" value="- Field User Attribute의 displaytype에 설정된 값에 따라 Chart가 생성된다.&#10;  ex) 세로막대차트 &#10;  .x축에 해당하는 데이터를 category로 설정(1개의 필드만 선택가능)&#10;  .y축에 해당하는 데이터를 series로 설정(데이터형식은 숫자형만 가능)&#10;- 누적차트를 표시하는 경우chartdisplay을 'stacked','100%stacked' 중에 선택하고, 그룹으로 묶일 데이터 끼리 동일한 stackedgroupname를 입력한다."/>
         <Static id="Static00_00_00" taborder="8" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="165" right="10" cssclass="viw_bg">
+        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="215" right="10" cssclass="viw_bg">
           <Layouts>
             <Layout>
               <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
@@ -199,7 +199,7 @@
           </Formats>
         </Grid>
         <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="165" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="225" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -337,7 +337,20 @@
           <Row>
             <Col id="ID">stackedgroupname</Col>
             <Col id="TYPE">String</Col>
-            <Col id="DESCPTION">누적(stacked) 차트에서 그룹핑하는 경우 명칭 설정.(chartdisplay이 'stacked','100%stacked'인 경우에만 동작)</Col>
+            <Col id="DESCPTION">누적(stacked) 차트에서 그룹핑하는 경우 명칭 설정.
+(chartdisplay이 'stacked','100%stacked'인 경우에만 동작)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">valueaxes</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">y | y1 | y2</Col>
+            <Col id="DESCPTION">데이터축을 설정. y는 왼쪽, y1,y2는 오른쪽에 표시됨</Col>
+          </Row>
+          <Row>
+            <Col id="ID">stackedgroupname</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">누적(stacked) 차트에서 그룹핑하는 경우 명칭 설정.
+(chartdisplay이 'stacked','100%stacked'인 경우에만 동작)</Col>
           </Row>
         </Rows>
       </Dataset>
