@@ -35,6 +35,12 @@ this.oContentsOrg;
 //옵션 설정 정보
 this.oGenerationAttr;
 
+//컴포넌트 ID 목록
+this.arrCompIds = [];
+
+//컴포넌트 + 바인드 Field 목록
+this.arrBindItems = [];
+
 this.VIEW_PADDING_LEFT				= 0;
 this.VIEW_PADDING_TOP				= 0;
 this.VIEW_PADDING_RIGHT				= 0;
@@ -79,9 +85,10 @@ this.LABEL_WIDTH			= "100px";
 this.BAND_EXPAND_TYPE		= "none";			// bandexpandtype : 'none' | 'expand' | 'accordion' | 'popup'
 
 //Band 오른쪽 끝에 확장바(ExpandBar)의 표시 여부를 설정. expandbartype 기본 설정 값
-this.EXPAND_BAR_TYPE		= "fasle";			// expandbartype : 'true' | 'fasle'
-this.EXPAND_BAR_WIDTH		= 40;
-this.EXPAND_BAR_HEIGHT		= 40;
+// expandbartype : bandexpandtype와 detail생성여부에 따라 자동으로 설정되도록 변경
+//this.EXPAND_BAR_TYPE		= "fasle";			// expandbartype : 'true' | 'fasle'
+this.EXPAND_BAR_WIDTH		= 30;
+this.EXPAND_BAR_HEIGHT		= 30;
 
 //Field Default Type
 this.FIELD_DISPLAY_TYPE		= "normal";
@@ -301,12 +308,12 @@ fn_GetViewAttributeList = function()
 												+ "\n" + " - accordion : Detail 밴드를 표시/숨김(현재 아이템 이외에 다른 아이템에 표시된 Detail 밴드를 자동으로 숨김)"
 												+ "\n" + " - popup : Detail 밴드를 팝업으로 표시"
                             },
-							{
-                                "id": "expandbartype",
-                                "edittype": "Boolean",
-                                "defaultvalue": this.EXPAND_BAR_TYPE,
-                                "description": "Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부"
-                            },
+// 							{
+//                                 "id": "expandbartype",
+//                                 "edittype": "Boolean",
+//                                 "defaultvalue": this.EXPAND_BAR_TYPE,
+//                                 "description": "Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부"
+//                             },
 							{
                                 "id": "bodyformat",
                                 "edittype": "layout",
@@ -453,7 +460,7 @@ fn_GetModel = function()
 	
 	// Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부
 	var sExpandBarType	= this.oGenerationAttr.attributes.expandbartype;
-	var bExpandBar		= sExpandBarType == "true" ? true : false;
+	var bExpandBar		= false;
 	
 	// ListView 위치
 	var nTop = this.VIEW_PADDING_TOP;
@@ -496,13 +503,18 @@ fn_GetModel = function()
 	var oBandBody = {};
 	var oBandDetail = {};
 	
+	// expandbartype : bandexpandtype와 detail생성여부에 따라 자동으로 설정되도록 변경
+	if (arrFieldDetail.length > 0 && sBandExpandType != "none") {
+		bExpandBar = true;
+	}
+	
 	// Body Band
 	oBandBody = fn_GetBands("body", arrFieldUse, arrFieldBody, this.oGenerationAttr.attributes.bodyformat, nWidth, nHeight, bExpandBar);
 	if (this.lfn_IsNotNull(oBandBody))		arrFormat.push(oBandBody);
 	
 	// Detail Band
 	oBandDetail = fn_GetBands("detail", arrFieldUse, arrFieldDetail, this.oGenerationAttr.attributes.detailformat, nWidth, nHeight, false);
-	if (this.lfn_IsNotNull(oBandDetail))		arrFormat.push(oBandDetail);
+	if (this.lfn_IsNotNull(oBandDetail))	arrFormat.push(oBandDetail);
 	
 	//Add Grip Component
 	var oModel = this.oContents.View.Model;
@@ -810,6 +822,8 @@ fn_CalcFieldByLayout = function(arrFieldList, sDirection, sVAlign, sHAlign, nCol
 		//Import Field Information registered on the Model based on the Fields connected to the Cell
 		sFieldId =  arrFieldInCellList[j];
 		oField = arrFieldList.filter(arrFieldList=>arrFieldList.id==sFieldId)[0];
+		
+		if (this.lfn_IsNull(oField))	continue;
 
 		//Import Label Width Information set on the first Field
 		if(j==0)nLabelWidth = nexacro.toNumber(oField.labelwidth);
@@ -1379,6 +1393,8 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 			sFieldId = oFieldPosition.fieldid;
 			oField = this.oFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
 			
+			if (this.lfn_IsNull(oField))	continue;
+			
 			//Displaytype 설정
 			sDisplayType = oField.displaytype;
 			
@@ -1540,6 +1556,8 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 			oFieldPosition = arrFields[i];
 			sFieldId = oFieldPosition.fieldid;
 			oField = this.oFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			if (this.lfn_IsNull(oField))	continue;
 			
 			//Displaytype 설정
 			sDisplayType = oField.displaytype;
