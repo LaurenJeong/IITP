@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="action_excelimport" width="1080" height="1070" titletext="ExcelImportAction" onload="form_onload">
+    <Layouts>
+      <Layout height="1070" width="1080">
+        <TextArea id="txaInfo" taborder="3" left="0" top="95" height="80" right="10" value="- importtype에 설정된 속성값에 따라 엑셀(Excel), 한셀(Hancell), csv파일을 Import함.&#10;  .한셀 2010버전은 미지원.(ExcelExportAction에서 exporttype='hancell2010'인 경우)&#10;- targetdataset이 설정된 경우, 설정된 Dataset에 데이터가 Import됨.&#10;- targetdataset이 설정되지 않은 경우, targetview의 viewdataset에 데이터가 Import됨." readonly="true"/>
+        <Static id="Static00_00_00" taborder="5" text="Action 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staSampleBg" taborder="4" left="0" top="Static00_00_00:0" height="303" right="10" cssclass="sta_cm_box02C"/>
+        <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="2" text="엑셀 데이터를 데이터셋에 Import하는 Action" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staActionProperty" taborder="6" text="Action Property" left="0" top="staSampleBg:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionProperty" taborder="7" left="0" top="staActionProperty:0" height="198" right="10" binddataset="dsProperty" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="200"/>
+                <Column size="550"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staActionMethod" taborder="10" text="Action Method" left="0" top="grdActionProperty:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionMethod" taborder="11" left="0" top="staActionMethod:0" height="50" right="10" binddataset="dsMethod" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="250"/>
+                <Column size="250"/>
+                <Column size="400"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="함수명"/>
+                <Cell col="1" text="파라미터"/>
+                <Cell col="2" text="리턴값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:PARAM"/>
+                <Cell col="2" text="bind:RETURN"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staActionEvent" taborder="8" text="Action Event" left="0" top="grdActionMethod:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionEvent" taborder="9" left="0" top="staActionEvent:0" height="161" right="10" binddataset="dsEvent" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="200"/>
+                <Column size="150"/>
+                <Column size="550"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Event 명"/>
+                <Cell col="1" text="EventInfo"/>
+                <Cell col="2" text="EventInfo 상세"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID" suppress="1"/>
+                <Cell col="1" text="bind:TYPE" suppress="2"/>
+                <Cell col="2" text="bind:PROP"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <View id="viwExcelImport" taborder="12" viewdataset="viewdataset" left="10" top="260" height="243" right="20">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_TEXT" col="0" row="0" text="TEXT"/>
+                      <Cell id="cell_TEXTAREA" col="1" row="0" text="TEXTAREA"/>
+                      <Cell id="cell_CHECK" col="2" row="0" text="CHECK"/>
+                      <Cell id="cell_COMBO" col="3" row="0" text="COMBO"/>
+                      <Cell id="cell_DATE" col="4" row="0" text="DATE"/>
+                      <Cell id="cell_DECOTEXT" col="5" row="0" text="DECOTEXT"/>
+                      <Cell id="cell_NUMBER" col="6" row="0" text="NUMBER"/>
+                      <Cell id="cell_CURRENCY" col="7" row="0" text="CURRENCY"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_TEXT" col="0" row="0" text="bind:TEXT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_TEXTAREA" col="1" row="0" text="bind:TEXTAREA" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_CHECK" col="2" row="0" text="bind:CHECK" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_COMBO" col="3" row="0" text="bind:COMBO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_DATE" col="4" row="0" text="bind:DATE" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_DECOTEXT" col="5" row="0" text="bind:DECOTEXT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_NUMBER" col="6" row="0" text="bind:NUMBER" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_CURRENCY" col="7" row="0" text="bind:CURRENCY" displaytype="normal" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+            <Layout/>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="TEXT" type="STRING" size="80"/>
+                <Column id="TEXTAREA" type="STRING" size="80"/>
+                <Column id="CHECK" type="STRING" size="80"/>
+                <Column id="COMBO" type="STRING" size="80"/>
+                <Column id="DATE" type="DATE" size="80"/>
+                <Column id="DECOTEXT" type="STRING" size="80"/>
+                <Column id="NUMBER" type="BIGDECIMAL" size="80"/>
+                <Column id="CURRENCY" type="BIGDECIMAL" size="80"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="ExcelModel001" filepath="sample\Excel.xmodel">
+            <Fields>
+              <Field id="TEXT" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
+              <Field id="TEXTAREA" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
+              <Field id="CHECK" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
+              <Field id="COMBO" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
+              <Field id="DATE" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
+              <Field id="DECOTEXT" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
+              <Field id="NUMBER" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
+              <Field id="CURRENCY" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="TEXT,TEXTAREA,CHECK,COMBO,DATE,DECOTEXT,NUMBER,CURRENCY"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <Button id="btnExcelImport" taborder="13" text="ExcelImport" left="10" top="220" width="103" height="30"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsProperty">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">targetview</Col>
+            <Col id="TYPE">ViewObjList</Col>
+            <Col id="DESCPTION">Action을 수행할 View 오브젝트를 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">targetdataset</Col>
+            <Col id="TYPE">DatasetID</Col>
+            <Col id="DESCPTION">Import할 Dataset 오브젝트를 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">sheetname</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">엑셀에서 Import 할 Sheet명을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">startcell</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">엑셀 Sheet에서 데이터가 시작하는 cell을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">importtype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">Import할 파일의 형식을 설정
+ - excel : Worksheet 97 - 2003 Files (*.xls)
+ - excel2007 : Worksheet Files (*.xlsx)
+ - hancell2014 : Hancell Files (*.cell)
+ - csv : CSV (*.csv)</Col>
+            <Col id="TYPE_VALUE">excel | excel2007 | hancell2014 | csv</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsMethod">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="PARAM" type="STRING" size="256"/>
+          <Column id="RETURN" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">run</Col>
+            <Col id="DESCPTION">Action을 실행시키는 함수</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsEvent">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="PROP" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+          <Column id="LVL" type="INT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">canrun</Col>
+            <Col id="TYPE">ActionRunEventInfo</Col>
+            <Col id="DESCPTION">Action이 실행될 때 발생하는 이벤트.
+ - 이벤트에서 리턴값을 "true"로 반환하면 Action이 실행됩니다.
+ - 이벤트에서 리턴값을 "false"로 반환하면 Action이 실행되지 않습니다.
+ - 이벤트에서 리턴값을 생략하면 "true"로 적용됩니다.</Col>
+            <Col id="LVL">0</Col>
+          </Row>
+          <Row>
+            <Col id="ID">onsuccess</Col>
+            <Col id="TYPE">ActionSuccessEventInfo</Col>
+            <Col id="DESCPTION">Action이 실패할때 발생하는 이벤트</Col>
+            <Col id="LVL">0</Col>
+          </Row>
+          <Row>
+            <Col id="ID">onsuccess</Col>
+            <Col id="TYPE">ActionSuccessEventInfo</Col>
+            <Col id="PROP">userdata</Col>
+            <Col id="LVL">0</Col>
+            <Col id="DESCPTION">팝업의 반환값이 JSON형태의 문자열로 반환됨.</Col>
+          </Row>
+          <Row>
+            <Col id="ID">onerror</Col>
+            <Col id="TYPE">ActionErrorEventInfo</Col>
+            <Col id="DESCPTION">Action이 성공할때 발생하는 이벤트</Col>
+            <Col id="LVL">0</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsCombo">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">01</Col>
+            <Col id="data">서울특별시</Col>
+          </Row>
+          <Row>
+            <Col id="code">02</Col>
+            <Col id="data">인천광역시</Col>
+          </Row>
+          <Row>
+            <Col id="code">03</Col>
+            <Col id="data">대전광역시</Col>
+          </Row>
+          <Row>
+            <Col id="code">04</Col>
+            <Col id="data">대구광역시</Col>
+          </Row>
+          <Row>
+            <Col id="code">05</Col>
+            <Col id="data">울산광역시</Col>
+          </Row>
+          <Row>
+            <Col id="data">부산광역시</Col>
+            <Col id="code">06</Col>
+          </Row>
+          <Row>
+            <Col id="data">광주광역시</Col>
+            <Col id="code">07</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <ExcelImportAction id="ExcelImportAction00" targetview="viwExcelImport" sheetname="Sheet1" startcell="A2" importtype="excel" onerror="ExcelImportAction00_onerror" onsuccess="ExcelImportAction00_onsuccess">
+        <Contents/>
+      </ExcelImportAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="action_excelimport" triggerobj="btnExcelImport" targetaction="ExcelImportAction00" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdActionProperty);
+	this.fnSetGridHeight(this.grdActionMethod);
+	this.fnSetGridHeight(this.grdActionEvent);
+	this.resetScroll();
+};
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
+	
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
+};
+
+this.PopupAction00_onerror = function(obj:nexacro.PopupAction, e:nexacro.ActionErrorEventInfo)
+{
+	//trace("PopupAction00_onerror" + e.userdata);
+	this.txaOutput.insertText("\n" + "PopupAction00_onerror");
+	this.txaOutput.insertText("\n - userdata : " + e.userdata);
+};
+
+this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.ActionSuccessEventInfo)
+{
+	//trace("PopupAction00_onsuccess" + e.userdata);
+	this.txaOutput.insertText("\n" + "PopupAction00_onsuccess");
+	this.txaOutput.insertText("\n - userdata : " + e.userdata);
+};]]></Script>
+  </Form>
+</FDL>
