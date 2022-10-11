@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="view_search" width="1080" height="1291" titletext="SearchViewTemplate" cssclass="sta_WF_notice01">
+  <Form id="view_search" width="1080" height="1440" titletext="SearchViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
     <Layouts>
-      <Layout height="1291" mobileorientation="landscape" width="1080">
+      <Layout height="1440" mobileorientation="landscape" width="1080">
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="10" text="조회 영역을 구성하기 위한 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
@@ -353,5 +353,22 @@
         </Rows>
       </Dataset>
     </Objects>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdViewAttribute);
+	this.fnSetGridHeight(this.grdFieldUserAttribute);
+	this.resetScroll();
+};
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
+	
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
+};]]></Script>
   </Form>
 </FDL>

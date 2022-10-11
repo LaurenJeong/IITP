@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="action_popup" width="1080" height="1310" titletext="PopupAction" onload="form_onload">
+    <Layouts>
+      <Layout height="1310" width="1080">
+        <TextArea id="txaInfo" taborder="7" left="0" top="95" height="130" right="10" value="- left, top 값이 -1일 경우 center middle로 팝업이 호출되도록 구성.&#10;- modeless일때 width, height 값은 명시해야 center middle로 정상적으로 호출됨.&#10;- 팝업의 리턴값이 있는 경우 onsuccess이벤트의 e.userdata값으로 반환됨.&#10;- 팝업의 리턴값이 있는 경우 popupdatatype과 Model Argument 설정값에 따라 처리됨.&#10;- Model Argument를 설정하지 않고, popupdatatype에 'copyrow', 'adddata', 'replace'값 설정 시, targetview의 viewdataset에 팝업화면에서 반환된 데이터를 동일 Field ID별로 처리. &#10;- Model Argument를 설정한 경우, value값에 팝업 Field ID를 입력하면 설정된 Model Argument에 대해서만 팝업 반환값이 처리됨.&#10;- User Argument 등록 시 팝업 Argument로 추가되어 동작됨.(arg속성값이 설정된 경우, arg 속성값과 User Argument설정된 값 모두 팝업에 전달됨.)" readonly="true"/>
+        <Static id="Static00_00_00" taborder="9" text="Action 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staSampleBg" taborder="8" left="0" top="Static00_00_00:0" height="323" right="10" cssclass="sta_cm_box02C"/>
+        <Button id="btnPopup" taborder="0" text="Modal" left="10" top="Static00_00_00:10" width="114" height="30"/>
+        <TextArea id="txaOutput" taborder="1" left="620" top="btnPopup:10" wordWrap="english" right="20" height="263"/>
+        <Button id="btnPopup2" taborder="2" text="Modeless" left="134" top="Static00_00_00:10" width="114" height="30" onclick="btnPopup2_onclick"/>
+        <View id="View00" taborder="3" text="View00" viewdataset="viewdataset" left="10" top="btnPopup:10" width="599" height="263">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="팝업결과 데이터" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_company" col="0" row="0" text="Company"/>
+                      <Cell id="cell_department" col="1" row="0" text="Department"/>
+                      <Cell id="cell_name" col="2" row="0" text="Name"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_company" col="0" row="0" text="bind:company" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_department" col="1" row="0" text="bind:department" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_name" col="2" row="0" text="bind:name" displaytype="normal" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="company" type="STRING" size="80" description="Company"/>
+                <Column id="department" type="STRING" size="80" description="Department"/>
+                <Column id="name" type="STRING" size="80" description="Name"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="svcQuickCodeTutorial" modelid="tutorial_DetailEmployee" filepath="svcQuickCodeTutorial.xmodel">
+            <Fields>
+              <Field id="company" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="department" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="name" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="company,department,name"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="팝업결과 데이터"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <Div id="divTitle" taborder="4" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="5" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="6" text="팝업화면을 오픈해주는 Action" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staActionProperty" taborder="10" text="Action Property" left="0" top="staSampleBg:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionProperty" taborder="11" left="0" top="staActionProperty:0" height="364" right="10" binddataset="dsProperty" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="200"/>
+                <Column size="550"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staActionMethod" taborder="14" text="Action Method" left="0" top="grdActionProperty:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionMethod" taborder="15" left="0" top="staActionMethod:0" height="50" right="10" binddataset="dsMethod" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="250"/>
+                <Column size="250"/>
+                <Column size="400"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="함수명"/>
+                <Cell col="1" text="파라미터"/>
+                <Cell col="2" text="리턴값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:PARAM"/>
+                <Cell col="2" text="bind:RETURN"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staActionEvent" taborder="12" text="Action Event" left="0" top="grdActionMethod:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionEvent" taborder="13" left="0" top="staActionEvent:0" height="161" right="10" binddataset="dsEvent" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="200"/>
+                <Column size="150"/>
+                <Column size="550"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Event 명"/>
+                <Cell col="1" text="EventInfo"/>
+                <Cell col="2" text="EventInfo 상세"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID" suppress="1"/>
+                <Cell col="1" text="bind:TYPE" suppress="2"/>
+                <Cell col="2" text="bind:PROP"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <PopupAction id="PopupAction00" formurl="gallery::action_popupsub.xfdl" popupstyle="modal" popupid="popup" title="선택데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}" targetview="View00" popupdatatype="replace">
+        <Contents/>
+      </PopupAction>
+      <PopupAction id="PopupAction01" formurl="gallery::action_popupsub.xfdl" popupstyle="modeless" popupid="popup" title="전체데이터" popupleft="-1" popuptop="-1" popupwidth="450" popupheight="500" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}" targetview="View00" popupdatatype="replace">
+        <Contents/>
+      </PopupAction>
+      <Dataset id="dsProperty">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">formurl</Col>
+            <Col id="TYPE">URL</Col>
+            <Col id="DESCPTION">팝업으로 호출할 Form Url을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popupstyle</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">modal | modeless</Col>
+            <Col id="DESCPTION">팝업을 호출할 형태(Modal, Modeless)를 설정
+ - modal : 부모창과 상호 작용이 안되는(레이어팝업) 형태의 팝업 호출
+ - modeless : 부모창과 독립적인 형태의 팝업 호출</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popupleft</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">팝업을 표시하기 위한 좌측 좌표값을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popuptop</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">팝업을 표시하기 위한 상단 좌표값을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popupwidth</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">팝업을 표시하기 위한 너비를 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popupheight</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">팝업을 표시하기 위한 높이를 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">args</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">팝업에 추가할 변수리스트를 설정(JSON형태)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popupid</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">팝업을 구분하기 위한 고유 ID값을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">title</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">팝업 타이틀로 표현할 값을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">targetview</Col>
+            <Col id="TYPE">ViewObjList</Col>
+            <Col id="DESCPTION">팝업 대상 View 객체를 설정(팝업에서 반환된 데이터를 처리 할 View 설정)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popupdatatype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">팝업에서 반환된 데이터를 처리 할 방법을 설정
+ - none : 팝업 반환데이터 처리 안함.
+ - copyrow : 반환된 첫번째 데이터를 현재 데이터에 복사
+ - adddata : 반환된 데이터를 현재 데이터에 추가
+ - replace : 반환된 데이터로 데이터를 교체</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsMethod">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="PARAM" type="STRING" size="256"/>
+          <Column id="RETURN" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">run</Col>
+            <Col id="DESCPTION">Action을 실행시키는 함수</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsEvent">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="PROP" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+          <Column id="LVL" type="INT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">canrun</Col>
+            <Col id="TYPE">ActionRunEventInfo</Col>
+            <Col id="DESCPTION">Action이 실행될 때 발생하는 이벤트.
+ - 이벤트에서 리턴값을 "true"로 반환하면 Action이 실행됩니다.
+ - 이벤트에서 리턴값을 "false"로 반환하면 Action이 실행되지 않습니다.
+ - 이벤트에서 리턴값을 생략하면 "true"로 적용됩니다.</Col>
+            <Col id="LVL">0</Col>
+          </Row>
+          <Row>
+            <Col id="ID">onsuccess</Col>
+            <Col id="TYPE">ActionSuccessEventInfo</Col>
+            <Col id="DESCPTION">Action이 실패할때 발생하는 이벤트</Col>
+            <Col id="LVL">0</Col>
+          </Row>
+          <Row>
+            <Col id="ID">onsuccess</Col>
+            <Col id="TYPE">ActionSuccessEventInfo</Col>
+            <Col id="PROP">userdata</Col>
+            <Col id="LVL">0</Col>
+            <Col id="DESCPTION">팝업의 반환값이 JSON형태의 문자열로 반환됨.</Col>
+          </Row>
+          <Row>
+            <Col id="ID">onerror</Col>
+            <Col id="TYPE">ActionErrorEventInfo</Col>
+            <Col id="DESCPTION">Action이 성공할때 발생하는 이벤트</Col>
+            <Col id="LVL">0</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="action_popup" triggerobj="btnPopup" targetaction="PopupAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="action_popup" triggerobj="btnPopup2" targetaction="PopupAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="action_popup" triggerobj="btnPopup3" targetaction="PopupAction02" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdActionProperty);
+	this.fnSetGridHeight(this.grdActionMethod);
+	this.fnSetGridHeight(this.grdActionEvent);
+	this.resetScroll();
+};
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
+	
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
+};
+
+this.PopupAction00_onerror = function(obj:nexacro.PopupAction, e:nexacro.ActionErrorEventInfo)
+{
+	//trace("PopupAction00_onerror" + e.userdata);
+	this.txaOutput.insertText("\n" + "PopupAction00_onerror");
+	this.txaOutput.insertText("\n - userdata : " + e.userdata);
+};
+
+this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.ActionSuccessEventInfo)
+{
+	//trace("PopupAction00_onsuccess" + e.userdata);
+	this.txaOutput.insertText("\n" + "PopupAction00_onsuccess");
+	this.txaOutput.insertText("\n - userdata : " + e.userdata);
+};]]></Script>
+  </Form>
+</FDL>

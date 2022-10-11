@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="action_transaction" width="1080" height="1190" titletext="tran 테스트">
+  <Form id="action_transaction" width="1080" height="1410" titletext="TransactionAction" onload="form_onload">
     <Layouts>
-      <Layout height="1190" width="1080">
-        <TextArea id="txaInfo" taborder="6" left="0" top="95" height="70" right="10" value="- servicemodel시 화면 기준으로 serviceurl, input, ouput 정보 자동설정.&#10;- Model Argument에서 Model Field에 값 입력시dataset에 해당값으로 값 설정.&#10;- User Argument 등록 시 transaction Argument로 추가." readonly="true"/>
+      <Layout height="1410" width="1080">
+        <TextArea id="txaInfo" taborder="6" left="0" top="95" height="190" right="10" value="- servicemodel시 화면 기준으로 serviceurl, input, ouput 정보 자동설정.&#10;- Model Argument에서 Model Field에 값 입력시dataset에 해당값으로 값 설정.&#10;- User Argument 등록 시 transaction Argument로 추가.&#10;- Model Argument와 User Argument에서 value값에 'expr:' 태그 사용 후 '[Filed태그]'형식으로 입력시 해당 Field값 가져와서 설정 가능.(User Argument 사용불가)&#10;  .[field] 형식 : 설정된 Model의 'viewid'의 viewdataset에서 'field' 필드값을 반환&#10;  .[view:field] 형식 : 'view'의 viewdataset에서 'field' 필드값을 반환&#10;  .[view:datasetid:field] 형식 : 'view'의 'datasetid'인 Dataset에서 'field' 필드값을 반환&#10;  .[view:datasetid:row:field] 형식 : 'view'의 'datasetid'인 Dataset에서 'row'번째 Row의 'field' 필드값을 반환&#10;  ex) expr 예제) 다음 페이징번호 셋팅&#10;      expr:nexacro.toNumber([viewPage:PAGE_NO],0) + 1&#10;      -&gt; viewPage에 있는 viewdataset의 'PAGE_NO' 값을 숫자형으로 변환 후 1을 더한 값을 설정된 ModelField값에 설정" readonly="true"/>
         <Static id="Static00_00_00" taborder="7" text="Action 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
         <Static id="staSampleBg" taborder="8" left="0" top="Static00_00_00:0" height="440" right="10" cssclass="sta_cm_box02C"/>
         <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="10" top="Static00_00_00:10" height="50" width="750">
@@ -149,7 +149,7 @@
         <Static id="staInfo" taborder="4" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="5" text="DB 데이터 조회, 저장하는 Transaction Action" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
         <Static id="staActionProperty" taborder="9" text="Action Property" left="0" top="viewList:20" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdActionProperty" taborder="10" left="0" top="staActionProperty:0" height="206" right="10" binddataset="dsProperty" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdActionProperty" taborder="10" left="0" top="staActionProperty:0" height="198" right="10" binddataset="dsProperty" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -177,8 +177,37 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="staActionEvent" taborder="11" text="Action Event" left="0" top="grdActionProperty:20" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdActionEvent" taborder="12" left="0" top="staActionEvent:0" height="246" right="10" binddataset="dsEvent" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Static id="staActionMethod" taborder="11" text="Action Method" left="0" top="grdActionProperty:20" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionMethod" taborder="12" left="0" top="staActionMethod:0" height="50" right="10" binddataset="dsMethod" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="250"/>
+                <Column size="250"/>
+                <Column size="400"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="함수명"/>
+                <Cell col="1" text="파라미터"/>
+                <Cell col="2" text="리턴값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:PARAM"/>
+                <Cell col="2" text="bind:RETURN"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staActionEvent" taborder="13" text="Action Event" left="0" top="grdActionMethod:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionEvent" taborder="14" left="0" top="staActionEvent:0" height="230" right="10" binddataset="dsEvent" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -209,10 +238,10 @@
       </Layout>
     </Layouts>
     <Objects>
-      <SearchDBAction id="SearchDBAction00" servicemodel="Tran" serviceurl="svc::jsp/TransactionActionService01.jsp" inputdatasets="input=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=output" canrun="Common_canrun" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
+      <SearchDBAction id="SearchDBAction00" servicemodel="Tran" serviceurl="svc::service/TransactionActionService01.jsp" inputdatasets="input=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=output" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
         <Contents/>
       </SearchDBAction>
-      <SearchDBAction id="SearchDBAction01" servicemodel="Tran" serviceurl="svc::jsp/TransactionActionService02.jsp" canrun="Common_canrun" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
+      <SearchDBAction id="SearchDBAction01" servicemodel="Tran" serviceurl="svc::service/TransactionActionService02.jsp" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
         <Contents/>
       </SearchDBAction>
       <Dataset id="dsProperty">
@@ -256,6 +285,20 @@ ex) View00.form.viewdataset=outputmodelid1 View01.form.viewdataset=outputmodelid
             <Col id="DESCPTION">서버페이지에 보낼 파라미터 정보 설정</Col>
             <Col id="TYPE">String</Col>
             <Col id="TYPE_VALUE"/>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsMethod">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="PARAM" type="STRING" size="256"/>
+          <Column id="RETURN" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">run</Col>
+            <Col id="DESCPTION">Action을 실행시키는 함수</Col>
           </Row>
         </Rows>
       </Dataset>
@@ -318,13 +361,24 @@ ex) View00.form.viewdataset=outputmodelid1 View01.form.viewdataset=outputmodelid
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_db" triggerobj="btnError" targetaction="SearchDBAction01" condition=""/>
     </Trigger>
-    <Script type="xscript5.1"><![CDATA[this.Common_canrun = function(obj, e:nexacro.ActionRunEventInfo)
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.txtOutput.insertText("\n" + "Common_canrun " + obj.name +" : " + this.chkOnCanEvent.value);
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdActionProperty);
+	this.fnSetGridHeight(this.grdActionMethod);
+	this.fnSetGridHeight(this.grdActionEvent);
+	this.resetScroll();
+};
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
 	
-	return this.chkOnCanEvent.value;
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
 };
 
 this.CommonTran_onerror = function(obj, e:nexacro.TranActionErrorEventInfo)
@@ -335,10 +389,6 @@ this.CommonTran_onerror = function(obj, e:nexacro.TranActionErrorEventInfo)
 this.CommonTran_onsuccess = function(obj, e:nexacro.TranActionSuccessEventInfo)
 {
 	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : [" + e.errorcode + "] " + e.errormsg);
-};
-
-
-// http://www.tobedevops.com:8099/QuickCodeDemo/service/TransactionActionService01.jsp
-// http://www.tobedevops.com:8099/QuickCodeDemo/XExportImport]]></Script>
+};]]></Script>
   </Form>
 </FDL>

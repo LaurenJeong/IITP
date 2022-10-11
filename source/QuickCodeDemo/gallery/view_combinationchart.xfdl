@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="view_combinationchart" width="1080" height="820" titletext="CombinationChartViewTemplate" cssclass="sta_WF_notice01" onload="view_barchart_onload">
+  <Form id="view_combinationchart" width="1080" height="1180" titletext="CombinationChartViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
     <Layouts>
-      <Layout height="820" mobileorientation="landscape" width="1080">
+      <Layout height="1180" mobileorientation="landscape" width="1080">
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="7" text="혼합 차트(CombinationChart)를 그려주는 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
@@ -228,7 +228,7 @@
           </ViewTemplateInfo>
         </View>
         <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="343" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="327" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -257,7 +257,7 @@
           </Formats>
         </Grid>
         <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="285" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="273" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -485,11 +485,25 @@
         </Rows>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[
-this.view_barchart_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	// 차트용 데이터 셋팅
 	this.viewSample.form.viewdataset.copyData(this.dsData);
+	
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdViewAttribute);
+	this.fnSetGridHeight(this.grdFieldUserAttribute);
+	this.resetScroll();
 };
-]]></Script>
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
+	
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
+};]]></Script>
   </Form>
 </FDL>

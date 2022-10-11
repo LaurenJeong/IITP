@@ -25,8 +25,8 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 		var arrXadl = xadl.split("://");
 		
 		if (arrXadl[0] == "http" || arrXadl[0] == "https") {
-			var arrHost = arrXadl[1].split("/");
-			urlPath = arrXadl[0] + "://" + arrHost[0];
+			//var arrHost = arrXadl[1].split("/");
+			urlPath = xadl;
 			
 			// 로컬(앱)
 			if (xadl.indexOf("localhost") > -1 || xadl.indexOf("127.0.0.1") > -1 || xadl.indexOf("172.10.") > -1 ) 
@@ -47,7 +47,8 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 	else
 	{	
 		// URL 설정(웹브라우저)
-		urlPath = window.location.protocol + "//" + window.location.host;
+		//urlPath = window.location.protocol + "//" + window.location.host;
+		urlPath = xadl;
 		 
 		// 로컬(웹)
 		if (xadl.indexOf("localhost") > -1 || xadl.indexOf("127.0.0.1") > -1 || xadl.indexOf("172.10.") > -1 ) 
