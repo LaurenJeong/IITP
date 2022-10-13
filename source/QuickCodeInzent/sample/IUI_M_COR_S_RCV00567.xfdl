@@ -6,11 +6,11 @@
         <View id="view_search" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="10" height="50" _vaild="[]" right="10">
           <Layouts>
             <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
-              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_WF_search" text="Search"/>
-              <Static id="staMngChrgEmpnoLabel" left="10" top="10" width="145" height="30" text="관리담당사원번호" cssclass="sta_WF_label"/>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staMngChrgEmpnoLabel" left="10" top="10" width="145" height="30" text="관리담당사원번호" cssclass="sta_label"/>
               <Edit id="edtMngChrgEmpno" left="160" top="10" width="150" height="30"/>
-              <Static id="staLoanNoLabel" left="315" top="10" width="145" height="30" text="대출번호" cssclass="sta_WF_label"/>
+              <Static id="staLoanNoLabel" left="315" top="10" width="145" height="30" text="대출번호" cssclass="sta_label"/>
               <Edit id="edtLoanNo" left="465" top="10" width="150" height="30"/>
             </Layout>
           </Layouts>
@@ -36,10 +36,10 @@
           </Bind>
           <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00567" modelid="SI" filepath="API_TEST\IUI_M_COR_S_RCV00567.xmodel">
             <Fields>
-              <Field id="PAGE_NO5" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="false"/>
-              <Field id="PAGE_MG5" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="false"/>
-              <Field id="MNG_CHRG_EMPNO" comptype="edit" fieldwidth="150px" fieldheight="30px" labelwidth="150" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="LOAN_NO" comptype="edit" fieldwidth="150px" fieldheight="30px" labelwidth="150" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="PAGE_NO5" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="PAGE_MG5" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="MNG_CHRG_EMPNO" comptype="edit" fieldwidth="150px" fieldheight="30px" labelwidth="150" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="LOAN_NO" comptype="edit" fieldwidth="150px" fieldheight="30px" labelwidth="150" cssclass="" labelcssclass="sta_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -56,8 +56,8 @@
             <Attribute id="valign" value="top"/>
             <Attribute id="searchbuttontype" value="bottom"/>
             <Attribute id="searchbuttontext" value="Search"/>
-            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
-            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
           </ViewTemplateInfo>
         </View>
         <View id="view_master" taborder="1" text="View01" viewdataset="viewdataset" left="10" top="view_search:10" right="10" bottom="60">
@@ -66,7 +66,7 @@
               <Div id="divTitle" left="0" top="0" height="30" right="0" text="">
                 <Layouts>
                   <Layout>
-                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="법비용환급대출번호기준목록조회" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="법비용환급대출번호기준목록조회" fittocontents="width" cssclass="sta_subtitle"/>
                   </Layout>
                 </Layouts>
               </Div>
@@ -155,7 +155,7 @@
         <View id="view_page" taborder="2" viewdataset="viewdataset" left="10" right="10" text="view_page" bottom="10" height="40">
           <Layouts>
             <Layout>
-              <Static id="staTotCnt" top="0" height="30" width="100" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_total_count" _text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;{0}&lt;/fc&gt;&lt;/b&gt;건)" _fieldid="grid5_cnt" left="0"/>
+              <Static id="staTotCnt" top="0" height="30" width="100" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_total_count" _text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;{0}&lt;/fc&gt;&lt;/b&gt;건)" _fieldid="grid5_cnt" left="0"/>
               <Button id="btnPrev" top="0" width="60" height="30" text="이전" enable="false" _fieldid="NEXT_PAGE_EXS_YN5" right="65"/>
               <Button id="btnNext" top="0" width="60" height="30" text="다음" enable="false" _fieldid="NEXT_PAGE_EXS_YN5" right="0"/>
             </Layout>

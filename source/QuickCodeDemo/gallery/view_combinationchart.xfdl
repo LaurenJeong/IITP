@@ -9,7 +9,7 @@
         <Static id="Static00" taborder="10" text="- ColumnChart : 세로 막대그래프&#13;&#10;- BarChart : 가로 막대그래프" left="13" top="Static00_00:0" height="28" cssclass="sta_WF_notice02" width="1050" fittocontents="height"/>
         <TextArea id="txaInfo" taborder="2" left="0" top="Static00:5" height="100" right="10" readonly="true" value="- Field User Attribute의 displaytype에 설정된 값에 따라 Chart가 생성된다.&#10;  ex) 세로막대차트 &#10;  .x축에 해당하는 데이터를 category로 설정(1개의 필드만 선택가능)&#10;  .y축에 해당하는 데이터를 series로 설정(데이터형식은 숫자형만 가능)&#10;- series 설정된 Field에서 seriesdisplay 값에 따라  막대, 선, 영역으로 표현된다."/>
         <Static id="Static00_00_00" taborder="8" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="215" right="10" cssclass="viw_bg">
+        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="215" right="10" cssclass="viw_box">
           <Layouts>
             <Layout>
               <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:month">

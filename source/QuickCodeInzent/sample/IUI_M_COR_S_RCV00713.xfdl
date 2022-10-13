@@ -6,23 +6,23 @@
         <View id="view_search" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="10" height="85" _vaild="[]" right="10">
           <Layouts>
             <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
-              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_WF_search" text="Search"/>
-              <Static id="staMngChrgEmpnoLabel" left="10" top="10" width="95" height="30" text="관리담당사원번호" cssclass="sta_WF_label"/>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staMngChrgEmpnoLabel" left="10" top="10" width="95" height="30" text="관리담당사원번호" cssclass="sta_label"/>
               <Edit id="edtMngChrgEmpno" left="110" top="10" width="110" height="30"/>
-              <Static id="staCustnoLabel" left="225" top="10" width="95" height="30" text="고객번호" cssclass="sta_WF_label"/>
+              <Static id="staCustnoLabel" left="225" top="10" width="95" height="30" text="고객번호" cssclass="sta_label"/>
               <Edit id="edtCustno" left="325" top="10" width="110" height="30"/>
-              <Static id="staLoanNoLabel" left="440" top="10" width="95" height="30" text="대출번호" cssclass="sta_WF_label"/>
+              <Static id="staLoanNoLabel" left="440" top="10" width="95" height="30" text="대출번호" cssclass="sta_label"/>
               <Edit id="edtLoanNo" left="540" top="10" width="110" height="30"/>
-              <Static id="staDplrExpcDtLabel" left="655" top="10" width="95" height="30" text="기한이익상실예정일자" cssclass="sta_WF_label"/>
+              <Static id="staDplrExpcDtLabel" left="655" top="10" width="95" height="30" text="기한이익상실예정일자" cssclass="sta_label"/>
               <Calendar id="calDplrExpcDt" left="755" top="10" width="110" height="30"/>
-              <Static id="staDplrExpcEndDtS8Label" left="10" top="45" width="95" height="30" text="기한이익상실예정종료일자_S8" cssclass="sta_WF_label"/>
+              <Static id="staDplrExpcEndDtS8Label" left="10" top="45" width="95" height="30" text="기한이익상실예정종료일자_S8" cssclass="sta_label"/>
               <Calendar id="calDplrExpcEndDtS8" left="110" top="45" width="110" height="30"/>
-              <Static id="staDplrDtLabel" left="225" top="45" width="95" height="30" text="기한이익상실일자" cssclass="sta_WF_label"/>
+              <Static id="staDplrDtLabel" left="225" top="45" width="95" height="30" text="기한이익상실일자" cssclass="sta_label"/>
               <Calendar id="calDplrDt" left="325" top="45" width="110" height="30"/>
-              <Static id="staDplrEndDtS8Label" left="440" top="45" width="95" height="30" text="기한이익상실종료일자_S8" cssclass="sta_WF_label"/>
+              <Static id="staDplrEndDtS8Label" left="440" top="45" width="95" height="30" text="기한이익상실종료일자_S8" cssclass="sta_label"/>
               <Calendar id="calDplrEndDtS8" left="540" top="45" width="110" height="30"/>
-              <Static id="staStdDtLabel" left="655" top="45" width="95" height="30" text="기준일자" cssclass="sta_WF_label"/>
+              <Static id="staStdDtLabel" left="655" top="45" width="95" height="30" text="기준일자" cssclass="sta_label"/>
               <Calendar id="calStdDt" left="755" top="45" width="110" height="30"/>
             </Layout>
           </Layouts>
@@ -57,16 +57,16 @@
           </Bind>
           <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00713" modelid="SI" filepath="API_TEST\IUI_M_COR_S_RCV00713.xmodel">
             <Fields>
-              <Field id="PAGE_MG_1_N5" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="false"/>
-              <Field id="PAGE_NO_1_N5" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="false"/>
-              <Field id="MNG_CHRG_EMPNO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="CUSTNO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="LOAN_NO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="DPLR_EXPC_DT" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="DPLR_EXPC_END_DT_S8" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="DPLR_DT" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="DPLR_END_DT_S8" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="STD_DT" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="PAGE_MG_1_N5" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="PAGE_NO_1_N5" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="MNG_CHRG_EMPNO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="CUSTNO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="LOAN_NO" comptype="edit" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="DPLR_EXPC_DT" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="DPLR_EXPC_END_DT_S8" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="DPLR_DT" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="DPLR_END_DT_S8" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="STD_DT" comptype="calendar" fieldwidth="110px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -95,8 +95,8 @@
             <Attribute id="valign" value="top"/>
             <Attribute id="searchbuttontype" value="bottom"/>
             <Attribute id="searchbuttontext" value="Search"/>
-            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
-            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
           </ViewTemplateInfo>
         </View>
         <View id="view_master" taborder="1" text="View01" viewdataset="viewdataset" left="10" top="view_search:10" right="10" bottom="60">
@@ -105,7 +105,7 @@
               <Div id="divTitle" left="0" top="0" height="30" right="0">
                 <Layouts>
                   <Layout>
-                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="DM개별발송대상자목록조회" fittocontents="width" cssclass="sta_WF_subtitle"/>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="DM개별발송대상자목록조회" fittocontents="width" cssclass="sta_subtitle"/>
                   </Layout>
                 </Layouts>
               </Div>
@@ -289,7 +289,7 @@
         <View id="view_page" taborder="2" viewdataset="viewdataset" left="10" right="10" text="view_page" top="view_master:10" bottom="10">
           <Layouts>
             <Layout>
-              <Static id="staTotCnt" top="0" height="30" width="100" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_WF_total_count" _text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;{0}&lt;/fc&gt;&lt;/b&gt;건)" _fieldid="grid2_cnt" left="0"/>
+              <Static id="staTotCnt" top="0" height="30" width="100" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_total_count" _text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;{0}&lt;/fc&gt;&lt;/b&gt;건)" _fieldid="grid2_cnt" left="0"/>
               <Button id="btnPrev" top="0" width="60" height="30" text="이전" enable="false" _fieldid="NEXT_PAGE_EXS_YN_1_S1" right="65"/>
               <Button id="btnNext" top="0" width="60" height="30" text="다음" enable="false" _fieldid="NEXT_PAGE_EXS_YN_1_S1" right="0"/>
             </Layout>
