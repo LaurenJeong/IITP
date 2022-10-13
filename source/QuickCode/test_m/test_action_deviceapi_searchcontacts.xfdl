@@ -6,9 +6,9 @@
         <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="20" top="60" height="224" right="20">
           <Layouts>
             <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
-              <Button id="btnSearch" left="20" height="60" right="20" bottom="10" cssclass="btn_WF_search" text="Search" onclick="View00_btnSearch_onclick"/>
-              <Static id="staSearchTypeLabel" left="20" top="10" width="105" height="60" text="검색조건" cssclass="sta_WF_label"/>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" left="20" height="60" right="20" bottom="10" cssclass="btn_search" text="Search" onclick="View00_btnSearch_onclick"/>
+              <Static id="staSearchTypeLabel" left="20" top="10" width="105" height="60" text="검색조건" cssclass="sta_label"/>
               <Combo id="cmbSearchType" left="130" top="10" width="290" height="60" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="2" text="contactname" value="contactname">
                 <Dataset id="innerdataset">
                   <ColumnInfo>
@@ -59,7 +59,7 @@
                   </Rows>
                 </Dataset>
               </Combo>
-              <Static id="staSearchValueLabel" left="20" top="80" width="105" height="60" text="검색값" cssclass="sta_WF_label"/>
+              <Static id="staSearchValueLabel" left="20" top="80" width="105" height="60" text="검색값" cssclass="sta_label"/>
               <Edit id="edtSearchValue" left="130" top="80" width="290" height="60"/>
             </Layout>
           </Layouts>

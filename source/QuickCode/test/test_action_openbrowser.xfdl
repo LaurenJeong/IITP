@@ -7,9 +7,9 @@
         <View id="View00" taborder="1" text="View00" viewdataset="viewdataset" left="10" top="95" width="448" height="50">
           <Layouts>
             <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
-              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_WF_search" text="Search"/>
-              <Static id="staAddressLabel" left="10" top="10" width="95" height="30" text="Address" cssclass="sta_WF_label"/>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staAddressLabel" left="10" top="10" width="95" height="30" text="Address" cssclass="sta_label"/>
               <Edit id="edtAddress" left="110" top="10" width="208" height="30"/>
             </Layout>
           </Layouts>
@@ -30,7 +30,7 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="svcQuickCodeTutorial" modelid="tutorial_DetailEmployee" filepath="svcQuickCodeTutorial.xmodel">
             <Fields>
-              <Field id="address" required="false" comptype="edit" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="address" required="false" comptype="edit" fieldwidth="100%" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -45,8 +45,8 @@
             <Attribute id="valign" value="top"/>
             <Attribute id="searchbuttontype" value="bottom"/>
             <Attribute id="searchbuttontext" value="Search"/>
-            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
-            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
           </ViewTemplateInfo>
         </View>
         <Static id="Static00" taborder="2" text="브라우저실행" left="10" top="10" height="30" cssclass="sta_WF_title02" width="100" fittocontents="width"/>

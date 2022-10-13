@@ -7,7 +7,7 @@
         <Static id="Static00_00_01" taborder="3" text="treestatusbutton='lefttop', treeusebutton='no'" left="440" top="5" width="395" height="25" cssclass="sta_WF_title02"/>
         <Static id="Static00_00_00_01" taborder="5" text="treestatusbutton='righttop', treeuseimage='false'" left="860" top="5" width="395" height="25" cssclass="sta_WF_title02"/>
         <Static id="Static00_00_01_00" taborder="7" text="treestatusbutton='leftbottom', treeuseline='false'" left="440" top="325" width="395" height="25" cssclass="sta_WF_title02"/>
-        <Static id="Static00_00_00_01_00" taborder="9" text="treestatusbutton='rightbottom', treecssclass='grd_WF_tree_noline'" left="860" top="325" width="395" height="25" cssclass="sta_WF_title02"/>
+        <Static id="Static00_00_00_01_00" taborder="9" text="treestatusbutton='rightbottom', treecssclass='grd_tree_noline'" left="860" top="325" width="395" height="25" cssclass="sta_WF_title02"/>
         <View id="viwTree1" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="40" width="400" height="590" cssclass="viw_bg">
           <Layouts>
             <Layout>
@@ -64,8 +64,8 @@
         <View id="viwTree2" taborder="2" text="View00" viewdataset="viewdataset" left="445" top="40" width="400" height="270" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_WF_tree_collapse" onclick="viwTree2.form.lfn_TreeView_btnTreecollapse_onclick" top="0" left="0"/>
-              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_WF_tree_expand" onclick="viwTree2.form.lfn_TreeView_btnTreeexpand_onclick" top="0" left="35"/>
+              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_tree_collapse" onclick="viwTree2.form.lfn_TreeView_btnTreecollapse_onclick" top="0" left="0"/>
+              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_tree_expand" onclick="viwTree2.form.lfn_TreeView_btnTreeexpand_onclick" top="0" left="35"/>
               <Grid id="grdList" left="0" top="35" right="0" bottom="0" binddataset="viewdataset" autofittype="col" treeinitstatus="collapse,all" treeusebutton="no" treeuseimage="true" treeuseline="true" treeusecheckbox="true">
                 <Formats>
                   <Format id="default">
@@ -120,8 +120,8 @@
         <View id="viwTree3" taborder="4" text="View00" viewdataset="viewdataset" left="865" top="40" width="400" height="270" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_WF_tree_collapse" onclick="viwTree3.form.lfn_TreeView_btnTreecollapse_onclick" top="0" right="35"/>
-              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_WF_tree_expand" onclick="viwTree3.form.lfn_TreeView_btnTreeexpand_onclick" top="0" right="0"/>
+              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_tree_collapse" onclick="viwTree3.form.lfn_TreeView_btnTreecollapse_onclick" top="0" right="35"/>
+              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_tree_expand" onclick="viwTree3.form.lfn_TreeView_btnTreeexpand_onclick" top="0" right="0"/>
               <Grid id="grdList" left="0" top="35" right="0" bottom="0" binddataset="viewdataset" autofittype="col" treeinitstatus="collapse,all" treeusebutton="use" treeuseimage="false" treeuseline="true" treeusecheckbox="true">
                 <Formats>
                   <Format id="default">
@@ -176,9 +176,9 @@
         <View id="viwTree5" taborder="8" text="View00" viewdataset="viewdataset" left="865" top="360" width="400" height="270" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_WF_tree_collapse" onclick="viwTree5.form.lfn_TreeView_btnTreecollapse_onclick" bottom="0" right="35"/>
-              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_WF_tree_expand" onclick="viwTree5.form.lfn_TreeView_btnTreeexpand_onclick" bottom="0" right="0"/>
-              <Grid id="grdList" left="0" top="0" right="0" bottom="35" binddataset="viewdataset" autofittype="col" treeinitstatus="collapse,all" treeusebutton="use" treeuseimage="true" treeuseline="true" treeusecheckbox="true" cssclass="grd_WF_tree_noline">
+              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_tree_collapse" onclick="viwTree5.form.lfn_TreeView_btnTreecollapse_onclick" bottom="0" right="35"/>
+              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_tree_expand" onclick="viwTree5.form.lfn_TreeView_btnTreeexpand_onclick" bottom="0" right="0"/>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="35" binddataset="viewdataset" autofittype="col" treeinitstatus="collapse,all" treeusebutton="use" treeuseimage="true" treeuseline="true" treeusecheckbox="true" cssclass="grd_tree_noline">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -227,14 +227,14 @@
             <Attribute id="treestatusbutton" value="rightbottom"/>
             <Attribute id="treestartlevel" value="0"/>
             <Attribute id="bodybandsize" value="30"/>
-            <Attribute id="treecssclass" value="grd_WF_tree_noline"/>
+            <Attribute id="treecssclass" value="grd_tree_noline"/>
           </ViewTemplateInfo>
         </View>
         <View id="viwTree4" taborder="6" text="View00" viewdataset="viewdataset" left="445" top="360" width="400" height="270" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_WF_tree_collapse" onclick="viwTree4.form.lfn_TreeView_btnTreecollapse_onclick" bottom="0" left="0"/>
-              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_WF_tree_expand" onclick="viwTree4.form.lfn_TreeView_btnTreeexpand_onclick" bottom="0" left="35"/>
+              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_tree_collapse" onclick="viwTree4.form.lfn_TreeView_btnTreecollapse_onclick" bottom="0" left="0"/>
+              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_tree_expand" onclick="viwTree4.form.lfn_TreeView_btnTreeexpand_onclick" bottom="0" left="35"/>
               <Grid id="grdList" left="0" top="0" right="0" bottom="35" binddataset="viewdataset" autofittype="col" treeinitstatus="collapse,all" treeusebutton="use" treeuseimage="true" treeuseline="false" treeusecheckbox="true">
                 <Formats>
                   <Format id="default">

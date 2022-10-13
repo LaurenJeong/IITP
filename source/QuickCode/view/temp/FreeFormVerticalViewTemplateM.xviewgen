@@ -78,7 +78,10 @@ this.LINE_SPACE     		  = 5;
 this.COMP_CSSCLASS			= "";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS			= "sta_WF_label";
+this.LABEL_CSSCLASS			= "sta_label";
+
+//Required Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS	= "sta_labelbox_essential";
 
 //Component Use Type
 this.USE_COMP				= "true";
@@ -899,6 +902,8 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			oFieldPosition = arrFields[i];
 			sFieldId = oFieldPosition.fieldid;
 			oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			if (this.lfn_IsNull(oField))	continue;
 
 			//Import Component Naming Rules
 			oCompClass = this.lfn_GetCompClass(oField.comptype);
@@ -907,7 +912,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.labelcssclass;
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 			//Import Row/Col Index where the Field will be located
 			nRowIdx = oFieldPosition.rowidx;

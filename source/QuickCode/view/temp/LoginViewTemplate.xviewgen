@@ -48,7 +48,7 @@ this.LOGIN_BUTTON_TEXT			= "Login";
 //Login Button Default Form
 this.LOGIN_BUTTON_TYPE			= "bottom";
 //Login Button Css Class
-this.LOGIN_BUTTON_CSSCLASS		= "btn_LI_login";
+this.LOGIN_BUTTON_CSSCLASS		= "btn_login";
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 // 아이디저장 Checkbox 관련 상수
@@ -58,7 +58,7 @@ this.SAVEID_CHECKBOX_ID			= "chkSaveId";
 // 아이디저장 체크박스 TEXT
 this.SAVEID_CHECKBOX_TEXT		= "Save User ID";
 // 아이디저장 체크박스 CSS CLASS
-this.SAVEID_CHECKBOX_CSSCLASS	= "chk_LI_login";
+this.SAVEID_CHECKBOX_CSSCLASS	= "chk_login";
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 // 컴포넌트(Label + Field) 관련 상수
@@ -100,7 +100,7 @@ this.LINE_SPACE				= 5;
 this.COMP_CSSCLASS			= "";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS			= "sta_LI_login_label";
+this.LABEL_CSSCLASS			= "sta_login_label";
 //--------------------------------------------------------------------------------------------------------
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
@@ -816,6 +816,8 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			oField = arrFieldList[j];
 			sFieldId = oField.id;
 		}
+		
+		if (this.lfn_IsNull(oField))	continue;
 
 		//Import Label Width Information set on the current Field
 		nLabelWidth = nexacro.toNumber(oField.labelwidth);
@@ -1122,6 +1124,8 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		oFieldPosition = arrFields[i];
 		sFieldId = oFieldPosition.fieldid;
 		oField = this.oFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+		
+		if (this.lfn_IsNull(oField))	continue;
 
 		//Import Component Naming Rule Information
 		oCompClass = this.lfn_GetCompClass(oField.comptype);

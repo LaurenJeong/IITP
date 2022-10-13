@@ -78,10 +78,13 @@ this.LINE_SPACE     		  = 5;
 this.COMP_CSSCLASS		  = "";
 
 //Background Component Default CSS Class
-this.COMP_BG_CSSCLASS	  = "sta_WF_fieldbox";
+this.COMP_BG_CSSCLASS	  = "sta_fieldbox";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS		  = "sta_WF_labelbox";
+this.LABEL_CSSCLASS		  = "sta_labelbox";
+
+//Required Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS	= "sta_labelbox_essential";
 
 //Background Component Use Type
 this.USE_COMP_BG		= "true";
@@ -1375,7 +1378,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.labelcssclass;
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 			//Import Row/Col Index where the Field will be located
 			nRowIdx = oFieldPosition.rowidx;
@@ -1549,7 +1552,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.labelcssclass;
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 			//Import Row/Col Index where the Field will be located
 			nRowIdx = oFieldPosition.rowidx;

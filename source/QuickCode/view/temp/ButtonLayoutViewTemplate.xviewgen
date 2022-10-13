@@ -456,6 +456,8 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 			oField = arrFieldList[j];
 			sFieldId = oField.id;
 		}
+		
+		if (this.lfn_IsNull(oField))	continue;
 
 		//Evaluate the Width/Height Value where the Field will be expressed
 		nFieldWidth = this.lfn_GetRealSize(oField.fieldwidth, 0, nColSize, this.FIELD_WIDTH, 0, 0);
@@ -689,7 +691,9 @@ fn_MakeCompByFuildLayout = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight
 		oFieldPosition = arrFieldPosition[i];
 		sFieldId = oFieldPosition.fieldid;
 		oField = this.oFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
-
+		
+		if (this.lfn_IsNull(oField))	continue;
+		
 		//Import Component Naming Rule Information
 		oCompClass = this.lfn_GetCompClass(this.COMP_TYPE);
 

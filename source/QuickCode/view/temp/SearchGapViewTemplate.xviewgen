@@ -54,7 +54,7 @@ this.SEARCH_BUTTON_TEXT				= "Search";
 this.SEARCH_BUTTON_TYPE				= "bottom";
 
 //Lookup Button Css Class
-this.SEARCH_BUTTON_CSSCLASS			= "btn_WF_search";
+this.SEARCH_BUTTON_CSSCLASS			= "btn_search";
 //--------------------------------------------------------------------------------------------------------
 
 //Field Default Width
@@ -85,10 +85,13 @@ this.COMP_PADDING					= "5 0 0 5";
 this.COMP_CSSCLASS					= "";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS					= "sta_WF_label";
+this.LABEL_CSSCLASS					= "sta_label";
+
+//Required Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS		= "sta_label_essential";
 
 //Background Static Css Class
-this.SEARCH_BG_CSSCLASS				= "sta_WF_searchbox";
+this.SEARCH_BG_CSSCLASS				= "sta_searchbox";
 
 //컴포넌트 사용여부
 this.USE_COMP						= "true";
@@ -990,11 +993,14 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 		{
 			sFieldId =  arrFieldInCellList[i];
 			oField = arrFieldList.filter(arrFieldList=>arrFieldList.id==sFieldId)[0];
-		}else
+		}
+		else
 		{
 			oField = arrFieldList[i];
 			sFieldId = oField.id;
 		}
+		
+		if (this.lfn_IsNull(oField))	continue;
 
 		nLabelWidth = nexacro.toNumber(oField.labelwidth);
 		nLabelHeight = nexacro.toNumber(oField.labelheight);
@@ -1202,7 +1208,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		oFieldPosition = arrFields[i];
 		sFieldId = oFieldPosition.fieldid;
 		oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
-
+		
+		if (this.lfn_IsNull(oField))	continue;
+		
 		//Import Component Naming Rules
 		oCompClass = this.lfn_GetCompClass(oField.comptype);
 
@@ -1210,7 +1218,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		sCompCssClass = oField.cssclass;
 
 		//Import Label Css Class Id Value
-		sLabelCssClass = oField.labelcssclass;
+		sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 		sLabelText = oField.label;
 

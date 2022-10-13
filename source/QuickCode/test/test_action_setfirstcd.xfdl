@@ -6,13 +6,13 @@
         <View id="viwSearch" taborder="0" text="View00" viewdataset="viewdataset" left="8" top="10" width="569" height="116">
           <Layouts>
             <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
-              <Button id="btnSearch" width="100" height="30" right="5" bottom="5" cssclass="btn_WF_search" text="Search"/>
-              <Static id="stcompany_Label" left="5" top="5" width="95" height="30" text="Company" cssclass="sta_WF_label"/>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="5" bottom="5" cssclass="btn_search" text="Search"/>
+              <Static id="stcompany_Label" left="5" top="5" width="95" height="30" text="Company" cssclass="sta_label"/>
               <Radio id="rdocompany" left="105" top="5" width="330" height="30" innerdataset="dsCompanyS" codecolumn="COMN_CD" datacolumn="COMN_CD_NM" rowcount="1"/>
-              <Static id="stdepartment_Label" left="5" top="40" width="95" height="30" text="Department" cssclass="sta_WF_label"/>
+              <Static id="stdepartment_Label" left="5" top="40" width="95" height="30" text="Department" cssclass="sta_label"/>
               <Combo id="cmbdepartment" left="105" top="40" width="330" height="30" innerdataset="dsDepartmentS" codecolumn="COMN_CD" datacolumn="COMN_CD_NM"/>
-              <Static id="stname_Label" left="5" top="75" width="95" height="30" text="Name" cssclass="sta_WF_label"/>
+              <Static id="stname_Label" left="5" top="75" width="95" height="30" text="Name" cssclass="sta_label"/>
               <Edit id="edtname" left="105" top="75" width="330" height="30"/>
             </Layout>
             <Layout/>
@@ -36,9 +36,9 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="svcQuickCodeTutorial" modelid="tutorial_SearchEmployee" filepath="svcQuickCodeTutorial.xmodel">
             <Fields>
-              <Field id="company" comptype="radio" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label"/>
-              <Field id="department" required="false" comptype="combo" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label"/>
-              <Field id="name" required="false" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label"/>
+              <Field id="company" comptype="radio" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label"/>
+              <Field id="department" required="false" comptype="combo" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label"/>
+              <Field id="name" required="false" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label"/>
             </Fields>
             <Components>
               <Component id="stcompany_Label" fields="company"/>
@@ -55,8 +55,8 @@
             <Attribute id="valign" value="top"/>
             <Attribute id="searchbuttontype" value="bottom"/>
             <Attribute id="searchbuttontext" value="Search"/>
-            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
-            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
           </ViewTemplateInfo>
         </View>
         <View id="viwList" taborder="1" text="View01" viewdataset="viewdataset" left="6" top="136" width="571" bottom="20">

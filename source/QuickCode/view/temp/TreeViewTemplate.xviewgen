@@ -31,10 +31,6 @@ this.VIEW_PADDING			= "";
 //--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
-//Tree 영역 top 위치(title영역에 따라 위치 변경됨)
-this.VIEW_TOP = 0;
-//Tree 영역 bottom 위치(title영역에 따라 위치 변경됨)
-this.VIEW_BOTTOM = 0;
 //타이틀 영역 전체건수 표시여부
 this.USE_TOT_COUNT			= "false";
 //타이틀 영역 접기/펼치기 버튼 표시여부(Grid에서는 사용안함)
@@ -101,9 +97,9 @@ this.TREE_BUTTON_EXPAND_ID			= "btnTreeexpand";
 // collapse 버튼 ID
 this.TREE_BUTTON_COLLAPSE_ID		= "btnTreecollapse";
 // expand 버튼 cssclass
-this.TREE_BUTTON_EXPAND_CSSCLASS 	= "btn_WF_tree_expand";
+this.TREE_BUTTON_EXPAND_CSSCLASS 	= "btn_tree_expand";
 // collapse 버튼 cssclass
-this.TREE_BUTTON_COLLAPSE_CSSCLASS 	= "btn_WF_tree_collapse";
+this.TREE_BUTTON_COLLAPSE_CSSCLASS 	= "btn_tree_collapse";
 //--------------------------------------------------------------------------------------------------------
 //////////////////////////////Constant Setting END ////////////////////////////////////////////////////
 /************************************************************************************************
@@ -572,15 +568,15 @@ fn_MakeTreeStatusButton = function()
 	if (sTreeStatusButton == "lefttop")
 	{
 		// Collapse 버튼 위치 설정
-		oBtnCollapse["top"]		= this.VIEW_TOP;
+		oBtnCollapse["top"]		= this.VIEW_PADDING_TOP;
 		oBtnCollapse["left"]	= 0;
 		
 		// Expand 버튼 위치 설정
-		oBtnExpand["top"]		= this.VIEW_TOP;
+		oBtnExpand["top"]		= this.VIEW_PADDING_TOP;
 		oBtnExpand["left"]		= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_COMP_SPACE;
 		
 		// Tree Grid 위치 설정
-		this.VIEW_TOP			= this.VIEW_TOP + this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
+		this.VIEW_PADDING_TOP			= this.VIEW_PADDING_TOP + this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
 	}
 	else if (sTreeStatusButton == "righttop")
 	{
@@ -593,7 +589,7 @@ fn_MakeTreeStatusButton = function()
 		oBtnExpand["right"]		= 0;
 		
 		// Tree Grid 위치 설정
-		this.VIEW_TOP			= Math.max(this.VIEW_TOP, (this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE));
+		this.VIEW_PADDING_TOP			= Math.max(this.VIEW_PADDING_TOP, (this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE));
 	}
 	else if (sTreeStatusButton == "leftbottom")
 	{
@@ -602,11 +598,11 @@ fn_MakeTreeStatusButton = function()
 		oBtnCollapse["left"]	= 0;
 		
 		// Expand 버튼 위치 설정
-		oBtnExpand["bottom"]	= 0
+		oBtnExpand["bottom"]	= 0;
 		oBtnExpand["left"]		= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_COMP_SPACE;
 		
 		// Tree Grid 위치 설정
-		this.VIEW_BOTTOM		= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
+		this.VIEW_PADDING_BOTTOM		= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
 	}
 	else if (sTreeStatusButton == "rightbottom")
 	{
@@ -619,7 +615,7 @@ fn_MakeTreeStatusButton = function()
 		oBtnExpand["right"]		= 0;
 		
 		// Tree Grid 위치 설정
-		this.VIEW_BOTTOM		= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
+		this.VIEW_PADDING_BOTTOM		= this.TREE_BUTTON_SIZE + this.TREE_BUTTON_LINE_SPACE;
 	}
 
 	//Add Background Static Component Tag

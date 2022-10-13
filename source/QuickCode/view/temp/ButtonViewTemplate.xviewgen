@@ -727,6 +727,8 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			oField = arrFieldList[j];
 			sFieldId = oField.id;
 		}
+		
+		if (this.lfn_IsNull(oField))	continue;
 
 		//Evaluate the Width/Height Value where the Field will be expressed
 		nFieldWidth = this.lfn_GetRealSize(oField.fieldwidth, 0, nColSize, this.FIELD_WIDTH, 0, 0);
@@ -1013,7 +1015,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		oFieldPosition = arrFieldPosition[i];
 		sFieldId = oFieldPosition.fieldid;
 		oField = this.oFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
-
+		
+		if (this.lfn_IsNull(oField))	continue;
+		
 		//Import Component Naming Rule Information
 		oCompClass = this.lfn_GetCompClass("button");
 

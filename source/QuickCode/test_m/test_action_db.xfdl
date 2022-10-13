@@ -6,13 +6,13 @@
         <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="20" top="230" height="331" right="20">
           <Layouts>
             <Layout>
-              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_WF_searchbox"/>
-              <Button id="btnSearch" left="20" height="60" right="20" bottom="20" cssclass="btn_WF_search" text="Search"/>
-              <Static id="staCompanyLabel" left="20" top="20" width="105" height="60" text="Company" cssclass="sta_WF_label"/>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" left="20" height="60" right="20" bottom="20" cssclass="btn_search" text="Search"/>
+              <Static id="staCompanyLabel" left="20" top="20" width="105" height="60" text="Company" cssclass="sta_label"/>
               <Edit id="edtCompany" left="130" top="20" width="290" height="60"/>
-              <Static id="staDepartmentLabel" left="20" top="90" width="105" height="60" text="Department" cssclass="sta_WF_label"/>
+              <Static id="staDepartmentLabel" left="20" top="90" width="105" height="60" text="Department" cssclass="sta_label"/>
               <Edit id="edtDepartment" left="130" top="90" width="290" height="60"/>
-              <Static id="staNameLabel" left="20" top="160" width="105" height="60" text="Name" cssclass="sta_WF_label"/>
+              <Static id="staNameLabel" left="20" top="160" width="105" height="60" text="Name" cssclass="sta_label"/>
               <Edit id="edtName" left="130" top="160" width="290" height="60"/>
             </Layout>
           </Layouts>
@@ -35,9 +35,9 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="Tran" modelid="input" filepath="sample\Tran.xmodel">
             <Fields>
-              <Field id="company" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="department" required="false" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="name" required="false" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="company" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="department" required="false" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="name" required="false" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -56,8 +56,8 @@
             <Attribute id="valign" value="top"/>
             <Attribute id="searchbuttontype" value="bottomfull"/>
             <Attribute id="searchbuttontext" value="Search"/>
-            <Attribute id="searchbuttoncssclass" value="btn_WF_search"/>
-            <Attribute id="searchbgcssclass" value="sta_WF_searchbox"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
           </ViewTemplateInfo>
         </View>
         <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="20" top="viewSearch:10" height="400" right="20">
@@ -134,7 +134,7 @@
           </ViewTemplateInfo>
         </View>
         <TextArea id="txtOutput" taborder="2" top="viewList:20" right="20" left="20" height="339"/>
-        <Static id="staTitle" left="20" top="10" height="40" width="110" text="데이터조회" fittocontents="width" cssclass="sta_WF_subtitle" taborder="4"/>
+        <Static id="staTitle" left="20" top="10" height="40" width="110" text="데이터조회" fittocontents="width" cssclass="sta_subtitle" taborder="4"/>
         <CheckBox id="chkOnCanEvent" taborder="3" text="Action 실행여부" left="staTitle:10" top="10" width="181" height="40" value="true" fittocontents="width"/>
         <Edit id="edtArg" taborder="5" left="20" top="70" height="60" value="datacnt=100" text="datacnt=100" right="200"/>
         <Button id="btnSetArg" taborder="6" text="arg 설정" top="70" height="60" onclick="btnSetArg_onclick" right="20" width="170"/>

@@ -76,10 +76,13 @@ this.COMP_PADDING		= "5 5 5 5";
 this.COMP_CSSCLASS		= "";
 
 //컴포넌트 배경 디폴트 CSS Class
-this.COMP_BG_CSSCLASS	= "sta_WF_fieldbox";
+this.COMP_BG_CSSCLASS	= "sta_fieldbox";
 
 //레이블 디폴트 CSS Class
-this.LABEL_CSSCLASS		= "sta_WF_labelbox";
+this.LABEL_CSSCLASS		= "sta_labelbox";
+
+//Required Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS	= "sta_labelbox_essential";
 
 //Background Component Use Type
 this.USE_COMP_BG		= "true";
@@ -1173,6 +1176,8 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			oFieldPosition = arrFields[i];
 			sFieldId = oFieldPosition.fieldid;
 			oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			if (this.lfn_IsNull(oField))	continue;
 
 			//Import Component Naming Rules
 			oCompClass = this.lfn_GetCompClass(oField.comptype);
@@ -1181,7 +1186,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.labelcssclass;
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 			sLabelText = oField.label;
 
@@ -1288,6 +1293,8 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			oFieldPosition = arrFields[i];
 			sFieldId = oFieldPosition.fieldid;
 			oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			if (this.lfn_IsNull(oField))	continue;
 
 			//Import Component Naming Rules
 			oCompClass = this.lfn_GetCompClass(oField.comptype);
@@ -1296,7 +1303,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.labelcssclass;
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 			sLabelText = oField.label;
 

@@ -54,7 +54,7 @@ this.SEARCH_BUTTON_TEXT				= "Search";
 this.SEARCH_BUTTON_TYPE				= "bottom";
 
 //Lookup Button Css Class
-this.SEARCH_BUTTON_CSSCLASS			= "btn_WF_search";
+this.SEARCH_BUTTON_CSSCLASS			= "btn_search";
 //--------------------------------------------------------------------------------------------------------
 
 //Field Default Width
@@ -94,10 +94,13 @@ this.LINE_SPACE						= 5;
 this.COMP_CSSCLASS					= "";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS					= "sta_WF_label";
+this.LABEL_CSSCLASS					= "sta_label";
+
+//Required Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS		= "sta_label_essential";
 
 //Background Static Css Class
-this.SEARCH_BG_CSSCLASS				= "sta_WF_searchbox";
+this.SEARCH_BG_CSSCLASS				= "sta_searchbox";
 
 //컴포넌트 사용여부
 this.USE_COMP						= "true";
@@ -1323,7 +1326,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		sCompCssClass = oField.cssclass;
 
 		//Import Label Css Class Id Value
-		sLabelCssClass = oField.labelcssclass;
+		sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 		//Import Row/Col Index where the Field will be located
 		nRowIdx = oFieldPosition.rowidx;
