@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppVariables version="2.0">
+  <Datasets>
+    <Dataset id="gdsMenu">
+      <ColumnInfo>
+        <Column id="MENU_CD" type="STRING" size="256" description="메뉴코드"/>
+        <Column id="UP_MENU_CD" type="STRING" size="256" description="상위메뉴코드"/>
+        <Column id="MENU_NM" type="STRING" size="256" description="메뉴명"/>
+        <Column id="MENU_LVL" type="STRING" size="256" description="메뉴레벨(0부터시작)"/>
+        <Column id="PGM_PATH" type="STRING" size="256" description="화면 Services Prefix"/>
+        <Column id="PGM_ID" type="STRING" size="256" description="화면명"/>
+        <Column id="MENU_AUTH" type="STRING" size="256" description="화면권한"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="MENU_CD">1000</Col>
+          <Col id="UP_MENU_CD">0000</Col>
+          <Col id="MENU_NM">MY</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="MENU_AUTH">20</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">1001</Col>
+          <Col id="UP_MENU_CD">1000</Col>
+          <Col id="MENU_NM">주문내역</Col>
+          <Col id="PGM_PATH">QUICKCODE</Col>
+          <Col id="PGM_ID">orderlist.xfdl</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="MENU_AUTH">20</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">1002</Col>
+          <Col id="UP_MENU_CD">1000</Col>
+          <Col id="MENU_NM">주문하기</Col>
+          <Col id="PGM_PATH">QUICKCODE</Col>
+          <Col id="PGM_ID">order.xfdl</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="MENU_AUTH">20</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">1003</Col>
+          <Col id="UP_MENU_CD">1000</Col>
+          <Col id="MENU_NM">내정보</Col>
+          <Col id="PGM_PATH">QUICKCODE</Col>
+          <Col id="PGM_ID">myinfo.xfdl</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="MENU_AUTH">20</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsUserInfo">
+      <ColumnInfo>
+        <Column id="USER_ID" type="STRING" size="80" description="사용자 ID"/>
+        <Column id="USER_TYPE" type="STRING" size="80" description="사용자구분"/>
+        <Column id="USER_PW" type="STRING" size="80" description="비밀번호"/>
+        <Column id="USER_PW_OK" type="STRING" size="80" description="비밀번호 확인"/>
+        <Column id="USER_HP" type="STRING" size="80" description="휴대폰번호"/>
+        <Column id="USER_NM" type="STRING" size="80" description="사용자명"/>
+        <Column id="USER_EMAIL" type="STRING" size="80" description="이메일주소"/>
+        <Column id="USER_POSTAL_CODE" type="STRING" size="80" description="우편번호"/>
+        <Column id="USER_ADRESS1" type="STRING" size="80" description="주소"/>
+        <Column id="USER_ADRESS2" type="STRING" size="80" description="상세주소"/>
+      </ColumnInfo>
+      <Rows>
+        <Row/>
+      </Rows>
+    </Dataset>
+  </Datasets>
+  <Variables/>
+  <DataObjects/>
+</AppVariables>

@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmAll" width="480" height="768" titletext="frameBase" onload="frameBase_onload" ondevicebuttonup="frameBase_ondevicebuttonup" onorientationchange="frameBase_onorientationchange">
+    <Layouts>
+      <Layout height="768" mobileorientation="portrait" width="480">
+        <Div id="divTop" taborder="0" text="Div01" left="0" top="0" height="58" right="0">
+          <Layouts>
+            <Layout>
+              <Button id="btnMenu" taborder="0" left="0" top="0" width="58" height="58" onclick="divTop_btnMenu_onclick" cssclass="btn_TF_menu"/>
+              <Button id="btnBack" taborder="1" top="0" height="58" right="0" width="58" visible="false" onclick="divTop_btnBack_onclick" cssclass="btn_TF_back"/>
+              <Static id="staTopTitle" taborder="2" text="TOBEERP Mobile" left="58" top="0" right="58" onclick="divTop_staHome_onclick" font="20px &quot;Arial&quot;" textAlign="center" cssclass="sta_TF_Title" bottom="0"/>
+              <Static id="Static01" taborder="3" left="0" height="1" cssclass="sta_TF_Line" right="0" bottom="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divCenter" taborder="1" text="divCenter" left="0" top="58" bottom="0" right="0" visible="false" url="frame::frmWork.xfdl"/>
+        <Div id="divMain" taborder="3" text="divMain" left="0" top="58" bottom="0" right="0" url="frame::frmMain.xfdl"/>
+        <Div id="divMenu" taborder="2" text="divMenu" left="1000" top="0" background="transparent" right="-1000" bottom="0" visible="false" url="frame::frmMenu.xfdl"/>
+        <Div id="divLogin" taborder="4" text="divLogin" left="500" top="0" background="white" right="-500" bottom="0" visible="false" url="QUICKCODE::frmLogin.xfdl"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  QuickCode 샘플
+*  @MenuPath    frame > frmAll
+*  @FileName 	frmAll.xfdl 
+*  @Creator 	Creator
+*  @CreateDate 	2021.05.31
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2021.05.31     	Creator		 				최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = nexacro.getApplication();
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.frameBase_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// Frame 변수 저장
+	this.objApp.gvFrmAll 	    = this;
+	this.objApp.gvOs			= system.osversion.toUpperCase();	
+  
+ 	// 화면 기본위치 셋팅
+	this.divLogin.set_visible(true);
+	this.divLogin.set_left(0);
+	this.divLogin.set_right(0);
+	this.divMenu.set_left(0);
+	this.divMenu.set_right(0);
+    this.divMenu.set_width(0);
+    this.divMenu.set_visible(true);
+
+    this.fnMakeAnimation();
+
+	if (system.navigatorname == "nexacro")
+    {
+        this.divTop.form.btnBack.set_visible(true);
+    } 
+};
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+
+
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+ /**
+ * @description 
+*/
+this.fnAction = function (sID, arg)
+{
+	switch (sID) 
+	{
+		case "LOGIN":
+			if (arg)
+			{
+				this.objApp.gvLogin = "Y";
+
+                this.divMenu.form.divTop.form.staName.set_text(this.objApp.gdsUserInfo.getColumn(0, "USER_NM"));		
+                
+                this.divLogin.set_visible(false);
+				this.fnAction("HOME");
+			}
+			else
+			{	
+				this.objApp.gvLogout = "Y";
+						
+				if (system.navigatorname != "nexacro") 
+				{
+					window.location.reload(true);						
+				}
+				else
+				{
+					this.fnAction("MENU", false);
+					this.divLogin.set_visible(true);
+				}				
+			}
+			break;
+		case "MENU":
+            if (arg)
+			{ 
+                this.divMenu.set_visible(true);
+                //에니메이션에 버그가 있어 우선 주석처리
+//                 this.AniOpen.play();
+//                 return;
+                 var nWidth = this.getOffsetWidth();
+                 this.divMenu.set_width(nWidth);
+                
+			}
+			else
+			{		
+//                 this.AniClose.play();
+//                 return;
+                
+                this.divMenu.set_width(0);
+                this.divMenu.set_visible(false);
+			}
+			break;
+		case "HOME":  
+
+            this.divMain.set_visible(true);
+            this.divCenter.set_visible(false);
+
+			this.fnAction("MENU", false);
+			this.divMenu.form.dsMenu.set_rowposition(-1);
+			break;
+		case "EXIT":
+            if (this.confirm("종료하시겠습니까?"))
+            {
+                this.objApp.exit();
+            }            
+			break;            
+	}
+};
+
+/**
+ * @description 메뉴 에니메이션객체 생성
+*/
+this.fnMakeAnimation = function()
+{
+    var aniOepn = new nexacro.Animation("AniOpen", this);
+    this.addChild("AniOpen", aniOepn);
+    this.AniOpen.addTarget("AniItem00", this.divMenu, "width:"+this.getOffsetWidth());		
+    this.AniOpen.set_duration(300);
+	this.AniOpen.set_easing("linear");
+    this.AniOpen.set_direction("normal");
+    
+    var aniClose = new nexacro.Animation("AniClose", this);
+    this.addChild("AniClose", aniClose);
+    this.AniClose.addTarget("AniItem00", this.divMenu, "width:0");		
+    this.AniClose.set_duration(300);
+    this.AniClose.set_easing("linear");
+    this.AniClose.set_direction("normal");    
+    this.AniClose.addEventHandler( "oncomplete", this.AniClose_oncomplete, this )
+}
+
+/**
+ * @description 에니메이션 oncomplete 이벤트
+*/
+this.AniClose_oncomplete = function(obj,e)
+{
+    this.divMenu.set_visible(false);
+}
+         
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+/**
+ * @description 이벤트
+*/
+
+this.divTop_btnMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fnAction("MENU", true);
+};
+
+this.divTop_staHome_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	this.fnAction("HOME");
+};
+
+this.divTop_btnBack_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fnAction("HOME");	
+};
+
+/**
+ * @description 디바이스버튼 클릭 이벤트
+*/
+this.frameBase_ondevicebuttonup = function(obj:nexacro.Form,e:nexacro.DeviceButtonEventInfo)
+{
+	// MENU(1) CANCEL(2) 
+	if (e.button == 2) 
+	{
+		// Android단말 취소키 제어
+		
+		if (this.divMenu.visible)
+		{
+			//메뉴초기화
+		//	this.divMenu.fn_menuInit();
+			this.divMenu.set_visible(false);
+		}
+		else if (this.divCenter.visible)
+		{        
+            if (this.divCenter.url != "frame::frmMain.xfdl")
+			{   
+                this.fnAction("HOME");							
+			}
+			else
+			{
+				this.fnAction("EXIT");
+			}
+		}				
+		else
+		{
+			this.fnAction("EXIT");
+		}		
+	}
+
+	return false;	
+};]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ADL version="2.0">
+  <Application id="Application_Mobile" screenid="Mobile_screen" licenseurl="NexacroN_client_license.xml" onload="Application_onload">
+    <Layout>
+      <MainFrame id="mainframe" showtitlebar="false" showstatusbar="false" left="0" top="0" width="480" height="768" titletext="TOBEERP Mobile" openalign="center middle" showcascadetitletext="false">
+        <ChildFrame id="WorkFrame" showtitlebar="false" showstatusbar="false" formurl="frame::frmAll.xfdl"/>
+      </MainFrame>
+    </Layout>
+    <Style url="xcssrc::frame_template_m.xcss"/>
+    <Style url="xcssrc::asset_m.xcss"/>
+  </Application>
+  <Script type="xscript5.1"><![CDATA[this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	var objEnv = nexacro.getEnvironment();
+	var xadl = nexacro.getProjectPath();
+	
+	//var objSvcUrl = objEnv.services["svc"];
+	var urlPath;
+	
+	// studio로 실행
+	if (system.navigatorname == "nexacro") 
+	{
+		var arrXadl = xadl.split("://");
+		
+		if (arrXadl[0] == "http" || arrXadl[0] == "https") {
+			var arrHost = arrXadl[1].split("/");
+			urlPath = arrXadl[0] + "://" + arrHost[0];
+			
+			// 로컬(앱)
+			if (xadl.indexOf("localhost") > -1 || xadl.indexOf("127.0.0.1") > -1 || xadl.indexOf("172.10.") > -1 ) 
+			{
+				objApp.mainframe.set_titletext("로컬(앱)  - " + objApp.mainframe.titletext);
+			}
+		} else {
+			urlPath = "http://localhost:8080";
+			
+			objApp.mainframe.set_titletext("로컬(Studio) - " + objApp.mainframe.titletext);
+			objApp.mainframe.set_showtitlebar(true);     
+			objApp.mainframe.set_border("1px solid black");
+		}
+	}
+	// 웹 접속
+	else
+	{	
+		// URL 설정(웹브라우저)
+		urlPath = window.location.protocol + "//" + window.location.host;
+		 
+		// 로컬(웹)
+		if (xadl.indexOf("localhost") > -1 || xadl.indexOf("127.0.0.1") > -1 || xadl.indexOf("172.10.") > -1 ) 
+		{
+			objApp.mainframe.set_titletext("로컬(웹)  - " + objApp.mainframe.titletext);
+		}      
+	}
+	
+	// service URL 설정
+	//objSvcUrl.set_url(urlPath + "/");
+};
+]]></Script>
+</ADL>

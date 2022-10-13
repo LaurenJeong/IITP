@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmLogin" width="480" height="610" titletext="로그인화면" onload="frameMainPage_onload">
+    <Layouts>
+      <Layout height="610" mobileorientation="portrait" width="480">
+        <View id="viewLogin" taborder="0" text="viewLogin" viewdataset="viewdataset" left="85" top="120" right="85" bottom="150">
+          <Layouts>
+            <Layout>
+              <Button id="btnLogin" left="20" height="60" right="20" bottom="20" cssclass="btn_login" text="Login" onclick="viewLogin_btnLogin_onclick"/>
+              <Edit id="edtUserId" left="19" top="20" height="40" password="false" displaynulltext="ID" right="20"/>
+              <Edit id="edtUserPw" left="19" top="65" height="40" password="true" displaynulltext="Password" right="20"/>
+              <CheckBox id="chkSaveId" left="19" top="110" height="40" right="0" text="Save User ID" cssclass="chk_login"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="USER_ID" type="STRING" size="80" description="ID"/>
+                <Column id="USER_PW" type="STRING" size="80" description="비밀번호"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtUserId" compid="edtUserId" propid="value" datasetid="viewdataset" columnid="USER_ID"/>
+            <BindItem id="bind_edtUserPw" compid="edtUserPw" propid="value" datasetid="viewdataset" columnid="USER_PW"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="logininfo" filepath="login\getlogin.xmodel">
+            <Fields>
+              <Field id="USER_ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="ID" labelwidth="-1" labelcssclass="sta_login_label"/>
+              <Field id="USER_PW" description="" comptype="edit" password="true" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="Password" labelwidth="-1" labelcssclass="sta_login_label"/>
+            </Fields>
+            <Components>
+              <Component id="btnLogin" fields="_viewcomp"/>
+              <Component id="edtUserId" fields="USER_ID"/>
+              <Component id="edtUserPw" fields="USER_PW"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="LoginViewTemplate.xviewgen">
+            <Attribute id="loginbuttontype" value="bottom"/>
+            <Attribute id="loginbuttontext" value="Login"/>
+            <Attribute id="loginbuttoncssclass" value="btn_login"/>
+            <Attribute id="saveidcheckboxuse" value="true"/>
+            <Attribute id="saveidcheckboxtext" value="Save User ID"/>
+            <Attribute id="saveidcheckboxcssclass" value="chk_login"/>
+            <Attribute id="viewpadding" value="20"/>
+          </ViewTemplateInfo>
+        </View>
+        <Button id="btnJoin" taborder="1" text="회원가입" left="105" top="viewLogin:10" height="60" right="105"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.objApp = nexacro.getApplication();
+
+this.viewLogin_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.objApp.gvFrmAll.fnAction("LOGIN", true);
+};
+]]></Script>
+    <Objects>
+      <PopupAction id="PopupAction00" formurl="QUICKCODE::userinfo.xfdl" popupstyle="modal" popupid="popup" title="회원가입" targetview="frmLogin" popupdatatype="none" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1">
+        <Contents/>
+      </PopupAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="frmLogin" triggerobj="btnJoin" targetaction="PopupAction00" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <EnumInfo id="SearchTarget" description="모바일 연락처 조회시 조회대상">
+    <Enum name="all" description="모든항목"/>
+    <Enum name="phonenumbers" description="전화번호"/>
+    <Enum name="contactname" description="이름"/>
+    <Enum name="nickname" description="별명"/>
+    <Enum name="emails" description="이메일"/>
+    <Enum name="categories" description="구분정보"/>
+    <Enum name="birthday" description="생일"/>
+    <Enum name="addresses" description="주소정보"/>
+    <Enum name="organizations" description="회사정보"/>
+    <Enum name="note" description="메모"/>
+  </EnumInfo>
+  <EnumInfo id="ReturnDataType">
+    <Enum name="none" description="데이터를 처리하지 않음."/>
+    <Enum name="copyrow" description="반환된 첫번째 데이터를 현재 데이터에 복사"/>
+    <Enum name="adddata" description="반환된 데이터를 현재 데이터에 추가"/>
+    <Enum name="replace" description="반환된 데이터로 데이터를 교체"/>
+  </EnumInfo>
+  <RefreshInfo id="targetview">
+    <Property name="targetcomp"/>
+  </RefreshInfo>
+</MetaInfo>
