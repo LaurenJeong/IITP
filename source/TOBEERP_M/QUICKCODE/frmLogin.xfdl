@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frmLogin" width="480" height="610" titletext="로그인화면" onload="frameMainPage_onload">
+  <Form id="frmLogin" width="480" height="610" titletext="로그인화면" onload="form_onload">
     <Layouts>
       <Layout height="610" mobileorientation="portrait" width="480">
-        <View id="viewLogin" taborder="0" text="viewLogin" viewdataset="viewdataset" left="85" top="120" right="85" bottom="150">
+        <View id="viewLogin" taborder="0" text="viewLogin" viewdataset="viewdataset" left="85" top="120" right="85" bottom="150" cssclass="viw_box">
           <Layouts>
             <Layout>
               <Button id="btnLogin" left="20" height="60" right="20" bottom="20" cssclass="btn_login" text="Login" onclick="viewLogin_btnLogin_onclick"/>
-              <Edit id="edtUserId" left="19" top="20" height="40" password="false" displaynulltext="ID" right="20"/>
-              <Edit id="edtUserPw" left="19" top="65" height="40" password="true" displaynulltext="Password" right="20"/>
-              <CheckBox id="chkSaveId" left="19" top="110" height="40" right="0" text="Save User ID" cssclass="chk_login"/>
+              <Edit id="edtUserId" left="19" top="20" height="60" password="false" displaynulltext="ID" right="20"/>
+              <Edit id="edtUserPw" left="19" top="90" height="60" password="true" displaynulltext="Password" right="20"/>
+              <CheckBox id="chkSaveId" left="19" top="160" height="60" right="0" text="Save User ID" cssclass="chk_login"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -19,7 +19,10 @@
                 <Column id="USER_PW" type="STRING" size="80" description="비밀번호"/>
               </ColumnInfo>
               <Rows>
-                <Row/>
+                <Row>
+                  <Col id="USER_ID">user1</Col>
+                  <Col id="USER_PW">1234</Col>
+                </Row>
               </Rows>
             </Dataset>
           </Objects>
@@ -27,10 +30,10 @@
             <BindItem id="bind_edtUserId" compid="edtUserId" propid="value" datasetid="viewdataset" columnid="USER_ID"/>
             <BindItem id="bind_edtUserPw" compid="edtUserPw" propid="value" datasetid="viewdataset" columnid="USER_PW"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="logininfo" filepath="login\getlogin.xmodel">
+          <ModelInfo modelserviceid="model" serviceid="getlogin" modelid="dsinput" filepath="login\getlogin.xmodel">
             <Fields>
-              <Field id="USER_ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="ID" labelwidth="-1" labelcssclass="sta_login_label"/>
-              <Field id="USER_PW" description="" comptype="edit" password="true" fieldwidth="100%" fieldheight="40px" cssclass="" displaynulltext="Password" labelwidth="-1" labelcssclass="sta_login_label"/>
+              <Field id="USER_ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="60px" cssclass="" displaynulltext="ID" labelwidth="-1" labelcssclass="sta_login_label"/>
+              <Field id="USER_PW" description="" comptype="edit" password="true" fieldwidth="100%" fieldheight="60px" cssclass="" displaynulltext="Password" labelwidth="-1" labelcssclass="sta_login_label"/>
             </Fields>
             <Components>
               <Component id="btnLogin" fields="_viewcomp"/>
@@ -38,7 +41,7 @@
               <Component id="edtUserPw" fields="USER_PW"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="LoginViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="LoginViewTemplateM.xviewgen">
             <Attribute id="loginbuttontype" value="bottom"/>
             <Attribute id="loginbuttontext" value="Login"/>
             <Attribute id="loginbuttoncssclass" value="btn_login"/>
@@ -48,18 +51,96 @@
             <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
-        <Button id="btnJoin" taborder="1" text="회원가입" left="105" top="viewLogin:10" height="60" right="105"/>
+        <Button id="btnJoin" taborder="1" text="회원가입" top="viewLogin:10" height="40" cssclass="btn_login_next" width="100" right="85"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[this.objApp = nexacro.getApplication();
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    로그인
+*  @FileName	로그인.xfdl
+*  @Desction	거래원장
+*******************************************************************************
+*  2022.10.13		Creator			최초 생성
+*******************************************************************************
+*/
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.objApp = nexacro.getApplication();
 
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+ 
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+ 
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+ * @description  로그인처리
+ */
+this.fnSetLogin = function()
+{
+	// [참고] DB에서 처리해야되는 내용을 임의로 처리함.
+	// 해당 User가 있는지 체크
+	var sFind = "USER_ID=='" + this.viewLogin.form.viewdataset.getColumn(0,"USER_ID") + "'";
+		sFind += " && USER_PW=='" + this.viewLogin.form.viewdataset.getColumn(0,"USER_PW") + "'";
+	
+	var nRow = this.objApp.dbUser.findRowExpr(sFind);
+	
+	if (nRow < 0) {
+		alert("ID 또는 패스워드가 잘못되었습니다.");
+		return;
+	}
+	
+	// 사용자 정보 설정
+	this.objApp.gdsUserInfo.copyRow(0,this.objApp.dbUser,nRow);
+	
+	// 주문정보 설정
+	var oDbOrder = this.objApp.dbOrder;
+	oDbOrder.filter("USER_ID=='" + this.viewLogin.form.viewdataset.getColumn(0,"USER_ID") + "'");
+	
+	// 주문정보 임의데이터 설정
+	var sTodayTime = this.gfn_getDate("time");
+	var sToday = sTodayTime.substr(0,8);
+	for(var i=0; i<oDbOrder.rowcount; i++)
+	{
+		if (this.gfn_isNull(oDbOrder.getColumn(i,"ORDER_NO")))
+		{
+			oDbOrder.setColumn(i,"ORDER_NO",this.gfn_getUniqueId());
+			oDbOrder.setColumn(i,"ORDER_TIME",this.gfn_addDate(sToday,(-1*i)) + sTodayTime.substr(8));
+		}
+	}
+	
+	// 메인화면으로 전환
+	this.objApp.gvFrmAll.fnAction("LOGIN", true);
+}
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
 this.viewLogin_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.objApp.gvFrmAll.fnAction("LOGIN", true);
+	this.fnSetLogin();
 };
 ]]></Script>
     <Objects>
-      <PopupAction id="PopupAction00" formurl="QUICKCODE::userinfo.xfdl" popupstyle="modal" popupid="popup" title="회원가입" targetview="frmLogin" popupdatatype="none" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1">
+      <PopupAction id="PopupAction00" formurl="QUICKCODE::adduserpop.xfdl" popupstyle="modal" popupid="popup" title="회원가입" targetview="viewLogin" popupdatatype="copyrow" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1">
         <Contents/>
       </PopupAction>
     </Objects>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="LoginViewTemplate" viewtype="IITP" description=""/>
+  <ViewTemplate id="LoginViewTemplate" viewtype="IITPMobile" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
 *  Login View Template
 *  @FileName 	LoginViewTemplate.xviewgen
@@ -67,10 +67,10 @@ this.SAVEID_CHECKBOX_CSSCLASS	= "chk_login";
 this.FIELD_WIDTH			= "100%";
 
 //Field Default Height
-this.FIELD_HEIGHT			= "40px";
+this.FIELD_HEIGHT			= "60px";
 
 //Label Default Width
-this.LABEL_WIDTH			= 100;
+this.LABEL_WIDTH			= 120;
 
 //Component Default Type
 this.COMP_TYPE				= "edit";
@@ -87,14 +87,14 @@ this.COMP_PADDING_BOTTOM	= 0;
 //Label Padding
 this.LABEL_PADDING_LEFT		= 0;
 this.LABEL_PADDING_TOP		= 0;
-this.LABEL_PADDING_RIGHT	= 5;
+this.LABEL_PADDING_RIGHT	= 10;
 this.LABEL_PADDING_BOTTOM	= 0;
 
 //Gap Between Components (Left and Right)
-this.COMP_SPACE				= 5;
+this.COMP_SPACE				= 10;
 
 //Gap Between Components (Top and Bottom)
-this.LINE_SPACE				= 5;
+this.LINE_SPACE				= 10;
 
 //Component Default CSS Class
 this.COMP_CSSCLASS			= "";
@@ -1341,6 +1341,11 @@ fn_GetObjects = function()
 
     //Object Information Setting
     oObjects.push(oViewDataset);
+	
+	// InnerDataset 정보
+	oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+
+	oObjects = oObjects.concat(oInner);
 
     //Return Object Information
     return oObjects;

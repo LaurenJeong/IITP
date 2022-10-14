@@ -1,10 +1,376 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="orderlist" width="480" height="635" titletext="주문내역">
+  <Form id="orderlist" width="480" height="710" titletext="주문내역" onload="form_onload">
     <Layouts>
-      <Layout height="635" width="480">
-        <Static id="Static00" taborder="0" text="orderlist" left="116" top="132" width="100" height="30"/>
+      <Layout height="710" width="480">
+        <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="20" top="20" height="332" right="20">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" left="20" height="60" right="20" bottom="20" cssclass="btn_search" text="Search"/>
+              <Static id="staOrderDtFromLabel" left="20" top="20" width="100" height="60" text="주문기간" cssclass="sta_label"/>
+              <Calendar id="calOrderDtFrom" left="130" top="20" height="60" right="20"/>
+              <Static id="staOrderDtToLabel" left="20" top="90" width="100" height="60" cssclass="sta_label"/>
+              <Calendar id="calOrderDtTo" left="130" top="90" height="60" right="20"/>
+              <Static id="staOrderStatusLabel" left="20" top="160" width="100" height="60" text="상태" cssclass="sta_label"/>
+              <Combo id="cmbOrderStatus" left="130" top="160" height="60" innerdataset="innerdatasetOrderStatus" codecolumn="code" datacolumn="value" right="20"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ORDER_DT_FROM" type="DATE" size="80" description="주문기간"/>
+                <Column id="ORDER_DT_TO" type="DATE" size="80"/>
+                <Column id="ORDER_STATUS" type="STRING" size="80" description="상태"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetOrderStatus">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">10</Col>
+                  <Col id="value">주문</Col>
+                </Row>
+                <Row>
+                  <Col id="code">20</Col>
+                  <Col id="value">배송</Col>
+                </Row>
+                <Row>
+                  <Col id="code">90</Col>
+                  <Col id="value">완료</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_calOrderDtFrom" compid="calOrderDtFrom" propid="value" datasetid="viewdataset" columnid="ORDER_DT_FROM"/>
+            <BindItem id="bind_calOrderDtTo" compid="calOrderDtTo" propid="value" datasetid="viewdataset" columnid="ORDER_DT_TO"/>
+            <BindItem id="bind_cmbOrderStatus" compid="cmbOrderStatus" propid="value" datasetid="viewdataset" columnid="ORDER_STATUS"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="dsinput" filepath="order\getorderlist.xmodel">
+            <Fields>
+              <Field id="ORDER_DT_FROM" label="주문기간" comptype="calendar" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="ORDER_DT_TO" label="" comptype="calendar" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="ORDER_STATUS" comptype="combo" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staOrderDtFromLabel" fields="ORDER_DT_FROM"/>
+              <Component id="calOrderDtFrom" fields="ORDER_DT_FROM"/>
+              <Component id="staOrderDtToLabel" fields="ORDER_DT_TO"/>
+              <Component id="calOrderDtTo" fields="ORDER_DT_TO"/>
+              <Component id="staOrderStatusLabel" fields="ORDER_STATUS"/>
+              <Component id="cmbOrderStatus" fields="ORDER_STATUS"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplateM.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottomfull"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="20" top="viewSearch:20" right="20" bottom="20" minheight="320" maxheight="">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="60" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="60" width="120" text="주문내역" fittocontents="width" cssclass="sta_subtitle"/>
+                    <Static id="staTotCnt" left="staTitle:5" top="0" height="60" width="50" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_total_count"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="60" right="0" bottom="0" binddataset="viewdataset" autofittype="col" oncellclick="viewList_grdList_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="100"/>
+                      <Column size="150"/>
+                      <Column size="90"/>
+                      <Column size="90"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="60" band="head"/>
+                      <Row size="65"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_ORDER_TIME" text="주문일자"/>
+                      <Cell col="1" id="cell_head_1_0_PRODUCT_NAME" text="품목명"/>
+                      <Cell col="2" id="cell_head_2_0_ORDER_PRICE" text="주문금액"/>
+                      <Cell col="3" id="cell_head_3_0_ORDER_STATUS" text="상태"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_ORDER_TIME" text="bind:ORDER_TIME" displaytype="date" edittype="none" calendardateformat="yyyy-MM-dd"/>
+                      <Cell col="1" id="cell_body_1_0_PRODUCT_NAME" text="bind:PRODUCT_NAME" displaytype="normal" edittype="none"/>
+                      <Cell col="2" id="cell_body_2_0_ORDER_PRICE" text="bind:ORDER_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell col="3" id="cell_body_3_0_ORDER_STATUS" text="bind:ORDER_STATUS" displaytype="combotext" edittype="none" combodataset="innerdatasetOrderStatus" combocodecol="code" combodatacol="value"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ORDER_NO" type="STRING" size="80" description="주문번호"/>
+                <Column id="USER_ID" type="STRING" size="80" description="사용자ID"/>
+                <Column id="ORDER_TIME" type="STRING" size="80" description="주문일자"/>
+                <Column id="CUSTOMER_CODE" type="STRING" size="80" description="거래처코드"/>
+                <Column id="PRODUCT_CODE" type="STRING" size="80" description="품목코드"/>
+                <Column id="PRODUCT_NAME" type="STRING" size="80" description="품목명"/>
+                <Column id="PRODUCT_PRICE" type="BIGDECIMAL" size="80" description="단가"/>
+                <Column id="ORDER_COUNT" type="INT" size="80" description="주문건수"/>
+                <Column id="ORDER_PRICE" type="BIGDECIMAL" size="80" description="주문금액"/>
+                <Column id="ORDER_STATUS" type="STRING" size="80" description="상태"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetOrderStatus">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">10</Col>
+                  <Col id="value">주문</Col>
+                </Row>
+                <Row>
+                  <Col id="code">20</Col>
+                  <Col id="value">배송</Col>
+                </Row>
+                <Row>
+                  <Col id="code">90</Col>
+                  <Col id="value">완료</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="dsorderlist" filepath="order\getorderlist.xmodel">
+            <Fields>
+              <Field id="ORDER_COUNT" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_PRICE" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_CODE" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CUSTOMER_CODE" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="USER_ID" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ORDER_NO" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ORDER_TIME" label="주문일자" displaytype="date" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PRODUCT_NAME" displaytype="normal" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ORDER_PRICE" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ORDER_STATUS" displaytype="combotext" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="ORDER_TIME,PRODUCT_NAME,ORDER_PRICE,ORDER_STATUS"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplateM.xviewgen">
+            <Attribute id="titletext" value="주문내역"/>
+            <Attribute id="usetotalcount" value="true"/>
+            <Attribute id="headbandsize" value="60"/>
+            <Attribute id="bodybandsize" value="65"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewDetail" taborder="2" text="viewDetail" viewdataset="viewdataset" left="500" top="0" bottom="20" sourceview="viewList" visible="false" background="#ffffff" right="-500">
+          <Layouts>
+            <Layout>
+              <Static id="staOrderNoBg" left="20" top="90" height="70" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staOrderNoLabel" left="20" top="90" width="120" height="70" text="주문번호" cssclass="sta_labelbox"/>
+              <Edit id="edtOrderNo" left="150" top="95" width="300" height="60" cssclass="com_View" readonly="true"/>
+              <Static id="staOrderTimeBg" left="20" top="159" height="70" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staOrderTimeLabel" left="20" top="159" width="120" height="70" text="주문일시" cssclass="sta_labelbox"/>
+              <Calendar id="calOrderTime" left="150" top="164" width="300" height="60" cssclass="com_View" readonly="true" buttonsize="0"/>
+              <Static id="staProductNameBg" left="20" top="228" height="70" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staProductNameLabel" left="20" top="228" width="120" height="70" text="제품명" cssclass="sta_labelbox"/>
+              <Edit id="edtProductName" left="150" top="233" width="300" height="60" cssclass="com_View" readonly="true"/>
+              <Static id="staProductPriceBg" left="20" top="297" height="70" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staProductPriceLabel" left="20" top="297" width="120" height="70" text="가격" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskProductPrice" left="150" top="302" width="300" height="60" cssclass="com_View" readonly="true"/>
+              <Static id="staOrderCountBg" left="20" top="366" height="70" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staOrderCountLabel" left="20" top="366" width="120" height="70" text="주문건수" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskOrderCount" left="150" top="371" width="300" height="60" cssclass="com_View" readonly="true"/>
+              <Static id="staOrderPriceBg" left="20" top="435" height="70" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staOrderPriceLabel" left="20" top="435" width="120" height="70" text="주문금액" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskOrderPrice" left="150" top="440" width="300" height="60" cssclass="com_View" readonly="true"/>
+              <Static id="staOrderStatusBg" left="20" top="504" height="70" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staOrderStatusLabel" left="20" top="504" width="120" height="70" text="상태" cssclass="sta_labelbox"/>
+              <Combo id="cmbOrderStatus" left="150" top="509" width="300" height="60" cssclass="com_View" readonly="true" buttonsize="0" innerdataset="innerdatasetOrderStatus" codecolumn="code" datacolumn="value"/>
+              <Button id="btnBack" taborder="21" text="돌아가기" left="20" top="20" width="120" height="60" onclick="viewDetail_btnBack_onclick"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ORDER_NO" type="STRING" size="80" description="주문번호"/>
+                <Column id="USER_ID" type="STRING" size="80" description="사용자ID"/>
+                <Column id="ORDER_TIME" type="STRING" size="80" description="주문일시"/>
+                <Column id="CUSTOMER_CODE" type="STRING" size="80" description="거래처코드"/>
+                <Column id="PRODUCT_CODE" type="STRING" size="80" description="품목코드"/>
+                <Column id="PRODUCT_NAME" type="STRING" size="80" description="제품명"/>
+                <Column id="PRODUCT_PRICE" type="BIGDECIMAL" size="80" description="가격"/>
+                <Column id="ORDER_COUNT" type="INT" size="80" description="주문건수"/>
+                <Column id="ORDER_PRICE" type="BIGDECIMAL" size="80" description="주문금액"/>
+                <Column id="ORDER_STATUS" type="STRING" size="80" description="상태"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetOrderStatus">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">10</Col>
+                  <Col id="value">주문</Col>
+                </Row>
+                <Row>
+                  <Col id="code">20</Col>
+                  <Col id="value">배송</Col>
+                </Row>
+                <Row>
+                  <Col id="code">90</Col>
+                  <Col id="value">완료</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtOrderNo" compid="edtOrderNo" propid="value" datasetid="viewdataset" columnid="ORDER_NO"/>
+            <BindItem id="bind_calOrderTime" compid="calOrderTime" propid="value" datasetid="viewdataset" columnid="ORDER_TIME"/>
+            <BindItem id="bind_edtProductName" compid="edtProductName" propid="value" datasetid="viewdataset" columnid="PRODUCT_NAME"/>
+            <BindItem id="bind_mskProductPrice" compid="mskProductPrice" propid="value" datasetid="viewdataset" columnid="PRODUCT_PRICE"/>
+            <BindItem id="bind_mskOrderCount" compid="mskOrderCount" propid="value" datasetid="viewdataset" columnid="ORDER_COUNT"/>
+            <BindItem id="bind_mskOrderPrice" compid="mskOrderPrice" propid="value" datasetid="viewdataset" columnid="ORDER_PRICE"/>
+            <BindItem id="bind_cmbOrderStatus" compid="cmbOrderStatus" propid="value" datasetid="viewdataset" columnid="ORDER_STATUS"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="dsorderlist" filepath="order\getorderlist.xmodel">
+            <Fields>
+              <Field id="PRODUCT_CODE" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
+              <Field id="CUSTOMER_CODE" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
+              <Field id="USER_ID" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
+              <Field id="ORDER_NO" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="ORDER_TIME" comptype="calendar" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="PRODUCT_NAME" label="제품명" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="PRODUCT_PRICE" label="가격" comptype="maskedit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="ORDER_COUNT" comptype="maskedit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="ORDER_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="ORDER_STATUS" comptype="combo" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+            </Fields>
+            <Components>
+              <Component id="staOrderNoBg" fields="ORDER_NO"/>
+              <Component id="staOrderNoLabel" fields="ORDER_NO"/>
+              <Component id="edtOrderNo" fields="ORDER_NO"/>
+              <Component id="staOrderTimeBg" fields="ORDER_TIME"/>
+              <Component id="staOrderTimeLabel" fields="ORDER_TIME"/>
+              <Component id="calOrderTime" fields="ORDER_TIME"/>
+              <Component id="staProductNameBg" fields="PRODUCT_NAME"/>
+              <Component id="staProductNameLabel" fields="PRODUCT_NAME"/>
+              <Component id="edtProductName" fields="PRODUCT_NAME"/>
+              <Component id="staProductPriceBg" fields="PRODUCT_PRICE"/>
+              <Component id="staProductPriceLabel" fields="PRODUCT_PRICE"/>
+              <Component id="mskProductPrice" fields="PRODUCT_PRICE"/>
+              <Component id="staOrderCountBg" fields="ORDER_COUNT"/>
+              <Component id="staOrderCountLabel" fields="ORDER_COUNT"/>
+              <Component id="mskOrderCount" fields="ORDER_COUNT"/>
+              <Component id="staOrderPriceBg" fields="ORDER_PRICE"/>
+              <Component id="staOrderPriceLabel" fields="ORDER_PRICE"/>
+              <Component id="mskOrderPrice" fields="ORDER_PRICE"/>
+              <Component id="staOrderStatusBg" fields="ORDER_STATUS"/>
+              <Component id="staOrderStatusLabel" fields="ORDER_STATUS"/>
+              <Component id="cmbOrderStatus" fields="ORDER_STATUS"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformReadonlyViewTemplateM.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+            <Attribute id="viewpadding" value="90 20 20 20"/>
+          </ViewTemplateInfo>
+        </View>
       </Layout>
     </Layouts>
+    <Objects>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="viewList" fromview="orderlist" fromdataset="dbOrder" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="DsCopyDataAction00" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    주문내역
+*  @FileName	orderlist.xfdl
+*  @Desction	주문내역
+*******************************************************************************
+*  2022.10.14		Creator			최초 생성
+*******************************************************************************
+*/
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.objApp = nexacro.getApplication();
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 화면 기본위치 셋팅
+	this.viewDetail.set_visible(false);
+	this.viewDetail.set_left(0);
+	this.viewDetail.set_right(0);
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+ 
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+ 
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+this.viewList_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(e.row >= 0)
+	{
+		this.viewDetail.set_visible(true);
+	}
+};
+
+this.viewDetail_btnBack_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.viewDetail.set_visible(false);
+};
+]]></Script>
   </Form>
 </FDL>

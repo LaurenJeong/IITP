@@ -54,7 +54,7 @@ this.FIELD_HEIGHT			= "60px";
 this.FIELD_WIDTH			= "100%";
 
 //Field Default Height
-this.LABEL_HEIGHT			= "40px";
+this.LABEL_HEIGHT			= "60px";
 
 //Label Default Width
 this.LABEL_WIDTH			= "100%";
@@ -69,7 +69,7 @@ this.LABEL_TYPE				= "static";
 this.COMP_BG_TYPE			= "static";
 
 //Gap Between Components (Left and Right)
-this.COMP_SPACE     		  = 5;
+this.COMP_SPACE     		  = 10;
 
 //Gap Between Components (Top and Bottom)
 this.LINE_SPACE     		  = 5;
@@ -78,10 +78,10 @@ this.LINE_SPACE     		  = 5;
 this.COMP_CSSCLASS			= "";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS			= "sta_label";
+this.LABEL_CSSCLASS				= "sta_label";
 
 //Required Label Default CSS Class
-this.LABEL_REQUIRED_CSSCLASS	= "sta_labelbox_essential";
+this.LABEL_REQUIRED_CSSCLASS	= "sta_label_essential";
 
 //Component Use Type
 this.USE_COMP				= "true";
@@ -1056,11 +1056,17 @@ fn_GetObjects = function()
 {
 	//Initialize Object
     var oObjects = [];
+	var oInner = [];
 
     var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
 
     //Object Information Setting
     oObjects.push(oViewDataset);
+	
+	// InnerDataset 정보
+	oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+
+	oObjects = oObjects.concat(oInner);
 
     //Return Object Information
     return oObjects;

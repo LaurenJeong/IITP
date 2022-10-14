@@ -67,6 +67,271 @@
         <Row/>
       </Rows>
     </Dataset>
+    <Dataset id="dbUser">
+      <ColumnInfo>
+        <Column id="USER_ID" type="STRING" size="80" description="사용자 ID"/>
+        <Column id="USER_TYPE" type="STRING" size="80" description="사용자구분"/>
+        <Column id="USER_PW" type="STRING" size="80" description="비밀번호"/>
+        <Column id="USER_HP" type="STRING" size="80" description="휴대폰번호"/>
+        <Column id="USER_NM" type="STRING" size="80" description="사용자명"/>
+        <Column id="USER_EMAIL" type="STRING" size="80" description="이메일주소"/>
+        <Column id="USER_POSTAL_CODE" type="STRING" size="80" description="주소"/>
+        <Column id="USER_ADRESS1" type="STRING" size="80" description="주소"/>
+        <Column id="USER_ADRESS2" type="STRING" size="80" description="상세주소"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="USER_ID">user1</Col>
+          <Col id="USER_TYPE">20</Col>
+          <Col id="USER_PW">1234</Col>
+          <Col id="USER_NM">홍길동</Col>
+          <Col id="USER_HP">01012345678</Col>
+          <Col id="USER_POSTAL_CODE">06083</Col>
+          <Col id="USER_ADRESS1">서울 강남구 봉은사로 617</Col>
+          <Col id="USER_ADRESS2">5층</Col>
+          <Col id="USER_EMAIL">user1@tobesoft.com</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="dbProduct">
+      <ColumnInfo>
+        <Column id="CUSTOMER_CODE" type="STRING" size="256" description="거래처코드"/>
+        <Column id="PRODUCT_CODE" type="STRING" size="256" description="품목코드"/>
+        <Column id="PRODUCT_GROUPS" type="STRING" size="256" description="품목구분"/>
+        <Column id="PRODUCT_NAME" type="STRING" size="256" description="품목명"/>
+        <Column id="PRODUCT_IMG" type="STRING" size="256" description="제품이미지"/>
+        <Column id="PRODUCT_PRICE" type="INT" size="256" description="단가"/>
+        <Column id="PRODUCT_DESCRIPTION" type="STRING" size="256" description="상품설명"/>
+        <Column id="STOCK_COUNT" type="INT" size="256" description="재고수량"/>
+        <Column id="USE_YN" type="STRING" size="256" description="판매여부"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001011</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">밥그릇</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001011.png</Col>
+          <Col id="PRODUCT_PRICE">2000</Col>
+          <Col id="PRODUCT_DESCRIPTION">밥그릇
+1. 밥을 담아놓아 먹기 위해 사용하는 그릇
+  주로 사기와 같은 도자기 재질이나 옻칠로 방수처리한 목기[1]. 한국의 경우에는 놋쇠 유기, 스테인레스같은 금속 재질로도 많이 만든다.
+2. 비유 '밥그릇 싸움'
+  서로 다른 개인들이나 조직들끼리 서로 자기들이 이권을 챙기고 가지려고 싸우고 경쟁하는 권력이나 경제적 이권을 비유해서 쓰이는 말.
+3. 속어
+  가슴 확대 수술을 한 여성의 가슴이 밥그릇을 엎어놓은듯한 모양이라해서 밥그릇이라 부르기도 한다.
+  
+[1] 한국의 경우는 현대에는 의례용 제기정도로만 사용하지만 일본의 경우는 지금도 꽤 사용한다. 특유의 붉고 검은 색상의 그릇이 옻칠한 목기로 옻칠이 연한부분이 붉은색, 옻칠을 여러번 칠해 진한부분이 검은색으로 나오는 것. 다만 현대 실생활에 사용하는 그릇은 목기는 비싸고 그냥 플라스틱이나 사기그릇에 색깔만 그렇게 칠해서 나오는 제품도 많다.
+</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001012</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">보울(빨강)</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001012.png</Col>
+          <Col id="PRODUCT_PRICE">3000</Col>
+          <Col id="PRODUCT_DESCRIPTION">보울(빨강)
+식재료나 음식을 담는 크고 넓은 그릇. 보통 이 자체를 식기 그대로 사용하지는 않고, 다듬은 식재료를 담거나, 식재료들을 서로 섞거나 죽, 국과 같은 대량의 음식을 보관할 때 주로 사용한다.
+
+비빔밥을 만들 때도 사용한다. 밥, 채소, 양념 등을 양푼에 모조리 넣고 한꺼번에 비비는 형태.</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001013</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">보울(초록)</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001013.png</Col>
+          <Col id="PRODUCT_PRICE">3000</Col>
+          <Col id="PRODUCT_DESCRIPTION">보울(초록)
+식재료나 음식을 담는 크고 넓은 그릇. 보통 이 자체를 식기 그대로 사용하지는 않고, 다듬은 식재료를 담거나, 식재료들을 서로 섞거나 죽, 국과 같은 대량의 음식을 보관할 때 주로 사용한다.
+
+비빔밥을 만들 때도 사용한다. 밥, 채소, 양념 등을 양푼에 모조리 넣고 한꺼번에 비비는 형태.</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001014</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">보울(파랑)</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001014.png</Col>
+          <Col id="PRODUCT_PRICE">3000</Col>
+          <Col id="PRODUCT_DESCRIPTION">보울(파랑)
+식재료나 음식을 담는 크고 넓은 그릇. 보통 이 자체를 식기 그대로 사용하지는 않고, 다듬은 식재료를 담거나, 식재료들을 서로 섞거나 죽, 국과 같은 대량의 음식을 보관할 때 주로 사용한다.
+
+비빔밥을 만들 때도 사용한다. 밥, 채소, 양념 등을 양푼에 모조리 넣고 한꺼번에 비비는 형태.</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001015</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">보울(회색)</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001015.png</Col>
+          <Col id="PRODUCT_PRICE">3000</Col>
+          <Col id="PRODUCT_DESCRIPTION">보울(회색)
+식재료나 음식을 담는 크고 넓은 그릇. 보통 이 자체를 식기 그대로 사용하지는 않고, 다듬은 식재료를 담거나, 식재료들을 서로 섞거나 죽, 국과 같은 대량의 음식을 보관할 때 주로 사용한다.
+
+비빔밥을 만들 때도 사용한다. 밥, 채소, 양념 등을 양푼에 모조리 넣고 한꺼번에 비비는 형태.</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001016</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">믹서기</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001016.png</Col>
+          <Col id="PRODUCT_PRICE">60000</Col>
+          <Col id="PRODUCT_DESCRIPTION">믹서기
+1. 개요
+고속으로 칼날을 회전시켜 식품을 곱게 가는 조리 기구이다. 시중에서 파는 믹서기는 종류가 매우 다양해서, 헤어드라이기만한 것부터 맷돌만 한 크기의 큰 믹서기까지 있다.
+
+어원은 mixer+機인데 mixer에 이미 기기라는 의미가 있으므로[1] 겹말이다.
+
+'믹서기'(mixer)라고 부르지만 섞기보다는 분쇄하는 느낌이 강하다. 영미권에서도 '섞다'를 의미하는 단어를 쓰긴 하는데 mix가 아니라 blend를 써서 블렌더(blender)라고 한다.[2] 그 동네에서는 분쇄하지 않고 진짜 섞는 기구만 '믹서'라고 하는 모양이다. 갈아서 즙으로 만들어버린다고 liquidizer라고도 한다.[3]
+
+과거 동아시아에서는 비슷한 용도로 맷돌을 썼다. 오늘날과 같은 전기 믹서기는 1922년 미국의 스티븐스전자의 스테판 폽로스키(Stephen Poplawski)가 아놀드전자와 공동개발한 것을 그 시초로 보고 있으며 그 외 많은 믹서기들이 나오게 되었다. 가장 최첨단 제품인 진공 믹서기는 2013년 일본 가전제품회사인 테스콤에서 개발하였다.</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001017</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">냄비</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001017.png</Col>
+          <Col id="PRODUCT_PRICE">20000</Col>
+          <Col id="PRODUCT_DESCRIPTION">냄비
+1. 개요
+밥은 물론이고 국물이 있는 요리를 할 때 주로 쓰지만, 간단한 볶음도 할 수 있다.
+
+한국에서는 과거에는 청동, 철, 놋쇠로 만든 냄비를 써왔는데 거대한 크기와 무게로 인해 고정시켜 놓고 쓰는 일반 솥과 달리 상대적으로 작고 손잡이가 달려 있어서 솥보다 이동하기가 수월했다. 당시에는 냄비라고 부르지는 않았고 형태나 시대에 따라 초두(#, #, #), 전립투 등의 명칭이 있었고, 냄비라는 명칭은 일제강점기 이후 일본어에서 나베(なべ【nämbe̞】[1])가 들어와서 남비가 되었다가 이것이 다시 냄비로 바뀌었다.[2][3] 1947년에 발행된 "큰사전"에서 냄비라는 표제어가 확인된다. 서양에서 스테인리스와 알루미늄 냄비가 들어오면서 현대에는 대부분 이 재질의 냄비를 쓴다.</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001018</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">전골냄비</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001018.png</Col>
+          <Col id="PRODUCT_PRICE">20000</Col>
+          <Col id="PRODUCT_DESCRIPTION">전골냄비</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001019</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">주전자</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001019.png</Col>
+          <Col id="PRODUCT_PRICE">10000</Col>
+          <Col id="PRODUCT_DESCRIPTION">주전자
+1. 개요
+酒煎子 / Kettle
+
+뚜껑 이외에 별도의 주둥이를 지니는 것을 특징으로 하는 용기의 한 종류. 내부에는 물이나 술 등의 액체를 주로 담으며, 손잡이를 잡고 주둥이 쪽으로 용기 전체를 기울이는 등의 조작으로 내부의 액체 물질을 따라낼 수 있다.</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001020</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">프라이팬</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001020.png</Col>
+          <Col id="PRODUCT_PRICE">15000</Col>
+          <Col id="PRODUCT_DESCRIPTION">프라이팬
+1. 개요
+구이, 볶음요리, 조림 등 저수분 조리방식에 주로 사용되는 조리도구. 깊이가 깊은 팬의 경우 국물이 있는 요리를 할 때 사용하기도 한다.
+
+식문화와 조리방식의 차이로 국가와 지역에 따라 다양한 형태와 재질의 프라이팬이 사용되고 있다.
+
+국내에 프라이팬이 들어오기 전에는 무쇠솥의 뚜껑을 뒤집어서 사용하거나, '번철' 이라는 것을 사용했다.
+
+번철의 모습. 현대에는 전을 부칠때 주로 쓴다고 '전팬'이라는 이름으로도 불린다. 납작하고 양 손잡이가 달린 모습이 마치 빠에야팬을 연상케 한다.
+
+프라이팬에 전기열선을 붙인것을 전기프라이팬으로 부른다.</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001021</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">나무도마</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001021.png</Col>
+          <Col id="PRODUCT_PRICE">5000</Col>
+          <Col id="PRODUCT_DESCRIPTION">나무도마
+1. 개요
+식칼로 썰 먹을거리의 밑에 받쳐두는 주방 도구. 주방에는 나무 도마와 실리콘 도마가 일반적이고, 업소용으론 플라스틱 도마가 가장 많다. 당연하게도 칼로 치면서 흠이 패이는데, 여기에 온갖 식재료 조각이 들어가 부패하여 세균의 온상이 되기도 한다. 요즘은 항균 처리된 도마도 많이 나온다. 그래도 매일 매일 깨끗하게 씻고, 일광 소독이나 자외선 소독을 하면 더욱 청결하게 쓸 수 있다.</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001022</Col>
+          <Col id="PRODUCT_GROUPS">e020</Col>
+          <Col id="PRODUCT_NAME">뒤집개</Col>
+          <Col id="PRODUCT_IMG">imagerc::product/mf0012e02001022.png</Col>
+          <Col id="PRODUCT_PRICE">4000</Col>
+          <Col id="PRODUCT_DESCRIPTION">뒤집개
+1. 개요
+요리할 때 음식을 뒤집는 요리 기구. 영어로는 Turner 라고 한다.[1]
+
+아래쪽은 넓적적한 면으로 되어있어 음식을 뒤집기에 알맞고, 위쪽으로는 길게 손잡이가 있는 형태이다. 넓적적한 면은 구멍이 있는 경우[2]와 없는 경우[3]가 있다. 구멍이 뚫린 경우는 음식물의 기름이나 물 등이 빠지도록 하려는 기능적 목적을 가지고 있으며 앞서 언급한 소재들의 특성 때문에 튼튼한 스테인레스에서 많이 보이는 형태이다.
+
+실제 요리를 할 때에는 뒤집는 일 뿐만아니라, 요리 재료를 섞거나 작은 크기로 잘라내기, 으깨기 등 다양한 용도로 사용된다. 보통 칼을 쓰지 않아도 쉽게 자를 수 있는 식재료를 조리할때 도마와 칼을 쓰는 건 번거로우므로 팬 위에서 즉흥적으로 이렇게 사용하는 경우가 많다.
+음식을 저어 섞는데 쓰이는 도구를 의미하는 주걱과는 다른 요리 기구이다. 단, 납작한 나무 주걱은 뒤집개로 쓰이는 경우가 있다.</Col>
+          <Col id="STOCK_COUNT">100</Col>
+          <Col id="USE_YN">Y</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="dbOrder">
+      <ColumnInfo>
+        <Column id="ORDER_NO" type="STRING" size="256" description="주문번호"/>
+        <Column id="USER_ID" type="STRING" size="256" description="사용자ID"/>
+        <Column id="ORDER_TIME" type="STRING" size="256" description="주문일시"/>
+        <Column id="CUSTOMER_CODE" type="STRING" size="256" description="거래처코드"/>
+        <Column id="PRODUCT_CODE" type="STRING" size="256" description="품목코드"/>
+        <Column id="PRODUCT_NAME" type="STRING" size="256" description="품목명"/>
+        <Column id="PRODUCT_PRICE" type="STRING" size="256" description="단가"/>
+        <Column id="ORDER_COUNT" type="STRING" size="256" description="주문건수"/>
+        <Column id="ORDER_PRICE" type="STRING" size="256" description="주문금액"/>
+        <Column id="ORDER_STATUS" type="STRING" size="256" description="상태"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="USER_ID">user1</Col>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001012</Col>
+          <Col id="PRODUCT_NAME">보울(빨강)</Col>
+          <Col id="PRODUCT_PRICE">3000</Col>
+          <Col id="ORDER_COUNT">2</Col>
+          <Col id="ORDER_PRICE">6000</Col>
+          <Col id="ORDER_STATUS">10</Col>
+        </Row>
+        <Row>
+          <Col id="USER_ID">user1</Col>
+          <Col id="CUSTOMER_CODE">OKY</Col>
+          <Col id="PRODUCT_CODE">mf0012e02001016</Col>
+          <Col id="ORDER_STATUS">20</Col>
+          <Col id="PRODUCT_NAME">믹서기</Col>
+          <Col id="PRODUCT_PRICE">60000</Col>
+          <Col id="ORDER_COUNT">1</Col>
+          <Col id="ORDER_PRICE">60000</Col>
+        </Row>
+      </Rows>
+    </Dataset>
   </Datasets>
   <Variables/>
   <DataObjects/>

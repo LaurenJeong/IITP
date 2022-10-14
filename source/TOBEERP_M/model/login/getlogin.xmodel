@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModelInfo version="1.1">
   <Models>
-    <Model id="logininfo" name="logininfo" iotype="input" description="">
-      <Field required="false" id="USER_ID" label="ID" fieldtype="FreeText" datatype="STRING" datasize="80"/>
-      <Field required="false" id="USER_PW" label="비밀번호" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    <Model id="dsinput" name="로그인 조회조건" iotype="input" description="로그인 조회조건">
+      <Field required="false" id="USER_ID" label="ID" fieldtype="FreeText" datatype="STRING" datasize="80" description="ID"/>
+      <Field required="false" id="USER_PW" label="비밀번호" fieldtype="FreeText" datatype="STRING" datasize="80" description="비밀번호"/>
     </Model>
-    <Model id="userinfo" name="userinfo" iotype="output" description="">
-      <Field required="false" id="USER_ID" label="사용자 ID" fieldtype="FreeText" datatype="STRING" datasize="80" innerdatasetinfo=""/>
-      <Field required="false" id="USER_TYPE" label="사용자구분" fieldtype="SelectOne" datatype="STRING" datasize="80" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;10&quot;,&quot;value&quot;:&quot;판매자&quot;},{&quot;code&quot;:&quot;20&quot;,&quot;value&quot;:&quot;고객&quot;}]}"/>
-      <Field required="false" id="USER_NM" label="사용자명" fieldtype="FreeText" datatype="STRING" datasize="80" innerdatasetinfo=""/>
-      <Field required="false" id="USER_HP" label="휴대폰번호" fieldtype="FreeText" datatype="STRING" datasize="80" innerdatasetinfo=""/>
-      <Field required="false" id="USER_EMAIL" label="이메일주소" fieldtype="FreeText" datatype="STRING" datasize="80" innerdatasetinfo=""/>
-      <Field required="false" id="USER_POSTAL_CODE" label="우편번호" fieldtype="FreeText" datatype="STRING" datasize="80"/>
-      <Field required="false" id="USER_ADRESS1" label="주소" fieldtype="FreeText" datatype="STRING" datasize="80"/>
-      <Field required="false" id="USER_ADRESS2" label="상세주소" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+    <Model id="dsuserinfo" name="로그인 사용자정보" iotype="output" description="로그인 사용자정보">
+      <Field required="true" id="USER_ID" label="사용자 ID" fieldtype="FreeText" datatype="STRING" datasize="80" innerdatasetinfo="" description="사용자 ID"/>
+      <Field required="true" id="USER_TYPE" label="사용자구분" fieldtype="SelectOne" datatype="STRING" datasize="80" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;10&quot;,&quot;value&quot;:&quot;판매자&quot;},{&quot;code&quot;:&quot;20&quot;,&quot;value&quot;:&quot;고객&quot;}]}" description="사용자구분"/>
+      <Field required="true" id="USER_NM" label="사용자명" fieldtype="FreeText" datatype="STRING" datasize="80" innerdatasetinfo="" description="사용자명"/>
+      <Field required="true" id="USER_HP" label="휴대폰번호" fieldtype="FreeText" datatype="STRING" datasize="80" innerdatasetinfo="" description="휴대폰번호"/>
+      <Field required="false" id="USER_EMAIL" label="이메일주소" fieldtype="FreeText" datatype="STRING" datasize="80" innerdatasetinfo="" description="이메일주소"/>
+      <Field required="false" id="USER_POSTAL_CODE" label="우편번호" fieldtype="FreeText" datatype="STRING" datasize="80" description="우편번호"/>
+      <Field required="false" id="USER_ADRESS1" label="주소" fieldtype="FreeText" datatype="STRING" datasize="80" description="주소"/>
+      <Field required="false" id="USER_ADRESS2" label="상세주소" fieldtype="FreeText" datatype="STRING" datasize="80" description="상세주소"/>
       <FieldUserAttributes>
         <Attribute name="innerdatasetinfo" edittype="String"/>
       </FieldUserAttributes>
     </Model>
   </Models>
-  <Service id="" name="" url=""/>
+  <Service id="getlogin" name="로그인" url=""/>
 </ModelInfo>

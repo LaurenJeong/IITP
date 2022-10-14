@@ -39,7 +39,7 @@ this.VALIGN					= "top";
 // 조회 버튼 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
 //Lookup Button Default Width
-this.SEARCH_BUTTON_WIDTH			= 80;
+this.SEARCH_BUTTON_WIDTH			= 100;
 
 //Lookup Button Default Height
 this.SEARCH_BUTTON_HEIGHT			= 60;
@@ -78,7 +78,7 @@ this.LABEL_TYPE						= "static";
 //Label Padding
 this.LABEL_PADDING_LEFT				= 0;
 this.LABEL_PADDING_TOP				= 0;
-this.LABEL_PADDING_RIGHT			= 5;
+this.LABEL_PADDING_RIGHT			= 10;
 this.LABEL_PADDING_BOTTOM			= 0;
 
 //Component Padding
@@ -1244,11 +1244,17 @@ fn_GetObjects = function()
 {
 	//Initialize Object
     var oObjects = [];
+	var oInner = [];
 
     var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
 
     //Object Information Setting
     oObjects.push(oViewDataset);
+	
+	// InnerDataset 정보
+	oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+
+	oObjects = oObjects.concat(oInner);
 
     //Return Object Information
     return oObjects;

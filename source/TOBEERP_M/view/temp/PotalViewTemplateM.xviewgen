@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="ButtonViewTemplate" viewtype="Asset" description=""/>
+  <ViewTemplate id="ButtonViewTemplate" viewtype="IITPMobile" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  Button View Template
-*  @FileName 	ButtonViewTemplate.xviewgen
-*  @Creator 	Kim Dae Won
-*  @CreateDate 	2021.04.29
-*  @Desction    버튼 생성 템플릿
+*  Potal View Template
+*  @FileName 	PotalViewTemplate.xviewgen
+*  @Creator 	Creator
+*  @CreateDate 	2022.09.19
+*  @Desction    트리 생성 템플릿
 *  @version		1.0.0.0
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
 *******************************************************************************
-*  2021.04.29     		Kim Dae Won       	    최초 생성
+*  2022.09.19     		Creator       	    	최초 생성
 *******************************************************************************
 */
 /************************************************************************************************
@@ -38,10 +38,10 @@ this.VALIGN					= "top";
 // Button 관련 상수
 //--------------------------------------------------------------------------------------------------------
 //Field Default Width
-this.FIELD_WIDTH			= "80px";
+this.FIELD_WIDTH			= "100%";
 
 //Field Default Height
-this.FIELD_HEIGHT			= "30px";
+this.FIELD_HEIGHT			= "100%";
 
 //Component Padding
 this.COMP_PADDING_LEFT		= 0;
@@ -49,240 +49,17 @@ this.COMP_PADDING_TOP		= 0;
 this.COMP_PADDING_RIGHT		= 0;
 this.COMP_PADDING_BOTTOM	= 0;
 
+//Component Default Type
+this.COMP_TYPE				= "static";
+
 //Gap Between Components (Left and Right)
-this.COMP_SPACE				= 5;
+this.COMP_SPACE				= 10;
 
 //Gap Between Components (Top and Bottom)
-this.LINE_SPACE				= 5;
+this.LINE_SPACE				= 10;
 
 //Component Default CSS Class
 this.COMP_CSSCLASS			= "";
-/*============================================================================================*
-* Parameter Structure Example
-
-1. 'fieldarray' structure example
-{
-    "modelinfo":
-    {
-        "serviceid":"model_sample",                                // model service id
-        "serviceurl":"http://127.0.0.1:8983/app/addSearchApi.do?"  // model service url
-    },
-    "fieldcount" : "2",                                            // number of fields in model
-    "fields" :
-    [
-        {                                                          // About the first field
-            "id": "company",
-            "label": "Company Name",
-            "fieldtype": "SelectOne",
-            "datatype": "STRING",
-            "datasize": "80",
-            "editable": "true",
-            "uselabel": "true"
-        },
-        {                                                          // About the second field
-            "id": "department",
-            "label": "Department Name",
-            "fieldtype": "SelectOne",
-            "datatype": "STRING",
-            "datasize": "80",
-            "editable": "true",
-            "uselabel": "true"
-        }
-    ]
-}
-
-2. 'generationattr' structure example
-{                                                                  // user-entered attributes for 'view' generation
-  "attributes": {
-    "use_triggerbutton": "true"
-    "triggerbuttontext": "Search"
-  }
-}
-
-3. 'contents' structure example
-// --- design source of xfdl --- //
-//   <View id="View00" viewtype="FreeForm" taborder="2" ... >
-//     <Layouts>
-//       <Layout>
-//         <Static id="Static00" text="Company Name" left="0" .../>
-//         <Combo id="Combo00" left="85" top="0" .../>
-//         <Button id="btn_Trigger" left="617" top="5" .../>
-//         ...
-//       </Layout>
-//     </Layouts>
-//     <InitValue>
-//       <Combo id="Combo00" enable="true"/>
-//     </InitValue>
-//     <Objects>
-//       <Dataset id="Viewdataset">
-//         <ColumnInfo>
-//           <Column id="company" type="BLOB" size="80"/>
-//           <Column id="department" type="BLOB" size="80"/>
-//         </ColumnInfo>
-//         <Rows>
-//           <Row/>
-//         </Rows>
-//       </Dataset>
-//     </Objects>
-//     <Bind>
-//       <BindItem id="item0" compid="Combo00" propid="value" datasetid="viewdataset" columnid="company"/>
-//     </Bind>
-//     <Script type="xscript5.1"><![CDATA[this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}; ] ]></Script>
-//   </View>
-
-// --- design source converted to json format --- //
-{
-    "View": {                                                     // <View id="View00" viewtype="FreeForm" taborder="2" ... />
-        "tag": "View",
-        "referenceinfo": {
-            "realwidth": "500",                                   // Real width of view component
-            "realheight": "250"                                   // Real height of view component
-        },
-        "attribute": {
-            "id": "View00",                                       // 'ID' of view component
-            "viewtype": "FreeForm",                               // 'viewtype' property value of view component
-            "taborder": "2",                                      // 'taborder' property value of view component
-            "text": "search view",                                // 'text' property value of view component
-            "left": "0",                                          // 'left' property value of view component
-            "top": "0",                                           // 'top' property value of view component
-            "width": "100%",                                      // 'width' property value of view component
-            "height": "50%"                                       // 'height' property value of view component
-        },
-        "Model": [                                                // Information of components generated by each model field information.
-            {                                                     // "fieldid" : "value" => The component generated by the field of Model
-                "fieldid": "company",                             // "fieldid" : ""      => The component generated without the field of Model
-                "Components": [                                   // The component information generated by the 'company' field.
-                    {                                             //   <Static id="Static00" text="Company Name" left="0" .../>
-                        "tag": "Static",
-                        "attribute": {
-                            "id": "Static00",
-                            "text": "Company Name",
-                            "left": "0",
-                            "top": "0",
-                            "width": "80",
-                            "height": "20",
-                        }
-                    },
-                    {                                             //   <Combo id="Combo00" left="85" top="0" .../>
-                        "tag": "Combo",
-                        "attribute": {
-                            "id": "Combo00",
-                            "left": "85",
-                            "top": "0",
-                            "width": "100",
-                            "height": "24",
-                        }
-                    }
-                ]
-            },
-            {   // with field
-                "fieldid": "department",                          // "fieldid" : "value" => The component generated by the field of Model
-                "Components": [
-                ...
-                ]
-            },
-            {
-                "fieldid": "",                                    // "fieldid" : ""      => The component generated without the field of Model
-                "Components": [
-                    {                                             //   <Button id="btn_Trigger" left="617" top="5" .../>
-                        "tag": "Button",
-                        "attribute": {
-                          "id": "btn_Trigger",
-                          "left": "617",
-                          "top": "5",
-                          "width": "70",
-                          "height": "50",
-                          "text": "Search"
-                        }
-                    }
-                ]
-            }
-        ],
-        "InitValue": [
-          {                                                       //   <InitValue>
-            "tag": "InitValue",                                   //     <Combo id="Combo00" enable="true"/>
-            "InitValue": [                                        //   </InitValue>
-              {
-                "tag": "Combo",
-                "attribute": {
-                  "id": "Combo00",
-                  "enable": "true"
-                }
-              }
-            ]
-          }
-        ],
-        "Objects": [
-          {                                                       //   <Objects>
-            "tag": "Objects",                                     //     <Dataset id="Viewdataset">
-            "Objects": [                                          //       <ColumnInfo>
-              {                                                   //         <Column id="company" type="BLOB" size="80"/>
-                "tag": "Dataset",                                 //         <Column id="department" type="BLOB" size="80"/>
-                "attribute": {                                    //       </ColumnInfo>
-                  "id": "viewdataset"                             //       <Rows>
-                },                                                //         <Row/>
-                "Dataset": [                                      //       </Rows>
-                  {                                               //     </Dataset>
-                    "tag": "ColumnInfo",                          //   </Objects>
-                    "ColumnInfo": [
-                      {
-                        "tag": "Column",
-                        "attribute": {
-                          "id": "company",
-                          "type": "BLOB",
-                          "size": "80"
-                        }
-                      },
-                      {
-                        "tag": "Column",
-                        "attribute": {
-                          "id": "department",
-                          "type": "BLOB",
-                          "size": "80"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "tag": "Rows",
-                    "Rows": [
-                      {
-                        "tag": "Row"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "Bind": [
-        {                                                         //   <Bind>
-          "tag": "Bind",                                          //     <BindItem id="item0" compid="Combo00" propid="value" datasetid="viewdataset" columnid="company"/>
-          "Bind": [                                               //   </Bind>
-              {
-                "tag": "BindItem",
-                "attribute": {
-                  "id": "item0",
-                  "compid": "Combo00",
-                  "propid": "value",
-                  "datasetid": "viewdataset",
-                  "columnid": "company"
-                }
-              }
-            ]
-          }
-        ],
-        "Script": {                                               // <Script type="xscript5.1"><![CDATA[this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}; ] ]></Script>
-            "tag": "Script",
-            "attribute": {
-                "type": "xscript5.1"
-            },
-            "value": "this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}"
-        }
-    }
-}
-*============================================================================================*/
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -358,6 +135,18 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 
 	//Load Model Information Generation Function
 	fn_GetModel();
+	
+	//Load InitValue Information Generation Function
+    this.oContents.View.InitValue = fn_GetInitValue();
+
+	//Load Object Information Generation Function
+    this.oContents.View.Objects = fn_GetObjects();
+
+	//Load BindInfo Information Generation Function
+    this.oContents.View.Bind = fn_GetBind();
+
+	//Load Script Information Generation Function
+    this.oContents.View.Script = fn_GetScript();
 
 	//Convert View Component Information into String
     vResult = JSON.stringify(this.oContents, null, "\t");
@@ -459,6 +248,13 @@ fn_GetFieldUserAttributeList = function ()
 	var sFieldAttr = "";
 	var oFieldAttr = {
                         "attributes": [
+							 {
+                                "id": "comptype",
+                                "edittype": "Enum",
+								"enumlist" : ["static", "imageviewer", "webview", "button", "combo", "radio", "edit", "maskedit", "textarea", "checkbox", "spin", "calendar", "progressbar"],
+                                "defaultvalue": this.COMP_TYPE,
+                                "description": "Types of Components to be Expressed"
+                            },
                             {
                                 "id": "fieldwidth",
                                 "edittype": "String",
@@ -1019,7 +815,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		if (this.lfn_IsNull(oField))	continue;
 		
 		//Import Component Naming Rule Information
-		oCompClass = this.lfn_GetCompClass("button");
+		oCompClass = this.lfn_GetCompClass(oField.comptype);
 
 		//Import Row/Col Index where the Field will be located
 		nRowIdx = oFieldPosition.rowidx;
@@ -1107,11 +903,79 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 					"tag" : oCompClass.classId,
 					"attribute" :
 					{
-						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "text" : sLabel, "cssclass" : sCssClass
+						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCssClass
 					}
 				};
+				
+		// webview 일때 라벨값 처리 안함
+		if(oField.comptype!="webview")
+		{
+			oComp["text"] = sLabel;
+		}
+		
+		if(oField.comptype!="button")
+		{
+			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
+		}
 
 		oModel[oModel.length-1].Components.push(oComp);
 	}
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetInitValue
+ * Return       : initvalue contents (JSON format)
+ * Description  : Function to generate <InitValue> source
+ *---------------------------------------------------------------------------------------------*/
+fn_GetInitValue = function()
+{
+
+    var oInitValue = [];
+
+    return oInitValue;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetObjects
+ * Return       : objects contents (JSON format)
+ * Description  : Function to generate <Objects> source
+ *---------------------------------------------------------------------------------------------*/
+fn_GetObjects = function()
+{
+	//Initialize Object
+    var oObjects = [];
+
+    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
+
+    //Object Information Setting
+    oObjects.push(oViewDataset);
+
+    //Return Object Information
+    return oObjects;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetBind
+ * Return       : bind contents (JSON format)
+ * Description  : Function to generate <Bind> source
+ *---------------------------------------------------------------------------------------------*/
+fn_GetBind = function()
+{
+	var oBind = this.lfn_GetBindItem("viewdataset", this.arrBindItems);
+
+    return oBind;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetScript
+ * Parameter    :
+ * Return       : script contents (JSON format)
+ * Description  : Function to generate <Script> source
+ *---------------------------------------------------------------------------------------------*/
+fn_GetScript = function()
+{
+    var oScript = {};
+
+    return oScript;
 };]]></Script>
 </ViewTemplateInfo>

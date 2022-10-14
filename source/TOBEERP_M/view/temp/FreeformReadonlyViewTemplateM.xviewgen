@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="FreeformViewTemplate" viewtype="Asset" description=""/>
+  <ViewTemplate id="FreeformViewTemplate" viewtype="IITPMobile" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  Freeform View Template
-*  @FileName 	FreeformViewTemplate.xviewgen
-*  @Creator 	Kim Dae Won
-*  @CreateDate 	2021.04.29
-*  @Desction    상세화면 생성 템플릿
+*  Freeform Readonly View Template
+*  @FileName 	FreeformReadonlyViewTemplate.xviewgen
+*  @Creator 	Creator
+*  @CreateDate 	2022.05.16
+*  @Desction    상세화면(조회모드) 생성 템플릿(FreeformViewTemplate.xviewgen에서 Readonly처리 함. [FreeformReadonly] 확인)
 *  @version		1.0.0.0
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
 *******************************************************************************
-*  2021.04.29     		Kim Dae Won       	    최초 생성
+*  2022.05.16     		Creator       	    최초 생성
 *******************************************************************************
 */
 /************************************************************************************************
@@ -48,13 +48,16 @@ this.USE_EXPAND_BUTTON		= "none";
 this.FIELD_WIDTH			= "100%";
 
 //Field Default Height
-this.FIELD_HEIGHT			= "40px";
+this.FIELD_HEIGHT			= "70px";
 
 //Label Default Width
-this.LABEL_WIDTH			= 100;
+this.LABEL_WIDTH			= 120;
 
 //Component Default Type
 this.COMP_TYPE				= "edit";
+
+//[FreeformReadonly] Component Readonly
+this.COMP_READONLY			= "true";
 
 //Label Default Type
 this.LABEL_TYPE				= "static";
@@ -63,28 +66,28 @@ this.LABEL_TYPE				= "static";
 this.COMP_BG_TYPE			= "static";
 
 //Component Padding
-this.COMP_PADDING_LEFT     = 5;
-this.COMP_PADDING_TOP      = 5;
-this.COMP_PADDING_RIGHT    = 5;
-this.COMP_PADDING_BOTTOM   = 5;
+this.COMP_PADDING_LEFT		= 10;
+this.COMP_PADDING_TOP		= 5;
+this.COMP_PADDING_RIGHT		= 10;
+this.COMP_PADDING_BOTTOM	= 5;
 
 //Gap Between Components (Left and Right)
-this.COMP_SPACE     		  = 5;
+this.COMP_SPACE				= 10;
 
 //Gap Between Components (Top and Bottom)
-this.LINE_SPACE     		  = 5;
+this.LINE_SPACE				= 10;
 
 //Component Default CSS Class
-this.COMP_CSSCLASS		  = "";
+this.COMP_CSSCLASS			= "";
+
+//[FreeformReadonly] Component Readonly CSS Class
+this.COMP_READONLY_CSSCLASS		  = "com_View";
 
 //Background Component Default CSS Class
 this.COMP_BG_CSSCLASS	  = "sta_fieldbox";
 
 //Label Default CSS Class
 this.LABEL_CSSCLASS		  = "sta_labelbox";
-
-//Required Label Default CSS Class
-this.LABEL_REQUIRED_CSSCLASS	= "sta_labelbox_essential";
 
 //Background Component Use Type
 this.USE_COMP_BG		= "true";
@@ -481,7 +484,7 @@ fn_GetViewAttributeList = function()
 								"description": "Set View Layout"
 
                             }
-							//, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
+							, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
                   };
 
@@ -560,6 +563,13 @@ fn_GetFieldUserAttributeList = function ()
                                 "edittype": "Boolean",
 								"defaultvalue": this.USE_COMP,
                                 "description": "Use Component"
+                            },
+							// [FreeformReadonly] Field ReadOnly 설정
+							{
+                                "id": "fieldreadonly",
+                                "edittype": "Boolean",
+								"defaultvalue": this.COMP_READONLY,
+                                "description": "Field Readonly"
                             }
                         ]
                   };
@@ -589,7 +599,7 @@ fn_GetModel = function()
 	
 	// Title 영역
 	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
-	var sUseTotalCount		= this.USE_TOT_COUNT;									// 전체건수 Static 생성
+	var sUseTotalCount		= "false";												// 전체건수 Static 생성
 	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 생성
 	
 	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
@@ -1353,8 +1363,13 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var sCompCssClass;
 	var sLabelCssClass;
 	var sFieldBgCssClass = this.COMP_BG_CSSCLASS;
+	var sFieldReadonly;
+	var sFieldReadonlyCssClass;
 	
-	// FieldBox 사용여부
+	// [FreeformReadonly] FieldBox 사용여부
+	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
+	
+	// [FreeformReadonly] Field ReadOnly
 	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
 
 	if(!bUseLayout)bUseLayout = false;
@@ -1378,7 +1393,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
+			sLabelCssClass = oField.labelcssclass;
 
 			//Import Row/Col Index where the Field will be located
 			nRowIdx = oFieldPosition.rowidx;
@@ -1512,9 +1527,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 							, "cssclass" : sCompCssClass
 						}
 					};
-
-			//If the Component Type is Button,Checkbox,Static, add label text to the text properties
-			if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
+			
+			// 라벨을 text로 처리
+			if(oField.comptype=="button" || oField.comptype=="checkbox" || oField.comptype=="static")
 			{
 				oComp.attribute.text = oField.label;
 			}
@@ -1524,6 +1539,24 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				oComp.attribute.direction = "vertical";
 			}
 			
+			// [FreeformReadonly] Readonly 처리
+			if(oField.fieldreadonly == "true")
+			{
+				// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
+				if(oField.comptype=="calendar" || oField.comptype=="checkbox" || oField.comptype=="combo" || oField.comptype=="edit"
+					|| oField.comptype=="maskedit" || oField.comptype=="radio" || oField.comptype=="spin" || oField.comptype=="textarea")
+				{
+					oComp.attribute.readonly = "true";
+					oComp.attribute.cssclass = this.COMP_READONLY_CSSCLASS;
+					
+					// 스핀버튼, 드롭다운버튼 안보이게 처리
+					if (oField.comptype=="spin" || oField.comptype=="combo" || oField.comptype=="calendar")
+					{
+						oComp.attribute.buttonsize = "0";
+					}
+				}
+			}
+
 			if(oField.comptype!="button")
 			{
 				//In order to process the Bind, add Id, Field Id to BindItems Array
@@ -1552,7 +1585,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
+			sLabelCssClass = oField.labelcssclass;
 
 			//Import Row/Col Index where the Field will be located
 			nRowIdx = oFieldPosition.rowidx;
@@ -1670,10 +1703,28 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 						}
 					};
 
-			//If the Component Type is Button,Checkbox,Static, add label text to the text properties
-			if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
+			// 라벨을 text로 처리
+			if(oField.comptype=="button" || oField.comptype=="checkbox" || oField.comptype=="static")
 			{
 				oComp.attribute.text = oField.label;
+			}
+			
+			// [FreeformReadonly] Readonly 처리
+			if(oField.fieldreadonly == "true")
+			{
+				// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
+				if(oField.comptype=="calendar" || oField.comptype=="checkbox" || oField.comptype=="combo" || oField.comptype=="edit"
+					|| oField.comptype=="maskedit" || oField.comptype=="radio" || oField.comptype=="spin" || oField.comptype=="textarea")
+				{
+					oComp.attribute.readonly = "true";
+					oComp.attribute.cssclass = this.COMP_READONLY_CSSCLASS;
+					
+					// 스핀버튼, 드롭다운버튼 안보이게 처리
+					if (oField.comptype=="spin" || oField.comptype=="combo" || oField.comptype=="calendar")
+					{
+						oComp.attribute.buttonsize = "0";
+					}
+				}
 			}
 
 			if(oField.comptype!="button")
@@ -1708,11 +1759,17 @@ fn_GetObjects = function()
 {
 	//Initialize Object
     var oObjects = [];
+	var oInner = [];
 
     var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
 
     //Object Information Setting
     oObjects.push(oViewDataset);
+	
+	// InnerDataset 정보
+	oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+
+	oObjects = oObjects.concat(oInner);
 
     //Return Object Information
     return oObjects;

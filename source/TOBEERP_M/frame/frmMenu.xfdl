@@ -135,16 +135,10 @@ this.divTop_btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventI
 */
 this.divTop_btnLogout_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	if(system.navigatorname == "nexacro")
+	if (this.confirm("로그아웃 하시겠습니까?"))
 	{
-		if(this.confirm("종료하시겠습니까?")) {
-			this.objApp.exit();
-		}
-	}
-	else
-	{
-		window.top.location.reload(true);
-	}	
+		this.objApp.gvFrmAll.fnAction("LOGIN");
+	}  
 };
 
 /**

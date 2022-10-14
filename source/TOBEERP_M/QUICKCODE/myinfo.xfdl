@@ -1,36 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="userinfo" width="480" height="610" titletext="회원가입">
+  <Form id="myinfo" width="480" height="875" titletext="내정보">
     <Layouts>
-      <Layout height="610" width="480" mobileorientation="portrait">
-        <View id="viewDetail" taborder="0" text="viewDetail" viewdataset="viewdataset" left="0" top="0" width="480" height="1150">
+      <Layout height="875" width="480" mobileorientation="portrait">
+        <View id="viewDetail" taborder="0" text="viewDetail" viewdataset="viewdataset" left="20" top="0" height="775" right="20">
           <Layouts>
-            <Layout type="horizontal" flexwrap="wrap" horizontalgap="10" verticalgap="10" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="start" spacing="20px">
-              <Div id="divTitle" left="20" top="20" height="30" width="100%">
-                <Layouts>
-                  <Layout>
-                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="회원가입" fittocontents="width" cssclass="sta_subtitle"/>
-                  </Layout>
-                </Layouts>
-              </Div>
-              <Static id="staUserIdLabel" left="20" top="49" width="100%" height="40" text="사용자 ID" cssclass="sta_label"/>
-              <Edit id="edtUserId" left="460" top="49" width="440" height="60"/>
-              <Static id="staUserPwLabel" left="20" top="108" width="100%" height="40" text="비밀번호" cssclass="sta_label"/>
-              <Edit id="edtUserPw" left="460" top="108" width="440" height="60"/>
-              <Static id="staUserPwOkLabel" left="20" top="167" width="100%" height="40" text="비밀번호 확인" cssclass="sta_label"/>
-              <Edit id="edtUserPwOk" left="460" top="167" width="440" height="60"/>
-              <Static id="staUserHpLabel" left="20" top="226" width="100%" height="40" text="휴대폰번호" cssclass="sta_label"/>
-              <Edit id="edtUserHp" left="460" top="226" width="440" height="60"/>
-              <Static id="staUserNmLabel" left="20" top="285" width="100%" height="40" text="사용자명" cssclass="sta_label"/>
-              <Edit id="edtUserNm" left="460" top="285" width="440" height="60"/>
-              <Static id="staUserEmailLabel" left="20" top="344" width="100%" height="40" text="이메일주소" cssclass="sta_label"/>
-              <Edit id="edtUserEmail" left="460" top="344" width="440" height="60"/>
-              <Static id="staUserPostalCodeLabel" left="20" top="403" width="100%" height="40" text="우편번호" cssclass="sta_label"/>
-              <Edit id="edtUserPostalCode" left="460" top="403" width="150" height="60"/>
-              <Static id="staUserAdress1Label" left="20" top="462" width="100%" height="40" text="주소" cssclass="sta_label"/>
-              <Edit id="edtUserAdress1" left="460" top="462" width="440" height="60"/>
-              <Static id="staUserAdress2Label" left="20" top="521" width="100%" height="40" text="상세주소" cssclass="sta_label"/>
-              <Edit id="edtUserAdress2" left="460" top="521" width="440" height="60"/>
+            <Layout type="horizontal" flexwrap="wrap" horizontalgap="10" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="start">
+              <Static id="staUserIdLabel" left="0" top="-1" width="100%" height="60" text="사용자 ID" cssclass="sta_label_essential"/>
+              <Edit id="edtUserId" left="440" top="-1" width="440" height="60" readonly="true"/>
+              <Static id="staUserNmLabel" left="0" top="58" width="100%" height="60" text="사용자명" cssclass="sta_label_essential"/>
+              <Edit id="edtUserNm" left="440" top="58" width="440" height="60"/>
+              <Static id="staUserHpLabel" left="0" top="117" width="100%" height="60" text="휴대폰번호" cssclass="sta_label_essential"/>
+              <Edit id="edtUserHp" left="440" top="117" width="440" height="60"/>
+              <Static id="staUserEmailLabel" left="0" top="176" width="100%" height="60" text="이메일주소" cssclass="sta_label"/>
+              <Edit id="edtUserEmail" left="440" top="176" width="440" height="60"/>
+              <Static id="staUserPostalCodeLabel" left="0" top="235" width="100%" height="60" text="주소" cssclass="sta_label"/>
+              <Edit id="edtUserPostalCode" left="440" top="235" width="150" height="60"/>
+              <Edit id="edtUserAdress1" left="0" top="294" width="440" height="60"/>
+              <Edit id="edtUserAdress2" left="0" top="353" width="440" height="60"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -38,12 +25,10 @@
               <ColumnInfo>
                 <Column id="USER_ID" type="STRING" size="80" description="사용자 ID"/>
                 <Column id="USER_TYPE" type="STRING" size="80" description="사용자구분"/>
-                <Column id="USER_PW" type="STRING" size="80" description="비밀번호"/>
-                <Column id="USER_PW_OK" type="STRING" size="80" description="비밀번호 확인"/>
-                <Column id="USER_HP" type="STRING" size="80" description="휴대폰번호"/>
                 <Column id="USER_NM" type="STRING" size="80" description="사용자명"/>
+                <Column id="USER_HP" type="STRING" size="80" description="휴대폰번호"/>
                 <Column id="USER_EMAIL" type="STRING" size="80" description="이메일주소"/>
-                <Column id="USER_POSTAL_CODE" type="STRING" size="80" description="우편번호"/>
+                <Column id="USER_POSTAL_CODE" type="STRING" size="80" description="주소"/>
                 <Column id="USER_ADRESS1" type="STRING" size="80" description="주소"/>
                 <Column id="USER_ADRESS2" type="STRING" size="80" description="상세주소"/>
               </ColumnInfo>
@@ -54,79 +39,78 @@
           </Objects>
           <Bind>
             <BindItem id="bind_edtUserId" compid="edtUserId" propid="value" datasetid="viewdataset" columnid="USER_ID"/>
-            <BindItem id="bind_edtUserPw" compid="edtUserPw" propid="value" datasetid="viewdataset" columnid="USER_PW"/>
-            <BindItem id="bind_edtUserPwOk" compid="edtUserPwOk" propid="value" datasetid="viewdataset" columnid="USER_PW_OK"/>
-            <BindItem id="bind_edtUserHp" compid="edtUserHp" propid="value" datasetid="viewdataset" columnid="USER_HP"/>
             <BindItem id="bind_edtUserNm" compid="edtUserNm" propid="value" datasetid="viewdataset" columnid="USER_NM"/>
+            <BindItem id="bind_edtUserHp" compid="edtUserHp" propid="value" datasetid="viewdataset" columnid="USER_HP"/>
             <BindItem id="bind_edtUserEmail" compid="edtUserEmail" propid="value" datasetid="viewdataset" columnid="USER_EMAIL"/>
             <BindItem id="bind_edtUserPostalCode" compid="edtUserPostalCode" propid="value" datasetid="viewdataset" columnid="USER_POSTAL_CODE"/>
             <BindItem id="bind_edtUserAdress1" compid="edtUserAdress1" propid="value" datasetid="viewdataset" columnid="USER_ADRESS1"/>
             <BindItem id="bind_edtUserAdress2" compid="edtUserAdress2" propid="value" datasetid="viewdataset" columnid="USER_ADRESS2"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="userinfo" filepath="login\setuser.xmodel">
+          <ModelInfo modelserviceid="model" serviceid="" modelid="dsuserinfo" filepath="login\getlogin.xmodel">
             <Fields>
-              <Field id="USER_TYPE" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
-              <Field id="USER_ID" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_PW" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_PW_OK" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_HP" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_NM" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_EMAIL" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_POSTAL_CODE" description="" innerdatasetinfo="" comptype="edit" fieldwidth="150" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_ADRESS1" description="" innerdatasetinfo="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_ADRESS2" description="" innerdatasetinfo="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="40px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="USER_TYPE" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="USER_ID" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="USER_NM" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="USER_HP" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="USER_EMAIL" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="USER_POSTAL_CODE" label="주소" innerdatasetinfo="" comptype="edit" fieldwidth="150" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="USER_ADRESS1" innerdatasetinfo="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="0" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="USER_ADRESS2" innerdatasetinfo="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="0" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="divTitle" fields="_viewcomp"/>
               <Component id="staUserIdLabel" fields="USER_ID"/>
               <Component id="edtUserId" fields="USER_ID"/>
-              <Component id="staUserPwLabel" fields="USER_PW"/>
-              <Component id="edtUserPw" fields="USER_PW"/>
-              <Component id="staUserPwOkLabel" fields="USER_PW_OK"/>
-              <Component id="edtUserPwOk" fields="USER_PW_OK"/>
-              <Component id="staUserHpLabel" fields="USER_HP"/>
-              <Component id="edtUserHp" fields="USER_HP"/>
               <Component id="staUserNmLabel" fields="USER_NM"/>
               <Component id="edtUserNm" fields="USER_NM"/>
+              <Component id="staUserHpLabel" fields="USER_HP"/>
+              <Component id="edtUserHp" fields="USER_HP"/>
               <Component id="staUserEmailLabel" fields="USER_EMAIL"/>
               <Component id="edtUserEmail" fields="USER_EMAIL"/>
               <Component id="staUserPostalCodeLabel" fields="USER_POSTAL_CODE"/>
               <Component id="edtUserPostalCode" fields="USER_POSTAL_CODE"/>
-              <Component id="staUserAdress1Label" fields="USER_ADRESS1"/>
               <Component id="edtUserAdress1" fields="USER_ADRESS1"/>
-              <Component id="staUserAdress2Label" fields="USER_ADRESS2"/>
               <Component id="edtUserAdress2" fields="USER_ADRESS2"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="FreeFormVerticalViewTemplateM.xviewgen">
-            <Attribute id="titletext" value="회원가입"/>
+          <ViewTemplateInfo filepath="FreeformVerticalViewTemplateM.xviewgen">
             <Attribute id="useexpandbutton" value="none"/>
-            <Attribute id="viewpadding" value="20"/>
             <Attribute id="horizontalgap" value="10"/>
-            <Attribute id="verticalgap" value="10"/>
+            <Attribute id="verticalgap" value="5"/>
           </ViewTemplateInfo>
         </View>
-        <Button id="btnClose" taborder="1" text="X" top="10" width="60" height="30" right="20" cssclass="btn_cm_basic01" onclick="viewDetail_divTitle_Button00_onclick"/>
-        <Button id="btnAddUser" taborder="2" text="회원가입" left="20" top="1160" height="60" right="20"/>
+        <View id="viewBtn" taborder="1" text="View00" viewdataset="viewdataset" left="20" top="viewDetail:20" height="80" right="20">
+          <Layouts>
+            <Layout type="horizontal" flexwrap="wrap" horizontalgap="10" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="end">
+              <Button id="btnSave" left="320" top="0" width="120" height="60" text="저장" cssclass="btn_cm_basic02" flexgrow="1"/>
+            </Layout>
+          </Layouts>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="common" filepath="common\button.xmodel">
+            <Fields>
+              <Field id="Save" description="" fieldwidth="120px" fieldheight="60px"/>
+            </Fields>
+            <Components>
+              <Component id="btnSave" fields="Save"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="ButtonLayoutViewTemplateM.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="right"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="compsizing" value="flexgrow"/>
+            <Attribute id="horizontalgap" value="10"/>
+            <Attribute id="verticalgap" value="5"/>
+          </ViewTemplateInfo>
+        </View>
       </Layout>
     </Layouts>
     <Objects>
-      <PopupCloseAction id="PopupCloseAction00" returntype="none" targetview="userinfo">
+      <DsCopyRowDataAction id="DsCopyRowDataAction00" targetview="viewDetail" targetrow="0" fromview="myinfo" fromdataset="gdsUserInfo" fromrow="0">
         <Contents/>
-      </PopupCloseAction>
+      </DsCopyRowDataAction>
     </Objects>
-    <Trigger/>
-    <Script type="xscript5.1"><![CDATA[
-this.PopupCloseAction00_canrun = function(obj:nexacro.PopupCloseAction, e:nexacro.ActionRunEventInfo)
-{
-	trace("11111");
-	return true;
-};
-
-this.viewDetail_divTitle_Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	this.PopupCloseAction00.run();
-};
-]]></Script>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="myinfo" triggerobj="myinfo" targetaction="DsCopyRowDataAction00" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
   </Form>
 </FDL>

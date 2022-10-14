@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="dsproduct" name="제품리스트" iotype="output" description="">
+      <Field required="true" id="CUSTOMER_CODE" label="거래처코드" fieldtype="FreeText" datatype="STRING" datasize="80" description="거래처코드" innerdatasetinfo=""/>
+      <Field required="true" id="PRODUCT_CODE" label="품목코드" fieldtype="FreeText" datatype="STRING" datasize="80" description="품목코드" innerdatasetinfo=""/>
+      <Field required="false" id="PRODUCT_GROUPS" label="품목구분" fieldtype="SelectOne" datatype="STRING" datasize="80" description="품목구분" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;e010&quot;,&quot;value&quot;:&quot;리빙&quot;},{&quot;code&quot;:&quot;e020&quot;,&quot;value&quot;:&quot;주방&quot;},{&quot;code&quot;:&quot;e030&quot;,&quot;value&quot;:&quot;인테리어&quot;},{&quot;code&quot;:&quot;e040&quot;,&quot;value&quot;:&quot;수납&quot;}]}"/>
+      <Field required="false" id="PRODUCT_NAME" label="품목명" fieldtype="FreeText" datatype="STRING" datasize="80" description="품목명" innerdatasetinfo=""/>
+      <Field required="false" id="PRODUCT_IMG" label="제품이미지" fieldtype="FreeText" datatype="STRING" datasize="80" description="제품이미지" innerdatasetinfo=""/>
+      <Field required="false" id="PRODUCT_PRICE" label="단가" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80" description="단가" innerdatasetinfo=""/>
+      <Field required="false" id="PRODUCT_DESCRIPTION" label="상품설명" fieldtype="FreeText" datatype="STRING" datasize="80" description="상품설명" innerdatasetinfo=""/>
+      <Field required="true" id="STOCK_COUNT" label="재고수량" fieldtype="FreeText" datatype="INT" datasize="80" description="재고수량" innerdatasetinfo=""/>
+      <Field required="false" id="USE_YN" label="판매여부" fieldtype="FreeText" datatype="STRING" datasize="80" description="판매여부" innerdatasetinfo=""/>
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String"/>
+      </FieldUserAttributes>
+    </Model>
+    <Model id="dsorder" name="주문" iotype="output" description="">
+      <Field required="true" id="ORDER_NO" label="주문번호" fieldtype="FreeText" datatype="STRING" datasize="80" description="주문번호"/>
+      <Field required="true" id="USER_ID" label="사용자ID" fieldtype="FreeText" datatype="STRING" datasize="80" description="사용자ID"/>
+      <Field required="false" id="ORDER_TIME" label="주문일시" fieldtype="FreeText" datatype="STRING" datasize="80" description="주문일시"/>
+      <Field required="true" id="CUSTOMER_CODE" label="거래처코드" fieldtype="FreeText" datatype="STRING" datasize="80" description="거래처코드"/>
+      <Field required="false" id="field0" label="label0" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="PRODUCT_NAME" label="품목명" fieldtype="FreeText" datatype="STRING" datasize="80" description="품목명"/>
+      <Field required="false" id="PRODUCT_IMG" label="제품이미지" fieldtype="FreeText" datatype="STRING" datasize="80" description="제품이미지"/>
+      <Field required="false" id="PRODUCT_PRICE" label="단가" fieldtype="FreeText" datatype="STRING" datasize="80" description="단가"/>
+      <Field required="true" id="ORDER_COUNT" label="주문건수" fieldtype="FreeText" datatype="STRING" datasize="80" description="주문건수"/>
+      <Field required="false" id="ORDER_PRICE" label="주문금액" fieldtype="FreeText" datatype="STRING" datasize="80" description="주문금액"/>
+      <Field required="true" id="ORDER_STATUS" label="상태" fieldtype="FreeText" datatype="STRING" datasize="80" description="상태"/>
+      <Field required="false" id="PRODUCT_DESCRIPTION" label="상품설명" fieldtype="FreeText" datatype="STRING" datasize="80" description="상품설명"/>
+    </Model>
+  </Models>
+  <Service id="" name="" url=""/>
+</ModelInfo>
