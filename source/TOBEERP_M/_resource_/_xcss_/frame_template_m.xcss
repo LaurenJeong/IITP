@@ -582,6 +582,20 @@
 	color : #0265c5;
 }
 
+.Button.btn_login_next,.Button.btn_login_next[status=mouseover],.Button.btn_login_next[status=focused]
+{
+	-nexa-text-align 	: right;
+	background 		: URL("imagerc::mobile/btn_login_next.png") no-repeat right center transparent;
+	color 			: #8f909a;
+	font 			: 16px "Malgun Gothic";
+}
+.Button.btn_login_next[userstatus=pushed],.Button.btn_login_next[userstatus=selected]
+{
+	-nexa-text-decoration 	: underline;
+	background 		: URL("imagerc::mobile/btn_login_next.png") no-repeat right center transparent;
+	color 			: #cccccc;
+}
+
 /* 팝업 타이틀 영역 */
 .Static.sta_WF_title_popup
 {
@@ -617,4 +631,8 @@
 {
 	background : #eeeeee;
 }
-]]></XCSS>
+.View.viw_box
+{
+	background : #ffffff;
+	-nexa-border : 1px solid #c7c7c7;
+}]]></XCSS>
