@@ -140,8 +140,23 @@ this.viewLogin_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 };
 ]]></Script>
     <Objects>
-      <PopupAction id="PopupAction00" formurl="QUICKCODE::adduserpop.xfdl" popupstyle="modal" popupid="popup" title="회원가입" targetview="viewLogin" popupdatatype="copyrow" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1">
-        <Contents/>
+      <PopupAction id="PopupAction00" formurl="QUICKCODE::adduserpop.xfdl" popupstyle="modal" popupid="popup" title="회원가입" targetview="viewLogin" popupdatatype="replace" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1">
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"viewLogin",
+            "modelid":"dsinput",
+            "iotype":"input",
+            "fieldlist":[
+                {
+                    "name":"viewLogin:USER_ID",
+                    "fieldid":"USER_ID",
+                    "value":"USER_ID"
+                }
+            ]
+        }
+    ]
+}]]></Contents>
       </PopupAction>
     </Objects>
     <Trigger>
