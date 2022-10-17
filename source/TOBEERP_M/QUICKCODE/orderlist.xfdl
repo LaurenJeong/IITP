@@ -199,13 +199,13 @@
               <Edit id="edtProductName" left="150" top="233" width="300" height="60" cssclass="com_View" readonly="true"/>
               <Static id="staProductPriceBg" left="20" top="297" height="70" cssclass="sta_fieldbox" right="20"/>
               <Static id="staProductPriceLabel" left="20" top="297" width="120" height="70" text="가격" cssclass="sta_labelbox"/>
-              <MaskEdit id="mskProductPrice" left="150" top="302" width="300" height="60" cssclass="com_View" readonly="true"/>
+              <MaskEdit id="mskProductPrice" left="150" top="302" width="300" height="60" cssclass="com_View" readonly="true" format="#,###"/>
               <Static id="staOrderCountBg" left="20" top="366" height="70" cssclass="sta_fieldbox" right="20"/>
               <Static id="staOrderCountLabel" left="20" top="366" width="120" height="70" text="주문건수" cssclass="sta_labelbox"/>
-              <MaskEdit id="mskOrderCount" left="150" top="371" width="300" height="60" cssclass="com_View" readonly="true"/>
+              <MaskEdit id="mskOrderCount" left="150" top="371" width="300" height="60" cssclass="com_View" readonly="true" format="#,###"/>
               <Static id="staOrderPriceBg" left="20" top="435" height="70" cssclass="sta_fieldbox" right="20"/>
               <Static id="staOrderPriceLabel" left="20" top="435" width="120" height="70" text="주문금액" cssclass="sta_labelbox"/>
-              <MaskEdit id="mskOrderPrice" left="150" top="440" width="300" height="60" cssclass="com_View" readonly="true"/>
+              <MaskEdit id="mskOrderPrice" left="150" top="440" width="300" height="60" cssclass="com_View" readonly="true" format="#,###"/>
               <Static id="staOrderStatusBg" left="20" top="504" height="70" cssclass="sta_fieldbox" right="20"/>
               <Static id="staOrderStatusLabel" left="20" top="504" width="120" height="70" text="상태" cssclass="sta_labelbox"/>
               <Combo id="cmbOrderStatus" left="150" top="509" width="300" height="60" cssclass="com_View" readonly="true" buttonsize="0" innerdataset="innerdatasetOrderStatus" codecolumn="code" datacolumn="value"/>
@@ -315,10 +315,44 @@
       <DsSetFirstCdAction id="DsSetFirstCdAction00" targetview="viewSearch" targetcomp="cmbOrderStatus" gridcell="-1" firstname="전체" initindex="0">
         <Contents/>
       </DsSetFirstCdAction>
+      <DsDeleteAllDataAction id="DsDeleteAllDataAction00" targetview="viewSearch" deletetype="clear">
+        <Contents/>
+      </DsDeleteAllDataAction>
+      <DsAddDataAction id="DsAddDataAction00" targetview="viewSearch">
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"viewSearch",
+            "modelid":"dsinput",
+            "iotype":"input",
+            "fieldlist":[
+                {
+                    "name":"viewSearch:ORDER_DT_FROM",
+                    "fieldid":"ORDER_DT_FROM",
+                    "value":"expr:this.parent.gfn_addDate(this.parent.gfn_getDate(),-6)"
+                },
+                {
+                    "name":"viewSearch:ORDER_DT_TO",
+                    "fieldid":"ORDER_DT_TO",
+                    "value":"expr:this.parent.gfn_getDate()"
+                },
+                {
+                    "name":"viewSearch:ORDER_STATUS",
+                    "fieldid":"ORDER_STATUS",
+                    "value":""
+                }
+            ]
+        }
+    ]
+}]]></Contents>
+      </DsAddDataAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="DsCopyDataAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Form Init" triggerview="orderlist" triggerobj="orderlist" targetaction="DsSetFirstCdAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Form Init" triggerview="orderlist" triggerobj="orderlist" targetaction="DsDeleteAllDataAction00" condition=""/>
+      <TriggerItem id="item2" triggertype="Action Success" triggerview="orderlist" triggerobj="DsDeleteAllDataAction00" targetaction="DsAddDataAction00" condition=""/>
+      <TriggerItem id="item3" triggertype="Action Success" triggerview="orderlist" triggerobj="DsAddDataAction00" targetaction="DsSetFirstCdAction00" condition=""/>
+      <TriggerItem id="item4" triggertype="Action Success" triggerview="orderlist" triggerobj="DsSetFirstCdAction00" targetaction="DsCopyDataAction00" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[/**
 *  @MenuPath    주문내역
@@ -348,6 +382,9 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.viewDetail.set_visible(false);
 	this.viewDetail.set_left(0);
 	this.viewDetail.set_right(0);
+	
+	// 주문일시 역순표시
+	this.viewList.form.viewdataset.set_keystring("S:-ORDER_TIME");
 };
 
 /**************************************************************************
