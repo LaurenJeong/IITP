@@ -230,8 +230,6 @@ if (!nexacro.DsCopyDataAction)
 		var sOrgFilter = objFormDs.filterstr;
 		var nCnt = 0;
 		
-		trace("sFilter : " + sFilter);
-		
 		if (this.gfnIsNull(sOrgFilter))		sOrgFilter = "";
 		
 		objFormDs.set_enableevent(false);

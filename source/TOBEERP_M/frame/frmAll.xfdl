@@ -7,7 +7,7 @@
           <Layouts>
             <Layout>
               <Button id="btnMenu" taborder="0" left="0" top="0" width="58" height="58" onclick="divTop_btnMenu_onclick" cssclass="btn_TF_menu"/>
-              <Button id="btnBack" taborder="1" top="0" height="58" right="0" width="58" visible="false" onclick="divTop_btnBack_onclick" cssclass="btn_TF_back"/>
+              <Button id="btnBack" taborder="1" top="0" height="58" right="0" width="58" visible="false" onclick="divTop_btnBack_onclick" cssclass="btn_TF_home"/>
               <Static id="staTopTitle" taborder="2" text="TOBEERP Mobile" left="58" top="0" right="58" onclick="divTop_staHome_onclick" font="20px &quot;Arial&quot;" textAlign="center" cssclass="sta_TF_Title" bottom="0"/>
               <Static id="Static01" taborder="3" left="0" height="1" cssclass="sta_TF_Line" right="0" bottom="0"/>
             </Layout>
@@ -91,8 +91,6 @@ this.fnAction = function (sID, arg)
 			{
 				this.objApp.gvLogin = "Y";
 
-                this.divMenu.form.divTop.form.staName.set_text(this.objApp.gdsUserInfo.getColumn(0, "USER_NM"));
-                
 				this.divTop.set_visible(true);
                 this.divLogin.set_visible(false);
 				this.fnAction("HOME");

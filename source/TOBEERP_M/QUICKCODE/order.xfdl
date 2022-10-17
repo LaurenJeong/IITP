@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="order" width="480" height="710" titletext="주문하기">
+  <Form id="order" width="480" height="710" titletext="주문하기" onload="form_onload">
     <Layouts>
       <Layout height="710" width="480">
         <View id="viewList" taborder="0" text="view00" viewdataset="viewdataset" left="20" top="20" right="20" bottom="20">
           <Layouts>
             <Layout>
-              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col" oncellclick="viewList_grdList_oncellclick">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -96,116 +96,105 @@
             <Attribute id="bodyformat" value="{&quot;columnsize&quot;:[100,276,60],&quot;rowsize&quot;:[30,40,30],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_IMG&quot;],&quot;rowspan&quot;:&quot;3&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_GROUPS&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;+&quot;,&quot;rowspan&quot;:&quot;3&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_NAME&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;right&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_PRICE&quot;]}]}"/>
           </ViewTemplateInfo>
         </View>
-        <View id="viewDetail" taborder="1" text="viewDetail" viewdataset="viewdataset" left="500" top="0" bottom="20" sourceview="viewList" visible="false" background="#ffffff" right="-500">
+        <View id="viewDetail" taborder="1" text="viewDetail" viewdataset="viewdataset" left="500" top="0" bottom="100" visible="false" background="#ffffff" right="-500">
           <Layouts>
-            <Layout>
-              <Static id="staOrderNoBg" left="20" top="90" height="70" cssclass="sta_fieldbox" right="20"/>
-              <Static id="staOrderNoLabel" left="20" top="90" width="120" height="70" text="주문번호" cssclass="sta_labelbox"/>
-              <Edit id="edtOrderNo" left="150" top="95" width="300" height="60" cssclass="com_View" readonly="true"/>
-              <Static id="staOrderTimeBg" left="20" top="159" height="70" cssclass="sta_fieldbox" right="20"/>
-              <Static id="staOrderTimeLabel" left="20" top="159" width="120" height="70" text="주문일시" cssclass="sta_labelbox"/>
-              <Calendar id="calOrderTime" left="150" top="164" width="300" height="60" cssclass="com_View" readonly="true" buttonsize="0"/>
-              <Static id="staProductNameBg" left="20" top="228" height="70" cssclass="sta_fieldbox" right="20"/>
-              <Static id="staProductNameLabel" left="20" top="228" width="120" height="70" text="제품명" cssclass="sta_labelbox"/>
-              <Edit id="edtProductName" left="150" top="233" width="300" height="60" cssclass="com_View" readonly="true"/>
-              <Static id="staProductPriceBg" left="20" top="297" height="70" cssclass="sta_fieldbox" right="20"/>
-              <Static id="staProductPriceLabel" left="20" top="297" width="120" height="70" text="가격" cssclass="sta_labelbox"/>
-              <MaskEdit id="mskProductPrice" left="150" top="302" width="300" height="60" cssclass="com_View" readonly="true"/>
-              <Static id="staOrderCountBg" left="20" top="366" height="70" cssclass="sta_fieldbox" right="20"/>
-              <Static id="staOrderCountLabel" left="20" top="366" width="120" height="70" text="주문건수" cssclass="sta_labelbox"/>
-              <MaskEdit id="mskOrderCount" left="150" top="371" width="300" height="60" cssclass="com_View" readonly="true"/>
-              <Static id="staOrderPriceBg" left="20" top="435" height="70" cssclass="sta_fieldbox" right="20"/>
-              <Static id="staOrderPriceLabel" left="20" top="435" width="120" height="70" text="주문금액" cssclass="sta_labelbox"/>
-              <MaskEdit id="mskOrderPrice" left="150" top="440" width="300" height="60" cssclass="com_View" readonly="true"/>
-              <Static id="staOrderStatusBg" left="20" top="504" height="70" cssclass="sta_fieldbox" right="20"/>
-              <Static id="staOrderStatusLabel" left="20" top="504" width="120" height="70" text="상태" cssclass="sta_labelbox"/>
-              <Combo id="cmbOrderStatus" left="150" top="509" width="300" height="60" cssclass="com_View" readonly="true" buttonsize="0" innerdataset="innerdatasetOrderStatus" codecolumn="code" datacolumn="value"/>
-              <Button id="btnBack" taborder="21" text="돌아가기" left="20" top="20" width="120" height="60" onclick="viewDetail_btnBack_onclick"/>
+            <Layout flexwrap="wrap" horizontalgap="10" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="start" spacing="20px">
+              <Static id="staProductImgBg" left="20" top="20" height="129" cssclass="sta_fieldbox" right="20"/>
+              <ImageViewer id="imgProductImg" left="30" top="25" width="110" height="120"/>
+              <Edit id="edtProductName" left="150" top="25" height="55" cssclass="com_View" readonly="true" right="30"/>
+              <MaskEdit id="mskProductPrice" left="150" top="89" height="55" cssclass="com_View" readonly="true" right="30" format="#,###"/>
+              <Static id="staProductGroupsBg" left="20" top="148" height="65" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staProductGroupsLabel" left="20" top="148" width="120" height="65" text="품목구분" cssclass="sta_labelbox"/>
+              <Combo id="cmbProductGroups" left="150" top="153" height="55" cssclass="com_View" readonly="true" buttonsize="0" innerdataset="innerdatasetProductGroups" codecolumn="code" datacolumn="value" right="30"/>
+              <Static id="staProductDescriptionBg" left="20" top="212" height="200" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staProductDescriptionLabel" left="20" top="212" width="120" height="200" text="상품설명" cssclass="sta_labelbox"/>
+              <TextArea id="txtProductDescription" left="150" top="217" height="190" cssclass="com_View" readonly="true" right="30"/>
+              <Static id="staOrderCountBg" left="20" top="411" height="65" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staOrderCountLabel" left="20" top="411" width="120" height="65" text="주문건수" cssclass="sta_labelbox"/>
+              <Spin id="spnOrderCount" left="150" top="416" height="55" right="30" displaycomma="true" min="1" max="10000" value=""/>
+              <Static id="staOrderPriceBg" left="20" top="475" height="65" cssclass="sta_fieldbox" right="20"/>
+              <Static id="staOrderPriceLabel" left="20" top="475" width="120" height="65" text="주문금액" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskOrderPrice" left="150" top="480" height="55" cssclass="com_View" readonly="true" right="30" format="#,###"/>
             </Layout>
           </Layouts>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" oncolumnchanged="viewDetail_viewdataset_oncolumnchanged">
               <ColumnInfo>
                 <Column id="ORDER_NO" type="STRING" size="80" description="주문번호"/>
                 <Column id="USER_ID" type="STRING" size="80" description="사용자ID"/>
                 <Column id="ORDER_TIME" type="STRING" size="80" description="주문일시"/>
                 <Column id="CUSTOMER_CODE" type="STRING" size="80" description="거래처코드"/>
-                <Column id="PRODUCT_CODE" type="STRING" size="80" description="품목코드"/>
-                <Column id="PRODUCT_NAME" type="STRING" size="80" description="제품명"/>
-                <Column id="PRODUCT_PRICE" type="BIGDECIMAL" size="80" description="가격"/>
-                <Column id="ORDER_COUNT" type="INT" size="80" description="주문건수"/>
-                <Column id="ORDER_PRICE" type="BIGDECIMAL" size="80" description="주문금액"/>
+                <Column id="PRODUCT_NAME" type="STRING" size="80" description="품목명"/>
+                <Column id="PRODUCT_GROUPS" type="STRING" size="80" description="품목구분"/>
+                <Column id="PRODUCT_IMG" type="STRING" size="80" description="제품이미지"/>
+                <Column id="PRODUCT_DESCRIPTION" type="STRING" size="80" description="상품설명"/>
+                <Column id="PRODUCT_PRICE" type="STRING" size="80" description="단가"/>
+                <Column id="ORDER_COUNT" type="STRING" size="80" description="주문건수"/>
+                <Column id="ORDER_PRICE" type="STRING" size="80" description="주문금액"/>
                 <Column id="ORDER_STATUS" type="STRING" size="80" description="상태"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
             </Dataset>
-            <Dataset id="innerdatasetOrderStatus">
+            <Dataset id="innerdatasetProductGroups">
               <ColumnInfo>
                 <Column id="code" type="STRING" size="256"/>
                 <Column id="value" type="STRING" size="256"/>
               </ColumnInfo>
               <Rows>
                 <Row>
-                  <Col id="code">10</Col>
-                  <Col id="value">주문</Col>
+                  <Col id="code">e010</Col>
+                  <Col id="value">리빙</Col>
                 </Row>
                 <Row>
-                  <Col id="code">20</Col>
-                  <Col id="value">배송</Col>
+                  <Col id="code">e020</Col>
+                  <Col id="value">주방</Col>
                 </Row>
                 <Row>
-                  <Col id="code">90</Col>
-                  <Col id="value">완료</Col>
+                  <Col id="code">e030</Col>
+                  <Col id="value">인테리어</Col>
+                </Row>
+                <Row>
+                  <Col id="code">e040</Col>
+                  <Col id="value">수납</Col>
                 </Row>
               </Rows>
             </Dataset>
           </Objects>
           <Bind>
-            <BindItem id="bind_edtOrderNo" compid="edtOrderNo" propid="value" datasetid="viewdataset" columnid="ORDER_NO"/>
-            <BindItem id="bind_calOrderTime" compid="calOrderTime" propid="value" datasetid="viewdataset" columnid="ORDER_TIME"/>
+            <BindItem id="bind_imgProductImg" compid="imgProductImg" propid="image" datasetid="viewdataset" columnid="PRODUCT_IMG"/>
             <BindItem id="bind_edtProductName" compid="edtProductName" propid="value" datasetid="viewdataset" columnid="PRODUCT_NAME"/>
             <BindItem id="bind_mskProductPrice" compid="mskProductPrice" propid="value" datasetid="viewdataset" columnid="PRODUCT_PRICE"/>
-            <BindItem id="bind_mskOrderCount" compid="mskOrderCount" propid="value" datasetid="viewdataset" columnid="ORDER_COUNT"/>
+            <BindItem id="bind_cmbProductGroups" compid="cmbProductGroups" propid="value" datasetid="viewdataset" columnid="PRODUCT_GROUPS"/>
+            <BindItem id="bind_txtProductDescription" compid="txtProductDescription" propid="value" datasetid="viewdataset" columnid="PRODUCT_DESCRIPTION"/>
+            <BindItem id="bind_spnOrderCount" compid="spnOrderCount" propid="value" datasetid="viewdataset" columnid="ORDER_COUNT"/>
             <BindItem id="bind_mskOrderPrice" compid="mskOrderPrice" propid="value" datasetid="viewdataset" columnid="ORDER_PRICE"/>
-            <BindItem id="bind_cmbOrderStatus" compid="cmbOrderStatus" propid="value" datasetid="viewdataset" columnid="ORDER_STATUS"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="dsorderlist" filepath="order\getorderlist.xmodel">
+          <ModelInfo modelserviceid="model" serviceid="" modelid="dsorder" filepath="order\getproductlist.xmodel">
             <Fields>
-              <Field id="PRODUCT_CODE" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="CUSTOMER_CODE" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="USER_ID" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="ORDER_NO" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="ORDER_TIME" comptype="calendar" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="PRODUCT_NAME" label="제품명" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="PRODUCT_PRICE" label="가격" comptype="maskedit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="ORDER_COUNT" comptype="maskedit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="ORDER_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="ORDER_STATUS" comptype="combo" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="PRODUCT_IMG" comptype="imageviewer" fieldwidth="100%" fieldheight="100%" labelwidth="0" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="PRODUCT_NAME" comptype="edit" fieldwidth="100%" fieldheight="100%" labelwidth="0" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="PRODUCT_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="100%" labelwidth="0" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="PRODUCT_GROUPS" comptype="combo" fieldwidth="100%" fieldheight="100%" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="PRODUCT_DESCRIPTION" comptype="textarea" fieldwidth="100%" fieldheight="100%" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="ORDER_COUNT" comptype="spin" fieldwidth="100%" fieldheight="100%" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="ORDER_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="100%" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
             </Fields>
             <Components>
-              <Component id="staOrderNoBg" fields="ORDER_NO"/>
-              <Component id="staOrderNoLabel" fields="ORDER_NO"/>
-              <Component id="edtOrderNo" fields="ORDER_NO"/>
-              <Component id="staOrderTimeBg" fields="ORDER_TIME"/>
-              <Component id="staOrderTimeLabel" fields="ORDER_TIME"/>
-              <Component id="calOrderTime" fields="ORDER_TIME"/>
-              <Component id="staProductNameBg" fields="PRODUCT_NAME"/>
-              <Component id="staProductNameLabel" fields="PRODUCT_NAME"/>
+              <Component id="staProductImgBg" fields="PRODUCT_IMG"/>
+              <Component id="imgProductImg" fields="PRODUCT_IMG"/>
               <Component id="edtProductName" fields="PRODUCT_NAME"/>
-              <Component id="staProductPriceBg" fields="PRODUCT_PRICE"/>
-              <Component id="staProductPriceLabel" fields="PRODUCT_PRICE"/>
               <Component id="mskProductPrice" fields="PRODUCT_PRICE"/>
+              <Component id="staProductGroupsBg" fields="PRODUCT_GROUPS"/>
+              <Component id="staProductGroupsLabel" fields="PRODUCT_GROUPS"/>
+              <Component id="cmbProductGroups" fields="PRODUCT_GROUPS"/>
+              <Component id="staProductDescriptionBg" fields="PRODUCT_DESCRIPTION"/>
+              <Component id="staProductDescriptionLabel" fields="PRODUCT_DESCRIPTION"/>
+              <Component id="txtProductDescription" fields="PRODUCT_DESCRIPTION"/>
               <Component id="staOrderCountBg" fields="ORDER_COUNT"/>
               <Component id="staOrderCountLabel" fields="ORDER_COUNT"/>
-              <Component id="mskOrderCount" fields="ORDER_COUNT"/>
+              <Component id="spnOrderCount" fields="ORDER_COUNT"/>
               <Component id="staOrderPriceBg" fields="ORDER_PRICE"/>
               <Component id="staOrderPriceLabel" fields="ORDER_PRICE"/>
               <Component id="mskOrderPrice" fields="ORDER_PRICE"/>
-              <Component id="staOrderStatusBg" fields="ORDER_STATUS"/>
-              <Component id="staOrderStatusLabel" fields="ORDER_STATUS"/>
-              <Component id="cmbOrderStatus" fields="ORDER_STATUS"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="FreeformReadonlyViewTemplateM.xviewgen">
@@ -214,7 +203,35 @@
             <Attribute id="valign" value="top"/>
             <Attribute id="useexpandbutton" value="none"/>
             <Attribute id="usefieldbox" value="true"/>
-            <Attribute id="viewpadding" value="90 20 20 20"/>
+            <Attribute id="format" value="{&quot;columnsize&quot;:[130,311],&quot;rowsize&quot;:[65,65,65,200,65,65],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_IMG&quot;],&quot;rowspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_NAME&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_PRICE&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_GROUPS&quot;],&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;3&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_DESCRIPTION&quot;],&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;4&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;ORDER_COUNT&quot;],&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;5&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;ORDER_PRICE&quot;],&quot;colspan&quot;:&quot;2&quot;}]}"/>
+            <Attribute id="viewpadding" value="20"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewBtn" taborder="2" text="viewBtn" viewdataset="viewdataset" left="500" height="100" right="-500" bottom="0">
+          <Layouts>
+            <Layout type="horizontal" flexwrap="wrap" horizontalgap="10" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="end" spacing="20px">
+              <Button id="btnCancel" left="210" top="20" width="120" height="60" text="취소" cssclass="btn_cm_basic01" flexgrow="1" onclick="viewBtn_btnCancel_onclick"/>
+              <Button id="btnSave" left="340" top="20" width="120" height="60" text="주문하기" cssclass="btn_cm_basic02" flexgrow="1"/>
+            </Layout>
+          </Layouts>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="popup" filepath="common\button.xmodel">
+            <Fields>
+              <Field id="Cancel" description="" fieldwidth="120px" fieldheight="60px"/>
+              <Field id="Save" label="주문하기" description="" fieldwidth="120px" fieldheight="60px"/>
+            </Fields>
+            <Components>
+              <Component id="btnCancel" fields="Cancel"/>
+              <Component id="btnSave" fields="Save"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="ButtonLayoutViewTemplateM.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="right"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="compsizing" value="flexgrow"/>
+            <Attribute id="viewpadding" value="20"/>
+            <Attribute id="horizontalgap" value="10"/>
+            <Attribute id="verticalgap" value="5"/>
           </ViewTemplateInfo>
         </View>
       </Layout>
@@ -223,9 +240,223 @@
       <DsCopyDataAction id="DsCopyDataAction00" targetview="viewList" fromview="order" fromdataset="dbProduct" copytype="replace">
         <Contents/>
       </DsCopyDataAction>
+      <DsAddDataAction id="DsAddDataAction00" targetview="viewDetail">
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"viewDetail",
+            "modelid":"dsorder",
+            "iotype":"output",
+            "fieldlist":[
+                {
+                    "name":"viewDetail:ORDER_NO",
+                    "fieldid":"ORDER_NO",
+                    "value":""
+                },
+                {
+                    "name":"viewDetail:USER_ID",
+                    "fieldid":"USER_ID",
+                    "value":"expr:this.parent.objApp.gdsUserInfo.getColumn(0,'USER_ID')"
+                },
+                {
+                    "name":"viewDetail:ORDER_TIME",
+                    "fieldid":"ORDER_TIME",
+                    "value":""
+                },
+                {
+                    "name":"viewDetail:CUSTOMER_CODE",
+                    "fieldid":"CUSTOMER_CODE",
+                    "value":"expr:[viewList:CUSTOMER_CODE]"
+                },
+                {
+                    "name":"viewDetail:PRODUCT_NAME",
+                    "fieldid":"PRODUCT_NAME",
+                    "value":"expr:[viewList:PRODUCT_NAME]"
+                },
+                {
+                    "name":"viewDetail:PRODUCT_GROUPS",
+                    "fieldid":"PRODUCT_GROUPS",
+                    "value":"expr:[viewList:PRODUCT_GROUPS]"
+                },
+                {
+                    "name":"viewDetail:PRODUCT_IMG",
+                    "fieldid":"PRODUCT_IMG",
+                    "value":"expr:[viewList:PRODUCT_IMG]"
+                },
+                {
+                    "name":"viewDetail:PRODUCT_DESCRIPTION",
+                    "fieldid":"PRODUCT_DESCRIPTION",
+                    "value":"expr:[viewList:PRODUCT_DESCRIPTION]"
+                },
+                {
+                    "name":"viewDetail:PRODUCT_PRICE",
+                    "fieldid":"PRODUCT_PRICE",
+                    "value":"expr:[viewList:PRODUCT_PRICE]"
+                },
+                {
+                    "name":"viewDetail:ORDER_COUNT",
+                    "fieldid":"ORDER_COUNT",
+                    "value":1
+                },
+                {
+                    "name":"viewDetail:ORDER_PRICE",
+                    "fieldid":"ORDER_PRICE",
+                    "value":"expr:[viewList:PRODUCT_PRICE]"
+                },
+                {
+                    "name":"viewDetail:ORDER_STATUS",
+                    "fieldid":"ORDER_STATUS",
+                    "value":10
+                }
+            ]
+        }
+    ]
+}]]></Contents>
+      </DsAddDataAction>
+      <DsCopyDataAction id="DsCopyDataAction01" targetview="order" targetdataset="dbOrder" fromview="viewDetail" copytype="append" canrun="DsCopyDataAction01_canrun">
+        <Contents/>
+      </DsCopyDataAction>
+      <MessageAction id="MessageAction00" message="주문이 완료되었습니다.주문내역화면으로 가시겠습니까?" messagetype="confirm" onsuccess="MessageAction00_onsuccess" onerror="MessageAction00_onerror">
+        <Contents/>
+      </MessageAction>
+      <MessageAction id="MessageAction01" message="주문에 실패했습니다." messagetype="alert">
+        <Contents/>
+      </MessageAction>
+      <MessageAction id="MessageAction02" message="주문하시겠습니까?" messagetype="confirm">
+        <Contents/>
+      </MessageAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Form Init" triggerview="order" triggerobj="order" targetaction="DsCopyDataAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="viewDetail" triggerobj="" targetaction="DsAddDataAction00" condition=""/>
+      <TriggerItem id="item3" triggertype="Action Success" triggerview="order" triggerobj="DsCopyDataAction01" targetaction="MessageAction00" condition=""/>
+      <TriggerItem id="item4" triggertype="Action Fail" triggerview="order" triggerobj="DsCopyDataAction01" targetaction="MessageAction01" condition=""/>
+      <TriggerItem id="item5" triggertype="Click" triggerview="viewBtn" triggerobj="btnSave" targetaction="MessageAction02" condition=""/>
+      <TriggerItem id="item6" triggertype="Action Success" triggerview="order" triggerobj="MessageAction02" targetaction="DsCopyDataAction01" condition=""/>
     </Trigger>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    주문내역
+*  @FileName	orderlist.xfdl
+*  @Desction	주문내역
+*******************************************************************************
+*  2022.10.14		Creator			최초 생성
+*******************************************************************************
+*/
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.objApp = nexacro.getApplication();
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 화면 기본위치 셋팅
+	this.viewDetail.set_visible(false);
+	this.viewDetail.set_left(0);
+	this.viewDetail.set_right(0);
+	this.viewBtn.set_visible(false);
+	this.viewBtn.set_left(0);
+	this.viewBtn.set_right(0);
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+ 
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+ 
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+ * @description 화면전환
+*/
+this.fnSetView = function(sType)
+{
+	if (sType == "detail")
+	{
+		this.viewDetail.set_visible(true);
+		this.viewBtn.set_visible(true);
+		this.viewList.set_visible(false);
+	}
+	else
+	{
+		this.viewDetail.set_visible(false);
+		this.viewBtn.set_visible(false);
+		this.viewList.set_visible(true);
+	}
+};
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+// 그리드 셀 클릭 이벤트
+this.viewList_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	// +버튼셀 클릭시 주문추가 화면 보이기
+	if (e.cell == 2)
+	{
+		this.DsAddDataAction00.run();
+		this.fnSetView("detail");
+	}
+};
+
+// 취소 버튼 클릭 이벤트
+this.viewBtn_btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fnSetView("list");
+};
+
+// 상세 데이터 변경 이벤트
+this.viewDetail_viewdataset_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	// 주문건수 변경 시 주문금액 설정
+	if (e.columnid == "ORDER_COUNT")
+	{
+		obj.setColumn(e.row,"ORDER_PRICE",e.newvalue * obj.getColumn(e.row,"PRODUCT_PRICE"));
+	}
+};
+
+// 주문하기 데이터 복사 전 데이터 설정
+this.DsCopyDataAction01_canrun = function(obj:nexacro.DsCopyDataAction, e:nexacro.ActionRunEventInfo)
+{
+	var nRow = this.viewDetail.form.viewdataset.rowposition;
+	this.viewDetail.form.viewdataset.setColumn(nRow,"ORDER_NO",this.gfn_getUniqueId());
+	this.viewDetail.form.viewdataset.setColumn(nRow,"ORDER_TIME",this.gfn_getDate("time"));
+	
+	return true;
+};
+
+this.MessageAction00_onsuccess = function(obj:nexacro.MessageAction, e:nexacro.ActionSuccessEventInfo)
+{
+	// 주문이 완료되었습니다.주문내역화면으로 가시겠습니까?
+	
+	// 주문내역 화면으로 이동
+	var sToday = this.gfn_getDate();
+	var oArg = {
+		  "ORDER_DT_FROM"	: sToday
+		, "ORDER_DT_TO"		: sToday
+	};
+	
+	this.objApp.gvFrmAll.divMenu.form.fnCallMenu("1001",oArg);
+};
+
+this.MessageAction00_onerror = function(obj:nexacro.MessageAction, e:nexacro.ActionErrorEventInfo)
+{
+	// 주문이 완료되었습니다.주문내역화면으로 가시겠습니까?
+	
+	// 물품리스트
+	this.fnSetView("list");
+};
+]]></Script>
   </Form>
 </FDL>

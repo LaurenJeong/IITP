@@ -107,9 +107,17 @@
       <DsCopyRowDataAction id="DsCopyRowDataAction00" targetview="viewDetail" targetrow="0" fromview="myinfo" fromdataset="gdsUserInfo" fromrow="0">
         <Contents/>
       </DsCopyRowDataAction>
+      <DsCopyRowDataAction id="DsCopyRowDataAction01" targetview="myinfo" targetdataset="gdsUserInfo" fromview="viewDetail">
+        <Contents/>
+      </DsCopyRowDataAction>
+      <MessageAction id="MessageAction00" message="저장되었습니다." messagetype="alert">
+        <Contents/>
+      </MessageAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Form Init" triggerview="myinfo" triggerobj="myinfo" targetaction="DsCopyRowDataAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="viewBtn" triggerobj="btnSave" targetaction="DsCopyRowDataAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Action Success" triggerview="myinfo" triggerobj="DsCopyRowDataAction01" targetaction="MessageAction00" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[]]></Script>
   </Form>
