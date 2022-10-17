@@ -30,25 +30,23 @@ if (!nexacro.DsSetFirstCdAction)
     //===============================================================		
     nexacro.DsSetFirstCdAction.prototype.run = function()		
 	{	
-		var objForm;			
-					
-		//Import the object set as TargetView			
-		var objView 		= this.getTargetView();	
-		
-		var sTarget			= this.targetcomp;
-		var nCell			= this.gridcell;
-		var sFirstName		= this.firstname;
-		var sFirstCode		= this.firstcode;
-		var sFirstCodeCol	= this.firstcodecol;
-		var sFirstNameCol	= this.firstnamecol;
-		var nInitIndex		= this.initindex;
-		
-		var objComp;
-		var objDs;
-
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
-		{			
+		{	
+			//Import the object set as TargetView			
+			var objView 		= this.getTargetView();
+			var objForm;
+			
+			var sTarget			= this.targetcomp;
+			var nCell			= this.gridcell;
+			var sFirstName		= this.firstname;
+			var sFirstCode		= this.firstcode;
+			var sFirstCodeCol	= this.firstcodecol;
+			var sFirstNameCol	= this.firstnamecol;
+			var nInitIndex		= this.initindex;
+			
+			var objComp;
+			var objDs;
 			var objComp = this.gfnGetTargetComp(sTarget);
 			
 			if (this.gfnIsNull(objComp))

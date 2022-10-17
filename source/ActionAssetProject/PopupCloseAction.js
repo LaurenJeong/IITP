@@ -29,22 +29,21 @@ if (!nexacro.PopupCloseAction)
     //===============================================================		
     nexacro.PopupCloseAction.prototype.run = function()		
 	{			
-		//Import the object set as TargetView			
-		var objView = this.getTargetView();	
-		
-		var sTargetDs = this.targetdataset;
-		var sReturnType = this.returntype;
-			
-		var objDataset;
-		var objComp;
-		var oRet = {};
-		var sRet = "";
 
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
-		{			
+		{
+			//Import the object set as TargetView			
+			var objView = this.getTargetView();	
 			var objForm = this.gfnGetForm();
 			
+			var sTargetDs = this.targetdataset;
+			var sReturnType = this.returntype;
+				
+			var objDataset;
+			var objComp;
+			var oRet = {};
+			var sRet = "";
 			var sXML = "";
 			
 			if (sReturnType != "none")

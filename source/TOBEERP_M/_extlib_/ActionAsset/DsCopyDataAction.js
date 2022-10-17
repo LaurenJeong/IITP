@@ -29,18 +29,17 @@ if (!nexacro.DsCopyDataAction)
     //===============================================================		
     nexacro.DsCopyDataAction.prototype.run = function()		
 	{			
-		//Import the object set as TargetView			
-		var objView = this.getTargetView();	
-		var sTargetDs = this.targetdataset;
-		var objFromView = this._findViewObject(this.fromview);
-		var sFromDs = this.fromdataset;
-		var sCopyType = this.copytype;
-		var sFilter = this.filter;
-		
-		
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
-		{			
+		{
+			//Import the object set as TargetView			
+			var objView = this.getTargetView();	
+			var sTargetDs = this.targetdataset;
+			var objFromView = this._findViewObject(this.fromview);
+			var sFromDs = this.fromdataset;
+			var sCopyType = this.copytype;
+			var sFilter = this.filter;
+		
 			var objToDs 	= this._targetdataset;
 			var objFormDs	= this._fromdataset;
 			

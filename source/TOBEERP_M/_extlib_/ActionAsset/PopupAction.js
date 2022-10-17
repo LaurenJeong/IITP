@@ -29,23 +29,23 @@ if (!nexacro.PopupAction)
 	//===============================================================
 	nexacro.PopupAction.prototype.run = function()
 	{
-		//TargetView로 설정된 오브젝트 가져오기
-		var objView = this.getTargetView();
-		
-		//팝업 호출시 사용할 Param정보 가져오기
-		var sPopupId = this.popupid;
-		var sFormUrl = this.formurl;
-		var sTitle = this.title;
-		var sPopupStyle = this.popupstyle;
-		var nLeft = this.popupleft;
-		var nTop = this.popuptop;
-		var nWidth = this.popupwidth;
-		var nHeight = this.popupheight;
-		var objArgs = this._args;
-		
 		//canrun 이벤트의 리턴값이 false가 아닐경우
 		if(this.on_fire_canrun("userdata")!=false)
 		{
+			//TargetView로 설정된 오브젝트 가져오기
+			var objView = this.getTargetView();
+			
+			//팝업 호출시 사용할 Param정보 가져오기
+			var sPopupId = this.popupid;
+			var sFormUrl = this.formurl;
+			var sTitle = this.title;
+			var sPopupStyle = this.popupstyle;
+			var nLeft = this.popupleft;
+			var nTop = this.popuptop;
+			var nWidth = this.popupwidth;
+			var nHeight = this.popupheight;
+			var objArgs = this._args;
+		
 			if (this.gfnIsNull(sPopupId))
 			{
 				this.gfnLog("popupid가 설정되지 않았습니다.","error");
