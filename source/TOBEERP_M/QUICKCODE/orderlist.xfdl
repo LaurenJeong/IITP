@@ -309,7 +309,7 @@
       </Layout>
     </Layouts>
     <Objects>
-      <DsCopyDataAction id="DsCopyDataAction00" targetview="viewList" fromview="orderlist" fromdataset="dbOrder" copytype="replace">
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="viewList" fromview="orderlist" fromdataset="dbOrder" copytype="replace" canrun="DsCopyDataAction00_canrun">
         <Contents/>
       </DsCopyDataAction>
       <DsSetFirstCdAction id="DsSetFirstCdAction00" targetview="viewSearch" targetcomp="cmbOrderStatus" gridcell="-1" firstname="전체" initindex="0">
@@ -417,6 +417,30 @@ this.fnSetView = function(sType)
 /**************************************************************************
 * 각 COMPONENT 별 EVENT 영역
 **************************************************************************/
+// 데이터복사 Action 이벤트
+this.DsCopyDataAction00_canrun = function(obj:nexacro.DsCopyDataAction, e:nexacro.ActionRunEventInfo)
+{
+	// [참고] DB에서 처리해야되는 내용을 임의로 처리함.
+	// 조회버튼 클릭시 조회조건 설정
+	var sFilter = "";
+	var aFilter = new Array();
+	
+	if (!this.gfn_isNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_FROM"))) {
+		aFilter.push("ORDER_TIME.substr(0,8)>='" + this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_FROM") + "'");
+	}
+	if (!this.gfn_isNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_TO"))) {
+		aFilter.push("ORDER_TIME.substr(0,8)<='" + this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_TO") + "'");
+	}
+	if (!this.gfn_isNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_STATUS"))) {
+		aFilter.push("ORDER_STATUS=='" + this.viewSearch.form.viewdataset.getColumn(0,"ORDER_STATUS") + "'");
+	}
+	
+	sFilter = aFilter.join(" && ");
+	obj.set_filter(sFilter);
+	
+	return true;
+};
+
 // 그리드 셀 클릭 이벤트
 this.viewList_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
@@ -437,6 +461,8 @@ this.viewList_divTitle_btnOrder_onclick = function(obj:nexacro.Button,e:nexacro.
 {
 	// 주문하기 화면으로 이동
 	this.objApp.gvFrmAll.divMenu.form.fnCallMenu("1002");
-};]]></Script>
+};
+
+]]></Script>
   </Form>
 </FDL>
