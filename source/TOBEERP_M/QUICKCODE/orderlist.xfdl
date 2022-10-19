@@ -309,7 +309,7 @@
       </Layout>
     </Layouts>
     <Objects>
-      <DsCopyDataAction id="DsCopyDataAction00" targetview="viewList" fromview="orderlist" fromdataset="dbOrder" copytype="replace" canrun="DsCopyDataAction00_canrun">
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="viewList" fromview="orderlist" fromdataset="dbOrder" copytype="replace" canrun="DsCopyDataAction00_canrun" onsuccess="DsCopyDataAction00_onsuccess">
         <Contents/>
       </DsCopyDataAction>
       <DsSetFirstCdAction id="DsSetFirstCdAction00" targetview="viewSearch" targetcomp="cmbOrderStatus" gridcell="-1" firstname="전체" initindex="0">
@@ -463,6 +463,12 @@ this.viewList_divTitle_btnOrder_onclick = function(obj:nexacro.Button,e:nexacro.
 	this.objApp.gvFrmAll.divMenu.form.fnCallMenu("1002");
 };
 
+// Search 버튼 성공 이벤트
+this.DsCopyDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	// 조회건수설정
+	this.viewList.form.divTitle.form.staTotCnt.set_text("(총 <b v='true'><fc v='#da291c'>" + e.userdata+ "</fc></b>건)");
+};
 ]]></Script>
   </Form>
 </FDL>

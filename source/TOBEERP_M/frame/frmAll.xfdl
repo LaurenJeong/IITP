@@ -14,7 +14,7 @@
           </Layouts>
         </Div>
         <Div id="divCenter" taborder="1" text="divCenter" left="0" top="58" right="0" visible="false" url="frame::frmWork.xfdl" bottom="0"/>
-        <Div id="divMain" taborder="3" text="divMain" left="0" top="58" bottom="0" right="0" url="frame::frmMain.xfdl" visible="false"/>
+        <Div id="divMain" taborder="3" text="divMain" left="0" top="58" bottom="0" right="0" visible="false"/>
         <Div id="divMenu" taborder="2" text="divMenu" left="1000" top="0" background="transparent" right="-1000" bottom="0" visible="false" url="frame::frmMenu.xfdl"/>
         <Div id="divLogin" taborder="4" text="divLogin" left="500" top="0" background="white" right="-500" bottom="0" visible="false" url="QUICKCODE::frmLogin.xfdl"/>
       </Layout>
@@ -38,6 +38,7 @@
  ************************************************************************************************/
 this.objApp = nexacro.getApplication();
 
+this.FV_MAIN_URL = "frame::frmMain.xfdl";
 /************************************************************************************************
  * FORM EVENT 영역(onload, onbeforeclose)
  ************************************************************************************************/
@@ -126,7 +127,8 @@ this.fnAction = function (sID, arg)
 			}
 			break;
 		case "HOME":  
-
+			this.divMain.set_url("");
+			this.divMain.set_url(this.FV_MAIN_URL);
             this.divMain.set_visible(true);
             this.divCenter.set_visible(false);
 			this.divTop.form.staTopTitle.set_text(this.objApp.mainframe.titletext);
@@ -211,7 +213,7 @@ this.frameBase_ondevicebuttonup = function(obj:nexacro.Form,e:nexacro.DeviceButt
 		}
 		else if (this.divCenter.visible)
 		{        
-            if (this.divCenter.url != "frame::frmMain.xfdl")
+            if (this.divCenter.url != this.FV_MAIN_URL)
 			{   
                 this.fnAction("HOME");							
 			}
