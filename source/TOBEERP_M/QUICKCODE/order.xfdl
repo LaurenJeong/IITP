@@ -124,6 +124,7 @@
                 <Column id="USER_ID" type="STRING" size="80" description="사용자ID"/>
                 <Column id="ORDER_TIME" type="STRING" size="80" description="주문일시"/>
                 <Column id="CUSTOMER_CODE" type="STRING" size="80" description="거래처코드"/>
+                <Column id="PRODUCT_CODE" type="STRING" size="80" description="품목코드"/>
                 <Column id="PRODUCT_NAME" type="STRING" size="80" description="품목명"/>
                 <Column id="PRODUCT_GROUPS" type="STRING" size="80" description="품목구분"/>
                 <Column id="PRODUCT_IMG" type="STRING" size="80" description="제품이미지"/>
@@ -268,6 +269,11 @@
                     "fieldid":"CUSTOMER_CODE",
                     "value":"expr:[viewList:CUSTOMER_CODE]"
                 },
+				{
+                    "name":"viewDetail:PRODUCT_CODE",
+                    "fieldid":"PRODUCT_CODE",
+                    "value":"expr:[viewList:PRODUCT_CODE]"
+                },
                 {
                     "name":"viewDetail:PRODUCT_NAME",
                     "fieldid":"PRODUCT_NAME",
@@ -331,12 +337,10 @@
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Form Init" triggerview="order" triggerobj="order" targetaction="DsCopyDataAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Click" triggerview="viewDetail" triggerobj="" targetaction="DsDeleteAllDataAction00" condition=""/>
       <TriggerItem id="item3" triggertype="Action Success" triggerview="order" triggerobj="DsCopyDataAction01" targetaction="MessageAction00" condition=""/>
       <TriggerItem id="item4" triggertype="Action Fail" triggerview="order" triggerobj="DsCopyDataAction01" targetaction="MessageAction01" condition=""/>
       <TriggerItem id="item5" triggertype="Click" triggerview="viewBtn" triggerobj="btnSave" targetaction="MessageAction02" condition=""/>
       <TriggerItem id="item6" triggertype="Action Success" triggerview="order" triggerobj="MessageAction02" targetaction="DsCopyDataAction01" condition=""/>
-      <TriggerItem id="item2" triggertype="Action Success" triggerview="order" triggerobj="DsDeleteAllDataAction00" targetaction="DsAddDataAction00" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[/**
 *  @MenuPath    주문내역
@@ -409,6 +413,7 @@ this.viewList_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClic
 	// +버튼셀 클릭시 주문추가 화면 보이기
 	if (e.cell == 2)
 	{
+		this.DsDeleteAllDataAction00.run();
 		this.DsAddDataAction00.run();
 		this.fnSetView("detail");
 	}

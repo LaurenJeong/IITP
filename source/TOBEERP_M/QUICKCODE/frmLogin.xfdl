@@ -124,7 +124,7 @@ this.fnSetLogin = function()
 		if (this.gfn_isNull(oDbOrder.getColumn(i,"ORDER_NO")))
 		{
 			oDbOrder.setColumn(i,"ORDER_NO",this.gfn_getUniqueId());
-			oDbOrder.setColumn(i,"ORDER_TIME",this.gfn_addDate(sToday,(-1*i)) + sTodayTime.substr(8));
+			oDbOrder.setColumn(i,"ORDER_TIME",this.gfn_addDate(sToday,(-1*i)-1) + sTodayTime.substr(8));
 		}
 	}
 	
