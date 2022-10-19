@@ -34,7 +34,7 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 				objApp.mainframe.set_titletext("로컬(앱)  - " + objApp.mainframe.titletext);
 			}
 		} else {
-			urlPath = "http://localhost:8080";
+			urlPath = "http://localhost:8080/";
 			
 			objApp.mainframe.set_titletext("로컬(Studio) - " + objApp.mainframe.titletext);
 			objApp.mainframe.set_showtitlebar(true);     
@@ -58,7 +58,7 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 	}
 	
 	// service URL 설정
-	objSvcUrl.set_url(urlPath + "/");
+	objSvcUrl.set_url(urlPath);
 };
 ]]></Script>
 </ADL>
