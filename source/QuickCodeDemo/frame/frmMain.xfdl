@@ -3,7 +3,13 @@
   <Form id="frmMain" width="1080" height="635" titletext="main화면(전체메뉴)">
     <Layouts>
       <Layout height="635" mobileorientation="landscape" width="1080">
-        <Static id="Static00" taborder="0" text="All Menu" left="0" top="10" height="34" cssclass="sta_WF_title01" right="20"/>
+        <Static id="staInfo" taborder="0" text="QuickCode란?" left="0" top="0" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="1" text="로우코드(Low-Code) 방식으로 화면을 개발할 수 있는 기능입니다." left="10" top="30" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staInfo2" taborder="2" text="QuickCode 구성요소" left="0" top="80" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00_00" taborder="3" text="Model, View, Trigger, Action" left="10" top="110" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <ImageViewer id="ImageViewer00" taborder="4" left="20" top="145" width="1043" height="521" image="url('imagerc::main_quickcode_01.jpg')"/>
+        <Static id="Static00" taborder="5" text="사전에 만들어 놓은 모듈을 조합하여 사용하는 방식으로 높은 수준의 개발 지식 없이 화면을 쉽게 완성할 수 있습니다. " left="10" top="55" cssclass="sta_WF_notice02" right="20" height="20"/>
+        <Static id="staInfo3" taborder="6" text="QuickCode 개발자 웨비나 다시보기" left="0" top="686" height="30" cssclass="sta_WF_title02" right="10" onclick="staInfo3_onclick" color="blue" textDecoration="underline" cursor="pointer"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -404,80 +410,10 @@
         </Rows>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[
-this.grdMenu00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+    <Script type="xscript5.1"><![CDATA[this.staInfo3_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 {
-	var objBindDataset = obj.getBindDataset();
-	this.fn_openMenu(objBindDataset, e.row);
+	system.execDefaultBrowser("https://www.playnexacro.com/#show:community:4651");
 };
-
-this.grdMenu01_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
-{
-	var objBindDataset = obj.getBindDataset();
-	this.fn_openMenu(objBindDataset, e.row);
-};
-
-this.grdMenu02_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
-{
-	var objBindDataset = obj.getBindDataset();
-	this.fn_openMenu(objBindDataset, e.row);
-};
-
-this.grdMenu03_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
-{
-	var objBindDataset = obj.getBindDataset();
-	this.fn_openMenu(objBindDataset, e.row);
-};
-
-this.grdMenu04_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
-{
-	var objBindDataset = obj.getBindDataset();
-	this.fn_openMenu(objBindDataset, e.row);
-};
-
-this.fn_openMenu = function(objDs, nRow)
-{
-	var nFRow;
-	var sMENU_CD;
-	
-	var objMenuDs = objDs;
-	
-	sMENU_CD 	= objMenuDs.getColumn(nRow, "MENU_CD");
-	
-	if(this.gfnIsNull(sMENU_CD)==true)
-	{
-		return;
-	}
-
-	this.parent.parent.fn_openMenu(sMENU_CD);
-}
-
-/*****************************************************************************
-함 수 명 칭 : gfnIsNull
-함 수 설 명 : 입력값 Null 체크 함수
-파 라 미 터 : pvVal – 입력값
-리 턴 내 용 : true/false 값이 Null일 경우 true
-*****************************************************************************/
-this.gfnIsNull = function (pvVal)
-{
-	if (new String(pvVal).valueOf() == "undefined") 
-	{
-		return true;
-	}
-	if (pvVal == null) 
-	{
-		return true;
-	}
-	if (("x" + pvVal == "xNaN") && (new String(pvVal.length).valueOf() == "undefined")) 
-	{
-		return true;
-	}
-	if (pvVal.length == 0) 
-	{
-		return true;
-	}
-
-	return false;
-}]]></Script>
+]]></Script>
   </Form>
 </FDL>
