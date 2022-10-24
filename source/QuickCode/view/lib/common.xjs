@@ -30,9 +30,14 @@ this.arrCompIds = [];
 //컴포넌트 + 바인드 Field 목록
 this.arrBindItems = [];
 
+//Grid, Listview Field별 cell정보
+this.oFieldCellInfo = {};
 
 // View에서 생성한 컴포넌트의 Field ID
 this.VIEW_COMP_FIELD_ID = "_viewcomp";
+
+// Innser Dataset 정보가 있는 Field ID
+this.INNSER_DS_FIELD_ID = "innerdatasetinfo";
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -277,7 +282,6 @@ this.lfn_MakeGenerationInfo = function(fieldarray, contents, generationattr, bUs
 		//trace(">> contents : " + contents);
 		this.oContents = JSON.parse(contents);
 		this.oContentsOrg = JSON.parse(contents);
-		
 	}
 	
 	//Set Option Setting Information as JSON Object
@@ -285,6 +289,10 @@ this.lfn_MakeGenerationInfo = function(fieldarray, contents, generationattr, bUs
 
 	//Initialize Model Information
 	this.oContents.View.Model = [];
+	
+	//View 레이아웃 초기화
+	this.oContents.View.View[0].tag = "Layouts";
+	this.oContents.View.View[0].Layouts = [];
 	
 	if (this.oContentsOrg.View.Model == null) {
 		this.oContentsOrg.View.Model = [];
@@ -335,10 +343,17 @@ this.lfn_MakeUseFieldArray = function(fieldarray)
  * Return       : component class data
  * Description  : Returns class information of the component based on Field data
  *---------------------------------------------------------------------------------------------*/
-this.lfn_GetCompClass = function(sCompType)
+this.lfn_GetCompClass = function(sCompType, oField)
 {
 	var oCompClass = { "classId" : null, "prefix" : null };
-
+	
+	// comptype이 auto일때 oField정보로 매칭되는 컴포넌트 반환
+	if (this.lfn_IsNotNull(oField))
+	{
+		sCompType = this.lfn_GetAutoCompType(oField);
+	}
+	
+	// 컴포넌트별 
 	switch(sCompType)
 	{
 		case "button" : oCompClass.classId = "Button";
@@ -383,12 +398,69 @@ this.lfn_GetCompClass = function(sCompType)
 		case "webview" : oCompClass.classId = "WebView";
 						oCompClass.prefix = "web";
 						break;
+		case "selectone" : oCompClass.classId = "AbstractSelectOne";
+						oCompClass.prefix = "aso";
+						break;
+		case "selectany" : oCompClass.classId = "AbstractSelectAny";
+						oCompClass.prefix = "asa";
+						break;
 		default : oCompClass.classId = "Static";
 				  oCompClass.prefix = "sta";
 	}
 
     //컴포넌트 정보 리턴
     return oCompClass;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetAutoCompType
+ * Parameter    :
+ *                - oField : Field 정보
+ * Return       : comptype
+ * Description  : comptype이 auto일때 oField정보로 매칭되는 컴포넌트 반환
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetAutoCompType = function(oField)
+{
+	var sCompType = oField["comptype"];
+	
+	//Auto 일때 처리
+	if (sCompType == "auto")
+	{
+		var sFieldType = oField["fieldtype"];
+		var sDataType = oField["datatype"];
+		var sDataSize = oField["datasize"];
+		
+		if (sFieldType == "SelectOne")
+		{
+			sCompType = "selectone";
+		}
+		else if (sFieldType == "SelectAny")
+		{
+			sCompType = "selectany";
+		}
+		else if (sFieldType == "FreeText")
+		{
+			if (sDataType == "INT" || sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
+			{
+				sCompType = "maskedit";
+			}
+			else if (sDataType == "DATE" || sDataType == "TIME" || sDataType == "DATETIME")
+			{
+				sCompType = "calendar";
+			}
+			else if (sDataType == "STRING")
+			{
+				sCompType = "edit";
+			}
+		}
+		
+		if (sCompType == "auto")
+		{
+			sCompType = "edit";
+		}
+	}
+	
+	return sCompType;
 };
 
 /*---------------------------------------------------------------------------------------------*
@@ -675,6 +747,203 @@ this.lfn_GetDsRows = function(nRowCnt, arrRows)
     //Rows 정보 리턴
     return oRows;
 };
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetInnerDataset
+ * Parameter    :
+				- oFieldArray : model field data
+ * Return       : InnerDataset데이터셋 객체 Json Array 반환
+ * Description  : 모델의 innerdatasetinfo속성에 설정된 값 기준 데이터셋 객체 Json 생성 함수
+ ex) innerdatasetinfo 형식 예제
+  - 예제1) 컬럼 정보만 있는 경우
+		{
+			"columns":[{"id":"code","datatype":"STRING","innertype":"code"}
+						,{"id":"value","datatype":"STRING","innertype":"data"}]
+		}	
+  - 예제2) 컬럼, 데이터 있는 경우
+		{
+			"columns":[{"id":"code","datatype":"STRING","innertype":"code"}
+						,{"id":"value","datatype":"STRING","innertype":"data"}
+						,{"id":"etc1","datatype":"STRING","innertype":"none"}]
+			,"rows":[{"code":"00","value":"값1","etc1":"참고1"}
+					,{"code":"01","value":"값2","etc1":"참고2"}]
+		}
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetInnerDataset = function(objFieldArr)
+{
+	var oModels = this.oContents.View.Model;
+	
+	var oInnerDatasets = [];
+	
+	//모델 Field 개수 가져오기
+    var nCount = objFieldArr.fieldcount;
+	var nRowCount = 0;
+	
+	var oField;
+	var sFieldId, sFieldType, sDataType, sInnerInfo, sCodeField, sNameField;
+	var oInnerInfo, oColumnInfo, oRowInfo, oInfo;
+	var sInnerDatasetId, arrInnerField, oInnerDataset;
+	var arrInnerFields, oInnerField;
+	
+	var oFieldModel, oFieldComps, oFieldComp;
+	var sCompTag;
+	
+    //모델 Field 개수 만큼 컬럼 정보 만들기
+    for(i=0;i<nCount;i++)
+    {
+        oField = objFieldArr.fields[i];
+
+        sFieldId 	= oField["id"];
+		sFieldType	= oField["fieldtype"];
+        sDataType 	= oField["datatype"];
+        sInnerInfo 	= oField[this.INNSER_DS_FIELD_ID];
+		
+		sInnerDatasetId = "";
+		sCodeField = "";
+		sNameField = "";
+		nRowCount = 0;
+		
+		if (this.lfn_IsNotNull(sInnerInfo))
+		{
+			if (sFieldType == "SelectOne" || sFieldType == "SelectAny")
+			{
+ 				oInnerInfo = JSON.parse(sInnerInfo.replace(/&quot;/g, '"'));
+				sInnerDatasetId = this.lfn_GetCompId("innerdataset" + "_" + sFieldId);
+				
+				oColumnInfo = oInnerInfo["columns"];
+				oRowInfo = oInnerInfo["rows"];
+				
+				if (oColumnInfo.length > 0)
+				{
+					arrInnerFields = new Array();
+					
+					// 1) InnerDataset 생성
+					// InnerDataset 컬럼정보 생성
+					for(j=0;j<oColumnInfo.length;j++)
+					{
+						oInfo = oColumnInfo[j];
+						
+						oInnerField = {
+							"id" : oInfo["id"]
+							, "datatype" : oInfo["datatype"] || "STRING"
+							, "datasize" : oInfo["datasize"] || "256"
+						};
+						
+						// InnerDataset code컬럼, name 컬럼 정보 설정
+						if (oInfo["innertype"] == "code") {
+							sCodeField = oInfo["id"];
+						} else if (oInfo["innertype"] == "data") {
+							sNameField = oInfo["id"];
+						}
+						
+						arrInnerFields.push(oInnerField);
+					}
+					
+					if (oRowInfo)
+					{
+						nRowCount = oRowInfo.length;
+					}
+					
+					arrInnerField = {"fieldcount" : oColumnInfo.length, "fields" : arrInnerFields}
+					
+					// InnerDataset 객체정보 생성
+					oInnerDataset = this.lfn_GetDataset(sInnerDatasetId, arrInnerField, nRowCount, oRowInfo);
+					
+					// InnerDataset 반환정보에 추가
+					oInnerDatasets.push(oInnerDataset);
+					
+					// 2) 컴포넌트에 InnerDataset 설정
+					// fieldid에 해당하는 모델정보 찾기
+					oFieldModel = oModels.find(oModel => String("," + oModel.fieldid + ",").indexOf("," + sFieldId + ",") >= 0);
+					
+					// fieldid에 해당하는 모델에서 컴포넌트에 따라 Innerdataset 관련 속성 설정
+					if (oFieldModel)
+					{
+						oFieldComps = oFieldModel["Components"];
+						
+						for(k=0;k<oFieldComps.length;k++)
+						{
+							oFieldComp = oFieldComps[k];
+							sCompTag = oFieldComp["tag"];
+							
+							if (sCompTag == "Combo" || sCompTag == "Radio" || sCompTag == "ListBox"
+								|| sCompTag == "AbstractSelectOne" || sCompTag == "AbstractSelectAny")
+							{
+								oFieldComp["attribute"]["innerdataset"] = sInnerDatasetId;
+								
+								if (this.lfn_IsNotNull(sCodeField))	oFieldComp["attribute"]["codecolumn"] = sCodeField;
+								if (this.lfn_IsNotNull(sNameField))	oFieldComp["attribute"]["datacolumn"] = sNameField;
+							}
+							else if (sCompTag == "Grid")
+							{
+								// body 밴드에 InnerDataset 정보 셋팅
+								this.lfn_SetCellInnerDataset(oFieldComp, "body", this.oFieldCellInfo, sFieldId, sInnerDatasetId, sCodeField, sNameField);
+							}
+							else if (sCompTag == "ListView")
+							{
+								// body 밴드에 InnerDataset 정보 셋팅
+								this.lfn_SetCellInnerDataset(oFieldComp, "body", this.oFieldCellInfo, sFieldId, sInnerDatasetId, sCodeField, sNameField);
+								
+								// detail 밴드에 InnerDataset 정보 셋팅
+								this.lfn_SetCellInnerDataset(oFieldComp, "detail", this.oFieldCellInfo, sFieldId, sInnerDatasetId, sCodeField, sNameField);
+							}
+						}
+					}
+				}
+			}
+		}
+    }
+	
+	return oInnerDatasets;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_SetCellInnerDataset
+ * Parameter    :
+				- oComp : 대상 컴포넌트 컨텐츠 Json(Grid,ListView)
+				- sBand : 밴드유형
+				- oFieldCellInfo : Field별 Cell ID정보
+				- sFieldId : 설정할 Field ID
+				- sInnerDatasetId : InnerDataset 명
+				- sCodeField : InnerDataset Code Column ID
+				- sNameField : InnerDataset Name Column ID
+ * Return       : N/A
+ * Description  : Band에 InnerDataset 정보 셋팅 
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_SetCellInnerDataset = function(oComp, sBand, oFieldCellInfo, sFieldId, sInnerDatasetId, sCodeField, sNameField)
+{
+	var oFieldInfos, oFormat, oBand, oBandCells, oCell, oCellInfo;
+	
+	if (oFieldCellInfo.hasOwnProperty(sFieldId))
+	{
+		oFieldInfos = oFieldCellInfo[sFieldId][sBand];
+		
+		if (oFieldInfos.length > 0)
+		{
+			// Grid와 ListView 컴포넌트에서 Band객체 찾기
+			oFormat = oComp[oComp.tag][0]["Formats"][0]["Format"];
+			oBand = oFormat.find(oTag => oTag.tag == "Band" && oTag.attribute.id == sBand);
+			oBandCells = oBand["Band"];
+			
+			// Field별 Cell정보로 Cell에 Innerdataset관련 속성 설정
+			for(l=0;l<oFieldInfos.length;l++)
+			{
+				oCellInfo = oFieldInfos[l];
+				
+				oCell = oBandCells.find(oBandCell => oBandCell.attribute.id == oCellInfo.id);
+				
+				if (oCell.attribute.displaytype == "combotext" || oCell.attribute.displaytype == "combocontrol")
+				{
+					oCell["attribute"]["combodataset"] = sInnerDatasetId;
+		
+					if (this.lfn_IsNotNull(sCodeField))	oCell["attribute"]["combocodecol"] = sCodeField;
+					if (this.lfn_IsNotNull(sNameField))	oCell["attribute"]["combodatacol"] = sNameField;
+				}
+			}
+		
+		}
+	}
+}
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : lfn_GetBindItem
@@ -965,7 +1234,7 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 		sScript += "	var objView = objForm.parent;";
 		sScript += "	";
 		sScript += "	if (sStatus == 'close') {";
-		sScript += "		objView.set_height('" + this.VIEW_PADDING_TOP + "');";
+		sScript += "		objView.set_height('" + this.TITLE_AREA_HEIGHT + "');";
 		sScript += "		objView.set_formscrolltype('none');";
 		sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');";
 		sScript += "	} else {";

@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XCSS version="1.1">
+  <Predefines/>
+  <CSSData><![CDATA[.CheckBoxSet
+{
+	/* No style applied */
+}
+.CheckBoxSetControl
+{
+	background : #ffffff;
+	-nexa-border : 1px solid #d5d5d5;
+}
+.CheckBoxSetControl[status=mouseover],.CheckBoxSetControl[status=focused]
+{
+	-nexa-border : 1px solid #5a86cd;
+}
+.CheckBoxSetControl[status=disabled]
+{
+	background : #efefef;
+}
+.CheckBoxSetControl .checkboxsetitem
+{
+	color : #555555;
+	-nexa-padding : 2px 9px 3px 9px;
+	-nexa-icon : url('theme://images/chk_WF_Box.png');
+	-nexa-text-padding : 0px 0px 0px 6px;
+}
+.CheckBoxSetControl .checkboxsetitem[status=disabled]
+{
+	/*color : #999999;*/
+	opacity : 0.50;
+	-nexa-icon : url('theme://images/chk_WF_Box_D.png');
+}
+.CheckBoxSetControl .checkboxsetitem[status=mouseover]
+{
+	background : #e7e9ed;
+	-nexa-icon : url('theme://images/chk_WF_Box_O.png');
+}
+.CheckBoxSetControl .checkboxsetitem[userstatus=selected]
+{
+	color : #ffffff;
+	background : #125dae;
+	-nexa-icon : url('theme://images/chk_WF_Box_S.png');
+}
+
+
+/* MultiCombo */
+.MultiCombo,.MultiComboControl
+{
+	background: #ffffff;
+	-nexa-border : 1px solid #d5d5d5;
+}
+
+.MultiCombo[status=mouseover],.MultiCombo[status=focused],.MultiComboControl[status=mouseover],.MultiComboControl[status=focused]
+{
+	-nexa-border : 1px solid #5a86cd;
+}
+.MultiCombo[status=readonly],.MultiComboControl[status=readonly]
+{
+	background: #efefef;
+}
+.MultiCombo[status=disabled],.MultiComboControl[status=disabled]
+{
+	color: #999999;
+	background: #efefef;
+}
+.MultiCombo.multicomboedit,.MultiComboControl.multicomboedit
+{
+	/* Same as EditControl */
+}
+
+.MultiCombo .dropbutton,.MultiComboControl .dropbutton
+{
+	-nexa-padding : 1px 2px 0px 0px;
+	-nexa-icon : URL('theme://images/cmb_WF_Drop.png');
+}
+
+.MultiCombo .dropbutton[status=mouseover],.MultiCombo .dropbutton[status=focused],.MultiComboControl .dropbutton[status=mouseover],.MultiComboControl .dropbutton[status=focused]
+{
+	-nexa-icon : URL('theme://images/cmb_WF_Drop_O.png');
+}
+.MultiCombo .dropbutton[userstatus=pushed],.MultiCombo .dropbutton[userstatus=selected],.MultiComboControl .dropbutton[userstatus=pushed],.MultiComboControl .dropbutton[userstatus=selected]
+{
+	-nexa-icon : URL('theme://images/cmb_WF_Drop_P.png');
+}
+.MultiCombo .dropbutton[status=disabled],.MultiComboControl .dropbutton[status=disabled]
+{
+	opacity: 0.50;
+}
+.MultiCombo.multicombolist,.MultiComboControl.multicombolist
+{
+	font: 12px "Malgun Gothic";
+	color: #555555;
+	background: #ffffff;
+	-nexa-border : 1px solid #b1b1b1;
+}
+.MultiComboTagBoxControl
+{
+	-nexa-border : 0px none, 0px none, 1px solid #d5d5d5;
+}
+.MultiComboTagBoxControl.multicombotag
+{
+	-nexa-padding : 3px 9px 3px 9px;
+	background: #eeeeee;
+	border-radius : 10px;
+}
+.MultiComboTagBoxControl.multicombotagcount
+{
+	-nexa-padding : 3px 9px 3px 9px;
+	background: #eeeeee;
+	border-radius : 10px;
+}
+.MultiComboTagControl
+{
+	-nexa-padding : 3px 9px 3px 9px;
+	background: #eeeeee;
+	border-radius : 10px;
+}
+.MultiComboTagControl.tagbutton
+{
+	background: url('theme://images/btn_TF_Close_O.png') no-repeat center center / cover #eeeeee;
+	border-radius : 50%;
+}
+.MultiComboTagControl.tagtext
+{
+	-nexa-padding : 0px 2px 0px 0px;
+}
+.MultiCombo.multicombotagbox
+{
+	-nexa-border : 0px none, 0px none, 1px solid #d5d5d5;
+}
+.MultiCombo.multicombotagbox.dropdown
+{
+	-nexa-border : 0px none;
+}
+.MultiCombo.multicombotext
+{
+	-nexa-padding : 1px 9px 0px 9px;
+	-nexa-border : 0px none, 0px none, 1px solid #d5d5d5;
+}
+.MultiCombo.multicombotext.dropdown
+{
+	-nexa-border : 0px none;
+}
+.SelectAllControl
+{
+	background: linear-gradient(to top,#eaeaea,#ffffff);
+	-nexa-border : 1px solid #c2c2c2;
+	font: 9pt "Malgun Gothic";
+}
+.SelectAllControl[status=mouseover]
+{
+	background: linear-gradient(to top,#e7e7e7,#fefefe);
+	-nexa-border : 1px solid #a0a0a0;
+}
+.SelectAllControl[userstatus=pushed]
+{
+	background: linear-gradient(to top,#fefefe,#e9e9e9);
+}
+]]></CSSData>
+</XCSS>
