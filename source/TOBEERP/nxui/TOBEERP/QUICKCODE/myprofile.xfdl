@@ -232,8 +232,8 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 this.viewMaster_viewdataset_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
 {
 	// 연락처(전화번호, 팩스번호) 마스크 적용
-	this.mskCorporateTelnum.set_format(this.gfn_setCellTelMaskFormat(obj.getColumn(e.newrow,"CORPORATE_TELNUM")));
-	this.mskCorporateFaxnum.set_format(this.gfn_setCellTelMaskFormat(obj.getColumn(e.newrow,"CORPORATE_FAXNUM")));
+	this.viewMaster.form.mskCorporateTelnum.set_format(this.gfn_setCellTelMaskFormat(obj.getColumn(e.newrow,"CORPORATE_TELNUM")));
+	this.viewMaster.form.mskCorporateFaxnum.set_format(this.gfn_setCellTelMaskFormat(obj.getColumn(e.newrow,"CORPORATE_FAXNUM")));
 };
 
 /**
@@ -252,7 +252,7 @@ this.MaskEdit_oninput = function(obj:nexacro.MaskEdit,e:nexacro.InputEventInfo)
 	obj.set_format("@@@@@@@@@@@");
 };]]></Script>
     <Objects>
-      <SearchDBAction id="SearchDBAction00" serviceurl="IP::getmyinfo.jsp" outputdatasets="viewMaster.form.viewdataset=dsmyinfo">
+      <SearchDBAction id="SearchDBAction00" serviceurl="IP::getmyinfo.jsp" outputdatasets="viewMaster.form.viewdataset=dsmyinfo" servicemodel="getmyinfo">
         <Contents/>
       </SearchDBAction>
       <DsCopyDataAction id="DsCopyDataAction00" targetview="viewMaster" fromview="myprofile" copytype="replace" targetdataset="innerdatasetCorporateArea" fromdataset="gdsArea">
