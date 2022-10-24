@@ -17,7 +17,7 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 	var xadl = nexacro.getProjectPath();
 	
 	var objSvcUrl = objEnv.services["svc"];
-	var urlPath;
+	var urlPath = objSvcUrl.url;
 	
 	// studio로 실행
 	if (system.navigatorname == "nexacro") 
@@ -56,7 +56,12 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 		}
 		else if (xadl.indexOf("www.tobedevops.com") > -1)		// tobedevops 예외처리
 		{
-			 urlPath = "http://www.tobedevops.com:8099/QuickCodeDemo/";
+			objApp.mainframe.set_titletext("개발(웹)  - " + objApp.mainframe.titletext);
+			urlPath = "http://www.tobedevops.com:8080/QuickCodeDemo/";
+		}
+		else if (xadl.indexOf("ops.tobedevops.com") > -1)		// tobedevops 예외처리
+		{
+			urlPath = "https://ops.tobedevops.com:8080/QuickCodeDemo/";
 		}
 	}
 	
