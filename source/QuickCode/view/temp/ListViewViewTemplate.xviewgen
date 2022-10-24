@@ -562,7 +562,7 @@ fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth
 		fn_CalcLayout(arrFieldUse, oLayout, nViewCompWidth, nViewCompHeight);
 
 		//Load Layout-based Component Production Function
-		arrBandCells = fn_GetBandCellByLayout(arrFieldUse, oLayout);
+		arrBandCells = fn_GetBandCellByLayout(sBand, arrFieldUse, oLayout);
 	}
 	//If the format properties are not set, create components based on default rules
 	else
@@ -580,7 +580,7 @@ fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth
 		var arrFieldPosition = fn_CalcField(arrFieldBand, sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
 		
 		//Load Component Production Function
-		arrBandCells = fn_GetBandCell(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
+		arrBandCells = fn_GetBandCell(sBand, 0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
 	}
 	
 	// Band 객체값 셋팅
@@ -1251,7 +1251,7 @@ fn_CalcField = function(arrFieldList, sDirection, sVAlign, sHAlign, nColSize, nR
  * Return       :
  * Description  : Layout-based Component Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_GetBandCellByLayout = function(arrFieldList, oLayout)
+fn_GetBandCellByLayout = function(sBand, arrFieldList, oLayout)
 {
 	var arrBandCells = new Array();
 	var arrCellRet = new Array();
@@ -1301,7 +1301,7 @@ fn_GetBandCellByLayout = function(arrFieldList, oLayout)
 		if(nCol==0)bStartCol = true;
 		else bStartCol = false;
 
-		arrCellRet = fn_GetBandCell(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, nRow, bStartCol);
+		arrCellRet = fn_GetBandCell(sBand, nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, nRow, bStartCol);
 		
 		if (arrCellRet.length > 0) {
 			arrBandCells = arrBandCells.concat(arrCellRet);
@@ -1326,7 +1326,7 @@ fn_GetBandCellByLayout = function(arrFieldList, oLayout)
  * Return       :
  * Description  : Component Tag Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, nLayoutRow, bStartCol)
+fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, nLayoutRow, bStartCol)
 {
 	var arrBandCells = new Array();
 	
@@ -1352,6 +1352,8 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 	var sFieldCssClass;
 	var sLabelCssClass;
 	var sFieldBgCssClass = this.FIELD_BG_CSSCLASS;
+	
+	var oCellInfo = [];
 	
 	// FieldBox 사용여부
 	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
@@ -1513,6 +1515,15 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 						}
 					};
 
+			// Field별 Cell정보 설정
+			if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+			{
+				this.oFieldCellInfo[sFieldId] = {"body":[],"detail":[]};
+			}
+			
+			oCellInfo = this.oFieldCellInfo[sFieldId][sBand];
+			oCellInfo.push({"id": sCompId});
+
 			//If the Component Type is Button, add label text to the text properties
 			if(sDisplayType=="buttoncontrol")
 			{
@@ -1662,6 +1673,14 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 						}
 					};
 			
+			// Field별 Cell정보 설정
+			if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+			{
+				this.oFieldCellInfo[sFieldId] = {"body":[],"detail":[]};
+			}
+			
+			oCellInfo = this.oFieldCellInfo[sFieldId][sBand];
+			oCellInfo.push({"id": sCompId});
 			
 			if(sDisplayType=="buttoncontrol")
 			{
@@ -1704,6 +1723,12 @@ fn_GetObjects = function(bPreviewMode)
 
     //Object Information Setting
     oObjects.push(oViewDataset);
+    
+    // InnerDataset 정보
+	var oInner = this.lfn_GetInnerDataset(this.oFieldArray);
+	
+	// InnerDataset 정보 추가
+	oObjects = oObjects.concat(oInner);
 
     //Return Object Information
     return oObjects;
