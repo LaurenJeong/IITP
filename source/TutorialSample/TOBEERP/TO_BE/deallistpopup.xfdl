@@ -1,0 +1,1146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="deallistpopup" width="1110" height="665" titletext="거래상세" onload="puschaselist_onload" onkeydown="deallistpopup_onkeydown">
+    <Layouts>
+      <Layout height="665" mobileorientation="landscape" width="1110">
+        <Static id="Static08" taborder="37" height="40" cssclass="sta_cm_box02L" right="20" left="129" top="421" text=""/>
+        <Static id="Static09" taborder="38" height="40" cssclass="sta_cm_box02L" right="20" left="129" top="460"/>
+        <Static id="Static22" taborder="40" height="40" cssclass="sta_cm_box02L" right="20" left="129" top="538"/>
+        <Static id="Static28" taborder="41" height="40" cssclass="sta_cm_box02L" right="20" left="129" top="577"/>
+        <Static id="Static22_00" taborder="42" height="40" cssclass="sta_cm_box02L" right="20" left="129" top="616"/>
+        <Grid id="grdList" taborder="16" left="20" binddataset="dsDealDetail" top="228" autofittype="col" height="174" right="20" onexpanddown="grdList_onexpanddown">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="100"/>
+                <Column size="80"/>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="품목명"/>
+                <Cell col="1" text="규격"/>
+                <Cell col="2" text="단위"/>
+                <Cell col="3" text="수량"/>
+                <Cell col="4" text="단가"/>
+                <Cell col="5" text="할인"/>
+                <Cell col="6" text="금액"/>
+                <Cell col="7" text="세액"/>
+                <Cell col="8" text="비고"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:PRODUCT_NAME" expandshow="show"/>
+                <Cell col="1" text="bind:STANDARD" textAlign="center"/>
+                <Cell col="2" text="bind:UNIT" combodataset="dsUnit" combodatacol="value" combocodecol="code" displaytype="combotext" textAlign="center"/>
+                <Cell col="3" text="bind:AMOUNT" edittype="normal" editautoselect="true" displaytype="number"/>
+                <Cell col="4" progressbarblocksize="50" text="bind:LAST_PRICE" editautoselect="true" displaytype="currency" edittype="normal"/>
+                <Cell col="5" text="bind:DISCOUNT_PRICE" displaytype="currency" edittype="normal"/>
+                <Cell col="6" text="bind:TOTAL_PRICE" displaytype="currency"/>
+                <Cell col="7" displaytype="currency" text="bind:TAX_PRICE"/>
+                <Cell col="8" text="bind:ETC" edittype="normal"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static01_00" taborder="43" left="129" top="55" height="40" cssclass="sta_cm_box02L" right="20"/>
+        <Static id="Static15" taborder="39" height="40" cssclass="sta_cm_box02L" right="20" left="129" top="499"/>
+        <Static id="stacalSalesDate" taborder="44" text="거래일" left="20" top="55" width="110" height="40" cssclass="sta_WF_titleStar"/>
+        <Calendar id="calSalesDate" taborder="0" left="139" top="61" width="140" height="28" autoselect="true"/>
+        <Static id="stacboDealType" taborder="45" text="과세유형" left="559" top="55" width="110" height="40" cssclass="sta_WF_titleStar"/>
+        <Combo id="cboDealType" taborder="2" text="과세거래" left="679" top="61" width="140" height="28" value="" index="-1" innerdataset="dsDealType" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <CheckBox id="chkAddin" taborder="3" text="단가액 세액포함" left="829" top="55" width="120" height="40" value="true"/>
+        <CheckBox id="chkAccount" taborder="4" text="세금, 계산서 수취" top="55" width="120" height="40" left="949"/>
+        <Static id="stardoAccuntType" taborder="46" text="거래타입" left="289" top="55" width="110" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="staedtCustomerName" taborder="47" text="거래처" left="20" top="94" width="110" height="40" cssclass="sta_WF_titleStar"/>
+        <Static id="Static08_01_00" taborder="48" left="129" top="94" height="40" cssclass="sta_cm_box02L" right="20" onclick="Static08_01_00_onclick"/>
+        <Static id="Static02_01" taborder="49" text="대표자" left="20" top="133" width="110" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="Static03_01_00" taborder="50" left="129" top="133" height="40" cssclass="sta_cm_box02L" right="20"/>
+        <Edit id="edtRepesentName" taborder="9" left="139" top="139" width="140" height="28" text="REPRESENTATIVE_NAME" enable="false"/>
+        <Static id="Static01_00_04_00" taborder="51" text="사업자번호" left="289" top="133" width="110" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="Static01_00_00" taborder="52" text="영업사원" left="829" top="94" width="110" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="Static01_00_04" taborder="53" text="담당자" left="829" top="133" width="110" height="40" cssclass="sta_cm_box01L"/>
+        <Edit id="edtStaffName" taborder="12" left="949" top="139" width="137" height="28" text="217-81-46957" autoselect="true"/>
+        <Static id="Static01_01" taborder="54" text="전화번호" left="559" top="94" width="110" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="Static02" taborder="55" text="업체구분" left="559" top="133" width="110" height="40" cssclass="sta_cm_box01L"/>
+        <Combo id="cboSalesman" taborder="8" text="홍길동" left="949" top="100" width="137" height="28" value="" index="-1" innerdataset="dsSalesman" codecolumn="code" datacolumn="value" autoselect="true"/>
+        <Radio id="rdoAccuntType" taborder="1" left="409" top="61" width="140" height="26" rowcount="1" innerdataset="dsType" codecolumn="code" datacolumn="value" index="0" text="매출거래" value="a01"/>
+        <Static id="staMiddlebar" taborder="56" text="거래 상세" left="20" top="20" height="28" cssclass="sta_WF_title02" right="740" onclick="divManufactCo_staMiddlebar_onclick"/>
+        <Button id="btnClose" taborder="57" top="20" height="28" cssclass="btn_WF_popup_close" onclick="btnClose_onclick" right="20" width="28"/>
+        <Edit id="edtCustomerName" taborder="5" left="139" top="100" width="315" height="28" text="217-81-46957" enable="false"/>
+        <Button id="btnSearchCustomer" taborder="6" text="찾기 (Alt+^)" left="460" top="100" width="89" height="28" cssclass="btn_cm_basic01" onclick="btnSearchCustomer_onclick" enable="false"/>
+        <Button id="btnCash" taborder="33" text="현금" left="676" width="70" height="28" cssclass="btn_cm_basic01" top="427" onclick="PaymentButton_onclick"/>
+        <Button id="btnBank" taborder="34" text="은행" left="676" width="70" height="28" cssclass="btn_cm_basic01" top="466" onclick="PaymentButton_onclick"/>
+        <Button id="btnBill" taborder="35" text="어음기록" left="676" width="70" height="28" cssclass="btn_cm_basic01" top="505" onclick="PaymentButton_onclick"/>
+        <Button id="btnCard" taborder="36" text="카드" left="676" width="70" height="28" cssclass="btn_cm_basic01" top="544" onclick="PaymentButton_onclick"/>
+        <Static id="Static29_00" taborder="58" text="수량합계" left="760" width="130" height="40" cssclass="sta_cm_box01L" top="577"/>
+        <Static id="staCash" taborder="59" text="현금지급" left="350" width="130" height="40" cssclass="sta_cm_box01L" top="421"/>
+        <Static id="staBank" taborder="60" text="계좌이체" left="350" width="130" height="40" cssclass="sta_cm_box01L" top="460"/>
+        <Static id="staBill" taborder="61" text="어음" left="350" width="130" height="40" cssclass="sta_cm_box01L" top="499"/>
+        <Static id="staCard" taborder="62" text="카드지급" left="350" width="130" height="40" cssclass="sta_cm_box01L" top="538"/>
+        <Static id="Static29" taborder="63" text="지급액계" left="350" width="130" height="40" cssclass="sta_cm_box01L" top="577"/>
+        <Static id="Static23_00" taborder="64" left="350" width="130" height="40" cssclass="sta_cm_box01L" text="참고사항" top="616"/>
+        <Static id="Static01" taborder="65" text="할인전" left="20" width="130" height="40" cssclass="sta_cm_box01L" top="421"/>
+        <Static id="Static07" taborder="66" text="할인" left="20" width="130" height="40" cssclass="sta_cm_box01L" top="460"/>
+        <Static id="staDealPrice" taborder="67" text="매입/매출액" left="20" width="130" height="40" cssclass="sta_cm_box01L" top="499"/>
+        <Static id="Static21" taborder="68" text="세액" left="20" width="130" height="40" cssclass="sta_cm_box01L" top="538"/>
+        <Static id="Static27" taborder="69" text="합계" left="20" width="130" height="40" cssclass="sta_cm_box01L" top="577"/>
+        <Static id="staCredit" taborder="70" text="외상" left="20" width="130" height="40" cssclass="sta_cm_box01L" top="616"/>
+        <Edit id="Edit07_00_00" taborder="28" left="490" top="622" height="28" width="590" autoselect="true"/>
+        <Button id="btnSave" taborder="15" text="저장(F9)" width="76" height="28" cssclass="btn_WF_add01" right="20" top="193" onclick="btnSave_onclick"/>
+        <Button id="btnDelete" taborder="14" text="품목삭제" top="193" width="76" height="28" cssclass="btn_WF_delete01" right="103" onclick="btnDelete_onclick"/>
+        <Button id="btnAdd" taborder="13" text="품목추가" top="193" width="76" height="28" cssclass="btn_WF_delete01" right="185" onclick="btnAdd_onclick"/>
+        <Button id="btnTaxBillPublish" taborder="73" text="세금계산서/계산서 발행(^+L)" width="190" height="28" cssclass="btn_cm_basic01" top="193" left="208" visible="false"/>
+        <Button id="btnPrint" taborder="72" text="거래내역인쇄" width="100" height="28" cssclass="btn_cm_basic01" top="193" left="102" visible="false"/>
+        <Button id="btnPriceReset" taborder="71" text="잔액조회" width="76" height="28" cssclass="btn_cm_basic01" top="193" left="20" visible="false"/>
+        <Static id="staFundTotal" taborder="75" text="적립금 잔고" left="760" top="421" width="130" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="staFundAdd" taborder="76" text="적립금 추가" left="760" top="460" width="130" height="40" cssclass="sta_cm_box01L"/>
+        <Static id="staFundUse" taborder="77" text="적립금 사용" left="760" top="499" width="130" height="40" cssclass="sta_cm_box01L"/>
+        <Button id="btnBillPublish" taborder="74" text="거래명세서/영수증 발행(^+P)" top="193" width="190" height="28" cssclass="btn_cm_basic01" left="404" visible="false"/>
+        <Combo id="cboCoporType" taborder="11" top="139" width="140" height="28" value="" index="-1" innerdataset="dsCoporType" codecolumn="code" datacolumn="value" left="679" enable="false" text=""/>
+        <MaskEdit id="medtLast" taborder="17" left="160" top="427" width="180" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtDiscount" taborder="18" left="160" top="466" width="180" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtSales" taborder="19" left="160" top="505" width="180" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtTax" taborder="20" left="160" top="544" width="180" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtAll" taborder="21" left="160" top="583" width="180" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtCredit" taborder="22" left="160" top="622" width="180" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtCash" taborder="23" left="490" top="427" width="180" height="28" format="###,###,###" value="0" autoselect="true"/>
+        <MaskEdit id="medtBank" taborder="24" left="490" top="466" width="180" height="28" format="###,###,###" value="0" autoselect="true"/>
+        <MaskEdit id="medtBill" taborder="25" left="490" top="505" width="180" height="28" format="###,###,###" value="0" autoselect="true"/>
+        <MaskEdit id="medtPayment" taborder="27" left="490" top="583" width="256" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtCard" taborder="26" left="490" top="544" width="180" height="28" format="###,###,###" value="0" autoselect="true"/>
+        <MaskEdit id="medtFundAdd" taborder="30" left="900" top="466" width="180" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtFundUse" taborder="31" left="900" top="505" width="180" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtAmount" taborder="32" left="900" top="583" width="180" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtFundTotal" taborder="29" left="900" top="427" width="180" height="28" format="###,###,###" autoselect="true"/>
+        <MaskEdit id="medtTelNum" taborder="7" left="679" top="100" width="140" height="28" enable="false" format="@@@-@@@@-@@@@" type="string" onchanged="MaskEdit_onchanged"/>
+        <MaskEdit id="medtBusinessCode" taborder="10" left="409" top="139" width="140" height="28" enable="false" format="@@-@@@-{@@@@@}" type="string"/>
+        <PopupDiv id="podAlram" visible="false" left="490" top="672" width="256" height="158" cssclass="pop_BF_frame" formscrolltype="none" text="" onpopup="podAlram_onpopup">
+          <Layouts>
+            <Layout>
+              <Static id="stTitle" taborder="1" text="수납/지급" left="20" top="10" height="25" cssclass="sta_WF_title02" width="214"/>
+              <Static id="Static08" taborder="0" top="50" height="45" cssclass="sta_cm_box02L" left="20" right="20" text=""/>
+              <MaskEdit id="mdtAdd" taborder="2" top="60" width="139" height="28" format="###,###,###" right="20" value="0" onchanged="podAlram_mdtAdd_onchanged" autoselect="true"/>
+              <Button id="btnConfirm" taborder="3" text="적용" width="70" height="28" cssclass="btn_cm_basic01" top="10" right="20" onclick="podAlram_btnConfirm_onclick"/>
+              <Static id="Static08_00" taborder="4" top="94" height="45" cssclass="sta_cm_box02L" left="20" right="20" text=""/>
+              <MaskEdit id="mdtLast" taborder="5" top="102" width="139" height="28" format="###,###,###" right="20" value="0" autoselect="true"/>
+              <Static id="staDeal0" taborder="6" left="20" top="60" width="75" height="25" text="추가금액" cssclass="sta_WF_notiContent"/>
+              <Static id="staDeal1" taborder="7" left="20" top="105" width="75" height="25" text="변동금액" cssclass="sta_WF_notiContent"/>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Static id="stacalPaymentDate" taborder="79" text="결제 약속일" left="760" top="538" width="130" height="40" cssclass="sta_WF_titleStar"/>
+        <Calendar id="calPaymentDate" taborder="32" left="900" top="544" width="180" height="28" autoselect="true"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsDeal" oncolumnchanged="dsDeal_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="DEAL_CODE" type="STRING" size="256"/>
+          <Column id="DEAL_DATE" type="STRING" size="256"/>
+          <Column id="DEAL_TYPE" type="STRING" size="256"/>
+          <Column id="TAX_TYPE" type="STRING" size="256"/>
+          <Column id="CUSTOMER_CODE" type="STRING" size="256"/>
+          <Column id="ADD_IN_TAX" type="STRING" size="256"/>
+          <Column id="ACCOUNT_BILL" type="STRING" size="256"/>
+          <Column id="SALESMAN_CODE" type="STRING" size="256"/>
+          <Column id="DISCOUNT_PRICE" type="INT" size="256"/>
+          <Column id="LAST_PRICE" type="INT" size="256"/>
+          <Column id="CREDIT_PRICE" type="INT" size="256"/>
+          <Column id="CASH_PRICE" type="INT" size="256"/>
+          <Column id="ACCOUNT_PRICE" type="INT" size="256"/>
+          <Column id="BILL_PRICE" type="INT" size="256"/>
+          <Column id="CARD_PRICE" type="INT" size="256"/>
+          <Column id="ESTIMATE_CODE" type="INT" size="256"/>
+          <Column id="ACCOUMULATE_FUND" type="INT" size="256"/>
+          <Column id="ADD_RESERVE_FUND" type="INT" size="256"/>
+          <Column id="USE_RESERVE_FUND" type="INT" size="256"/>
+          <Column id="ETC" type="STRING" size="256"/>
+          <Column id="DEAL_STATUS" type="STRING" size="256"/>
+          <Column id="CORPORATE_TELNUM" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_NAME" type="STRING" size="256"/>
+          <Column id="BUSINESS_LICENSE_NUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_TYPE" type="STRING" size="256"/>
+          <Column id="SALESMANE_CODE" type="STRING" size="256"/>
+          <Column id="STAFF_NAME" type="STRING" size="256"/>
+          <Column id="CUSTOMER_NAME" type="STRING" size="256"/>
+          <Column id="TOTAL_AMOUNT" type="INT" size="256"/>
+          <Column id="TOTAL_PRICE" type="INT" size="256"/>
+          <Column id="UNIT_PRICE" type="INT" size="256"/>
+          <Column id="TAX_PRICE" type="INT" size="256"/>
+          <Column id="BEFORE_PRICE" type="INT" size="256"/>
+          <Column id="PAYMENT_PRICE" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsDealDetail" oncolumnchanged="dsDealDetail_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="DEAL_CODE" type="STRING" size="256"/>
+          <Column id="DEAL_NUMBER" type="STRING" size="256"/>
+          <Column id="PRODUCT_CODE" type="STRING" size="256"/>
+          <Column id="AMOUNT" type="INT" size="256"/>
+          <Column id="LAST_PRICE" type="INT" size="256"/>
+          <Column id="UNIT_PRICE" type="INT" size="256"/>
+          <Column id="ETC" type="STRING" size="256"/>
+          <Column id="SURTAX_TYPE" type="STRING" size="256"/>
+          <Column id="PRODUCT_NAME" type="STRING" size="256"/>
+          <Column id="UNIT_VALUE" type="STRING" size="256"/>
+          <Column id="STANDARD" type="STRING" size="256"/>
+          <Column id="UNIT" type="STRING" size="256"/>
+          <Column id="TOTAL_PRICE" type="INT" size="256"/>
+          <Column id="TAX_PRICE" type="INT" size="256"/>
+          <Column id="DISCOUNT_PRICE" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCoporType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSalesman">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsDealType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsUnit">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCode">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsDealCustomer" onrowposchanged="dsDealCustomer_onrowposchanged">
+        <ColumnInfo>
+          <Column id="CUSTOMER_CODE" type="STRING" size="256"/>
+          <Column id="PURCHASE_TOTAL_PRICE" type="STRING" size="256"/>
+          <Column id="SALES_TOTAL_PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_PAYMENT_PRICE" type="STRING" size="256"/>
+          <Column id="SALES_PAYMENT_PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_DISCOUNT" type="STRING" size="256"/>
+          <Column id="SALES_DISCOUNT" type="STRING" size="256"/>
+          <Column id="ACCOUMULATE_FUND" type="STRING" size="256"/>
+          <Column id="PAYMENT_DATE" type="STRING" size="256"/>
+          <Column id="CUSTOMER_NAME" type="STRING" size="256"/>
+          <Column id="CUSTOMER_TELNUM" type="STRING" size="256"/>
+          <Column id="CUSTOMER_CONDITION" type="STRING" size="256"/>
+          <Column id="STAFF_NAME" type="STRING" size="256"/>
+          <Column id="STAFF_TELNUM" type="STRING" size="256"/>
+          <Column id="SALESMAN_CODE" type="STRING" size="256"/>
+          <Column id="BUSINESS_CODE" type="STRING" size="256"/>
+          <Column id="REPRESENT_NAME" type="STRING" size="256"/>
+          <Column id="CORPORATE_TYPE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCustomer" onrowposchanged="dsCustomer_onrowposchanged">
+        <ColumnInfo>
+          <Column id="BUSINESS_LICENSE_NUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_NAME" type="STRING" size="256"/>
+          <Column id="ESTABLISHMENT_NUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_TYPE" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_NAME" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_SOCIAL_NUM" type="STRING" size="256"/>
+          <Column id="BUSINESS_CONDITION" type="STRING" size="256"/>
+          <Column id="BUSINESS_TYPE" type="STRING" size="256"/>
+          <Column id="CORPORATE_AREA" type="STRING" size="256"/>
+          <Column id="STAFF_NAME" type="STRING" size="256"/>
+          <Column id="STAFF_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_EMAIL" type="STRING" size="256"/>
+          <Column id="CORPORATE_HOMEPAGE" type="STRING" size="256"/>
+          <Column id="CORPORATE_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_FAXNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_POSTAL_CODE" type="STRING" size="256"/>
+          <Column id="CORPORATE_ADRESS1" type="STRING" size="256"/>
+          <Column id="CORPORATE_ADRESS2" type="STRING" size="256"/>
+          <Column id="SALESMAN_CODE" type="STRING" size="256"/>
+          <Column id="UNIT_PRICE_CODE" type="STRING" size="256"/>
+          <Column id="SALES_STATUS_CODE" type="STRING" size="256"/>
+          <Column id="ORDER_PASSWORD" type="STRING" size="256"/>
+          <Column id="DEAL_START_DATE" type="STRING" size="256"/>
+          <Column id="DEAL_FINAL_DATE" type="STRING" size="256"/>
+          <Column id="PAYMENT_DATE" type="STRING" size="256"/>
+          <Column id="LOAN_LIMIT" type="INT" size="256"/>
+          <Column id="UNCOLLECTED_AMOUNT" type="INT" size="256"/>
+          <Column id="UNPAID_AMOUNT" type="INT" size="256"/>
+          <Column id="ACCOUMULATE_FUND" type="INT" size="256"/>
+          <Column id="ADD_TAX_RATE" type="INT" size="256"/>
+          <Column id="DISCOUNT_EXTRA_RATE" type="INT" size="256"/>
+          <Column id="ETC1" type="STRING" size="256"/>
+          <Column id="ETC2" type="STRING" size="256"/>
+          <Column id="CORPORATE_CODE" type="STRING" size="256"/>
+          <Column id="UNIT_DISPLAY" type="STRING" size="256"/>
+          <Column id="INIT_ACCOUMULATE_FUND" type="INT" size="256"/>
+          <Column id="DEAL_STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    deallistpopup
+*  @FileName	deallistpopup.xfdl
+*  @Desction	거래상세
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = "";
+this.openType = "";
+this.dealType = "";
+this.dealCode = "";
+this.dealDate = "";
+this.customerCode = "";
+this.dealTax = "true";
+this.LoginGroup = "";
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.puschaselist_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	this.dealDate = this.application.gvToday;
+	this.LoginGroup = this.application.gvLoginId;
+	
+	var objConfig = {
+						objList		: this.dsCustomer,
+						objdetail	: this.dsDealDetail
+				    }
+	this.config = objConfig;
+	
+	//get arguments
+	if(this.getOwnerFrame().strStatus != null)
+	{
+		this.dealType = this.getOwnerFrame().strType;
+		this.openType = this.getOwnerFrame().strStatus;
+	}
+		
+	if(this.getOwnerFrame().strDealCode != null)
+	{
+		this.dealCode = this.getOwnerFrame().strDealCode;
+		this.dealDate = this.strDealDate;
+		this.customerCode = this.strCostCode;
+		this.dealTax = this.strCheck;
+	}
+	
+	//판매자가 아니면 거래타입 수정 불가
+	if(this.LoginGroup != "accout")
+	{
+		this.rdoAccuntType.set_enable(false);
+	}
+	
+	//거래타입이 없으면 매출거래
+	if(this.gfn_isNull(this.dealType))
+	{
+		this.dealType = "lS";
+	}
+	
+	this.fn_initCode();
+};
+
+/**
+ * @description form onkeydown
+ */
+this.deallistpopup_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if(e.altkey)
+	{
+		if(e.keycode == 54)
+		{
+			//거래처명 팝업
+			this.fn_customerpopup("popupSelectCustomer","row",this.dsDealCustomer.rowposition);
+		}
+	}
+	else if(e.keycode == 119)
+	{
+		this.fn_customerpopup("popupSelectCustomer","row",this.dsDealCustomer.rowposition);
+	}
+	else if(e.keycode == 120)
+	{
+		this.fn_initSave();
+	}
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+ */
+this.fn_callback = function(strSvcID, nErrorCode, strErrorMag)
+{
+	if(nErrorCode < 0)
+	{
+		trace("error:::" + strErrorMag);
+		return;
+	}
+	
+	if(strSvcID == "selectCode")
+	{		
+		this.fn_initForm(this.dealType);
+	}
+	else if(strSvcID == "selectDealCode")
+	{
+		var nRow = this.dsDeal.rowposition;
+		
+		this.dealCode = this.dsCode.getColumn(0,"code");
+		this.dsDeal.setColumn(0,"DEAL_CODE",this.dealCode);		
+	}
+	else if(strSvcID == "selectDeal")
+	{
+		//none
+	}
+	else if(strSvcID == "saveDeal")
+	{
+		alert("저장 되었습니다");
+	}
+	else if(strSvcID == "selectDealCustomer")
+	{
+		this.fn_initDealCustomer();
+	}
+};
+
+
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**
+ * @description 초기 코드 조회
+ */
+this.fn_initCode = function()
+{
+	var strSvcID = "selectCode";
+	var strURL = "IP::getdealcode.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsType=dstype dsSalesman=dssalesman dsCoporType=dscoportype dsDealType=dsdealtype dsUnit=dsunit";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 거래 추가시 거래코드 생성
+ */
+this.fn_transDealCode = function()
+{
+	var cRow = 0;
+	var strSvcID = "selectDealCode";
+	var strURL = "IP::getdealcodeselect.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsCode=dscode";
+	var strCallbackFunc = "fn_callback";
+	
+	var	strArgument = "argDB=" + this.application.gvDBurl;
+		strArgument += " argDate=" + this.dsDeal.getColumn(cRow, "DEAL_DATE");
+		strArgument += " argType=" + this.dsDeal.getColumn(cRow, "DEAL_TYPE");
+		strArgument += " argCustomer=" + this.dsDeal.getColumn(cRow, "CUSTOMER_CODE");
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+}
+
+/**
+ * @description popupSelectCustomer(거래처 선택) 후 조회
+ */
+this.fn_searchDealCustomer = function(strCustomerCode)
+{
+	var strArgument = "argCustomer=" + strCustomerCode;
+	
+	var strSvcID = "selectDealCustomer";
+	var strURL = "IP::getdealcustomer.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsDealCustomer=dsdealcustomer";
+	var strCallbackFunc = "fn_callback";
+		strArgument += " argDB=" + this.application.gvDBurl;
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+}
+
+/**
+ * @description 거래내역(거래원장) 조회
+ */
+this.fn_searchTrans = function(strArgument)
+{
+	var strSvcID = "selectDeal";
+	var strURL = "IP::getdeallist.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsDealCustomer=dsdealcustomer dsDeal=dsdeal dsDealDetail=dsdetail";
+	var strCallbackFunc = "fn_callback";
+		strArgument += " argDB=" + this.application.gvDBurl;
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**
+ * @description 거래내역(거래원장) 저장
+ */
+this.fn_saveTrans = function()
+{
+	var strSvcID = "saveDeal";
+	var strURL = "IP::setdeallist.jsp"
+	var strInDatasets = "dsdeal=dsDeal:U dsdetail=dsDealDetail:U dedealcustomer=dsDealCustomer:U";
+	var strOutDatasets = "";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "fn_callback";
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+}
+
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+ * @description POPUP CALLBACK
+ */
+this.popupCallBack = function(sFormId, sArg)
+{
+	if(sFormId == 'popupSelectCustomer')
+	{
+		if(!this.gfn_isNull(sArg))
+		{
+			this.dsDealCustomer.setColumn(0,"CUSTOMER_CODE",this.customerCode);
+			this.dsDealCustomer.setColumn(0,"CUSTOMER_NAME",sArg);
+			
+			this.dsDeal.setColumn(0,"CUSTOMER_CODE",this.customerCode);
+			this.dsDeal.setColumn(0,"SALESMAN_CODE",this.dsCustomer.getColumn(0,"SALESMAN_CODE"));
+			
+			this.fn_searchDealCustomer(this.customerCode);
+		}		
+	}
+	else if(sFormId == 'popupProduct')
+	{
+		var cRow = this.dsDealDetail.rowposition;
+		if(cRow > -1)
+		{
+			var sRetailPrice = this.dsDealDetail.getColumn(cRow,"LAST_PRICE");
+			this.dsDealDetail.setColumn(cRow,"UNIT_PRICE",sRetailPrice);
+			this.dsDealDetail.setColumn(cRow,"AMOUNT",1);			
+			
+			//SURTAX_TYPE == 'true' ? LAST_PRICE * AMOUNT * 0.9 : LAST_PRICE * AMOUNT : 과세 유형에 따라 계산
+			var sSurtaxType = this.dsDealDetail.getColumn(cRow, "SURTAX_TYPE");
+			if (sSurtaxType == "true")
+			{
+				this.dsDealDetail.setColumn(cRow,"TAX_PRICE", sRetailPrice*0.1);
+				sRetailPrice = sRetailPrice *1.1;
+			}
+						
+			this.dsDealDetail.setColumn(cRow,"TOTAL_PRICE",sRetailPrice*1);
+		}		
+	}
+};
+
+/**
+ * @description fn_customerpopup : 거래처 찾기 팝업
+ */
+this.fn_customerpopup = function (strId,strValue,strEditValue)
+{
+	var oArg = {
+					strCustomer : strEditValue,
+					strType		: strValue
+				};
+				
+	this.gfn_showModal(strId, oArg, "TO_BE::customerpopup.xfdl", "popupCallBack", this, 520, 330, false, false, null);
+};
+
+/**
+ * @description fn_customerpopup : 품목 찾기 팝업
+ */
+this.fn_productListpopup = function(rowpos)
+{
+	var sCustomerCode = this.dsDeal.getColumn(0,"CUSTOMER_CODE");
+	var oArg = {
+					rownum		: rowpos,
+					customercode : sCustomerCode
+				};
+	this.gfn_showModal("popupProduct", oArg, "TO_BE::productpopupdeal.xfdl", "popupCallBack", this, 520, 330, false, false, null);
+};
+
+/**
+* Function Name : fn_initSearch
+* Description   : 거래내역 코드로 검색조건 세팅
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSearch = function(sCode)
+{
+	var sArgument = "argDealCode=" + this.dealCode;
+	
+	this.fn_searchTrans(sArgument);
+}
+
+/**
+* Function Name : fn_initSave
+* Description   : 거래내역 저장 세팅 (필수 입력 값 확인)
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initSave = function()
+{
+	var allList = [this.calSalesDate, this.rdoAccuntType, this.cboDealType, this.edtCustomerName, this.calPaymentDate];
+	if(!this.fn_validCheck(allList))
+	{
+		return;
+	}
+	
+	var strProductName = this.dsDealDetail.getColumn(0,"PRODUCT_NAME");
+	var strTitle = strProductName + " 외 " + (this.dsDealDetail.getRowCount()-1) + "개";
+	this.dsDeal.setColumn(0,"DEAL_TITLE",strTitle);
+	
+	this.fn_setTotalPrice();	
+}
+
+/**
+* Function Name : fn_initForm
+* Description   : form onload 시 화면 초기화
+* Arguments     : sType - 거래타입 (매출 or 매입)
+* Return        : none
+*/
+this.fn_initForm = function(sType)
+{
+	if(this.gfn_isNull(sType))
+	{
+		sType = "lS";
+	}	
+	
+	var sVislble = "";
+	var sPayment = "";
+	var sPriceType = "";
+	if(sType == "lS")
+	{
+		sVislble = true;
+		sPayment ="입금";
+		sPriceType = "매출액";
+	}
+	else
+	{
+		sVislble = false;
+		sPayment = "출금";
+		sPriceType = "매입액";
+	}
+	
+	this.staFundTotal.set_visible(sVislble);
+	this.staFundAdd.set_visible(sVislble);
+	this.staFundUse.set_visible(sVislble);
+	
+	this.medtFundUse.set_visible(sVislble);
+	this.medtFundAdd.set_visible(sVislble);
+	this.medtFundTotal.set_visible(sVislble);
+
+	//전표열기
+	if(this.openType == "open")
+	{
+		this.btnSearchCustomer.set_enable(false);
+		this.rdoAccuntType.set_enable(false);
+		this.fn_initSearch();
+		return;
+	}	
+	
+	this.btnSearchCustomer.set_enable(true);
+	this.dealDate = this.application.gvToday;	
+	this.edtCustomerName.set_displaynulltext("거래처를 선택하세요");
+	
+	this.dsDeal.set_enableevent(false);
+	
+	//전표추가로 화면이 열렸을 때
+	var nRow = this.dsDeal.addRow();
+	this.dsDeal.setColumn(nRow,"DEAL_TYPE","9999");
+	this.dsDeal.setColumn(nRow,"DEAL_TYPE",sType);
+	this.dsDeal.setColumn(nRow,"DEAL_DATE",this.dealDate);
+	this.dsDeal.setColumn(nRow,"ADD_IN_TAX",this.dealTax);
+	
+	this.dsDeal.setColumn(nRow,"CASH_PRICE",0);
+	this.dsDeal.setColumn(nRow,"ACCOUNT_PRICE",0);
+	this.dsDeal.setColumn(nRow,"BILL_PRICE",0);
+	this.dsDeal.setColumn(nRow,"CARD_PRICE",0);
+	
+	this.dsDeal.setColumn(nRow,"DISCOUNT_PRICE",0);
+	this.dsDeal.setColumn(nRow,"PAYMENT_PRICE",0);
+	this.dsDeal.setColumn(nRow,"BEFORE_PRICE",0);
+	this.dsDeal.setColumn(nRow,"CREDIT_PRICE",0);
+	this.dsDeal.setColumn(nRow,"TOTAL_AMOUNT",0);
+	this.dsDeal.setColumn(nRow,"TOTAL_PRICE",0);
+	this.dsDeal.setColumn(nRow,"TAX_PRICE",0);
+	
+	this.dsDeal.setColumn(nRow,"ADD_RESERVE_FUND",0);
+	this.dsDeal.setColumn(nRow,"USE_RESERVE_FUND",0);
+	this.dsDeal.setColumn(nRow,"USE_RESERVE_FUND",0);
+	
+	this.dsDeal.set_enableevent(true);
+	
+	this.cboDealType.set_index(0);
+};
+
+/**
+* Function Name : fn_initDealCustomer
+* Description   : fn_searchDealCustomer (dsDealCustomer) 조회 후 callback에서 호출 - dsDealCustomer addrow
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initDealCustomer = function ()
+{
+	this.dsDealCustomer.set_enableevent(false);
+		
+	if(this.dsDealCustomer.getRowCount() < 1)
+	{
+		var i = this.dsDealCustomer.addRow();
+		this.dsDealCustomer.setColumn(0, "CUSTOMER_CODE", this.dsCustomer.getColumn(0,"CORPORATE_CODE"));
+		this.dsDealCustomer.setColumn(0, "CUSTOMER_NAME", this.dsCustomer.getColumn(0,"CORPORATE_NAME"));
+		this.dsDealCustomer.setColumn(0, "CUSTOMER_TELNUM", this.dsCustomer.getColumn(0,"CORPORATE_TELNUM"));
+		this.dsDealCustomer.setColumn(0, "CUSTOMER_CONDITION", this.dsCustomer.getColumn(0,"BUSINESS_CONDITION"));
+		this.dsDealCustomer.setColumn(0, "STAFF_NAME", this.dsCustomer.getColumn(0,"STAFF_NAME"));
+		this.dsDealCustomer.setColumn(0, "STAFF_TELNUM", this.dsCustomer.getColumn(0,"STAFF_TELNUM"));
+		this.dsDealCustomer.setColumn(0, "SALESMAN_CODE", this.dsCustomer.getColumn(0,"SALESPERSON_CODE"));
+		this.dsDealCustomer.setColumn(0, "BUSINESS_CODE", this.dsCustomer.getColumn(0,"BUSINESS_LICENSE_NUM"));
+		this.dsDealCustomer.setColumn(0, "REPRESENT_NAME",this.dsCustomer.getColumn(0,"REPRESENTATIVE_NAME"));
+		this.dsDealCustomer.setColumn(0, "CORPORATE_TYPE", this.dsCustomer.getColumn(0,"CORPORATE_TYPE"));
+		
+		this.dsDealCustomer.setColumn(0,"PURCHASE_TOTAL_PRICE",0);
+		this.dsDealCustomer.setColumn(0,"SALES_TOTAL_PRICE",0);
+		this.dsDealCustomer.setColumn(0,"PURCHASE_PAYMENT_PRICE",0);
+		this.dsDealCustomer.setColumn(0,"SALES_PAYMENT_PRICE",0);
+		this.dsDealCustomer.setColumn(0,"PURCHASE_DISCOUNT",0);
+		this.dsDealCustomer.setColumn(0,"SALES_DISCOUNT",0);
+		this.dsDealCustomer.setColumn(0,"ACCOUMULATE_FUND",0);
+	}	
+	this.dsDealCustomer.set_enableevent(true);
+	
+	var sCode = this.dealCode;
+		
+	if(this.gfn_isNull(sCode))
+	{
+		this.fn_transDealCode();
+	}
+};
+
+/**
+* Function Name : fn_setTotalPrice
+* Description   : 거래내역 저장 전 토탈 정보 만들기
+* Arguments     : none
+* Return        : none
+*/
+this.fn_setTotalPrice = function()
+{
+	var sCustomerCode = this.dsDeal.getColumn(0,"CUSTOMER_CODE");
+	var fRow = this.dsDealCustomer.findRow("CUSTOMER_CODE",sCustomerCode);
+		
+	var sDealType = this.dsDeal.getColumn(0,"DEAL_TYPE");
+	var nPaymentPrice = parseInt(this.dsDeal.getColumn(0,"PAYMENT_PRICE"));
+	var nAddFund = parseInt(this.dsDeal.getColumn(0,"ADD_RESERVE_FUND"));
+	var nUseFund = parseInt(this.dsDeal.getColumn(0,"USE_RESERVE_FUND"));
+	var nCurFund = parseInt(this.dsDeal.getColumn(0,"ACCOUMULATE_FUND"));
+	
+	var psTotalPrice = parseInt(this.dsDealCustomer.getColumn(0,"PURCHASE_TOTAL_PRICE"));
+	var lsTotalPrice = parseInt(this.dsDealCustomer.getColumn(0,"SALES_TOTAL_PRICE"));
+	var psPaymentPrice = parseInt(this.dsDealCustomer.getColumn(0,"PURCHASE_PAYMENT_PRICE"));
+	var lsPaymentprice = parseInt(this.dsDealCustomer.getColumn(0,"SALES_PAYMENT_PRICE"));
+	var psDiscountPrice = parseInt(this.dsDealCustomer.getColumn(0,"PURCHASE_DISCOUNT"));
+	var lsDiscountPrice = parseInt(this.dsDealCustomer.getColumn(0,"SALES_DISCOUNT"));
+	
+	var paymentDay = "";
+	var AccountFund = nCurFund - nUseFund + nAddFund;
+	
+	var totalPrice = parseInt(this.dsDeal.getColumn(0,"TOTAL_PRICE"));
+	var paymentPrice = parseInt(this.dsDeal.getColumn(0,"PAYMENT_PRICE"));
+	var discountPrice = parseInt(this.dsDeal.getColumn(0,"DISCOUNT_PRICE"));
+	
+	if(sDealType == "lS")
+	{
+		//매출거래
+		lsTotalPrice += totalPrice;
+		lsPaymentprice += paymentPrice;
+		lsDiscountPrice += discountPrice;
+	}
+	else
+	{
+		//매입거래
+		psTotalPrice += totalPrice;
+		psPaymentPrice += paymentPrice;
+		psDiscountPrice += discountPrice;
+	}
+	
+	this.dsDealCustomer.setColumn(0,"PURCHASE_TOTAL_PRICE",psTotalPrice);
+	this.dsDealCustomer.setColumn(0,"SALES_TOTAL_PRICE",lsTotalPrice);
+	this.dsDealCustomer.setColumn(0,"PURCHASE_PAYMENT_PRICE",psPaymentPrice);
+	this.dsDealCustomer.setColumn(0,"SALES_PAYMENT_PRICE",lsPaymentprice);
+	this.dsDealCustomer.setColumn(0,"PURCHASE_DISCOUNT",psDiscountPrice);
+	this.dsDealCustomer.setColumn(0,"SALES_DISCOUNT",lsDiscountPrice);
+	this.dsDealCustomer.setColumn(0,"ACCOUMULATE_FUND",0);
+	
+	//저장
+	this.fn_saveTrans();
+};
+
+/**
+* Function Name : fn_validCheck
+* Description   : validation check (필수 입력 값 확인) - 공통 라이브러리 필수 입력값과 상이
+* Arguments     : arrList - component list
+* Return        : true/false (null is false)
+*/
+this.fn_validCheck = function(arrList)
+{
+	for(var i=0; i<arrList.length; i++)
+	{
+		obj = arrList[i];
+		
+		if(this.gfn_isNull(obj.value))
+		{
+			var objStatic = this.components["sta" + obj.name];
+			var sNamed = objStatic.text;
+			
+			var strReturn = "";
+			if(!this.gfn_isNull(sNamed))
+			{
+				strReturn = "'"+sNamed+"' ";
+			}
+			alert(strReturn+"필수 입력값을 확인하세요");
+			obj.setFocus();
+			return false;
+		}
+	}
+	
+	var sProductCode = "";
+	for(var i=0; i<this.dsDealDetail.getRowCount(); i++)
+	{
+		var sProductCode = this.dsDealDetail.getColumn(i,"PRODUCT_CODE");
+		
+		if(this.gfn_isNull(sProductCode))
+		{
+			alert("품목을 선택하세요");
+			this.dsDealDetail.set_rowposition(i);
+			
+			return false;
+		}
+	}
+	
+	return true;
+};
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description btnSearchCustomer onclick event : 거래처 조회 버튼 클릭
+ */
+this.btnSearchCustomer_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	if(this.dsCustomer.getRowCount() < 1)
+	{
+		var nRow = this.dsCustomer.addRow();
+	}
+	
+	this.fn_customerpopup("popupSelectCustomer","row", 0);
+};
+
+/**
+ * @description btnAdd onclick event : 추가 버튼 클릭
+ */
+this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(this.gfn_isNull(this.dsDeal.getColumn(0,"CUSTOMER_CODE")))
+	{
+		alert("거래처를 먼저 선택하세요");
+		this.btnSearchCustomer.setFocus();
+		return;
+	}	
+	
+	var nRow = this.dsDealDetail.addRow();
+	this.dsDealDetail.setColumn(nRow,"DEAL_CODE",this.dealCode);
+	this.dsDealDetail.setColumn(nRow,"AMOUNT",1);
+	this.dsDealDetail.setColumn(nRow,"UNIT_PRICE",0);
+	this.dsDealDetail.setColumn(nRow,"LAST_PRICE",0);
+	this.dsDealDetail.setColumn(nRow,"DISCOUNT_PRICE",0);
+	this.dsDealDetail.setColumn(nRow,"TAX_PRICE",0);
+	
+	var sTaxType = this.dsDeal.getColumn(0,"ADD_IN_TAX");
+	
+	this.dsDealDetail.setColumn(nRow,"SURTAX_TYPE",sTaxType);
+};
+
+/**
+ * @description btnDelete onclick event : 삭제 버튼 클릭
+ */
+this.btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsDealDetail.deleteRow(this.dsDealDetail.rowposition);
+};
+
+/**
+ * @description btnSave onclick event : 저장 버튼 클릭
+ */
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSave();
+};
+
+/**
+ * @description btnClose onclick event : 팝업닫기(x) 버튼 클릭
+ */
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+/**
+ * @description btnCash,btnBank,btnBill,btnCard onclick event : 입금/수금(현금,은행,어음기록,카드) 버튼 클릭
+ */
+this.PaymentButton_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var strType = obj.name.substring(3);
+	var nCurrPrice = 0;
+	if( strType == "Cash")
+	{
+		nCurrPrice = this.medtCash.value;
+	}
+	else if( strType == "Bank")
+	{
+		nCurrPrice = this.medtBank.value;
+	}
+	else if( strType == "Bill")
+	{
+		nCurrPrice = this.medtBill.value;
+	}
+	else if( strType == "Card")
+	{
+		nCurrPrice = this.medtCard.value;
+	}
+	
+	if(this.gfn_isNull(nCurrPrice))
+	{
+		nCurrPrice = 0;
+	}
+	
+	this.podAlram.form.btnConfitm.usertype = strType;	
+	this.podAlram.form.mdtLast.set_value(nCurrPrice);
+	this.podAlram.form.mdtAdd.set_value(0);
+	
+	this.podAlram.trackPopupByComponent(obj,-186,30);	
+};
+
+/**
+ * @description grdList onexpanddown event : 그리드 내 품목 선택 (expand 버튼)
+ */
+this.grdList_onexpanddown = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+{
+	this.fn_productListpopup(e.row);
+};
+
+/**
+ * @description dsDeal oncolumnchanged event : 거래 리스트 값 변경 이벤트 - tax 정보 및 수금/입금 내역 변경 시 처리
+ */
+this.dsDeal_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	var sType = "true";
+	if(e.columnid == "ADD_IN_TAX")
+	{
+		var sCheck = e.newvalue;
+		
+		if(sCheck == "true")
+		{
+			sType = "true";
+		}
+		else
+		{
+			sType = "false";
+		}
+		
+		for(var i=0; i<this.dsDealDetail.getRowCount(); i++)
+		{
+			this.dsDealDetail.setColumn(i,"SURTAX_TYPE",sType);
+		}
+	}	
+	else if(e.columnid == "CASH_PRICE" || e.columnid == "ACCOUNT_PRICE" || e.columnid == "BILL_PRICE" || e.columnid == "CARD_PRICE")
+	{
+		var nCash = parseInt(this.dsDeal.getColumn(e.row, "CASH_PRICE"));
+		var nAccount = parseInt(this.dsDeal.getColumn(e.row, "ACCOUNT_PRICE"));
+		var nBill = parseInt(this.dsDeal.getColumn(e.row, "BILL_PRICE"));
+		var nCard = parseInt(this.dsDeal.getColumn(e.row, "CARD_PRICE"));
+		
+		var totPayment = nCash + nAccount + nBill + nCard;
+		this.dsDeal.setColumn(0,"PAYMENT_PRICE",totPayment);
+	}	
+};
+
+/**
+ * @description dsDealDetail oncolumnchanged event : 상세내역 가격 변동에 따른 거래내역 합계 재계산
+ * SURTAX_TYPE == 'true' ? LAST_PRICE * AMOUNT * 0.9 : LAST_PRICE * AMOUNT -> tax 적용시 계산방버
+ */
+this.dsDealDetail_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	this.dsDealDetail.set_enableevent(false);
+	var nAmount = parseInt(this.dsDealDetail.getColumn(e.row , "AMOUNT"));
+	var nLastPrice = parseInt(this.dsDealDetail.getColumn(e.row , "LAST_PRICE"));
+	var	nUnitPrice = parseInt(this.dsDealDetail.getColumn(e.row, "UNIT_PRICE"));
+	var nDiscountPrice = parseInt(this.dsDealDetail.getColumn(e.row, "DISCOUNT_PRICE"));
+	var sSurtaxType = this.dsDealDetail.getColumn(e.row, "SURTAX_TYPE");
+	var nTaxPrice = parseInt(nLastPrice * 0.1);
+	
+	if(e.columnid == "LAST_PRICE")
+	{
+		if (sSurtaxType == "true")
+		{
+			nTaxPrice = parseInt(nUnitPrice * 0.1);
+			nUnitPrice = nLastPrice - nTaxPrice;
+			
+			this.dsDealDetail.setColumn(e.row, "UNIT_PRICE", nUnitPrice);
+			nTaxPrice = 0;
+		}
+		else
+		{
+			this.dsDealDetail.setColumn(e.row, "UNIT_PRICE", nLastPrice);
+			nTaxPrice = parseInt(nLastPrice * 0.1);
+		}		
+	}
+	
+	if(e.columnid =="SURTAX_TYPE")
+	{		
+		if (sSurtaxType == "true")
+		{			
+			nLastPrice = nLastPrice+parseInt(nUnitPrice* 0.1);
+			nTaxPrice = 0;
+		}
+		else
+		{
+			nLastPrice = nUnitPrice;
+			nTaxPrice = parseInt(nLastPrice * 0.1);
+		}		
+	}
+	
+	this.dsDealDetail.setColumn(e.row,"LAST_PRICE",nLastPrice);
+	this.dsDealDetail.setColumn(e.row,"TAX_PRICE",nTaxPrice*nAmount);
+	this.dsDealDetail.setColumn(e.row, "TOTAL_PRICE", nAmount*(nLastPrice-nDiscountPrice));
+	
+	if(this.gfn_isNull(nDiscountPrice))
+	{
+		nDiscountPrice = 0;
+	}
+	
+	var nTotalAmount = this.dsDealDetail.getSum("parseInt(AMOUNT)");
+	var nTotalPrice = this.dsDealDetail.getSum("parseInt(TOTAL_PRICE)");
+	var nTotalUnit = this.dsDealDetail.getSum("parseInt(UNIT_PRICE*AMOUNT)");
+	var nTotalLast = this.dsDealDetail.getSum("parseInt(LAST_PRICE*AMOUNT)");	
+	var nTotalTax = this.dsDealDetail.getSum("parseInt(TAX_PRICE)");
+	var nTotalDisCount = this.dsDealDetail.getSum("parseInt(DISCOUNT_PRICE*AMOUNT)");
+	
+	this.dsDeal.setColumn(0,"BEFORE_PRICE",nTotalUnit);
+	this.dsDeal.setColumn(0,"TAX_PRICE",nTotalTax);
+	this.dsDeal.setColumn(0,"TOTAL_AMOUNT",nTotalAmount);
+	this.dsDeal.setColumn(0,"TOTAL_PRICE",nTotalPrice);		
+	this.dsDeal.setColumn(0,"LAST_PRICE",nTotalLast);
+	this.dsDeal.setColumn(0,"DISCOUNT_PRICE",nTotalDisCount);
+	this.dsDealDetail.set_enableevent(true);
+};
+
+/**
+ * @description mdtAdd(mask edit) onchanged event : 수납/지급 팝업창 추가금액 변경
+ */
+this.podAlram_mdtAdd_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInfo)
+{
+	var nCurrPrice = this.podAlram.form.mdtLast.value;
+	var nAddPrice = this.podAlram.form.mdtAdd.value;
+	
+	this.podAlram.form.mdtLast.set_value(parseInt(nAddPrice)+parseInt(nCurrPrice));
+};
+
+/**
+ * @description btnConfirm onclick event : 수납/지급 팝업창 적용 버튼 클릭
+ */
+this.podAlram_btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sCompId = "medt" + obj.usertype;
+	var objComp = this.components[sCompId];
+	
+	objComp.set_value(this.podAlram.form.mdtLast.value);
+	
+	this.podAlram.closePopup();
+};
+
+/**
+ * @description dsCustomer onrowposchanged event : 전화번호 포맷
+ */
+this.dsDealCustomer_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	//연락처(전화번호, 팩스번호, 연락처) mask format 변경
+	var sMaskValue = this.dsDealCustomer.getColumn(e.newrow,"STAFF_TELNUM");
+	
+	//mask format 변경
+	this.medtTelNum.set_format(this.gfn_setCellTelMaskFormat(sMaskValue));
+};
+
+/**
+ * @description MaskEdit onchanged event : 연락처(전화번호) 변경시 마스크 적용
+ */
+this.MaskEdit_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInfo)
+{
+	var sValue = e.postvalue;
+	this.gfn_makePhoneNumMask(obj, sValue);
+};
+
+/**
+ * @description MaskEdit oninput event : 연락처(전화번호) 입력 시 마스크 적용
+ */
+this.MaskEdit_oninput = function(obj:nexacro.MaskEdit,e:nexacro.InputEventInfo)
+{
+	obj.set_format("@@@@@@@@@@@");
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="cboCoporType" propid="value" datasetid="dsDealCustomer" columnid="CORPORATE_TYPE"/>
+      <BindItem id="item2" compid="calSalesDate" propid="value" datasetid="dsDeal" columnid="DEAL_DATE"/>
+      <BindItem id="item3" compid="rdoAccuntType" propid="value" datasetid="dsDeal" columnid="DEAL_TYPE"/>
+      <BindItem id="item4" compid="cboDealType" propid="value" datasetid="dsDeal" columnid="TAX_TYPE"/>
+      <BindItem id="item5" compid="edtCustomerName" propid="value" datasetid="dsDealCustomer" columnid="CUSTOMER_NAME"/>
+      <BindItem id="item6" compid="edtRepesentName" propid="value" datasetid="dsDealCustomer" columnid="REPRESENT_NAME"/>
+      <BindItem id="item9" compid="cboSalesman" propid="value" datasetid="dsDeal" columnid="SALESMAN_CODE"/>
+      <BindItem id="item8" compid="chkAddin" propid="value" datasetid="dsDeal" columnid="ADD_IN_TAX"/>
+      <BindItem id="item17" compid="chkAccount" propid="value" datasetid="dsDeal" columnid="ACCOUNT_BILL"/>
+      <BindItem id="item25" compid="medtLast" propid="value" datasetid="dsDeal" columnid="BEFORE_PRICE"/>
+      <BindItem id="item26" compid="medtDiscount" propid="value" datasetid="dsDeal" columnid="DISCOUNT_PRICE"/>
+      <BindItem id="item27" compid="medtSales" propid="value" datasetid="dsDeal" columnid="LAST_PRICE"/>
+      <BindItem id="item28" compid="medtTax" propid="value" datasetid="dsDeal" columnid="TAX_PRICE"/>
+      <BindItem id="item29" compid="medtAll" propid="value" datasetid="dsDeal" columnid="TOTAL_PRICE"/>
+      <BindItem id="item30" compid="medtCredit" propid="value" datasetid="dsDeal" columnid="CREDIT_PRICE"/>
+      <BindItem id="item31" compid="medtCash" propid="value" datasetid="dsDeal" columnid="CASH_PRICE"/>
+      <BindItem id="item32" compid="medtBank" propid="value" datasetid="dsDeal" columnid="ACCOUNT_PRICE"/>
+      <BindItem id="item33" compid="medtBill" propid="value" datasetid="dsDeal" columnid="BILL_PRICE"/>
+      <BindItem id="item34" compid="medtPayment" propid="value" datasetid="dsDeal" columnid="PAYMENT_PRICE"/>
+      <BindItem id="item35" compid="medtCard" propid="value" datasetid="dsDeal" columnid="CARD_PRICE"/>
+      <BindItem id="item36" compid="medtFundAdd" propid="value" datasetid="dsDeal" columnid="ADD_RESERVE_FUND"/>
+      <BindItem id="item37" compid="medtFundUse" propid="value" datasetid="dsDeal" columnid="USE_RESERVE_FUND"/>
+      <BindItem id="item38" compid="medtAmount" propid="value" datasetid="dsDeal" columnid="TOTAL_AMOUNT"/>
+      <BindItem id="item39" compid="medtFundTotal" propid="value" datasetid="dsDeal" columnid="ACCOUMULATE_FUND"/>
+      <BindItem id="item40" compid="medtTelNum" propid="value" datasetid="dsDealCustomer" columnid="STAFF_TELNUM"/>
+      <BindItem id="item10" compid="medtBusinessCode" propid="value" datasetid="dsDealCustomer" columnid="BUSINESS_CODE"/>
+      <BindItem id="item1" compid="calPaymentDate" propid="value" datasetid="dsDealCustomer" columnid="PAYMENT_DATE"/>
+      <BindItem id="item7" compid="edtStaffName" propid="value" datasetid="dsDeal" columnid="STAFF_NAME"/>
+    </Bind>
+  </Form>
+</FDL>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TemplateInfo version="1.0">
+  <Template name="sample_MasterDetailV" type="viewset">
+    <Description></Description>
+  </Template>
+  <FDL version="2.1">
+    <Form id="sample" width="1120" height="650" titletext="OO관리" onload="form_onload">
+      <Layouts>
+        <Layout height="650" width="1120">
+          <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="10" top="54" right="10" height="40"/>
+          <View id="viewButton" taborder="1" text="viewButton" viewdataset="viewdataset" left="10" top="114" right="10" height="40"/>
+          <View id="viewMaster" taborder="2" text="viewMaster" viewdataset="viewdataset" left="10" top="viewButton:6" right="10" height="196"/>
+          <View id="viewDetail" taborder="3" text="viewDetail" viewdataset="viewdataset" top="viewMaster:10" bottom="10" left="10" right="10"/>
+        </Layout>
+      </Layouts>
+      <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    샘플 > OO관리
+*  @FileName	sample.xfdl
+*  @Desction	OO관리 화면
+*******************************************************************************
+*  2022.01.01		Creator			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// application 변수 셋팅
+	this.application = nexacro.getApplication();
+	
+	// Title 영역 셋팅
+	this.parent.parent.fn_setFavoriteButton(obj);
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+ 
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+ 
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/]]></Script>
+    </Form>
+  </FDL>
+</TemplateInfo>

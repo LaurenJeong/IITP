@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmLeft" width="240" height="700" titletext="New Form" onload="frmLeft_onload">
+    <Layouts>
+      <Layout height="700" mobileorientation="landscape" width="240">
+        <Static id="Static03_00" taborder="0" left="0" top="0" width="240" cssclass="sta_LF_bg" bottom="0"/>
+        <Button id="btnMenuAll" taborder="1" text="전체메뉴" left="0" top="245" width="115" height="42" enable="false" onclick="btnMenuAll_onclick" cssclass="btn_LF_menu"/>
+        <Button id="btnMenuFav" taborder="2" text="즐겨찾기" left="124" top="245" width="115" height="42" onclick="btnMenuFav_onclick" cssclass="btn_LF_favorite"/>
+        <Static id="Static00_01" taborder="3" left="115" top="245" width="9" height="42" cssclass="sta_LF_division"/>
+        <Grid id="grdFav" taborder="4" left="0" top="287" width="239" binddataset="dsFavMenu" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="expand,all" oncellclick="divLeft_grdLeft_oncellclick" treeuseimage="false" treeuseline="false" cssclass="grd_LF_treeMenu" visible="false">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="240"/>
+              </Columns>
+              <Rows>
+                <Row size="42"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:MENU_NM" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:MENU_LVL"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="grdLeft" taborder="5" left="0" top="287" width="239" binddataset="gdsLeftMenu" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="expand,all" oncellclick="divLeft_grdLeft_oncellclick" treeuseimage="false" treeuseline="false" cssclass="grd_LF_treeMenu" scrollbartype="autoindicator">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="187"/>
+                <Column size="35"/>
+              </Columns>
+              <Rows>
+                <Row size="42"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:MENU_NM" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:MENU_LVL"/>
+                <Cell col="1" text="expr:FAV_CHECK==1 ? MENU_LEVEL &gt;0 ? &quot;☆&quot;: &quot;&quot; :  &quot;&quot;" cssclass="expr:FAV_CHECK==1 ?  &quot;sta_LF_favorite&quot; : &quot;&quot;"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="stBackImg" taborder="6" left="0" top="0" width="239" height="245" cssclass="sta_LF_img1"/>
+        <Static id="stToplogo" taborder="7" left="0" top="15" width="239" height="45" cssclass="sta_top_logo"/>
+        <Static id="stUserName" taborder="8" text="판매자" left="10" top="190" width="219" height="40" cssclass="sta_LF_userName"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsFavMenu">
+        <ColumnInfo>
+          <Column id="MENU_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_CD" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_LVL" type="STRING" size="256"/>
+          <Column id="PGM_PATH" type="STRING" size="256"/>
+          <Column id="PGM_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsLeftMenu" oncolumnchanged="gdsLeftMenu_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="MENU_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_CD" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_LVL" type="STRING" size="256"/>
+          <Column id="PGM_PATH" type="STRING" size="256"/>
+          <Column id="PGM_ID" type="STRING" size="256"/>
+          <Column id="FAV_CHECK" type="STRING" size="256"/>
+          <Column id="POP_CHECK" type="STRING" size="256"/>
+          <Column id="MENU_AUTH" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_CD">0001</Col>
+            <Col id="UP_MENU_CD">0000</Col>
+            <Col id="MENU_NM">기초자료</Col>
+            <Col id="MENU_LVL">0</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0011</Col>
+            <Col id="UP_MENU_CD">0001</Col>
+            <Col id="MENU_NM">자사정보</Col>
+            <Col id="PGM_PATH">TO_BE</Col>
+            <Col id="PGM_ID">myprofile.xfdl</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="FAV_CHECK">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0012</Col>
+            <Col id="UP_MENU_CD">0001</Col>
+            <Col id="MENU_NM">직원관리</Col>
+            <Col id="PGM_PATH">AS_IS</Col>
+            <Col id="PGM_ID">employee.xfdl</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="FAV_CHECK">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0013</Col>
+            <Col id="UP_MENU_CD">0001</Col>
+            <Col id="MENU_NM">거래처관리</Col>
+            <Col id="PGM_PATH">AS_IS</Col>
+            <Col id="PGM_ID">customer.xfdl</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="FAV_CHECK">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0014</Col>
+            <Col id="UP_MENU_CD">0001</Col>
+            <Col id="MENU_NM">제조회사</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="FAV_CHECK">0</Col>
+            <Col id="POP_CHECK">1</Col>
+            <Col id="PGM_PATH">AS_IS</Col>
+            <Col id="PGM_ID">productmanufact.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0015</Col>
+            <Col id="UP_MENU_CD">0001</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="PGM_PATH"/>
+            <Col id="PGM_ID"/>
+            <Col id="MENU_NM">기초재고</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0002</Col>
+            <Col id="UP_MENU_CD">0000</Col>
+            <Col id="MENU_LVL">0</Col>
+            <Col id="PGM_PATH"/>
+            <Col id="PGM_ID"/>
+            <Col id="MENU_NM">재고관리</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0021</Col>
+            <Col id="UP_MENU_CD">0002</Col>
+            <Col id="MENU_NM">품목관리</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="PGM_PATH">AS_IS</Col>
+            <Col id="PGM_ID">product.xfdl</Col>
+            <Col id="FAV_CHECK">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0022</Col>
+            <Col id="UP_MENU_CD">0002</Col>
+            <Col id="MENU_NM">입출고내역및재고조정</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="PGM_PATH"/>
+            <Col id="PGM_ID"/>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0023</Col>
+            <Col id="UP_MENU_CD">0002</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="PGM_PATH"/>
+            <Col id="PGM_ID"/>
+            <Col id="MENU_NM">입출고가격별재고내역</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0024</Col>
+            <Col id="UP_MENU_CD">0002</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="PGM_PATH">AS_IS</Col>
+            <Col id="PGM_ID">price.xfdl</Col>
+            <Col id="MENU_NM">거래처별제품가격</Col>
+            <Col id="FAV_CHECK">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0025</Col>
+            <Col id="UP_MENU_CD">0002</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="PGM_PATH"/>
+            <Col id="PGM_ID"/>
+            <Col id="MENU_NM">품목단가일괄변경</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0026</Col>
+            <Col id="UP_MENU_CD">0002</Col>
+            <Col id="MENU_NM">품목보고서</Col>
+            <Col id="MENU_LVL">0</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0261</Col>
+            <Col id="UP_MENU_CD">0002</Col>
+            <Col id="MENU_NM">재고내역</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0262</Col>
+            <Col id="UP_MENU_CD">0002</Col>
+            <Col id="MENU_NM">안전재고미달품목</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0027</Col>
+            <Col id="UP_MENU_CD">0002</Col>
+            <Col id="MENU_NM">창고관리</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0003</Col>
+            <Col id="UP_MENU_CD">0000</Col>
+            <Col id="MENU_NM">영업구매</Col>
+            <Col id="MENU_LVL">0</Col>
+            <Col id="FAV_CHECK">0</Col>
+            <Col id="MENU_AUTH">all</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0031</Col>
+            <Col id="UP_MENU_CD">0003</Col>
+            <Col id="MENU_NM">거래원장</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="PGM_PATH">AS_IS</Col>
+            <Col id="PGM_ID">deallist.xfdl</Col>
+            <Col id="FAV_CHECK">1</Col>
+            <Col id="MENU_AUTH">all</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0032</Col>
+            <Col id="UP_MENU_CD">0003</Col>
+            <Col id="MENU_NM">거래추가</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="PGM_PATH">AS_IS</Col>
+            <Col id="POP_CHECK">1</Col>
+            <Col id="MENU_AUTH">all</Col>
+            <Col id="PGM_ID">deallistpopup.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0341</Col>
+            <Col id="UP_MENU_CD">0003</Col>
+            <Col id="MENU_NM">견적관리</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="PGM_PATH">AS_IS</Col>
+            <Col id="PGM_ID">estimate.xfdl</Col>
+            <Col id="FAV_CHECK">1</Col>
+            <Col id="MENU_AUTH">all</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0004</Col>
+            <Col id="UP_MENU_CD">0000</Col>
+            <Col id="MENU_NM">자산관리</Col>
+            <Col id="MENU_LVL">0</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0005</Col>
+            <Col id="UP_MENU_CD">0000</Col>
+            <Col id="MENU_NM">전자발행</Col>
+            <Col id="MENU_LVL">0</Col>
+            <Col id="FAV_CHECK">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_CD">0006</Col>
+            <Col id="UP_MENU_CD">0000</Col>
+            <Col id="MENU_NM">자료관리</Col>
+            <Col id="MENU_LVL">0</Col>
+            <Col id="FAV_CHECK">0</Col>
+            <Col id="PGM_PATH">AS_IS</Col>
+            <Col id="PGM_ID">fileimageview.xfdl</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    frmLeft
+*  @FileName	frmLeft.xfdl
+*  @Desction	재고 관리 시스템 frmLeft : 왼쪽 메뉴 (즐겨찾기 포함)
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/
+include "lib::libCommon.xjs";
+include "lib::lib_date.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.frmLeft_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	this.application.gvToday = this.gfnGetToDay();
+	
+};
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+ * @description POPUP CALLBACK
+ */ 
+this.popupCallBack = function(sFormId, sArg)
+{
+	//popup call back
+};
+
+/**
+* Function Name : fn_openPop
+* Description   : 왼쪽 메뉴 클릭 시 메뉴 팝업 열기
+* Arguments     : sMenuId - 메뉴 id (MENU_CD)
+* Return        : none
+*/
+this.fn_openPop = function(sMenuId)
+{
+	var dealType = "";
+
+	var nFRow;
+	var sPGMPATH;
+	var sPGMID;
+
+	var objMenuDs = this.application.gdsLeftMenu;
+
+	nFRow 		= objMenuDs.findRow("MENU_CD", sMenuId);
+	sPGMPATH 	= objMenuDs.getColumn(nFRow, "PGM_PATH");
+	sPGMID 		= objMenuDs.getColumn(nFRow, "PGM_ID")
+
+	var dealType = "";
+	var oArg = {};
+	var nWidth = 0;
+	var nHeight = 0;
+	var sPopupId = "";
+
+	if(sMenuId == "0014")
+	{
+		//제조회사 popup
+		sPopupId = "popupManufact";
+
+		nWidth = 700;
+		nHeight = 435;
+	}
+	else if(sMenuId == "0032")
+	{
+		if(this.application.gvLoginId == "purchase")
+		{
+			dealType = "pS";
+		}
+		else if(this.application.gvLoginId == "sales")
+		{
+			dealType = "lS";
+		}
+
+		oArg = {
+					strType	: dealType,
+					strStatus : "add"
+				};
+
+		sPopupId = "popupdealdetail";
+		nWidth = 1110;
+		nHeight = 665;
+	}
+
+	this.gfn_showModal(sPopupId, oArg, sPGMPATH + "::" +sPGMID, "popupCallBack", this, nWidth, nHeight, false, false, null);
+};
+
+/**
+* Function Name : fn_openMenu
+* Description   : 왼쪽 메뉴 클릭 시 메뉴 열기
+* Arguments     : sMenuId - 메뉴 id (MENU_CD)
+* Return        : none
+*/
+this.fn_openMenu = function(sMenuId)
+{
+	var objMdiFrame = this.application.MdiFrame;
+	var objWorkFrame = this.application.WorkFrame;
+
+	var nFRow;
+	var sPGMPATH;
+	var sPGMID;
+
+	var nFRowOpen;
+	var sWinId;
+	var sMenuNm;
+	var sUpMenuNm;
+	var sMenuNavi;
+	var sMenuLvl;
+
+	var objMenuDs = this.application.gdsLeftMenu;
+	var objOpenMenuDs = this.application.gdsOpenMenu;
+	
+	nFRow 		= objMenuDs.findRow("MENU_CD", sMenuId);
+	sPGMPATH 	= objMenuDs.getColumn(nFRow, "PGM_PATH");
+	sPGMID 		= objMenuDs.getColumn(nFRow, "PGM_ID")
+	sMenuNm 	= objMenuDs.getColumn(nFRow, "MENU_NM");
+	sMenuLvl	= objMenuDs.getColumn(nFRow, "MENU_LVL");
+	sUpMenuNm	= objMenuDs.lookup("MENU_CD", objMenuDs.getColumn(nFRow, "UP_MENU_CD"), "MENU_NM") || "";
+	
+	//· Home > 기초자료 > <fs v='10'><b v='true'>자사정보</b></fs>
+	sMenuNavi	= "· Home > " + sUpMenuNm + " > <fs v='10'><b v='true'>" + sMenuNm + "</b></fs>";
+	
+	nFRowOpen = objOpenMenuDs.findRow("MENU_CD", sMenuId);
+	sWinId = objOpenMenuDs.getColumn(nFRowOpen, "WINID");
+
+	if (this.gfn_isNull(sPGMID))
+	{
+		if (sMenuLvl != "0")
+		{
+			alert("Menu가 존재하지 않습니다.");
+		}
+		return;
+	}
+	else if(this.gfn_isNull(sPGMPATH)==true)
+	{
+		return;
+	}
+
+	if(nFRowOpen>-1)
+	{
+		objMdiFrame.form.fn_ActiveTabPage(sWinId);
+		return;
+	}
+
+	if(objOpenMenuDs.rowcount > 8)
+	{
+		alert("메뉴는  8개이상 오픈할 수 없습니다.");
+		return;
+	}
+
+	sWinId = sMenuId + "_" + objOpenMenuDs.rowcount+ "_" + parseInt(Math.random() * 100);
+
+	var oParam = { FORM_ID		: sWinId,
+				   MENU_ID		: sMenuId,
+                   MENU_NM		: sMenuNm,
+				   MENU_NAVI	: sMenuNavi,
+                   FORM_URL		: sPGMPATH+"::"+sPGMID
+				   };
+				   
+	var objChildFrame = new ChildFrame();
+	objChildFrame.init(sWinId, 0, 0, null, null, 0, 0);
+
+	objWorkFrame.addChild(objChildFrame.name, objChildFrame);
+	objChildFrame.param = oParam;
+	objChildFrame.set_resizable(true);
+	objChildFrame.set_showtitlebar(false);
+ 	objChildFrame.set_openstatus("maximize");
+	objChildFrame.set_formurl("frame::frmWork.xfdl");
+	objChildFrame.show();
+
+	objMdiFrame.form.fn_AddTabPage(sWinId, sMenuNm);
+
+	this.fn_AddOpenMenu(sWinId, sMenuId, sMenuNm);
+
+	objMdiFrame.form.fn_ActiveTabPage(sWinId);
+};
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description btnMenuFav onclick event : 즐겨찾기 버튼 클릭
+ */
+this.btnMenuFav_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.grdFav.set_visible(true);
+	this.grdLeft.set_visible(false);
+	
+	this.btnMenuAll.set_enable(true);
+	this.btnMenuFav.set_enable(false);
+};
+
+/**
+ * @description btnMenuAll onclick event : 전체메뉴 버튼 클릭
+ */
+this.btnMenuAll_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.grdFav.set_visible(false);
+	this.grdLeft.set_visible(true);
+	
+	this.btnMenuAll.set_enable(false);
+	this.btnMenuFav.set_enable(true);
+};
+
+/**
+ * @description grdLeft oncellclick event : 메뉴 그리드 셀 클릭 이벤트
+ */
+this.divLeft_grdLeft_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var sFavCheck =0;
+	
+	var objDs = obj.getBindDataset();
+	var sFavIcon;
+	
+	var nFavRow = 0;
+	var sMenuId = objDs.getColumn(e.row, "MENU_CD");
+	var sPopCheck = objDs.getColumn(e.row,"POP_CHECK");
+	
+	//e.col == 0 : 메뉴명, e.col ==1 : favorite 표시
+	if(e.col > 0)
+	{		
+		sFavCheck = objDs.getColumn(e.row,"FAV_CHECK");
+		
+		if(sFavCheck == 1)
+		{
+			sFavCheck = 0;
+		}
+		else
+		{
+			sFavCheck = 1;
+		}
+		
+		sFavCheck = objDs.setColumn(e.row,"FAV_CHECK",sFavCheck);
+	}	
+	
+	//팝업 메뉴일 때
+	if(sPopCheck == 1)
+	{
+		this.fn_openPop(sMenuId);
+		return;
+	}
+	
+	this.fn_openMenu(sMenuId);	
+};
+
+/**************************************************************************
+ * 프레임 컨트롤 영역
+ **************************************************************************/
+/**
+* Function Name : fn_AddOpenMenu
+* Description   : 열린화면리스트 저장
+* Arguments     : pvWinId – 업무화면 ID
+				  pvMenuCd – 메뉴코드
+				  pvMenuNm – 메뉴명
+* Return        : none
+*/
+this.fn_AddOpenMenu = function(pvWinId, pvMenuCd, pvMenuNm) 
+{
+	var objOpenMenuDs = this.application.gdsOpenMenu;
+	
+	var nAddRow = objOpenMenuDs.addRow();
+	objOpenMenuDs.setColumn(nAddRow, "WINID", pvWinId);
+	objOpenMenuDs.setColumn(nAddRow, "MENU_CD", pvMenuCd);
+	objOpenMenuDs.setColumn(nAddRow, "MENU_NM", pvMenuNm);	
+}
+
+/**
+* Function Name : fn_DelOpenMenu
+* Description   : 열린화면리스트 삭제
+* Arguments     : pvWinId – 업무화면 ID
+* Return        : none
+*/
+this.fn_DelOpenMenu = function(pvWinId) 
+{
+	var objOpenMenuDs = this.application.gdsOpenMenu;
+	
+	var nRow = objOpenMenuDs.findRow("WINID", pvWinId);
+	
+	objOpenMenuDs.deleteRow(nRow);
+	
+	if(objOpenMenuDs.getRowCount() < 1)
+	{
+		this.application.TopFrame.form.fn_openMain();
+	}
+}
+
+/**
+* Function Name : fn_initLeftMenu
+* Description   : 메뉴초기화
+* Arguments     : none
+* Return        : none
+*/
+this.fn_initLeftMenu = function()
+{
+	var sLoginId = this.application.gvLoginId;
+	var objMenuDs = this.application.gdsLeftMenu;
+	
+	var objTopFrame = this.application.TopFrame;
+	objTopFrame.form.fn_initPopupMenu(sLoginId);	
+	
+	objMenuDs.set_enableevent(false);
+	this.dsFavMenu.set_enableevent(false);	
+	
+	this.dsFavMenu.copyData(objMenuDs);
+	
+	var sFilter = "FAV_CHECK==1";
+	var sMenuFilter = "";
+	if(sLoginId != "accout")
+	{
+		sMenuFilter = "MENU_AUTH=='all'";
+		sFilter += "&& MENU_AUTH=='all'";
+	}
+	
+	objMenuDs.set_filterstr(sMenuFilter);
+	this.dsFavMenu.set_filterstr(sFilter);
+	
+	objMenuDs.set_enableevent(true);
+	this.dsFavMenu.set_enableevent(true);
+	
+	//account change
+	if(this.application.gvLoginId == "accout")
+	{
+		this.stBackImg.set_cssclass( "sta_LF_img2");
+		this.stUserName.set_text("판매자");		
+	}
+	else if(this.application.gvLoginId == "purchase")
+	{
+		this.stBackImg.set_cssclass( "sta_LF_img1");
+		this.stUserName.set_text("매입처");
+	}
+	else if(this.application.gvLoginId == "sales")
+	{
+		this.stBackImg.set_cssclass( "sta_LF_img3");
+		this.stUserName.set_text("매출처");
+	}
+}
+]]></Script>
+  </Form>
+</FDL>

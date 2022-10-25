@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmTop" width="1260" height="45" titletext="New Form" onload="frmTop_onload" scrolltype="none" scrollbartype="none none">
+    <Layouts>
+      <Layout height="45" mobileorientation="landscape" width="1260">
+        <Static id="Static01" taborder="0" left="0" top="0" right="0" cssclass="sta_top_bg02" text="" bottom="0"/>
+        <Button id="btnTop0001" taborder="1" text="기초자료" left="40" top="0" width="120" height="45" onclick="btnTop" cssclass="btn_TF_menu"/>
+        <Button id="btnTop0002" taborder="2" text="재고관리" left="btnTop0001:2" top="0" width="120" height="45" cssclass="btn_TF_menu" onclick="btnTop"/>
+        <Button id="btnTop0003" taborder="3" text="영업구매" left="btnTop0002:2" top="0" width="120" height="45" cssclass="btn_TF_menu" onclick="btnTop"/>
+        <Button id="btnTop0004" taborder="4" text="자산관리" left="btnTop0003:2" top="0" width="120" height="45" cssclass="btn_TF_menu" onclick="btnTop"/>
+        <Button id="btnTop0005" taborder="5" text="전자발행" left="btnTop0004:2" top="0" width="120" height="45" cssclass="btn_TF_menu" onclick="btnTop"/>
+        <PopupMenu id="PopupMenu00" left="40" top="44" width="120" height="160" innerdataset="dsPopup" captioncolumn="MENU_NM" idcolumn="MENU_CD" levelcolumn="MENU_LVL" cssclass="popup_TF_menu" onmenuclick="popupmenu_onmenuclick" itemheight="40"/>
+        <Button id="btnTop0006" taborder="9" text="자료관리" left="btnTop0005:2" top="0" width="120" height="45" cssclass="btn_TF_menu" onclick="btnTop"/>
+        <Button id="btnHome" taborder="8" left="10" top="7" width="30" height="30" cssclass="btn_mdi_home" onclick="btnHome_onclick"/>
+        <Button id="btnLogout" taborder="8" text="로그아웃" top="0" width="120" height="45" cssclass="btn_TF_menu" right="0" onclick="btnLogout_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsPopup">
+        <ColumnInfo>
+          <Column id="MENU_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_CD" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_LVL" type="STRING" size="256"/>
+          <Column id="PGM_PATH" type="STRING" size="256"/>
+          <Column id="PGM_ID" type="STRING" size="256"/>
+          <Column id="FAV_CHECK" type="STRING" size="256"/>
+          <Column id="POP_CHECK" type="STRING" size="256"/>
+          <Column id="MENU_AUTH" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    frmTop
+*  @FileName	frmTop.xfdl
+*  @Desction	재고 관리 시스템 frmTop : 상단메뉴 클릭 (+홈, 로그아웃)
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.frmTop_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+};
+
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+* Function Name : fn_initPopupMenu
+* Description   : 메뉴초기화
+* Arguments     : strId : login id
+* Return        : none
+*/
+this.fn_initPopupMenu = function(strId)
+{	
+	var objLeftMenu = this.application.gdsLeftMenu;
+	
+	//판매처가 아닐 때 메뉴 가리기
+	if(strId != "accout")
+	{
+		this.btnTop0001.setOffsetWidth(0);
+		this.btnTop0002.setOffsetWidth(0);
+		this.btnTop0004.setOffsetWidth(0);
+		this.btnTop0005.setOffsetWidth(0);
+		this.btnTop0006.setOffsetWidth(0);
+		
+		this.btnTop0003.setOffsetLeft(40);
+		objLeftMenu.set_filterstr("MENU_LVL != 0 && MENU_AUTH == 'all'");
+	}
+	
+	this.dsPopup.copyData(objLeftMenu,true);
+	
+	var sMenuLevel = 0;
+	for(var i=0; i<this.dsPopup.getRowCount(); i++)
+	{
+		sMenuLevel = this.dsPopup.getColumn(i,"MENU_LVL");
+		this.dsPopup.setColumn(i,"MENU_LVL", sMenuLevel-1);
+	}
+};
+
+/**
+* Function Name : fn_popupMenuOpen
+* Description   : 메뉴 팝업 열기
+* Arguments     : objBtn : 상단 대메뉴 버튼
+* Return        : none
+*/
+this.fn_popupMenuOpen = function(objBtn)
+{
+	var sMenuNum = objBtn.name.substr(6,4);
+	
+	this.dsPopup.filter("UP_MENU_CD == '"+sMenuNum+"'");
+	
+	if(this.dsPopup.getRowCount() < 1)
+	{
+		return;
+	}
+	
+	var nLeft = nexacro.ceil(objBtn.getOffsetWidth() /2);
+	var nTop = objBtn.getOffsetHeight() -1;
+	
+	this.PopupMenu00.trackPopupByComponent(objBtn,nLeft,nTop,'center');
+}
+
+/**
+* Function Name : fn_openMain
+* Description   : 메인화면으로 이동
+* Arguments     : none
+* Return        : none
+*/
+this.fn_openMain = function()
+{
+	var objVFrame02 = this.application.VFSet02;
+	
+	objVFrame02.set_separatesize("45,0,*,0,0");
+	
+	var objMainFrame = this.application.MainFrame;
+	
+	// [QuickCode] main화면 재조회 로직 수정
+	if (objMainFrame.formurl == "QUICKCODE::frmMain.xfdl")
+	{
+		objMainFrame.form.SearchDBAction00.run();
+	}
+	else 
+	{
+		objMainFrame.form.fn_createDataList();
+	}
+};
+
+/**
+* Function Name : fn_closeMain
+* Description   : 메인화면 감추기
+* Arguments     : none
+* Return        : none
+*/
+this.fn_closeMain = function()
+{
+	var objVFrame02 = this.application.VFSet02;
+	objVFrame02.set_separatesize("45,35,0,*,0");
+};
+
+/**
+* Function Name : fn_logout
+* Description   : 메인화면 감추기
+* Arguments     : none
+* Return        : none
+*/
+this.fn_logout = function()
+{
+	window.location.reload(true);
+	//런타임은 this.application.exit() 실행 후 어플리케이션 재실행
+};
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description btnTop onclick event : 상단 대메뉴 버튼 클릭
+ */
+this.btnTop = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_popupMenuOpen(obj);
+};
+
+/**
+ * @description popupmenu onmenuclick event : 팝업 메뉴 클릭 : 메뉴 열기
+ */
+this.popupmenu_onmenuclick = function(obj:nexacro.PopupMenu,e:nexacro.MenuClickEventInfo)
+{	
+	var objLeftFrame = this.application.LeftFrame;
+	
+	var sMenuId = e.id;
+	var nRow 		 = this.dsPopup.findRow("MENU_CD", sMenuId)
+	var sPopCheck 	 = this.dsPopup.getColumn(nRow,"POP_CHECK");
+	
+	if(sPopCheck > 0)
+	{
+		objLeftFrame.form.fn_openPop(sMenuId);
+		return;
+	}
+		
+	objLeftFrame.form.fn_openMenu(sMenuId);
+};
+
+/**
+ * @description btnHome onclick event : 홈(집 이미지) 바로가기
+ */
+this.btnHome_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_openMain();
+};
+
+/**
+ * @description btnLogout onclick event : 로그아웃 버튼 클릭
+ */
+this.btnLogout_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_logout();
+};
+]]></Script>
+  </Form>
+</FDL>

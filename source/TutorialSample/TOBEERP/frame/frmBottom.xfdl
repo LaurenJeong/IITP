@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fmBottom" width="1280" height="30" titletext="New Form">
+    <Layouts>
+      <Layout height="30" mobileorientation="landscape" width="1280">
+        <Static id="Static00" taborder="0" left="0" top="0" height="30" right="0" cssclass="sta_BT_bg01"/>
+        <Static id="staAlram" taborder="1" text="알람 &lt;b v='true'&gt;&lt;fc v='#ff3729'&gt;5건&lt;/fc&gt;&lt;/b&gt;이 대기 중 입니다." left="10" top="0" width="185" height="30" usedecorate="true" cssclass="sta_BF_noti" onclick="staAlram_onclick"/>
+        <PopupDiv id="podAlram" visible="false" left="300" top="45" width="302" height="300" cssclass="pop_BF_frame">
+          <Layouts>
+            <Layout>
+              <Grid id="Grid00" taborder="0" left="0" top="58" width="300" height="240" binddataset="dsAlramList" autofittype="col" cssclass="grid_BF_notiTable" scrollbartype="autoindicator">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="60"/>
+                      <Column size="189"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="35"/>
+                      <Row size="35"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell rowspan="2" cssclass="grd_BF_bell"/>
+                      <Cell col="1" text="bind:contents" cssclass="grd_BT_content"/>
+                      <Cell row="1" col="1" text="bind:send_time" cssclass="grd_BT_date" displaytype="mask" textAlign="left" maskeditformat="@@@@.@@.@@" maskedittype="string"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Static id="stTitle" taborder="1" text="알람" left="20" top="20" height="25" cssclass="sta_WF_title02" width="240"/>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    fmBottom
+*  @FileName	fmBottom.xfdl
+*  @Desction	재고 관리 시스템 하단 알람 표시 화면
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+* @description staAlram onclick event - 하단 알람 클릭 시 popup open
+*/
+this.staAlram_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	//trackpopup
+	this.fn_openAlram();
+};
+
+this.fn_openAlram = function()
+{
+	//popupdiv (podAlram) height : 300
+	this.podAlram.trackPopupByComponent(this.staAlram,0,-301);
+};
+
+]]></Script>
+    <Objects>
+      <Dataset id="dsAlramList">
+        <ColumnInfo>
+          <Column id="alram_code" type="STRING" size="256"/>
+          <Column id="contents" type="STRING" size="256"/>
+          <Column id="send_time" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="send_time">20210127</Col>
+            <Col id="alram_code">N001342</Col>
+            <Col id="contents">견적이 요청되었습니다.</Col>
+          </Row>
+          <Row>
+            <Col id="send_time">20210127</Col>
+            <Col id="alram_code">N001341</Col>
+            <Col id="contents">거래(매출)이 요청되었습니다.</Col>
+          </Row>
+          <Row>
+            <Col id="send_time">20210127</Col>
+            <Col id="alram_code">N001340</Col>
+            <Col id="contents">견적이 승인되었습니다.</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

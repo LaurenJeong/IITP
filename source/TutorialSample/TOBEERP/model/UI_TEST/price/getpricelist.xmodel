@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="dsinput" name="조회조건" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="CUSTOMER_CODE" label="거래처명" fieldtype="SelectOne" datatype="STRING" datasize="80" required="true" description="거래처코드" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;},{&quot;id&quot;:&quot;unit&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;none&quot;}]}"/>
+      <Field id="PRODUCT_NAME" label="품목명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="품목명" innerdatasetinfo=""/>
+      <Field id="CHECKED" label="무거래 제품 제외" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="무거래 제품 제외" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dsprice" name="거래처별 제품가격" iotype="output" description="">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="CUSTOMER_PRICE_CODE" label="거래처별단가코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래처별단가코드" innerdatasetinfo=""/>
+      <Field id="PRICE_VERSION" label="단가버전" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="단가버전" innerdatasetinfo=""/>
+      <Field id="CUSTOMER_CODE" label="거래처코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="true" description="거래처코드" innerdatasetinfo=""/>
+      <Field id="PRODUCT_CODE" label="품목코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="true" description="품목코드" innerdatasetinfo=""/>
+      <Field id="PRODUCT_NAME" label="품목명" fieldtype="FreeText" datatype="STRING" datasize="80" required="true" description="품목명" innerdatasetinfo=""/>
+      <Field id="COMPANY_CODE" label="제조회사" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="제조회사코드" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+      <Field id="STANDARD" label="규격" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="품목단가" innerdatasetinfo=""/>
+      <Field id="COLOR" label="색상" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="색상" innerdatasetinfo=""/>
+      <Field id="UNIT" label="단위" fieldtype="SelectOne" datatype="STRING" datasize="80" required="true" description="단위" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+      <Field id="BARCODE" label="바코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="바코드" innerdatasetinfo=""/>
+      <Field id="ASSET_GROUPS" label="자산구분" fieldtype="SelectOne" datatype="STRING" datasize="80" required="true" description="자산구분코드" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+      <Field id="PRODUCT_GROUPS" label="품목구분" fieldtype="SelectOne" datatype="STRING" datasize="80" required="true" description="품목구분" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;},{&quot;id&quot;:&quot;asset&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;none&quot;}]}"/>
+      <Field id="LAST_PRICE" label="최종판매단가" fieldtype="FreeText" datatype="INT" datasize="80" required="true" description="최종판매가" innerdatasetinfo=""/>
+      <Field id="RECEIVING_PRICE" label="입고가" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="입고가" innerdatasetinfo=""/>
+      <Field id="WHOLESALE_PRICE" label="도매가" fieldtype="FreeText" datatype="INT" datasize="80" required="true" description="도매가" innerdatasetinfo=""/>
+      <Field id="RETAIL_PRICE" label="소매가" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="소매가" innerdatasetinfo=""/>
+      <Field id="SPECIAL_PRICE1" label="특별가1" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="특별가1" innerdatasetinfo=""/>
+      <Field id="SPECIAL_PRICE2" label="특별가2" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="특별가2" innerdatasetinfo=""/>
+      <Field id="SPECIAL_PRICE3" label="특별가3" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="특별가3" innerdatasetinfo=""/>
+      <Field id="TAX_FREE_CHECK" label="면세여부" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="면세여부" innerdatasetinfo=""/>
+      <Field id="DISCOUNT_RATE" label="판매단가 할인할증율" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="판매단가 할인할증율" innerdatasetinfo=""/>
+      <Field id="TRADING_TYPE" label="거래여부" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="거래여부" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+    </Model>
+  </Models>
+  <Service id="getpricelist" name="거래처별 제품가격 조회" url="IP::getpricelist.jsp">
+    <ServiceUserAttributes/>
+  </Service>
+</ModelInfo>

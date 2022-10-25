@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmLogin" width="1360" height="930" titletext="New Form" onload="frmLogin_onload" onsize="frmLogin_onsize">
+    <Layouts>
+      <Layout height="930" width="1360">
+        <Div id="divLayer" taborder="1" text="Div00" left="58" top="90" height="840" formscrolltype="none" width="1177">
+          <Layouts>
+            <Layout>
+              <Button id="btnPurchase" taborder="0" left="0" top="240" width="330" height="582" onclick="loginButton" cssclass="btn_WF_img1"/>
+              <Button id="btnAccount" taborder="1" left="422" top="240" width="330" height="582" onclick="loginButton" cssclass="btn_WF_img2"/>
+              <Button id="btnSales" taborder="2" left="844" top="240" width="330" height="582" onclick="loginButton" cssclass="btn_WF_img3"/>
+              <Static id="Static01" taborder="3" text="넥사크로 재고관리시스템에&#13;&#10;오신 것을 환영합니다." left="0" top="10" height="168" cssclass="sta_WF_mainTitle" minheight="" right="0"/>
+              <Static id="Static01_00" taborder="4" text="아래에 해당하는 계정을 선택해주세요." left="0" top="180" height="40" right="0" cssclass="sta_WF_mainContents"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="2" left="0" top="0" height="72" cssclass="sta_WF_line" right="0" text=""/>
+        <Static id="Static02" taborder="0" left="15" top="0" width="164" height="71" cssclass="sta_top_logo"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    frmLogin
+*  @FileName	frmLogin.xfdl
+*  @Desction	재고 관리 시스템 로그인화면
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.frmLogin_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	
+	this.fn_setSize(this.divLayer);
+	this.fn_trans_commonCode();
+};
+
+/**
+ * @description 화면 resize
+*/
+this.frmLogin_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	this.fn_setSize(this.divLayer);
+};
+
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**
+ * @description 공통코드 조회
+*/
+this.fn_trans_commonCode = function()
+{
+	//application transaction - 공통코드 조회 : 필요시 getcommoncode.jsp에 추가
+	var strSvcID = "selectCommonCode";
+	var strURL = "IP::getcommoncode.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "gdsArea=dsarea";
+	var strArgument = "argDB=" + this.application.gvDBurl;
+	var strCallbackFunc = "gfn_callback";
+	this.application.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+};
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+/**
+* Function Name : fn_setSize
+* Description   : 로그인화면 가운데 정렬
+* Arguments     : obj - div (divLayer) : 가운데 정렬할 대상
+* Return        : none
+*/
+this.fn_setSize = function (obj)
+{
+	//가운데 정렬
+	var nWidth = parseInt(this.width);
+	var nDivWidth = parseInt(obj.getOffsetWidth());
+	
+	var nLeft = nexacro.ceil((nWidth-nDivWidth)/2);
+	
+	obj.setOffsetLeft(nLeft);
+};
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+* @description login button onclick event - 로그인 후 처리
+*/
+this.loginButton = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//get frameset object
+	var objVFrame01 = this.application.VFSet01;
+	var objVFrame02 = this.application.VFSet02;
+	var objHFrame01 = this.application.HFSet01;
+		
+	//framset 사이즈 변경
+	objVFrame01.set_separatesize("*,30");
+	objHFrame01.set_separatesize("240,*");
+	objVFrame02.set_separatesize("45,0,*,0,0");
+		
+	//login 접속 정보
+	if(obj.name == "btnAccount")
+	{
+		//판매자
+		this.application.gvLoginId = "accout";
+	}
+	else if(obj.name=="btnPurchase")
+	{
+		//매입처
+		this.application.gvLoginId = "purchase";
+	}
+	else if(obj.name == "btnSales")
+	{
+		//매출처
+		this.application.gvLoginId = "sales";
+	}	
+	
+	//메뉴 프레임 - 로그인 후 메뉴 및 접속자 처리
+	var objLeftFrame = this.application.LeftFrame;
+	objLeftFrame.form.fn_initLeftMenu();
+};]]></Script>
+  </Form>
+</FDL>

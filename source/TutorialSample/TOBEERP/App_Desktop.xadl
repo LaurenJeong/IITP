@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ADL version="2.0">
+  <Application id="App_Desktop" screenid="Desktop_screen" onload="Application_onload" licenseurl="./NexacroN_client_license.xml">
+    <Layout>
+      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="false" width="1360" height="900" titletext="TOBE 재고관리 데모">
+        <VFrameSet id="VFSet01" separatesize="*,30">
+          <Frames>
+            <HFrameSet id="HFSet01" separatesize="240,*">
+              <Frames>
+                <ChildFrame id="LeftFrame" formurl="frame::frmLeft.xfdl" dragmovetype="none" showtitlebar="false"/>
+                <VFrameSet id="VFSet02" separatesize="45,45,0,*,0">
+                  <Frames>
+                    <ChildFrame id="TopFrame" showtitlebar="false" formurl="frame::frmTop.xfdl"/>
+                    <ChildFrame id="MdiFrame" formurl="frame::frmMdi.xfdl" showtitlebar="false" dragmovetype="none"/>
+                    <ChildFrame id="MainFrame" formurl="QUICKCODE::frmMain.xfdl" showtitlebar="false"/>
+                    <FrameSet id="WorkFrame"/>
+                    <ChildFrame id="LoginFrame" formurl="frame::frmLogin.xfdl" showtitlebar="false" dragmovetype="none"/>
+                  </Frames>
+                </VFrameSet>
+              </Frames>
+            </HFrameSet>
+            <ChildFrame id="BottomFrame" formurl="frame::frmBottom.xfdl" showtitlebar="false" dragmovetype="none"/>
+          </Frames>
+        </VFrameSet>
+      </MainFrame>
+    </Layout>
+    <Style url="xcssrc::temp_main.xcss"/>
+    <Style url="xcssrc::Chart.xcss"/>
+  </Application>
+  <Script type="xscript5.1"><![CDATA[/**
+*  재고 관리 시스템 데모
+*  @MenuPath    App_Desktop
+*  @FileName	App_Desktop.xadl 
+*  @Desction	xadl script
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * Application 변수 선언 영역
+ **************************************************************************/
+this.VFSet01;
+this.VFSet02;
+this.HFSet01;
+this.TopFrame;
+this.LeftFrame;
+this.MdiFrame;
+this.BottomFrame;
+this.WorkFrame;
+this.LoginFrame;
+this.MainFrame;
+
+/**************************************************************************
+ * Application EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description Application onload 시 처리내역
+*/
+this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
+{
+	//frameset 정의
+	this.VFSet01 = this.mainframe.VFSet01;
+	this.VFSet02 = this.mainframe.VFSet01.HFSet01.VFSet02;
+	this.HFSet01 = this.mainframe.VFSet01.HFSet01;
+	this.LeftFrame = this.mainframe.VFSet01.HFSet01.LeftFrame;
+	this.TopFrame = this.mainframe.VFSet01.HFSet01.VFSet02.TopFrame;	
+	this.MdiFrame = this.mainframe.VFSet01.HFSet01.VFSet02.MdiFrame;	
+	this.WorkFrame = this.mainframe.VFSet01.HFSet01.VFSet02.WorkFrame;
+	this.LoginFrame = this.mainframe.VFSet01.HFSet01.VFSet02.LoginFrame;
+	this.BottomFrame = this.mainframe.VFSet01.BottomFrame;
+	this.MainFrame	= this.mainframe.VFSet01.HFSet01.VFSet02.MainFrame;
+	
+	//frame size 변경
+	this.gfn_initFrame();
+	
+	//접속한 아이디 및 DB url 정보 변경
+	this.gfn_ipcontrol();
+};
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+/**
+* Function Name : gfn_initFrame
+* Description   : frame 사이즈 변경 (login 화면)
+* Arguments     : none
+* Return        : none
+*/
+this.gfn_initFrame = function ()
+{
+	this.VFSet01.set_separatesize("*,0");
+	this.HFSet01.set_separatesize("0,*");
+	this.VFSet02.set_separatesize("0,0,0,0,*");
+};
+
+/**
+* Function Name : gfn_ipcontrol
+* Description   : server ip control
+* Arguments     : none
+* Return        : none
+*/
+this.gfn_ipcontrol = function ()
+{
+	var objApp = nexacro.Application;
+	var strURL = objApp.xadl;
+	var arrSplit = strURL.split("//");
+	var currentIp = strURL.split("//")[1].split("/")[0];
+	
+	//접속한 주소 하단의 service 폴더 : 서비스 JSP 파일 위치
+	//nexacro.getEnvironment().services["IP"].url = arrSplit[0] + "//" + currentIp + "/TOBE_ERP/service/"; 
+	var objEnv = nexacro.getEnvironment();
+	var xadl = nexacro.getProjectPath();
+	var objSvcUrl = objEnv.services["IP"];
+	var urlPath = objSvcUrl.url;
+	
+	// studio로 실행
+	if (system.navigatorname == "nexacro") 
+	{
+		var arrXadl = xadl.split("://");
+		
+		if (arrXadl[0] == "http" || arrXadl[0] == "https") {
+			//var arrHost = arrXadl[1].split("/");
+			
+			// 로컬(앱)
+			if (xadl.indexOf("localhost") > -1 || xadl.indexOf("127.0.0.1") > -1 || xadl.indexOf("172.10.") > -1 ) 
+			{
+				objApp.mainframe.set_titletext("로컬(앱)  - " + objApp.mainframe.titletext);
+			}
+		} else {
+			urlPath = "http://localhost:8080/service/";
+			
+			objApp.mainframe.set_titletext("로컬(Studio) - " + objApp.mainframe.titletext);
+			objApp.mainframe.set_showtitlebar(true);     
+			objApp.mainframe.set_border("1px solid black");
+		}
+	}
+	// 웹 접속
+	else
+	{	
+		// URL 설정(웹브라우저)
+		//urlPath = window.location.protocol + "//" + window.location.host;
+		 
+		// 로컬(웹)
+		if (xadl.indexOf("localhost") > -1 || xadl.indexOf("127.0.0.1") > -1 || xadl.indexOf("172.10.") > -1 ) 
+		{
+			urlPath = "http://localhost:8080/service/";
+			
+			objApp.mainframe.set_titletext("로컬(웹)  - " + objApp.mainframe.titletext);
+		}
+		else if (xadl.indexOf("www.tobedevops.com") > -1)		// tobedevops 예외처리
+		{
+			urlPath = "http://www.tobedevops.com:8080/TOBE_ERP/service/";
+		}
+		else if (xadl.indexOf("ops.tobedevops.com") > -1)		// tobedevops 예외처리
+		{
+			urlPath = "https://ops.tobedevops.com:8080/TOBE_ERP/service/";
+		}
+	}
+	
+	// service URL 설정
+	objSvcUrl.set_url(urlPath);
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**
+ * @description application CallBack 함수
+*/
+this.gfn_callback = function(strSvcID, nErrorCode, strErrorMag)
+{
+	if(nErrorCode < 0)
+	{
+		trace("nErrorCode ::: " + nErrorCode + " strErrorMag ::: " + strErrorMag);
+	}
+};
+
+/**************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ **************************************************************************/
+/**
+ * @description gdsLeftMenu(global dataset) favorite Menu change
+*/
+this.gdsLeftMenu_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	//get favorite menu dataset (include leftFrame)
+	var objFavDs = this.LeftFrame.form.dsFavMenu;
+	
+	var nFavRow = 0;	
+	var sWinId = "";	
+	var sCssClass = "";
+	var objOpenMenuDs;
+	var objFrame, objDiv, objButton;
+	
+	objFavDs.set_enableevent(false);
+	objFavDs.set_filterstr("");
+	var sMenuId = "";
+	if(e.columnid == "FAV_CHECK")
+	{
+		sMenuId = obj.getColumn(e.row,"MENU_CD");		
+		nFavRow = objFavDs.findRow("MENU_CD",sMenuId);
+		
+		objFavDs.setColumn(nFavRow,"FAV_CHECK",e.newvalue);
+		  
+		objOpenMenuDs = this.gdsOpenMenu;
+	
+		nFRowOpen = objOpenMenuDs.findRow("MENU_CD", sMenuId);
+		sWinId = objOpenMenuDs.getColumn(nFRowOpen, "WINID");
+		
+		//sWinId : 열린화면 form id
+		objFrame = this.WorkFrame[sWinId];
+		objDiv = objFrame.form.components["divWork"];
+		objButton = objDiv.form.components["btnFavMenu"];	
+		
+		//frame::WorkFrame.xfdl : 오픈 된 화면에서 favorite 표시 가져오기
+		sCssClass = objFrame.form.fn_retunCssClass(sMenuId);
+		objButton.set_cssclass(sCssClass);		
+	}
+	
+	//favorite list filter 'FAV_CHECK==1' --> 즐겨찾기 추가 된 화면
+	objFavDs.set_filterstr("FAV_CHECK==1");
+	objFavDs.set_enableevent(true);	
+};
+
+]]></Script>
+</ADL>

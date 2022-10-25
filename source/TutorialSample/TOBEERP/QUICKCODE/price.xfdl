@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="price" width="1120" height="650" titletext="거래처별 제품가격" onload="form_onload">
+    <Layouts>
+      <Layout height="650" width="1120">
+        <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="10" top="54" right="10" height="40">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_cm_box01L"/>
+              <Button id="btnSearch" width="70" height="28" right="5" bottom="6" cssclass="btn_WF_add01" text="조회"/>
+              <Static id="staCustomerCodeLabel" left="5" top="6" width="95" height="28" text="거래처코드" cssclass="sta_WF_labelStar"/>
+              <Combo id="cmbCustomerCode" left="105" top="6" width="150" height="28" innerdataset="innerdatasetCustomerCode" codecolumn="code" datacolumn="value"/>
+              <Static id="staProductNameLabel" left="295" top="6" width="95" height="28" text="품목명" cssclass="sta_WF_name"/>
+              <Edit id="edtProductName" left="395" top="6" width="150" height="28" onkeydown="viewSearch_edtProductName_onkeydown"/>
+              <CheckBox id="chkChecked" left="584" top="6" width="150" height="28" text="무거래 제품 제외"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="CUSTOMER_CODE" type="STRING" size="80" description="거래처코드"/>
+                <Column id="PRODUCT_NAME" type="STRING" size="80" description="품목명"/>
+                <Column id="CHECKED" type="STRING" size="80" description="무거래 제품 제외"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCustomerCode">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+                <Column id="unit" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCustomerCode" compid="cmbCustomerCode" propid="value" datasetid="viewdataset" columnid="CUSTOMER_CODE"/>
+            <BindItem id="bind_edtProductName" compid="edtProductName" propid="value" datasetid="viewdataset" columnid="PRODUCT_NAME"/>
+            <BindItem id="bind_chkChecked" compid="chkChecked" propid="value" datasetid="viewdataset" columnid="CHECKED"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="getpricelist" modelid="dsinput" filepath="UI_TEST\price\getpricelist.xmodel">
+            <Fields>
+              <Field id="CUSTOMER_CODE" description="" comptype="combo" fieldwidth="150px" fieldheight="28px" labelwidth="100" cssclass="" labelcssclass="sta_WF_name" usecomp="true"/>
+              <Field id="PRODUCT_NAME" description="" comptype="edit" fieldwidth="150px" fieldheight="28px" labelwidth="100" cssclass="" labelcssclass="sta_WF_name" usecomp="true"/>
+              <Field id="CHECKED" description="" comptype="checkbox" fieldwidth="150px" fieldheight="28px" labelwidth="-1" cssclass="" labelcssclass="sta_WF_name" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staCustomerCodeLabel" fields="CUSTOMER_CODE"/>
+              <Component id="cmbCustomerCode" fields="CUSTOMER_CODE"/>
+              <Component id="staProductNameLabel" fields="PRODUCT_NAME"/>
+              <Component id="edtProductName" fields="PRODUCT_NAME"/>
+              <Component id="chkChecked" fields="CHECKED"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="조회"/>
+            <Attribute id="searchbuttoncssclass" value="btn_WF_add01"/>
+            <Attribute id="searchbgcssclass" value="sta_cm_box01L"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewButton" taborder="1" text="viewButton" viewdataset="viewdataset" left="10" top="114" right="10" height="40" sourceview="viewList">
+          <Layouts>
+            <Layout type="horizontal" flexwrap="wrap" horizontalgap="5" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="end">
+              <Button id="btnPrint" left="781" top="0" width="76" height="36" text="인쇄" cssclass="btn_WF_excel01"/>
+              <Button id="btnAdd" left="862" top="0" width="76" height="36" text="추가" cssclass="btn_WF_add01"/>
+              <Button id="btnDelete" left="943" top="0" width="76" height="36" text="삭제" cssclass="btn_WF_delete01"/>
+              <Button id="btnSave" left="1024" top="0" width="76" height="36" text="저장" cssclass="btn_WF_save01"/>
+            </Layout>
+          </Layouts>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="combutton" filepath="COM\buttonService.xmodel">
+            <Fields>
+              <Field id="PRINT" fieldwidth="76" fieldheight="36"/>
+              <Field id="ADD" fieldwidth="76" fieldheight="36"/>
+              <Field id="DELETE" fieldwidth="76" fieldheight="36"/>
+              <Field id="SAVE" fieldwidth="76" fieldheight="36"/>
+            </Fields>
+            <Components>
+              <Component id="btnPrint" fields="PRINT"/>
+              <Component id="btnAdd" fields="ADD"/>
+              <Component id="btnDelete" fields="DELETE"/>
+              <Component id="btnSave" fields="SAVE"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="ButtonLayoutViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="right"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="compsizing" value="none"/>
+            <Attribute id="horizontalgap" value="5"/>
+            <Attribute id="verticalgap" value="5"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewDetail" taborder="2" text="viewDetail" viewdataset="viewdataset" left="10" top="viewButton:6" right="10" height="196" sourceview="viewList">
+          <Layouts>
+            <Layout>
+              <Static id="staProductNameBg" left="0" top="0" height="40" cssclass="sta_cm_box02L" right="0"/>
+              <Static id="staProductNameLabel" left="0" top="0" width="110" height="40" text="품목명" cssclass="sta_WF_titleStar"/>
+              <Edit id="edtProductName" left="115" top="6" width="270" height="28" enable="false"/>
+              <Static id="staAssetGroupsLabel" left="550" top="0" width="110" height="40" text="자산구분" cssclass="sta_WF_titleStar"/>
+              <Combo id="cmbAssetGroups" left="665" top="6" width="155" height="28" innerdataset="innerdatasetAssetGroups" codecolumn="code" datacolumn="value" enable="false"/>
+              <Static id="staProductGroupsLabel" left="825" top="0" width="110" height="40" text="품목구분" cssclass="sta_WF_titleStar"/>
+              <Combo id="cmbProductGroups" left="940" top="6" width="155" height="28" innerdataset="innerdatasetProductGroups" codecolumn="code" datacolumn="value" enable="false"/>
+              <Static id="staStandardBg" left="0" top="39" height="40" cssclass="sta_cm_box02L" right="0"/>
+              <Static id="staStandardLabel" left="0" top="39" width="110" height="40" text="규격" cssclass="sta_cm_box01L"/>
+              <Edit id="edtStandard" left="115" top="45" width="155" height="28" enable="false"/>
+              <Static id="staColorLabel" left="275" top="39" width="110" height="40" text="색상" cssclass="sta_cm_box01L"/>
+              <Edit id="edtColor" left="390" top="45" width="155" height="28" enable="false"/>
+              <Static id="staUnitLabel" left="550" top="39" width="110" height="40" text="단위" cssclass="sta_WF_titleStar"/>
+              <Combo id="cmbUnit" left="665" top="45" width="155" height="28" innerdataset="innerdatasetUnit" codecolumn="code" datacolumn="value" enable="false"/>
+              <Static id="staBarcodeLabel" left="825" top="39" width="110" height="40" text="바코드" cssclass="sta_cm_box01L"/>
+              <Edit id="edtBarcode" left="940" top="45" width="155" height="28" enable="false"/>
+              <Static id="staLastPriceBg" left="0" top="78" height="40" cssclass="sta_cm_box02L" right="0"/>
+              <Static id="staLastPriceLabel" left="0" top="78" width="110" height="40" text="최종판매가" cssclass="sta_WF_titleStar"/>
+              <MaskEdit id="mskLastPrice" left="115" top="84" width="155" height="28" format="#,###" autoselect="true"/>
+              <Static id="staReceivingPriceLabel" left="275" top="78" width="110" height="40" text="입고가" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskReceivingPrice" left="390" top="84" width="155" height="28" format="#,###" autoselect="true"/>
+              <Static id="staWholesalePriceLabel" left="550" top="78" width="110" height="40" text="도매가" cssclass="sta_WF_titleStar"/>
+              <MaskEdit id="mskWholesalePrice" left="665" top="84" width="155" height="28" format="#,###" autoselect="true"/>
+              <Static id="staRetailPriceLabel" left="825" top="78" width="110" height="40" text="소매가" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskRetailPrice" left="940" top="84" width="155" height="28" format="#,###" autoselect="true"/>
+              <Static id="staSpecialPrice1Bg" left="0" top="117" height="40" cssclass="sta_cm_box02L" right="0"/>
+              <Static id="staSpecialPrice1Label" left="0" top="117" width="110" height="40" text="특별가1" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskSpecialPrice1" left="115" top="123" width="155" height="28" format="#,###" autoselect="true"/>
+              <Static id="staSpecialPrice2Label" left="275" top="117" width="110" height="40" text="특별가2" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskSpecialPrice2" left="390" top="123" width="155" height="28" format="#,###" autoselect="true"/>
+              <Static id="staSpecialPrice3Label" left="550" top="117" width="110" height="40" text="특별가3" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskSpecialPrice3" left="665" top="123" width="155" height="28" format="#,###" autoselect="true"/>
+              <Static id="staTaxFreeCheckBg" left="0" top="156" height="40" cssclass="sta_cm_box02L" right="0"/>
+              <Static id="staTaxFreeCheckLabel" left="0" top="156" width="110" height="40" text="면세여부" cssclass="sta_cm_box01L"/>
+              <CheckBox id="chkTaxFreeCheck" left="115" top="162" width="155" height="28" text="면세품"/>
+              <Static id="staDiscountRateLabel" left="275" top="156" width="110" height="40" text="판매단가&#13;&#10;할인할증율" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskDiscountRate" left="390" top="162" width="64" height="28" autoselect="true"/>
+              <Static id="staTradingTypeLabel" left="550" top="156" width="110" height="40" text="거래여부" cssclass="sta_cm_box01L"/>
+              <Radio id="rdoTradingType" left="665" top="162" width="430" height="28" direction="vertical" innerdataset="innerdatasetTradingType" codecolumn="code" datacolumn="value"/>
+              <Static id="Static09_00_00" taborder="39" text="% (10, -15)" top="164" width="61" height="25" left="460"/>
+              <Button id="btnProductSelect" taborder="40" text="품목선택" top="6" width="110" height="28" cssclass="btn_cm_basic01" left="390" enable="false"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="CUSTOMER_PRICE_CODE" type="STRING" size="80" description="거래처별단가코드"/>
+                <Column id="PRICE_VERSION" type="INT" size="80" description="단가버전"/>
+                <Column id="CUSTOMER_CODE" type="STRING" size="80" description="거래처코드"/>
+                <Column id="PRODUCT_CODE" type="STRING" size="80" description="품목코드"/>
+                <Column id="PRODUCT_NAME" type="STRING" size="80" description="품목명"/>
+                <Column id="COMPANY_CODE" type="STRING" size="80" description="제조회사코드"/>
+                <Column id="STANDARD" type="STRING" size="80" description="규격"/>
+                <Column id="COLOR" type="STRING" size="80" description="색상"/>
+                <Column id="UNIT" type="STRING" size="80" description="단위"/>
+                <Column id="BARCODE" type="STRING" size="80" description="바코드"/>
+                <Column id="ASSET_GROUPS" type="STRING" size="80" description="자산구분"/>
+                <Column id="PRODUCT_GROUPS" type="STRING" size="80" description="품목구분"/>
+                <Column id="LAST_PRICE" type="INT" size="80" description="최종판매가"/>
+                <Column id="RECEIVING_PRICE" type="INT" size="80" description="입고가"/>
+                <Column id="WHOLESALE_PRICE" type="INT" size="80" description="도매가"/>
+                <Column id="RETAIL_PRICE" type="INT" size="80" description="소매가"/>
+                <Column id="SPECIAL_PRICE1" type="INT" size="80" description="특별가1"/>
+                <Column id="SPECIAL_PRICE2" type="INT" size="80" description="특별가2"/>
+                <Column id="SPECIAL_PRICE3" type="INT" size="80" description="특별가3"/>
+                <Column id="TAX_FREE_CHECK" type="STRING" size="80" description="면세여부"/>
+                <Column id="DISCOUNT_RATE" type="INT" size="80" description="판매단가 할인할증율"/>
+                <Column id="TRADING_TYPE" type="STRING" size="80" description="거래여부"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetUnit">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetAssetGroups">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetProductGroups">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+                <Column id="asset" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetTradingType">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtProductName" compid="edtProductName" propid="value" datasetid="viewdataset" columnid="PRODUCT_NAME"/>
+            <BindItem id="bind_cmbAssetGroups" compid="cmbAssetGroups" propid="value" datasetid="viewdataset" columnid="ASSET_GROUPS"/>
+            <BindItem id="bind_cmbProductGroups" compid="cmbProductGroups" propid="value" datasetid="viewdataset" columnid="PRODUCT_GROUPS"/>
+            <BindItem id="bind_edtStandard" compid="edtStandard" propid="value" datasetid="viewdataset" columnid="STANDARD"/>
+            <BindItem id="bind_edtColor" compid="edtColor" propid="value" datasetid="viewdataset" columnid="COLOR"/>
+            <BindItem id="bind_cmbUnit" compid="cmbUnit" propid="value" datasetid="viewdataset" columnid="UNIT"/>
+            <BindItem id="bind_edtBarcode" compid="edtBarcode" propid="value" datasetid="viewdataset" columnid="BARCODE"/>
+            <BindItem id="bind_mskLastPrice" compid="mskLastPrice" propid="value" datasetid="viewdataset" columnid="LAST_PRICE"/>
+            <BindItem id="bind_mskReceivingPrice" compid="mskReceivingPrice" propid="value" datasetid="viewdataset" columnid="RECEIVING_PRICE"/>
+            <BindItem id="bind_mskWholesalePrice" compid="mskWholesalePrice" propid="value" datasetid="viewdataset" columnid="WHOLESALE_PRICE"/>
+            <BindItem id="bind_mskRetailPrice" compid="mskRetailPrice" propid="value" datasetid="viewdataset" columnid="RETAIL_PRICE"/>
+            <BindItem id="bind_mskSpecialPrice1" compid="mskSpecialPrice1" propid="value" datasetid="viewdataset" columnid="SPECIAL_PRICE1"/>
+            <BindItem id="bind_mskSpecialPrice2" compid="mskSpecialPrice2" propid="value" datasetid="viewdataset" columnid="SPECIAL_PRICE2"/>
+            <BindItem id="bind_mskSpecialPrice3" compid="mskSpecialPrice3" propid="value" datasetid="viewdataset" columnid="SPECIAL_PRICE3"/>
+            <BindItem id="bind_chkTaxFreeCheck" compid="chkTaxFreeCheck" propid="value" datasetid="viewdataset" columnid="TAX_FREE_CHECK"/>
+            <BindItem id="bind_mskDiscountRate" compid="mskDiscountRate" propid="value" datasetid="viewdataset" columnid="DISCOUNT_RATE"/>
+            <BindItem id="bind_rdoTradingType" compid="rdoTradingType" propid="value" datasetid="viewdataset" columnid="TRADING_TYPE"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="getpricelist" modelid="dsprice" filepath="UI_TEST\price\getpricelist.xmodel">
+            <Fields>
+              <Field id="COMPANY_CODE" comptype="edit" fieldwidth="110" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_cm_box01L" usecomp="false"/>
+              <Field id="PRODUCT_CODE" comptype="edit" fieldwidth="110" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_cm_box01L" usecomp="false"/>
+              <Field id="CUSTOMER_CODE" comptype="edit" fieldwidth="110" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_cm_box01L" usecomp="false"/>
+              <Field id="PRICE_VERSION" comptype="edit" fieldwidth="110" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_cm_box01L" usecomp="false"/>
+              <Field id="CUSTOMER_PRICE_CODE" comptype="edit" fieldwidth="110" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_cm_box01L" usecomp="false"/>
+              <Field id="PRODUCT_NAME" comptype="edit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="ASSET_GROUPS" label="자산구분" comptype="combo" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="PRODUCT_GROUPS" comptype="combo" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="STANDARD" comptype="edit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="COLOR" comptype="edit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="UNIT" comptype="combo" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="BARCODE" comptype="edit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="LAST_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="RECEIVING_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="WHOLESALE_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="RETAIL_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="SPECIAL_PRICE1" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="SPECIAL_PRICE2" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="SPECIAL_PRICE3" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="TAX_FREE_CHECK" comptype="checkbox" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="DISCOUNT_RATE" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+              <Field id="TRADING_TYPE" comptype="radio" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staProductNameBg" fields="PRODUCT_NAME"/>
+              <Component id="staProductNameLabel" fields="PRODUCT_NAME"/>
+              <Component id="edtProductName" fields="PRODUCT_NAME"/>
+              <Component id="staAssetGroupsLabel" fields="ASSET_GROUPS"/>
+              <Component id="cmbAssetGroups" fields="ASSET_GROUPS"/>
+              <Component id="staProductGroupsLabel" fields="PRODUCT_GROUPS"/>
+              <Component id="cmbProductGroups" fields="PRODUCT_GROUPS"/>
+              <Component id="staStandardBg" fields="STANDARD"/>
+              <Component id="staStandardLabel" fields="STANDARD"/>
+              <Component id="edtStandard" fields="STANDARD"/>
+              <Component id="staColorLabel" fields="COLOR"/>
+              <Component id="edtColor" fields="COLOR"/>
+              <Component id="staUnitLabel" fields="UNIT"/>
+              <Component id="cmbUnit" fields="UNIT"/>
+              <Component id="staBarcodeLabel" fields="BARCODE"/>
+              <Component id="edtBarcode" fields="BARCODE"/>
+              <Component id="staLastPriceBg" fields="LAST_PRICE"/>
+              <Component id="staLastPriceLabel" fields="LAST_PRICE"/>
+              <Component id="mskLastPrice" fields="LAST_PRICE"/>
+              <Component id="staReceivingPriceLabel" fields="RECEIVING_PRICE"/>
+              <Component id="mskReceivingPrice" fields="RECEIVING_PRICE"/>
+              <Component id="staWholesalePriceLabel" fields="WHOLESALE_PRICE"/>
+              <Component id="mskWholesalePrice" fields="WHOLESALE_PRICE"/>
+              <Component id="staRetailPriceLabel" fields="RETAIL_PRICE"/>
+              <Component id="mskRetailPrice" fields="RETAIL_PRICE"/>
+              <Component id="staSpecialPrice1Bg" fields="SPECIAL_PRICE1"/>
+              <Component id="staSpecialPrice1Label" fields="SPECIAL_PRICE1"/>
+              <Component id="mskSpecialPrice1" fields="SPECIAL_PRICE1"/>
+              <Component id="staSpecialPrice2Label" fields="SPECIAL_PRICE2"/>
+              <Component id="mskSpecialPrice2" fields="SPECIAL_PRICE2"/>
+              <Component id="staSpecialPrice3Label" fields="SPECIAL_PRICE3"/>
+              <Component id="mskSpecialPrice3" fields="SPECIAL_PRICE3"/>
+              <Component id="staTaxFreeCheckBg" fields="TAX_FREE_CHECK"/>
+              <Component id="staTaxFreeCheckLabel" fields="TAX_FREE_CHECK"/>
+              <Component id="chkTaxFreeCheck" fields="TAX_FREE_CHECK"/>
+              <Component id="staDiscountRateLabel" fields="DISCOUNT_RATE"/>
+              <Component id="mskDiscountRate" fields="DISCOUNT_RATE"/>
+              <Component id="staTradingTypeLabel" fields="TRADING_TYPE"/>
+              <Component id="rdoTradingType" fields="TRADING_TYPE"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+            <Attribute id="format" value="{&quot;columnsize&quot;:[275,275,275,275],&quot;rowsize&quot;:[40,40,40,40,40],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_NAME&quot;],&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;ASSET_GROUPS&quot;]},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_GROUPS&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;STANDARD&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;COLOR&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;UNIT&quot;]},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;BARCODE&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;LAST_PRICE&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;RECEIVING_PRICE&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;WHOLESALE_PRICE&quot;]},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;RETAIL_PRICE&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;3&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;SPECIAL_PRICE1&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;3&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;SPECIAL_PRICE2&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;3&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;SPECIAL_PRICE3&quot;]},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;3&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;4&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;TAX_FREE_CHECK&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;4&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;DISCOUNT_RATE&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;4&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;TRADING_TYPE&quot;],&quot;colspan&quot;:&quot;2&quot;}]}"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewList" taborder="3" text="viewList" viewdataset="viewdataset" top="viewDetail:10" bottom="10" left="10" right="10">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="150" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="100" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="100" band="body"/>
+                      <Column size="100" band="body"/>
+                      <Column size="100" band="body"/>
+                      <Column size="100" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="38" band="head"/>
+                      <Row size="38" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_PRODUCT_NAME" col="0" row="0" text="품목명"/>
+                      <Cell id="cell_head_1_0_COMPANY_CODE" col="1" row="0" text="제조회사"/>
+                      <Cell id="cell_head_2_0_STANDARD" col="2" row="0" text="규격"/>
+                      <Cell id="cell_head_3_0_BARCODE" col="3" row="0" text="바코드"/>
+                      <Cell id="cell_head_4_0_COLOR" col="4" row="0" text="색상"/>
+                      <Cell id="cell_head_5_0_UNIT" col="5" row="0" text="단위"/>
+                      <Cell id="cell_head_6_0_LAST_PRICE" col="6" row="0" text="최종판매단가"/>
+                      <Cell id="cell_head_7_0_RECEIVING_PRICE" col="7" row="0" text="입고단가"/>
+                      <Cell id="cell_head_8_0_WHOLESALE_PRICE" col="8" row="0" text="도매단가"/>
+                      <Cell id="cell_head_9_0_RETAIL_PRICE" col="9" row="0" text="소비자단가"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_PRODUCT_NAME" col="0" row="0" text="bind:PRODUCT_NAME" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_COMPANY_CODE" col="1" row="0" text="bind:COMPANY_CODE" displaytype="combotext" edittype="none" combodataset="innerdatasetCompanyCode" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_2_0_STANDARD" col="2" row="0" text="bind:STANDARD" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_3_0_BARCODE" col="3" row="0" text="bind:BARCODE" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_4_0_COLOR" col="4" row="0" text="bind:COLOR" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_5_0_UNIT" col="5" row="0" text="bind:UNIT" displaytype="combotext" edittype="none" combodataset="innerdatasetUnit" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_6_0_LAST_PRICE" col="6" row="0" text="bind:LAST_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell id="cell_body_7_0_RECEIVING_PRICE" col="7" row="0" text="bind:RECEIVING_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell id="cell_body_8_0_WHOLESALE_PRICE" col="8" row="0" text="bind:WHOLESALE_PRICE" displaytype="currency" edittype="none"/>
+                      <Cell id="cell_body_9_0_RETAIL_PRICE" col="9" row="0" text="bind:RETAIL_PRICE" displaytype="currency" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset" onrowposchanged="viewList_viewdataset_onrowposchanged">
+              <ColumnInfo>
+                <Column id="CUSTOMER_PRICE_CODE" type="STRING" size="80" description="거래처별단가코드"/>
+                <Column id="PRICE_VERSION" type="INT" size="80" description="단가버전"/>
+                <Column id="CUSTOMER_CODE" type="STRING" size="80" description="거래처코드"/>
+                <Column id="PRODUCT_CODE" type="STRING" size="80" description="품목코드"/>
+                <Column id="PRODUCT_NAME" type="STRING" size="80" description="품목명"/>
+                <Column id="COMPANY_CODE" type="STRING" size="80" description="제조회사"/>
+                <Column id="STANDARD" type="STRING" size="80" description="규격"/>
+                <Column id="BARCODE" type="STRING" size="80" description="바코드"/>
+                <Column id="COLOR" type="STRING" size="80" description="색상"/>
+                <Column id="UNIT" type="STRING" size="80" description="단위"/>
+                <Column id="ASSET_GROUPS" type="STRING" size="80" description="자산구분코드"/>
+                <Column id="PRODUCT_GROUPS" type="STRING" size="80" description="품목구분"/>
+                <Column id="LAST_PRICE" type="INT" size="80" description="최종판매단가"/>
+                <Column id="RECEIVING_PRICE" type="INT" size="80" description="입고단가"/>
+                <Column id="WHOLESALE_PRICE" type="INT" size="80" description="도매단가"/>
+                <Column id="RETAIL_PRICE" type="INT" size="80" description="소비자단가"/>
+                <Column id="SPECIAL_PRICE1" type="INT" size="80" description="특별가1"/>
+                <Column id="SPECIAL_PRICE2" type="INT" size="80" description="특별가2"/>
+                <Column id="SPECIAL_PRICE3" type="INT" size="80" description="특별가3"/>
+                <Column id="TAX_FREE_CHECK" type="STRING" size="80" description="면세여부"/>
+                <Column id="DISCOUNT_RATE" type="INT" size="80" description="판매단가 할인할증율"/>
+                <Column id="TRADING_TYPE" type="STRING" size="80" description="거래여부"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetCompanyCode">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetUnit">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="getpricelist" modelid="dsprice" filepath="UI_TEST\price\getpricelist.xmodel">
+            <Fields>
+              <Field id="TRADING_TYPE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DISCOUNT_RATE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="TAX_FREE_CHECK" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SPECIAL_PRICE3" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SPECIAL_PRICE2" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SPECIAL_PRICE1" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_GROUPS" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ASSET_GROUPS" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CUSTOMER_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRICE_VERSION" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CUSTOMER_PRICE_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_NAME" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="COMPANY_CODE" label="제조회사" displaytype="combotext" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="STANDARD" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="BARCODE" displaytype="normal" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="COLOR" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="UNIT" displaytype="combotext" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="LAST_PRICE" label="최종판매단가" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="RECEIVING_PRICE" label="입고단가" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="WHOLESALE_PRICE" label="도매단가" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="RETAIL_PRICE" label="소비자단가" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="PRODUCT_NAME,COMPANY_CODE,STANDARD,BARCODE,COLOR,UNIT,LAST_PRICE,RECEIVING_PRICE,WHOLESALE_PRICE,RETAIL_PRICE"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="38"/>
+            <Attribute id="bodybandsize" value="38"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    재고관리 > 거래처별 제품가격
+*  @FileName	price.xfdl
+*  @Desction	거래처별 제품가격
+*******************************************************************************
+*  2022.01.01		Creator			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// application 변수 셋팅
+	this.application = nexacro.getApplication();
+	
+	// Title 영역 셋팅
+	this.parent.parent.fn_setFavoriteButton(obj);
+	
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+ 
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+ 
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+ * @description fn_productListpopup : 품목 팝업 호출
+ */
+this.fn_productListpopup = function(rowpos)
+{
+	if(rowpos < 0)
+	{
+		this.DsAddDataAction00.run();
+		return;
+	}
+	
+	if(this.gfn_isNull(this.viewList.form.viewdataset.getColumn(rowpos,"CUSTOMER_CODE")))
+	{
+		var sCustomerCode = this.viewList.form.viewdataset.rowcount > 0 ?  this.viewList.form.viewdataset.getColumn(0,"CUSTOMER_CODE") : this.viewSearch.form.cmbCustomerCode.value;
+		this.viewList.form.viewdataset.setColumn(rowpos,"CUSTOMER_CODE",sCustomerCode);
+	}
+			
+	this.PopupAction00.run();
+};
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description btnAdd onclick event : 추가 버튼 클릭
+ */
+this.DsAddDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
+{
+	this.fn_productListpopup(e.userdata);
+};
+
+this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.ActionSuccessEventInfo)
+{
+	if (e.userdata)		// 고객별 최종판매가 설정
+	{
+		var nRow = this.viewList.form.viewdataset.rowposition;
+		var sCustomerCode = this.viewList.form.viewdataset.getColumn(nRow,"CUSTOMER_CODE");
+		var sCustomerUnit = this.viewSearch.form.innerdatasetCustomerCode.lookup("code",sCustomerCode,"unit");
+		
+		var nPrice = 0;
+		var sColumnName;
+		
+		switch(sCustomerUnit) {
+			case "u0": //입고가
+				sColumnName = "RECEIVING_PRICE";
+				break;
+			case "u1": //도매가
+				sColumnName = "WHOLESALE_PRICE";
+				break;
+			case "u4": //특별단가1
+				sColumnName = "SPECIAL_PRICE1";
+				break;
+			case "u5": //특별단가2
+				sColumnName = "SPECIAL_PRICE2";
+				break;
+			case "u6": //특별단가3
+				sColumnName = "SPECIAL_PRICE3";
+				break;
+			default: sColumnName = "RETAIL_PRICE";
+		}
+		
+		nPrice = this.viewList.form.viewdataset.getColumn(nRow,sColumnName);
+		
+		if(this.gfn_isNull(nPrice) || nPrice < 1)
+		{
+			nPrice = this.viewList.form.viewdataset.getColumn(nRow,"RETAIL_PRICE");
+		}
+		
+		this.viewList.form.viewdataset.setColumn(nRow,"LAST_PRICE",nPrice);
+		this.viewList.form.viewdataset.setColumn(nRow,"TAX_FREE_CHECK","false");
+		this.viewDetail.form.mskLastPrice.setFocus();
+	}
+};
+
+/**
+ * @description Edit onkeydown event : 품목명 검색영역 키다운 이벤트 발생
+ */
+this.viewSearch_Edit_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode ==13)
+	{
+		this.SearchDBAction01.run();
+	}
+};
+
+/**
+ * @description dsPrice onrowposchanged event : 제품가격 dataset rowposition 변경
+ */
+this.viewList_viewdataset_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	//신규인 경우에만 제품선택 가능
+	// if(this.dsPrice.rowcount > 0)
+	if(obj.getRowType(e.newrow) == Dataset.ROWTYPE_INSERT)
+	{
+		this.viewDetail.form.btnProductSelect.set_enable(true);
+	}
+	else
+	{
+		this.viewDetail.form.btnProductSelect.set_enable(false);
+	}
+};
+]]></Script>
+    <Objects>
+      <SearchDBAction id="SearchDBAction00" servicemodel="getpricelist" serviceurl="IP::getproductcode.jsp" inputdatasets="" outputdatasets="viewSearch.form.innerdatasetCustomerCode=dscustomer viewDetail.form.innerdatasetAssetGroups=dsasset viewDetail.form.innerdatasetProductGroups=dsgroup viewDetail.form.innerdatasetUnit=dsunit viewDetail.form.innerdatasetTradingType=dsstatus viewList.form.innerdatasetCompanyCode=dsmanufacture viewList.form.innerdatasetUnit=dsunit">
+        <Contents/>
+      </SearchDBAction>
+      <SearchDBAction id="SearchDBAction01" servicemodel="getmainlist" serviceurl="IP::getpricelist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=dsprice">
+        <Contents/>
+      </SearchDBAction>
+      <DsAddDataAction id="DsAddDataAction00" targetview="viewList" onsuccess="DsAddDataAction00_onsuccess">
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"viewList",
+            "modelid":"dsprice",
+            "iotype":"output",
+            "fieldlist":[
+                {
+                    "name":"viewList:TRADING_TYPE",
+                    "fieldid":"TRADING_TYPE",
+                    "value":"expr:[viewDetail:innerdatasetTradingType:0:code]"
+                }
+            ]
+        }
+    ]
+}]]></Contents>
+      </DsAddDataAction>
+      <DsDeleteDataAction id="DsDeleteDataAction00" targetview="viewList">
+        <Contents/>
+      </DsDeleteDataAction>
+      <PopupAction id="PopupAction00" formurl="QUICKCODE::productpopup.xfdl" popupstyle="modal" popupid="popupProduct" title="품목찾기" targetview="viewList" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" popupdatatype="copyrow">
+        <Contents/>
+      </PopupAction>
+      <DsIsUpdatedAction id="DsIsUpdatedAction00" targetview="viewList" checkfilter="false">
+        <Contents/>
+      </DsIsUpdatedAction>
+      <SearchDBAction id="SearchDBAction02" servicemodel="getpricelist" serviceurl="IP::setpricelist.jsp" inputdatasets="dsprice=viewList.form.viewdataset:U">
+        <Contents/>
+      </SearchDBAction>
+      <MessageAction id="MessageAction00" message="변경된 데이터가 없습니다." targetview="price" messagetype="alert">
+        <Contents/>
+      </MessageAction>
+      <MessageAction id="MessageAction01" message="저장 되었습니다." messagetype="alert">
+        <Contents/>
+      </MessageAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="price" triggerobj="price" targetaction="SearchDBAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="viewButton" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition="this.viewSearch.form.cmbCustomerCode.index!=-1"/>
+      <TriggerItem id="item3" triggertype="Click" triggerview="viewButton" triggerobj="btnDelete" targetaction="DsDeleteDataAction00" condition=""/>
+      <TriggerItem id="item6" triggertype="Click" triggerview="viewButton" triggerobj="btnSave" targetaction="DsIsUpdatedAction00" condition=""/>
+      <TriggerItem id="item4" triggertype="Action Success" triggerview="price" triggerobj="DsIsUpdatedAction00" targetaction="SearchDBAction02" condition=""/>
+      <TriggerItem id="item7" triggertype="Action Fail" triggerview="price" triggerobj="DsIsUpdatedAction00" targetaction="MessageAction00" condition=""/>
+      <TriggerItem id="item8" triggertype="Action Success" triggerview="price" triggerobj="SearchDBAction02" targetaction="MessageAction01" condition=""/>
+      <TriggerItem id="item5" triggertype="Click" triggerview="viewDetail" triggerobj="btnProductSelect" targetaction="PopupAction00" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>

@@ -1,0 +1,719 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ViewTemplateInfo version="1.0">
+  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="막대그래프(Bar Chart)를 그려주는 템플릿&#13;&#10;- ColumnChart : 세로 막대그래프&#13;&#10;- BarChart : 가로 막대그래프"/>
+  <Script version="1.0" type="xscript5.1"><![CDATA[/**
+*  [Chart] BarChart View Template
+*  @FileName 	BarChartViewTemplate.xviewgen 
+*  @Creator 	Creator
+*  @CreateDate 	2022.03.10
+*  @Desction    막대그래프(Bar Chart)를 그려주는 템플릿
+*  					- ColumnChart : 세로 막대그래프
+*  					- BarChart : 가로 막대그래프
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2022.03.10     		Creator       	      		최초 생성
+*******************************************************************************
+*/
+/************************************************************************************************
+ * include 선언부
+ ************************************************************************************************/
+include "view_lib::util.xjs";
+include "view_lib::common.xjs";
+include "view_lib::chart.xjs";
+/************************************************************************************************
+ * 변수 선언 영역
+ ************************************************************************************************/
+// View 여백
+this.VIEW_PADDING = "20";
+
+this.SERIES_LINE_STYLE = "1px solid";				// 시리즈 선 스타일	
+/************************************************************************************************
+ * Nexacro Studio 호출 필수 FUNCTION 영역
+ ************************************************************************************************/
+/*---------------------------------------------------------------------------------------------*
+ * Function    : fn_GetViewGenerationResult
+ * Parameter   : 
+ *               - fieldarray     : model field list
+ *               - contents       : old contents (include <View>)
+ *               - generationattr : attributes for view generation
+ * Return      : View contents (source + script) (JSON format)
+                 ex) {
+                        "View": {
+                            "tag": "View",
+                            "attribute": {
+                                "id": "View00",
+                                "viewtype": "FreeForm",
+                                "taborder": "2",
+                                "text": "search view",
+                                "left": "0",
+                                ...
+                            },
+                            "Model": [
+                                {   // with field
+                                    "fieldid": "department",
+                                    "Components": [
+                                    ...
+                                    ]
+                                },
+                                {   // without field
+                                    "fieldid": "",
+                                    "Components": [
+                                    ...
+                                    ]
+                                }
+                            ],
+                            "InitValue": [
+                            ],
+                            "Objects": [
+                            ],
+                            "Bind": [
+                            ],
+                            "Script": {
+                                "tag": "Script",
+                                "attribute": {
+                                },
+                                "value": ""
+                            }
+                        }
+                    }
+ * Description : Generate the view based on the model field and return the results.
+ *---------------------------------------------------------------------------------------------*
+ *                            !!! This is a required function. !!!                             *
+ *                            !!! Do not delete it. !!!                                        *
+ *---------------------------------------------------------------------------------------------*/
+fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
+{
+	//리턴 값
+    var vResult = "";
+	
+	// Preview용 데이터 생성여부
+	var bPreviewMode = false;
+	
+	vResult = fn_GetViewGeneration(fieldarray, contents, generationattr, bPreviewMode);
+	
+	 //뷰 컴포넌트 정보 리턴
+    return vResult;
+};
+
+// Preview용 Generation 함수(Chart는 Dataset에 Data가 없는 경우 Preview가 표시되지 않아 기능추가)
+fn_GetViewGenerationPreview = function(fieldarray, contents, generationattr)
+{
+	//리턴 값
+    var vResult = "";
+	
+	// Preview용 데이터 생성여부
+	var bPreviewMode = true;
+	
+	vResult = fn_GetViewGeneration(fieldarray, contents, generationattr, bPreviewMode);
+	
+	 //뷰 컴포넌트 정보 리턴
+    return vResult;
+};
+
+// ViewGeneration 결과 반환 함수
+fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewMode)
+{
+	//리턴 값
+    var vResult = "";
+
+    //trace(">> fieldarray : " + fieldarray);
+	//trace(">> contents : " + contents);
+    //trace(">> generationattr : " + generationattr);
+
+     //Set Generation Info
+	//this.oFieldArray : Model Information as JSON Object
+	//this.oContents : View Component Information as JSON Object
+	//this.oContents.View.Model : Model Information Initialization
+	//this.oGenerationAttr : Setting Information as JSON Object
+	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, false);
+
+	// View Padding 설정
+	this.lfn_SetViewPadding();
+
+	//모델정보 생성 함수 호출
+	fn_GetModel(bPreviewMode);
+
+	//InitValue 정보 생성 함수 호출
+    this.oContents.View.InitValue = fn_GetInitValue();
+
+	//Object 정보 생성 함수 호출
+    this.oContents.View.Objects = fn_GetObjects(bPreviewMode);
+
+	//Script 정보 생성 함수 호출
+    this.oContents.View.Script = fn_GetScript();
+
+	//뷰 컴포넌트 정보를 String으로 변환
+    vResult = JSON.stringify(this.oContents, null, "\t");
+
+    //trace(">> vResult : " + vResult);
+	
+    //뷰 컴포넌트 정보 리턴
+    return vResult;
+};
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetViewAttributeList
+ * Return       : View generation attribute list (JSON format)
+                  ex)   {
+                        "attributecount": "2",
+                        "attributes": [
+                           {
+                                "id": "use_triggerbutton",
+                                "edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList
+                                "defaultvalue": "true",
+                                "description": "Specifies whether trigger button is auto-created or not"
+                            },
+                            {
+                                "id": "triggerbuttontext",
+                                "edittype": "String",               // edittype : Boolean/String/Number/Enum/ViewObjList
+                                "defaultvalue": "Search",
+                                "description": "Enter text for trigger button"
+                            }
+                        ]
+                    }
+ * Description : Obtain a list of custom attributes required for view generation
+ *---------------------------------------------------------------------------------------------*/
+fn_GetViewAttributeList = function() {
+
+    var sViewAttr = "";
+    var oViewAttr = {
+                        "attributes": [
+							{
+                                "id": "charttype",
+                                "edittype": "Enum",
+                                "defaultvalue": "column",
+                                "enumlist" : ["column", "bar"],
+                                "description": "막대차트 종류."
+												+ "\n" + " - column : 세로 막대형 차트"
+												+ "\n" + " - bar : 가로 막대형 차트"
+                            }
+							, {
+                                "id": "chartdisplay",
+                                "edittype": "Enum",
+                                "defaultvalue": "grouped",
+                                "enumlist" : ["grouped", "stacked", "100%stacked","overlapping"],		// "groupedstacked"
+                                "description": "차트의 유형을 설정."
+												+ "\n" + " - grouped : 묶은 막대차트"
+												+ "\n" + " - stacked : 누적 막대차트"
+												+ "\n" + " - 100%stacked : 100% 기준 누적 막대차트"
+												+ "\n" + " - overlapping : 중복 막대차트"
+                            }
+							, {									
+                                "id": "enableanimation",									
+                                "edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList									
+                                "defaultvalue": "true",									
+                                "description": "Series 에 애니메이션 효과를 적용 시킬지 설정"									
+                            }
+							, {									
+                                "id": "titletext",									
+                                "edittype": "String",											
+                                "defaultvalue": "",									
+                                "description": "타이틀 Text"									
+                            }
+							, {									
+                                "id": "subtitletext",									
+                                "edittype": "String",											
+                                "defaultvalue": "",									
+                                "description": "서브타이틀 Text"									
+                            }
+							, {
+                                "id": "titlealign",
+                                "edittype": "Enum",
+                                "defaultvalue": "topcenter",
+                                "enumlist" : ["topleft", "topcenter", "topright", "bottomleft", "bottomcenter", "bottomright", "lefttop", "leftcenter", "leftbottom", "righttop", "rightcenter", "rightbottom"],
+                                "description": "타이틀 표시 위치"
+                            }
+							, {
+                                "id": "legendposition",
+                                "edittype": "Enum",
+                                "defaultvalue": "rightcenter",
+                                "enumlist" : ["none", "topleft", "topcenter", "topright", "bottomleft", "bottomcenter", "bottomright", "lefttop", "leftcenter", "leftbottom", "righttop", "rightcenter", "rightbottom"],
+                                "description": "범례 표시 위치"
+                            }
+							, {									
+                                "id": "categoryaxistitletext",									
+                                "edittype": "String",											
+                                "defaultvalue": "",									
+                                "description": "데이터명축(x축) 타이틀 Text"									
+                            }
+							, {									
+                                "id": "valueaxistitletext",									
+                                "edittype": "String",											
+                                "defaultvalue": "",									
+                                "description": "데이터축(y축) 타이틀 Text(여러 축 설정시 ,를 구분자로 여러개 입력)"									
+                            }
+							, {
+                                "id": "itemtextposition",		// [BarChart]
+                                "edittype": "Enum",
+                                "defaultvalue": "none",
+                                "enumlist" : ["none", "start", "middle", "end", "outside"],
+                                "description": "값 표시 위치"
+                            }
+							, this.oAttrViewPadding
+                        ]
+                  };
+				  
+	oViewAttr["attributecount"] = oViewAttr["attributes"].length;
+
+	sViewAttr = JSON.stringify(oViewAttr, null, "\t");
+    return sViewAttr;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetFieldUserAttributeList
+ * Return       : user attribute list from model field(JSON format)
+                  ex)   {
+                        "attributecount": "2",
+                        "attributes": [
+                           {
+                                "id": "use_triggerbutton",
+                                "edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList
+                                "defaultvalue": "true",
+                                "description": "Specifies whether trigger button is auto-created or not"
+                            },
+                            {
+                                "id": "triggerbuttontext",
+                                "edittype": "String",               // edittype : Boolean/String/Number/Enum/ViewObjList
+                                "defaultvalue": "Search",
+                                "description": "Enter text for trigger button"
+                            }
+                        ]
+                    }
+ * Description  : Obtain a list of user attributes to register in model field
+ *---------------------------------------------------------------------------------------------*/
+fn_GetFieldUserAttributeList = function ()
+{
+	var sFieldAttr = "";
+
+	var oFieldAttr = {
+                        "attributes": [
+                            {
+                                "id"			: "displaytype",
+                                "edittype"		: "Enum",
+								"enumlist" 		: ["none", "category", "series"],
+                                "defaultvalue"	: "series",
+                                "description"	: "데이터 표현방식"
+												+ "\n" + " - none : 사용안함"
+												+ "\n" + " - category : 데이터명 Field(1개)"
+												+ "\n" + " - series : 데이터값 Field(n개)"
+                            }
+							, {
+                                "id"			: "valueaxes",
+                                "edittype" 		: "Enum",
+								"enumlist" 		: ["y", "y1", "y2"],
+								"defaultvalue"	: "y",
+                                "description"	: "데이터축을 설정. y는 왼쪽, y1,y2는 오른쪽에 표시됨."
+                            }
+							, {
+                                "id"			: "stackedgroupname",
+                                "edittype" 		: "String",
+								"defaultvalue"	: "",
+                                "description"	: "누적(stacked) 차트에서 그룹핑하는 경우 명칭 설정.(chartdisplay이 'stacked','100%stacked'인 경우에만 동작)"
+                            }
+                        ]
+                  };
+				  
+	oFieldAttr["attributecount"] = oFieldAttr["attributes"].length;
+
+ 	sFieldAttr = JSON.stringify(oFieldAttr, null, "\t");
+
+    return sFieldAttr;
+}
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetModel
+ * Parameter    :
+ *                - this.oFieldArray : model field data
+ *                - this.oContents : view contents
+ *                - this.oGenerationAttr : attributes for view generation
+ * Return       : model contents (JSON format)
+ * Description  : Function to generate a component source based on field information of the model entered by the user
+ *---------------------------------------------------------------------------------------------*/
+fn_GetModel = function(bPreviewMode)
+{
+	// Chart Attribute
+	var oChartAttr = {};
+	var oTitle = {};
+	var oLegend = {};
+	
+	var sChartType = this.oGenerationAttr.attributes.charttype;
+	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
+	var sTitletext = this.oGenerationAttr.attributes.titletext;
+	var sSubTitletext = this.oGenerationAttr.attributes.subtitletext;
+	var sTitleAlign = this.oGenerationAttr.attributes.titlealign;
+	var sLegendPosition = this.oGenerationAttr.attributes.legendposition;
+	
+	//모델 필드 갯수 가져오기
+    var nFieldCount = this.oFieldArray.fieldcount;
+	
+	// 카테고리 필드
+	var oCategoryField;
+	
+	var arrField = new Array(); 
+	var arrSeriesField = new Array();
+	var arrAxisYField = new Array();
+	var arrAxisY1Field = new Array();
+	var arrAxisY2Field = new Array();
+
+	var sDisplaytype, sValueaxes;
+	
+	//차트에서 사용할 모델 Field ID 리스트 만들기
+    for(i=0;i<nFieldCount;i++)
+    {
+        oField = this.oFieldArray.fields[i];
+		sDisplaytype = oField.displaytype;
+		sValueaxes = oField.valueaxes;
+		
+		// this.oFieldArray Json Data로 Field Array() 셋팅
+		arrField.push(oField.id);
+		
+		// displaytype에 따라 Array() 셋팅
+		if (sDisplaytype == "category") {
+			if(this.lfn_IsNull(oCategoryField)) {
+				oCategoryField = oField;
+			} else {
+				this.lfn_Log("category가 여러개 설정되었습니다.(1개의 필드만 설정가능합니다)","warn");
+			}
+			
+		} else if (sDisplaytype == "series") {
+			arrSeriesField.push(oField);
+			
+			// valueaxes에 따라 Y축 Array() 셋팅
+			if (sValueaxes == "y1") {
+				arrAxisY1Field.push(oField);
+			} else if (sValueaxes == "y2") {
+				arrAxisY2Field.push(oField);
+			} else {
+				arrAxisYField.push(oField);
+			}
+		}
+    }
+	
+	// 차트 기본속성 셋팅
+	oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
+	
+	// View 여백 설정
+	oChartAttr["left"] = this.VIEW_PADDING_LEFT;
+	oChartAttr["top"] = this.VIEW_PADDING_TOP;
+	oChartAttr["right"] = this.VIEW_PADDING_RIGHT;
+	oChartAttr["bottom"] = this.VIEW_PADDING_BOTTOM;
+	
+	// [BarChart] 차트종류설정
+	if (sChartType == "bar") {
+		oChartAttr["rotateaxis"] = "true";
+	}
+	
+	// [BarChart] 차트유형설정
+	if (sChartDisplay == "stacked") {
+		oChartAttr["stacktype"] = "normal";
+	} else if (sChartDisplay == "100%stacked") {
+		oChartAttr["stacktype"] = "percent";
+	} else if (sChartDisplay == "overlapping") {
+		oChartAttr["bargrouping"] = "false";
+	}
+	
+	// 에니메이션 설정
+	oChartAttr["enableanimation"] = this.oGenerationAttr.attributes.enableanimation;
+	
+	// 타이틀설정
+	oTitle = this.lfn_CloneObject(this.oBaseTitle);
+	if (this.lfn_IsNotNull(sTitletext) || this.lfn_IsNotNull(sSubTitletext)) {
+		oTitle["text"] = sTitletext;
+		oTitle["subtext"] = sSubTitletext;
+		oTitle["align"] = sTitleAlign;
+		oTitle["visible"] = true;
+	}
+				
+	// 범례 설정
+	oLegend = this.lfn_CloneObject(this.oBaseLegend);
+	if (this.lfn_IsNotNull(sLegendPosition) && sLegendPosition != "none")
+	{
+		oLegend["align"] = sLegendPosition;
+		oLegend["visible"] = true;
+	}
+	
+	// 카테고리 설정
+	if(this.lfn_IsNull(oCategoryField)) {
+		this.lfn_Log("category가 설정되지 않았습니다.","warn");
+		
+		// Preview모드일때 category 예외처리
+		if (bPreviewMode == true)
+		{
+			oCategoryField = this.lfn_Nvl(this.oFieldArray.fields.find(oField => oField.datatype == "STRING"),this.oFieldArray.fields[0]);
+			oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
+		}
+	} else {
+		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
+	}
+	
+	//차트 컴포넌트 추가
+	var oModel = this.oContents.View.Model;
+    oModel[oModel.length] = {
+            "fieldid" : arrField.join(","),
+            "Components" :
+            [
+                {
+                    "tag" : "BasicChart",
+                    "attribute" : oChartAttr,
+                    "BasicChart" :
+                    [
+                        {
+                            "tag"	: "Contents",
+							"value"	: {
+								"title" 		: oTitle,
+								"legend" 		: oLegend,
+								"tooltip" 		: this.oBaseTooltip,
+								"board" 		: this.oBaseBoard,
+								"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField),
+								"valueaxes" 	: fn_GetValueAxes(arrAxisYField,arrAxisY1Field,arrAxisY2Field),
+								"seriesset" 	: fn_GetSeries(arrSeriesField)
+							}
+                        }
+                    ]
+                }
+            ]
+        }
+
+	//생성할 Model 정보 리턴
+    return oModel;
+};
+
+// 카테고리 축 설정
+fn_GetCategoryAxes = function(oCategoryField)
+{
+	var sAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.categoryaxistitletext);
+	
+	var arrMaskInfo = new Array();
+	
+	var oCategoryAxes;
+	
+	// 카테고리축 추가
+	oCategoryAxes = {};
+	oCategoryAxes = this.lfn_CloneObject(this.oBaseCategoryaxis);
+	oCategoryAxes["titletext"] = this.lfn_Trim(sAxisTitleText);
+	
+	if(this.lfn_IsNotNull(oCategoryField)) {
+		arrMaskInfo = this.lfn_GetDataTypeMask(oCategoryField.datatype);
+		oCategoryAxes["labelmask"] = arrMaskInfo[0];
+		oCategoryAxes["labeltype"] = arrMaskInfo[1];
+	}
+	
+	return oCategoryAxes;
+};
+
+// 데이터 축 설정
+fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
+{
+	var sAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.valueaxistitletext);
+	var arrAxisTitleText = sAxisTitleText.split(",");
+	
+	var arrValueAxes = new Array();
+	var oValueAxes;
+	
+	var arrMaskInfo = new Array();
+	var oFieldy, oFieldy1, oFieldy2;
+	
+	// 기본y축 추가
+	oValueAxes = {};
+	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
+	oValueAxes["id"] = "valueaxis" + "y";
+	oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[0]);
+	
+	if (arrAxisYField.length == 0) {
+		this.lfn_Log("valueaxis가 설정되지 않았습니다.","warn");
+	} else {
+		oFieldy = arrAxisYField[0];				// 첫번째 시리즈 기준으로 축값 설정
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy.datatype);
+		oValueAxes["labelmask"] = arrMaskInfo[0];
+		oValueAxes["labeltype"] = arrMaskInfo[1];
+	}
+	
+	arrValueAxes.push(oValueAxes);
+	
+	// Y1추가
+	if (arrAxisY1Field.length > 0) {
+		oFieldy1 = arrAxisY1Field[0];			// 첫번째 시리즈 기준으로 축값 설정
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy1.datatype);
+		
+		oValueAxes = {};
+		oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis2);
+		oValueAxes["id"] = "valueaxis" + "y1";
+		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[1]);
+		oValueAxes["labelmask"] = arrMaskInfo[0];
+		oValueAxes["labeltype"] = arrMaskInfo[1];
+		
+		arrValueAxes.push(oValueAxes);
+	}
+	
+	// Y2추가
+	if (arrAxisY2Field.length > 0) {
+		oFieldy2 = arrAxisY2Field[0];			// 첫번째 시리즈 기준으로 축값 설정
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy2.datatype);
+		
+		oValueAxes = {};
+		oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis2);
+		oValueAxes["id"] = "valueaxis" + "y2";
+		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[2]);
+		oValueAxes["labelmask"] = arrMaskInfo[0];
+		oValueAxes["labeltype"] = arrMaskInfo[1];
+		
+		arrValueAxes.push(oValueAxes);
+	}
+
+    return arrValueAxes;
+}
+
+// 시리즈 셋팅
+fn_GetSeries = function(arrSeriesField)
+{
+	var sItemTextPosition = this.oGenerationAttr.attributes.itemtextposition;
+	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
+	
+	var arrSeries = new Array();
+	var oSeries;
+	
+	var oField;
+	
+	var arrMaskInfo = new Array();
+	
+	var nCount = arrSeriesField.length;
+	
+	// [BarChart] overlapping 차트일때 사이즈 셋팅용.
+	var nBarSizeMax = 80;
+	var nBarSizeMin = 20;
+	var nBarSizeGap = nexacro.round((nBarSizeMax - nBarSizeMin) / nCount);
+
+	// arrSeriesField 갯수 기준으로 series 태그 생성
+	for(var i=0;i<nCount;i++)
+	{
+		oField = arrSeriesField[i];
+		
+		oSeries = {};
+		oSeries = this.lfn_CloneObject(this.oBaseSeriesBar);
+		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
+		oSeries["titletext"] = oField.label;
+		oSeries["valuecolumn"] = "bind:" + oField.id;
+		
+		// [BarChart] 시리즈 색상처리
+		if (nCount == 1)	{				// 시리즈 1개
+			oSeries["barfillstyle"] = this.arrBaseChartColor.toString();
+		} else {
+			oSeries["barfillstyle"] = this.lfn_GetChartColor(i);
+			oSeries["barlinestyle"] = this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i);
+		}
+		
+		// 데이터 출력설정
+		if (sItemTextPosition == "none") {
+			oSeries["itemtextvisible"] = false;
+		} else {
+			arrMaskInfo = this.lfn_GetDataTypeMask(oField.datatype);
+			
+			oSeries["itemtextvisible"]		= true;
+			oSeries["itemtextmask"]			= arrMaskInfo[0];
+			oSeries["itemtexttype"]			= arrMaskInfo[1];
+			
+			// [BarChart]
+			oSeries["baritemtextposition"]	= sItemTextPosition;			
+		}
+		
+		// [BasicChart] Y축설정
+		if (oField.valueaxes == "y1") {
+			oSeries["valueaxis"] = "valueaxisy1";
+		} else if (oField.valueaxes == "y2") {
+			oSeries["valueaxis"] = "valueaxisy2";
+		}
+		
+		// [BarChart] 누적(stacked) 차트에서 그룹핑 설정
+		if (oField.stackedgroupname != undefined) {
+			oSeries["stackbargroup"] = oField.stackedgroupname;
+		}
+		
+		// [BarChart] 중복(Overlapping) 차트일떄 일때 사이즈 설정
+		if (sChartDisplay == "overlapping") {
+			oSeries["barsize"] = nBarSizeMax - (i * nBarSizeGap);
+			//this.lfn_Log("barsize : " + oSeries["barsize"]);
+		}
+		
+		arrSeries.push(oSeries);
+	}
+	
+    return arrSeries;
+}
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetInitValue
+ * Parameter    :
+ *                - this.oFieldArray : model field data
+ *                - this.oContents : view contents
+ *                - this.oGenerationAttr : attributes for view generation
+ * Return       : initvalue contents (JSON format)
+ * Description  : Function to generate <InitValue> source
+ *---------------------------------------------------------------------------------------------*/
+fn_GetInitValue = function()
+{
+    var oInitValue = [];
+	
+    return oInitValue;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetObjects
+ * Parameter    :
+ *                - this.oFieldArray : model field data
+ *                - this.oContents : view contents
+ *                - this.oGenerationAttr : attributes for view generation
+ * Return       : objects contents (JSON format)
+ * Description  : Function to generate <Objects> source
+ *---------------------------------------------------------------------------------------------*/
+fn_GetObjects = function(bPreviewMode)
+{
+	//오브젝트 정보 초기화
+    var oObjects = [];
+	
+	var nRowCnt = 0;
+	var arrRows;
+	
+	// Preview일때 임시데이터 생성
+	if (bPreviewMode)
+	{
+		nRowCnt = 5;
+		arrRows = this.lfn_GetPreviewData(this.oFieldArray,nRowCnt);
+	}
+	
+	// viewdataset 생성
+	var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, nRowCnt, arrRows);
+
+	//Object Information Setting
+	oObjects.push(oViewDataset);
+	
+    return oObjects;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetScript
+ * Parameter    :
+ *                - this.oFieldArray : model field data
+ *                - this.oContents : view contents
+ *                - this.oGenerationAttr : attributes for view generation
+ * Return       : script contents (JSON format)
+ * Description  : Function to generate <Script> source
+ *---------------------------------------------------------------------------------------------*/
+fn_GetScript = function()
+{
+
+	//스크립트 정보 초기화
+    var oScript = {};
+	
+    oScript = 
+    {
+        "tag": "Script",
+        "attribute": { "type" : "xscript5.1" },
+        "value": "this.fn_Alert = function(){this.alert('MESSAGE')};"
+    }
+
+	//스크립트 정보 리턴
+    return oScript;
+};]]></Script>
+</ViewTemplateInfo>

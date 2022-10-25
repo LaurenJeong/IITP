@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppVariables version="2.0">
+  <Datasets>
+    <Dataset id="gdsOpenList">
+      <ColumnInfo>
+        <Column id="code" type="STRING" size="256"/>
+        <Column id="caption" type="STRING" size="256"/>
+        <Column id="BTN_ID" type="STRING" size="256"/>
+        <Column id="BTN_EX_ID" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gdsLeftMenu" oncolumnchanged="gdsLeftMenu_oncolumnchanged">
+      <ColumnInfo>
+        <Column id="MENU_CD" type="STRING" size="256"/>
+        <Column id="UP_MENU_CD" type="STRING" size="256"/>
+        <Column id="MENU_NM" type="STRING" size="256"/>
+        <Column id="MENU_LVL" type="STRING" size="256"/>
+        <Column id="PGM_PATH" type="STRING" size="256"/>
+        <Column id="PGM_ID" type="STRING" size="256"/>
+        <Column id="FAV_CHECK" type="STRING" size="256"/>
+        <Column id="POP_CHECK" type="STRING" size="256"/>
+        <Column id="MENU_AUTH" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="MENU_CD">0001</Col>
+          <Col id="UP_MENU_CD">0000</Col>
+          <Col id="MENU_NM">TOBEERP</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0011</Col>
+          <Col id="UP_MENU_CD">0001</Col>
+          <Col id="MENU_NM">자사정보</Col>
+          <Col id="PGM_PATH">TO_BE</Col>
+          <Col id="PGM_ID">myprofile.xfdl</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="FAV_CHECK">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0024</Col>
+          <Col id="UP_MENU_CD">0001</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">TO_BE</Col>
+          <Col id="PGM_ID">price.xfdl</Col>
+          <Col id="MENU_NM">거래처별제품가격</Col>
+          <Col id="FAV_CHECK">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0031</Col>
+          <Col id="UP_MENU_CD">0001</Col>
+          <Col id="MENU_NM">거래원장</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">TO_BE</Col>
+          <Col id="PGM_ID">deallist.xfdl</Col>
+          <Col id="FAV_CHECK">1</Col>
+          <Col id="MENU_AUTH">all</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">0099</Col>
+          <Col id="UP_MENU_CD">0001</Col>
+          <Col id="MENU_NM">메인화면</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">TO_BE</Col>
+          <Col id="PGM_ID">frmMain.xfdl</Col>
+          <Col id="FAV_CHECK">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">1000</Col>
+          <Col id="UP_MENU_CD">0000</Col>
+          <Col id="MENU_NM">QuickCode</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="FAV_CHECK">0</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">1001</Col>
+          <Col id="UP_MENU_CD">1000</Col>
+          <Col id="MENU_NM">자사정보(QuickCode)</Col>
+          <Col id="PGM_PATH">QUICKCODE</Col>
+          <Col id="PGM_ID">myprofile.xfdl</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="FAV_CHECK">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">1002</Col>
+          <Col id="UP_MENU_CD">1000</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">QUICKCODE</Col>
+          <Col id="PGM_ID">price.xfdl</Col>
+          <Col id="MENU_NM">거래처별제품가격(QuickCode)</Col>
+          <Col id="FAV_CHECK">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">1003</Col>
+          <Col id="UP_MENU_CD">1000</Col>
+          <Col id="MENU_NM">거래원장(QuickCode)</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">QUICKCODE</Col>
+          <Col id="PGM_ID">deallist.xfdl</Col>
+          <Col id="FAV_CHECK">1</Col>
+          <Col id="MENU_AUTH">all</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsOpenMenu">
+      <ColumnInfo>
+        <Column id="MENU_CD" type="STRING" size="8"/>
+        <Column id="UP_MENU_CD" type="STRING" size="8"/>
+        <Column id="MENU_NM" type="STRING" size="50"/>
+        <Column id="MENU_LVL" type="BIGDECIMAL" size="22"/>
+        <Column id="PGM_PATH" type="STRING" size="200"/>
+        <Column id="PGM_ID" type="STRING" size="200"/>
+        <Column id="WINID" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gdsArea">
+      <ColumnInfo>
+        <Column id="code" type="STRING" size="256"/>
+        <Column id="value" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gdsAlram">
+      <ColumnInfo>
+        <Column id="code" type="STRING" size="256"/>
+        <Column id="titla" type="STRING" size="256"/>
+        <Column id="date" type="STRING" size="256"/>
+        <Column id="type" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+  </Datasets>
+  <Variables>
+    <Variable id="gvDBurl" initval=""/>
+    <Variable id="gvToday"/>
+    <Variable id="gvLoginId"/>
+  </Variables>
+  <DataObjects/>
+</AppVariables>
