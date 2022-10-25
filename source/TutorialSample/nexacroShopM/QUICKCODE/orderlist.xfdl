@@ -417,7 +417,7 @@ this.fnSetView = function(sType)
 /**************************************************************************
 * 각 COMPONENT 별 EVENT 영역
 **************************************************************************/
-// 데이터복사 Action 이벤트
+// 데이터복사 Action run 실행 전 이벤트
 this.DsCopyDataAction00_canrun = function(obj:nexacro.DsCopyDataAction, e:nexacro.ActionRunEventInfo)
 {
 	// [참고] DB에서 처리해야되는 내용을 임의로 처리함.
@@ -425,12 +425,18 @@ this.DsCopyDataAction00_canrun = function(obj:nexacro.DsCopyDataAction, e:nexacr
 	var sFilter = "";
 	var aFilter = new Array();
 	
+	// 접속한 사용자 데이터만 조회
+	aFilter.push("USER_ID=='" + this.objApp.gdsUserInfo.getColumn(0,"USER_ID") + "'");
+	
+	// 조회조건 주문기간(시작일)
 	if (!this.gfn_isNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_FROM"))) {
 		aFilter.push("ORDER_TIME.substr(0,8)>='" + this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_FROM") + "'");
 	}
+	// 조회조건 주문기간(종료일) 
 	if (!this.gfn_isNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_TO"))) {
 		aFilter.push("ORDER_TIME.substr(0,8)<='" + this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_TO") + "'");
 	}
+	// 조회조건 상태
 	if (!this.gfn_isNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_STATUS"))) {
 		aFilter.push("ORDER_STATUS=='" + this.viewSearch.form.viewdataset.getColumn(0,"ORDER_STATUS") + "'");
 	}

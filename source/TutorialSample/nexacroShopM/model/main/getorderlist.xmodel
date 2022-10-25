@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="dsinput" name="최근 주문내역 조회조건" iotype="input" description="주문내역 조회조건" innerdatasetinfo="">
+      <Field required="false" id="ORDER_STATUS" label="상태" fieldtype="SelectOne" datatype="STRING" datasize="80" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;10&quot;,&quot;value&quot;:&quot;주문&quot;},{&quot;code&quot;:&quot;20&quot;,&quot;value&quot;:&quot;배송&quot;},{&quot;code&quot;:&quot;90&quot;,&quot;value&quot;:&quot;완료&quot;}]}" description="상태"/>
+    </Model>
+    <Model id="dsorderlist" name="주문내역" iotype="output" description="주문내역" innerdatasetinfo="">
+      <Field required="true" id="ORDER_NO" label="주문번호" fieldtype="FreeText" datatype="STRING" datasize="80" ininnerdatasetinfo="" description="주문번호" innerdatasetinfo=""/>
+      <Field required="true" id="USER_ID" label="사용자ID" fieldtype="FreeText" datatype="STRING" datasize="80" description="사용자ID"/>
+      <Field required="false" id="PRODUCT_NAME" label="품목명" fieldtype="FreeText" datatype="STRING" datasize="80" ininnerdatasetinfo="" description="품목명" innerdatasetinfo=""/>
+      <Field required="false" id="ORDER_PRICE" label="주문금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80" ininnerdatasetinfo="" description="주문금액" innerdatasetinfo=""/>
+      <Field required="true" id="ORDER_STATUS" label="상태" fieldtype="SelectOne" datatype="STRING" datasize="80" description="상태" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;10&quot;,&quot;value&quot;:&quot;주문&quot;},{&quot;code&quot;:&quot;20&quot;,&quot;value&quot;:&quot;배송&quot;},{&quot;code&quot;:&quot;90&quot;,&quot;value&quot;:&quot;완료&quot;}]}"/>
+    </Model>
+  </Models>
+  <Service id="" name="" url=""/>
+</ModelInfo>
