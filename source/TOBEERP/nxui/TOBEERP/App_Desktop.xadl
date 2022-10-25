@@ -109,10 +109,58 @@ this.gfn_ipcontrol = function ()
 	
 	//접속한 주소 하단의 service 폴더 : 서비스 JSP 파일 위치
 	//nexacro.getEnvironment().services["IP"].url = arrSplit[0] + "//" + currentIp + "/TOBE_ERP/service/"; 
+	var objEnv = nexacro.getEnvironment();
+	var xadl = nexacro.getProjectPath();
+	var objSvcUrl = objEnv.services["IP"];
+	var urlPath = objSvcUrl.url;
 	
-	//Application 에  저장된 변수 값 변경 방법 : DB 접속 URL 변경
-	//[QuickCode] argDB를 사용자가 안보내기 위해 Cookie로 적용해놓음.
-	objApp.gvDBurl = nexacro.getCookieVariable("argDB");	
+	// studio로 실행
+	if (system.navigatorname == "nexacro") 
+	{
+		var arrXadl = xadl.split("://");
+		
+		if (arrXadl[0] == "http" || arrXadl[0] == "https") {
+			//var arrHost = arrXadl[1].split("/");
+			
+			// 로컬(앱)
+			if (xadl.indexOf("localhost") > -1 || xadl.indexOf("127.0.0.1") > -1 || xadl.indexOf("172.10.") > -1 ) 
+			{
+				objApp.mainframe.set_titletext("로컬(앱)  - " + objApp.mainframe.titletext);
+			}
+		} else {
+			urlPath = "http://localhost:8080/service/";
+			
+			objApp.mainframe.set_titletext("로컬(Studio) - " + objApp.mainframe.titletext);
+			objApp.mainframe.set_showtitlebar(true);     
+			objApp.mainframe.set_border("1px solid black");
+		}
+	}
+	// 웹 접속
+	else
+	{	
+		// URL 설정(웹브라우저)
+		//urlPath = window.location.protocol + "//" + window.location.host;
+		 
+		// 로컬(웹)
+		if (xadl.indexOf("localhost") > -1 || xadl.indexOf("127.0.0.1") > -1 || xadl.indexOf("172.10.") > -1 ) 
+		{
+			urlPath = "http://localhost:8080/service/";
+			
+			objApp.mainframe.set_titletext("로컬(웹)  - " + objApp.mainframe.titletext);
+		}
+		else if (xadl.indexOf("www.tobedevops.com") > -1)		// tobedevops 예외처리
+		{
+			objApp.mainframe.set_titletext("개발(웹)  - " + objApp.mainframe.titletext);
+			urlPath = "http://www.tobedevops.com:8080/TOBE_ERP/service/";
+		}
+		else if (xadl.indexOf("ops.tobedevops.com") > -1)		// tobedevops 예외처리
+		{
+			urlPath = "https://ops.tobedevops.com:8080/TOBE_ERP/service/";
+		}
+	}
+	
+	// service URL 설정
+	objSvcUrl.set_url(urlPath);
 };
 
 /**************************************************************************
