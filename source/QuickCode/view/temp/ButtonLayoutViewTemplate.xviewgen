@@ -55,6 +55,8 @@ this.LINE_SPACE     		  = 5;
 //Component Default CSS Class
 this.COMP_CSSCLASS		  = "";
 
+//컴포넌트 사이즈 조정 기본값
+this.COMP_SIZING			= "none";
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -193,7 +195,7 @@ fn_GetViewAttributeList = function() {
 							, {
                                 "id": "compsizing",
                                 "edittype": "Enum",
-                                "defaultvalue": "none",
+                                "defaultvalue": this.COMP_SIZING,
 								"enumlist" : ["none", "fittocontents", "flexgrow"],
                                 "description": "컴포넌트 사이즈 조정"
 												+ "\n" + " - none : 사이즈 조절안함. (fieldwidth,fieldheight로 사이즈 생성)"
@@ -250,6 +252,13 @@ fn_GetFieldUserAttributeList = function ()
 	var oFieldAttr = {
                         "attributes": [
                             {
+                                "id": "comptype",
+                                "edittype": "Enum",
+								"enumlist" : ["button", "static", "imageviewer"],
+                                "defaultvalue": this.COMP_TYPE,
+                                "description": "Types of Components to be Expressed"
+                            },
+							, {
                                 "id": "fieldwidth",
                                 "edittype": "String",
 								"defaultvalue": this.FIELD_WIDTH,
@@ -695,7 +704,7 @@ fn_MakeCompByFuildLayout = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight
 		if (this.lfn_IsNull(oField))	continue;
 		
 		//Import Component Naming Rule Information
-		oCompClass = this.lfn_GetCompClass(this.COMP_TYPE);
+		oCompClass = this.lfn_GetCompClass(oField.comptype);
 
 		//Import Row/Col Index where the Field will be located
 		nRowIdx = oFieldPosition.rowidx;

@@ -251,6 +251,13 @@ fn_GetFieldUserAttributeList = function ()
 	var oFieldAttr = {
                         "attributes": [
                             {
+                                "id": "comptype",
+                                "edittype": "Enum",
+								"enumlist" : ["button", "static", "imageviewer"],
+                                "defaultvalue": this.COMP_TYPE,
+                                "description": "Types of Components to be Expressed"
+                            },
+							, {
                                 "id": "fieldwidth",
                                 "edittype": "String",
 								"defaultvalue": this.FIELD_WIDTH,
@@ -696,7 +703,7 @@ fn_MakeCompByFuildLayout = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight
 		if (this.lfn_IsNull(oField))	continue;
 		
 		//Import Component Naming Rule Information
-		oCompClass = this.lfn_GetCompClass(this.COMP_TYPE);
+		oCompClass = this.lfn_GetCompClass(oField.comptype);
 
 		//Import Row/Col Index where the Field will be located
 		nRowIdx = oFieldPosition.rowidx;
