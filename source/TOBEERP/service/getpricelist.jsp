@@ -5,7 +5,7 @@
 <%@ page import="com.nexacro.java.xapi.tx.*" %>
 
 <%@ page contentType="text/xml; charset=utf-8" %>
-
+<%@ include file="lib/include_const.jsp" %>
 <%
 /****** Service API initialization ******/
 PlatformData pdata = new PlatformData();
@@ -20,8 +20,8 @@ String dbUrl  = varList.getString("argDB");
 String customerCode = varList.getString("argCustomerCode");
 String productName = varList.getString("argProductName");
 String checked = varList.getString("argChecked");
-
-//QuickCodeë¥¼ ìœ„í•´ Datasetìœ¼ë¡œ inputì¡°íšŒì¡°ê±´ ë³€ê²½
+		
+// [QuickCode] QuickCode¸¦ À§ÇØ DatasetÀ¸·Î inputÁ¶È¸Á¶°Ç º¯°æ
 DataSet dsinput = reqdata.getDataSet("dsinput");
 
 if (dsinput != null && dsinput.hasData())
@@ -38,12 +38,12 @@ String strErrorMsg = "START";
 Connection conn = null;
 Statement  stmt = null;
 ResultSet  rs   = null;
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
+Class.forName(jdbcClass);
+conn = DriverManager.getConnection(jdbcUrl,dbId,dbPass);
 stmt = conn.createStatement();
 
 /******* SQL query *************/
-String SQL = "select p1.*, p2.* from ERP_PRICE p1, ERP_PRODUCT p2 WHERE p1.PRODUCT_CODE=p2.PRODUCT_CODE AND p1.CUSTOMER_CODE='"+customerCode+"'";
+String SQL = "select p1.*, p2.* from erp_price p1, erp_product p2 WHERE p1.PRODUCT_CODE=p2.PRODUCT_CODE AND p1.CUSTOMER_CODE='"+customerCode+"'";
 
 if(productName != null)
 {
@@ -57,7 +57,8 @@ if(checked != null)
 
 try {
     rs = stmt.executeQuery(SQL);
-
+    
+    // [QuickCode] µ¥ÀÌÅÍÇü½Äº¯°æ
     /********* Dataset Create ************/
     DataSet ds = new DataSet("dsprice");
     ds.addColumn("CUSTOMER_PRICE_CODE",DataTypes.STRING, 256);
@@ -81,7 +82,7 @@ try {
     ds.addColumn("SPECIAL_PRICE3",DataTypes.INT, 256);
     ds.addColumn("TAX_FREE_CHECK",DataTypes.STRING, 256);
     ds.addColumn("DISCOUNT_RATE",DataTypes.INT, 256);
-    ds.addColumn("TRADING_TYPE",DataTypes.STRING, 256);    
+    ds.addColumn("TRADING_TYPE",DataTypes.STRING, 256);  
     
     int row = 0;
     while(rs.next())

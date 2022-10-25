@@ -5,6 +5,7 @@
 <%@ page import="com.nexacro.java.xapi.tx.*" %>
 
 <%@ page contentType="text/xml; charset=utf-8" %>
+<%@ include file="lib/include_const.jsp" %>
 
 <%!
 public static boolean isNull(String str)
@@ -37,7 +38,7 @@ String dealcode  = varList.getString("argDealCode");
 String sWhere = null;
 String sWhereCustomer = null;
 
-//QuickCodeë¥¼ ìœ„í•´ Datasetìœ¼ë¡œ inputì¡°íšŒì¡°ê±´ ë³€ê²½
+//QuickCode¸¦ À§ÇØ DatasetÀ¸·Î inputÁ¶È¸Á¶°Ç º¯°æ
 DataSet dsinput = reqdata.getDataSet("dsinput");
 
 if (dsinput != null && dsinput.hasData())
@@ -54,18 +55,18 @@ if (dsinput != null && dsinput.hasData())
 
 if(!isNull(startday))
 {
-	sWhere = " WHERE ERP_DEAL.DEAL_DATE = '"+startday+"'"; 
+	sWhere = " WHERE erp_deal.DEAL_DATE = '"+startday+"'"; 
 }
 
 if(!isNull(endday))
 {
 	if(sWhere == null)
 	{
-		sWhere = " WHERE ERP_DEAL.DEAL_DATE = '"+endday+"'"; 
+		sWhere = " WHERE erp_deal.DEAL_DATE = '"+endday+"'"; 
 	}
 	else
 	{
-		sWhere = " WHERE ERP_DEAL.DEAL_DATE <= '"+endday+"' AND ERP_DEAL.DEAL_DATE >= '"+startday+"'";
+		sWhere = " WHERE erp_deal.DEAL_DATE <= '"+endday+"' AND erp_deal.DEAL_DATE >= '"+startday+"'";
 	}
 }
 
@@ -73,13 +74,13 @@ if(!isNull(customercode))
 {
 	if(sWhere == null)
 	{
-		sWhere = " WHERE (ERP_CUSTOMER.CORPORATE_NAME LIKE '%"+customercode+"%' OR ERP_CUSTOMER.CORPORATE_CODE = '"+customercode+"')";
-		sWhereCustomer = " WHERE ERP_CUSTOMER.CORPORATE_NAME LIKE '%"+customercode+"%'";
+		sWhere = " WHERE (erp_customer.CORPORATE_NAME LIKE '%"+customercode+"%' OR erp_customer.CORPORATE_CODE = '"+customercode+"')";
+		sWhereCustomer = " WHERE erp_customer.CORPORATE_NAME LIKE '%"+customercode+"%'";
 	}
 	else
 	{
-		sWhere += " AND (ERP_CUSTOMER.CORPORATE_NAME LIKE '%"+customercode+"%' OR ERP_CUSTOMER.CORPORATE_CODE = '"+customercode+"')";
-		sWhereCustomer += "  AND ERP_CUSTOMER.CORPORATE_NAME LIKE '%"+customercode+"%'";
+		sWhere += " AND (erp_customer.CORPORATE_NAME LIKE '%"+customercode+"%' OR erp_customer.CORPORATE_CODE = '"+customercode+"')";
+		sWhereCustomer += "  AND erp_customer.CORPORATE_NAME LIKE '%"+customercode+"%'";
 	}
 }
 	
@@ -87,11 +88,11 @@ if(!isNull(typecode))
 {
 	if(sWhere == null)
 	{
-		sWhere = " WHERE ERP_DEAL.DEAL_TYPE='"+typecode+"'";
+		sWhere = " WHERE erp_deal.DEAL_TYPE='"+typecode+"'";
 	}
 	else
 	{
-		sWhere += " AND ERP_DEAL.DEAL_TYPE='"+typecode+"'";
+		sWhere += " AND erp_deal.DEAL_TYPE='"+typecode+"'";
 	}
 }
 	
@@ -99,11 +100,11 @@ if(!isNull(statuscode))
 {
 	if(sWhere == null)
 	{
-		sWhere = " WHERE ERP_DEAL.DEAL_STATUS='"+statuscode+"'";
+		sWhere = " WHERE erp_deal.DEAL_STATUS='"+statuscode+"'";
 	}
 	else
 	{
-		sWhere += " AND ERP_DEAL.DEAL_STATUS='"+statuscode+"'";
+		sWhere += " AND erp_deal.DEAL_STATUS='"+statuscode+"'";
 	}
 }
 	
@@ -111,36 +112,36 @@ if(!isNull(salesmancode))
 {
 	if(sWhere == null)
 	{
-		sWhere = " WHERE ERP_DEAL.SALESMAN_CODE='"+salesmancode+"'";
+		sWhere = " WHERE erp_deal.SALESMAN_CODE='"+salesmancode+"'";
 	}
 	else
 	{
-		sWhere += " AND ERP_DEAL.SALESMAN_CODE='"+salesmancode+"'";
+		sWhere += " AND erp_deal.SALESMAN_CODE='"+salesmancode+"'";
 	}
 }
 
 if(sWhere == null)
 {
-	sWhere = " WHERE ERP_DEAL.CUSTOMER_CODE = ERP_CUSTOMER.CORPORATE_CODE ";
-	sWhereCustomer = " WHERE ERP_DEAL_CUSTOMER.CUSTOMER_CODE = ERP_CUSTOMER.CORPORATE_CODE ";
+	sWhere = " WHERE erp_deal.CUSTOMER_CODE = erp_customer.CORPORATE_CODE ";
+	sWhereCustomer = " WHERE erp_deal_customer.CUSTOMER_CODE = erp_customer.CORPORATE_CODE ";
 }
 else
 {
-	sWhere += " AND ERP_DEAL.CUSTOMER_CODE = ERP_CUSTOMER.CORPORATE_CODE ";
-	sWhereCustomer += " AND ERP_DEAL_CUSTOMER.CUSTOMER_CODE = ERP_CUSTOMER.CORPORATE_CODE "; 
+	sWhere += " AND erp_deal.CUSTOMER_CODE = erp_customer.CORPORATE_CODE ";
+	sWhereCustomer += " AND erp_deal_customer.CUSTOMER_CODE = erp_customer.CORPORATE_CODE "; 
 }
 
 if(!isNull(dealcode))
 {
-	sWhere = " WHERE ERP_DEAL.CUSTOMER_CODE = ERP_CUSTOMER.CORPORATE_CODE AND ERP_DEAL.DEAL_CODE='"+dealcode+"' ";
+	sWhere = " WHERE erp_deal.CUSTOMER_CODE = erp_customer.CORPORATE_CODE AND erp_deal.DEAL_CODE='"+dealcode+"' ";
 	sWhereCustomer = "";
 }
 
 String SQL = "SELECT * ";
-SQL += " , CASE WHEN ERP_DEAL.DEAL_TYPE = 'pS' THEN ERP_DEAL.PAYMENT_PRICE ELSE 0 END PS_PAYMENT_PRICE";
-SQL += " , CASE WHEN ERP_DEAL.DEAL_TYPE = 'lS' THEN ERP_DEAL.PAYMENT_PRICE ELSE 0 END lS_PAYMENT_PRICE";
+SQL += " , CASE WHEN erp_deal.DEAL_TYPE = 'pS' THEN erp_deal.PAYMENT_PRICE ELSE 0 END PS_PAYMENT_PRICE";
+SQL += " , CASE WHEN erp_deal.DEAL_TYPE = 'lS' THEN erp_deal.PAYMENT_PRICE ELSE 0 END lS_PAYMENT_PRICE";
 SQL += " , TOTAL_PRICE-PAYMENT_PRICE STATEMENT_BALANCE_PRICE";
-SQL += " FROM ERP_DEAL, ERP_CUSTOMER"+ sWhere + "  ORDER BY ERP_DEAL.DEAL_DATE DESC"; 
+SQL += " FROM erp_deal, erp_customer"+ sWhere + "  ORDER BY erp_deal.DEAL_DATE DESC"; 
 		
 int nErrorCode = 0;
 String strErrorMsg = "START";
@@ -157,8 +158,8 @@ ResultSet  rs1   = null;
 ResultSet  rs2   = null;
 ResultSet  rs3   = null;
 ResultSet  rs4   = null;
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
+Class.forName(jdbcClass);
+conn = DriverManager.getConnection(jdbcUrl,dbId,dbPass);
 stmt = conn.createStatement();
 stmt1 = conn.createStatement();
 stmt2 = conn.createStatement();
@@ -167,7 +168,7 @@ stmt4 = conn.createStatement();
 /******* SQL query *************/
 
 try {
-	//System.out.println(SQL);
+//	System.out.println(SQL);
     rs = stmt.executeQuery(SQL);
 
     /********* Dataset Create ************/
@@ -293,9 +294,9 @@ try {
         
         String SQL2 = "";
         
-        SQL2 = "SELECT * FROM ERP_DEALDETAIL, ERP_PRODUCT " +
-				"WHERE ERP_DEALDETAIL.PRODUCT_CODE = ERP_PRODUCT.PRODUCT_CODE " +
-				"AND ERP_DEALDETAIL.DEAL_CODE = '"+ sParentCode +"'";
+        SQL2 = "SELECT * FROM erp_dealdetail, erp_product " +
+				"WHERE erp_dealdetail.PRODUCT_CODE = erp_product.PRODUCT_CODE " +
+				"AND erp_dealdetail.DEAL_CODE = '"+ sParentCode +"'";
         //sWhereCustomer
         
         rs2 = stmt2.executeQuery(SQL2);
@@ -322,7 +323,7 @@ try {
     String SQLCustomer = "";
     String sCustomerdistint = "";
     
-    SQLCustomer = "SELECT distinct CUSTOMER_CODE FROM ERP_DEAL, ERP_CUSTOMER " + sWhere;
+    SQLCustomer = "SELECT distinct CUSTOMER_CODE FROM erp_deal, erp_customer " + sWhere;
     
     rs1= stmt1.executeQuery(SQLCustomer);
    
@@ -335,10 +336,10 @@ try {
    						" , PURCHASE_TOTAL_PRICE - PURCHASE_PAYMENT_PRICE AS NON_PURCHASE_PAYMENT" + 
    						" , SALES_TOTAL_PRICE - SALES_PAYMENT_PRICE AS NON_SALES_PAYMENT" +
    						" , SALES_TOTAL_PRICE - SALES_PAYMENT_PRICE - PURCHASE_TOTAL_PRICE - PURCHASE_PAYMENT_PRICE AS NON_TOTAL_PAYMENT" +
-						" FROM ERP_DEAL_CUSTOMER,ERP_CUSTOMER" + 
-   				          " WHERE ERP_DEAL_CUSTOMER.CUSTOMER_CODE = ERP_CUSTOMER.CORPORATE_CODE" +
-   						  " AND CUSTOMER_CODE='"+sCustomerdistint+"'";
-   		//System.out.println(SQLDealCustomer);
+						" FROM erp_deal_customer,erp_customer" + 
+   				          " WHERE erp_deal_customer.CUSTOMER_CODE = erp_customer.CORPORATE_CODE" +
+   						  " AND erp_deal_customer.CUSTOMER_CODE='"+sCustomerdistint+"'";
+   		
    		rs3= stmt3.executeQuery(SQLDealCustomer);
    		
    		while(rs3.next())

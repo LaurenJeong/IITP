@@ -5,7 +5,7 @@
 <%@ page import="com.nexacro.java.xapi.tx.*" %>
 
 <%@ page contentType="text/xml; charset=utf-8" %>
-
+<%@ include file="lib/include_const.jsp" %>
 <%
 /****** Service API initialization ******/
 PlatformData pdata = new PlatformData();
@@ -18,14 +18,6 @@ PlatformData reqdata = req.getData();
 VariableList varList = reqdata.getVariableList();
 String dbUrl  = varList.getString("argDB");
 String sSearch  = varList.getString("argProduct");
-
-//QuickCode를 위해 Dataset으로 input조회조건 변경
-DataSet dsinput = reqdata.getDataSet("dsinput");
-
-if (dsinput != null && dsinput.hasData())
-{
-	sSearch = dsinput.getString(0, "PRODUCT");
-}
 		
 int nErrorCode = 0;
 String strErrorMsg = "START";
@@ -34,12 +26,12 @@ String strErrorMsg = "START";
 Connection conn = null;
 Statement  stmt = null;
 ResultSet  rs   = null;
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
+Class.forName(jdbcClass);
+conn = DriverManager.getConnection(jdbcUrl,dbId,dbPass);
 stmt = conn.createStatement();
 
 /******* SQL query *************/
-String SQL = "select * from ERP_PRODUCT";
+String SQL = "select * from erp_product";
 
 if(sSearch != null)
 {

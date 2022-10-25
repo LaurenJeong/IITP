@@ -5,7 +5,7 @@
 <%@ page import="com.nexacro.java.xapi.tx.*" %>
 
 <%@ page contentType="text/xml; charset=utf-8" %>
-
+<%@ include file="lib/include_const.jsp" %>
 <%
 /****** Service API initialization ******/
 PlatformData pdata = new PlatformData();
@@ -16,7 +16,7 @@ req.receiveData();
 PlatformData reqdata = req.getData();
 VariableList varList = reqdata.getVariableList();
 String dbUrl  = varList.getString("argDB");
-
+//String dbUrl  = "172.10.12.58";
 int nErrorCode = 0;
 String strErrorMsg = "START";
 
@@ -27,24 +27,24 @@ ResultSet  rs1   = null;
 ResultSet  rs2   = null;
 ResultSet  rs3   = null;
 ResultSet  rs4   = null;
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
+
+Class.forName(jdbcClass);
+conn = DriverManager.getConnection(jdbcUrl,dbId,dbPass);
 stmt = conn.createStatement();
 
 try {
 	
-	//공통코드 데이터 가져오기
 	/********* Dataset Create ************/
     DataSet dsarea = new DataSet("dsarea");
     dsarea.addColumn("code",DataTypes.STRING, 256);
     dsarea.addColumn("value",DataTypes.STRING, 256);
     
     /******* SQL query *************/
-    String	SQL1  = "select CODE_NUM,CODE_VALUE from ERP_AREA";
+    String	SQL1  = "select CODE_NUM,CODE_VALUE from erp_area";
     int row = 0;
     
     rs1 = stmt.executeQuery(SQL1);  
-   
+    System.out.println("SQL1:" + SQL1);
     while(rs1.next())
     {
    		row = dsarea.newRow();

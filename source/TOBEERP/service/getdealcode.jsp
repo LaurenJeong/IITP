@@ -5,7 +5,7 @@
 <%@ page import="com.nexacro.java.xapi.tx.*" %>
 
 <%@ page contentType="text/xml; charset=utf-8" %>
-
+<%@ include file="lib/include_const.jsp" %>
 <%
 /****** Service API initialization ******/
 PlatformData pdata = new PlatformData();
@@ -29,9 +29,10 @@ ResultSet  rs3   = null;
 ResultSet  rs4   = null;
 ResultSet  rs5   = null;
 ResultSet  rs6   = null;
-ResultSet  rs7	 = null;
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
+ResultSet  rs7   = null;
+
+Class.forName(jdbcClass);
+conn = DriverManager.getConnection(jdbcUrl,dbId,dbPass);
 stmt = conn.createStatement();
 
 try {
@@ -72,7 +73,7 @@ try {
     /******* SQL query *************/
    
     
-    String SQL1 = "select TYPE_CODE, TYPE_VALUE from ERP_ACCOUNT_TYPE";
+    String SQL1 = "select TYPE_CODE, TYPE_VALUE from erp_account_type";
     int row = 0;
     
     rs1 = stmt.executeQuery(SQL1);  
@@ -84,7 +85,7 @@ try {
    		dstype.set(row, "value", rs1.getString("TYPE_VALUE"));
     }
     
-    String SQL2 = "select EMPLOYEE_CODE,EMPLOYEE_NAME from ERP_EMPLOYEE where GROUPS = 'gpbus'";
+    String SQL2 = "select EMPLOYEE_CODE,EMPLOYEE_NAME from erp_employee where GROUPS = 'gpbus'";
 	row = 0;
 	   
 	rs2 = stmt.executeQuery(SQL2);  
@@ -96,7 +97,7 @@ try {
 		dssalesman.set(row, "value", rs2.getString("EMPLOYEE_NAME"));
 	}
 	 
-	String SQL3 = "select TYPE_CODE, TYPE_VALUE from ERP_DEAL_TYPE";
+	String SQL3 = "select TYPE_CODE, TYPE_VALUE from erp_deal_type";
 	row = 0;
 	   
 	rs3 = stmt.executeQuery(SQL3);  
@@ -108,7 +109,7 @@ try {
 		dsdealtype.set(row, "value", rs3.getString("TYPE_VALUE"));
 	}
 	
-	String SQL4 = "select TYPE_CODE, TYPE_VALUE from ERP_CUSTOMER_TYPE";
+	String SQL4 = "select TYPE_CODE, TYPE_VALUE from erp_customer_type";
 	row = 0;
 	   
 	rs4 = stmt.executeQuery(SQL4);  
@@ -120,7 +121,7 @@ try {
 		dscoportype.set(row, "value", rs4.getString("TYPE_VALUE"));
 	}
 	
-	String SQL5 = "select UNIT_CODE, UNIT_VALUE from ERP_PRODUCT_UNIT";
+	String SQL5 = "select UNIT_CODE, UNIT_VALUE from erp_product_unit";
 	row = 0;
 	   
 	rs5 = stmt.executeQuery(SQL5);  
@@ -132,7 +133,7 @@ try {
 		dsunit.set(row, "value", rs5.getString("UNIT_VALUE"));
 	}
 	
-	String SQL6 = "select CONDITION_CODE, CONDITION_VALUE from ERP_BUSINESS_CONDITION where CONDITION_STATUS='Y'";
+	String SQL6 = "select CONDITION_CODE, CONDITION_VALUE from erp_business_condition where CONDITION_STATUS='Y'";
 	row = 0;
 	   
 	rs6 = stmt.executeQuery(SQL6);  
@@ -144,8 +145,8 @@ try {
 		dscondition.set(row, "value", rs6.getString("CONDITION_VALUE"));
 	}
 	
-	// QuickCode 샘플용 거래처 데이터 조회
-	String SQL7 = "select CORPORATE_CODE, CORPORATE_NAME, UNIT_PRICE_CODE from ERP_CUSTOMER WHERE DEAL_STATUS != 's3'";
+	// QuickCode ���ÿ� �ŷ�ó ������ ��ȸ
+	String SQL7 = "select CORPORATE_CODE, CORPORATE_NAME, UNIT_PRICE_CODE from erp_customer WHERE DEAL_STATUS != 's3'";
 	row = 0;
 	   
 	rs7 = stmt.executeQuery(SQL7);  

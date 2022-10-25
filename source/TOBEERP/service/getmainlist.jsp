@@ -5,7 +5,7 @@
 <%@ page import="com.nexacro.java.xapi.tx.*" %>
 
 <%@ page contentType="text/xml; charset=utf-8" %>
-
+<%@ include file="lib/include_const.jsp" %>
 <%
 /****** Service API initialization ******/
 PlatformData pdata = new PlatformData();
@@ -29,12 +29,12 @@ ResultSet  rs3   = null;
 ResultSet  rs4   = null;
 ResultSet  rs5	 = null;
 ResultSet  rs6   = null;
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
+Class.forName(jdbcClass);
+conn = DriverManager.getConnection(jdbcUrl,dbId,dbPass);
 stmt = conn.createStatement();
 
 try {
-	
+	//dsStatus=dsstatus dsType=dstype dsSalesman=dssalesman dsPayment=dspayment dsSurtax=dssurtax
 	/********* Dataset Create ************/
 	DataSet dsdeal = new DataSet("dsdeal");
 	dsdeal.addColumn("DEAL_CODE",DataTypes.STRING, 256);
@@ -54,11 +54,12 @@ try {
 	dsestimate.addColumn("EXPIRY_TERM",DataTypes.STRING, 256);
 	dsestimate.addColumn("CORPORATE_NAME",DataTypes.STRING, 256);
 	
+	// [QuickCode] 거래처별 판매현황 
 	DataSet dssalescustomer = new DataSet("dssalescustomer");
 	dssalescustomer.addColumn("CUSTOMER",DataTypes.STRING, 256);
 	dssalescustomer.addColumn("TOTAL_PRICE",DataTypes.INT, 256);
 	
-	// 매출/매입 현황 추가
+	// [QuickCode] 매출/매입 현황 추가
 	DataSet dssales = new DataSet("dssales");
 	dssales.addColumn("DT_YYYYMM",DataTypes.STRING, 256);
 	dssales.addColumn("SALES_AMOUNT",DataTypes.INT, 256);
@@ -66,9 +67,15 @@ try {
 	dssales.addColumn("PURCHASE_AMOUNT",DataTypes.INT, 256);
     
     /******* SQL query *************/
+    /*
     String	SQL1  = "SELECT TOP 5 DEAL_CODE, TYPE_VALUE, DEAL_DATE , ADD_IN_TAX, CORPORATE_NAME, TOTAL_PRICE "+ "\n" +
     				"FROM ERP_DEAL, ERP_ACCOUNT_TYPE, ERP_CUSTOMER " + "\n" +
-    				"WHERE ERP_ACCOUNT_TYPE.TYPE_CODE=ERP_DEAL.DEAL_TYPE AND ERP_CUSTOMER.CORPORATE_CODE = ERP_DEAL.CUSTOMER_CODE ORDER BY ERP_DEAL.DEAL_DATE DESC";
+    				"WHERE ERP_ACCOUNT_TYPE.TYPE_CODE=ERP_DEAL.DEAL_TYPE AND ERP_CUSTOMER.CORPORATE_CODE = ERP_DEAL.CUSTOMER_CODE  ORDER BY ERP_DEAL.DEAL_DATE DESC";
+    */
+    String	SQL1  = "SELECT  DEAL_CODE, TYPE_VALUE, DEAL_DATE , ADD_IN_TAX, CORPORATE_NAME, TOTAL_PRICE "+ "\n" +
+			"FROM erp_deal, erp_account_type, erp_customer " + "\n" +
+			"WHERE erp_account_type.TYPE_CODE=erp_deal.DEAL_TYPE AND erp_customer.CORPORATE_CODE = erp_deal.CUSTOMER_CODE  ORDER BY erp_deal.DEAL_DATE DESC LIMIT 5";
+
     int row = 0;
     rs1 = stmt.executeQuery(SQL1);  
    
@@ -83,11 +90,12 @@ try {
    		dsdeal.set(row, "TOTAL_PRICE", rs1.getString("TOTAL_PRICE"));
     }
     
-    String SQL2 = "SELECT TOP 5 ESTIMATE_DATE,ESTIMATE_STATUS,SALESMAN_CODE,CUSTOMER_CODE, CORPORATE_NAME ,ESTIMATE_TYPE,ESTIMATE_TITLE,EXPIRY_TERM FROM ERP_ESTIMATE ,ERP_CUSTOMER" +
-    			" WHERE ERP_ESTIMATE.CUSTOMER_CODE = ERP_CUSTOMER.CORPORATE_CODE ORDER BY ERP_ESTIMATE.ESTIMATE_DATE DESC";
+    String SQL2 = "SELECT  ESTIMATE_DATE,ESTIMATE_STATUS,SALESMAN_CODE,CUSTOMER_CODE, CORPORATE_NAME ,ESTIMATE_TYPE,ESTIMATE_TITLE,EXPIRY_TERM FROM erp_estimate ,erp_customer" +
+    			" WHERE erp_estimate.CUSTOMER_CODE = erp_customer.CORPORATE_CODE ORDER BY erp_estimate.ESTIMATE_DATE DESC LIMIT 5";
     
     row = 0;
     rs2 = stmt.executeQuery(SQL2);  
+   System.out.println(SQL2);
     while(rs2.next())
     {
    		row = dsestimate.newRow();
@@ -101,18 +109,19 @@ try {
    		dsestimate.set(row, "CORPORATE_NAME", rs2.getString("CORPORATE_NAME"));
     }
     
-    String SQL3 = "SELECT SALES_TOTAL_PRICE, CUSTOMER_CODE, CORPORATE_NAME FROM ERP_DEAL_CUSTOMER, ERP_CUSTOMER WHERE ERP_DEAL_CUSTOMER.CUSTOMER_CODE=ERP_CUSTOMER.CORPORATE_CODE  order by  ERP_DEAL_CUSTOMER.SALES_TOTAL_PRICE desc";
+    String SQL3 = "SELECT SALES_TOTAL_PRICE, CUSTOMER_CODE, CORPORATE_NAME FROM erp_deal_customer, erp_customer WHERE erp_deal_customer.CUSTOMER_CODE=erp_customer.CORPORATE_CODE  order by  erp_deal_customer.SALES_TOTAL_PRICE desc";
 
 	row = 0;
 	rs3 = stmt.executeQuery(SQL3);  
 	while(rs3.next())
 	{
+			// [QuickCode] 거래처별 판매현황
 			row = dssalescustomer.newRow();
 			dssalescustomer.set(row, "CUSTOMER", rs3.getString("CORPORATE_NAME"));    
 			dssalescustomer.set(row, "TOTAL_PRICE", rs3.getString("SALES_TOTAL_PRICE"));
 	}
 	
-	// 매출/매입 현황 데이터설정
+	// [QuickCode] 매출/매입 현황 데이터설정
 	row = 0;
 	row = dssales.newRow();
 	dssales.set(row, "DT_YYYYMM", "2020.01");
@@ -178,8 +187,8 @@ try {
     /********* Adding Dataset to PlatformData ************/
     pdata.addDataSet(dsdeal);
     pdata.addDataSet(dsestimate);
-    pdata.addDataSet(dssalescustomer);
-    pdata.addDataSet(dssales);
+    pdata.addDataSet(dssalescustomer);		// [QuickCode] 거래처별 판매현황
+	pdata.addDataSet(dssales);				// [QuickCode] 매출/매입 현황
     
     nErrorCode = 0;
     strErrorMsg = "SUCC";

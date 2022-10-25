@@ -5,7 +5,7 @@
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.io.*" %>
 <%@ page contentType = "text/xml; charset=UTF-8" %>
-
+<%@ include file="lib/include_const.jsp" %>
 <%!
 // Dataset value
 public String  dsGet(DataSet ds, int rowno, String colid) throws Exception
@@ -45,8 +45,8 @@ Statement  stmtd = null;
 Statement  stmtc = null;
 
 ResultSet  rs   = null;
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
+Class.forName(jdbcClass);
+conn = DriverManager.getConnection(jdbcUrl,dbId,dbPass);
 stmt = conn.createStatement();
 stmtd = conn.createStatement();
 stmtc = conn.createStatement();
@@ -67,10 +67,10 @@ try {
     {
         String sCode = dsdeal.getRemovedData(i, "DEAL_CODE").toString();
         
-        SQLDetail = "DELETE FROM ERP_DEALDETAIL WHERE DEAL_CODE = '" + sCode + "'";
+        SQLDetail = "DELETE FROM erp_dealdetail WHERE DEAL_CODE = '" + sCode + "'";
         stmtd.executeUpdate(SQLDetail);
         
-        SQL = "DELETE FROM ERP_DEAL WHERE DEAL_CODE = '" + sCode + "'";
+        SQL = "DELETE FROM erp_deal WHERE DEAL_CODE = '" + sCode + "'";
         stmt.executeUpdate(SQL);
     }
 
@@ -87,7 +87,7 @@ try {
         	String sCode = dsGet(dsdeal, i, "DEAL_CODE");
         	String sCustomer = dsGet(dsdeal, i, "CUSTOMER_CODE");
         	String sDate = dsGet(dsdeal, i, "DEAL_DATE");
-        	SQL =	"INSERT INTO ERP_DEAL	 (	DEAL_CODE,		\n" +
+        	SQL =	"INSERT INTO erp_deal	 (	DEAL_CODE,		\n" +
         			"			               	DEAL_DATE,		\n" +
         			"			               	DEAL_TYPE,		\n" +        			
         			"			               	DEAL_TITLE,		\n" +
@@ -142,13 +142,13 @@ try {
 					"'" 		+ dsGet(dsdeal, i, "TOTAL_PRICE") 			+ "'," +
 					"'" 		+ dsGet(dsdeal, i, "PAYMENT_PRICE") 			+ "'," +
 					"'" 		+ dsGet(dsdeal, i, "TAX_PRICE") 			+ "'," +
-        			"ISNULL(MAX(DEAL_SEQ) + 1, 1) FROM ERP_DEAL WHERE DEAL_DATE='"+sDate+ "' AND CUSTOMER_CODE='"+sCustomer+"' AND  DEAL_CODE='"+sCode+"'";
+        			"IFNULL(MAX(DEAL_SEQ) + 1, 1) FROM erp_deal WHERE DEAL_DATE='"+sDate+ "' AND CUSTOMER_CODE='"+sCustomer+"' AND  DEAL_CODE='"+sCode+"'";
         	
         }
         else if( rowType == DataSet.ROW_TYPE_UPDATED )
         {
         	String sCode = dsdeal.getSavedData(i, "DEAL_CODE").toString();
-            SQL =	"UPDATE ERP_DEAL  \n" +
+            SQL =	"UPDATE erp_deal  \n" +
                  	"SET 	DEAL_STATUS			= '" + dsGet(dsdeal, i, "DEAL_STATUS")	+ "',\n" +
                  	"   	TAX_TYPE		= '" + dsGet(dsdeal, i, "TAX_TYPE")	+ "',\n" +
                  	"   	CUSTOMER_CODE		= '" + dsGet(dsdeal, i, "CUSTOMER_CODE")	+ "',\n" +
@@ -160,7 +160,7 @@ try {
                  	"   	TOTAL_PRICE		= '" + dsGet(dsdeal, i, "TOTAL_PRICE")		+ "',\n" +
                  	"   	DISCOUNT_PRICE		= '" + dsGet(dsdeal, i, "DISCOUNT_PRICE")		+ "',\n" +
                  	"   	TAX_PRICE			= '" + dsGet(dsdeal, i, "TAX_PRICE")		+ "',\n" + 
-                 	"   	TOTAL_AMOUNT		= '" + dsGet(dsdeal, i, "TOTAL_AMOUNT")		+ "',\n" + 
+                 	"   	TOTAL_AMOUNT		= '" + dsGet(dsdeal, i, "TOTAL_AMOUNT")		+ "',\n" +
 					"   	ACCOUNT_PRICE		= '" + dsGet(dsdeal, i, "ACCOUNT_PRICE")		+ "',\n" +
 					"   	PAYMENT_PRICE		= '" + dsGet(dsdeal, i, "PAYMENT_PRICE")		+ "',\n" +
 					"   	BILL_PRICE			= '" + dsGet(dsdeal, i, "BILL_PRICE")		+ "',\n" +
@@ -184,7 +184,7 @@ try {
         {
         	String sCode  = dsGet(dsdetail, i, "DEAL_CODE");
         	
-        	SQLDetail =	"INSERT INTO ERP_DEALDETAIL (	DEAL_CODE,		\n" +
+        	SQLDetail =	"INSERT INTO erp_dealdetail (	DEAL_CODE,		\n" +
 					"			               	PRODUCT_CODE,		\n" +
     				"           		      	AMOUNT,		\n" +
     				"           		      	LAST_PRICE,		\n" +
@@ -205,13 +205,13 @@ try {
 					"'"			+ dsGet(dsdetail, i, "TAX_PRICE")	+ "'," +
 					"'"			+ dsGet(dsdetail, i, "TOTAL_PRICE")	+ "'," +
 					"'"			+ dsGet(dsdetail, i, "ETC")	+ "'," +
-					"ISNULL(MAX(DEAL_NUMBER) + 1, 1) FROM ERP_DEALDETAIL WHERE DEAL_CODE='"+sCode+"'";
+					"IFNULL(MAX(DEAL_NUMBER) + 1, 1) FROM erp_dealdetail WHERE DEAL_CODE='"+sCode+"'";
         }
         else if( rowType == DataSet.ROW_TYPE_UPDATED )
         {
         	String sCode = dsdetail.getSavedData(i, "DEAL_CODE").toString();
         	String snum = dsdetail.getSavedData(i, "DEAL_NUMBER").toString();
-        	SQLDetail =	"UPDATE ERP_DEALDETAIL  \n" +
+        	SQLDetail =	"UPDATE erp_dealdetail  \n" +
                  	"SET 	PRODUCT_CODE		= '" + dsGet(dsdetail, i, "PRODUCT_CODE")	+ "',\n" +
                  	"   	DISCOUNT_PRICE		= '" + dsGet(dsdetail, i, "DISCOUNT_PRICE")	+ "',\n" +                 	
                  	"   	AMOUNT				= '" + dsGet(dsdetail, i, "AMOUNT")			+ "',\n" +
@@ -236,7 +236,7 @@ try {
 
         if( rowType == DataSet.ROW_TYPE_INSERTED )
         {
-        	SQLCustomer =	"INSERT INTO ERP_DEAL_CUSTOMER 		    \n(" + 
+        	SQLCustomer =	"INSERT INTO erp_deal_customer 		    \n(" + 
 		        			"				CUSTOMER_CODE				,\n" +
 							"				PURCHASE_TOTAL_PRICE		,\n" +
 		    				"           	SALES_TOTAL_PRICE			,\n" +
@@ -261,7 +261,7 @@ try {
         else if( rowType == DataSet.ROW_TYPE_UPDATED )
         {
         	String sCode = dsdealcustomer.getSavedData(i, "CUSTOMER_CODE").toString();
-        	SQLCustomer =	"UPDATE ERP_DEAL_CUSTOMER  \n" +
+        	SQLCustomer =	"UPDATE erp_deal_customer  \n" +
 		                 	"SET 	PURCHASE_TOTAL_PRICE	= '" + dsGet(dsdealcustomer, i, "PURCHASE_TOTAL_PRICE")		+ "',\n" +
 		                 	"   	SALES_TOTAL_PRICE		= '" + dsGet(dsdealcustomer, i, "SALES_TOTAL_PRICE")		+ "',\n" +                 	
 		                 	"   	PURCHASE_PAYMENT_PRICE	= '" + dsGet(dsdealcustomer, i, "PURCHASE_PAYMENT_PRICE")	+ "',\n" +

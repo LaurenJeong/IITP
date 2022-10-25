@@ -5,7 +5,7 @@
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.io.*" %>
 <%@ page contentType = "text/xml; charset=UTF-8" %>
-
+<%@ include file="lib/include_const.jsp" %>
 <%!
 // Dataset value
 public String  dsGet(DataSet ds, int rowno, String colid) throws Exception
@@ -40,8 +40,8 @@ String strErrorMsg = "START";
 Connection conn = null;
 Statement  stmt = null;
 ResultSet  rs   = null;
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
+Class.forName(jdbcClass);
+conn = DriverManager.getConnection(jdbcUrl,dbId,dbPass);
 stmt = conn.createStatement();
 
 try {
@@ -57,7 +57,7 @@ try {
     for( i = 0; i < ds.getRemovedRowCount(); i++ )
     {
         String sCode = ds.getRemovedData(i, "CUSTOMER_PRICE_CODE").toString();
-        SQL = "DELETE FROM ERP_PRICE WHERE CUSTOMER_PRICE_CODE = '" + sCode + "'";
+        SQL = "DELETE FROM erp_price WHERE CUSTOMER_PRICE_CODE = '" + sCode + "'";
         stmt.executeUpdate(SQL);
     }
 
@@ -73,7 +73,7 @@ try {
         	sCustomerCode 	= dsGet(ds, i, "CUSTOMER_CODE"); 
         	sProductCode	= dsGet(ds, i, "PRODUCT_CODE");
         	
-        	SQL =	"INSERT INTO ERP_PRICE (	CUSTOMER_CODE,		\n" +
+        	SQL =	"INSERT INTO erp_price (	CUSTOMER_CODE,		\n" +
 					"			               	PRODUCT_CODE,		\n" +
         			"           		      	LAST_PRICE,			\n" +
     				"           		      	RECEIVING_PRICE,	\n" +
@@ -99,14 +99,17 @@ try {
 					"'"			+ dsGet(ds, i, "TAX_FREE_CHECK")	+ "'," +
 					"'"			+ dsGet(ds, i, "DISCOUNT_RATE")		+ "'," +
 					"'"			+ dsGet(ds, i, "TRADING_TYPE") 		+ "'," +
-        			"'" +sCustomerCode+sProductCode +"'+" +"RIGHT('00' + CAST(ISNULL(MAX(PRICE_VERSION) + 1, 1) AS NVARCHAR), 2)" +"," +
-					"ISNULL(MAX(PRICE_VERSION) + 1, 1) FROM ERP_PRICE WHERE CUSTOMER_CODE='"+sCustomerCode+"' AND  PRODUCT_CODE='"+sProductCode+"'";
+					//"'" +sCustomerCode+sProductCode +"'+" +"RIGHT('00' + CONVERT(IFNULL(MAX(PRICE_VERSION) + 1, 1),NCHAR), 2)" +"," +
+					"CONCAT('" +sCustomerCode+sProductCode +"',RIGHT(CONCAT('00',CONVERT(IFNULL(MAX(PRICE_VERSION) + 1, 1),NCHAR)), 2))" +"," +
+					"IFNULL(MAX(PRICE_VERSION) + 1, 1) FROM erp_price WHERE CUSTOMER_CODE='"+sCustomerCode+"' AND  PRODUCT_CODE='"+sProductCode+"'";
+					//"'" +sCustomerCode+sProductCode +"'+" +"RIGHT('00' + CAST(ISNULL(MAX(PRICE_VERSION) + 1, 1) AS NVARCHAR), 2)" +"," +
+					//"ISNULL(MAX(PRICE_VERSION) + 1, 1) FROM ERP_PRICE WHERE CUSTOMER_CODE='"+sCustomerCode+"' AND  PRODUCT_CODE='"+sProductCode+"'";
         	System.out.println(SQL);
         }
         else if( rowType == DataSet.ROW_TYPE_UPDATED )
         {
         	String sCode = ds.getSavedData(i, "CUSTOMER_PRICE_CODE").toString();
-            SQL =	"UPDATE ERP_PRICE  \n" +
+            SQL =	"UPDATE erp_price  \n" +
                  	"SET 	CUSTOMER_CODE		= '" + dsGet(ds, i, "CUSTOMER_CODE")		+ "',\n" +
                  	"   	PRODUCT_CODE		= '" + dsGet(ds, i, "PRODUCT_CODE")			+ "',\n" +
                  	"   	LAST_PRICE			= '" + dsGet(ds, i, "LAST_PRICE")			+ "',\n" +

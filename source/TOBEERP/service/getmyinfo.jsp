@@ -5,7 +5,7 @@
 <%@ page import="com.nexacro.java.xapi.tx.*" %>
 
 <%@ page contentType="text/xml; charset=utf-8" %>
-
+<%@ include file="lib/include_const.jsp" %>
 <%
 /****** Service API initialization ******/
 PlatformData pdata = new PlatformData();
@@ -25,18 +25,18 @@ PlatformData reqdata = req.getData();
 VariableList varList = reqdata.getVariableList();
 String dbUrl  = varList.getString("argDB");
 
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
+Class.forName(jdbcClass);
+conn = DriverManager.getConnection(jdbcUrl,dbId,dbPass);
 
 stmt = conn.createStatement();
 
 try {
     /******* SQL query *************/
-    String SQL = "select * from ERP_MYINFO,ERP_BUSINESS_CONDITION where ERP_MYINFO.BUSINESS_CONDITION = ERP_BUSINESS_CONDITION.CONDITION_CODE";
+    String SQL = "select * from erp_myinfo,erp_business_condition where erp_myinfo.BUSINESS_CONDITION = erp_business_condition.CONDITION_CODE";
     rs = stmt.executeQuery(SQL);
 
     /********* Dataset Create ************/
-    DataSet ds = new DataSet("dsmyinfo");
+    DataSet ds = new DataSet("dsmyinfo");     // [QuickCode] 
     ds.addColumn("BUSINESS_LICENSE_NUM",DataTypes.STRING, 256);
     ds.addColumn("CORPORATE_NAME",DataTypes.STRING, 256);
     ds.addColumn("COMPANY_NAME", DataTypes.STRING, 256);

@@ -5,7 +5,7 @@
 <%@ page import="com.nexacro.java.xapi.tx.*" %>
 
 <%@ page contentType="text/xml; charset=utf-8" %>
-
+<%@ include file="lib/include_const.jsp" %>
 <%
 /****** Service API initialization ******/
 PlatformData pdata = new PlatformData();
@@ -29,8 +29,8 @@ ResultSet  rs3   = null;
 ResultSet  rs4   = null;
 ResultSet  rs5	 = null;
 ResultSet  rs6	 = null;
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-conn = DriverManager.getConnection("jdbc:sqlserver://"+dbUrl+";databaseName=TESTDB;","test","tobesoft");
+Class.forName(jdbcClass);
+conn = DriverManager.getConnection(jdbcUrl,dbId,dbPass);
 stmt = conn.createStatement();
 
 try {
@@ -57,6 +57,7 @@ try {
     dsstatus.addColumn("code",DataTypes.STRING, 256);
     dsstatus.addColumn("value",DataTypes.STRING, 256);
     
+    // [QuickCode] 
     DataSet dscustomer = new DataSet("dscustomer");
     dscustomer.addColumn("code",DataTypes.STRING, 256);
     dscustomer.addColumn("value",DataTypes.STRING, 256);
@@ -64,7 +65,7 @@ try {
     //select * from ERP_DEAL_STATUS
     
     /******* SQL query *************/
-    String	SQL1  = "select ASSET_CODE, ASSET_VALUE from ERP_PRODUCT_ASSET";
+    String	SQL1  = "select ASSET_CODE, ASSET_VALUE from erp_product_asset";
     int row = 0;
     
     rs1 = stmt.executeQuery(SQL1);  
@@ -76,7 +77,7 @@ try {
    		dsasset.set(row, "value", rs1.getString("ASSET_VALUE"));
     }
     
-    String SQL2 = "select GROUP_CODE, GROUP_VALUE, ASSET_CODE from ERP_PRODUCT_GROUP";
+    String SQL2 = "select GROUP_CODE, GROUP_VALUE, ASSET_CODE from erp_product_group";
     row = 0;
     
     rs2 = stmt.executeQuery(SQL2);  
@@ -89,7 +90,7 @@ try {
    		dsgroup.set(row, "asset", rs2.getString("ASSET_CODE"));
     }
     
-    String SQL3 = "select MENUFACTURE_CODE, MENUFACTURE_NAME from ERP_PRODUCT_MENUFACTURE";
+    String SQL3 = "select MENUFACTURE_CODE, MENUFACTURE_NAME from erp_product_menufacture";
 	row = 0;
 	   
 	rs3 = stmt.executeQuery(SQL3);  
@@ -101,7 +102,7 @@ try {
 		dsmanufacture.set(row, "value", rs3.getString("MENUFACTURE_NAME"));
 	}
 	 
-	String SQL4 = "select UNIT_CODE, UNIT_VALUE from ERP_PRODUCT_UNIT";
+	String SQL4 = "select UNIT_CODE, UNIT_VALUE from erp_product_unit";
 	row = 0;
 	   
 	rs4 = stmt.executeQuery(SQL4);  
@@ -113,7 +114,7 @@ try {
 		dsunit.set(row, "value", rs4.getString("UNIT_VALUE"));
 	}
 	
-	String SQL5 = "select STATUS_CODE, STATUS_VALUE from ERP_DEAL_STATUS";
+	String SQL5 = "select STATUS_CODE, STATUS_VALUE from erp_deal_status";
 	row = 0;
 	   
 	rs5 = stmt.executeQuery(SQL5);  
@@ -125,8 +126,8 @@ try {
 		dsstatus.set(row, "value", rs5.getString("STATUS_VALUE"));
 	}
 	
-	// QuickCode ìƒ˜í”Œìš© ê±°ëž˜ì²˜ ë°ì´í„° ì¡°íšŒ
-	String SQL6 = "select CORPORATE_CODE, CORPORATE_NAME, UNIT_PRICE_CODE from ERP_CUSTOMER WHERE DEAL_STATUS != 's3'";
+	// QuickCode »ùÇÃ¿ë °Å·¡Ã³ µ¥ÀÌÅÍ Á¶È¸
+	String SQL6 = "select CORPORATE_CODE, CORPORATE_NAME, UNIT_PRICE_CODE from erp_customer WHERE DEAL_STATUS != 's3'";
 	row = 0;
 	   
 	rs6 = stmt.executeQuery(SQL6);  
