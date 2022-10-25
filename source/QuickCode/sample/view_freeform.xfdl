@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="view_freeform" width="1080" height="1001" titletext="FreeFormViewTemplate" cssclass="sta_WF_notice01">
+  <Form id="view_freeform" width="1080" height="1150" titletext="FreeFormViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
     <Layouts>
-      <Layout height="1001" mobileorientation="landscape" width="1080">
+      <Layout height="1150" mobileorientation="landscape" width="1080">
+        <Static id="Static00_00_00" taborder="12" text="ViewTemplate 사용예" left="0" top="175" height="25" cssclass="sta_WF_notice01" right="10"/>
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="11" text="FreeForm 영역을 구성하기 위한 View Template" left="0" top="staInfo:0" height="25" cssclass="sta_WF_notice01" right="10"/>
         <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="70" right="10" value="- 하나의 필드는 레이블(Static) + 컴포넌트로 구성&#10;- direction, halign, valign 속성에 설정된 값으로 Field가 순서대로 배치되어 생성됨.&#10;- format 속성을 활용하여 여러 개의 필드를 하나의 Cell에 표현할 경우 1:N으로 레이블(Static) + 컴포넌트로 표현(레이블은 첫 번째 필드의 레이블정보로 표현)" readonly="true"/>
-        <Static id="Static00_00_00" taborder="12" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <View id="viewSample" taborder="10" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="109" right="10" cssclass="viw_bg">
+        <View id="viewSample" taborder="10" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="109" right="10">
           <Layouts>
             <Layout>
               <Div id="divTitle" left="0" top="0" height="30" right="0">
@@ -87,7 +87,7 @@
           </ViewTemplateInfo>
         </View>
         <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="286" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="236" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -322,5 +322,22 @@
         </Rows>
       </Dataset>
     </Objects>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdViewAttribute);
+	this.fnSetGridHeight(this.grdFieldUserAttribute);
+	this.resetScroll();
+};
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
+	
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
+};]]></Script>
   </Form>
 </FDL>

@@ -83,6 +83,7 @@
           <Column id="MENU_LVL" type="STRING" size="256"/>
           <Column id="PGM_PATH" type="STRING" size="256"/>
           <Column id="PGM_ID" type="STRING" size="256"/>
+          <Column id="MENU_YN" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dsOpenMenu">
@@ -117,7 +118,10 @@ this.frmAll_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	//this.fn_setSize(this.getOffsetWidth(), this.getOffsetHeight());
 	this.numWidCount = nexacro.floor((this.divMdi.form.divButtonList.getOffsetWidth())/(this.numWidth+5));
 	
-	this.dsLeftMenu.copyData(nexacro.getApplication().gdsMenu);
+	var oMenuDs = nexacro.getApplication().gdsMenu;
+	oMenuDs.filter("MENU_YN!='N'");
+	this.dsLeftMenu.copyData(oMenuDs,true);
+	oMenuDs.filter("");
 	
 	this.fn_openHome();
 };

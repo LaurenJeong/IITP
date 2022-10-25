@@ -9,6 +9,7 @@
         <Column id="MENU_LVL" type="STRING" size="256" description="메뉴레벨(0부터시작)"/>
         <Column id="PGM_PATH" type="STRING" size="256" description="화면 Services Prefix"/>
         <Column id="PGM_ID" type="STRING" size="256" description="화면명"/>
+        <Column id="MENU_YN" type="STRING" size="256"/>
       </ColumnInfo>
       <Rows>
         <Row>
@@ -18,6 +19,7 @@
           <Col id="MENU_LVL">0</Col>
           <Col id="PGM_PATH"/>
           <Col id="PGM_ID"/>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S10000</Col>
@@ -26,12 +28,14 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_freeform.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S11000</Col>
           <Col id="MENU_CD">S11100</Col>
           <Col id="MENU_NM">ViewAttribute</Col>
           <Col id="MENU_LVL">2</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S11100</Col>
@@ -40,6 +44,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_freeform_viewattr_direction.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S11100</Col>
@@ -48,6 +53,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_freeform_viewattr_title.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S11100</Col>
@@ -56,6 +62,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_freeform_viewattr_usefieldbox.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S11100</Col>
@@ -64,12 +71,14 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_freeform_viewattr_format.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">S11200</Col>
           <Col id="UP_MENU_CD">S11000</Col>
           <Col id="MENU_NM">FieldUserAttribute</Col>
           <Col id="MENU_LVL">2</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S11200</Col>
@@ -78,6 +87,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_freeform_fieldattr_comptype.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S11200</Col>
@@ -86,6 +96,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_freeform_fieldattr_size.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S11200</Col>
@@ -94,6 +105,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_freeform_fieldattr_cssclass.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S11200</Col>
@@ -102,6 +114,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_freeform_fieldattr_usecomp.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S10000</Col>
@@ -110,12 +123,14 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_search.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S12000</Col>
           <Col id="MENU_CD">S12100</Col>
           <Col id="MENU_NM">ViewAttribute</Col>
           <Col id="MENU_LVL">2</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S12100</Col>
@@ -124,6 +139,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_search_viewattr_direction.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S12100</Col>
@@ -132,6 +148,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_search_viewattr_searchbutton.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S12100</Col>
@@ -140,12 +157,14 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_search_viewattr_format.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">S12200</Col>
           <Col id="UP_MENU_CD">S12000</Col>
           <Col id="MENU_NM">FieldUserAttribute</Col>
           <Col id="MENU_LVL">2</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S12200</Col>
@@ -154,6 +173,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_search_fieldattr_comptype.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S12200</Col>
@@ -162,6 +182,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_search_fieldattr_size.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S12200</Col>
@@ -170,6 +191,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_search_fieldattr_cssclass.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S12200</Col>
@@ -178,6 +200,7 @@
           <Col id="MENU_LVL">3</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_search_fieldattr_usecomp.xfdl</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S10000</Col>
@@ -186,18 +209,21 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="PGM_PATH">sample</Col>
           <Col id="PGM_ID">view_grid.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="UP_MENU_CD">S13000</Col>
           <Col id="MENU_CD">S13100</Col>
           <Col id="MENU_NM">ViewAttribute</Col>
           <Col id="MENU_LVL">2</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">S13200</Col>
           <Col id="UP_MENU_CD">S13000</Col>
           <Col id="MENU_NM">FieldUserAttribute</Col>
           <Col id="MENU_LVL">2</Col>
+          <Col id="MENU_YN">N</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">T1200</Col>
@@ -206,6 +232,7 @@
           <Col id="MENU_LVL">0</Col>
           <Col id="PGM_PATH"/>
           <Col id="PGM_ID"/>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">T1201</Col>
@@ -214,6 +241,7 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="PGM_PATH">test</Col>
           <Col id="PGM_ID">test_action_tran.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">T1202</Col>
@@ -222,6 +250,7 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="PGM_PATH">test</Col>
           <Col id="PGM_ID">test_action_db.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="MENU_NM">메시지</Col>
@@ -230,6 +259,7 @@
           <Col id="PGM_ID">test_action_message.xfdl</Col>
           <Col id="UP_MENU_CD">T1200</Col>
           <Col id="MENU_CD">T1203</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">T1204</Col>
@@ -238,6 +268,7 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="PGM_PATH">test</Col>
           <Col id="PGM_ID">test_action_dsdata.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">T1205</Col>
@@ -246,6 +277,7 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="PGM_PATH">test</Col>
           <Col id="PGM_ID">test_action_popup.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">T1206</Col>
@@ -254,6 +286,7 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="PGM_PATH">test</Col>
           <Col id="PGM_ID">test_action_excel.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="MENU_NM">첫행추가</Col>
@@ -262,6 +295,7 @@
           <Col id="PGM_PATH">test</Col>
           <Col id="MENU_CD">T1207</Col>
           <Col id="UP_MENU_CD">T1200</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">T1208</Col>
@@ -270,6 +304,7 @@
           <Col id="PGM_ID">test_action_openbrowser.xfdl</Col>
           <Col id="PGM_PATH">test</Col>
           <Col id="MENU_LVL">1</Col>
+          <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">T1400</Col>
@@ -278,6 +313,7 @@
           <Col id="MENU_LVL">0</Col>
           <Col id="PGM_PATH"/>
           <Col id="PGM_ID"/>
+          <Col id="MENU_YN">Y</Col>
         </Row>
       </Rows>
     </Dataset>
@@ -289,6 +325,7 @@
         <Column id="MENU_LVL" type="STRING" size="256" description="메뉴레벨(0부터시작)"/>
         <Column id="PGM_PATH" type="STRING" size="256" description="화면 Services Prefix"/>
         <Column id="PGM_ID" type="STRING" size="256" description="화면명"/>
+        <Column id="MENU_YN" type="STRING" size="256"/>
       </ColumnInfo>
       <Rows>
         <Row>

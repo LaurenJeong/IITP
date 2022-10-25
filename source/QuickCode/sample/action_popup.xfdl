@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="action_popupclose" width="1080" height="1020" titletext="PopupCloseAction" onload="form_onload">
+  <Form id="action_popup" width="1080" height="1310" titletext="PopupAction" onload="form_onload">
     <Layouts>
-      <Layout height="1020" width="1080">
-        <TextArea id="txaInfo" taborder="8" left="0" top="95" height="90" right="10" value="- PopupAction으로 오픈된 팝업에 대한 처리를 위한 Action.&#10;- returntype에 설정된 속성값에 따라 데이터를 JSON형태의 문자열로 반환.&#10;- targetdataset이 설정된 경우, 설정된 Dataset의 데이터가 반환됨.&#10;- targetdataset이 설정되지 않은 경우, targetview의 viewdataset의 데이터가 반환됨." readonly="true"/>
-        <Static id="Static00_00_00" taborder="10" text="Action 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <Static id="staSampleBg" taborder="9" left="0" top="Static00_00_00:0" height="323" right="10" cssclass="sta_cm_box02C"/>
-        <Button id="btnPopup" taborder="0" text="팝업(선택데이터)" left="10" top="Static00_00_00:10" width="114" height="30"/>
+      <Layout height="1310" width="1080">
+        <TextArea id="txaInfo" taborder="7" left="0" top="95" height="130" right="10" value="- left, top 값이 -1일 경우 center middle로 팝업이 호출되도록 구성.&#10;- modeless일때 width, height 값은 명시해야 center middle로 정상적으로 호출됨.&#10;- 팝업의 리턴값이 있는 경우 onsuccess이벤트의 e.userdata값으로 반환됨.&#10;- 팝업의 리턴값이 있는 경우 popupdatatype과 Model Argument 설정값에 따라 처리됨.&#10;- Model Argument를 설정하지 않고, popupdatatype에 'copyrow', 'adddata', 'replace'값 설정 시, targetview의 viewdataset에 팝업화면에서 반환된 데이터를 동일 Field ID별로 처리. &#10;- Model Argument를 설정한 경우, value값에 팝업 Field ID를 입력하면 설정된 Model Argument에 대해서만 팝업 반환값이 처리됨.&#10;- User Argument 등록 시 팝업 Argument로 추가되어 동작됨.(arg속성값이 설정된 경우, arg 속성값과 User Argument설정된 값 모두 팝업에 전달됨.)" readonly="true"/>
+        <Static id="Static00_00_00" taborder="9" text="Action 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staSampleBg" taborder="8" left="0" top="Static00_00_00:0" height="323" right="10" cssclass="sta_cm_box02C"/>
+        <Button id="btnPopup" taborder="0" text="Modal" left="10" top="Static00_00_00:10" width="114" height="30"/>
         <TextArea id="txaOutput" taborder="1" left="620" top="btnPopup:10" wordWrap="english" right="20" height="263"/>
-        <Button id="btnPopup2" taborder="2" text="팝업(전체데이터)" left="134" top="Static00_00_00:10" width="114" height="30" onclick="btnPopup2_onclick"/>
-        <Button id="btnPopup3" taborder="3" text="팝업(변경데이터)" left="258" top="Static00_00_00:10" width="114" height="30"/>
-        <View id="View00" taborder="4" text="View00" viewdataset="viewdataset" left="10" top="btnPopup:10" width="599" height="263">
+        <Button id="btnPopup2" taborder="2" text="Modeless" left="134" top="Static00_00_00:10" width="114" height="30" onclick="btnPopup2_onclick"/>
+        <View id="View00" taborder="3" text="View00" viewdataset="viewdataset" left="10" top="btnPopup:10" width="599" height="263">
           <Layouts>
             <Layout>
               <Div id="divTitle" left="0" top="0" height="30" right="0">
@@ -77,11 +76,11 @@
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
-        <Div id="divTitle" taborder="5" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
-        <Static id="staInfo" taborder="6" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Static id="Static00_00" taborder="7" text="팝업화면을 닫는 Action" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <Static id="staActionProperty" taborder="11" text="Action Property" left="0" top="staSampleBg:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdActionProperty" taborder="12" left="0" top="staActionProperty:0" height="152" right="10" binddataset="dsProperty" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Div id="divTitle" taborder="4" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="5" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="6" text="팝업화면을 오픈해주는 Action" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staActionProperty" taborder="10" text="Action Property" left="0" top="staSampleBg:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionProperty" taborder="11" left="0" top="staActionProperty:0" height="364" right="10" binddataset="dsProperty" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -109,8 +108,8 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="staActionMethod" taborder="15" text="Action Method" left="0" top="grdActionProperty:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdActionMethod" taborder="16" left="0" top="staActionMethod:0" height="50" right="10" binddataset="dsMethod" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Static id="staActionMethod" taborder="14" text="Action Method" left="0" top="grdActionProperty:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionMethod" taborder="15" left="0" top="staActionMethod:0" height="50" right="10" binddataset="dsMethod" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -138,8 +137,8 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="staActionEvent" taborder="13" text="Action Event" left="0" top="grdActionMethod:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdActionEvent" taborder="14" left="0" top="staActionEvent:0" height="138" right="10" binddataset="dsEvent" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Static id="staActionEvent" taborder="12" text="Action Event" left="0" top="grdActionMethod:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionEvent" taborder="13" left="0" top="staActionEvent:0" height="161" right="10" binddataset="dsEvent" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -173,10 +172,7 @@
       <PopupAction id="PopupAction00" formurl="gallery::action_popupsub.xfdl" popupstyle="modal" popupid="popup" title="선택데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}" targetview="View00" popupdatatype="replace">
         <Contents/>
       </PopupAction>
-      <PopupAction id="PopupAction01" formurl="gallery::action_popupsub.xfdl" popupstyle="modeless" popupid="popup" title="전체데이터" popupleft="-1" popuptop="-1" popupwidth="450" popupheight="500" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;alldata&quot;}" targetview="View00" popupdatatype="replace">
-        <Contents/>
-      </PopupAction>
-      <PopupAction id="PopupAction02" formurl="gallery::action_popupsub.xfdl" popupstyle="modal" popupid="popup" title="변경데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;changedata&quot;}" targetview="View00" popupdatatype="replace">
+      <PopupAction id="PopupAction01" formurl="gallery::action_popupsub.xfdl" popupstyle="modeless" popupid="popup" title="전체데이터" popupleft="-1" popuptop="-1" popupwidth="450" popupheight="500" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}" targetview="View00" popupdatatype="replace">
         <Contents/>
       </PopupAction>
       <Dataset id="dsProperty">
@@ -188,24 +184,67 @@
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="ID">targetview</Col>
-            <Col id="TYPE">ViewObjList</Col>
-            <Col id="DESCPTION">Action을 수행할 View 오브젝트를 설정</Col>
+            <Col id="ID">formurl</Col>
+            <Col id="TYPE">URL</Col>
+            <Col id="DESCPTION">팝업으로 호출할 Form Url을 설정</Col>
           </Row>
           <Row>
-            <Col id="ID">targetdataset</Col>
-            <Col id="TYPE">DatasetID</Col>
-            <Col id="DESCPTION">팝업종료시 반환할 데이터 Dataset 오브젝트를 설정</Col>
+            <Col id="ID">popupstyle</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">modal | modeless</Col>
+            <Col id="DESCPTION">팝업을 호출할 형태(Modal, Modeless)를 설정
+ - modal : 부모창과 상호 작용이 안되는(레이어팝업) 형태의 팝업 호출
+ - modeless : 부모창과 독립적인 형태의 팝업 호출</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popupleft</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">팝업을 표시하기 위한 좌측 좌표값을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popuptop</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">팝업을 표시하기 위한 상단 좌표값을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popupwidth</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">팝업을 표시하기 위한 너비를 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popupheight</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">팝업을 표시하기 위한 높이를 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">args</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">팝업에 추가할 변수리스트를 설정(JSON형태)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">popupid</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">팝업을 구분하기 위한 고유 ID값을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">title</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">팝업 타이틀로 표현할 값을 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">targetview</Col>
+            <Col id="TYPE">ViewObjList</Col>
+            <Col id="DESCPTION">팝업 대상 View 객체를 설정(팝업에서 반환된 데이터를 처리 할 View 설정)</Col>
           </Row>
           <Row>
             <Col id="ID">popupdatatype</Col>
             <Col id="TYPE">Enum</Col>
-            <Col id="DESCPTION">팝업종료시 데이터를 반환 할 종류를 설정
- - none : 데이터를 처리하지 않음
- - copyrow : 현재 위치한 행 반환
- - changedata : 변경된 데이터 반환
- - alldata : 데이터셋 전체 데이터 반환</Col>
-            <Col id="TYPE_VALUE">none | copyrow | changedata | alldata</Col>
+            <Col id="DESCPTION">팝업에서 반환된 데이터를 처리 할 방법을 설정
+ - none : 팝업 반환데이터 처리 안함.
+ - copyrow : 반환된 첫번째 데이터를 현재 데이터에 복사
+ - adddata : 반환된 데이터를 현재 데이터에 추가
+ - replace : 반환된 데이터로 데이터를 교체</Col>
+            <Col id="TYPE_VALUE">none | copyrow | adddata | replace</Col>
           </Row>
         </Rows>
       </Dataset>
@@ -248,6 +287,13 @@
             <Col id="LVL">0</Col>
           </Row>
           <Row>
+            <Col id="ID">onsuccess</Col>
+            <Col id="TYPE">ActionSuccessEventInfo</Col>
+            <Col id="PROP">userdata</Col>
+            <Col id="LVL">0</Col>
+            <Col id="DESCPTION">팝업의 반환값이 JSON형태의 문자열로 반환됨.</Col>
+          </Row>
+          <Row>
             <Col id="ID">onerror</Col>
             <Col id="TYPE">ActionErrorEventInfo</Col>
             <Col id="DESCPTION">Action이 성공할때 발생하는 이벤트</Col>
@@ -257,9 +303,9 @@
       </Dataset>
     </Objects>
     <Trigger>
-      <TriggerItem id="item0" triggertype="Click" triggerview="action_popupclose" triggerobj="btnPopup" targetaction="PopupAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Click" triggerview="action_popupclose" triggerobj="btnPopup2" targetaction="PopupAction01" condition=""/>
-      <TriggerItem id="item2" triggertype="Click" triggerview="action_popupclose" triggerobj="btnPopup3" targetaction="PopupAction02" condition=""/>
+      <TriggerItem id="item0" triggertype="Click" triggerview="action_popup" triggerobj="btnPopup" targetaction="PopupAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="action_popup" triggerobj="btnPopup2" targetaction="PopupAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="action_popup" triggerobj="btnPopup3" targetaction="PopupAction02" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {

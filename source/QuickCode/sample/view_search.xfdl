@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="view_search" width="1080" height="1291" titletext="SearchViewTemplate" cssclass="sta_WF_notice01">
+  <Form id="view_search" width="1080" height="1440" titletext="SearchViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
     <Layouts>
-      <Layout height="1291" mobileorientation="landscape" width="1080">
+      <Layout height="1440" mobileorientation="landscape" width="1080">
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="10" text="조회 영역을 구성하기 위한 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
@@ -237,7 +237,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <TextArea id="txaInfo00" taborder="9" left="0" top="Div00:10" height="180" right="10" value="- Field 영역(레이블+컴포넌트)의 높이는 fieldheight + Comp Padding, 넓이는 labelwidth + fieldwidth + Label Padding + Comp Padding 입니다.&#10;- Label 영역의 높이는 fieldheight으로 생성됩니다.&#10;- Label 영역의 넓이는 labelwidth으로 생성됩니다.&#10;- 컴포넌트 영역의 높이는 fieldheight으로 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 fieldwidth으로 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다.&#10;- Search 버튼 영역은 ViewTemplate에 정의된 Search 버튼 넓이 입니다.&#10;- Button 컴포넌트 영역의 넓이는 ViewTemplate에 정의된 Search 버튼 넓이에서 SearchButton Space값이 제외된 영역에 생성됩니다.&#10;- Button 컴포넌트 영역의 높이는 searchbuttontype이 'full'인 경우 View 컴포넌트 높이 입니다.&#10;- Button 컴포넌트 영역의 높이는 searchbuttontype이 'full'이 아닌 경우 ViewTemplate에 정의된 Search 버튼 높이 입니다." readonly="true"/>
+        <TextArea id="txaInfo00" taborder="9" left="0" top="Div00:10" height="180" right="10" value="- Field 영역(레이블+컴포넌트)의 높이는 fieldheight, 넓이는 labelwidth + fieldwidth 입니다.&#10;- Label 영역의 높이는 fieldheight에서 ViewTemplate에 정의된 Label Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- Label 영역의 넓이는 labelwidth에서 ViewTemplate에 정의된 Label Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 높이는 fieldheight에서 ViewTemplate에 정의된 Comp Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 fieldwidth에서 ViewTemplate에 정의된 Comp Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다.&#10;- Search 버튼 영역은 ViewTemplate에 정의된 Search 버튼 넓이 입니다.&#10;- Button 컴포넌트 영역의 넓이는 ViewTemplate에 정의된 Search 버튼 넓이에서 SearchButton Space값이 제외된 영역에 생성됩니다.&#10;- Button 컴포넌트 영역의 높이는 searchbuttontype이 'full'인 경우 View 컴포넌트 높이 입니다.&#10;- Button 컴포넌트 영역의 높이는 searchbuttontype이 'full'이 아닌 경우 ViewTemplate에 정의된 Search 버튼 높이 입니다." readonly="true"/>
         <Static id="Static00_00_00" taborder="11" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
       </Layout>
     </Layouts>
@@ -353,5 +353,22 @@
         </Rows>
       </Dataset>
     </Objects>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdViewAttribute);
+	this.fnSetGridHeight(this.grdFieldUserAttribute);
+	this.resetScroll();
+};
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
+	
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
+};]]></Script>
   </Form>
 </FDL>

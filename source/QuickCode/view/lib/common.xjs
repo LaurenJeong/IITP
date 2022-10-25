@@ -430,15 +430,19 @@ this.lfn_GetAutoCompType = function(oField)
 		var sDataType = oField["datatype"];
 		var sDataSize = oField["datasize"];
 		
-		if (sFieldType == "SelectOne")
+		if (sFieldType == "SelectOne")				// SelectOne일때 AbstractSelectOne
 		{
 			sCompType = "selectone";
 		}
-		else if (sFieldType == "SelectAny")
+		else if (sFieldType == "SelectAny")			// SelectAny일때 AbstractSelectAny
 		{
 			sCompType = "selectany";
 		}
-		else if (sFieldType == "FreeText")
+		else if (sFieldType == "MultiMedia")		// MultiMedia일때 imageviewer
+		{
+			sCompType = "imageviewer";
+		}
+		else if (sFieldType == "FreeText")			// FreeText일때 datatype에 따라 분기
 		{
 			if (sDataType == "INT" || sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
 			{
@@ -452,8 +456,13 @@ this.lfn_GetAutoCompType = function(oField)
 			{
 				sCompType = "edit";
 			}
+			else if (sDataType == "BLOB")
+			{
+				sCompType = "imageviewer";
+			}
 		}
 		
+		// 해당되는 값이 없고 auto인 경우 edit로 기본값 처리
 		if (sCompType == "auto")
 		{
 			sCompType = "edit";
