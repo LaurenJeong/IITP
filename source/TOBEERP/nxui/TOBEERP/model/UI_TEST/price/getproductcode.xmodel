@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="dsasset" name="자산구분" iotype="output" description="">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="code" label="자산구분코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="자산구분코드" innerdatasetinfo=""/>
+      <Field id="value" label="자산구분명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="자산구분명" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dsgroup" name="품목구분" iotype="output" description="">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="code" label="구분코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="품목구분코드" innerdatasetinfo=""/>
+      <Field id="value" label="구분명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="품목구분명" innerdatasetinfo=""/>
+      <Field id="asset" label="자산구분코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="자산구분코드" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dsmanufacture" name="제조회사" iotype="output" description="">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="code" label="제조회사코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="제조회사코드" innerdatasetinfo=""/>
+      <Field id="value" label="제조회사명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="제조회사명" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dsunit" name="품폭단가" iotype="output" description="">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="code" label="단가코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="단가코드" innerdatasetinfo=""/>
+      <Field id="value" label="단가명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="단가명" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dsstatus" name="거래상태" iotype="output" description="">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="code" label="거래상태코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래상태코드" innerdatasetinfo=""/>
+      <Field id="value" label="거래상태명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래상태명" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dscustomer" name="거래처" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" description=""/>
+        <Attribute name="innerdatasetinfo" edittype="String"/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="code" label="거래처코드" fieldtype="FreeText" datatype="STRING" datasize="256" required="true" description="거래처코드" scale="" innerdatasetinfo=""/>
+      <Field id="value" label="거래처명" fieldtype="FreeText" datatype="STRING" datasize="256" required="true" description="거래처명" scale="" innerdatasetinfo=""/>
+      <Field id="unit" label="거래단가코드" fieldtype="FreeText" datatype="STRING" datasize="256" required="true" description="거래단가코드" scale="" innerdatasetinfo=""/>
+    </Model>
+  </Models>
+  <Service id="getproductcode" name="제품가격 초기 코드 조회" url="IP::getproductcode.jsp">
+    <ServiceUserAttributes/>
+  </Service>
+</ModelInfo>
