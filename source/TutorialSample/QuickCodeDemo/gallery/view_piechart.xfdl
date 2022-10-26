@@ -16,22 +16,22 @@
                 <Contents><![CDATA[{
 									"title" : {
 										"id" : "title",
-										"textfont" : "normal 700 17px/normal 'Arial,Malgun Gothic,Gulim'",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
 										"padding" : "0px 0px 5px",
 										"subtextcolor" : "gray",
-										"subtextfont" : "italic 8/normal 'Arial'",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
 										"visible" : false
 									},
 									"legend" : {
 										"id" : "legend",
 										"padding" : "3px 10px 3px 10px",
-										"itemtextfont" : "9pt '맑은 고딕'",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
 										"itemtextcolor" : "#4c4c4c",
-										"itemautofit" : "true",
+										"itemautofit" : true,
 										"markertextgap" : "5",
 										"markertype" : "circle",
 										"verticalitemgap" : "5",
-										"linestyle" : "0px none",
+										"linestyle" : "1px dashed #4c4c4c",
 										"visible" : true,
 										"align" : "rightcenter"
 									},
@@ -40,7 +40,7 @@
 										"background" : "#4b4b4b",
 										"linestyle" : "0px none",
 										"textcolor" : "white",
-										"textfont" : "10pt/normal '맑은 고딕'",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
 										"padding" : "5px"
 									},
 									"board" : {
@@ -52,7 +52,7 @@
 											"opacity" : "0.8",
 											"linestyle" : "1px solid #ffffff",
 											"itemtextvisible" : true,
-											"itemtextfont" : "normal 12/normal '맑은 고딕'",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"itemtextguidelinestyle" : "1px solid darkgray",
 											"itemtextguideopacity" : "1",
 											"itemtextguidesize" : "20",
@@ -110,6 +110,7 @@
             <Attribute id="enableanimation" value="true"/>
             <Attribute id="titlealign" value="topleft"/>
             <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
         <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>

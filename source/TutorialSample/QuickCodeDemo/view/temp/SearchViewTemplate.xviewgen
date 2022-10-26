@@ -15,38 +15,13 @@
 *******************************************************************************
 */
 /************************************************************************************************
+ * include 선언부
+ ************************************************************************************************/
+include "view_lib::util.xjs";
+include "view_lib::common.xjs";
+/************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
-//--------------------------------------------------------------------------------------------------------
-// ViewTemplate 공통변수
-//--------------------------------------------------------------------------------------------------------
-//모델 정보
-this.oFieldArray;
-	
-//Use Model Information
-this.oUseFieldArray;
-
-//뷰 컴포넌트 정보
-this.oContents;
-
-//뷰 컴포넌트 정보(현재)
-this.oContentsOrg;
-	
-//옵션 설정 정보
-this.oGenerationAttr;
-
-//컴포넌트 ID 목록
-this.arrCompIds = [];
-
-//컴포넌트 + 바인드 Field 목록
-this.arrBindItems = [];
-
-this.VIEW_PADDING_LEFT				= 0;
-this.VIEW_PADDING_TOP				= 0;
-this.VIEW_PADDING_RIGHT				= 0;
-this.VIEW_PADDING_BOTTOM			= 0;
-//--------------------------------------------------------------------------------------------------------
-
 //--------------------------------------------------------------------------------------------------------
 // View 관련 상수
 //--------------------------------------------------------------------------------------------------------
@@ -120,6 +95,9 @@ this.COMP_CSSCLASS					= "";
 
 //Label Default CSS Class
 this.LABEL_CSSCLASS					= "sta_label";
+
+//Required Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS		= "sta_label_essential";
 
 //Background Static Css Class
 this.SEARCH_BG_CSSCLASS				= "sta_searchbox";
@@ -1348,7 +1326,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		sCompCssClass = oField.cssclass;
 
 		//Import Label Css Class Id Value
-		sLabelCssClass = oField.labelcssclass;
+		sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 		//Import Row/Col Index where the Field will be located
 		nRowIdx = oFieldPosition.rowidx;
@@ -1523,15 +1501,20 @@ fn_GetInitValue = function()
 fn_GetObjects = function()
 {
 	//Initialize Object
-    var oObjects = [];
+	var oObjects = [];
 
-    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
+	var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
 
-    //Object Information Setting
-    oObjects.push(oViewDataset);
+	//Object Information Setting
+	oObjects.push(oViewDataset);
+	
+	// InnerDataset 정보
+	var oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
 
-    //Return Object Information
-    return oObjects;
+	oObjects = oObjects.concat(oInner);
+
+	//Return Object Information
+	return oObjects;
 };
 
 /*---------------------------------------------------------------------------------------------*

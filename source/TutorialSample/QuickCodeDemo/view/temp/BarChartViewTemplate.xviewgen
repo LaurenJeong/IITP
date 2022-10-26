@@ -1,56 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="혼합 차트(CombinationChart)를 그려주는 템플릿&#13;&#10;- 각 시리즈 데이터를 막대, 선, 영역으로 표현하는 차트를 그려주는 템플릿"/>
+  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="막대그래프(Bar Chart)를 그려주는 템플릿&#13;&#10;- ColumnChart : 세로 막대그래프&#13;&#10;- BarChart : 가로 막대그래프"/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  [Chart] CombinationChart View Template
-*  @FileName 	CombinationChartViewTemplate.xviewgen 
+*  [Chart] BarChart View Template
+*  @FileName 	BarChartViewTemplate.xviewgen 
 *  @Creator 	Creator
-*  @CreateDate 	2022.03.28
-*  @Desction    혼합 차트(CombinationChart)를 그려주는 템플릿
-*  					- 각 시리즈 데이터를 막대, 선, 영역으로 표현하는 차트를 그려주는 템플릿
+*  @CreateDate 	2022.03.10
+*  @Desction    막대그래프(Bar Chart)를 그려주는 템플릿
+*  					- ColumnChart : 세로 막대그래프
+*  					- BarChart : 가로 막대그래프
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
 *******************************************************************************
-*  2022.03.28     		Creator       	      		최초 생성
+*  2022.03.10     		Creator       	      		최초 생성
 *******************************************************************************
 */
 /************************************************************************************************
+ * include 선언부
+ ************************************************************************************************/
+include "view_lib::util.xjs";
+include "view_lib::common.xjs";
+include "view_lib::chart.xjs";
+/************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
-//--------------------------------------------------------------------------------------------------------
-// ViewTemplate 공통변수
-//--------------------------------------------------------------------------------------------------------
-//모델 정보
-this.oFieldArray;
-	
-//Use Model Information
-this.oUseFieldArray;
-
-//뷰 컴포넌트 정보
-this.oContents;
-
-//뷰 컴포넌트 정보(현재)
-this.oContentsOrg;
-	
-//옵션 설정 정보
-this.oGenerationAttr;
-
-//컴포넌트 ID 목록
-this.arrCompIds = [];
-
-//컴포넌트 + 바인드 Field 목록
-this.arrBindItems = [];
-
-this.VIEW_PADDING_LEFT				= 0;
-this.VIEW_PADDING_TOP				= 0;
-this.VIEW_PADDING_RIGHT				= 0;
-this.VIEW_PADDING_BOTTOM			= 0;
-//--------------------------------------------------------------------------------------------------------
-
 // View 여백
 this.VIEW_PADDING = "20";
 
-this.SERIES_LINE_STYLE = "1px solid";				// 시리즈 선 스타일
+this.SERIES_LINE_STYLE = "1px solid";				// 시리즈 선 스타일	
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -174,7 +151,6 @@ fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewMo
     //뷰 컴포넌트 정보 리턴
     return vResult;
 };
-
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetViewAttributeList
  * Return       : View generation attribute list (JSON format)
@@ -202,7 +178,27 @@ fn_GetViewAttributeList = function() {
     var sViewAttr = "";
     var oViewAttr = {
                         "attributes": [
-							{									
+							{
+                                "id": "charttype",
+                                "edittype": "Enum",
+                                "defaultvalue": "column",
+                                "enumlist" : ["column", "bar"],
+                                "description": "막대차트 종류."
+												+ "\n" + " - column : 세로 막대형 차트"
+												+ "\n" + " - bar : 가로 막대형 차트"
+                            }
+							, {
+                                "id": "chartdisplay",
+                                "edittype": "Enum",
+                                "defaultvalue": "grouped",
+                                "enumlist" : ["grouped", "stacked", "100%stacked","overlapping"],		// "groupedstacked"
+                                "description": "차트의 유형을 설정."
+												+ "\n" + " - grouped : 묶은 막대차트"
+												+ "\n" + " - stacked : 누적 막대차트"
+												+ "\n" + " - 100%stacked : 100% 기준 누적 막대차트"
+												+ "\n" + " - overlapping : 중복 막대차트"
+                            }
+							, {									
                                 "id": "enableanimation",									
                                 "edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList									
                                 "defaultvalue": "true",									
@@ -223,7 +219,7 @@ fn_GetViewAttributeList = function() {
 							, {
                                 "id": "titlealign",
                                 "edittype": "Enum",
-                                "defaultvalue": "topleft",
+                                "defaultvalue": "topcenter",
                                 "enumlist" : ["topleft", "topcenter", "topright", "bottomleft", "bottomcenter", "bottomright", "lefttop", "leftcenter", "leftbottom", "righttop", "rightcenter", "rightbottom"],
                                 "description": "타이틀 표시 위치"
                             }
@@ -247,18 +243,11 @@ fn_GetViewAttributeList = function() {
                                 "description": "데이터축(y축) 타이틀 Text(여러 축 설정시 ,를 구분자로 여러개 입력)"									
                             }
 							, {
-                                "id": "baritemtextposition",			// [CombinationChart]
+                                "id": "itemtextposition",		// [BarChart]
                                 "edittype": "Enum",
                                 "defaultvalue": "none",
                                 "enumlist" : ["none", "start", "middle", "end", "outside"],
-                                "description": "seriesdisplay이 'bar'일때 값 표시 위치"
-                            }
-							, {
-                                "id": "lineareaitemtextposition",		// [CombinationChart]
-                                "edittype": "Enum",
-                                "defaultvalue": "none",
-                                "enumlist" : ["none", "lefttop", "centertop", "righttop", "leftmiddle", "centermiddle", "rightmiddle", "leftbottom", "centerbottom", "rightbottom"],
-                                "description": "seriesdisplay이 'line', 'linepoint','area'일때 값 표시 위치"
+                                "description": "값 표시 위치"
                             }
 							, this.oAttrViewPadding
                         ]
@@ -309,32 +298,17 @@ fn_GetFieldUserAttributeList = function ()
 												+ "\n" + " - series : 데이터값 Field(n개)"
                             }
 							, {
-                                "id"			: "seriesdisplay",
-                                "edittype" 		: "Enum",
-								"enumlist" 		: ["bar", "line", "linepoint","area"],
-								"defaultvalue"	: "bar",
-                                "description"	: "시리즈를 표시할 차트유형 설정"
-												+ "\n" + " - bar : 막대 그래프"
-												+ "\n" + " - line : 선 그래프"
-												+ "\n" + " - linepoint : 선 + 점 그래프"
-												+ "\n" + " - area : 영역형 그래프"
-                            }
-							, {
-                                "id"			: "linetype",
-                                "edittype"		: "Enum",
-                                "defaultvalue"	: "segment",
-                                "enumlist" 		: ["segment", "step", "curve"],
-                                "description"	: "선그래프 유형을 설정. (seriesdisplay이 'line', 'linepoint','area'일때 동작)"
-												+ "\n" + " - segment : 꺽은선 차트"
-												+ "\n" + " - step : 스텝 차트"
-												+ "\n" + " - curve : 곡선 차트"
-                            }
-							, {
                                 "id"			: "valueaxes",
                                 "edittype" 		: "Enum",
 								"enumlist" 		: ["y", "y1", "y2"],
 								"defaultvalue"	: "y",
                                 "description"	: "데이터축을 설정. y는 왼쪽, y1,y2는 오른쪽에 표시됨."
+                            }
+							, {
+                                "id"			: "stackedgroupname",
+                                "edittype" 		: "String",
+								"defaultvalue"	: "",
+                                "description"	: "누적(stacked) 차트에서 그룹핑하는 경우 명칭 설정.(chartdisplay이 'stacked','100%stacked'인 경우에만 동작)"
                             }
                         ]
                   };
@@ -364,6 +338,8 @@ fn_GetModel = function(bPreviewMode)
 	var oTitle = {};
 	var oLegend = {};
 	
+	var sChartType = this.oGenerationAttr.attributes.charttype;
+	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
 	var sTitletext = this.oGenerationAttr.attributes.titletext;
 	var sSubTitletext = this.oGenerationAttr.attributes.subtitletext;
 	var sTitleAlign = this.oGenerationAttr.attributes.titlealign;
@@ -377,8 +353,6 @@ fn_GetModel = function(bPreviewMode)
 	
 	var arrField = new Array(); 
 	var arrSeriesField = new Array();
-	var arrSeriesFieldBar = new Array();				// [CombinationChart] bar인 series 임시 배열
-	var arrSeriesFieldBarN = new Array();				// [CombinationChart] bar가 아닌 series 임시 배열
 	var arrAxisYField = new Array();
 	var arrAxisY1Field = new Array();
 	var arrAxisY2Field = new Array();
@@ -400,16 +374,11 @@ fn_GetModel = function(bPreviewMode)
 			if(this.lfn_IsNull(oCategoryField)) {
 				oCategoryField = oField;
 			} else {
-				this.lfn_Log("category가 여러개 설정되었습니다.","warn");
+				this.lfn_Log("category가 여러개 설정되었습니다.(1개의 필드만 설정가능합니다)","warn");
 			}
-		} else if (sDisplaytype == "series") {
 			
-			// [CombinationChart] seriesdisplay 값이 bar것과 아닌거 구분하여 추가
-			if (oField.seriesdisplay == "bar") {
-				arrSeriesFieldBar.push(oField);
-			} else {
-				arrSeriesFieldBarN.push(oField);
-			}
+		} else if (sDisplaytype == "series") {
+			arrSeriesField.push(oField);
 			
 			// valueaxes에 따라 Y축 Array() 셋팅
 			if (sValueaxes == "y1") {
@@ -422,9 +391,6 @@ fn_GetModel = function(bPreviewMode)
 		}
     }
 	
-	// [CombinationChart] bar형식을 arrSeriesField 앞쪽에 추가(∵ 중간에 시리즈가 추가되면 막대차트 사이에 공간이 생김.)
-	arrSeriesField = arrSeriesFieldBar.concat(arrSeriesFieldBarN);
-	
 	// 차트 기본속성 셋팅
 	oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
 	
@@ -433,6 +399,20 @@ fn_GetModel = function(bPreviewMode)
 	oChartAttr["top"] = this.VIEW_PADDING_TOP;
 	oChartAttr["right"] = this.VIEW_PADDING_RIGHT;
 	oChartAttr["bottom"] = this.VIEW_PADDING_BOTTOM;
+	
+	// [BarChart] 차트종류설정
+	if (sChartType == "bar") {
+		oChartAttr["rotateaxis"] = "true";
+	}
+	
+	// [BarChart] 차트유형설정
+	if (sChartDisplay == "stacked") {
+		oChartAttr["stacktype"] = "normal";
+	} else if (sChartDisplay == "100%stacked") {
+		oChartAttr["stacktype"] = "percent";
+	} else if (sChartDisplay == "overlapping") {
+		oChartAttr["bargrouping"] = "false";
+	}
 	
 	// 에니메이션 설정
 	oChartAttr["enableanimation"] = this.oGenerationAttr.attributes.enableanimation;
@@ -588,8 +568,8 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
 // 시리즈 셋팅
 fn_GetSeries = function(arrSeriesField)
 {
-	var sBarItemTextPosition = this.oGenerationAttr.attributes.baritemtextposition;
-	var sLineAreaItemTextPosition = this.oGenerationAttr.attributes.lineareaitemtextposition;
+	var sItemTextPosition = this.oGenerationAttr.attributes.itemtextposition;
+	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
 	
 	var arrSeries = new Array();
 	var oSeries;
@@ -598,81 +578,31 @@ fn_GetSeries = function(arrSeriesField)
 	
 	var arrMaskInfo = new Array();
 	
-	var sSeriesDisplay;
-	var sLineType;
-	var sItemTextPositionNm = "";
-	var sItemTextPosition;
-	
 	var nCount = arrSeriesField.length;
+	
+	// [BarChart] overlapping 차트일때 사이즈 셋팅용.
+	var nBarSizeMax = 80;
+	var nBarSizeMin = 20;
+	var nBarSizeGap = nexacro.round((nBarSizeMax - nBarSizeMin) / nCount);
 
 	// arrSeriesField 갯수 기준으로 series 태그 생성
 	for(var i=0;i<nCount;i++)
 	{
-		oSeries = {};
-		
 		oField = arrSeriesField[i];
 		
-		sSeriesDisplay = oField.seriesdisplay;
-		
-		// 시리즈 유형에 따라 값 처리
-		if (sSeriesDisplay == "line") {									// seriesdisplay = "line"
-			oSeries = this.lfn_CloneObject(this.oBaseSeriesLine);
-			
-			// 선유형설정
-			sLineType = oField.linetype;
-			
-			// 데이터 출력설정
-			sItemTextPositionNm = "lineitemtextposition";
-			sItemTextPosition 	= sLineAreaItemTextPosition;
-			
-		} else if (sSeriesDisplay == "linepoint") {						// seriesdisplay = "linepoint"
-			oSeries = this.lfn_CloneObject(this.oBaseSeriesLine);
-			
-			// 라인에 점을 표시할지 여부
-			oSeries["pointvisible"] = true;
-			
-			// 선유형설정
-			sLineType = oField.linetype;
-			
-			// 데이터 출력설정
-			sItemTextPositionNm = "pointitemtextposition";
-			sItemTextPosition 	= sLineAreaItemTextPosition;
-			
-		} else if (sSeriesDisplay == "area") {								// AreaChart
-			oSeries = this.lfn_CloneObject(this.oBaseSeriesArea);
-			
-			// 선유형설정
-			sLineType = oField.linetype;
-			
-			// 데이터 출력설정
-			sItemTextPositionNm = "lineitemtextposition";
-			sItemTextPosition 	= sLineAreaItemTextPosition;
-			
-		} else {															// BarChart
-			oSeries = this.lfn_CloneObject(this.oBaseSeriesBar);
-			
-			// 선유형설정
-			sLineType = "";
-			
-			// 데이터 출력설정
-			sItemTextPositionNm = "baritemtextposition";
-			sItemTextPosition 	= sBarItemTextPosition;
-		}
-		
+		oSeries = {};
+		oSeries = this.lfn_CloneObject(this.oBaseSeriesBar);
 		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
 		oSeries["titletext"] = oField.label;
 		oSeries["valuecolumn"] = "bind:" + oField.id;
 		
-		// 선유형설정
-		if (this.lfn_IsNotNull(sLineType)) {
-			oSeries["linetype"] = sLineType;
+		// [BarChart] 시리즈 색상처리
+		if (nCount == 1)	{				// 시리즈 1개
+			oSeries["barfillstyle"] = this.arrBaseChartColor.toString();
+		} else {
+			oSeries["barfillstyle"] = this.lfn_GetChartColor(i);
+			oSeries["barlinestyle"] = this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i);
 		}
-		
-		// [CombinationChart] 시리즈 색상처리
-		oSeries["barfillstyle"]			= this.lfn_GetChartColor(i);
-		oSeries["linestyle"]			= this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i);
-		oSeries["lineareafillstyle"]	= this.lfn_GetChartColor(i);
-		oSeries["pointfillstyle"]		= this.lfn_GetChartColor(i);
 		
 		// 데이터 출력설정
 		if (sItemTextPosition == "none") {
@@ -684,7 +614,8 @@ fn_GetSeries = function(arrSeriesField)
 			oSeries["itemtextmask"]			= arrMaskInfo[0];
 			oSeries["itemtexttype"]			= arrMaskInfo[1];
 			
-			oSeries[sItemTextPositionNm] = sItemTextPosition;
+			// [BarChart]
+			oSeries["baritemtextposition"]	= sItemTextPosition;			
 		}
 		
 		// [BasicChart] Y축설정
@@ -692,6 +623,17 @@ fn_GetSeries = function(arrSeriesField)
 			oSeries["valueaxis"] = "valueaxisy1";
 		} else if (oField.valueaxes == "y2") {
 			oSeries["valueaxis"] = "valueaxisy2";
+		}
+		
+		// [BarChart] 누적(stacked) 차트에서 그룹핑 설정
+		if (oField.stackedgroupname != undefined) {
+			oSeries["stackbargroup"] = oField.stackedgroupname;
+		}
+		
+		// [BarChart] 중복(Overlapping) 차트일떄 일때 사이즈 설정
+		if (sChartDisplay == "overlapping") {
+			oSeries["barsize"] = nBarSizeMax - (i * nBarSizeGap);
+			//this.lfn_Log("barsize : " + oSeries["barsize"]);
 		}
 		
 		arrSeries.push(oSeries);
@@ -758,10 +700,18 @@ fn_GetObjects = function(bPreviewMode)
  * Return       : script contents (JSON format)
  * Description  : Function to generate <Script> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetScript = function(){
+fn_GetScript = function()
+{
 
 	//스크립트 정보 초기화
     var oScript = {};
+	
+    oScript = 
+    {
+        "tag": "Script",
+        "attribute": { "type" : "xscript5.1" },
+        "value": "this.fn_Alert = function(){this.alert('MESSAGE')};"
+    }
 
 	//스크립트 정보 리턴
     return oScript;

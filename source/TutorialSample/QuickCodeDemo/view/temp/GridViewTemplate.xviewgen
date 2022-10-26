@@ -15,39 +15,19 @@
 *******************************************************************************
 */
 /************************************************************************************************
+ * include 선언부
+ ************************************************************************************************/
+include "view_lib::util.xjs";
+include "view_lib::common.xjs";
+/************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
-//--------------------------------------------------------------------------------------------------------
-// ViewTemplate 공통변수
-//--------------------------------------------------------------------------------------------------------
-//모델 정보
-this.oFieldArray;
-	
-//Use Model Information
-this.oUseFieldArray;
-
-//뷰 컴포넌트 정보
-this.oContents;
-
-//뷰 컴포넌트 정보(현재)
-this.oContentsOrg;
-	
-//옵션 설정 정보
-this.oGenerationAttr;
-
-this.VIEW_PADDING_LEFT				= 0;
-this.VIEW_PADDING_TOP				= 0;
-this.VIEW_PADDING_RIGHT				= 0;
-this.VIEW_PADDING_BOTTOM			= 0;
-//--------------------------------------------------------------------------------------------------------
-
 //--------------------------------------------------------------------------------------------------------
 // View 관련 상수
 //--------------------------------------------------------------------------------------------------------
 // View 여백
 this.VIEW_PADDING = "";
 //--------------------------------------------------------------------------------------------------------
-
 //--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------	
@@ -352,36 +332,6 @@ this.USE_COMP				= "true";
  *---------------------------------------------------------------------------------------------*/
 fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 {
-	//리턴 값
-    var vResult = "";
-	
-	// Preview용 데이터 생성여부
-	var bPreviewMode = false;
-	
-	vResult = fn_GetViewGeneration(fieldarray, contents, generationattr, bPreviewMode);
-	
-	 //뷰 컴포넌트 정보 리턴
-    return vResult;
-};
-
-// Preview용 Generation 함수(Chart는 Dataset에 Data가 없는 경우 Preview가 표시되지 않아 기능추가)
-fn_GetViewGenerationPreview = function(fieldarray, contents, generationattr)
-{
-	//리턴 값
-    var vResult = "";
-	
-	// Preview용 데이터 생성여부
-	var bPreviewMode = true;
-	
-	vResult = fn_GetViewGeneration(fieldarray, contents, generationattr, bPreviewMode);
-	
-	 //뷰 컴포넌트 정보 리턴
-    return vResult;
-};
-
-// ViewGeneration 결과 반환 함수
-fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewMode)
-{
 	//Return Value
     var vResult = "";
 
@@ -407,7 +357,7 @@ fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewMo
     this.oContents.View.InitValue = fn_GetInitValue();
 
 	//Load Object Information Production Function
-    this.oContents.View.Objects = fn_GetObjects(bPreviewMode);
+    this.oContents.View.Objects = fn_GetObjects();
 
 	//Load Script Information Production Function
     this.oContents.View.Script = fn_GetScript();
@@ -959,6 +909,9 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
     var sFieldId = "";
     var sLabel = "";
     var sCssClass;
+	var sCellId = "";
+	
+	var oCellInfo = [];
 
 	//If Layout is Set Up
 	if(oBaseLayout)
@@ -1007,16 +960,29 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
 					//Set text value as label if there is text property value
 					if(sCellText)sLabel = sCellText;
 				}
-
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_head_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["head"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan});
+				
 				//Add Cell Tag on Head Band
 				oHeads[oHeads.length] =
 				{
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+nCol+"_"+nRow+"_"+sFieldId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan, "text": sLabel, "cssclass" : sCssClass
+						"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan, "text": sLabel, "cssclass" : sCssClass
 					}
 				};
+				
+				
 			}
 		}
 	}
@@ -1035,13 +1001,26 @@ fn_GetHeads = function(oBaseLayout, oHeadLayout)
 
 				sFieldId = oField.id;
 				sLabel = oField.label;
+				nCol = oHeads.length;
+				nRow = 0;
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_head_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["head"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow});
 
 				oHeads[oHeads.length] =
 				{
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+sFieldId, "col": oHeads.length, "row": 0, "text": sLabel
+						"id": sCellId, "col": nCol, "row": nRow, "text": sLabel
 					}
 				};
 			}
@@ -1080,6 +1059,9 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 	var sEditType;
 	var sCssClass = "";
 	var sCellCssClass = "";
+	var sCellId = "";
+	
+	var oCellInfo = [];
 
 	//If Layout is Set Up
 	if(oBaseLayout)
@@ -1163,6 +1145,17 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 				}
 
 				if(sCellCssClass)sCssClass = sCellCssClass;
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_body_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["body"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan});
 
 				//Add Cell Tag on Body Band
 				oBodys[oBodys.length] =
@@ -1170,7 +1163,7 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+nCol+"_"+nRow+"_"+sFieldId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan
+						"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan
 						, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
 					}
 				};
@@ -1195,12 +1188,26 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 				sDisplayType = oField.displaytype;
 				sEditType = oField.edittype;
 				sCssClass = oField.cssclass;
+				nCol = oBodys.length;
+				nRow = 0;
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_body_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["body"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow});
+				
 				oBodys[oBodys.length] =
 				{
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+sFieldId, "col": oBodys.length, "row": 0, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
+						"id": sCellId, "col": nCol, "row": nRow, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
 					}
 				};
 			}
@@ -1238,7 +1245,10 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
     var sLabel = "";
     var sSummProp;
 	var sCssClass = "";
-
+	var sCellId = "";
+	
+	var oCellInfo = [];
+	
 	//If Layout is Set Up
 	if(oBaseLayout)
 	{
@@ -1313,6 +1323,17 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 					//Set text value as label if there is text property value
 					if(sCellText)sLabel = sCellText;
 				}
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_summ_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["summ"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan});
 
 				//Add Cell Tag on Summ Band
 				oSumms[oSumms.length] =
@@ -1320,7 +1341,7 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+nCol+"_"+nRow+"_"+sFieldId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan, "text" : sLabel, "cssclass" : sCssClass
+						"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan, "text" : sLabel, "cssclass" : sCssClass
 					}
 				};
 			}
@@ -1341,13 +1362,26 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 
 				sFieldId = oField.id;
 				sLabel = oField.label;
+				nCol = oSumms.length;
+				nRow = 0;
+				
+				// Field별 Cell정보 설정
+				sCellId = "cell_summ_"+nCol+"_"+nRow+"_"+sFieldId;
+				
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				
+				oCellInfo = this.oFieldCellInfo[sFieldId]["summ"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow});
 
 				oSumms[oSumms.length] =
 				{
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_"+sFieldId, "col": oSumms.length, "row": 0, "text" : ""
+						"id": "cell_summ_"+sFieldId, "col": nCol, "row": nRow, "text" : ""
 					}
 				};
 			}
@@ -1399,20 +1433,24 @@ fn_GetInitValue = function()
  * Return       : objects contents (JSON format)
  * Description  : Function to generate <Objects> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetObjects = function(bPreviewMode)
+fn_GetObjects = function()
 {
     //Initialize Object
-    var oObjects = [];
-	
-	var nRowCnt = bPreviewMode ? 1 : 0;
+	var oObjects = [];
+	var oInner = [];
 
-    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, nRowCnt);
+	var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 0);
 
-    //Object Information Setting
-    oObjects.push(oViewDataset);
+	//Object Information Setting
+	oObjects.push(oViewDataset);
 
-    //Return Object Information
-    return oObjects;
+	// InnerDataset 정보
+	oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+
+	oObjects = oObjects.concat(oInner);
+
+	//Return Object Information
+	return oObjects;
 };
 
 /*---------------------------------------------------------------------------------------------*
