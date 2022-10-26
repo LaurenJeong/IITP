@@ -124,7 +124,38 @@
         </View>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[this.objApp = nexacro.getApplication();
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    주문내역
+*  @FileName	orderlist.xfdl
+*  @Desction	주문내역
+*******************************************************************************
+*  2022.10.14		Creator			최초 생성
+*******************************************************************************
+*/
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.objApp = nexacro.getApplication();
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 화면 기본위치 셋팅
+	this.viewDetail.set_visible(false);
+	this.viewDetail.set_left(0);
+	this.viewDetail.set_right(0);
+	
+	// 주문일시 역순표시
+	this.viewList.form.viewdataset.set_keystring("S:-ORDER_TIME");
+};
 
 // 데이터복사 Action run 실행 전 이벤트
 this.DsCopyDataAction00_canrun = function(obj:nexacro.DsCopyDataAction, e:nexacro.ActionRunEventInfo)
