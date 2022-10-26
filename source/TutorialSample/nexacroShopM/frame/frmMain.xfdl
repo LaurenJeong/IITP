@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frmMain" width="480" height="610" titletext="메인화면" onload="frameMainPage_onload">
+  <Form id="frmMain" width="480" height="610" titletext="메인화면" onload="form_onload">
     <Layouts>
       <Layout height="610" mobileorientation="portrait" width="480">
         <Static id="Static00" taborder="0" left="10" top="10" cssclass="sta_main_numbering" right="10" bottom="10"/>
@@ -10,7 +10,7 @@
               <Div id="divTitle" left="0" top="0" height="60" right="0">
                 <Layouts>
                   <Layout>
-                    <Static id="staTitle" left="0" top="0" height="60" width="120" text="최근 주문내역" fittocontents="width" cssclass="sta_subtitle"/>
+                    <Static id="staTitle" left="0" top="0" height="60" width="120" text="배송현황" fittocontents="width" cssclass="sta_subtitle"/>
                   </Layout>
                 </Layouts>
               </Div>
@@ -47,6 +47,7 @@
               <ColumnInfo>
                 <Column id="ORDER_NO" type="STRING" size="80" description="주문번호"/>
                 <Column id="USER_ID" type="STRING" size="80" description="사용자ID"/>
+                <Column id="ORDER_TIME" type="STRING" size="80" description="주문일시"/>
                 <Column id="PRODUCT_NAME" type="STRING" size="80" description="품목명"/>
                 <Column id="ORDER_PRICE" type="BIGDECIMAL" size="80" description="주문금액"/>
                 <Column id="ORDER_STATUS" type="STRING" size="80" description="상태"/>
@@ -76,6 +77,7 @@
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="dsorderlist" filepath="main\getorderlist.xmodel">
             <Fields>
+              <Field id="ORDER_TIME" innerdatasetinfo="" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
               <Field id="USER_ID" innerdatasetinfo="" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
               <Field id="ORDER_NO" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
               <Field id="PRODUCT_NAME" displaytype="normal" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
@@ -88,7 +90,7 @@
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="GridViewTemplateM.xviewgen">
-            <Attribute id="titletext" value="최근 주문내역"/>
+            <Attribute id="titletext" value="배송현황"/>
             <Attribute id="usetotalcount" value="false"/>
             <Attribute id="headbandsize" value="60"/>
             <Attribute id="bodybandsize" value="65"/>
@@ -148,15 +150,22 @@ this.objApp = nexacro.getApplication();
  */
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	// 화면 기본위치 셋팅
-	this.viewDetail.set_visible(false);
-	this.viewDetail.set_left(0);
-	this.viewDetail.set_right(0);
-	
 	// 주문일시 역순표시
 	this.viewList.form.viewdataset.set_keystring("S:-ORDER_TIME");
 };
 
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
 // 데이터복사 Action run 실행 전 이벤트
 this.DsCopyDataAction00_canrun = function(obj:nexacro.DsCopyDataAction, e:nexacro.ActionRunEventInfo)
 {
