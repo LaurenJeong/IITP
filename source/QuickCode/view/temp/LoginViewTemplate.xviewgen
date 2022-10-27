@@ -401,7 +401,7 @@ fn_GetModel = function()
 	//trace("nViewCompHeight 1 : " + nViewCompHeight );
 
 	// saveidcheckboxuse값이 true 경우 체크박스 사이즈 빼기
-	if (this.oGenerationAttr.attributes.saveidcheckboxuse)
+	if (this.oGenerationAttr.attributes.saveidcheckboxuse != "false")
 	{
 		nViewCompHeight = nViewCompHeight - this.lfn_GetRealSize(this.FIELD_HEIGHT, 0, nViewCompHeight, this.FIELD_HEIGHT, 0, 0);
 	}
@@ -576,8 +576,8 @@ fn_MakeSaveIdCheckbox = function(nViewCompWidth, nViewCompHeight)
 	//Import Background Static CSS Class Information
 	var bSaveCheckboxUse = this.oGenerationAttr.attributes.saveidcheckboxuse;
 
-	if (!bSaveCheckboxUse)		return;
-
+	if (bSaveCheckboxUse == "false")		return;
+	
 	var sSaveIdCheckboxText = this.oGenerationAttr.attributes.saveidcheckboxtext;
 	var sSaveIdCheckboxCssClass = this.oGenerationAttr.attributes.saveidcheckboxcssclass;
 
@@ -606,7 +606,7 @@ fn_MakeSaveIdCheckbox = function(nViewCompWidth, nViewCompHeight)
 	//Add Background Static Component Tag
 	oModel[oModel.length] =
 	{
-		"fieldid" : "",
+		"fieldid" : this.VIEW_COMP_FIELD_ID,
 		"Components" :
 		[{
 			"tag" : "CheckBox",

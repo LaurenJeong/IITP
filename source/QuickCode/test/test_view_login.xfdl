@@ -10,17 +10,16 @@
             <Layout>
               <Button id="btnLogin" left="20" height="60" right="20" bottom="20" cssclass="btn_login" text="Login"/>
               <Static id="staIdLabel" left="20" top="20" width="95" height="40" text="아이디" cssclass="sta_login_label"/>
-              <Edit id="edtId" left="120" top="20" height="40" width="510" password="false"/>
+              <Edit id="edtId" left="120" top="20" height="40" width="490" password="false"/>
               <Static id="staPwLabel" left="20" top="65" width="95" height="40" text="패스워드" cssclass="sta_login_label"/>
-              <Edit id="edtPw" left="120" top="65" height="40" width="510" password="false"/>
-              <CheckBox id="chkSaveId" left="120" top="110" height="40" right="0" text="Save User ID" cssclass="chk_login"/>
+              <Edit id="edtPw" left="120" top="65" height="40" width="490" password="false"/>
             </Layout>
           </Layouts>
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="ID" type="STRING" size="80"/>
-                <Column id="PW" type="STRING" size="80"/>
+                <Column id="ID" type="STRING" size="80" description="아이디"/>
+                <Column id="PW" type="STRING" size="80" description="패스워드"/>
               </ColumnInfo>
               <Rows>
                 <Row/>
@@ -48,7 +47,7 @@
             <Attribute id="loginbuttontype" value="bottom"/>
             <Attribute id="loginbuttontext" value="Login"/>
             <Attribute id="loginbuttoncssclass" value="btn_login"/>
-            <Attribute id="saveidcheckboxuse" value="true"/>
+            <Attribute id="saveidcheckboxuse" value="false"/>
             <Attribute id="saveidcheckboxtext" value="Save User ID"/>
             <Attribute id="saveidcheckboxcssclass" value="chk_login"/>
             <Attribute id="viewpadding" value="20"/>
