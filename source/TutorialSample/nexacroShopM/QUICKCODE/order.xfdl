@@ -456,7 +456,7 @@ this.MessageAction00_onsuccess = function(obj:nexacro.MessageAction, e:nexacro.A
 	// 주문이 완료되었습니다.주문내역화면으로 가시겠습니까?
 	
 	// 주문내역 화면으로 이동
-	this.objApp.gvFrmAll.divMenu.form.fnCallMenu("1001");
+	this.gfn_callMenuM("1001");
 };
 
 this.MessageAction00_onerror = function(obj:nexacro.MessageAction, e:nexacro.ActionErrorEventInfo)

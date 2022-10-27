@@ -76,49 +76,14 @@ this.frameMenu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 this.fnFormOpen = function (objDs,nTargetRow,objArg)
 {
 
-	if (this.lfn_IsNull(objDs)) 		return;
-	if (this.lfn_IsNull(nTargetRow))	return;
+	if (this.gfn_isNull(objDs)) 		return;
+	if (this.gfn_isNull(nTargetRow))	return;
 
 	var sMenuId = objDs.getColumn(nTargetRow, "MENU_CD");
 
-    this.fnCallMenu(sMenuId,objArg);
+    this.gfn_callMenuM(sMenuId,objArg);
 };
 
-this.fnCallMenu = function(sMenuId, objArg)
-{	
-	var nFRow = this.dsMenu.findRow("MENU_CD",sMenuId);
-	
-	if (nFRow < 0)		return;
-	
-	var sMenuNm		= this.dsMenu.getColumn(nFRow, "MENU_NM");
-	var sPgmPath	= this.dsMenu.getColumn(nFRow, "PGM_PATH");
-	var sPgmId		= this.dsMenu.getColumn(nFRow, "PGM_ID");
-	var sPageUrl	= sPgmPath + "::" + sPgmId;
-	
-	if (this.lfn_IsNull(sPgmPath)|| this.lfn_IsNull(sPgmId))		return;
-	
-	var aArgs 	= this.lfn_IsNull(objArg) ? "" : objArg;   //넘어온 arguments
-	
-	var oMenuArg = {};
-	oMenuArg["menuid"] = sMenuId;
-	oMenuArg["oArgs"] = aArgs;
-	
-	var pThis = this.objApp.gvFrmAll;
-	
-    pThis.divMain.set_visible(false);
-    pThis.divCenter.set_visible(true);
-
-    pThis.divCenter.form.vscrollbar.set_pos(0);
-	pThis.divTop.form.staTopTitle.set_text(sMenuNm);
-    pThis.divCenter.form.divWork.set_url(sPageUrl);
-    pThis.fnAction("MENU", false);   
-	
-    pThis.fnAction("HISTORY", oMenuArg);
-    
-    pThis.arguments = [];
-	pThis.arguments["menuid"] = sMenuId;
-    pThis.arguments["oArgs"] = aArgs;
-};
 /************************************************************************************************
  * 각 COMPONENT 별 EVENT 영역
  ************************************************************************************************/
@@ -193,25 +158,6 @@ this.fnMenuSet = function(arrProw, sMenuId)
     nFrow = this.dsMenu.findRow(this.objApp.gvMenuColumns.menuId, sMenuId);
 	objDs.set_rowposition(nFrow);
 	objGrid.set_enableevent(true);
-}
-
-/**
- * @class 값이 존재하는지 여부 체크 <br>
- * @param {String} sValue	
- * @return {Boolean} true/false
- * @example
- * var bNull = this.lfn_IsNull("aaa");	// false
- */
-this.lfn_IsNull = function(sValue)
-{
-    if (new String(sValue).valueOf() == "undefined") return true;
-    if (sValue == null) return true;
-    
-    var ChkStr = new String(sValue);
-
-    if (ChkStr == null) return true;
-    if (ChkStr.toString().length == 0 ) return true;
-    return false;
 };]]></Script>
     <Objects>
       <Dataset id="dsMenu">

@@ -181,19 +181,19 @@ this.DsCopyDataAction00_canrun = function(obj:nexacro.DsCopyDataAction, e:nexacr
 this.btnMore_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	// 주문내역 화면으로 이동
-	this.objApp.gvFrmAll.divMenu.form.fnCallMenu("1001");
+	this.gfn_callMenuM("1001");
 };
 
 this.viewQuickMenu_staNeworder_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 {
 	// 주문하기 화면으로 이동
-	this.objApp.gvFrmAll.divMenu.form.fnCallMenu("1002");
+	this.gfn_callMenuM("1002");
 };
 
 this.viewQuickMenu_staUser_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 {
 	// 내정보 화면으로 이동
-	this.objApp.gvFrmAll.divMenu.form.fnCallMenu("1003");
+	this.gfn_callMenuM("1003");
 };
 
 
