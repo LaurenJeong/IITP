@@ -40,8 +40,9 @@ pForm.gfn_callMenuM = function(sMenuId, objArg)
 };
 
 //화면간 파라미터 반환 함수
-pForm.gfn_menuGetParamsM = function()
+pForm.gfn_menuGetParamsM = function(sParamNm)
 {
+	var oParam;
 	var oRtn = "";
     var objApp  = nexacro.getApplication();
 	
@@ -49,13 +50,18 @@ pForm.gfn_menuGetParamsM = function()
     {	
         if (this.parent instanceof nexacro.ChildFrame)
         {
-            oRtn = this.getOwnerFrame(); 
+            oParam = this.getOwnerFrame(); 
         }
         else
         {
-            oRtn = objApp.gvFrmAll.arguments["oArgs"]; 
+            oParam = objApp.gvFrmAll.arguments["oArgs"]; 
         }
-
+		
+		if (this.gfn_isNull(sParamNm)) {
+			oRtn = oParam;
+		} else if (oParam) {
+			oRtn = oParam[sParamNm];
+		}
 	}
 	catch(e)
     {
