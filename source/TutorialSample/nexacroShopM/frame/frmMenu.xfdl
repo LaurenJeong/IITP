@@ -97,7 +97,11 @@ this.fnCallMenu = function(sMenuId, objArg)
 	
 	if (this.lfn_IsNull(sPgmPath)|| this.lfn_IsNull(sPgmId))		return;
 	
-	var aArgs 	= (this.lfn_IsNull(objArg)) ? "" : objArg;   //넘어온 arguments
+	var aArgs 	= this.lfn_IsNull(objArg) ? "" : objArg;   //넘어온 arguments
+	
+	var oMenuArg = {};
+	oMenuArg["menuid"] = sMenuId;
+	oMenuArg["oArgs"] = aArgs;
 	
 	var pThis = this.objApp.gvFrmAll;
 	
@@ -107,7 +111,9 @@ this.fnCallMenu = function(sMenuId, objArg)
     pThis.divCenter.form.vscrollbar.set_pos(0);
 	pThis.divTop.form.staTopTitle.set_text(sMenuNm);
     pThis.divCenter.form.divWork.set_url(sPageUrl);
-    pThis.fnAction("MENU", false);    
+    pThis.fnAction("MENU", false);   
+	
+    pThis.fnAction("HISTORY", oMenuArg);
     
     pThis.arguments = [];
     pThis.arguments["aArgs"] = aArgs;
