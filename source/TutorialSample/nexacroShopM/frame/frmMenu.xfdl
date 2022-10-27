@@ -116,7 +116,8 @@ this.fnCallMenu = function(sMenuId, objArg)
     pThis.fnAction("HISTORY", oMenuArg);
     
     pThis.arguments = [];
-    pThis.arguments["aArgs"] = aArgs;
+	pThis.arguments["menuid"] = sMenuId;
+    pThis.arguments["oArgs"] = aArgs;
 };
 /************************************************************************************************
  * 각 COMPONENT 별 EVENT 영역

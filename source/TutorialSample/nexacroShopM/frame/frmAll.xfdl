@@ -119,7 +119,7 @@ this.fn_onChangeHistory = function(hash, data)
  		if (this.objApp.gvLogin == "Y")
  		{
 			var sMenuId = hash.split(":")[1];		
-            this.divMenu.form.fnCallMenu(sMenuId);
+            this.divMenu.form.fnCallMenu(sMenuId,data);
  		}
  		else
  		{
@@ -183,7 +183,7 @@ this.fnAction = function (sID, arg)
 			//history setting
 			if (system.navigatorname != "nexacro") 
 			{
-				MyHistory.setLocationHash("MENU:"+arg.menuid, {oArg : arg.oArgs});	
+				MyHistory.setLocationHash("MENU:"+arg.menuid, arg.oArgs);	
 			}
 
 			break;
