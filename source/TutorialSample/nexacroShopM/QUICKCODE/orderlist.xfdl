@@ -193,7 +193,7 @@
               <Edit id="edtOrderNo" left="150" top="95" width="300" height="60" cssclass="com_View" readonly="true"/>
               <Static id="staOrderTimeBg" left="20" top="159" height="70" cssclass="sta_fieldbox" right="20"/>
               <Static id="staOrderTimeLabel" left="20" top="159" width="120" height="70" text="주문일시" cssclass="sta_labelbox"/>
-              <Calendar id="calOrderTime" left="150" top="164" width="300" height="60" cssclass="com_View" readonly="true" buttonsize="0"/>
+              <Calendar id="calOrderTime" left="150" top="164" width="300" height="60" cssclass="com_View" readonly="true" buttonsize="0" dateformat="yyyy-MM-dd ddd HH:mm:ss" editformat="yyyy-MM-dd ddd HH:mm:ss"/>
               <Static id="staProductNameBg" left="20" top="228" height="70" cssclass="sta_fieldbox" right="20"/>
               <Static id="staProductNameLabel" left="20" top="228" width="120" height="70" text="제품명" cssclass="sta_labelbox"/>
               <Edit id="edtProductName" left="150" top="233" width="300" height="60" cssclass="com_View" readonly="true"/>
@@ -329,12 +329,12 @@
                 {
                     "name":"viewSearch:ORDER_DT_FROM",
                     "fieldid":"ORDER_DT_FROM",
-                    "value":"expr:this.parent.gfn_addDate(this.parent.gfn_getDate(),-6)"
+                    "value":"expr:this.parent.gfnAddDate(this.parent.gfnGetDate(),-6)"
                 },
                 {
                     "name":"viewSearch:ORDER_DT_TO",
                     "fieldid":"ORDER_DT_TO",
-                    "value":"expr:this.parent.gfn_getDate()"
+                    "value":"expr:this.parent.gfnGetDate()"
                 },
                 {
                     "name":"viewSearch:ORDER_STATUS",
@@ -429,15 +429,15 @@ this.DsCopyDataAction00_canrun = function(obj:nexacro.DsCopyDataAction, e:nexacr
 	aFilter.push("USER_ID=='" + this.objApp.gdsUserInfo.getColumn(0,"USER_ID") + "'");
 	
 	// 조회조건 주문기간(시작일)
-	if (!this.gfn_isNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_FROM"))) {
+	if (!this.gfnIsNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_FROM"))) {
 		aFilter.push("ORDER_TIME.substr(0,8)>='" + this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_FROM") + "'");
 	}
 	// 조회조건 주문기간(종료일) 
-	if (!this.gfn_isNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_TO"))) {
+	if (!this.gfnIsNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_TO"))) {
 		aFilter.push("ORDER_TIME.substr(0,8)<='" + this.viewSearch.form.viewdataset.getColumn(0,"ORDER_DT_TO") + "'");
 	}
 	// 조회조건 상태
-	if (!this.gfn_isNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_STATUS"))) {
+	if (!this.gfnIsNull(this.viewSearch.form.viewdataset.getColumn(0,"ORDER_STATUS"))) {
 		aFilter.push("ORDER_STATUS=='" + this.viewSearch.form.viewdataset.getColumn(0,"ORDER_STATUS") + "'");
 	}
 	
@@ -466,7 +466,7 @@ this.viewDetail_btnBack_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 this.viewList_divTitle_btnOrder_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	// 주문하기 화면으로 이동
-	this.gfn_callMenuM("1002");
+	this.gfnCallMenuM("1002");
 };
 
 // Search 버튼 성공 이벤트

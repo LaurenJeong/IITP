@@ -76,12 +76,12 @@ this.frameMenu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 this.fnFormOpen = function (objDs,nTargetRow,objArg)
 {
 
-	if (this.gfn_isNull(objDs)) 		return;
-	if (this.gfn_isNull(nTargetRow))	return;
+	if (this.gfnIsNull(objDs)) 		return;
+	if (this.gfnIsNull(nTargetRow))	return;
 
 	var sMenuId = objDs.getColumn(nTargetRow, "MENU_CD");
 
-    this.gfn_callMenuM(sMenuId,objArg);
+    this.gfnCallMenuM(sMenuId,objArg);
 };
 
 /************************************************************************************************

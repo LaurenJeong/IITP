@@ -117,14 +117,14 @@ this.fnSetLogin = function()
 	oDbOrder.filter("USER_ID=='" + this.viewLogin.form.viewdataset.getColumn(0,"USER_ID") + "'");
 	
 	// 주문정보 임의데이터 설정
-	var sTodayTime = this.gfn_getDate("time");
+	var sTodayTime = this.gfnGetDate("milli");
 	var sToday = sTodayTime.substr(0,8);
 	for(var i=0; i<oDbOrder.rowcount; i++)
 	{
-		if (this.gfn_isNull(oDbOrder.getColumn(i,"ORDER_NO")))
+		if (this.gfnIsNull(oDbOrder.getColumn(i,"ORDER_NO")))
 		{
-			oDbOrder.setColumn(i,"ORDER_NO",this.gfn_getUniqueId());
-			oDbOrder.setColumn(i,"ORDER_TIME",this.gfn_addDate(sToday,(-1*i)-1) + sTodayTime.substr(8));
+			oDbOrder.setColumn(i,"ORDER_NO",this.gfnGetUniqueId());
+			oDbOrder.setColumn(i,"ORDER_TIME",this.gfnAddDate(sToday,(-1*i)-1) + sTodayTime.substr(8));
 		}
 	}
 	

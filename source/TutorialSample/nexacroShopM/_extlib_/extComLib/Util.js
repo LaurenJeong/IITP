@@ -1,8 +1,19 @@
-﻿/**
+/**
+*  BPO 플랫폼
 *  @FileName 	Util.js 
+*  @Creator 	PJY
+*  @CreateDate 	2019.06.24
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2019.06.24     		PJY		       	      	최초 생성
+*******************************************************************************
 */
 
 var pForm = nexacro.Form.prototype;
+
+pForm._LOG_LEVEL		= -1;				// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 
 /************************************************************************************************
 * String 및 Util 관련
@@ -13,9 +24,9 @@ var pForm = nexacro.Form.prototype;
  * @param {String} sValue	
  * @return {Boolean} true/false
  * @example
- * var bNull = this.gfn_isNull("aaa");	// false
+ * var bNull = this.gfnIsNull("aaa");	// false
  */
-pForm.gfn_isNull = function(sValue)
+pForm.gfnIsNull = function(sValue)
 {
     if (new String(sValue).valueOf() == "undefined") return true;
     if (sValue == null) return true;
@@ -27,6 +38,36 @@ pForm.gfn_isNull = function(sValue)
     return false;
 };
 
+/**
+ * @class	값이 존재하는지 여부 체크 <br>
+ * @param	{String} sValue	
+ * @return	{Boolean} true/false
+ * @example
+ * var bNotNull = this.gfnIsNotNull("aaa");	// true
+ */
+pForm.gfnIsNotNull = function(sValue)
+{
+	if (this.gfnIsNull(sValue))
+		return false;
+	else
+		return true;
+};
+
+/**
+ * @class	값이 Null일 경우에 ""(Empty-공백)을 반환 <br>
+ * @param	{String} sValue	
+ * @return	{String} sValue	or ""
+ * @example
+ * var sEmpty = this.gfnIsNullEmpty(null);	// ""
+ */
+pForm.gfnIsNullEmpty = function(sValue)
+{
+    if (this.gfnIsNull(sValue)) {
+        return "";
+    } else {
+        return sValue;
+    }
+};
 
 /**
  * @class 입력값을 체크하여 Null인경우 지정한 값을 리턴 <br>
@@ -34,7 +75,7 @@ pForm.gfn_isNull = function(sValue)
  * @param {String} nullVal	- Null인경우 대치값
  * @return {String} 입력값이 Null인경우 지정한값, Null이 아닌경우 입력값
  */
-pForm.gfn_nvl = function(inVal, nullVal)
+pForm.gfnNvl = function(inVal, nullVal)
 {
 	if(inVal == null) {
 		inVal = nullVal;
@@ -47,7 +88,7 @@ pForm.gfn_nvl = function(inVal, nullVal)
  * @param 	{object}  판별대상 Object
  * @return 	{boolean} boolean 이면 true 아니면 false 를 리턴한다.
 */
-pForm.gfn_isBoolean = function(obj)
+pForm.gfnIsBoolean = function(obj)
 {
     var strvalue = obj+"";
 
@@ -59,17 +100,44 @@ pForm.gfn_isBoolean = function(obj)
 };
 
 /**
+ * @class	입력값이 문자열인지 여부를 판별한다.
+ * @param 	{object}  value - 판별대상 Object
+ * @return 	{boolean} 문자열 이면 true 아니면 false 를 리턴한다.
+*/
+pForm.gfnIsString = function(value) 
+{
+	return typeof value === 'string';
+};
+
+/**
+ * @class	입력값이 배열인지 여부를 판별한다.
+ * @param 	{object}  value - 판별대상 Object
+ * @return 	{boolean} 배열 이면 true 아니면 false 를 리턴한다.
+*/
+pForm.gfnIsArray = function(value) 
+{
+	var ret = false;
+	
+	if (typeof value == "object") {
+		if (value.constructor == Array) {
+			ret = true;
+		}
+	}
+	return ret;
+};
+
+/**
  * @class   Grid에서 expression으로  표현할때 decode 문처럼 사용할 수 있는 기능
  * @param  N/A 
  * @return  {String} varRtnValue - 반환된 무자열
  * @example
- * this.gfn_decode();	
+ * this.gfnDecode();	
  */
-pForm.gfn_decode = function ()
+pForm.gfnDecode = function ()
 {
 	var varRtnValue = null;
 
-	var arrArgument = this.gfn_decode.arguments;
+	var arrArgument = this.gfnDecode.arguments;
 	var varValue = arrArgument[0];
 	var bIsDefault = false;
 	var nCount = 0;
@@ -107,9 +175,9 @@ pForm.gfn_decode = function ()
  * @param {String} sValue - 변경하려는 값
  * @return {String} 문자열
  */
-pForm.gfn_trim = function(sValue)
+pForm.gfnTrim = function(sValue)
 {
-    if (this.gfn_isNull(sValue)) return "";
+    if (this.gfnIsNull(sValue)) return "";
 	return nexacro.trim(sValue);
 };
 
@@ -118,7 +186,7 @@ pForm.gfn_trim = function(sValue)
  * @param {String} sValue - 변경하려는 값
  * @return {String} 문자열
 */
-pForm.gfn_trimAll = function(sValue)
+pForm.gfnAllTrim = function(sValue)
 {
     var objValue = new String(sValue);
     var sRtnValue="";
@@ -143,7 +211,7 @@ pForm.gfn_trimAll = function(sValue)
  * @param {Number} nSize - 얻어올 크기. [Default Value = 0]
  * @return {String} 문자열
  */
-pForm.gfn_left = function (sOrg, nSize)
+pForm.gfnLeft = function (sOrg, nSize)
 {
 	return new String(sOrg).substr(0, nSize);
 }
@@ -154,9 +222,9 @@ pForm.gfn_left = function (sOrg, nSize)
  * @param {Number} nSize - 출력될 문자열의 길이
  * @return {String} 결과값
  */
-pForm.gfn_right = function(sOrg, nSize)
+pForm.gfnRight = function(sOrg, nSize)
 {
-	if ( this.gfn_isNull(sOrg) || this.gfn_isNull(nSize) )	return "";
+	if ( this.gfnIsNull(sOrg) || this.gfnIsNull(nSize) )	return "";
 
 	if ( sOrg.length < nSize )
 		return sOrg;
@@ -171,26 +239,59 @@ pForm.gfn_right = function(sOrg, nSize)
                    - 그외 한글/한자 : 2 로 count 되어 합산 
  * @return {Integer} Type에 따라 구해진 길이
  */
-pForm.gfn_lengthByte = function (sVal)
+pForm.gfnLengthByte = function (sVal)
 {
 	var lengthByte = 0;
 
-	if (this.gfn_isNull(sVal)) {
+	if (this.gfnIsNull(sVal)) {
 		return -1;
 	}
 
 	for (var i = 0; i < sVal.length; i++)
 	{
+		/*
 		if (sVal.charCodeAt(i) > 127) {
 			lengthByte += 2;
 		}
 		else {
 			lengthByte += 1;
 		}
+		*/
+		lengthByte += this.gfnGetCharByteSize(sVal.substr(i,1));
 	}
 
 	return lengthByte;
-}
+};
+
+// UTF-8기준으로 글자수 반환
+pForm.gfnGetCharByteSize = function(sChr)
+{
+	if (sChr == null || sChr.length == 0) {
+		return 0;
+	}
+	var charCode = sChr.charCodeAt(0);
+
+	// utf8
+	if (charCode <= 0x00007F) {
+		return 1;
+	} else if (charCode <= 0x0007FF) {
+		return 2;
+	} else if (charCode <= 0x00FFFF) {
+		return 3;
+	} else {
+		return 4;
+	}
+	
+	/*
+	// ascii
+	if (charCode > 127) {
+		return 2;
+	}
+	else {
+		return 1;
+	}
+	*/
+};
 
 /**
  * @class 문자열의 위치를 대소문자 구별하여 거꾸로 부터 찾아 첫번째 나온 index 반환<br>
@@ -199,19 +300,19 @@ pForm.gfn_lengthByte = function (sVal)
  * @param {Number} nStart - 검색 시작위치 (옵션 : Default=문자열의 끝 )
  * @return {Number}
  * @example
- * var nPos = this.gfn_posReverse("aaBBbbccBB", "BB"); <br>
+ * var nPos = this.gfnPosReverse("aaBBbbccBB", "BB"); <br>
  * 성공 = 찾고자 하는 문자열의 시작위치 ( 예 : 8 ) <br>
  * 실패 = -1 <br>
  */
-pForm.gfn_posReverse = function (sOrg, sFind, nStart)
+pForm.gfnPosReverse = function (sOrg, sFind, nStart)
 {
 	var pos;
 
-	if (this.gfn_isNull(sOrg) || this.gfn_isNull(sFind)) 
+	if (this.gfnIsNull(sOrg) || this.gfnIsNull(sFind)) 
 	{
 		return -1;
 	}
-	if (this.gfn_isNull(nStart)) 
+	if (this.gfnIsNull(nStart)) 
 	{
 		nStart = sOrg.length - 1;
 	}
@@ -233,7 +334,7 @@ pForm.gfn_posReverse = function (sOrg, sFind, nStart)
  * @param {Number} [nDetail] - 반올림할 소숫점 이하의 자릿수.
  * @return {String} Comma 가 포함하고 있는 숫자
  */
-pForm.gfn_appendComma = function(nNumber,nDetail)
+pForm.gfnAppendComma = function(nNumber,nDetail)
 {
 	if (nNumber == null)	return "";
 	if (nDetail	== null)	nDetail	= 0;
@@ -267,10 +368,10 @@ pForm.gfn_appendComma = function(nNumber,nDetail)
 
 /**
  * @class 컴마를 제거한다. <br>
- * @param {String} strValue - 컴마가 포함된 스트링
- * @return {String} 컴마가 제거된 스트링이 반환된다.
+ * @param {String} strValue - 컴마가 포함된 문자열
+ * @return {String} 컴마가 제거된 문자열이 반환된다.
  */
-pForm.gfn_removeComma = function(strValue)
+pForm.gfnRemoveComma = function(strValue)
 {
 	return strValue.replace(/\,/g, "");
 };
@@ -280,7 +381,7 @@ pForm.gfn_removeComma = function(strValue)
  * @param {String} strValue - 입력문자열
  * @return {String} 숫자문자열
  */
-pForm.gfn_getDigit = function(strValue)
+pForm.gfnGetDigit = function(strValue)
 {
 	var regExp = new RegExp("\\D","g");
 	var strRet = strValue.replace(regExp,"");
@@ -293,7 +394,7 @@ pForm.gfn_getDigit = function(strValue)
  * @param {String} strValue
  * @return {String} 특수문자를 제거한 문자열
  */
-pForm.gfn_removeSpecialChar = function(strValue)
+pForm.gfnRemoveSpecialChar = function(strValue)
 {
    var strSpecial = "~!@#$%^&*-+./=_`{|}()\\?<>";
    
@@ -313,11 +414,11 @@ pForm.gfn_removeSpecialChar = function(strValue)
  * @param {String} sTag - 제거할 tag(없으면 전체 tag제거)
  * @return {String}
  * @example
- * var str = this.gfn_removeHtmlTag("정상적으로<BR>처리되었습니다.");
+ * var str = this.gfnRemoveHtmlTag("정상적으로<BR>처리되었습니다.");
  */
-pForm.gfn_removeHtmlTag = function(sHtml, sTag)
+pForm.gfnRemoveHtmlTag = function(sHtml, sTag)
 {
-	if(this.gfn_isNull(sTag))
+	if(this.gfnIsNull(sTag))
 	{
 	    sHtml = nexacro.replaceAll(sHtml, "<br>","\n");	
 		sHtml = nexacro.replaceAll(sHtml, "<BR>","\n");	
@@ -343,7 +444,7 @@ pForm.gfn_removeHtmlTag = function(sHtml, sTag)
  * @param {String} varVal - 값
  * @return {Boolean} 배열에 존재여부
  */
-pForm.gfn_isExistInArray = function(arrVal, varVal) 
+pForm.gfnIsExistInArray = function(arrVal, varVal) 
 {
 	var retVal = false;
 	var nCnt = arrVal.length;
@@ -358,16 +459,42 @@ pForm.gfn_isExistInArray = function(arrVal, varVal)
 };
 
 /**
+ * @class 입력된 10진수를 16진수로 변환하는 함수 <br>
+ * @param {Number} nVal - 10진수
+ * @return {String} 16진수 문자열
+ */
+pForm.gfn10To16 = function(nVal)
+{
+	var n;
+	n = (nVal).toString(16);
+
+	return n;
+};
+
+/**
+ * @class 입력된 16진수를 10진수로 변환하는 함수
+ * @param {String} strVal - 16진수 문자열
+ * @return {Number} 10진수 숫자
+ */
+pForm.gfn16To10 = function(strVal)
+{
+	var n;
+	n = (strVal).toString(10);
+	
+	return n;
+};
+
+/**
 * @class 주어진 nexacro 개체의 type 을 반환 <br>
 * @param {*} obj Object, Component, Frame, .. 등 nexacro 모든 개체
 * @return {String} 개체의 type
 * @example
-* trace(this.gfn_typeOf(Button00));	// output : Button
-* trace(this.gfn_typeOf(Tab00));	// output : Tab
-* trace(this.gfn_typeOf(Tab00.tabpage1));	// output : Tabpage
-* trace(this.gfn_typeOf(Dataset00));	// output : Dataset
+* trace(this.gfnTypeOf(Button00));	// output : Button
+* trace(this.gfnTypeOf(Tab00));	// output : Tab
+* trace(this.gfnTypeOf(Tab00.tabpage1));	// output : Tabpage
+* trace(this.gfnTypeOf(Dataset00));	// output : Dataset
 */
-pForm.gfn_typeOf = function(obj)
+pForm.gfnTypeOf = function(obj)
 {
 	var type;
 	if ( obj && (typeof obj == "object"))
@@ -388,7 +515,7 @@ pForm.gfn_typeOf = function(obj)
  * @param {Object} value - 체크할 Object	
  * @return {boolean}
  */
-pForm.gfn_isNexaComponent = function(value) 
+pForm.gfnIsNexaComponent = function(value) 
 {
 	if ( value === null || value === undefined  ) return false;
 	
@@ -401,11 +528,11 @@ pForm.gfn_isNexaComponent = function(value)
  * @param {String} [sName]  - key 값
  * @return N/A
  */
-pForm.gfn_objView = function (objArg, sName)
+pForm.gfnObjView = function (objArg, sName)
 {
 	for (var name in objArg)
 	{
-		if (this.gfn_isNull(sName) == false)
+		if (this.gfnIsNull(sName) == false)
 		{
 			if (name == sName) {
 				trace("name : " + name + " / value : " + objArg[name]);
@@ -417,15 +544,126 @@ pForm.gfn_objView = function (objArg, sName)
 	}
 };
 
+ /**
+ * @class object의 내용을 문자열로 출력(nexacro.Decimal,nexacro.Date, null 예외처리)
+ * @param {Object} obj - 대상 Object
+ * @return {String} JSON형식 String
+ */
+pForm.gfnStringifyJSON = function(obj)
+{
+	var oRet = {};
+	pForm.gfnCopyProperties(oRet,obj);
+	
+	oRet = pForm._gfnSetExpJSON(oRet);
+	var sRet = JSON.stringify(oRet);
+	
+	return sRet;
+};
+
+ /**
+ * @class JSON에서 nexacro 예외대상 셋팅
+ * @param {Object} obj - 대상 Object
+ * @return {Object} 변경된 값
+ */
+pForm._gfnSetExpJSON = function(obj)
+{
+	var oObj = obj;
+	
+	if (typeof(obj) == "object") {
+		if(Array.isArray(oObj)) {
+			if (oObj.length) {	// for array
+				for (var i = 0; i < oObj.length; i++) {
+					oObj[i] = pForm._gfnSetExpJSON(oObj[i]);
+				}
+			}
+		} if (obj instanceof nexacro.Decimal
+				|| obj instanceof nexacro.Date) {
+				return '' + obj;
+			} else if (obj === undefined || obj === null) {
+				return '';
+			} else {
+			for (var propName in oObj) {
+				if(typeof oObj[propName] === 'function' || oObj[propName] === undefined) {
+					continue;
+				} else {
+					oObj[propName] = pForm._gfnSetExpJSON(oObj[propName]);
+				}
+			}
+		}
+	}
+	
+	return oObj;
+};
+
+ /**
+ * @class object의 내용을 문자열로 출력
+ * @param {Object} obj - 대상 Object
+ * @return {String} JSON형식 String
+ */
+/*
+pForm.gfnStringifyJSON = function(obj)
+{
+	switch(typeof(obj)) {
+		case "number" :
+		case "boolean" :
+			return '' + obj;
+		case "string" :
+			return nexacro.wrapQuote(obj);
+		case "null" :
+			return "null";
+		case "undefined" :
+			return "undefined";
+		case "object" :
+			var xstr = "";
+			if(Array.isArray(obj)) {
+				if (obj.length) {	// for array
+					xstr = "[";
+					for (var i = 0; i < obj.length; i++) {
+						if (i > 0)
+							xstr += ",";
+						xstr += pForm.gfnStringifyJSON(obj[i]);
+					}
+					xstr += "]";
+				}
+			} else if (obj instanceof nexacro.Decimal
+				|| obj instanceof nexacro.Date) {
+				return '' + obj;
+			} else if (obj === undefined || obj === null) {
+				return '';
+			} else {
+				xstr += "{";
+				var pstr = "";
+				for (var propName in obj) {
+					if(typeof obj[propName] === 'function' || obj[propName] === undefined) {
+						continue;
+					} else {
+						if (pstr != "")		pstr += ",";
+						
+						pstr += nexacro.wrapQuote(propName) + ":";
+						pstr += pForm.gfnStringifyJSON(obj[propName]);
+					}
+				}
+				xstr += pstr + "}";
+			}
+			return xstr;
+		default :
+			trace("gfnStringifyJSON unknown type:"+typeof(obj));
+			return "undefined";
+	}
+	
+	return "undefined";
+};
+*/
+
 /**
  * @class   대상에서 오브젝트 반환
  * @param 	{Object} p - 오브젝트를 찾을 대상
  * @param 	{String} name - 오브젝트네임
  * @return  {Object} 오브젝트
  * @example
- * this.gfn_lookup(this, "dsList");	
+ * this.gfnLookup(this, "dsList");	
  */
-pForm.gfn_lookup = function(p, name)
+pForm.gfnLookup = function(p, name)
 {
 	var o;
 	while (p)
@@ -459,12 +697,12 @@ pForm.gfn_lookup = function(p, name)
  * users[4] = {id:"zoo", age:65};
  * users[5] = {id:"milk", name:"", age:33};
  * users[6] = {id:"milk", name:"lee", age:33};
- * var index = this.gfn_lastIndexOfProp(users, "name", "lee");
+ * var index = this.gfnLastIndexOfProp(users, "name", "lee");
  * trace("index==>" + index);	// output : index==>6
- * var index = this.gfn_lastIndexOfProp(users, "name", "lee", 5);
+ * var index = this.gfnLastIndexOfProp(users, "name", "lee", 5);
  * trace("index==>" + index);	// output : index==>3
 */
-pForm.gfn_lastIndexOfProp = function(array, prop, item, from, strict)
+pForm.gfnLastIndexOfProp = function(array, prop, item, from, strict)
 {
 	var i, obj, 
 		propValue;
@@ -525,7 +763,7 @@ pForm.gfn_lastIndexOfProp = function(array, prop, item, from, strict)
  * var mon = ["Jan","Feb","Mar","Apr"];
  * trace("mon==>" + mon);	// output : mon==>["Jan","Mar","Apr"]
 */
-pForm.gfn_removeAt = function(array, index) 
+pForm.gfnRemoveAt = function(array, index) 
 {
 	array.splice(index, 1);
 };
@@ -542,22 +780,22 @@ pForm._ALPHA_CHAR_CODES = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 1
  * @param {String} separator id 생성시 구분용 문자(default: '-' ).
  * @return {String} id
  * @example
- * trace(this.gfn_getUniqueId()); 
+ * trace(this.gfnGetUniqueI()); 
  * // output : 3e52d1f6-f0d2-4970-a590-ba7656b07859
  * 
- * trace(this.gfn_getUniqueId("Button_")); 
+ * trace(this.gfnGetUniqueI("Button_")); 
  * // output : Button_4e601da1-63f4-4cfa-849b-01b8a7f14d40
  * 
- * trace(this.gfn_getUniqueId("", "_")); 
+ * trace(this.gfnGetUniqueI("", "_")); 
  * // output : 4e601da1_63f4_4cfa_849b_01b8a7f14d40
  * 
- * trace(this.gfn_getUniqueId("Button_", "_")); 
+ * trace(this.gfnGetUniqueId("Button_", "_")); 
  * // output : Button_4e601da1_63f4_4cfa_849b_01b8a7f14d40
 */
-pForm.gfn_getUniqueId = function(prefix, separator)
+pForm.gfnGetUniqueId = function(prefix, separator)
 {
-	if ( this.gfn_isNull(prefix) ) prefix = "";
-	if ( this.gfn_isNull(separator) ) {
+	if ( this.gfnIsNull(prefix) ) prefix = "";
+	if ( this.gfnIsNull(separator) ) {
 		separator = 45;
 	} else {
 		separator = separator.charCodeAt(0);
@@ -629,11 +867,11 @@ pForm.gfn_getUniqueId = function(prefix, separator)
  * |---------------------------------------------------------| 
  * <--------------- 900 ------------------>	
  *		 
- * trace(this.gfn_convertXY(this,[0,0], Button00)); //output: [900,300]
+ * trace(this.gfnConvertXY(this,[0,0], Button00)); //output: [900,300]
  * //Button00을 기준으로 한 0,0 좌표는
  * //form 기준으로 했을 때 900, 300이 된다.
 */				
-pForm.gfn_convertXY = function(XCompA, xy, XCompB)
+pForm.gfnConvertXY = function(XCompA, xy, XCompB)
 {
 	var tempX, tempY;
 	var x, y;
@@ -641,8 +879,8 @@ pForm.gfn_convertXY = function(XCompA, xy, XCompB)
 	{
 		tempX = system.clientToScreenX(XCompB, xy[0]);
 		tempY = system.clientToScreenY(XCompB, xy[1]);
-		x = system.screenToClientX(XCompA, tempX) + this.gfn_getScrollLeft(XCompA);
-		y = system.screenToClientY(XCompA, tempY) + this.gfn_getScrollTop(XCompA);				
+		x = system.screenToClientX(XCompA, tempX) + this.gfnGetScrollLeft(XCompA);
+		y = system.screenToClientY(XCompA, tempY) + this.gfnGetScrollTop(XCompA);				
 	}
 	else
 	{
@@ -658,10 +896,10 @@ pForm.gfn_convertXY = function(XCompA, xy, XCompB)
  * @param  {Object} Component.
  * @return {Number} 수평스크롤바의 trackbar 위치(수평스크롤바가 없을때는 0).
  * @example
- * trace(this.gfn_getScrollLeft(Div01)); //output: 10
- * trace(this.gfn_getScrollLeft(Div01)); //output: 0
+ * trace(this.gfnGetScrollLeft(Div01)); //output: 10
+ * trace(this.gfnGetScrollLeft(Div01)); //output: 0
 */
-pForm.gfn_getScrollLeft = function(XComp)
+pForm.gfnGetScrollLeft = function(XComp)
 {
 	if(XComp instanceof nexacro.Div){
 		XComp = XComp.form;
@@ -674,10 +912,10 @@ pForm.gfn_getScrollLeft = function(XComp)
  * @param  {Object} Component.
  * @return {Number} 수직스크롤바의 trackbar 위치(수직스크롤바가 없을때는 0).
  * @example
- * trace(this.gfn_getScrollTop(Div01)); //output: 20
- * trace(this.gfn_getScrollTop(Div01)); //output: 0
+ * trace(this.gfnGetScrollTop(Div01)); //output: 20
+ * trace(this.gfnGetScrollTop(Div01)); //output: 0
  */
-pForm.gfn_getScrollTop = function(XComp)
+pForm.gfnGetScrollTop = function(XComp)
 {
 	if(XComp instanceof nexacro.Div){
 		XComp = XComp.form;
@@ -692,7 +930,7 @@ pForm.gfn_getScrollTop = function(XComp)
  * @param {Object} srcobject source 객체.
  * @example
  * var target = {};
- * this.gfn_copyProperties(target, {a: 1, b: "2", c: {"A": "3", "B": 4}});
+ * this.gfnCopyProperties(target, {a: 1, b: "2", c: {"A": "3", "B": 4}});
  * for(var p in target)
  * {
  * 	trace(p + ":" + target[p]);
@@ -701,7 +939,7 @@ pForm.gfn_getScrollTop = function(XComp)
  *	// output : c:[object Object]
  * }
 */
-pForm.gfn_copyProperties = function(tarobject, srcobject)
+pForm.gfnCopyProperties = function(tarobject, srcobject)
 {
 	if (tarobject && srcobject) 
 	{
@@ -726,21 +964,21 @@ pForm.gfn_copyProperties = function(tarobject, srcobject)
  * @return {String} id
  * @example
  * // this = Form
- * trace(this.gfn_getSequenceId(this, "Button")); // output : Button0
- * trace(this.gfn_getSequenceId(this, "Button")); // output : Button1
+ * trace(this.gfnGetSequenceId(this, "Button")); // output : Button0
+ * trace(this.gfnGetSequenceId(this, "Button")); // output : Button1
  * // this = Form
- * trace(this.gfn_getSequenceId(this, "chk_")); // output : chk_0
- * trace(this.gfn_getSequenceId(this, "chk_")); // output : chk_1
+ * trace(this.gfnGetSequenceId(this, "chk_")); // output : chk_0
+ * trace(this.gfnGetSequenceId(this, "chk_")); // output : chk_1
 */		
-pForm.gfn_getSequenceId = function(form, prefix)
+pForm.gfnGetSequenceId = function(form, prefix)
 {
-	if ( this.gfn_isNull(form) ) 
+	if ( this.gfnIsNull(form) ) 
 	{
 		trace("getSequenceId :: 1st argument doesn't exist !!");
 		return null;
 	}
 	
-	if ( this.gfn_isNull(prefix) ) 
+	if ( this.gfnIsNull(prefix) ) 
 	{
 		trace("getSequenceId :: 2nd argument doesn't exist !!");
 		return null;
@@ -753,13 +991,13 @@ pForm.gfn_getSequenceId = function(form, prefix)
 	}
 	
 	var cache = form._sequenceIdCache;
-	if ( this.gfn_isNull(cache) )
+	if ( this.gfnIsNull(cache) )
 	{
 		cache = form._sequenceIdCache = {};
 	}
 	
 	var sequence = cache[prefix];
-	if ( this.gfn_isNull(sequence) )
+	if ( this.gfnIsNull(sequence) )
 	{
 		sequence = -1;
 	}
@@ -781,7 +1019,7 @@ pForm.gfn_getSequenceId = function(form, prefix)
  * @param {Object} scope callback 함수에 대한 수행 scope.
  * @example
  * var datas = {code: "001", userId: "", name: "pete"};
- * this.gfn_each(datas, function(prop, val, object) {
+ * this.gfnEach(datas, function(prop, val, object) {
  * 	var result = "";
  * 	if ( !val )
  * 	{
@@ -795,7 +1033,7 @@ pForm.gfn_getSequenceId = function(form, prefix)
  * 	trace(result);	// output : code:001
  * }, this);
 */
-pForm.gfn_each = function(object, func, scope)
+pForm.gfnEach = function(object, func, scope)
 {
 	var p,
 		scope = scope || object;
@@ -816,9 +1054,9 @@ pForm.gfn_each = function(object, func, scope)
  * @param  {Object} curForm 검색 시작 Form.
  * @return {Object} 최상위 Form.
  * @example
- * trace(this.gfn_getTopLevelForm(this));	// output : [object Form]
+ * trace(this.gfnGetTopLevelForm(this));	// output : [object Form]
 */		
-pForm.gfn_getTopLevelForm = function(curForm)
+pForm.gfnGetTopLevelForm = function(curForm)
 {
 	var p = curForm;
 	while (p && !(p instanceof ChildFrame))
@@ -836,14 +1074,14 @@ pForm.gfn_getTopLevelForm = function(curForm)
  * @return {Boolean} 포함되어 있다면 true, 없다면 false를 리턴.
  * @example
  * var mon = ["Jan","Feb","Mar","Apr"];
- * var contain = this.gfn_contains(mon, "Mar");
+ * var contain = this.gfnContains(mon, "Mar");
  * trace("contain==>" + contain);	// output : contain==>true
- * var contain = this.gfn_contains(mon, "May");
+ * var contain = this.gfnContains(mon, "May");
  * trace("contain==>" + contain);	// output : contain==>false
 */
-pForm.gfn_contains = function(array, item, strict) 
+pForm.gfnContains = function(array, item, strict) 
 {
-	if (this.gfn_indexOf(array, item, null, strict) === -1) 
+	if (this.gfnIndexOf(array, item, null, strict) === -1) 
 	{
 		return false;
 	}
@@ -862,12 +1100,12 @@ pForm.gfn_contains = function(array, item, strict)
  * @return {Number} 검색된 배열 위치. 없다면 -1 리턴.
  * @example
  * var mon = ["Jan","Feb","Mar","Apr"];
- * var index = this.gfn_indexOf(mon, "Mar");
+ * var index = this.gfnIndexOf(mon, "Mar");
  * trace("index==>" + index);	// output : index==>2
- * var index = this.gfn_indexOf(mon, "May");
+ * var index = this.gfnIndexOf(mon, "May");
  * trace("index==>" + index);	// output : index==>-1
 */
-pForm.gfn_indexOf = function(array, item, from, strict) 
+pForm.gfnIndexOf = function(array, item, from, strict) 
 {
 	var len = array.length;
 	if ( from == null ) from = 0;;
@@ -911,7 +1149,7 @@ pForm.gfn_indexOf = function(array, item, from, strict)
  * @class 컨트롤이 Dataset에 bind되어 있을 경우 즉시 value를 Dataset에 적용시킨다.
  * @return N/A
  */   
-pForm.gfn_updateToDataset = function()
+pForm.gfnUpdateToDataset = function()
 {
 	var objComp = this.getFocus();
 	
@@ -928,24 +1166,96 @@ pForm.gfn_updateToDataset = function()
 };
 
  /**
+ * @class 해당 Row의 RowType을 반환
+ * @param {Object} objDs - 확인 대상 Dataset
+ * @param {Number} nRow - row값
+ * @param {boolean} bStatusCheck - Status값으로 체크여부(기본값:true)
+ * @param {boolean} bFilterCheck - 필터된 데이터 체크여부(기본값:false)
+ * @return {Number} RowType
+ */  
+pForm.gfnGetRowType = function (objDs, nRow, bStatusCheck, bFilterCheck)
+{
+	var nRowType;
+	var sStatus;
+	
+	if (bStatusCheck) {				// STATUS 컬럼으로 체크할지 여부
+		if (bFilterCheck) {
+			sStatus = objDs.getColumnNF(nRow, pForm.COM_STATUS_ID);
+		} else {
+			sStatus = objDs.getColumn(nRow, pForm.COM_STATUS_ID);
+		}
+		nRowType = this.gfnDecode(sStatus, "C", Dataset.ROWTYPE_INSERT, "U", Dataset.ROWTYPE_UPDATE, "D", Dataset.ROWTYPE_DELETE, Dataset.ROWTYPE_NORMAL);
+	} else {						// 데이터셋 getRowType()으로 체크
+		if (bFilterCheck) {
+			nRowType = objDs.getRowTypeNF(nRow);
+		} else {
+			nRowType = objDs.getRowType(nRow);
+		}
+	}
+	
+	return nRowType;
+};
+
+ /**
  * @class dataSet의 Row 중에서 변경된 내용이 있는지 여부
  * @param {Object} objDs - 확인 대상 Dataset
- * @return {boolean}
+ * @param {boolean} bStatusCheck - Status값으로 체크여부(기본값:true)
+ * @param {boolean} bFilterCheck - 필터된 데이터 체크여부(기본값:false)
+ * @param {boolean} bSkipCheck - 체크박스 선택 체크여부(기본값:false)
+ * @return {boolean} 변경여부
  */   
-pForm.gfn_dsIsUpdated = function (objDs)
+pForm.gfnDsIsUpdated = function (objDs, bStatusCheck, bFilterCheck, bSkipCheck)
 {
-	if (objDs.getDeletedRowCount() > 0) 
-	{
+	if (this.gfnIsNull(bStatusCheck))		bStatusCheck = true;
+	if (this.gfnIsNull(bFilterCheck))		bFilterCheck = false;
+	if (this.gfnIsNull(bSkipCheck))			bSkipCheck = true;
+	
+	if (objDs.getDeletedRowCount() > 0) {
 		return true;
 	}
 	
-	for(var i = 0 ; i < objDs.getRowCount() ; i++)
-	{
-		if(objDs.getRowType(i) == 2 || objDs.getRowType(i) == 4 || objDs.getRowType(i) == 8)
-		{
-			return true;
+	var nRowType;
+	var nRowCnt = objDs.getRowCount();
+	if (bFilterCheck)	nRowCnt = objDs.getRowCountNF();
+	
+	if (bStatusCheck) {			// STATUS 컬럼으로 체크할지 여부
+		// STATUS인 경우 기본으로 CHECK값 스킵함.
+		if (bSkipCheck) {
+			for (var i = 0 ; i < nRowCnt ; i++) {
+				nRowType = this.gfnGetRowType(objDs, i, bStatusCheck, bFilterCheck);
+				
+				if (nRowType == Dataset.ROWTYPE_INSERT || nRowType == Dataset.ROWTYPE_UPDATE || nRowType == Dataset.ROWTYPE_DELETE) {
+					return true;
+				}
+			}
+		} else {
+			for (var i = 0 ; i < nRowCnt ; i++) {
+				if (this.gfnIsUpdatedRow(objDs,i,bStatusCheck,bFilterCheck,bSkipCheck)) {
+					return true;
+				}
+			}
+		}
+		
+	} else {				// 데이터셋 getRowType()으로 체크
+		// getRowType인 경우 기본으로 CHECK값 체크함.
+		if (bSkipCheck) {
+			for (var i = 0 ; i < nRowCnt ; i++) {
+				if (this.gfnIsUpdatedRow(objDs,i,bStatusCheck,bFilterCheck,bSkipCheck)) {
+					return true;
+				}
+			}
+		} else {
+			for (var i = 0 ; i < nRowCnt ; i++) {
+				nRowType = this.gfnGetRowType(objDs, i, bStatusCheck, bFilterCheck);
+					
+				if (nRowType == Dataset.ROWTYPE_INSERT || nRowType == Dataset.ROWTYPE_UPDATE || nRowType == Dataset.ROWTYPE_DELETE) {
+					return true;
+				}
+			}
 		}
 	}
+	
+
 	return false;
 };
 
@@ -953,28 +1263,45 @@ pForm.gfn_dsIsUpdated = function (objDs)
  * @class dataSet의 Row가 변경되었는지 판단하는 함수
  * @param {Object} ObjDs - 대상 dataset
  * @param {Number} nRow - row값
- * @return {boolean}
+ * @param {boolean} bStatusCheck - Status값으로 체크여부(기본값:true)
+ * @param {boolean} bFilterCheck - 필터된 데이터 체크여부(기본값:false)
+ * @param {boolean} bSkipCheck - 체크박스 선택 체크여부(기본값:false)
+ * @return {boolean} Row가 변경되었는지 여부
  */   
-pForm.gfn_isUpdatedRow = function (objDs, nRow)
+pForm.gfnIsUpdatedRow = function (objDs, nRow, bStatusCheck, bFilterCheck, bSkipCheck)
 {
-	if (objDs.updatecontrol == true) 
-	{
-		if (objDs.getRowType(nRow) == 2 || objDs.getRowType(nRow) == 4) 
-		{
+	if (this.gfnIsNull(bStatusCheck))		bStatusCheck = true;
+	if (this.gfnIsNull(bSkipCheck))			bSkipCheck = false;
+	if (this.gfnIsNull(bFilterCheck))		bFilterCheck = false;
+	
+	var nRowType;
+	
+	if (objDs.updatecontrol == true && bStatusCheck == false && bSkipCheck == false) {
+		nRowType = this.gfnGetRowType(objDs, nRow, bStatusCheck, bFilterCheck);
+					
+		if (nRowType == Dataset.ROWTYPE_INSERT || nRowType == Dataset.ROWTYPE_UPDATE || nRowType == Dataset.ROWTYPE_DELETE) {
 			return true;
 		}
 		return false;
-	}
-	else 
-	{
-		for (var i = 0; objDs.getColCount(); i++) 
-		{
-			if (this.gfn_isUpdateColumn(objDs, nRow, i) == true) 
-			{
+	} else if (objDs.updatecontrol == true && bStatusCheck == true && bSkipCheck == true) {
+		nRowType = this.gfnGetRowType(objDs, nRow, bStatusCheck, bFilterCheck);
+					
+		if (nRowType == Dataset.ROWTYPE_INSERT || nRowType == Dataset.ROWTYPE_UPDATE || nRowType == Dataset.ROWTYPE_DELETE) {
+			return true;
+		}
+		return false;
+	} else {
+		for (var i = 0, s = objDs.getColCount(); i < s; i++) {
+			nRowType = this.gfnGetRowType(objDs, nRow, bStatusCheck, bFilterCheck);
+			
+			if (nRowType == Dataset.ROWTYPE_INSERT || nRowType == Dataset.ROWTYPE_DELETE) {
+				return true;
+			} else if (this.gfnIsUpdateColumn(objDs, nRow, objDs.getColID(i), bStatusCheck, bFilterCheck, bSkipCheck) == true) {
 				return true;
 			}
 		}
 	}
+	
 	return false;
 };
 
@@ -983,27 +1310,44 @@ pForm.gfn_isUpdatedRow = function (objDs, nRow)
  * @param {Object} ObjDs - 대상 dataset
  * @param {Number} nRow - row값
  * @param {String || Number} Column - 칼럼명 or 칼럼index
- * @return {boolean}
+ * @param {boolean} bStatusCheck - Status값으로 체크여부(기본값:true)
+ * @param {boolean} bFilterCheck - 필터된 데이터 체크여부(기본값:false)
+ * @param {boolean} bSkipCheck - 체크박스 선택 체크여부(기본값:false)
+ * @return {boolean} Row 에서 해당 칼럼이 변경되었는지 여부
  */   
-pForm.gfn_isUpdateColumn = function (objDs, nRow, Column)
+pForm.gfnIsUpdateColumn = function (objDs, nRow, Column, bStatusCheck, bFilterCheck, bSkipCheck)
 {
-	if (objDs.getRowType(nRow) == 2) 
-	{
-		if (this.gfn_isNull(objDs.getColumn(nRow, Column))) 
-		{
-			return false;
+	if (this.gfnIsNull(bSkipCheck))			bSkipCheck = false;
+	if (this.gfnIsNull(bFilterCheck))		bFilterCheck = false;
+	
+	if (bSkipCheck == true && Column == this.COM_CHECK_ID)		return false;		// 체크박스는 스킵
+	
+	var nRowType = this.gfnGetRowType(objDs, nRow, bStatusCheck, bFilterCheck);
+	
+	if (bFilterCheck) {
+		if (nRowType == 2) {
+			if (this.gfnIsNull(objDs.getColumnNF(nRow, Column))) {
+				return false;
+			}
+		} else {
+			if (objDs.getColumnNF(nRow, Column) == objDs.getOrgColumnNF(nRow, Column)) {
+				return false;
+			}
 		}
-	}
-	else 
-	{
-		if (objDs.getColumn(nRow, Column) == objDs.getOrgColumn(nRow, Column)) 
-		{
-			return false;
+
+	} else {
+		if (nRowType == 2) {
+			if (this.gfnIsNull(objDs.getColumn(nRow, Column))) {
+				return false;
+			}
+		} else {
+			if (objDs.getColumn(nRow, Column) == objDs.getOrgColumn(nRow, Column)) {
+				return false;
+			}
 		}
 	}
 	return true;
 };
-
 
 /************************************************************************************************
 * Date 관련 Util
@@ -1012,20 +1356,20 @@ pForm.gfn_isUpdateColumn = function (objDs, nRow, Column)
 /**
  * @class 날짜 여부를 확인한다.(년월 or 년월일) <br>
  * @param {String} strDate - 입력스트링(YYYYMM or YYYYMMDD)
- * @return {Boolean}
+ * @return {Boolean} 날짜 여부
  */
-pForm.gfn_isDate = function(strDate)
+pForm.gfnIsDate = function(strDate)
 {
-	if (this.gfn_isNull(strDate)) return false;
+	if (this.gfnIsNull(strDate)) return false;
 	
 	var retVal;
 	switch(strDate.length)
 	{
 		case 6://년월
-			retVal =  this.gfn_isYM(strDate);
+			retVal =  this.gfnIsYM(strDate);
 			break;
 		case 8://년월일
-			retVal =  this.gfn_isYMD(strDate);
+			retVal =  this.gfnIsYMD(strDate);
 			break;
 		default:
 			retVal = false; 
@@ -1036,24 +1380,24 @@ pForm.gfn_isDate = function(strDate)
 };
 
 /**
- * @class 날짜 여부를 확인한다. <br>
+ * @class 8자리 날짜 여부를 확인한다. <br>
  * @param {String} strDate - 8자리의 숫자로 된 날짜(YYYYMMDD)
- * @return {Boolean}
+ * @return {Boolean} 8자리 날짜 여부 반환
  */
-pForm.gfn_isYMD = function(strDate)
+pForm.gfnIsYMD = function(strDate)
 {
-	var retVal = this.gfn_getDigit(strDate);
+	var retVal = this.gfnGetDigit(strDate);
 	
 	if (retVal.length != 8) {
 		return false;
 	}
 
 	var strYM = strDate.substr(0,6);	//년월
-	if (!this.gfn_isYM(strYM)) {
+	if (!this.gfnIsYM(strYM)) {
 		return false;
 	}
 	var nDay   = Number(strDate.substr(6,2));	// 일자
-	var nLastDay = Number(this.gfn_getLastDate(strYM).substr(6,2));//gfnGetLastDay에서 전체 20170331값이 넘어와서 .substr(6,2)추가 20170313
+	var nLastDay = Number(this.gfnGetLastDate(strYM).substr(6,2));//gfnGetLastDay에서 전체 20170331값이 넘어와서 .substr(6,2)추가 20170313
 	if (nDay < 1 || nDay > nLastDay) {
 		return false;
 	}
@@ -1061,13 +1405,15 @@ pForm.gfn_isYMD = function(strDate)
 };
 
 /**
- * @class 날짜 여부를 확인한다. <br>
+ * @class 6자리 날짜 여부를 확인한다. <br>
  * @param {String} strDate - 6자리의 숫자로 된 날짜(YYYYMM)
- * @return {Boolean}
+ * @return {Boolean} 6자리 날짜 여부 반환
  */
-pForm.gfn_isYM = function(strDate)
+pForm.gfnIsYM = function(strDate)
 {
-	var retVal = this.gfn_getDigit(strDate);
+var retVal = this.gfnGetDigit(strDate);
+	
+	var retVal = this.gfnGetDigit(strDate);
 
 	if (retVal.length != 6) {
 		return false;
@@ -1086,9 +1432,9 @@ pForm.gfn_isYM = function(strDate)
 /**
  * @class 시간 형식에 맞는지 Check 한다. <br>
  * @param {String} strTime - 6자리의 숫자로 된 내부시간형식(HHMMSS)
- * @return {Boolean}
+ * @return {Boolean} 시간 형식 체크
  */
-pForm.gfn_isTime = function(strTime)
+pForm.gfnIsTime = function(strTime)
 {
 	if (strTime.length != 6 || !isNumber(strTime)) {
 		return false;
@@ -1110,9 +1456,9 @@ pForm.gfn_isTime = function(strTime)
  * @param {String} [sGubn] - date/null : 일자, time : 일자+시간, milli : Milliseconds
  * @return {String} 8자리 날짜(YYYYMMMDD)문자열
  */
-pForm.gfn_getDate = function(sGubn) 
+pForm.gfnGetDate = function(sGubn) 
 {
-	if(this.gfn_isNull(sGubn)) sGubn = "date";
+	if(this.gfnIsNull(sGubn)) sGubn = "date";
 	var d = new Date();
 	
 	var s;
@@ -1147,7 +1493,7 @@ pForm.gfn_getDate = function(sGubn)
  * @param {String} strDate - 6 / 8 자리의 숫자로 된 날짜(YYYYMM)
  * @return {String} 해당월의 마지막날 8자리
  */
-pForm.gfn_getLastDate = function(strDate)
+pForm.gfnGetLastDate = function(strDate)
 {
 	var s = "";
     if (strDate == null) {
@@ -1171,7 +1517,7 @@ pForm.gfn_getLastDate = function(strDate)
  * @param {String} strDate - Date Format YYYYMM / YYYYMMDD
  * @return {String} date
  */
-pForm.gfn_getFirstDate = function(strDate)
+pForm.gfnGetFirstDate = function(strDate)
 {
     var s = "";
 
@@ -1194,7 +1540,7 @@ pForm.gfn_getFirstDate = function(strDate)
  * @param {String} strDate - 'yyyyMMdd' 형태로 표현된 날짜.
  * @return {Number} 0 = 일요일 ~ 6 = 토요일. 오류가 발생할 경우 -1 Return.
  */
-pForm.gfn_getDay = function(strDate)
+pForm.gfnGetDay = function(strDate)
 {
     var date = new Date();
 
@@ -1212,7 +1558,7 @@ pForm.gfn_getDay = function(strDate)
  * @param {String} sEndDate - yyyyMMdd형태의 To 일자   ( 예 : "20121202" )
  * @return {Number} 숫자 형태의 차이일수( 예 : 10 ) 단, sEndDate < sStartDate이면 음수가 return된다.
  */
-pForm.gfn_getDiffDate = function(sStartDate, sEndDate)
+pForm.gfnGetDiffDate = function(sStartDate, sEndDate)
 {
     var vFromDate = new Date(parseInt(sEndDate.substring(0,4),  10), parseInt(sEndDate.substring(4,6)-1,  10), parseInt(sEndDate.substring(6,8), 10));
     var vToDate = new Date(parseInt(sStartDate.substring(0,4),  10), parseInt(sStartDate.substring(4,6)-1,  10), parseInt(sStartDate.substring(6,8), 10));
@@ -1226,7 +1572,7 @@ pForm.gfn_getDiffDate = function(sStartDate, sEndDate)
  * @param {String} sEndDate - yyyyMMdd형태의 To 일자   ( 예 : "20121202" )
  * @return {Number} 숫자 형태의 차이월수 ( 예 : 10 ) 단, sEndDate < sStartDate이면 음수가 return된다.
  */
-pForm.gfn_getDiffMonth = function(sStartDate, sEndDate)
+pForm.gfnGetDiffMonth = function(sStartDate, sEndDate)
 {
 	var nStartMon, nEndMon;
 	
@@ -1242,7 +1588,7 @@ pForm.gfn_getDiffMonth = function(sStartDate, sEndDate)
  * @param {Number} nOffSet - 날짜로부터 증가 감소값.
  * @return {String} date의 문자열 (ex. 20080821)
  */
-pForm.gfn_addDate = function(strDate, nOffSet)
+pForm.gfnAddDate = function(strDate, nOffSet)
 {
 	var date = new Date();
 	
@@ -1252,7 +1598,55 @@ pForm.gfn_addDate = function(strDate, nOffSet)
     
 	date.setFullYear(iYear,iMonth,iDate);	
 	
-	return this.gfn_dateToStr(date);
+	return this.gfnDateToStr(date);
+};
+
+/**
+ * @class 해당월의 마지막 날짜를 yyyyMMdd형태로 구하기
+ * @param {String} sDate - yyyyMMdd형태의 날짜 (예 : "20121122")
+ * @return {String} 성공 = yyyyMMdd형태의 마지막날짜 ( 예 : "20121130" )/ - 실패 = ""
+ */  
+pForm.gfnLastDate = function(sDate)
+{
+    if (this.gfnIsNull(sDate)){
+        return "";
+    }
+    
+    var nLastDate = this.gfnLastDateNum(sDate);
+    return sDate.substr(0, 6) + nLastDate.toString();
+};
+
+/**
+ * @class 입력일자 해당월의 마지막 일 <br>
+ * @param {String} strMonth - 'yyyyMMdd' 형태로 표현된 날짜.
+ * @return {Number} 해당월의 마지막일자 2자리
+ */
+pForm.gfnLastDateNum = function(strMonth)
+{
+	var iLastDay;
+	var iYear  = parseInt(strMonth.substr(0, 4),10) ;
+	var iMonth = parseInt(strMonth.substr(4, 2),10);
+	
+	switch(iMonth)
+	{
+		case 2 :
+			if( ((iYear%4)==0) && ((iYear%100)!=0) || ((iYear%400)==0) )
+				iLastDay = 29;
+			else
+				iLastDay = 28;			
+			break;
+		case 4 :
+		case 6 :
+		case 9 :
+		case 11 :
+			iLastDay = 30;
+			break;
+		default:
+			iLastDay = 31;
+			break;
+	}
+	
+	return iLastDay;
 };
 
 /**
@@ -1261,56 +1655,28 @@ pForm.gfn_addDate = function(strDate, nOffSet)
  * @param {Number} OffSet - Integer Format
  * @return {String} date
  */
-pForm.gfn_addMonth = function(strDate, OffSet) 
+pForm.gfnAddMonth = function(strDate, OffSet) 
 {	
 	var date, d, s, mon, val;
 
-	/**
-	 * @class 입력일자 해당월의 마지막 일 <br>
-	 * @param {String} strMonth - 'yyyyMMdd' 형태로 표현된 날짜.
-	 * @return {Number} 해당월의 마지막일자 2자리
-	 */
-	var gfn_getMonthLastDate = function(strMonth) {
-		var iLastDay;
-		var iYear  = parseInt(strMonth.substr(0, 4),10) ;
-		var iMonth = parseInt(strMonth.substr(4, 2),10);
-		switch(iMonth)
-		{
-			case 2 :
-				if( ((iYear%4)==0) && ((iYear%100)!=0) || ((iYear%400)==0) )
-					iLastDay = 29;
-				else
-					iLastDay = 28;			
-				break;
-			case 4 :
-			case 6 :
-			case 9 :
-			case 11 :
-				iLastDay = 30;
-				break;
-			default:
-				iLastDay = 31;
-				break;
-		}
-		
-		return iLastDay;
-	};
+	var sMonthLastDate = this.gfnLastDate(strDate);
+	    sMonthLastDate = sMonthLastDate.substr(6);
 
     if (strDate) {
-        date = this.gfn_strToDate(strDate);
+        date = this.gfnStrToDate(strDate);
         d = (new Date(date)).addMonth(OffSet);
     } else {
-    	date = this.gfn_strToDate(this.gfn_getDate());
+    	date = this.gfnStrToDate(this.gfnGetDate());
 		d = (new Date(date)).addMonth(OffSet);
     }
     
-    if (gfn_getMonthLastDate(strDate) == date.getDate()) {
+    if (sMonthLastDate == date.getDate()) {
     	var sY = new Date(d).getFullYear();
     	var sM = new Date(d).getMonth();
     	var eY = date.getFullYear();
     	var eM = date.getMonth();
     	
-    	mon = -((eY - sY)* 12 + (eM - sM));
+    	mon = - ((eY - sY) * 12 + (eM - sM));
     	
     	if (mon != OffSet) {
    			val = OffSet - mon;
@@ -1319,7 +1685,7 @@ pForm.gfn_addMonth = function(strDate, OffSet)
     	
     	var ld = new Date((new Date(d)).getFullYear() 
     			, (new Date(d)).getMonth()
-    			, gfn_getMonthLastDate(this.gfn_dateToStr(new Date(d))));
+    			, this.gfnLastDate(this.gfnDateToStr(new Date(d))).substr(6));
     	
     	s = (new Date(ld)).getFullYear()
 		   + (((new Date(ld)).getMonth() + 1) + "").padLeft(2, '0')
@@ -1339,22 +1705,22 @@ pForm.gfn_addMonth = function(strDate, OffSet)
  * @return {Array} 휴일정보
  * @example : 
  */
-pForm.gfn_getHolidays = function(nYear)
+pForm.gfnGetHolidays = function(nYear)
 {
 	var nYear;
 	var aHoliday = new Array();
 
 	/////// 음력 체크
 	// 구정
-	aHoliday[0] = this.gfn_lunarToSolar((nYear-1) + "1230", false) + "설날";
-	aHoliday[1] = this.gfn_addDate(aHoliday[0].substring(0, 8), 1) + "설날";
-	aHoliday[2] = this.gfn_addDate(aHoliday[1].substring(0, 8), 1) + "설날";
+	aHoliday[0] = this.gfnLunarToSolar((nYear-1) + "1230", false) + "설날";
+	aHoliday[1] = this.gfnAddDate(aHoliday[0].substring(0, 8), 1) + "설날";
+	aHoliday[2] = this.gfnAddDate(aHoliday[1].substring(0, 8), 1) + "설날";
 	// 석가탄신일
-	aHoliday[3] = this.gfn_lunarToSolar(nYear + "0408", false) + "석가탄신일";
+	aHoliday[3] = this.gfnLunarToSolar(nYear + "0408", false) + "석가탄신일";
 	// 추석
-	aHoliday[4] = this.gfn_lunarToSolar(nYear + "0814", false) + "추석";
-	aHoliday[5] = this.gfn_addDate(aHoliday[4].substring(0, 8), 1) + "추석";
-	aHoliday[6] = this.gfn_addDate(aHoliday[5].substring(0, 8), 1) + "추석";	
+	aHoliday[4] = this.gfnLunarToSolar(nYear + "0814", false) + "추석";
+	aHoliday[5] = this.gfnAddDate(aHoliday[4].substring(0, 8), 1) + "추석";
+	aHoliday[6] = this.gfnAddDate(aHoliday[5].substring(0, 8), 1) + "추석";	
 
 	/////// 양력 체크
 	aHoliday[7] = nYear+"0101" + "신정";
@@ -1384,7 +1750,7 @@ pForm.gfn_getHolidays = function(nYear)
  * var str = this.solarToLunar(str1);
  * trace(str); // output : 020130220
  */		
-pForm.gfn_solarToLunar =  function(value) 
+pForm.gfnSolarToLunar =  function(value) 
 {
 	var sMd         = "31,0,31,30,31,30,31,31,30,31,30,31";
 	var arrMd       = [];
@@ -1409,7 +1775,7 @@ pForm.gfn_solarToLunar =  function(value)
 		return null;
 	}
 
-	arrBaseInfo = this.gfn_solarBase();
+	arrBaseInfo = this.gfnSolarBase();
 	arrMd       = sMd.split(",");
 	arrMd[1]    = 28;
 		
@@ -1552,7 +1918,7 @@ pForm.gfn_solarToLunar =  function(value)
  * @param {Boolean} leapMonth - 윤달 여부.
  * @return {String} 'yyyyMMdd'형태의 양력일자
  */
-pForm.gfn_lunarToSolar = function(value, leapMonth)
+pForm.gfnLunarToSolar = function(value, leapMonth)
 {
 
 	var sMd         = "31,0,31,30,31,30,31,31,30,31,30,31";
@@ -1575,7 +1941,7 @@ pForm.gfn_lunarToSolar = function(value, leapMonth)
 		return null;
 	}	
 
-	arrBaseInfo = this.gfn_solarBase();
+	arrBaseInfo = this.gfnSolarBase();
 	arrMd       = sMd.split(",");
 	arrMd[1]    = 28;
 	
@@ -1784,7 +2150,7 @@ pForm.gfn_lunarToSolar = function(value, leapMonth)
  * @class 각 월별 음력 기준 정보 (처리가능 기간  1841 - 2043년) <br>
  * @return {String}
  */	 
-pForm.gfn_solarBase = function ()
+pForm.gfnSolarBase = function ()
 {
 	var sBase;
 			
@@ -2024,10 +2390,46 @@ pForm.gfn_solarBase = function ()
  * @param {String} strDate - String Date Format
  * @return {Date} date
  */
-pForm.gfn_strToDate = function(inDate)
+pForm.gfnStrToDate = function(inDate)
 {
-  var date =  new Date(parseInt(inDate.substr(0,4)),parseInt(inDate.substr(4,2))-1,parseInt(inDate.substr(6,2)));
-  return date;
+	var date = new Date();
+	if ( inDate.length == 4 ) //yyyy
+	{
+		date.setFullYear(parseInt(inDate), 0, 0);
+		date.setHours(0, 0, 0);
+		date.setMilliseconds(0);
+	}
+	else if ( inDate.length == 6 ) //yyyyMM
+	{
+		date.setFullYear(parseInt(inDate.substr(0,4)), parseInt(inDate.substr(4,2))-1, 0);
+		date.setHours(0, 0, 0);
+		date.setMilliseconds(0);
+	}
+	else if ( inDate.length == 8 ) //yyyyMMdd
+	{
+		date.setFullYear(parseInt(inDate.substr(0,4)), parseInt(inDate.substr(4,2))-1, parseInt(inDate.substr(6,2)));
+		date.setHours(0, 0, 0);
+		date.setMilliseconds(0);
+	}
+	else if ( inDate.length == 10 ) //yyyyMMddhh
+	{
+		date.setFullYear(parseInt(inDate.substr(0,4)), parseInt(inDate.substr(4,2))-1, parseInt(inDate.substr(6,2)));
+		date.setHours(parseInt(inDate.substr(8,2)), 0, 0);
+		date.setMilliseconds(0);
+	}
+	else if ( inDate.length == 12 )//yyyyMMddhhmm
+	{
+		date.setFullYear(parseInt(inDate.substr(0,4)), parseInt(inDate.substr(4,2))-1, parseInt(inDate.substr(6,2)));
+		date.setHours(parseInt(inDate.substr(8,2)), parseInt(inDate.substr(10,2)), 0);
+		date.setMilliseconds(0);
+	}
+	else if ( inDate.length == 14 ) //yyyyMMddhhmmss
+	{
+		date.setFullYear(parseInt(inDate.substr(0,4)), parseInt(inDate.substr(4,2))-1, parseInt(inDate.substr(6,2)));
+		date.setHours(parseInt(inDate.substr(8,2)), parseInt(inDate.substr(10,2)), parseInt(inDate.substr(12,2)));
+		date.setMilliseconds(0);
+	}
+	return date;
 };
 
 /**
@@ -2035,7 +2437,7 @@ pForm.gfn_strToDate = function(inDate)
  * @param {Date} date
  * @return {String} 'yyyyMMdd' 형태로 표현된 날짜
  */
-pForm.gfn_dateToStr = function(date)
+pForm.gfnDateToStr = function(date)
 {
 	var strYear = date.getYear().toString();
 	var strMonth = (date.getMonth()+1).toString();
@@ -2059,9 +2461,9 @@ pForm.gfn_dateToStr = function(date)
  * @param {String} strDate - 8자리 년월일(yyyyMMdd)
  * @return {String} 6자리 년도주차(yyyyWW)
  */
-pForm.gfn_getWeek = function(strDate) 
+pForm.gfnGetWeek = function(strDate) 
 {
-	if (strDate.length != 8 || !this.gfn_isDigit(strDate)) {
+	if (strDate.length != 8 || !this.gfnIsDigit(strDate)) {
 		return "";
 	}
 	
@@ -2089,11 +2491,164 @@ pForm.gfn_getWeek = function(strDate)
 };
 
 /**
+ * 주어진 날짜 객체의 Mask Format 처리된 문자열을 반환.<br>
+ * @param {date} dt Date 개체.
+ * @param {string} strMask mask할 format 문자열.
+ * @return {string} 변환된 문자열.
+ * @example
+ * var dt = this.gfnStrToDate("20130430123412"); // convert Date type from "20130430123412".
+ * trace(this.gfnGetMaskFormatString(dt, "yyyy년 MM월 dd일 tt hh시 mm분 ss초")); // output : 2013년 04월 30일 오후 12시 34분 12초
+ * trace(this.gfnGetMaskFormatString(dt, "yyyy-MM-dd")); // output : 2013-04-30
+ * trace(this.gfnGetMaskFormatString(dt, "yy MM.dd")); // output : 13 04.30
+ * trace(this.gfnGetMaskFormatString(dt, "yyyy-MM-dd W \\Week")); // output : 2013-04-30 18 Week
+ * trace(this.gfnGetMaskFormatString(dt, "MMMM dddd")); // output : 4월 화요일
+ */
+pForm.gfnGetMaskFormatString = function(dt, strMask)
+{
+	if (this.gfnIsNull(dt))		return "";
+	
+	if (this.gfnTypeOf(dt) == "string") {
+		dt = this.gfnStrToDate(dt);
+	}
+	
+	var arrMask = this._parseDateMask(strMask),
+		arrDt = [], mask, h;
+			
+	for ( var i = 0, len = arrMask.length; i < len ; i++ )
+	{
+		mask = arrMask[i];
+		if ( mask > -1 )
+		{
+			arrDt[arrDt.length] = strMask.charAt(mask);
+		}
+		else
+		{
+			switch (mask)
+			{
+				case "yyyy": arrDt[arrDt.length] = new String(dt.getFullYear()); break;
+				case "sss": arrDt[arrDt.length] = new String(dt.getMilliseconds()).padLeft(3,'0'); break;
+				case "yy": arrDt[arrDt.length] = new String(dt.getFullYear() % 1000).padLeft(2,'0'); break;
+				case "MM": arrDt[arrDt.length] = new String(dt.getMonth() + 1).padLeft(2,'0'); break;
+				case "WW": arrDt[arrDt.length] = new String(getWeekNumber(dt)).padLeft(2,'0'); break;
+				case "dd": arrDt[arrDt.length] = new String(dt.getDate()).padLeft(2,'0'); break;
+				case "HH": arrDt[arrDt.length] = new String(dt.getHours()).padLeft(2,'0'); break;
+				case "hh": arrDt[arrDt.length] = new String(((h = dt.getHours() % 12) ? h : 12)).padLeft(2,'0'); break;
+				case "mm": arrDt[arrDt.length] = new String(dt.getMinutes()).padLeft(2,'0'); break;
+				case "ss": arrDt[arrDt.length] = new String(dt.getSeconds()).padLeft(2,'0'); break;
+				case "tt": arrDt[arrDt.length] = dt.getHours() < 12 ? pThis.ttName[0] : pThis.ttName[1]; break;
+				case "M": arrDt[arrDt.length] = new String(dt.getMonth() + 1); break;
+				case "d": arrDt[arrDt.length] = new String(dt.getDate()); break;
+				case "H": arrDt[arrDt.length] = new String(dt.getHours()); break;
+				case "h": arrDt[arrDt.length] = new String(((h = dt.getHours() % 12) ? h : 12)); break;
+				case "m": arrDt[arrDt.length] = new String(dt.getMinutes()); break;
+				case "s": arrDt[arrDt.length] = new String(dt.getSeconds()); break;
+				case "W": arrDt[arrDt.length] = new String(this.gfnGetWeek(dt)); break;
+			}
+		}
+	}
+	return arrDt.join("");
+};
+
+pForm._dateMaskCache = {};	
+		
+/**
+ * mask format 변환 정보 반환.
+ * @private
+ * @param {string} strMask mask할 format 문자열.
+ * @return {array} mask format 변환 정보.
+ */		
+pForm._parseDateMask = function(strMask)
+{
+	var res = this._dateMaskCache[strMask];
+	if ( res ) return res;
+
+	var arrMask = [], tokenStr, seq = 0,
+		bEscape = false, bQuote = false,
+		maskArr = strMask.split(""),
+		tmpStr;
+
+	for ( var i = 0, len = maskArr.length ; i < len ; )
+	{
+		tokenStr = maskArr[i];
+		
+		
+		//trace(i + "===>" + tokenStr);
+		if( bEscape == false && tokenStr == "'" ) 
+		{ // Mask가 Quotation이 시작될 경우.
+			if( bQuote == false )
+				bQuote = true;
+			else
+				bQuote = false;
+			i++;
+			continue;
+		}
+		if( bEscape == false && tokenStr == "\\" && !bQuote ) 
+		{ // Mask에서 Escape에 진입할 경우.
+			bEscape = true;
+			i++;
+			continue;
+		}
+		else if ( bEscape ) 
+		{ // Mask에서 Escape를 사용할 경우.
+			//trace(i + "(EEE)===>" + tokenStr);
+			arrMask[seq] = i;
+			seq++;
+			bEscape = false;
+		}
+		else if( bQuote == false ) 
+		{// Mask에서 Quotation 밖의 글자에 대해.
+			tmpStr = strMask.substr(i, 4);
+			if ( tmpStr == "yyyy" || tmpStr == "MMMM" || tmpStr == "dddd" ) //yyyy, MMMM, dddd
+			{
+				arrMask[seq] = tmpStr;
+				i += 4;
+				seq++;
+				continue;
+			}
+			tmpStr = strMask.substr(i, 3);
+			if ( tmpStr == "MMM" || tmpStr == "ddd" || tmpStr == "sss" ) //MMM, ddd, sss
+			{
+				arrMask[seq] = tmpStr;
+				i += 3;
+				seq++;
+				continue;
+			}
+			tmpStr = strMask.substr(i, 2);
+			if ( tmpStr == "yy" || tmpStr == "MM" || tmpStr == "dd" ||
+				 tmpStr == "HH" || tmpStr == "mm" || tmpStr == "ss" ||
+				 tmpStr == "hh" || tmpStr == "tt" || tmpStr == "tt" ) // yy, MM, dd, HH, mm , ss, tt, WW
+			{
+				arrMask[seq] = tmpStr;
+				i += 2;
+				seq++;
+				continue;
+			}
+			if ( tokenStr == "M" || tokenStr == "d" || tokenStr == "H" ||
+				 tokenStr == "h" || tokenStr == "m" || tokenStr == "s" || tokenStr == "W" ) // M, d, H, h, m, s, W
+			{
+				arrMask[seq] = tokenStr;
+				seq++;
+			}
+			else
+			{
+				arrMask[seq] = i;
+				seq++;
+			}
+		}
+		i++;
+	}
+	
+	this._dateMaskCache[strMask] = arrMask;
+	
+	return arrMask;
+};
+
+/**
  * @class 주민등록번호로 생년월일을 구한다. <br>
  * @param {String} ssn - 주민등록번호/외국인등록번호 13자리중 최소 7자 입력
  * @return {String} 8자리 날짜(YYYYMMMDD)문자열
  */
-pForm.gfn_getBirthDateBySSN = function(ssn)
+pForm.gfnGetBirthDateBySSN = function(ssn)
 {
 	var retVal;
 
@@ -2127,7 +2682,7 @@ pForm.gfn_getBirthDateBySSN = function(ssn)
 				break;
 		}
 	} else {
-		var sTemp = this.gfn_getDate();
+		var sTemp = this.gfnGetDate();
 		if (sTemp.substr(2, 6) <= yymmdd) {
 			century = "19";
 		} else {
@@ -2137,7 +2692,7 @@ pForm.gfn_getBirthDateBySSN = function(ssn)
 
 	retVal = century + yymmdd;
 	
-	if (!this.gfn_isDate(retVal)) {
+	if (!this.gfnIsDate(retVal)) {
 		retVal = null;
 	}
 	
@@ -2149,7 +2704,7 @@ pForm.gfn_getBirthDateBySSN = function(ssn)
  * @param {String} sJuminNo	생년 월일 또는 주민 번호
  * @return {String} 주민번호 뒷 첫번째 자리로 년대를 return 한다.
  */
-pForm.gfn_getBirthYear = function(sJuminNo)
+pForm.gfnGetBirthYear = function(sJuminNo)
 {
 	if (sJuminNo.toString().length != 13){
 		return "N";
@@ -2174,15 +2729,15 @@ pForm.gfn_getBirthYear = function(sJuminNo)
  * @param {String} stdYmd - 기준일자[생략시 현재일자]
  * @return {Number} 숫자형 나이
  */
-pForm.gfn_getAge = function(brtYmd, stdYmd)
+pForm.gfnGetAge = function(brtYmd, stdYmd)
 {
 	var retVal = -1;
 	
 	if (gfnIsEmpty(stdYmd)) {
-		stdYmd = gfn_getDate();
+		stdYmd = gfnGetDate();
 	}
 
-	if (gfn_isDate(brtYmd) && gfn_isDate(stdYmd)) {
+	if (gfnIsDate(brtYmd) && gfnIsDate(stdYmd)) {
 		var yDiff 	= Number(stdYmd.substr(0, 4)) - Number(brtYmd.substr(0, 4));
 		var mdDiff	= Number(stdYmd.substr(4, 4)) - Number(brtYmd.substr(4, 4));
 		   
@@ -2195,54 +2750,188 @@ pForm.gfn_getAge = function(brtYmd, stdYmd)
 	return retVal;	
 };
 
-
-
-
-/** 
- * @class enter key를 tab key로 변환
- * @param {object}  obj : form
- * @param {object}  e    : nexacro.KeyEventInfo
- * @example form_onkeydown event에서 수행
-this.form_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
-{
-   this.gfnFormEnterFocus(obj, e);
-};
- * @주의 component.enable = false인 경우  setFocus()가 되지 않아.. gfnChangeNextEnabledComponent()함수를 만들었음
- *        component.autoskip 속성을  true 로 설정시 오류 발생. 반드시 false로 해야 됨
- *        div.url 내부에 연결된 form은 onkeydown event가 존재 하면 안됨 (tab이 두번 발생)
+/**
+ * dataSet의 Row 값들을 array로 반환
+ * @param  {object} oData - Dataset Object
+ * @param  {integer} nRow - Dataset rowposition
+ * @return Array
  */
-pForm.gfnFormEnterFocus = function(obj, e)
+pForm.gfnGetRowDataToArray = function (oData, nRow)
 {
-   if(e.keycode != 13) return;
+	if (this.gfnIsNull(oData)) 
+	{
+		return;
+	}
+	if (this.gfnIsNull(nRow)) 
+	{
+		return;
+	}
+	var aRtn = new Array();
+	var nIdx = 0;
 
-   var currObj   = obj.getFocus();
-   
-   //grid인 경우에는 cell 이동으로 skip
-   if (currObj instanceof nexacro.Grid) return;
-   
-   var parentObj = currObj.parent.parent;
-   
-   var nextObj = parentObj.form.getNextComponent(currObj, true); 
-   if ( nextObj.enable == false )
-   {
-      //enable=false 속성일 경우 setfocus가 안됨.
-      //그래서 enable=true속성을 찾는 함수를 recursive 방식으로 호출
-      this.gfnChangeNextEnabledComponent(parentObj, nextObj);
-      return;
-   }   
-   nextObj.setFocus();
-}
-//enable=true속성을 찾는 함수를 recursive 방식으로 호출
-pForm.gfnChangeNextEnabledComponent = function(parentObj, currObj)
+	for (var i = 0; i < oData.getColCount(); i++) 
+	{
+		aRtn[nIdx] = oData.getColumn(nRow, i);
+		nIdx++;
+	}
+	return aRtn;
+};
+
+/**
+ * dataSet의 Row 값들을 String으로 반환
+ * @param  {object} oData - Dataset Object
+ * @param  {integer} nRow - Dataset rowposition
+ * @param  {string} sGubn - Dataset rowposition
+ * @return string
+ */
+pForm.gfnGetRowDataToString = function (oData, nRow, sGubn)
 {
-   var parentObj = currObj.parent.parent;
-   var nextObj = parentObj.form.getNextComponent(currObj, true); 
-   
-   if ( nextObj.enable == false )
-   {
-      this.gfnChangeNextEnabledComponent(parentObj, nextObj);
-      nextObj.setFocus();
-      return;
-   }
-   nextObj.setFocus();
+	if (this.gfnIsNull(oData)) 
+	{
+		return;
+	}
+	if (this.gfnIsNull(nRow)) 
+	{
+		return;
+	}
+	if (this.gfnIsNull(sGubn)) 
+	{
+		sGubn = "|";
+	}
+
+	var sRtn = "";
+
+	for (var i = 0; i < oData.getColCount(); i++) 
+	{
+		sRtn += oData.getColumn(nRow, i) + sGubn;
+	}
+
+	sRtn = sRtn.substr(0, sRtn.length - sGubn.length);
+
+	return sRtn;
+};
+
+
+/**
+* object에 속성들(name, value)를 dataset에 구성한다.
+* @param {object} object Dataset의 구성에 참조되는 객체
+* @param {dataset} ds 객체 속성,값을 참조해서 구성되는 Dataset
+* @param {int} 대상 Row 위치
+* @param {blean} 대상 Row 위치
+*/
+pForm.gfnObjToDataset = function(object, ds, nRow, bAdd)
+{
+	if (this.gfnIsNull(object))		return;
+	if (this.gfnIsNull(ds))			return;
+	if (this.gfnIsNull(nRow))		nRow = 0;
+	if (this.gfnIsNull(bAdd))		bAdd = false;
+	
+	var p, i, len,
+		value;
+	
+	len = nRow;
+	
+	if (this.gfnIsNotNull(object)) 
+	{
+		if (bAdd)
+		{
+			for (p in object)
+			{
+				if ( object.hasOwnProperty(p) )
+				{
+					ds.addColumn(p, "string", 256);
+				}
+			}
+		}
+		
+		if (ds.rowcount == 0 || nRow >= ds.rowcount)	len = ds.addRow();
+		
+		for (p in object)
+		{
+			if ( object.hasOwnProperty(p) )
+			{
+				value = object[p] || "";
+				ds.setColumn(len, p, value);
+			}
+		}
+	}
 }
+		
+/**
+* object에 속성들(name, value) 를 dataset로 부터 구성한다.
+* dataset의 Column들의 id를 속성 명칭,
+* Column에 nRow번째 row 값을 value로 object 속성으로 구성된다.
+* @param {object} object Dataset값을 참조해서 새로 구성되는 객체
+* @param {dataset} ds 객체구성시 참조되는 Dataset
+* @param {int} 대상 Row 위치
+*/
+pForm.gfnDatasetToObj = function(object, ds, nRow)
+{
+	if (this.gfnIsNull(ds))			return;
+	if (ds.rowcount == 0)			return;
+	if (this.gfnIsNull(nRow))		nRow = 0;
+	
+	var i, len,
+		name, value;
+	
+	for(i = 0, len = ds.getColCount(); i < len; i++)
+	{
+		name = ds.getColID(i);
+		
+		if (this.gfnIsNull(name)) continue;
+		
+		value = ds.getColumn(nRow, name) || "";
+		object[name] = value;
+	}
+};
+
+/**
+ * dataset의 Column명을 배열로 반환
+ * @param {dataset} 대상 Dataset
+ * @return {Array} 컬럼명 배열
+ */
+pForm.gfnGetDatasetCols = function(ds)
+{
+	var arrCol = new Array();
+	var name;
+	
+	for(i = 0, len = ds.getColCount(); i < len; i++)
+	{
+		name = ds.getColID(i);
+		
+		arrCol.push(name);
+	}
+	
+	return arrCol;
+};
+
+/**
+ * 로그 출력
+ * 		로컬 / 개발만 출력
+ * 
+ * @param  {String} sMsg 로그 출력 문자열
+ */
+pForm.gfnLog = function(sMsg, sType)
+{
+	var arrLogLevel = ["debug","info","warn","error"];
+	
+	if(sType == undefined)	sType = "debug";
+	var nLvl = arrLogLevel.indexOf(sType);
+	
+	if (nLvl < this._LOG_LEVEL)		return;
+	
+	var sLog = "";
+	
+	if (sMsg instanceof Object) {
+		sLog = "[" + sType + "] " + this.name + " > " + JSON.stringify(sMsg, null, "\t");
+	} else {
+		sLog = "[" + sType + "] " + this.name + " > " + sMsg;
+	}
+	
+	if (system.navigatorname == "nexacro DesignMode"
+		|| system.navigatorname == "nexacro") {
+		trace(sLog);
+	} else {
+		console.log(sLog);
+	}
+};

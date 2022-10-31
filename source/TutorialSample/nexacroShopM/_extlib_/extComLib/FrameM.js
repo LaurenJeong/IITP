@@ -1,7 +1,7 @@
 ﻿var pForm  = nexacro.Form.prototype;
 
 
-pForm.gfn_callMenuM = function(sMenuId, objArg)
+pForm.gfnCallMenuM = function(sMenuId, objArg)
 {
 	var objApp  = nexacro.getApplication();
 	
@@ -14,9 +14,9 @@ pForm.gfn_callMenuM = function(sMenuId, objArg)
 	var sPgmId		= objApp.gdsMenu.getColumn(nFRow, "PGM_ID");
 	var sPageUrl	= sPgmPath + "::" + sPgmId;
 	
-	if (this.gfn_isNull(sPgmPath)|| this.gfn_isNull(sPgmId))		return;
+	if (this.gfnIsNull(sPgmPath)|| this.gfnIsNull(sPgmId))		return;
 	
-	var aArgs 	= this.gfn_isNull(objArg) ? "" : objArg;   //넘어온 arguments
+	var aArgs 	= this.gfnIsNull(objArg) ? "" : objArg;   //넘어온 arguments
 	
 	var oMenuArg = {};
 	oMenuArg["menuid"] = sMenuId;
@@ -40,7 +40,7 @@ pForm.gfn_callMenuM = function(sMenuId, objArg)
 };
 
 //화면간 파라미터 반환 함수
-pForm.gfn_menuGetParamsM = function(sParamNm)
+pForm.gfnMenuGetParamsM = function(sParamNm)
 {
 	var oParam;
 	var oRtn = "";
@@ -57,7 +57,7 @@ pForm.gfn_menuGetParamsM = function(sParamNm)
             oParam = objApp.gvFrmAll.arguments["oArgs"]; 
         }
 		
-		if (this.gfn_isNull(sParamNm)) {
+		if (this.gfnIsNull(sParamNm)) {
 			oRtn = oParam;
 		} else if (oParam) {
 			oRtn = oParam[sParamNm];

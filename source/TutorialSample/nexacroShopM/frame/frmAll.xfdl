@@ -106,7 +106,7 @@ this.fn_onChangeHistory = function(hash, data)
 		}	
 	}
 	
-	if (this.gfn_isNull(hash))
+	if (this.gfnIsNull(hash))
 	{
 		this.fnAction("LOGIN", false);		
 	}
@@ -119,7 +119,7 @@ this.fn_onChangeHistory = function(hash, data)
  		if (this.objApp.gvLogin == "Y")
  		{
 			var sMenuId = hash.split(":")[1];		
-            this.gfn_callMenuM(sMenuId,data);
+            this.gfnCallMenuM(sMenuId,data);
  		}
  		else
  		{

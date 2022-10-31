@@ -445,8 +445,8 @@ this.viewDetail_viewdataset_oncolumnchanged = function(obj:nexacro.NormalDataset
 this.DsCopyDataAction01_canrun = function(obj:nexacro.DsCopyDataAction, e:nexacro.ActionRunEventInfo)
 {
 	var nRow = this.viewDetail.form.viewdataset.rowposition;
-	this.viewDetail.form.viewdataset.setColumn(nRow,"ORDER_NO",this.gfn_getUniqueId());
-	this.viewDetail.form.viewdataset.setColumn(nRow,"ORDER_TIME",this.gfn_getDate("time"));
+	this.viewDetail.form.viewdataset.setColumn(nRow,"ORDER_NO",this.gfnGetUniqueId());
+	this.viewDetail.form.viewdataset.setColumn(nRow,"ORDER_TIME",this.gfnGetDate("milli"));
 	
 	return true;
 };
@@ -456,7 +456,7 @@ this.MessageAction00_onsuccess = function(obj:nexacro.MessageAction, e:nexacro.A
 	// 주문이 완료되었습니다.주문내역화면으로 가시겠습니까?
 	
 	// 주문내역 화면으로 이동
-	this.gfn_callMenuM("1001");
+	this.gfnCallMenuM("1001");
 };
 
 this.MessageAction00_onerror = function(obj:nexacro.MessageAction, e:nexacro.ActionErrorEventInfo)
