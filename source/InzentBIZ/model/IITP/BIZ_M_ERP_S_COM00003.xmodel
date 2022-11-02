@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SI" name="구매요청정보" iotype="input" description="">
+      <Field required="false" id="PURCHASE_NO" label="구매요청번호" fieldtype="FreeText" datatype="STRING" datasize="10"/>
+      <Field required="false" id="PAYMENT_TERMS" label="결재조건" fieldtype="FreeText" datatype="STRING" datasize="10"/>
+      <Field required="false" id="PURCHASE_DATE" label="구매확정일" fieldtype="FreeText" datatype="STRING" datasize="8"/>
+      <Field required="false" id="PURCHASE_EMP" label="구매담당자" fieldtype="FreeText" datatype="STRING" datasize="20"/>
+      <Field required="false" id="PURCHASE_OPINION" label="구매담당자의견" fieldtype="FreeText" datatype="STRING" datasize="300"/>
+    </Model>
+  </Models>
+  <Service id="BIZ_M_ERP_S_COM00003" name="(구매담당)구매승인" url=""/>
+</ModelInfo>

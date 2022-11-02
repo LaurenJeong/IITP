@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="erppurchaselist" width="1050" height="770" titletext="구매요청목록">
+    <Layouts>
+      <Layout height="770" width="1050">
+        <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="0" top="0" height="50" right="10" background="pink">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="80" height="30" right="10" bottom="10" cssclass="btn_search" text="검색"/>
+              <Static id="staStartDateLabel" left="10" top="10" width="95" height="30" text="요청일자" cssclass="sta_label"/>
+              <Calendar id="calStartDate" left="110" top="10" width="100" height="30"/>
+              <Calendar id="calEndDate" left="214" top="10" width="100" height="30"/>
+              <Static id="staChgNmLabel" left="319" top="10" width="95" height="30" text="요청자" cssclass="sta_label"/>
+              <Edit id="edtChgNm" left="419" top="10" width="100" height="30"/>
+              <Static id="staPurchaseNoLabel" left="524" top="10" width="95" height="30" text="구매요청번호" cssclass="sta_label"/>
+              <Edit id="edtPurchaseNo" left="624" top="10" width="150" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="START_DATE" type="STRING" size="8" description="요청일자"/>
+                <Column id="END_DATE" type="STRING" size="8" description="조회종료일"/>
+                <Column id="CHG_NM" type="STRING" size="20" description="요청자"/>
+                <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_calStartDate" compid="calStartDate" propid="value" datasetid="viewdataset" columnid="START_DATE"/>
+            <BindItem id="bind_calEndDate" compid="calEndDate" propid="value" datasetid="viewdataset" columnid="END_DATE"/>
+            <BindItem id="bind_edtChgNm" compid="edtChgNm" propid="value" datasetid="viewdataset" columnid="CHG_NM"/>
+            <BindItem id="bind_edtPurchaseNo" compid="edtPurchaseNo" propid="value" datasetid="viewdataset" columnid="PURCHASE_NO"/>
+          </Bind>
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00001" modelid="SI" filepath="IITP\BIZ_M_ERP_S_COM00001.xmodel">
+            <Fields>
+              <Field id="START_DATE" label="요청일자" description="" innerdatasetinfo="" comptype="calendar" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="END_DATE" description="" innerdatasetinfo="" comptype="calendar" fieldwidth="100px" fieldheight="30px" labelwidth="-1" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="CHG_NM" description="" innerdatasetinfo="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="PURCHASE_NO" label="구매요청번호" description="" innerdatasetinfo="" comptype="edit" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staStartDateLabel" fields="START_DATE"/>
+              <Component id="calStartDate" fields="START_DATE"/>
+              <Component id="calEndDate" fields="END_DATE"/>
+              <Component id="staChgNmLabel" fields="CHG_NM"/>
+              <Component id="edtChgNm" fields="CHG_NM"/>
+              <Component id="staPurchaseNoLabel" fields="PURCHASE_NO"/>
+              <Component id="edtPurchaseNo" fields="PURCHASE_NO"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="검색"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="0" top="viewSearch:10" height="250" right="10">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_PURCHASE_NO" col="0" row="0" text="구매요청번호"/>
+                      <Cell id="cell_head_1_0_REQ_DATE" col="1" row="0" text="요청날짜"/>
+                      <Cell id="cell_head_2_0_BUY_CD" col="2" row="0" text="거래처코드"/>
+                      <Cell id="cell_head_3_0_BUY_DESC" col="3" row="0" text="구매처"/>
+                      <Cell id="cell_head_4_0_PJ_CD" col="4" row="0" text="프로젝트"/>
+                      <Cell id="cell_head_5_0_EMPLOYEE" col="5" row="0" text="담당자"/>
+                      <Cell id="cell_head_6_0_PRICE" col="6" row="0" text="가격"/>
+                      <Cell id="cell_head_7_0_STATUS" col="7" row="0" text="구매상태"/>
+                      <Cell id="cell_head_8_0_PURCHASE_EMP" col="8" row="0" text="구매담당"/>
+                      <Cell id="cell_head_9_0_PURCHASE_DATE" col="9" row="0" text="구매확정일"/>
+                      <Cell id="cell_head_10_0_MEMO" col="10" row="0" text="메모"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_PURCHASE_NO" col="0" row="0" text="bind:PURCHASE_NO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_REQ_DATE" col="1" row="0" text="bind:REQ_DATE" displaytype="date" edittype="none"/>
+                      <Cell id="cell_body_2_0_BUY_CD" col="2" row="0" text="bind:BUY_CD" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_3_0_BUY_DESC" col="3" row="0" text="bind:BUY_DESC" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_4_0_PJ_CD" col="4" row="0" text="bind:PJ_CD" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_5_0_EMPLOYEE" col="5" row="0" text="bind:EMPLOYEE" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_6_0_PRICE" col="6" row="0" text="bind:PRICE" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_7_0_STATUS" col="7" row="0" text="bind:STATUS" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_8_0_PURCHASE_EMP" col="8" row="0" text="bind:PURCHASE_EMP" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_9_0_PURCHASE_DATE" col="9" row="0" text="bind:PURCHASE_DATE" displaytype="date" edittype="none"/>
+                      <Cell id="cell_body_10_0_MEMO" col="10" row="0" text="bind:MEMO" displaytype="normal" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
+                <Column id="REQ_DATE" type="STRING" size="8" description="요청날짜"/>
+                <Column id="BUY_CD" type="STRING" size="4" description="거래처코드"/>
+                <Column id="BUY_DESC" type="STRING" size="10" description="구매처"/>
+                <Column id="PJ_CD" type="STRING" size="10" description="프로젝트"/>
+                <Column id="EMPLOYEE" type="STRING" size="20" description="담당자"/>
+                <Column id="PRICE" type="BIGDECIMAL" size="10" description="가격"/>
+                <Column id="STATUS" type="STRING" size="12" description="구매상태"/>
+                <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당"/>
+                <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매확정일"/>
+                <Column id="MEMO" type="STRING" size="300" description="메모"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00001" modelid="SO_PURCHASE_LIST" filepath="IITP\BIZ_M_ERP_S_COM00001.xmodel">
+            <Fields>
+              <Field id="PURCHASE_NO" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="REQ_DATE" label="요청날짜" innerdatasetinfo="" displaytype="date" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="BUY_CD" label="거래처코드" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="BUY_DESC" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PJ_CD" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="EMPLOYEE" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PRICE" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="STATUS" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PURCHASE_DATE" innerdatasetinfo="" displaytype="date" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="MEMO" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="PURCHASE_NO,REQ_DATE,BUY_CD,BUY_DESC,PJ_CD,EMPLOYEE,PRICE,STATUS,PURCHASE_EMP,PURCHASE_DATE,MEMO"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewDetail" taborder="2" text="viewDetail" viewdataset="viewdataset" left="0" top="viewList:10" right="10" height="280">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="상세내역" fittocontents="width" cssclass="sta_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30"/>
+                      <Row size="30" band="summ"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_PRODUCT_NO" text="제품번호"/>
+                      <Cell col="1" id="cell_head_1_0_PRODUCT_NM" text="상품명"/>
+                      <Cell col="2" id="cell_head_2_0_COUNT" text="수량"/>
+                      <Cell col="3" id="cell_head_3_0_UNIT" text="단위"/>
+                      <Cell col="4" id="cell_head_4_0_UNIT_PRICE" text="단가"/>
+                      <Cell col="5" id="cell_head_5_0_PURCHASE_PRICE" text="구입가"/>
+                      <Cell col="6" id="cell_head_6_0_SUM_PRICE" text="소계"/>
+                      <Cell col="7" id="cell_head_7_0_REQ_DATE" text="구매요청일"/>
+                      <Cell col="8" id="cell_head_8_0_DELIVERY_ADDRESS" text="배송지"/>
+                      <Cell col="9" id="cell_head_9_0_TEMP" text="비고"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_PRODUCT_NO" text="bind:PRODUCT_NO" displaytype="normal" edittype="none"/>
+                      <Cell col="1" id="cell_body_1_0_PRODUCT_NM" text="bind:PRODUCT_NM" displaytype="normal" edittype="none"/>
+                      <Cell col="2" id="cell_body_2_0_COUNT" text="bind:COUNT" displaytype="normal" edittype="none"/>
+                      <Cell col="3" id="cell_body_3_0_UNIT" text="bind:UNIT" displaytype="normal" edittype="none"/>
+                      <Cell col="4" id="cell_body_4_0_UNIT_PRICE" text="bind:UNIT_PRICE" displaytype="number" edittype="none"/>
+                      <Cell col="5" id="cell_body_5_0_PURCHASE_PRICE" text="bind:PURCHASE_PRICE" displaytype="number" edittype="none"/>
+                      <Cell col="6" id="cell_body_6_0_SUM_PRICE" text="bind:SUM_PRICE" displaytype="number" edittype="none"/>
+                      <Cell col="7" id="cell_body_7_0_REQ_DATE" text="bind:REQ_DATE" displaytype="normal" edittype="none"/>
+                      <Cell col="8" id="cell_body_8_0_DELIVERY_ADDRESS" text="bind:DELIVERY_ADDRESS" displaytype="normal" edittype="none"/>
+                      <Cell col="9" id="cell_body_9_0_TEMP" text="bind:TEMP" displaytype="normal" edittype="none"/>
+                    </Band>
+                    <Band id="summary">
+                      <Cell id="cell_summ_PRODUCT_NO" text="* 전체상품 :" displaytype="normal"/>
+                      <Cell col="1" id="cell_summ_PRODUCT_NM" text="expr:dataset.getRowCount('PRODUCT_NM')" displaytype="number"/>
+                      <Cell col="2" id="cell_summ_COUNT" text="" displaytype="normal"/>
+                      <Cell col="3" id="cell_summ_UNIT" text="" displaytype="normal"/>
+                      <Cell col="4" id="cell_summ_UNIT_PRICE" text="" displaytype="normal"/>
+                      <Cell col="5" id="cell_summ_PURCHASE_PRICE" text="* 입고(구입)가" displaytype="normal"/>
+                      <Cell col="6" id="cell_summ_SUM_PRICE" text="expr:dataset.getSum('SUM_PRICE')" displaytype="number"/>
+                      <Cell col="7" id="cell_summ_REQ_DATE" text="" displaytype="normal"/>
+                      <Cell col="8" id="cell_summ_DELIVERY_ADDRESS" text="" displaytype="normal"/>
+                      <Cell col="9" id="cell_summ_TEMP" text="" displaytype="normal"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="PRODUCT_NO" type="STRING" size="10" description="제품번호"/>
+                <Column id="PRODUCT_NM" type="STRING" size="10" description="상품명"/>
+                <Column id="COUNT" type="STRING" size="5" description="수량"/>
+                <Column id="UNIT" type="STRING" size="10" description="단위"/>
+                <Column id="UNIT_PRICE" type="BIGDECIMAL" size="10" description="단가"/>
+                <Column id="PURCHASE_PRICE" type="BIGDECIMAL" size="10" description="구입가"/>
+                <Column id="SUM_PRICE" type="BIGDECIMAL" size="10" description="소계"/>
+                <Column id="REQ_DATE" type="STRING" size="8" description="구매요청일"/>
+                <Column id="DELIVERY_ADDRESS" type="STRING" size="10" description="배송지"/>
+                <Column id="TEMP" type="STRING" size="300" description="비고"/>
+              </ColumnInfo>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00002" modelid="SO_PURCHASE_DETAIL_LIST" filepath="IITP\BIZ_M_ERP_S_COM00002.xmodel">
+            <Fields>
+              <Field id="PRODUCT_NO" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PRODUCT_NM" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="rowcount" usecomp="true"/>
+              <Field id="COUNT" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="UNIT" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="UNIT_PRICE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PURCHASE_PRICE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="SUM_PRICE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="sum" usecomp="true"/>
+              <Field id="REQ_DATE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DELIVERY_ADDRESS" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="TEMP" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="PRODUCT_NO,PRODUCT_NM,COUNT,UNIT,UNIT_PRICE,PURCHASE_PRICE,SUM_PRICE,REQ_DATE,DELIVERY_ADDRESS,TEMP"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="상세내역"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="30"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewSearchDetail" taborder="3" text="viewSearchDetail" viewdataset="viewdataset" left="6" top="291" width="289" height="38" visible="false">
+          <Layouts/>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00002" modelid="SI" filepath="IITP\BIZ_M_ERP_S_COM00002.xmodel">
+            <Fields>
+              <Field id="PURCHASE_NO" innerdatasetinfo=""/>
+            </Fields>
+            <Components/>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="DatasetOnlyViewTemplate.xviewgen">
+            <Attribute id="viewvisible" value="false"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewDetail2" taborder="4" viewdataset="viewdataset" left="0" top="viewDetail:10" height="150" right="10">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="검토의견" fittocontents="width" cssclass="sta_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="staPurchaseDateBg" left="0" top="30" width="100%" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPurchaseDateLabel" left="0" top="30" width="100" height="40" text="구매날자" cssclass="sta_labelbox"/>
+              <Calendar id="calPurchaseDate" left="105" top="35" width="236" height="30"/>
+              <Static id="staPaymentTermsLabel" left="346" top="30" width="100" height="40" text="결재조건" cssclass="sta_labelbox"/>
+              <Edit id="edtPaymentTerms" left="451" top="35" width="236" height="30"/>
+              <Static id="staPurchaseEmpLabel" left="692" top="30" width="100" height="40" text="구매담당" cssclass="sta_labelbox"/>
+              <Edit id="edtPurchaseEmp" left="797" top="35" width="236" height="30"/>
+              <Static id="staPurchaseOpinionBg" left="0" top="69" width="100%" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPurchaseOpinionLabel" left="0" top="69" width="100" height="80" text="의견" cssclass="sta_labelbox"/>
+              <TextArea id="txtPurchaseOpinion" left="105" top="74" width="928" height="70"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="PAYMENT_TERMS" type="STRING" size="10" description="결재조건"/>
+                <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매날자"/>
+                <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당"/>
+                <Column id="PURCHASE_OPINION" type="STRING" size="300" description="의견"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind/>
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00003" modelid="SI" filepath="IITP\BIZ_M_ERP_S_COM00003.xmodel">
+            <Fields>
+              <Field id="PURCHASE_DATE" label="구매날자" innerdatasetinfo="" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="PAYMENT_TERMS" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="PURCHASE_OPINION" label="의견" innerdatasetinfo="" comptype="textarea" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="staPurchaseDateBg" fields="PURCHASE_DATE"/>
+              <Component id="staPurchaseDateLabel" fields="PURCHASE_DATE"/>
+              <Component id="calPurchaseDate" fields="PURCHASE_DATE"/>
+              <Component id="staPaymentTermsLabel" fields="PAYMENT_TERMS"/>
+              <Component id="edtPaymentTerms" fields="PAYMENT_TERMS"/>
+              <Component id="staPurchaseEmpLabel" fields="PURCHASE_EMP"/>
+              <Component id="edtPurchaseEmp" fields="PURCHASE_EMP"/>
+              <Component id="staPurchaseOpinionBg" fields="PURCHASE_OPINION"/>
+              <Component id="staPurchaseOpinionLabel" fields="PURCHASE_OPINION"/>
+              <Component id="txtPurchaseOpinion" fields="PURCHASE_OPINION"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="titletext" value="검토의견"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+            <Attribute id="format" value="{&quot;columnsize&quot;:[346,346,346],&quot;rowsize&quot;:[40,80],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_DATE&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PAYMENT_TERMS&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_EMP&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_OPINION&quot;],&quot;colspan&quot;:&quot;3&quot;}]}"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.fnComBtn = function(sBtnId)
+{
+	this.gfnLog("fnComBtn : " + sBtnId);
+};]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

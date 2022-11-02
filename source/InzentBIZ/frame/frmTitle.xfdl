@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmTitle" width="1080" height="38" titletext="Title" onload="frmTitle_onload">
+    <Layouts>
+      <Layout height="38" width="1080">
+        <Static id="staTitle" taborder="0" left="10" top="5" height="28" cssclass="sta_WF_title01" right="500"/>
+        <Div id="divCommBtn" taborder="1" top="5" width="800" height="28" right="10" funcGrp="COM" callbackfunc="fnComBtnClick">
+          <Layouts>
+            <Layout type="horizontal" flexcrossaxisalign="center" flexmainaxisalign="end" horizontalgap="5"/>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  InzentBIZ
+*  @MenuPath    frame > frmTitle
+*  @FileName 	frmTitle.xfdl 
+*  @Creator 	Creator
+*  @CreateDate 	2022.10.31
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2022.10.31     		Creator		 	  	최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = this.gfnGetApplication();
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+this.frmTitle_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var objDiv = this.objApp.gvWorkFrame;
+	
+	if(!this.gfnIsNull(objDiv))
+	{
+		var sMenuNm 	= objDiv["_menunm"];
+		var oMenuBtn	= objDiv["_menuauth"];
+		
+		this.staTitle.set_text(sMenuNm);
+		this.fnCreateBtn(oMenuBtn);
+	}
+};
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+this.fnCreateBtn = function(oMenuBtn)
+{
+	if(this.gfnIsNull(oMenuBtn))		return;
+	
+	var oBtn;
+	var sBtnId, sBtnText;
+	var nLeft = 0;
+	var nHeight = 28;
+	var nMinWidth = 80;
+	
+	for(var sId in oMenuBtn)
+	{
+		oBtn 		= oMenuBtn[sId];
+		sBtnId		= oBtn["id"];
+		sBtnText	= oBtn["text"];
+		
+		objBtn = new Button();
+		objBtn.init(sBtnId, nLeft, 0, nMinWidth, nHeight, null, null);	    
+		this.divCommBtn.addChild(objBtn.name, objBtn);
+		objBtn.set_minwidth(nMinWidth); 
+		objBtn.set_text(sBtnText);
+		objBtn.set_cssclass("btn_cm_basic02");
+		objBtn.set_fittocontents("width");
+		objBtn.setEventHandler("onclick", this.btnCom_onclick, this);	
+		objBtn.show();
+		
+		nLeft += nMinWidth;
+	};
+	
+	this.divCommBtn.form.resetScroll();
+};
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+this.btnCom_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objDiv = this.objApp.gvWorkFrame;
+	
+	if(!this.gfnIsNull(objDiv))
+	{
+		objDiv.form.fnComBtnClick(obj.id);
+	}
+};]]></Script>
+  </Form>
+</FDL>

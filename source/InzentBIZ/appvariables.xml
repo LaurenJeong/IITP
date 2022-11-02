@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppVariables version="2.0">
+  <Datasets>
+    <Dataset id="gdsMenu">
+      <ColumnInfo>
+        <Column id="MENU_CD" type="STRING" size="256" description="메뉴코드"/>
+        <Column id="UP_MENU_CD" type="STRING" size="256" description="상위메뉴코드"/>
+        <Column id="MENU_NM" type="STRING" size="256" description="메뉴명"/>
+        <Column id="MENU_LVL" type="STRING" size="256" description="메뉴레벨(0부터시작)"/>
+        <Column id="PGM_PATH" type="STRING" size="256" description="화면 Services Prefix"/>
+        <Column id="PGM_ID" type="STRING" size="256" description="화면명"/>
+        <Column id="AUTH_CD" type="STRING" size="256" description="권한코드"/>
+        <Column id="BTN_YN_1" type="STRING" size="256" description="버튼1 사용여부"/>
+        <Column id="BTN_TEXT_1" type="STRING" size="256" description="버튼1 텍스트"/>
+        <Column id="BTN_YN_2" type="STRING" size="256" description="버튼2 사용여부"/>
+        <Column id="BTN_TEXT_2" type="STRING" size="256" description="버튼2 텍스트"/>
+        <Column id="BTN_YN_3" type="STRING" size="256" description="버튼3 사용여부"/>
+        <Column id="BTN_TEXT_3" type="STRING" size="256" description="버튼3 텍스트"/>
+        <Column id="BTN_YN_4" type="STRING" size="256" description="버튼4 사용여부"/>
+        <Column id="BTN_TEXT_4" type="STRING" size="256" description="버튼4 텍스트"/>
+        <Column id="BTN_YN_5" type="STRING" size="256" description="버튼5 사용여부"/>
+        <Column id="BTN_TEXT_5" type="STRING" size="256" description="버튼5 텍스트"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="MENU_CD">10000</Col>
+          <Col id="UP_MENU_CD">0</Col>
+          <Col id="MENU_NM">구매요청자</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="AUTH_CD">10</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">10001</Col>
+          <Col id="UP_MENU_CD">10000</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="MENU_NM">구매목록</Col>
+          <Col id="PGM_PATH">gwp</Col>
+          <Col id="AUTH_CD">10</Col>
+          <Col id="PGM_ID">gwppurchaselist.xfdl</Col>
+          <Col id="BTN_YN_1">Y</Col>
+          <Col id="BTN_TEXT_1">구매요청</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">20000</Col>
+          <Col id="UP_MENU_CD">0</Col>
+          <Col id="MENU_NM">구매담당자</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="AUTH_CD">20</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">20001</Col>
+          <Col id="UP_MENU_CD">10000</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="MENU_NM">구매요청목록</Col>
+          <Col id="PGM_PATH">erp</Col>
+          <Col id="AUTH_CD">20</Col>
+          <Col id="PGM_ID">erppurchaselist.xfdl</Col>
+          <Col id="BTN_YN_1">Y</Col>
+          <Col id="BTN_TEXT_1">구매승인</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">30000</Col>
+          <Col id="UP_MENU_CD">0</Col>
+          <Col id="MENU_NM">재무담당자</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="AUTH_CD">30</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">30001</Col>
+          <Col id="UP_MENU_CD">10000</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="MENU_NM">구매확정목록</Col>
+          <Col id="PGM_PATH">fms</Col>
+          <Col id="AUTH_CD">30</Col>
+          <Col id="PGM_ID">fmspurchaselist.xfdl</Col>
+          <Col id="BTN_YN_1">Y</Col>
+          <Col id="BTN_TEXT_1">정산</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsUserInfo">
+      <ColumnInfo>
+        <Column id="USER_ID" type="STRING" size="256"/>
+        <Column id="USER_NAME" type="STRING" size="256"/>
+        <Column id="AUTH_CD" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="AUTH_CD">10</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </Datasets>
+  <Variables/>
+  <DataObjects/>
+</AppVariables>

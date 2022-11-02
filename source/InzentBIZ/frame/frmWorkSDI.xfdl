@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmWorkSDI" left="0" top="0" width="1060" height="655" onsize="form_onsize" onload="form_onload" onkeydown="form_onkeydown" titletext="frameWork(SDI)" background="#ffffff">
+    <Layouts>
+      <Layout width="1060" height="655">
+        <Div id="divWork" taborder="0" left="10" top="45" border="1px none , 1px none , 1px none, 1px none" text="" right="0" bottom="10">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="divTitle" taborder="1" left="0" top="0" right="0" url="frame::frmTitle.xfdl" height="38" border="1px none , 1px none , 1px solid gainsboro"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[/**
+*  InzentBIZ
+*  @MenuPath    frame > frmWorkSDI
+*  @FileName 	frmWorkSDI.xfdl 
+*  @Creator 	Creator
+*  @CreateDate 	2022.10.31
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2022.10.31     		Creator		 	  	최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = this.gfnGetApplication();
+
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+/**
+ * form onload 함수
+ * @return 
+ * @example
+ * @memberOf 
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// form로딩시 화면에 표시할 page URL 설정
+	this.divWork.set_url(this.parent["_menuurl"]);
+	this.form_onsize();		
+		
+	this.divTitle.form.set_scrollbartype("none")
+};
+
+/**
+ * onsize event
+ * @return 
+ * @example
+ *
+ * @memberOf this
+ */
+this.form_onsize = function(obj:Form, e:nexacro.SizeEventInfo)
+{	
+	this.resetScroll();
+}
+
+/**
+ * @description 각 화면에서 디버그창을 호출할 수 있도록 단축키 지정
+*/
+this.form_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	// 공통 키다운 이벤트 호출
+	//this.gfnOnkeydown(obj, e);
+};
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+ /**
+ * @description  공통버튼클릭이벤트
+*/
+this.fnComBtnClick = function(sBtnId)
+{
+	var sCallback = "fnComBtn";
+	try {
+		
+		if (this.gfnIsNotNull(this.divWork.form.lookup(sCallback))) 
+		{
+			this.divWork.form.fnComBtn(sBtnId);
+		}
+		else
+		{
+			this.gfnLog(sCallback+ "(sBtnId) 함수가 없습니다.");
+		}
+	} catch(e) {
+		this.gfnLog(sCallback+ "() 함수 실행시 오류가 발생했습니다. \n" + e.message);
+	}
+};]]></Script>
+  </Form>
+</FDL>

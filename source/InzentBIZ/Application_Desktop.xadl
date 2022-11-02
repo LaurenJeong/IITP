@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ADL version="2.0">
+  <Application id="Application_Desktop" screenid="Desktop_screen" onload="Application_onload" licenseurl="NexacroN_client_license.xml">
+    <Layout>
+      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="false" left="0" top="0" width="1280" height="720" showcascadetitletext="false" titletext="Purchase Management System">
+        <VFrameSet id="VFrameSet" separatesize="*,0" showtitlebar="false" showtitleicon="false">
+          <Frames>
+            <ChildFrame id="frameLogin" showtitlebar="false" showstatusbar="false" showtitleicon="false" titletext="구매정보시스템" dragmovetype="none" formurl="frame::frmLogin.xfdl"/>
+            <ChildFrame id="frameMain" showtitlebar="false" showstatusbar="false" showtitleicon="false" dragmovetype="none" formurl="frame::frmAllSDI.xfdl"/>
+          </Frames>
+        </VFrameSet>
+      </MainFrame>
+    </Layout>
+    <Style url="xcssrc::frame_template.xcss"/>
+    <Style url="xcssrc::asset.xcss"/>
+  </Application>
+  <Script type="xscript5.1"><![CDATA[
+this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	var objEnv = nexacro.getEnvironment();
+	var xadl = nexacro.getProjectPath();
+	
+	var objSvcUrl = objEnv.services["svc"];
+	var urlPath = objSvcUrl.url;
+	
+	// studio로 실행
+	if (system.navigatorname == "nexacro") 
+	{
+		var arrXadl = xadl.split("://");
+		
+		if (arrXadl[0] == "http" || arrXadl[0] == "https") {
+			//var arrHost = arrXadl[1].split("/");
+			urlPath = xadl;
+			
+			// 로컬(앱)
+			if (xadl.indexOf("localhost") > -1 || xadl.indexOf("127.0.0.1") > -1 || xadl.indexOf("172.10.") > -1 ) 
+			{
+				objApp.mainframe.set_titletext("로컬(앱)  - " + objApp.mainframe.titletext);
+			}
+		} else {
+			urlPath = "http://localhost:8080/";
+			
+			objApp.mainframe.set_titletext("로컬(Studio) - " + objApp.mainframe.titletext);
+			objApp.mainframe.set_showtitlebar(true);     
+			objApp.mainframe.set_border("1px solid black");
+		}
+		
+		objApp.mainframe.set_openstatus("maximize");
+	}
+	// 웹 접속
+	else
+	{	
+		// URL 설정(웹브라우저)
+		urlPath = window.location.protocol + "//" + window.location.host;
+		 
+		// 로컬(웹)
+		if (xadl.indexOf("localhost") > -1 || xadl.indexOf("127.0.0.1") > -1 || xadl.indexOf("172.10.") > -1 ) 
+		{
+			objApp.mainframe.set_titletext("로컬(웹)  - " + objApp.mainframe.titletext);
+		}
+		else if (xadl.indexOf("www.tobedevops.com") > -1)		// tobedevops 예외처리
+		{
+			urlPath = "http://www.tobedevops.com:8080/QuickCodeDemo/";
+		}
+		else if (xadl.indexOf("ops.tobedevops.com") > -1)		// tobedevops 예외처리
+		{
+			urlPath = "https://ops.tobedevops.com:8080/QuickCodeDemo/";
+		}
+	}
+	
+	// service URL 설정
+	objSvcUrl.set_url(urlPath);
+};
+]]></Script>
+</ADL>

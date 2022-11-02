@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SI" name="구매정보목록 조회조건" iotype="input" description="">
+      <Field required="false" id="PURCHASE_NO" label="구매요청번호" fieldtype="FreeText" datatype="STRING" datasize="10"/>
+    </Model>
+    <Model id="SO" iotype="output" description="" name="SO">
+      <Field required="false" id="GRID_COUNT" label="상세정보갯수" fieldtype="FreeText" datatype="INT" datasize="5"/>
+    </Model>
+    <Model id="SO_grid" name="구매정보목록" iotype="output" description="">
+      <Field required="false" id="PRODUCT_NO" label="제품번호" fieldtype="FreeText" datatype="STRING" datasize="10"/>
+      <Field required="false" id="PRODUCT_NM" label="상품명" fieldtype="FreeText" datatype="STRING" datasize="10"/>
+      <Field required="false" id="COUNT" label="수량" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5"/>
+      <Field required="false" id="UNIT" label="단위" fieldtype="FreeText" datatype="STRING" datasize="10"/>
+      <Field required="false" id="UNIT_PRICE" label="단가" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="10"/>
+      <Field required="false" id="PURCHASE_PRICE" label="구입가" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="10"/>
+      <Field required="false" id="SUM_PRICE" label="소계" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="10"/>
+      <Field required="false" id="REQ_DATE" label="구매요청일" fieldtype="FreeText" datatype="STRING" datasize="8"/>
+      <Field required="false" id="DELIVERY_ADDRESS" label="배송지" fieldtype="FreeText" datatype="STRING" datasize="10"/>
+      <Field required="false" id="TEMP" label="비고" fieldtype="FreeText" datatype="STRING" datasize="300"/>
+    </Model>
+  </Models>
+  <Service id="BIZ_M_FMS_S_COM00002" name="(재무담당)구매목록 상세조회" url=""/>
+</ModelInfo>
