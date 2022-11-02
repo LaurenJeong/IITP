@@ -539,7 +539,7 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id": "comptype",
                                 "edittype": "Enum",
-								"enumlist" : ["auto","button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar", "calFromTo"],
+								"enumlist" : ["auto", "button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar", "calFromTo"],
                                 "defaultvalue": this.COMP_TYPE,
                                 "description": "Types of Components to be Expressed"
                             },
@@ -1196,6 +1196,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var oModel = this.oContents.View.Model;
 
 	var sCompId;
+	var sCompClassId;
 	var oCompClass;
 	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
 	var sCompCssClass;
@@ -1265,19 +1266,21 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		oModel[oModel.length-1].Components.push(oComp);
 
 		sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+		sCompClassId = oCompClass.classId;
 		oComp =	{
-					"tag" : oCompClass.classId,
+					"tag" : sCompClassId,
 					"attribute" :
 					{
 						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 					}
 				};
-		if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
+				
+		if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 		{
 			oComp.attribute.text = oField.label;
 		}
 
-		if(oField.comptype=="radio")
+		if(sCompClassId=="Radio")
 		{
 			oComp.attribute.direction = "vertical";
 		}
@@ -1287,7 +1290,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			oComp.attribute.url = oCompClass.formurl;
 		}
 
-		if(oField.comptype!="button"&&oField.comptype!="calFromTo")
+		if(sCompClassId!="Button" && oField.comptype!="calFromTo")
 		{
 			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
 		}

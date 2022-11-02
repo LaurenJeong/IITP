@@ -1140,8 +1140,11 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		//If the Component Production Direction is Vertical
 		else
 		{
+			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx+1, nColIdx, this.COMP_PADDING_BOTTOM, this.LINE_SPACE, false);
+			else nTemp = 0;
+			
 			//Start a new line if the Field exceeds the Cell Height
-			if(nTop+nFieldHeight-this.VIEW_PADDING_TOP>nRowSize)
+			if(nTop+nFieldHeight-nTemp-this.VIEW_PADDING_TOP>nRowSize)
 			{
 				//The Bottom Value of the last Field of this Row
 				nEndY = nTop;
@@ -1712,6 +1715,11 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 			{
 				oComp.attribute.text = oField.label;
+			}
+			// Radio 컴포넌트에서 한줄로 표시되도록 처리
+			else if(sCompClassId=="Radio")
+			{
+				oComp.attribute.direction = "vertical";
 			}
 			
 			// [FreeformReadonly] Readonly 처리

@@ -1130,8 +1130,11 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		//If the Component Production Direction is Vertical
 		else
 		{
+			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx+1, nColIdx, this.COMP_PADDING_BOTTOM, this.LINE_SPACE, false);
+			else nTemp = 0;
+			
 			//Start a new line if the Field exceeds the Cell Height
-			if(nTop+nFieldHeight-this.VIEW_PADDING_TOP>nRowSize)
+			if(nTop+nFieldHeight-nTemp-this.VIEW_PADDING_TOP>nRowSize)
 			{
 				//The Bottom Value of the last Field of this Row
 				nEndY = nTop;
@@ -1527,7 +1530,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				oComp.attribute.direction = "vertical";
 			}
 			
-			if(sCompClassId=="Button")
+			if(sCompClassId!="Button")
 			{
 				//In order to process the Bind, add Id, Field Id to BindItems Array
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};

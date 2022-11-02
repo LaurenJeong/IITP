@@ -1392,7 +1392,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				oComp.attribute.direction = "vertical";
 			}
 
-			if(sCompClassId=="Button")
+			if(sCompClassId!="Button")
 			{
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
 			}
