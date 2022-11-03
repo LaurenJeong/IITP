@@ -23,18 +23,18 @@
                       <Row size="30" band="body"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_Company" col="0" row="0" text="회사명"/>
-                      <Cell id="cell_Department" col="1" row="0" text="부서명"/>
-                      <Cell id="cell_Name" col="2" row="0" text="성명"/>
-                      <Cell id="cell_Phone" col="3" row="0" text="전화번호"/>
-                      <Cell id="cell_Email" col="4" row="0" text="이메일주소"/>
+                      <Cell id="cell_head_0_0_Company" col="0" row="0" text="회사명"/>
+                      <Cell id="cell_head_1_0_Department" col="1" row="0" text="부서명"/>
+                      <Cell id="cell_head_2_0_Name" col="2" row="0" text="성명"/>
+                      <Cell id="cell_head_3_0_Phone" col="3" row="0" text="전화번호"/>
+                      <Cell id="cell_head_4_0_Email" col="4" row="0" text="이메일주소"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_Company" col="0" row="0" text="bind:Company" displaytype="combocontrol" edittype="combo"/>
-                      <Cell id="cell_Department" col="1" row="0" text="bind:Department" displaytype="editcontrol" edittype="normal"/>
-                      <Cell id="cell_Name" col="2" row="0" text="bind:Name" displaytype="textareacontrol" edittype="textarea"/>
-                      <Cell id="cell_Phone" col="3" row="0" text="bind:Phone" displaytype="maskeditcontrol" edittype="mask"/>
-                      <Cell id="cell_Email" col="4" row="0" text="bind:Email" displaytype="buttoncontrol" edittype="button"/>
+                      <Cell id="cell_body_0_0_Company" col="0" row="0" text="bind:Company" displaytype="combocontrol" edittype="combo" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_1_0_Department" col="1" row="0" text="bind:Department" displaytype="editcontrol" edittype="normal"/>
+                      <Cell id="cell_body_2_0_Name" col="2" row="0" text="bind:Name" displaytype="textareacontrol" edittype="textarea"/>
+                      <Cell id="cell_body_3_0_Phone" col="3" row="0" text="bind:Phone" displaytype="maskeditcontrol" edittype="mask"/>
+                      <Cell id="cell_body_4_0_Email" col="4" row="0" text="bind:Email" displaytype="buttoncontrol" edittype="button"/>
                     </Band>
                     <Band id="summary"/>
                   </Format>
@@ -45,11 +45,25 @@
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="Company" type="STRING" size="80"/>
-                <Column id="Department" type="STRING" size="80"/>
-                <Column id="Name" type="STRING" size="80"/>
-                <Column id="Phone" type="STRING" size="80"/>
-                <Column id="Email" type="STRING" size="80"/>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
               </ColumnInfo>
               <Rows/>
             </Dataset>
@@ -92,18 +106,18 @@
                       <Row size="30" band="body"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_0_0_Company" col="0" row="0" colspan="1" rowspan="1" text="회사명"/>
-                      <Cell id="cell_1_0_Department" col="1" row="0" colspan="1" rowspan="1" text="부서명"/>
-                      <Cell id="cell_2_0_Name" col="2" row="0" colspan="1" rowspan="1" text="성명"/>
-                      <Cell id="cell_0_1_Phone" col="0" row="1" colspan="1" rowspan="1" text="전화번호"/>
-                      <Cell id="cell_1_1_Email" col="1" row="1" colspan="2" rowspan="1" text="이메일주소"/>
+                      <Cell id="cell_head_0_0_Company" col="0" row="0" colspan="1" rowspan="1" text="회사명"/>
+                      <Cell id="cell_head_1_0_Department" col="1" row="0" colspan="1" rowspan="1" text="부서명"/>
+                      <Cell id="cell_head_2_0_Name" col="2" row="0" colspan="1" rowspan="1" text="성명"/>
+                      <Cell id="cell_head_0_1_Phone" col="0" row="1" colspan="1" rowspan="1" text="전화번호"/>
+                      <Cell id="cell_head_1_1_Email" col="1" row="1" colspan="2" rowspan="1" text="이메일주소"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_0_0_Company" col="0" row="0" colspan="1" rowspan="1" text="bind:Company" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_1_0_Department" col="1" row="0" colspan="1" rowspan="1" text="bind:Department" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_2_0_Name" col="2" row="0" colspan="1" rowspan="1" text="bind:Name" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_0_1_Phone" col="0" row="1" colspan="1" rowspan="1" text="bind:Phone" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_1_1_Email" col="1" row="1" colspan="2" rowspan="1" text="bind:Email" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_0_Company" col="0" row="0" colspan="1" rowspan="1" text="bind:Company" displaytype="combotext" edittype="none" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_1_0_Department" col="1" row="0" colspan="1" rowspan="1" text="bind:Department" displaytype="combotext" edittype="none" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_2_0_Name" col="2" row="0" colspan="1" rowspan="1" text="bind:Name" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_1_Phone" col="0" row="1" colspan="1" rowspan="1" text="bind:Phone" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_1_Email" col="1" row="1" colspan="2" rowspan="1" text="bind:Email" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary"/>
                   </Format>
@@ -114,22 +128,36 @@
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="Company" type="STRING" size="80"/>
-                <Column id="Department" type="STRING" size="80"/>
-                <Column id="Name" type="STRING" size="80"/>
-                <Column id="Phone" type="STRING" size="80"/>
-                <Column id="Email" type="STRING" size="80"/>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
               </ColumnInfo>
               <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Department" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Name" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Phone" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Email" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Company" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Department" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Name" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Phone" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Email" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="grdList" fields="Company,Department,Name,Phone,Email"/>
@@ -163,28 +191,28 @@
                       <Row size="30" band="summ"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_Company" col="0" row="0" text="회사명"/>
-                      <Cell id="cell_Department" col="1" row="0" text="부서명"/>
-                      <Cell id="cell_Name" col="2" row="0" text="성명"/>
-                      <Cell id="cell_Phone" col="3" row="0" text="전화번호"/>
-                      <Cell id="cell_Email" col="4" row="0" text="이메일주소"/>
-                      <Cell id="cell_Check" col="5" row="0" text="선택"/>
+                      <Cell id="cell_head_0_0_Company" col="0" row="0" text="회사명"/>
+                      <Cell id="cell_head_1_0_Department" col="1" row="0" text="부서명"/>
+                      <Cell id="cell_head_2_0_Name" col="2" row="0" text="성명"/>
+                      <Cell id="cell_head_3_0_Phone" col="3" row="0" text="전화번호"/>
+                      <Cell id="cell_head_4_0_Email" col="4" row="0" text="이메일주소"/>
+                      <Cell id="cell_head_5_0_Check" col="5" row="0" text="선택"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_Company" col="0" row="0" text="bind:Company" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_Department" col="1" row="0" text="bind:Department" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_Name" col="2" row="0" text="bind:Name" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_Phone" col="3" row="0" text="bind:Phone" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_Email" col="4" row="0" text="bind:Email" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_Check" col="5" row="0" text="bind:Check" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_0_Company" col="0" row="0" text="bind:Company" displaytype="combotext" edittype="none" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_1_0_Department" col="1" row="0" text="bind:Department" displaytype="combotext" edittype="none" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_2_0_Name" col="2" row="0" text="bind:Name" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_3_0_Phone" col="3" row="0" text="bind:Phone" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_4_0_Email" col="4" row="0" text="bind:Email" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_5_0_Check" col="5" row="0" text="bind:Check" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary">
-                      <Cell id="cell_Company" col="0" row="0" text=""/>
-                      <Cell id="cell_Department" col="1" row="0" text=""/>
-                      <Cell id="cell_Name" col="2" row="0" text=""/>
-                      <Cell id="cell_Phone" col="3" row="0" text=""/>
-                      <Cell id="cell_Email" col="4" row="0" text=""/>
-                      <Cell id="cell_Check" col="5" row="0" text=""/>
+                      <Cell id="cell_summ_Company" col="0" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_Department" col="1" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_Name" col="2" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_Phone" col="3" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_Email" col="4" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_Check" col="5" row="0" text="" displaytype="normal"/>
                     </Band>
                   </Format>
                 </Formats>
@@ -194,24 +222,38 @@
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="Company" type="STRING" size="80"/>
-                <Column id="Department" type="STRING" size="80"/>
-                <Column id="Name" type="STRING" size="80"/>
-                <Column id="Phone" type="STRING" size="80"/>
-                <Column id="Email" type="STRING" size="80"/>
-                <Column id="Check" type="STRING" size="80"/>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+                <Column id="Check" type="STRING" size="80" description="선택"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
               </ColumnInfo>
               <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Department" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Name" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Phone" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Email" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Check" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Company" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Department" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Name" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Phone" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Email" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Check" description="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="grdList" fields="Company,Department,Name,Phone,Email,Check"/>

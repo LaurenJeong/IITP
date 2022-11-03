@@ -49,6 +49,9 @@ this.COMP_NAMING_RULE	= "C";
 /** @const {string} */
 // 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 this.LOG_LEVEL			= -1;
+
+// Abstract 컴포넌트 사용여부
+this.USE_ABSTRACT_COMP	= false;
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -343,14 +346,14 @@ this.lfn_MakeUseFieldArray = function(fieldarray)
  * Return       : component class data
  * Description  : Returns class information of the component based on Field data
  *---------------------------------------------------------------------------------------------*/
-this.lfn_GetCompClass = function(sCompType, oField)
+this.lfn_GetCompClass = function(sCompType, oField, sAutoField)
 {
 	var oCompClass = { "classId" : null, "prefix" : null };
 	
 	// comptype이 auto일때 oField정보로 매칭되는 컴포넌트 반환
 	if (this.lfn_IsNotNull(oField))
 	{
-		sCompType = this.lfn_GetAutoCompType(oField);
+		sCompType = this.lfn_GetAutoCompType(oField, sAutoField);
 	}
 	
 	// 컴포넌트별 
@@ -419,9 +422,11 @@ this.lfn_GetCompClass = function(sCompType, oField)
  * Return       : comptype
  * Description  : comptype이 auto일때 oField정보로 매칭되는 컴포넌트 반환
  *---------------------------------------------------------------------------------------------*/
-this.lfn_GetAutoCompType = function(oField)
+this.lfn_GetAutoCompType = function(oField, sAutoField)
 {
-	var sCompType = oField["comptype"];
+	if (this.lfn_IsNull(sAutoField))		sAutoField = "comptype";
+	
+	var sCompType = oField[sAutoField];
 	
 	//Auto 일때 처리
 	if (sCompType == "auto")
@@ -432,40 +437,54 @@ this.lfn_GetAutoCompType = function(oField)
 		
 		if (sFieldType == "SelectOne")				// SelectOne일때 AbstractSelectOne
 		{
-			sCompType = "selectone";
+			if (this.USE_ABSTRACT_COMP)
+			{
+				sCompType = "selectone";
+			}
+			else
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","combotext","edittype","combo","combo");
+			}
 		}
 		else if (sFieldType == "SelectAny")			// SelectAny일때 AbstractSelectAny
 		{
-			sCompType = "selectany";
+			if (this.USE_ABSTRACT_COMP)
+			{
+				sCompType = "selectany";
+			}
+			else
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","combotext","edittype","combo","combo");
+			}
 		}
 		else if (sFieldType == "MultiMedia")		// MultiMedia일때 imageviewer
 		{
-			sCompType = "imageviewer";
+			sCompType = this.lfn_Decode(sAutoField,"displaytype","imagecontrol","edittype","none","imageviewer");
 		}
 		else if (sFieldType == "FreeText")			// FreeText일때 datatype에 따라 분기
 		{
 			if (sDataType == "INT" || sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
 			{
-				sCompType = "maskedit";
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","number","edittype","normal","maskedit");
 			}
 			else if (sDataType == "DATE" || sDataType == "TIME" || sDataType == "DATETIME")
 			{
-				sCompType = "calendar";
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","date","edittype","date","calendar");
 			}
 			else if (sDataType == "STRING")
 			{
-				sCompType = "edit";
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","normal","edittype","normal","edit");
 			}
 			else if (sDataType == "BLOB")
 			{
-				sCompType = "imageviewer";
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","imagecontrol","edittype","none","imageviewer");
 			}
 		}
 		
 		// 해당되는 값이 없고 auto인 경우 edit로 기본값 처리
 		if (sCompType == "auto")
 		{
-			sCompType = "edit";
+			sCompType = this.lfn_Decode(sAutoField,"displaytype","normal","edittype","normal","edit");
 		}
 	}
 	

@@ -54,7 +54,7 @@ this.FIELD_HEIGHT			= "40px";
 this.LABEL_WIDTH			= 100;
 
 //Component Default Type
-this.COMP_TYPE				= "edit";
+this.COMP_TYPE				= "auto";
 
 //[FreeformReadonly] Component Readonly
 this.COMP_READONLY		= "true";
@@ -524,7 +524,7 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id": "comptype",
                                 "edittype": "Enum",
-								"enumlist" : ["button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar"],
+								"enumlist" : ["auto", "button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar"],
                                 "defaultvalue": this.COMP_TYPE,
                                 "description": "Types of Components to be Expressed"
                             },
@@ -1140,8 +1140,11 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		//If the Component Production Direction is Vertical
 		else
 		{
+			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx+1, nColIdx, this.COMP_PADDING_BOTTOM, this.LINE_SPACE, false);
+			else nTemp = 0;
+			
 			//Start a new line if the Field exceeds the Cell Height
-			if(nTop+nFieldHeight-this.VIEW_PADDING_TOP>nRowSize)
+			if(nTop+nFieldHeight-nTemp-this.VIEW_PADDING_TOP>nRowSize)
 			{
 				//The Bottom Value of the last Field of this Row
 				nEndY = nTop;
@@ -1357,6 +1360,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 	var oModel = this.oContents.View.Model;
 	var sCompId;
+	var sCompClassId;
 	var oCompClass;
 	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
 	var oCompBgClass		= this.lfn_GetCompClass(this.COMP_BG_TYPE);
@@ -1387,7 +1391,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			if (this.lfn_IsNull(oField))	continue;
 
 			//Import Component Naming Rules
-			oCompClass = this.lfn_GetCompClass(oField.comptype);
+			oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
 
 			//Import Component Css Class Id Value
 			sCompCssClass = oField.cssclass;
@@ -1487,7 +1491,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 				if(bStartCol==true && sUseFieldBox == "true")
 				{
-					nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
+					//nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
 
 					//필드 배경 Static 추가
 					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
@@ -1495,7 +1499,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 								"tag" : oCompBgClass.classId,
 								"attribute" :
 								{
-									"id" : sCompId, "left" : 0, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+									"id" : sCompId, "left" : 0, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
 									,"cssclass" : sFieldBgCssClass
 								}
 							};
@@ -1519,6 +1523,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 			//Add Component Tag
 			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompClassId = oCompClass.classId;
 			oComp = {
 						"tag" : oCompClass.classId,
 						"attribute" :
@@ -1529,12 +1534,12 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 					};
 			
 			// 라벨을 text로 처리
-			if(oField.comptype=="button" || oField.comptype=="checkbox" || oField.comptype=="static")
+			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 			{
 				oComp.attribute.text = oField.label;
 			}
 			// Radio 컴포넌트에서 한줄로 표시되도록 처리
-			else if(oField.comptype=="radio")
+			else if(sCompClassId=="Radio")
 			{
 				oComp.attribute.direction = "vertical";
 			}
@@ -1543,21 +1548,21 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			if(oField.fieldreadonly == "true")
 			{
 				// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
-				if(oField.comptype=="calendar" || oField.comptype=="checkbox" || oField.comptype=="combo" || oField.comptype=="edit"
-					|| oField.comptype=="maskedit" || oField.comptype=="radio" || oField.comptype=="spin" || oField.comptype=="textarea")
+				if(sCompClassId=="Calendar" || sCompClassId=="CheckBox" || sCompClassId=="Combo" || sCompClassId=="Edit"
+					|| sCompClassId=="MaskEdit" || sCompClassId=="Radio" || sCompClassId=="Spin" || sCompClassId=="TextArea")
 				{
 					oComp.attribute.readonly = "true";
 					oComp.attribute.cssclass = this.COMP_READONLY_CSSCLASS;
 					
 					// 스핀버튼, 드롭다운버튼 안보이게 처리
-					if (oField.comptype=="spin" || oField.comptype=="combo" || oField.comptype=="calendar")
+					if (sCompClassId=="Spin" || sCompClassId=="Combo" || sCompClassId=="Calendar")
 					{
 						oComp.attribute.buttonsize = "0";
 					}
 				}
 			}
 
-			if(oField.comptype!="button")
+			if(sCompClassId!="Button")
 			{
 				//In order to process the Bind, add Id, Field Id to BindItems Array
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
@@ -1579,7 +1584,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			if (this.lfn_IsNull(oField))	continue;
 
 			//Import Component Naming Rules
-			oCompClass = this.lfn_GetCompClass(oField.comptype);
+			oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
 
 			//Import Component Css Class Id Value
 			sCompCssClass = oField.cssclass;
@@ -1664,14 +1669,14 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			//필드 배경 Static 추가
 			if(nCheckIdx==0 && sUseFieldBox == "true")
 			{
-				nCompBgWidth = nColSize - nLabelLeft;
+				//nCompBgWidth = nColSize - nLabelLeft;
 
 				sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
 				oComp = {
 							"tag" : oCompBgClass.classId,
 							"attribute" :
 							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
 								,"cssclass" : sFieldBgCssClass
 							}
 						};
@@ -1695,8 +1700,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			
 			// Field 추가
 			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompClassId = oCompClass.classId;
 			oComp =	{
-						"tag" : oCompClass.classId,
+						"tag" : sCompClassId,
 						"attribute" :
 						{
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
@@ -1704,30 +1710,35 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 					};
 
 			// 라벨을 text로 처리
-			if(oField.comptype=="button" || oField.comptype=="checkbox" || oField.comptype=="static")
+			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 			{
 				oComp.attribute.text = oField.label;
+			}
+			// Radio 컴포넌트에서 한줄로 표시되도록 처리
+			else if(sCompClassId=="Radio")
+			{
+				oComp.attribute.direction = "vertical";
 			}
 			
 			// [FreeformReadonly] Readonly 처리
 			if(oField.fieldreadonly == "true")
 			{
 				// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
-				if(oField.comptype=="calendar" || oField.comptype=="checkbox" || oField.comptype=="combo" || oField.comptype=="edit"
-					|| oField.comptype=="maskedit" || oField.comptype=="radio" || oField.comptype=="spin" || oField.comptype=="textarea")
+				if(sCompClassId=="Calendar" || sCompClassId=="CheckBox" || sCompClassId=="Combo" || sCompClassId=="Edit"
+					|| sCompClassId=="MaskEdit" || sCompClassId=="Radio" || sCompClassId=="Spin" || sCompClassId=="TextArea")
 				{
 					oComp.attribute.readonly = "true";
 					oComp.attribute.cssclass = this.COMP_READONLY_CSSCLASS;
 					
 					// 스핀버튼, 드롭다운버튼 안보이게 처리
-					if (oField.comptype=="spin" || oField.comptype=="combo" || oField.comptype=="calendar")
+					if (sCompClassId=="Spin" || sCompClassId=="Combo" || sCompClassId=="Calendar")
 					{
 						oComp.attribute.buttonsize = "0";
 					}
 				}
 			}
 
-			if(oField.comptype!="button")
+			if(sCompClassId!="Button")
 			{
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
 			}

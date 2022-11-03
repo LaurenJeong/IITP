@@ -70,7 +70,7 @@ this.FIELD_HEIGHT					= "60px";
 this.LABEL_WIDTH					= 110;
 
 //Component Default Type
-this.COMP_TYPE						= "edit";
+this.COMP_TYPE						= "auto";
 
 //Label Default Type
 this.LABEL_TYPE						= "static";
@@ -324,7 +324,7 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id": "comptype",
                                 "edittype": "Enum",
-								"enumlist" : ["button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar"],
+								"enumlist" : ["auto", "button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar"],
                                 "defaultvalue": this.COMP_TYPE,
                                 "description": "Types of Components to be Expressed"
                             },
@@ -1043,6 +1043,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 	var oModel = this.oContents.View.Model;
 	var sCompId;
+	var sCompClassId;
 	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
 	var oCompClass;
 	var sCompCssClass;
@@ -1060,7 +1061,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		if (this.lfn_IsNull(oField))	continue;
 		
 		//Import Component Naming Rule Information
-		oCompClass = this.lfn_GetCompClass(oField.comptype);
+		oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
 
 		//Import Component Css Class Id Value
 		sCompCssClass = oField.cssclass;
@@ -1190,8 +1191,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 		//Add Component Tag
 		sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+		sCompClassId = oCompClass.classId;
 		oComp =	{
-					"tag" : oCompClass.classId,
+					"tag" : sCompClassId,
 					"attribute" :
 					{
 						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
@@ -1199,17 +1201,17 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				};
 				
 		// 라벨을 text로 처리
-		if(oField.comptype=="button" || oField.comptype=="checkbox" || oField.comptype=="static")
+		if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 		{
 			oComp.attribute.text = oField.label;
 		}
 		// Radio 컴포넌트에서 한줄로 표시되도록 처리
-		else if(oField.comptype=="radio")
+		else if(sCompClassId=="Radio")
 		{
 			oComp.attribute.direction = "vertical";
 		}
 
-		if(oField.comptype!="button")
+		if(sCompClassId!="Button")
 		{
 			//In order to process the Bind, add Id, Field Id to BindItems Array
 			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId};

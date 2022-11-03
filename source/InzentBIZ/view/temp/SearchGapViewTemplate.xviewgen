@@ -1028,10 +1028,10 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 		{
 			if(nLabelWidth==0)
 			{
-				nTemp = nLeft + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
+				nTemp = nLeft + nCompWidth + nCompWidthPadding;
 			}else
 			{
-				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
+				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
 			}
 
 
@@ -1045,8 +1045,8 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 		}
 		else
 		{
-			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding - this.VIEW_PADDING_TOP;
-			nTempComp = nTop + nCompHeight + nCompHeightPadding - this.VIEW_PADDING_TOP;
+			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
+			nTempComp = nTop + nCompHeight + nCompHeightPadding;
 
 			if(nRowSize<nTempLabel||nRowSize<nTempComp)
 			{

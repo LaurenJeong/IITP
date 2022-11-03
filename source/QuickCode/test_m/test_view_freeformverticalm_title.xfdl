@@ -8,9 +8,9 @@
           <Layouts>
             <Layout type="horizontal" flexwrap="wrap" horizontalgap="5" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="start" spacing="20px">
               <Static id="staCompanyLabel" left="20" top="19" width="100%" height="60" text="회사명" cssclass="sta_label_essential"/>
-              <Edit id="edtCompany" left="420" top="19" width="400" height="60"/>
+              <Combo id="cmbCompany" left="420" top="19" width="400" height="60" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
               <Static id="staDepartmentLabel" left="20" top="78" width="100%" height="60" text="부서명" cssclass="sta_label_essential"/>
-              <Edit id="edtDepartment" left="420" top="78" width="400" height="60"/>
+              <Combo id="cmbDepartment" left="420" top="78" width="400" height="60" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
               <Static id="staNameLabel" left="20" top="137" width="100%" height="60" text="성명" cssclass="sta_label_essential"/>
               <Edit id="edtName" left="420" top="137" width="400" height="60"/>
               <Static id="staPhoneLabel" left="20" top="196" width="100%" height="60" text="전화번호" cssclass="sta_label"/>
@@ -31,27 +31,41 @@
                 <Row/>
               </Rows>
             </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
           </Objects>
           <Bind>
-            <BindItem id="bind_edtCompany" compid="edtCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
-            <BindItem id="bind_edtDepartment" compid="edtDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
             <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
             <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Check" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
-              <Field id="Email" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
-              <Field id="Company" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Department" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Phone" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Check" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="Email" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="Company" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyLabel" fields="Company"/>
-              <Component id="edtCompany" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
               <Component id="staDepartmentLabel" fields="Department"/>
-              <Component id="edtDepartment" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
               <Component id="staPhoneLabel" fields="Phone"/>
@@ -78,9 +92,9 @@
                 </Layouts>
               </Div>
               <Static id="staCompanyLabel" left="20" top="49" width="100%" height="60" text="회사명" cssclass="sta_label_essential"/>
-              <Edit id="edtCompany" left="420" top="49" width="400" height="60"/>
+              <Combo id="cmbCompany" left="420" top="49" width="400" height="60" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
               <Static id="staDepartmentLabel" left="20" top="108" width="100%" height="60" text="부서명" cssclass="sta_label_essential"/>
-              <Edit id="edtDepartment" left="420" top="108" width="400" height="60"/>
+              <Combo id="cmbDepartment" left="420" top="108" width="400" height="60" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
               <Static id="staNameLabel" left="20" top="167" width="100%" height="60" text="성명" cssclass="sta_label_essential"/>
               <Edit id="edtName" left="420" top="167" width="400" height="60"/>
               <Static id="staPhoneLabel" left="20" top="226" width="100%" height="60" text="전화번호" cssclass="sta_label"/>
@@ -101,29 +115,43 @@
                 <Row/>
               </Rows>
             </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
           </Objects>
           <Bind>
-            <BindItem id="bind_edtCompany" compid="edtCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
-            <BindItem id="bind_edtDepartment" compid="edtDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
             <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
             <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
           </Bind>
           <Script><![CDATA[this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){if (obj.cssclass == 'btn_title_open') {this.View00_00.form.lfn_Title_SetSearchOpenClose(obj,'open');} else {this.View00_00.form.lfn_Title_SetSearchOpenClose(obj,'close');}};this.lfn_Title_SetSearchOpenClose = function(obj,sStatus){var objForm = obj.parent.parent.parent;var objView = objForm.parent;if (sStatus == 'close') {objView.set_height('30');objView.set_formscrolltype('none');obj.set_cssclass('btn_title_open');} else {if (objView._openHeight > 0) {objView.set_height(objView._openHeight);} else {objView.set_bottom(objView._openBottom);}objView.set_formscrolltype(objView._formscrolltype);obj.set_cssclass('btn_title_close');}objView['_openclose'] = sStatus;objView.parent.resetScroll();};this.lfn_Title_SetViewInit = function(obj,sStatus){var objView = obj.parent;objView._openclose = sStatus;objView._openHeight = objView.height;objView._openBottom = objView.bottom;objView._formscrolltype = objView.formscrolltype;this.lfn_Title_SetSearchOpenClose(obj.divTitle.form.btnExpand,sStatus);};this.lfn_Title_SetViewInit(this,'close');]]></Script>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Check" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
-              <Field id="Email" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
-              <Field id="Company" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Department" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Name" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Phone" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Check" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="Email" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
+              <Field id="Company" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
               <Component id="staCompanyLabel" fields="Company"/>
-              <Component id="edtCompany" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
               <Component id="staDepartmentLabel" fields="Department"/>
-              <Component id="edtDepartment" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
               <Component id="staPhoneLabel" fields="Phone"/>

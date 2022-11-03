@@ -324,7 +324,7 @@ if (!nexacro.PopupAction)
 			newChild.init(sPopupId, nLeft, nTop, nWidth, nHeight, null, null, sFormUrl);
 			
 			newChild.set_dragmovetype("none");
-			newChild.set_showtitlebar(false);		//titlebar는 안보임
+			newChild.set_showtitlebar(true);		//titlebar는 보임
 			newChild.set_autosize(bAutoSize);	
 			newChild.set_resizable(false);			//resizable 안됨
 			if(!this.gfnIsNull(sTitle)) newChild.set_titletext(sTitle);

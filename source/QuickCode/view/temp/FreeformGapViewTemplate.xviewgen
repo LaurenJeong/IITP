@@ -58,7 +58,7 @@ this.LABEL_WIDTH		= 100;
 this.LABEL_HEIGHT		= 40;
 
 //컴포넌트 디폴트 Type
-this.COMP_TYPE			= "edit";
+this.COMP_TYPE			= "auto";
 
 //Label Default Type
 this.LABEL_TYPE			= "static";
@@ -518,7 +518,7 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id": "comptype",
                                 "edittype": "Enum",
-								"enumlist" : ["button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar", "calFromTo"],
+								"enumlist" : ["auto", "button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar", "calFromTo"],
                                 "defaultvalue": this.COMP_TYPE,
                                 "description": "Types of Components to be Expressed"
                             },
@@ -975,10 +975,10 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		{
 			if(nLabelWidth==0)
 			{
-				nTemp = nLeft + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
+				nTemp = nLeft + nCompWidth + nCompWidthPadding;
 			}else
 			{
-				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
+				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
 			}
 
 			if(nColSize<nTemp)
@@ -991,9 +991,9 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		}
 		else
 		{
-			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding - this.VIEW_PADDING_TOP;
-			nTempComp =  nTop + nCompHeight + nCompHeightPadding - this.VIEW_PADDING_TOP;
-
+			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
+			nTempComp =  nTop + nCompHeight + nCompHeightPadding;
+			
 			if(nTempLabel>nTempComp)nTemp = nTempLabel;
 			else nTemp = nTempComp;
 
@@ -1154,6 +1154,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 	var oModel = this.oContents.View.Model;
 	var sCompId;
+	var sCompClassId;
 	var oCompClass;
 	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
 	var oCompBgClass		= this.lfn_GetCompClass(this.COMP_BG_TYPE);
@@ -1180,7 +1181,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			if (this.lfn_IsNull(oField))	continue;
 
 			//Import Component Naming Rules
-			oCompClass = this.lfn_GetCompClass(oField.comptype);
+			oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
 
 			//Import Component Css Class Id Value
 			sCompCssClass = oField.cssclass;
@@ -1228,7 +1229,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 				if(bStartCol==true && sUseFieldBox == "true")
 				{
-					nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
+					//nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
 					
 					//필드 배경 Static 추가
 					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
@@ -1236,7 +1237,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 								"tag" : oCompBgClass.classId,
 								"attribute" :
 								{
-									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
 									,"cssclass" : sFieldBgCssClass
 								}
 							};
@@ -1259,28 +1260,30 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			}
 
 			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompClassId = oCompClass.classId;
 			oComp =	{
-						"tag" : oCompClass.classId,
+						"tag" : sCompClassId,
 						"attribute" :
 						{
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 						}
 					};
 					
-			if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
+			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 			{
 				oComp.attribute.text = oField.label;
 			}
 
-			if(oField.comptype=="radio")
+			if(sCompClassId=="Radio")
 			{
 				oComp.attribute.direction = "vertical";
 			}
 
-			if(oField.comptype!="button")
+			if(sCompClassId!="Button")
 			{
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
 			}
+			
 			oModel[oModel.length-1].Components.push(oComp)
 		}
 	}
@@ -1297,7 +1300,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			if (this.lfn_IsNull(oField))	continue;
 
 			//Import Component Naming Rules
-			oCompClass = this.lfn_GetCompClass(oField.comptype);
+			oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
 
 			//Import Component Css Class Id Value
 			sCompCssClass = oField.cssclass;
@@ -1346,7 +1349,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 							"tag" : oCompBgClass.classId,
 							"attribute" :
 							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
 								,"cssclass" : sFieldBgCssClass
 							}
 						};
@@ -1368,25 +1371,26 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			}
 
 			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompClassId = oCompClass.classId;
 			oComp =	{
-						"tag" : oCompClass.classId,
+						"tag" : sCompClassId,
 						"attribute" :
 						{
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 						}
 					};
 					
-			if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
+			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 			{
 				oComp.attribute.text = oField.label;
 			}
 
-			if(oField.comptype=="radio")
+			if(sCompClassId=="Radio")
 			{
 				oComp.attribute.direction = "vertical";
 			}
 
-			if(oField.comptype!="button")
+			if(sCompClassId!="Button")
 			{
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
 			}

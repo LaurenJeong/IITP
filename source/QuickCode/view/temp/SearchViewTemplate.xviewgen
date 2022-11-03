@@ -45,7 +45,7 @@ this.SEARCH_BUTTON_WIDTH			= 100;
 this.SEARCH_BUTTON_HEIGHT			= 30;
 
 // 조회버튼과 컴포넌트와의 가로 간격
-this.SEARCH_BUTTON_H_SPACE			= 20;
+this.SEARCH_BUTTON_H_SPACE			= 10;
 
 //Lookup Button Default Text
 this.SEARCH_BUTTON_TEXT				= "Search";
@@ -67,7 +67,7 @@ this.FIELD_HEIGHT					= "30px";
 this.LABEL_WIDTH					= 100;
 
 //Component Default Type
-this.COMP_TYPE						= "edit";
+this.COMP_TYPE						= "auto";
 
 //Label Default Type
 this.LABEL_TYPE						= "static";
@@ -547,7 +547,7 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id": "comptype",
                                 "edittype": "Enum",
-								"enumlist" : ["button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar"],
+								"enumlist" : ["auto", "button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar"],
                                 "defaultvalue": this.COMP_TYPE,
                                 "description": "Types of Components to be Expressed"
                             },
@@ -1320,7 +1320,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		if (this.lfn_IsNull(oField))	continue;
 
 		//Import Component Naming Rule Information
-		oCompClass = this.lfn_GetCompClass(oField.comptype);
+		oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
 
 		//Import Component Css Class Id Value
 		sCompCssClass = oField.cssclass;
@@ -1450,6 +1450,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 		//Add Component Tag
 		sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+		sCompClassId = oCompClass.classId;
 		oComp =	{
 					"tag" : oCompClass.classId,
 					"attribute" :
@@ -1457,18 +1458,19 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 					}
 				};
+				
 		//If the Component Type is Button,Checkbox,Static, add label text to the text properties
-		if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
+		if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 		{
 			oComp.attribute.text = oField.label;
 		}
 		// Radio 컴포넌트에서 한줄로 표시되도록 처리
-		else if(oField.comptype=="radio")
+		else if(sCompClassId=="Radio")
 		{
 			oComp.attribute.direction = "vertical";
 		}
 
-		if(oField.comptype!="button")
+		if(sCompClassId!="Button")
 		{
 			//In order to process the Bind, add Id, Field Id to BindItems Array
 			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId};
