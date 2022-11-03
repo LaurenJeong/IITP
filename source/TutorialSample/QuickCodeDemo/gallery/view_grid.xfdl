@@ -44,8 +44,8 @@
                     </Band>
                     <Band id="body">
                       <Cell id="cell_body_0_0_Check" col="0" row="0" text="bind:Check" displaytype="checkboxcontrol" edittype="checkbox"/>
-                      <Cell id="cell_body_1_0_Company" col="1" row="0" text="bind:Company" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_2_0_Department" col="2" row="0" text="bind:Department" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_Company" col="1" row="0" text="bind:Company" displaytype="combotext" edittype="none" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_2_0_Department" col="2" row="0" text="bind:Department" displaytype="combotext" edittype="none" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
                       <Cell id="cell_body_3_0_Name" col="3" row="0" text="bind:Name" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_4_0_Phone" col="4" row="0" text="bind:Phone" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_5_0_Email" col="5" row="0" text="bind:Email" displaytype="normal" edittype="none"/>
@@ -66,9 +66,21 @@
                 <Column id="Phone" type="STRING" size="80" description="전화번호"/>
                 <Column id="Email" type="STRING" size="80" description="이메일주소"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
             </Dataset>
           </Objects>
           <Bind>
@@ -81,11 +93,11 @@
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
               <Field id="Check" description="" displaytype="checkboxcontrol" edittype="checkbox" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Company" description="" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Department" description="" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Name" description="" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Phone" description="" displaytype="normal" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Email" description="" displaytype="normal" edittype="none" fieldwidth="300" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Company" description="" displaytype="auto" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Department" description="" displaytype="auto" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Name" description="" displaytype="auto" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Phone" description="" displaytype="auto" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Email" description="" displaytype="auto" edittype="none" fieldwidth="300" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>

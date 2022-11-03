@@ -13,9 +13,9 @@
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
               <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
               <Static id="staCompanyLabel" left="10" top="10" width="95" height="30" text="회사명" cssclass="sta_label_essential"/>
-              <Combo id="cmbCompany" left="110" top="10" width="150" height="30"/>
+              <Combo id="cmbCompany" left="110" top="10" width="150" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
               <Static id="staDepartmentLabel" left="265" top="10" width="95" height="30" text="부서명" cssclass="sta_label"/>
-              <Combo id="cmbDepartment" left="365" top="10" width="150" height="30"/>
+              <Combo id="cmbDepartment" left="365" top="10" width="150" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
               <Static id="staNameLabel" left="520" top="10" width="95" height="30" text="성명" cssclass="sta_label"/>
               <Edit id="edtName" left="620" top="10" width="150" height="30"/>
               <Static id="staPhoneLabel" left="10" top="45" width="95" height="30" text="전화번호" cssclass="sta_label"/>
@@ -37,6 +37,20 @@
                 <Row/>
               </Rows>
             </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
           </Objects>
           <Bind>
             <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
@@ -47,11 +61,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="SearchModel001" filepath="sample\Search.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="combo" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Department" description="" comptype="combo" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Name" description="" comptype="edit" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Phone" description="" comptype="edit" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="Email" description="" comptype="edit" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>

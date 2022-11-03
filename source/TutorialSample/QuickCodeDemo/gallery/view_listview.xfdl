@@ -22,8 +22,9 @@
               <ListView id="livList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="accordion">
                 <Formats>
                   <Format id="default">
-                    <Band id="body" width="100%" height="89" expandbartype="true" expandbarsize="30 30">
-                      <Cell id="cellPhoto" left="4" top="5" width="71" height="80" text="bind:Photo" displaytype="maskeditcontrol" edittype="none"/>
+                    <Band id="body" width="100%" height="90" expandbartype="true" expandbarsize="30 30">
+                      <Cell id="cellBgPhoto" left="0" top="0" right="0" height="90" cssclass=""/>
+                      <Cell id="cellPhoto" left="4" top="5" width="71" height="80" text="bind:Photo" displaytype="imagecontrol" edittype="none"/>
                       <Cell id="cellLabelCompany" left="80" top="0" width="100" height="45" text="회사명"/>
                       <Cell id="cellCompany" left="185" top="7.5" width="140" height="30" text="bind:Company" displaytype="normal" edittype="none"/>
                       <Cell id="cellDepartment" left="330" top="7.5" width="140" height="30" text="bind:Department" displaytype="normal" edittype="none"/>
@@ -31,6 +32,7 @@
                       <Cell id="cellName" left="185" top="51.5" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="detail" width="100%" height="79">
+                      <Cell id="cellBgCompany" left="0" top="0" right="0" height="40" cssclass=""/>
                       <Cell id="cellLabelCompany_1" left="0" top="0" width="100" height="40" text="회사명"/>
                       <Cell id="cellCompany_1" left="105" top="5" width="140" height="30" text="bind:Company" displaytype="normal" edittype="none"/>
                       <Cell id="cellLabelDepartment" left="250" top="0" width="100" height="40" text="부서명"/>
@@ -39,6 +41,7 @@
                       <Cell id="cellName_1" left="605" top="5" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
                       <Cell id="cellLabelPhone" left="750" top="0" width="100" height="40" text="전화번호"/>
                       <Cell id="cellPhone" left="855" top="5" width="140" height="30" text="bind:Phone" displaytype="normal" edittype="none"/>
+                      <Cell id="cellBgEmail" left="0" top="39" right="0" height="40" cssclass=""/>
                       <Cell id="cellLabelEmail" left="0" top="39" width="100" height="40" text="이메일주소"/>
                       <Cell id="cellEmail" left="105" top="44" width="140" height="30" text="bind:Email" displaytype="normal" edittype="none"/>
                     </Band>
@@ -65,12 +68,12 @@
           <Bind/>
           <ModelInfo modelserviceid="model" serviceid="" modelid="ListViewModel001" filepath="sample\ListView.xmodel">
             <Fields>
-              <Field id="Company" description="" band="detail" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Department" description="" band="detail" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Name" description="" band="detail" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Phone" description="" band="detail" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Email" description="" band="detail" displaytype="normal" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Photo" description="" band="body" displaytype="maskeditcontrol" edittype="none" fieldwidth="100%" fieldheight="100%" labelwidth="-1" fieldcssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Company" description="" band="detail" displaytype="auto" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Department" description="" band="detail" displaytype="auto" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Name" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Phone" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Email" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Photo" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" fieldwidth="100%" fieldheight="100%" labelwidth="-1" fieldcssclass="" labelcssclass="" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
@@ -81,7 +84,7 @@
             <Attribute id="titletext" value="상세내역"/>
             <Attribute id="usetotalcount" value="true"/>
             <Attribute id="direction" value="horizontal"/>
-            <Attribute id="usefieldbox" value="false"/>
+            <Attribute id="usefieldbox" value="true"/>
             <Attribute id="bandexpandtype" value="accordion"/>
             <Attribute id="bodyformat" value="{&quot;columnsize&quot;:[80,535],&quot;rowsize&quot;:[45,45],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;rowspan&quot;:&quot;2&quot;,&quot;fieldlist&quot;:[&quot;Photo&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Company&quot;,&quot;Department&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Name&quot;]}]}"/>
           </ViewTemplateInfo>

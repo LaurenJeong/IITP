@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="FreeformViewTemplate" viewtype="Asset" description=""/>
+  <ViewTemplate id="FreeformViewTemplate" viewtype="IITP" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
 *  ListView View Template
 *  @FileName 	ListViewViewTemplate.xviewgen
@@ -66,7 +66,7 @@ this.EXPAND_BAR_WIDTH		= 30;
 this.EXPAND_BAR_HEIGHT		= 30;
 
 //Field Default Type
-this.FIELD_DISPLAY_TYPE		= "normal";
+this.FIELD_DISPLAY_TYPE		= "auto";
 this.FIELD_EDIT_TYPE		= "none";
 
 //Label Default Type
@@ -350,14 +350,14 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id": "displaytype",
                                 "edittype": "Enum",
-								"enumlist" : ["normal", "none", "buttoncontrol", "calendarcontrol", "date", "checkboxcontrol", "combocontrol", "combotext", "currency", "decoratetext", "editcontrol", "imagecontrol", "mask", "maskeditcontrol", "number",  "progressbarcontrol",  "text",  "textareacontrol",  "treeitemcontrol"],
+								"enumlist" : ["auto", "normal", "none", "buttoncontrol", "calendarcontrol", "date", "checkboxcontrol", "combocontrol", "combotext", "currency", "decoratetext", "editcontrol", "imagecontrol", "mask", "maskeditcontrol", "number",  "progressbarcontrol",  "text",  "textareacontrol",  "treeitemcontrol"],
                                 "defaultvalue": this.FIELD_DISPLAY_TYPE,
                                 "description": "Field Cell 표시타입"
                             },
 							{
                                 "id": "edittype",
                                 "edittype" : "Enum",
-								"enumlist" : ["normal", "none", "button", "checkbox", "combo", "date", "mask", "readonly", "text", "textarea", "tree"],
+								"enumlist" : ["auto", "normal", "none", "button", "checkbox", "combo", "date", "mask", "readonly", "text", "textarea", "tree"],
 								"defaultvalue" : this.FIELD_EDIT_TYPE,
                                 "description" : "Field Cell 입력타입"
                             },
@@ -1373,10 +1373,10 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 			if (this.lfn_IsNull(oField))	continue;
 			
 			//Displaytype 설정
-			sDisplayType = oField.displaytype;
+			sDisplayType = this.lfn_GetAutoCompType(oField,"displaytype");
 			
 			//edittype 설정
-			sEditType = oField.edittype;
+			sEditType = this.lfn_GetAutoCompType(oField,"edittype");
 
 			//Import Field Css Class Id Value
 			sFieldCssClass = oField.fieldcssclass;
@@ -1474,14 +1474,14 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 				//필드 배경 Cell 추가
 				if(bStartCol==true && sUseFieldBox == "true")
 				{
-					nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
+					//nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
 
 					sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
 					oComp = {
 								"tag" : sCellClassNm,
 								"attribute" :
 								{
-									"id" : sCompId, "left" : 0, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+									"id" : sCompId, "left" : 0, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
 									,"cssclass" : sFieldBgCssClass
 								}
 							};
@@ -1546,10 +1546,10 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 			if (this.lfn_IsNull(oField))	continue;
 			
 			//Displaytype 설정
-			sDisplayType = oField.displaytype;
+			sDisplayType = this.lfn_GetAutoCompType(oField,"displaytype");
 			
 			//edittype 설정
-			sEditType = oField.edittype;
+			sEditType = this.lfn_GetAutoCompType(oField,"edittype");
 			
 			//Import Component Css Class Id Value
 			sFieldCssClass = oField.fieldcssclass;
@@ -1632,14 +1632,14 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 			//필드 배경 Cell 추가
 			if(nCheckIdx==0 && sUseFieldBox == "true")
 			{
-				nCompBgWidth = nColSize - nLabelLeft;
+				//nCompBgWidth = nColSize - nLabelLeft;
 
 				sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
 				oComp = {
 							"tag" : sCellClassNm,
 							"attribute" :
 							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
 								,"cssclass" : sFieldBgCssClass
 							}
 						};
