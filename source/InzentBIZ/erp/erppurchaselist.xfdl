@@ -316,30 +316,37 @@
               <Static id="staPurchaseEmpLabel" left="692" top="30" width="100" height="40" text="구매담당" cssclass="sta_labelbox"/>
               <Edit id="edtPurchaseEmp" left="797" top="35" width="236" height="30"/>
               <Static id="staPurchaseOpinionBg" left="0" top="69" width="100%" height="80" cssclass="sta_fieldbox"/>
-              <Static id="staPurchaseOpinionLabel" left="0" top="69" width="100" height="80" text="의견" cssclass="sta_labelbox"/>
+              <Static id="staPurchaseOpinionLabel" left="0" top="69" width="100" height="80" text="구매의견" cssclass="sta_labelbox"/>
               <TextArea id="txtPurchaseOpinion" left="105" top="74" width="928" height="70"/>
             </Layout>
           </Layouts>
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
+                <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
                 <Column id="PAYMENT_TERMS" type="STRING" size="10" description="결재조건"/>
                 <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매날자"/>
                 <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당"/>
-                <Column id="PURCHASE_OPINION" type="STRING" size="300" description="의견"/>
+                <Column id="PURCHASE_OPINION" type="STRING" size="300" description="구매의견"/>
               </ColumnInfo>
               <Rows>
                 <Row/>
               </Rows>
             </Dataset>
           </Objects>
-          <Bind/>
-          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00003" modelid="SI" filepath="IITP\BIZ_M_ERP_S_COM00003.xmodel">
+          <Bind>
+            <BindItem id="bind_calPurchaseDate" compid="calPurchaseDate" propid="value" datasetid="viewdataset" columnid="PURCHASE_DATE"/>
+            <BindItem id="bind_edtPaymentTerms" compid="edtPaymentTerms" propid="value" datasetid="viewdataset" columnid="PAYMENT_TERMS"/>
+            <BindItem id="bind_edtPurchaseEmp" compid="edtPurchaseEmp" propid="value" datasetid="viewdataset" columnid="PURCHASE_EMP"/>
+            <BindItem id="bind_txtPurchaseOpinion" compid="txtPurchaseOpinion" propid="value" datasetid="viewdataset" columnid="PURCHASE_OPINION"/>
+          </Bind>
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00001" modelid="SO_PURCHASE_LIST" filepath="IITP\BIZ_M_ERP_S_COM00001.xmodel">
             <Fields>
+              <Field id="PURCHASE_NO" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="false"/>
               <Field id="PURCHASE_DATE" label="구매날자" innerdatasetinfo="" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
               <Field id="PAYMENT_TERMS" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
               <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="PURCHASE_OPINION" label="의견" innerdatasetinfo="" comptype="textarea" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="PURCHASE_OPINION" label="구매의견" innerdatasetinfo="" comptype="textarea" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>

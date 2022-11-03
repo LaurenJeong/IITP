@@ -90,29 +90,29 @@
                     </Rows>
                     <Band id="head">
                       <Cell id="cell_head_0_0_PURCHASE_NO" col="0" row="0" text="구매요청번호"/>
-                      <Cell id="cell_head_1_0_REQ_DATE" col="1" row="0" text="발송예약시간"/>
-                      <Cell id="cell_head_2_0_BUY_CD" col="2" row="0" text="구매처코드"/>
+                      <Cell id="cell_head_1_0_REQ_DATE" col="1" row="0" text="요청날짜"/>
+                      <Cell id="cell_head_2_0_BUY_CD" col="2" row="0" text="거래처코드"/>
                       <Cell id="cell_head_3_0_BUY_DESC" col="3" row="0" text="구매처"/>
                       <Cell id="cell_head_4_0_PJ_CD" col="4" row="0" text="프로젝트"/>
                       <Cell id="cell_head_5_0_EMPLOYEE" col="5" row="0" text="담당자"/>
                       <Cell id="cell_head_6_0_PRICE" col="6" row="0" text="가격"/>
-                      <Cell id="cell_head_7_0_STATUS" col="7" row="0" text="구매상태"/>
-                      <Cell id="cell_head_8_0_MEMO" col="8" row="0" text="메모"/>
-                      <Cell id="cell_head_9_0_PURCHASE_EMP" col="9" row="0" text="구매담당자"/>
-                      <Cell id="cell_head_10_0_PURCHASE_DATE" col="10" row="0" text="구매확정일"/>
+                      <Cell id="cell_head_7_0_STATUS" col="7" row="0" text="상태"/>
+                      <Cell id="cell_head_8_0_PURCHASE_EMP" col="8" row="0" text="구매담당"/>
+                      <Cell id="cell_head_9_0_PURCHASE_DATE" col="9" row="0" text="구매확정일"/>
+                      <Cell id="cell_head_10_0_MEMO" col="10" row="0" text="메모"/>
                     </Band>
                     <Band id="body">
                       <Cell id="cell_body_0_0_PURCHASE_NO" col="0" row="0" text="bind:PURCHASE_NO" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_1_0_REQ_DATE" col="1" row="0" text="bind:REQ_DATE" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_REQ_DATE" col="1" row="0" text="bind:REQ_DATE" displaytype="date" edittype="none"/>
                       <Cell id="cell_body_2_0_BUY_CD" col="2" row="0" text="bind:BUY_CD" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_3_0_BUY_DESC" col="3" row="0" text="bind:BUY_DESC" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_4_0_PJ_CD" col="4" row="0" text="bind:PJ_CD" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_5_0_EMPLOYEE" col="5" row="0" text="bind:EMPLOYEE" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_6_0_PRICE" col="6" row="0" text="bind:PRICE" displaytype="number" edittype="none"/>
                       <Cell id="cell_body_7_0_STATUS" col="7" row="0" text="bind:STATUS" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_8_0_MEMO" col="8" row="0" text="bind:MEMO" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_9_0_PURCHASE_EMP" col="9" row="0" text="bind:PURCHASE_EMP" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_10_0_PURCHASE_DATE" col="10" row="0" text="bind:PURCHASE_DATE" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_8_0_PURCHASE_EMP" col="8" row="0" text="bind:PURCHASE_EMP" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_9_0_PURCHASE_DATE" col="9" row="0" text="bind:PURCHASE_DATE" displaytype="date" edittype="none"/>
+                      <Cell id="cell_body_10_0_MEMO" col="10" row="0" text="bind:MEMO" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary"/>
                   </Format>
@@ -124,16 +124,16 @@
             <Dataset id="viewdataset">
               <ColumnInfo>
                 <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
-                <Column id="REQ_DATE" type="STRING" size="8" description="발송예약시간"/>
-                <Column id="BUY_CD" type="STRING" size="4" description="구매처코드"/>
+                <Column id="REQ_DATE" type="STRING" size="8" description="요청날짜"/>
+                <Column id="BUY_CD" type="STRING" size="4" description="거래처코드"/>
                 <Column id="BUY_DESC" type="STRING" size="10" description="구매처"/>
                 <Column id="PJ_CD" type="STRING" size="10" description="프로젝트"/>
                 <Column id="EMPLOYEE" type="STRING" size="20" description="담당자"/>
                 <Column id="PRICE" type="BIGDECIMAL" size="10" description="가격"/>
-                <Column id="STATUS" type="STRING" size="12" description="구매상태"/>
-                <Column id="MEMO" type="STRING" size="300" description="메모"/>
-                <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당자"/>
+                <Column id="STATUS" type="STRING" size="12" description="상태"/>
+                <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당"/>
                 <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매확정일"/>
+                <Column id="MEMO" type="STRING" size="300" description="메모"/>
               </ColumnInfo>
               <Rows/>
             </Dataset>
@@ -141,19 +141,19 @@
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_GWP_S_COM00001" modelid="SO_PURCHASE_LIST" filepath="IITP\BIZ_M_GWP_S_COM00001.xmodel">
             <Fields>
               <Field id="PURCHASE_NO" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="REQ_DATE" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="BUY_CD" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="REQ_DATE" label="요청날짜" innerdatasetinfo="" displaytype="date" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="BUY_CD" label="거래처코드" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="BUY_DESC" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PJ_CD" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="EMPLOYEE" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PRICE" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="STATUS" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="STATUS" label="상태" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PURCHASE_DATE" innerdatasetinfo="" displaytype="date" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="MEMO" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="PURCHASE_EMP" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="PURCHASE_DATE" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="grdList" fields="PURCHASE_NO,REQ_DATE,BUY_CD,BUY_DESC,PJ_CD,EMPLOYEE,PRICE,STATUS,MEMO,PURCHASE_EMP,PURCHASE_DATE"/>
+              <Component id="grdList" fields="PURCHASE_NO,REQ_DATE,BUY_CD,BUY_DESC,PJ_CD,EMPLOYEE,PRICE,STATUS,PURCHASE_EMP,PURCHASE_DATE,MEMO"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
@@ -306,7 +306,7 @@
 	this.PopupAction00.run();
 };]]></Script>
     <Objects>
-      <PopupAction id="PopupAction00" formurl="gwp::gwppurchaserequestpop.xfdl" popupstyle="modal" popupid="popup" popupdatatype="none" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" title="New Form" targetview="gwppurchaselist">
+      <PopupAction id="PopupAction00" formurl="gwp::gwppurchaserequestpop.xfdl" popupstyle="modal" popupid="popup" popupdatatype="none" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" title="구매요청" targetview="gwppurchaselist">
         <Contents/>
       </PopupAction>
     </Objects>

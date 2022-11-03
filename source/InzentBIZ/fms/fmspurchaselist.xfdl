@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="erppurchaselist" width="1050" height="770" titletext="구매확정목록">
+  <Form id="erppurchaselist" width="1050" height="830" titletext="구매확정목록">
     <Layouts>
-      <Layout height="770" width="1050">
+      <Layout height="830" width="1050">
         <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="0" top="0" height="50" right="10" background="pink">
           <Layouts>
             <Layout>
@@ -96,10 +96,10 @@
                       <Cell id="cell_head_4_0_PJ_CD" col="4" row="0" text="프로젝트"/>
                       <Cell id="cell_head_5_0_EMPLOYEE" col="5" row="0" text="담당자"/>
                       <Cell id="cell_head_6_0_PRICE" col="6" row="0" text="가격"/>
-                      <Cell id="cell_head_7_0_STATUS" col="7" row="0" text="구매상태"/>
-                      <Cell id="cell_head_8_0_PURCHASE_EMP" col="8" row="0" text="구매담당"/>
+                      <Cell id="cell_head_7_0_MEMO" col="7" row="0" text="메모"/>
+                      <Cell id="cell_head_8_0_STATUS" col="8" row="0" text="상태"/>
                       <Cell id="cell_head_9_0_PURCHASE_DATE" col="9" row="0" text="구매확정일"/>
-                      <Cell id="cell_head_10_0_MEMO" col="10" row="0" text="메모"/>
+                      <Cell id="cell_head_10_0_PURCHASE_EMP" col="10" row="0" text="구매담당"/>
                     </Band>
                     <Band id="body">
                       <Cell id="cell_body_0_0_PURCHASE_NO" col="0" row="0" text="bind:PURCHASE_NO" displaytype="normal" edittype="none"/>
@@ -109,10 +109,10 @@
                       <Cell id="cell_body_4_0_PJ_CD" col="4" row="0" text="bind:PJ_CD" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_5_0_EMPLOYEE" col="5" row="0" text="bind:EMPLOYEE" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_6_0_PRICE" col="6" row="0" text="bind:PRICE" displaytype="number" edittype="none"/>
-                      <Cell id="cell_body_7_0_STATUS" col="7" row="0" text="bind:STATUS" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_8_0_PURCHASE_EMP" col="8" row="0" text="bind:PURCHASE_EMP" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_7_0_MEMO" col="7" row="0" text="bind:MEMO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_8_0_STATUS" col="8" row="0" text="bind:STATUS" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_9_0_PURCHASE_DATE" col="9" row="0" text="bind:PURCHASE_DATE" displaytype="date" edittype="none"/>
-                      <Cell id="cell_body_10_0_MEMO" col="10" row="0" text="bind:MEMO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_10_0_PURCHASE_EMP" col="10" row="0" text="bind:PURCHASE_EMP" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary"/>
                   </Format>
@@ -130,10 +130,10 @@
                 <Column id="PJ_CD" type="STRING" size="10" description="프로젝트"/>
                 <Column id="EMPLOYEE" type="STRING" size="20" description="담당자"/>
                 <Column id="PRICE" type="BIGDECIMAL" size="10" description="가격"/>
-                <Column id="STATUS" type="STRING" size="12" description="구매상태"/>
-                <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당"/>
-                <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매확정일"/>
                 <Column id="MEMO" type="STRING" size="300" description="메모"/>
+                <Column id="STATUS" type="STRING" size="12" description="상태"/>
+                <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매확정일"/>
+                <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당"/>
               </ColumnInfo>
               <Rows/>
             </Dataset>
@@ -147,13 +147,13 @@
               <Field id="PJ_CD" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="EMPLOYEE" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PRICE" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="STATUS" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="PURCHASE_DATE" innerdatasetinfo="" displaytype="date" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="MEMO" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="STATUS" label="상태" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PURCHASE_DATE" innerdatasetinfo="" displaytype="date" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="grdList" fields="PURCHASE_NO,REQ_DATE,BUY_CD,BUY_DESC,PJ_CD,EMPLOYEE,PRICE,STATUS,PURCHASE_EMP,PURCHASE_DATE,MEMO"/>
+              <Component id="grdList" fields="PURCHASE_NO,REQ_DATE,BUY_CD,BUY_DESC,PJ_CD,EMPLOYEE,PRICE,MEMO,STATUS,PURCHASE_DATE,PURCHASE_EMP"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
@@ -298,7 +298,7 @@
             <Attribute id="viewvisible" value="false"/>
           </ViewTemplateInfo>
         </View>
-        <View id="viewDetail2" taborder="4" viewdataset="viewdataset" left="0" top="viewDetail:10" height="150" right="10">
+        <View id="viewDetail2" taborder="4" viewdataset="viewdataset" left="0" top="viewDetail:10" height="220" right="10">
           <Layouts>
             <Layout>
               <Div id="divTitle" left="0" top="0" height="30" right="0">
@@ -316,8 +316,11 @@
               <Static id="staPurchaseEmpLabel" left="692" top="30" width="100" height="40" text="구매담당" cssclass="sta_labelbox"/>
               <Edit id="edtPurchaseEmp" left="797" top="35" width="236" height="30" cssclass="com_View" readonly="true"/>
               <Static id="staPurchaseOpinionBg" left="0" top="69" width="100%" height="80" cssclass="sta_fieldbox"/>
-              <Static id="staPurchaseOpinionLabel" left="0" top="69" width="100" height="80" text="의견" cssclass="sta_labelbox"/>
-              <TextArea id="txtPurchaseOpinion" left="105" top="74" width="928" height="70"/>
+              <Static id="staPurchaseOpinionLabel" left="0" top="69" width="100" height="80" text="구매의견" cssclass="sta_labelbox"/>
+              <TextArea id="txtPurchaseOpinion" left="105" top="74" width="928" height="70" cssclass="com_View" readonly="true"/>
+              <Static id="staFinanceOpinionBg" left="0" top="148" width="100%" height="60" cssclass="sta_fieldbox"/>
+              <Static id="staFinanceOpinionLabel" left="0" top="148" width="100" height="60" text="재무의견" cssclass="sta_labelbox"/>
+              <TextArea id="txtFinanceOpinion" left="105" top="153" width="928" height="50"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -327,7 +330,9 @@
                 <Column id="PAYMENT_TERMS" type="STRING" size="10" description="결재조건"/>
                 <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매날짜"/>
                 <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당"/>
-                <Column id="PURCHASE_OPINION" type="STRING" size="300" description="의견"/>
+                <Column id="PURCHASE_OPINION" type="STRING" size="300" description="구매의견"/>
+                <Column id="FINANCE_EMP" type="STRING" size="20" description="재무담당자"/>
+                <Column id="FINANCE_OPINION" type="STRING" size="300" description="재무의견"/>
               </ColumnInfo>
               <Rows>
                 <Row/>
@@ -339,13 +344,17 @@
             <BindItem id="bind_edtPaymentTerms" compid="edtPaymentTerms" propid="value" datasetid="viewdataset" columnid="PAYMENT_TERMS"/>
             <BindItem id="bind_edtPurchaseEmp" compid="edtPurchaseEmp" propid="value" datasetid="viewdataset" columnid="PURCHASE_EMP"/>
             <BindItem id="bind_txtPurchaseOpinion" compid="txtPurchaseOpinion" propid="value" datasetid="viewdataset" columnid="PURCHASE_OPINION"/>
+            <BindItem id="bind_txtFinanceOpinion" compid="txtFinanceOpinion" propid="value" datasetid="viewdataset" columnid="FINANCE_OPINION"/>
           </Bind>
-          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00003" modelid="SI" filepath="IITP\BIZ_M_ERP_S_COM00003.xmodel">
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_FMS_S_COM00001" modelid="SO_PURCHASE_LIST" filepath="IITP\BIZ_M_FMS_S_COM00001.xmodel">
             <Fields>
+              <Field id="FINANCE_EMP" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
+              <Field id="PURCHASE_NO" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
               <Field id="PURCHASE_DATE" label="구매날짜" innerdatasetinfo="" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
               <Field id="PAYMENT_TERMS" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
               <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="PURCHASE_OPINION" label="의견" innerdatasetinfo="" comptype="textarea" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
+              <Field id="PURCHASE_OPINION" label="구매의견" innerdatasetinfo="" comptype="textarea" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="FINANCE_OPINION" label="재무의견" innerdatasetinfo="" comptype="textarea" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
@@ -359,6 +368,9 @@
               <Component id="staPurchaseOpinionBg" fields="PURCHASE_OPINION"/>
               <Component id="staPurchaseOpinionLabel" fields="PURCHASE_OPINION"/>
               <Component id="txtPurchaseOpinion" fields="PURCHASE_OPINION"/>
+              <Component id="staFinanceOpinionBg" fields="FINANCE_OPINION"/>
+              <Component id="staFinanceOpinionLabel" fields="FINANCE_OPINION"/>
+              <Component id="txtFinanceOpinion" fields="FINANCE_OPINION"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="FreeformReadonlyViewTemplate.xviewgen">
@@ -368,7 +380,7 @@
             <Attribute id="titletext" value="검토의견"/>
             <Attribute id="useexpandbutton" value="none"/>
             <Attribute id="usefieldbox" value="true"/>
-            <Attribute id="format" value="{&quot;columnsize&quot;:[346,346,346],&quot;rowsize&quot;:[40,80],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_DATE&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PAYMENT_TERMS&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_EMP&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_OPINION&quot;],&quot;colspan&quot;:&quot;3&quot;}]}"/>
+            <Attribute id="format" value="{&quot;columnsize&quot;:[346,346,346],&quot;rowsize&quot;:[40,80,60],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_DATE&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PAYMENT_TERMS&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_EMP&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_OPINION&quot;],&quot;colspan&quot;:&quot;3&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;FINANCE_OPINION&quot;],&quot;colspan&quot;:&quot;3&quot;}]}"/>
           </ViewTemplateInfo>
         </View>
       </Layout>

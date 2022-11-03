@@ -6,15 +6,15 @@
         <View id="viewMaster" taborder="0" text="viewMaster" viewdataset="viewdataset" left="10" top="10" height="80" right="10">
           <Layouts>
             <Layout>
-              <Static id="staPurchaseNoBg" left="0" top="39" height="40" cssclass="sta_fieldbox" right="0"/>
-              <Static id="staReqDateBg" left="0" top="0" height="40" cssclass="sta_fieldbox" right="0"/>
+              <Static id="staPurchaseNoBg" left="0" top="39" width="100%" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staReqDateBg" left="0" top="0" width="100%" height="40" cssclass="sta_fieldbox"/>
               <Static id="staReqDateLabel" left="0" top="0" width="100" height="40" text="날짜" cssclass="sta_labelbox"/>
-              <Edit id="edtReqDate" left="105" top="5" width="147" height="30"/>
+              <Calendar id="calReqDate" left="105" top="5" width="147" height="30"/>
               <Static id="staPjCdLabel" left="257" top="0" width="100" height="40" text="프로젝트" cssclass="sta_labelbox"/>
               <Edit id="edtPjCd" left="362" top="5" width="147" height="30"/>
               <Static id="staEmployeeLabel" left="514" top="0" width="100" height="40" text="요청자" cssclass="sta_labelbox"/>
               <Edit id="edtEmployee" left="619" top="5" width="147" height="30"/>
-              <Static id="staMemoLabel" left="771" top="0" width="100" height="79" text="메모" cssclass="sta_labelbox"/>
+              <Static id="staMemoLabel" left="771" top="0" width="100" height="80" text="메모" cssclass="sta_labelbox"/>
               <Edit id="edtMemo" left="876" top="5" width="147" height="70"/>
               <Static id="staPurchaseNoLabel" left="0" top="39" width="100" height="40" text="구매요청번호" cssclass="sta_labelbox"/>
               <Edit id="edtPurchaseNo" left="105" top="44" width="147" height="30"/>
@@ -33,7 +33,9 @@
                 <Column id="BUY_DESC" type="STRING" size="10" description="구매처"/>
                 <Column id="PJ_CD" type="STRING" size="10" description="프로젝트"/>
                 <Column id="EMPLOYEE" type="STRING" size="20" description="요청자"/>
+                <Column id="PRICE" type="BIGDECIMAL" size="10" description="가격"/>
                 <Column id="MEMO" type="STRING" size="300" description="메모"/>
+                <Column id="GRID_COUNT" type="BIGDECIMAL" size="5" description="상세정보갯수"/>
               </ColumnInfo>
               <Rows>
                 <Row/>
@@ -41,7 +43,7 @@
             </Dataset>
           </Objects>
           <Bind>
-            <BindItem id="bind_edtReqDate" compid="edtReqDate" propid="value" datasetid="viewdataset" columnid="REQ_DATE"/>
+            <BindItem id="bind_calReqDate" compid="calReqDate" propid="value" datasetid="viewdataset" columnid="REQ_DATE"/>
             <BindItem id="bind_edtPjCd" compid="edtPjCd" propid="value" datasetid="viewdataset" columnid="PJ_CD"/>
             <BindItem id="bind_edtEmployee" compid="edtEmployee" propid="value" datasetid="viewdataset" columnid="EMPLOYEE"/>
             <BindItem id="bind_edtMemo" compid="edtMemo" propid="value" datasetid="viewdataset" columnid="MEMO"/>
@@ -49,20 +51,22 @@
             <BindItem id="bind_edtBuyCd" compid="edtBuyCd" propid="value" datasetid="viewdataset" columnid="BUY_CD"/>
             <BindItem id="bind_edtBuyDesc" compid="edtBuyDesc" propid="value" datasetid="viewdataset" columnid="BUY_DESC"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="BIZ_M_ERP_S_COM00001" modelid="SO_grid" filepath="IITP\BIZ_M_ERP_S_COM00001.xmodel">
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_GWP_S_COM00003" modelid="SI" filepath="IITP\BIZ_M_GWP_S_COM00003.xmodel">
             <Fields>
-              <Field id="REQ_DATE" label="날짜" description="" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="PJ_CD" description="" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="EMPLOYEE" label="요청자" description="" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="MEMO" description="" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="PURCHASE_NO" description="" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="BUY_CD" label="거래처코드" description="" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="BUY_DESC" description="" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="GRID_COUNT" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="false"/>
+              <Field id="PRICE" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="false"/>
+              <Field id="REQ_DATE" label="날짜" innerdatasetinfo="" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="PJ_CD" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="EMPLOYEE" label="요청자" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="MEMO" label="메모" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="PURCHASE_NO" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="BUY_CD" label="거래처코드" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="BUY_DESC" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staReqDateBg" fields="REQ_DATE"/>
               <Component id="staReqDateLabel" fields="REQ_DATE"/>
-              <Component id="edtReqDate" fields="REQ_DATE"/>
+              <Component id="calReqDate" fields="REQ_DATE"/>
               <Component id="staPjCdLabel" fields="PJ_CD"/>
               <Component id="edtPjCd" fields="PJ_CD"/>
               <Component id="staEmployeeLabel" fields="EMPLOYEE"/>
@@ -175,7 +179,7 @@
               <Rows/>
             </Dataset>
           </Objects>
-          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_GWP_S_COM00002" modelid="SO_PURCHASE_DETAIL_LIST" filepath="IITP\BIZ_M_GWP_S_COM00002.xmodel">
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_GWP_S_COM00003" modelid="SI_PURCHASE_DETAIL_LIST" filepath="IITP\BIZ_M_GWP_S_COM00003.xmodel">
             <Fields>
               <Field id="PRODUCT_NO" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PRODUCT_NM" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="rowcount" usecomp="true"/>
@@ -252,5 +256,17 @@
         </View>
       </Layout>
     </Layouts>
+    <Objects>
+      <DsAddDataAction id="DsAddDataAction00" targetview="viewList">
+        <Contents/>
+      </DsAddDataAction>
+      <DsDeleteDataAction id="DsDeleteDataAction00" targetview="viewList">
+        <Contents/>
+      </DsDeleteDataAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="viewGridBtn" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="viewGridBtn" triggerobj="btnDel" targetaction="DsDeleteDataAction00" condition=""/>
+    </Trigger>
   </Form>
 </FDL>
