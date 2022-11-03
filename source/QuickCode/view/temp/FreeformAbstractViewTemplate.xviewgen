@@ -1526,7 +1526,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				oComp.attribute.direction = "vertical";
 			}
 			
-			if(oField.comptype!="button")
+			if(sCompClassId!="Button" && sCompClassId!="AbstractSelectAny")
 			{
 				//In order to process the Bind, add Id, Field Id to BindItems Array
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
@@ -1664,8 +1664,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			
 			// Field 추가
 			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompClassId = oCompClass.classId;
 			oComp =	{
-						"tag" : oCompClass.classId,
+						"tag" : sCompClassId,
 						"attribute" :
 						{
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
@@ -1673,12 +1674,17 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 					};
 
 			//If the Component Type is Button,Checkbox,Static, add label text to the text properties
-			if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
+			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 			{
 				oComp.attribute.text = oField.label;
 			}
-
-			if(oField.comptype!="button")
+			// Radio 컴포넌트에서 한줄로 표시되도록 처리
+			else if(sCompClassId=="Radio")
+			{
+				oComp.attribute.direction = "vertical";
+			}
+			
+			if(sCompClassId!="Button" && sCompClassId!="AbstractSelectAny")
 			{
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
 			}

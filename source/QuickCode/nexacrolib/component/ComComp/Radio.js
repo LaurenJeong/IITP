@@ -210,11 +210,11 @@ if (!nexacro.Radio)
 
         //this._setEventHandler("onkeydown", this._on_radio_onkeydown, this);
 
-		if (nexacro._enableaccessibility)
-		{
-			this.on_apply_prop_accessibilitylabel();
-			this.on_apply_prop_itemaccessibilityenable();
-		}
+        if (nexacro._enableaccessibility)
+        {
+            this.on_apply_prop_accessibilitylabel();
+            this.on_apply_prop_itemaccessibilityenable();
+        }
     };
 
     _pRadio.on_change_containerRect = function (width, height)
@@ -749,7 +749,7 @@ if (!nexacro.Radio)
             return nexacro.Component.prototype._setAccessibilityNotifyEvent.call(this);
         }
     };
-   
+
 
     //==============================================================================
     // nexacro.Radio : Properties
@@ -1571,13 +1571,13 @@ if (!nexacro.Radio)
 
                     if (nexacro._enableaccessibility)
                     {
-                        item._setAccessibilityInfoIndex(i + 1);
+                        item._setAccessibilityInfoIndex(i);
                         item._setAccessibilityInfoCount(rows);
-                        item._setEventHandler("onkeydown", this._on_radio_onkeydown, this);                        
+                        item._setEventHandler("onkeydown", this._on_radio_onkeydown, this);
                     }
 
                     this._items[i] = item;
-                }                
+                }
             }
         }
     };
@@ -1680,7 +1680,7 @@ if (!nexacro.Radio)
 
                 if (nexacro._enableaccessibility)
                 {
-                    item._setAccessibilityInfoIndex(i + 1);
+                    item._setAccessibilityInfoIndex(i);
                     item._setAccessibilityInfoCount(rows);
                 }
 
@@ -2112,6 +2112,8 @@ if (!nexacro.Radio)
         {
             this._setText("");
         }
+        if (this._is_control_component)
+            this.parent.set_text(this.text);
     };
 
     _pRadio._doDeselect = function (index)
@@ -2179,6 +2181,8 @@ if (!nexacro.Radio)
             v = "";        
 
         this.value = (v === undefined) ? v : v.toString();
+        if (this._is_control_component)
+            this.parent.set_value(this.value);
     };
 
     _pRadio._setIndex = function (v)
@@ -2358,7 +2362,7 @@ if (!nexacro._RadioItemControl)
         }
         label += " " + nexacro.Component.prototype._getAccessibilityLabel.call(this, accessibility);
         return label;
-    };    
+    };
 
     //===============================================================
     // nexacro.Radio : Util Function

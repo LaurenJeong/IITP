@@ -6361,6 +6361,11 @@ if (!nexacro.DesignForm)
         var _adjust_width = obj._adjust_width;
         var _adjust_height = obj._adjust_height;
 
+        
+        //trace(">> _pDesignForm._getClientRect-1 >> obj : " + obj + ", width : " + obj.width + ", height : " + obj.height);
+        //trace(">> _pDesignForm._getClientRect-2 >> obj : " + obj + ", _adjust_width : " + obj._adjust_width + ", _adjust_height : " + obj._adjust_height);
+
+
         var sublayoutmode_info = this._findSubLayoutMode(obj);
         if (sublayoutmode_info)
         {

@@ -608,7 +608,7 @@ if (!nexacro.ListBox)
     {
         var label = "";
         if (!this._is_first_focus)
-            label = this.text ? this.text : this.id;
+            label = this.text ? this.text : this.value;
         return label ? label : "";
     };
 
@@ -1478,7 +1478,226 @@ if (!nexacro.ListBox)
             }
         }
         return false;
-    };    
+    };
+
+    _pListBox.on_fire_user_onkeydown = function (keycode, alt_key, ctrl_key, shift_key, fire_comp, refer_comp, meta_key)
+    {
+        if (nexacro._enableaccessibility)
+        {
+            var item;
+            var accIdx = this._accessibility_index;
+            var rowcount = this._getInnerdatasetInfo("_rowcount");
+
+            if (keycode == nexacro.Event.KEY_UP)
+            {
+                if (accIdx < 0)
+                {
+                    this._want_arrow = false;
+                }
+                else
+                {
+                    this._accessibility_index = accIdx += -1;
+                    this._refreshScroll(accIdx, shift_key ? 1 : 0);
+                    item = this._getItem(accIdx);
+                    if (item)
+                        item._on_focus(true);
+                    else
+                    {
+                        if (accIdx == -1)
+                        {
+                            if (this._isAccessibilityEnable())
+                            {
+                                var last_focused = this._last_focused;
+                                if (last_focused)
+                                    this._do_defocus(last_focused, true);
+                                else
+                                    this._do_defocus(this);
+
+                                this._on_focus(true);
+                            }
+                            else
+                                this._want_arrow = false;
+
+                        }
+                    }
+                }
+            }
+            else if ( keycode == nexacro.Event.KEY_DOWN)
+            {
+                if ((accIdx + 1) >= rowcount)
+                {
+                    this._want_arrow = false;
+                }
+                else
+                {
+                    this._accessibility_index = accIdx += 1;
+                    this._refreshScroll(accIdx, shift_key ? 1 : 0);
+                    item = this._getItem(accIdx);
+                    if (item)
+                        item._on_focus(true);
+                }
+            }
+            else if (keycode == nexacro.Event.KEY_PAGE_UP)
+            {
+                if (accIdx < 0)
+                {
+                    this._want_arrow = false;
+                }
+                else
+                {
+                    accIdx = accIdx < 0 ? 0 : accIdx;
+                    this._accessibility_index = accIdx -= this._page_rowcount;
+                    this._refreshScroll(accIdx, shift_key ? 1 : 0, keycode);
+                    item = this._getItem(accIdx);
+                    if (item)
+                        item._on_focus(true);
+                    else
+                    {
+                        if (accIdx == -1)
+                        {
+                            if (this._isAccessibilityEnable())
+                            {
+                                var last_focused = this._last_focused;
+                                if (last_focused)
+                                    this._do_defocus(last_focused, true);
+                                else
+                                    this._do_defocus(this);
+
+                                this._on_focus(true);
+                            }
+                            else
+                                this._want_arrow = false;
+
+                        }
+                    }
+                }
+            }
+            else if (keycode == nexacro.Event.KEY_PAGE_DOWN)
+            {
+                if ((accIdx + this._page_rowcount) > rowcount)
+                {
+                    this._want_arrow = false;
+                }
+                else
+                {
+                    accIdx = accIdx < 0 ? 0 : accIdx;
+                    this._accessibility_index = accIdx += this._page_rowcount;
+                    this._refreshScroll(accIdx, shift_key ? 1 : 0, keycode);
+                    item = this._getItem(accIdx);
+                    if (item)
+                        item._on_focus(true);
+                }
+            }
+            else if (keycode == nexacro.Event.KEY_HOME)
+            {
+                if (accIdx < 0)
+                {
+                    this._want_arrow = false;
+                }
+                else
+                {
+                    this._accessibility_index = accIdx = 0;
+                    this._refreshScroll(accIdx, shift_key ? 1 : 0, keycode);
+                    item = this._getItem(accIdx);
+                    if (item)
+                        item._on_focus(true);
+                }
+            }
+            else if (keycode == nexacro.Event.KEY_END)
+            {
+                if ((accIdx + this._page_rowcount) > rowcount)
+                {
+                    this._want_arrow = false;
+                }
+                else
+                {
+                    this._accessibility_index = accIdx = rowcount - 1;
+                    this._refreshScroll(accIdx, shift_key ? 1 : 0, keycode);
+                    item = this._getItem(accIdx);
+                    if (item)
+                        item._on_focus(true);
+                }
+            }
+        }
+        
+        /*
+        if (nexacro._enableaccessibility && keycode == nexacro.Event.KEY_TAB)
+        {
+            var item;
+            var accIdx = this._accessibility_index;
+            var item_len = this._getTotalContentsCount();
+
+            var selecteditem = this._selectinfo;
+            if (selecteditem && selecteditem.index > -1)
+            {
+                if (shift_key)
+                {
+                    if (accIdx < 0)
+                    {
+                        this._want_tab = false;
+                    }
+                    else
+                    {
+                        var last_focused = this._last_focused;
+                        if (last_focused)
+                        {
+                            this._do_defocus(last_focused, true);
+                            last_focused._changeUserStatus("selected", true);
+                        }
+                        this._accessibility_index = -1;
+                    }
+                }
+                else
+                {
+                    if (accIdx > -1)
+                    {
+                        this._want_tab = false;
+                    }
+                    else
+                    {
+                        var item = this._getItem(accIdx);
+                        if (item)
+                            item._on_focus(true);
+
+                        this._accessibility_index = this.index;
+                    }
+                }
+            }
+            else
+            {
+                if ((shift_key && accIdx <= 0) || (!shift_key && accIdx >= item_len - 1))
+                {
+                    this._want_tab = false;
+                }
+                else
+                {
+                    var preidx = accIdx;
+                    if (shift_key)
+                        accIdx--;
+                    else
+                        accIdx++;
+
+                    this._refreshScroll(accIdx, shift_key ? 1 : 0);
+
+                    var item = this._getItem(accIdx);
+                    if (item)
+                    {
+                        var preitem = this._getItem(preidx);
+                        if (preitem)
+                            this._do_defocus(preitem, false);
+
+                        item._on_focus(true);
+                    }
+
+                    this._accessibility_index = accIdx;
+                }
+            }
+            this._getWindow()._keydown_element._event_stop = true;            
+        }
+        */
+
+        return nexacro.Component.prototype.on_fire_user_onkeydown.call(this, keycode, alt_key, ctrl_key, shift_key, fire_comp, refer_comp, meta_key);
+    };
 
     _pListBox.on_fire_user_onlbuttonup = function (button, alt_key, ctrl_key, shift_key, screenX, screenY, canvasX, canvasY, clientX, clientY, from_comp, from_refer_comp, meta_key)
     {
@@ -1791,137 +2010,158 @@ if (!nexacro.ListBox)
             {
                 this._do_scroll("up");
                 return true;
-			}
+            }
 
-			if (this.multiselect)
-			{
+            if (!nexacro._enableaccessibility)
+            {
+                if (this.multiselect)
+                {
 
-				this._select_withkeyupevent(shift_key);
-				nextidx = multi_info.items[multi_info.length - 1];
+                    this._select_withkeyupevent(shift_key);
+                    nextidx = multi_info.items[multi_info.length - 1];
 
-				if (nextidx != null)
-				{
-					if (nextidx > -1)
-					{
-						if (this._last_focused)
-							this._do_defocus(this._last_focused);
-						this._changeIndex(nextidx);
-					}
-				}
-			}
-			else
-			{
+                    if (nextidx != null)
+                    {
+                        if (nextidx > -1)
+                        {
+                            if (this._last_focused)
+                                this._do_defocus(this._last_focused);
+                            this._changeIndex(nextidx);
+                        }
+                    }
+                }
+                else
+                {
 
-				nextidx = +this.index - 1;
-				if (nextidx < 0)
-					nextidx = rowcount - 1;
-				else if (nextidx >= rowcount)
-					nextidx = 0;
+                    nextidx = +this.index - 1;
+                    if (nextidx < 0)
+                        nextidx = rowcount - 1;
+                    else if (nextidx >= rowcount)
+                        nextidx = 0;
 
-				if (nextidx > -1)
-				{
-					if (this._changeIndex(nextidx))
-					{
-						if (this._last_focused)
-							this._do_defocus(this._last_focused);
-						this.on_apply_index(nextidx);
-					}
-				}
-			}
-		}
+                    if (nextidx > -1)
+                    {
+                        if (this._changeIndex(nextidx))
+                        {
+                            if (this._last_focused)
+                                this._do_defocus(this._last_focused);
+                            this.on_apply_index(nextidx);
+                        }
+                    }
+                }
+            }
+
+        }
         else if (keycode == nexacro.Event.KEY_DOWN)
         {
             if (ctrl_key)
             {
                 this._do_scroll("down");
                 return true;
-			}
+            }
+            if (!nexacro._enableaccessibility)
+            {
+                if (this.multiselect)
+                {
+                    this._select_withkeydownevent(shift_key);
+                    nextidx = multi_info.items[multi_info.length - 1];
 
-			if (this.multiselect)
-			{
-				this._select_withkeydownevent(shift_key);
-				nextidx = multi_info.items[multi_info.length - 1];
+                    if (nextidx != null)
+                    {
+                        if (nextidx < rowcount)
+                        {
+                            this._changeIndex(nextidx);
+                        }
+                    }
+                }
+                else
+                {
+                    nextidx = +this.index + 1;
 
-				if (nextidx != null)
-				{
-					if (nextidx < rowcount)
-					{
-						this._changeIndex(nextidx);
-					}
-				}
-			}
-			else
-			{
-				nextidx = +this.index + 1;
+                    if (nextidx < 0)
+                        nextidx = rowcount - 1;
+                    else if (nextidx >= rowcount)
+                        nextidx = 0;
 
-				if (nextidx < 0)
-					nextidx = rowcount - 1;
-				else if (nextidx >= rowcount)
-					nextidx = 0;
+                    if (nextidx < rowcount)
+                    {
+                        if (this._changeIndex(nextidx))
+                        {
+                            this.on_apply_index(nextidx);
+                        }
+                    }
+                }
+            }
+        }
+        else if (keycode == nexacro.Event.KEY_PAGE_UP)
+        {
+            if (!nexacro._enableaccessibility)
+            {
+                nextidx = +this.index - this._page_rowcount;
 
-				if (nextidx < rowcount)
-				{
-					if (this._changeIndex(nextidx))
-					{
-						this.on_apply_index(nextidx);
-					}
-				}
-			}
-		}
-		else if (keycode == nexacro.Event.KEY_PAGE_UP)
-		{
-			nextidx = +this.index - this._page_rowcount;
+                if (nextidx < 0)
+                    nextidx = 0;
+                else if (nextidx >= rowcount)
+                    nextidx = rowcount - 1;
 
-			if (nextidx < 0)
-				nextidx = 0;
-			else if (nextidx >= rowcount)
-				nextidx = rowcount - 1;
+                if (nextidx > -1)
+                {
+                    if (this._changeIndex(nextidx))
+                    {
+                        if (this._last_focused)
+                            this._do_defocus(this._last_focused);
+                        this.on_apply_index(nextidx);
+                    }
+                }
+            }
 
-			if (nextidx > -1)
-			{
-				if (this._changeIndex(nextidx))
-				{
-					if (this._last_focused)
-						this._do_defocus(this._last_focused);
-					this.on_apply_index(nextidx);
-				}
-			}
-		}
-		else if (keycode == nexacro.Event.KEY_PAGE_DOWN)
-		{
-			nextidx = +this.index + this._page_rowcount;
+        }
+        else if (keycode == nexacro.Event.KEY_PAGE_DOWN)
+        {
+            if (!nexacro._enableaccessibility)
+            {
+                nextidx = +this.index + this._page_rowcount;
 
-			if (nextidx < 0)
-				nextidx = 0;
-			else if (nextidx >= rowcount)
-				nextidx = rowcount - 1;
+                if (nextidx < 0)
+                    nextidx = 0;
+                else if (nextidx >= rowcount)
+                    nextidx = rowcount - 1;
 
-			if (nextidx < rowcount)
-			{
-				if (this._changeIndex(nextidx))
-				{
-					this.on_apply_index(nextidx);
-				}
-			}
-		}
-		else if (keycode == nexacro.Event.KEY_HOME)
-		{
-			nextidx = 0;
+                if (nextidx < rowcount)
+                {
+                    if (this._changeIndex(nextidx))
+                    {
+                        this.on_apply_index(nextidx);
+                    }
+                }
+            }
+        }
+        else if (keycode == nexacro.Event.KEY_HOME)
+        {
+            if (!nexacro._enableaccessibility)
+            {
+                nextidx = 0;
 
-			if (this._changeIndex(nextidx))
-			{
-				this.on_apply_index(nextidx);
-			}
-		}
-		else if (keycode == nexacro.Event.KEY_END)
-		{
-			nextidx = rowcount - 1;
+                if (this._changeIndex(nextidx))
+                {
+                    this.on_apply_index(nextidx);
+                }
+            }
 
-			if (this._changeIndex(nextidx))
-			{
-				this.on_apply_index(nextidx);
-			}
-		}
+        }
+        else if (keycode == nexacro.Event.KEY_END)
+        {
+            if (!nexacro._enableaccessibility)
+            {
+                nextidx = rowcount - 1;
+
+                if (this._changeIndex(nextidx))
+                {
+                    this.on_apply_index(nextidx);
+                }
+            }
+
+        }
         else if (keycode === nexacro.Event.KEY_SPACE || keycode === nexacro.Event.KEY_ENTER)
         {
             if (this.multiselect)
@@ -2229,7 +2469,7 @@ if (!nexacro.ListBox)
                 {
                     if (index == selItems[i])
                     {
-                        item.set_selected(true);                        
+                        item.set_selected(true);
                         break;
                     }
                 }
@@ -2240,11 +2480,6 @@ if (!nexacro.ListBox)
                 {
                     item.set_selected(true);
                     this._set_last_selectfocused(index);
-                    item._setAccessibilityStatSelected(true);
-                }
-                else
-                {
-                    item._setAccessibilityStatSelected(false);
                 }
             }
 
@@ -2812,6 +3047,18 @@ if (!nexacro.ListBox)
 
 		this._changeIndex(selectIdx, undefined,isNotFireEvent);
       //  this._changeIndex(selectIdx);
+        if (this.parent._is_control_component)
+        {
+            this.parent.parent.index = this.index;
+            this.parent.parent.text = this.text;
+            this.parent.parent.value = this.value;
+        }
+        if (this.parent._is_abstract)
+        {
+            this.parent.index = this.index;
+            this.parent.text = this.text;
+            this.parent.value = this.value;
+        }
     };
 
     _pListBox._select_replace = function (k, selectIdx)
@@ -3073,7 +3320,6 @@ if (!nexacro.ListBox)
 
                 if (nexacro._enableaccessibility)
                 {
-                    rowobj._setAccessibilityStatSelected(isSelected);
                     rowobj._setAccessibilityInfoIndex(idx + 1);
 					rowobj._setAccessibilityInfoCount(this._getInnerdatasetInfo("_rowcount"));
                 }

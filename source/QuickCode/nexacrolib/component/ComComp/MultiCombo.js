@@ -4189,6 +4189,7 @@ if (!nexacro.MultiCombo)
                     this.value = cur_value;
                     this.text = cur_text;
 
+                    this.applyto_bindSource("value", this.value);
                     this.on_fire_onitemchanged(this, pre_index, pre_text, pre_value, cur_index, cur_value, cur_value);
                 }
             }
@@ -5432,6 +5433,19 @@ if (!nexacro.MultiCombo)
 
         this._changeIndex(selectIdx, undefined, isNotFireEvent);
         //this._changeIndex(selectIdx);
+
+        if (this.parent._is_control_component)
+        {
+            this.parent.parent.index = this.index;
+            this.parent.parent.text = this.text;
+            this.parent.parent.value = this.value;
+        }
+        if (this.parent._is_abstract)
+        {
+            this.parent.index = this.index;
+            this.parent.text = this.text;
+            this.parent.value = this.value;
+        }
     };
 
     _pMultiComboListControl._select_remove = function (selectIdx)

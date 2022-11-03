@@ -3858,6 +3858,19 @@ if (!nexacro.CheckBoxSet)
 
         this._changeIndex(selectIdx, undefined, isNotFireEvent);
         //  this._changeIndex(selectIdx);
+
+        if (this.parent._is_control_component)
+        {
+            this.parent.parent.index = this.index;
+            this.parent.parent.text = this.text;
+            this.parent.parent.value = this.value;
+        }
+        if (this.parent._is_abstract)
+        {
+            this.parent.index = this.index;
+            this.parent.text = this.text;
+            this.parent.value = this.value;
+        }
     };
 
     _pCheckBoxSet._select_replace = function (k, selectIdx)

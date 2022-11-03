@@ -26,6 +26,8 @@ if(!nexacro.AbstractSelectAny)
 		this.selectmulticombo = null;
 		this.selectcheckboxset = null;
 		this.selectlistbox = null;
+
+		this.readonly = false;
 		// TODO : controltype 별 property map depth 분리 (auto, multicombo, listbox, checkboxset)
 		// this._property_map_auto = [];
     };
@@ -41,7 +43,7 @@ if(!nexacro.AbstractSelectAny)
 	_pAbstractSelectAny.value = undefined;
 	_pAbstractSelectAny.index = -1;
 	_pAbstractSelectAny.text = "";
-
+	
 	_pAbstractSelectAny.controltype = "auto";
 	_pAbstractSelectAny.innerdataset = "";
 	_pAbstractSelectAny.codecolumn = "";
@@ -294,19 +296,27 @@ if(!nexacro.AbstractSelectAny)
 				this._setControlSpecificProperty("datacolumn");
 		}
 	};
-
+	
 	_pAbstractSelectAny.set_innerdataset = function (val)
 	{
+		var valueid;
 		if (this.innerdataset != val)
 		{
 			if (val instanceof nexacro.Dataset)
-				val = val.id;
-			this.innerdataset = val;
+			{				
+				this._innerdataset = val;
+				valueid = val.id;
+			}
+			else
+			{
+				valueid = val;
+			}
+			
+			this.innerdataset = valueid;
 			this._resetInnerBind();
-			this._setPropertyMap("innerdataset", val); // TODO : allocateProperty 공통함수 분리
+			this._setPropertyMap("innerdataset", valueid); // TODO : allocateProperty 공통함수 분리
 			if (this._ctrlobj)
 			{
-				//this.innerdataset = this._ctrlobj.innerdataset;
 				this._resetControlByData();
 				this._setControlSpecificProperty("innerdataset");
 				this._setControlSpecificProperty("index");
@@ -323,6 +333,12 @@ if(!nexacro.AbstractSelectAny)
 	_pAbstractSelectAny.on_change_bindSource = function (propid, ds, row, col)
 	{
 		//trace("on_change_bindSource:");
+		if(this._ctrlobj) 
+		{
+			this.index = this._ctrlobj.index;
+			this.value = this._ctrlobj.value;
+			this.text = this._ctrlobj.text;
+		}		
 	};
 
 	_pAbstractSelectAny.on_getBindableProperties = function () {
@@ -511,6 +527,19 @@ if(!nexacro.AbstractSelectAny)
 		}
 	};
 
+	_pAbstractSelectAny.set_readonly = function (val)
+	{
+		if (this.readonly != val)
+		{
+			this.readonly = val;
+			this._setPropertyMap("readonly", val);
+			if (this._ctrlobj)
+			{
+				this._setControlSpecificProperty("readonly");
+            }
+		}
+	};
+	
 	_pAbstractSelectAny.set_rtl = function (val)
 	{
 		if (this.rtl != val)
@@ -941,6 +970,30 @@ if(!nexacro.AbstractSelectAny)
         }
 	}
 
+	_pAbstractSelectAny.getSelectedItems = function ()
+	{
+		if (this._ctrlobj && this._ctrlobj.getSelectedItems)
+			return this._ctrlobj.getSelectedItems();
+	}
+
+	_pAbstractSelectAny.clearSelect = function ()
+	{
+		if (this._ctrlobj && this._ctrlobj.clearSelect)
+			this._ctrlobj.clearSelect();;
+	}
+
+	_pAbstractSelectAny.getSelect = function ()
+	{
+		if (this._ctrlobj && this._ctrlobj.getSelect)
+			return this._ctrlobj.getSelect();
+	}
+
+	_pAbstractSelectAny.getSelectedCount = function ()
+	{
+		if (this._ctrlobj && this._ctrlobj.getSelectedCount)
+			return this._ctrlobj.getSelectedCount();
+	}
+	
     //===============================================================
     // nexacro.AbstractSelectAny : INNER FUNCTIONS (Methods)
     //===============================================================
@@ -1005,16 +1058,16 @@ if(!nexacro.AbstractSelectAny)
 				// TODO : innerdataset type check
 				// 첫 로드 시 page rowcunt 유무 확인
 				// 애초에 control을 다 만들고 binddata를 비교해야하나 ?
-				if (this.selectcheckboxset)
+				if (this.selectcheckboxset && this.selectcheckboxset._innerdataset)
 				{
-					// TODO					
+					// TODO
 					var item = this.selectcheckboxset._items[0];
 					var item_height = item._on_getFitSize()[1];
 					var total_height = item_height * this.selectcheckboxset._innerdataset.rowcount;
 					if (total_height > this.height)
 						newctrl = nexacro._AbstractSelectAny_ControlConst.CTRLTYPE_LISTBOX;					
 				}
-				else if (this.selectlistbox && this.selectlistbox._page_rowcount > this.selectlistbox._innerdataset.rowcount)
+				else if (this.selectlistbox && this.selectlistbox._innerdataset && this.selectlistbox._page_rowcount > this.selectlistbox._innerdataset.rowcount)
 				{
 					newctrl = nexacro._AbstractSelectAny_ControlConst.CTRLTYPE_CHECKBOXSET;
 				}
@@ -1115,12 +1168,12 @@ if(!nexacro.AbstractSelectAny)
 	};
 	/*
 	_pAbstractSelectAny._setControlSelectMultiInfo = function () 
-	{
+	{		
 		var ctrl = this._ctrlobj;
 		if (!ctrl)
 			return;
 		
-		if (this._select_multi)
+		if (this._select_multi) 
 		{
 			ctrl._select_multi = this._select_multi;
 			ctrl._select_withmouseevent(ctrl.index);
@@ -1341,13 +1394,15 @@ if(!nexacro.AbstractSelectAny)
 
 		// set innerbind
 		if (this._ctrlobjtype && this._ctrlobj)
-		{
+		{			
+			var ds = this._innerdataset? this._innerdataset : this.innerdataset;
+			
 			switch(this._ctrlobjtype)
 			{
-				case 1 /*nexacro._AbstractSelectAny_ControlConst.CTRLTYPE_MULTICOMBO*/: this._ctrlobj.set_innerdataset(this.innerdataset); this._ctrlobj.set_codecolumn(this.codecolumn); this._ctrlobj.set_datacolumn(this.datacolumn); break;
-				case 2 /*nexacro._AbstractSelectAny_ControlConst.CTRLTYPE_CHECKBOXSET*/: this._ctrlobj.set_innerdataset(this.innerdataset); this._ctrlobj.set_codecolumn(this.codecolumn); this._ctrlobj.set_datacolumn(this.datacolumn); break;
-				case 3 /*nexacro._AbstractSelectAny_ControlConst.CTRLTYPE_LISTBOX*/: this._ctrlobj.set_innerdataset(this.innerdataset); this._ctrlobj.set_codecolumn(this.codecolumn); this._ctrlobj.set_datacolumn(this.datacolumn); break;
-			}
+				case 1 /*nexacro._AbstractSelectAny_ControlConst.CTRLTYPE_MULTICOMBO*/: this._ctrlobj.set_innerdataset(ds); this._ctrlobj.set_codecolumn(this.codecolumn); this._ctrlobj.set_datacolumn(this.datacolumn); break;
+				case 2 /*nexacro._AbstractSelectAny_ControlConst.CTRLTYPE_CHECKBOXSET*/: this._ctrlobj.set_innerdataset(ds); this._ctrlobj.set_codecolumn(this.codecolumn); this._ctrlobj.set_datacolumn(this.datacolumn); break;
+				case 3 /*nexacro._AbstractSelectAny_ControlConst.CTRLTYPE_LISTBOX*/: this._ctrlobj.set_innerdataset(ds); this._ctrlobj.set_codecolumn(this.codecolumn); this._ctrlobj.set_datacolumn(this.datacolumn); break;
+			}			
 		}
     };
     
@@ -1381,7 +1436,7 @@ if(!nexacro.AbstractSelectAny)
 	_pAbstractSelectAny._onControlItemChanged = function (o, e)
 	{
 		this.value = e.postvalue;
-		//trace("_onControlItemChanged - object : ", o, " / event : ",  e);
+		trace("_onControlItemChanged - object : ", o, " / event : ",  e);
 		this.on_fire_onitemchanged(o, e);
 	};
 
@@ -1398,7 +1453,7 @@ if(!nexacro.AbstractSelectAny)
 
 	_pAbstractSelectAny._onControlItemClick = function (o, e) {
 		this.value = e.postvalue;
-		//trace("_onControlItemClick - object : ", o, " / event : ", e);
+		trace("_onControlItemClick - object : ", o, " / event : ", e);
 		this.on_fire_onitemclick(o, e);
 	};
 

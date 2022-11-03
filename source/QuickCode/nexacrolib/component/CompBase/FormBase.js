@@ -464,8 +464,19 @@ if (!nexacro.Form)
     _pBindManager.on_changevalue = function (obj, e)
     {
         var prop_id = e.propid;
-        var bind_item = this._findBindItem(obj, prop_id);
-        var val = e.val;
+        var bind_item;
+        var val;
+        if(obj._is_control_component)
+        {
+            bind_item = this._findBindItem(obj.parent, prop_id);
+            val = e.val;
+        }
+        else
+        {
+            bind_item = this._findBindItem(obj, prop_id);
+            val = e.val;
+
+        }
         if (bind_item && bind_item._en_type == 2)
         { //CYBIND_TYPE_SIMPLE
             // found
@@ -622,6 +633,14 @@ if (!nexacro.Form)
             {
                 comp._bind_event = new nexacro.EventListener("onbinditem");
                 comp._bind_event._setHandler(this, this.on_changevalue);
+
+                if(comp._is_abstract && comp._ctrlobj)
+                {
+                    var ctrlobj = comp._ctrlobj;
+                    ctrlobj._bind_event = comp._bind_event;
+                    ctrlobj._bind_event._setHandler(this, this.on_changevalue);
+                }
+
             }
         }
         else
@@ -891,7 +910,6 @@ if (!nexacro.Form)
     _pFormBase._getHeadingOrderNext = nexacro._emptyFn;
     _pFormBase._getHeadingOrderFirst = nexacro._emptyFn;
     _pFormBase._getHeadingOrderLast = nexacro._emptyFn;
-    _pFormBase._isComponentKeydownAction = function () { return true; }
 
     //===============================================================
     // nexacro.FormBase : Create & Destroy & Update
@@ -1842,8 +1860,7 @@ if (!nexacro.Form)
         {
             if (arguments.length > 2)
             {
-                var ret = manager.setLayoutProperty(this, strLayoutName, strPropName, value);      
-                /*          
+                var ret = manager.setLayoutProperty(this, strLayoutName, strPropName, value);                
                 if (strPropName == "tabletemplate")
                 {
                     var layout = manager.getLayout(this, strLayoutName);
@@ -1855,7 +1872,7 @@ if (!nexacro.Form)
                     }
                    
                 }
-                */
+                
                 return ret;
             }
             else if (strLayoutName instanceof Object)
@@ -3377,7 +3394,7 @@ if (!nexacro.Form)
     _pForm.stepitemsize = undefined;
     _pForm.stepshowtype = "always";
     _pForm.locale = "";
-    _pForm.accessibilityrole = "form";
+    _pForm.accessibilityrole = "none";
 
     /* internal variable */
     _pForm._url = "";
@@ -4247,7 +4264,7 @@ if (!nexacro.Form)
 
         if (keycode == nexacro.Event.KEY_TAB)
         {
-            if (!dlgc.want_tab && this._isComponentKeydownAction()) // tab을 직접 처리하는 컴포넌트는 제외
+            if (!dlgc.want_tab) // tab을 직접 처리하는 컴포넌트는 제외
             {
                 if (keydown_elem)
                     keydown_elem._event_stop = true;
@@ -4315,7 +4332,7 @@ if (!nexacro.Form)
             }
         }
 
-        if (nexacro._enableaccessibility && this._isComponentKeydownAction())
+        if (nexacro._enableaccessibility)
         {
             var filter_type;
             if (keycode == nexacro.Event.KEY_DOWN && !alt_key && !ctrl_key && !shift_key) // || keycode == nexacro.Event.KEY_UP)
@@ -4725,22 +4742,33 @@ if (!nexacro.Form)
 
     _pForm.resetScroll = function ()
     {
-        if (this._is_created_contents)
+        if (this._is_flexible_container)
         {
-            var comp;
-            var comps = this.components;
-            for (var i = 0, n = comps.length; i < n; i++)
+            if (this._is_scrollable)
             {
-                comp = comps[i];
-                if (comp._arrange_info || (comp.fittocontents != "none"))
-                    comp._update_position();
+                this._onRecalcScrollSize();
+                this._onResetScrollBar();
             }
         }
-
-        if (this._is_scrollable)
+        else
         {
-            this._onRecalcScrollSize();
-            this._onResetScrollBar();
+            if (this._is_created_contents)
+            {
+                var comp;
+                var comps = this.components;
+                for (var i = 0, n = comps.length; i < n; i++)
+                {
+                    comp = comps[i];
+                    if (comp._arrange_info || (comp.fittocontents != "none"))
+                        comp._update_position();
+                }
+            }
+
+            if (this._is_scrollable)
+            {
+                this._onRecalcScrollSize();
+                this._onResetScrollBar();
+            }
         }
     };
 
@@ -5751,14 +5779,17 @@ if (!nexacro.Form)
                 }
                 else
                     fluidLayoutmanager._prev_tabletemplate = manager.getLayout(this, prev_layout_name ? prev_layout_name : "default")._tabletemplate;
-                
+                fluidLayoutmanager._is_changed_tabletemplate = true;
             }
             var control_element = this.getElement();
             if (control_element)
                 control_element.setElementTableTemplate(tabletemplate);
-            this._is_changed_tabletemplate = true;
+
             manager.calcFluidLayoutContents(this);
-            this._is_changed_tabletemplate = false;
+            if (fluidLayoutmanager)
+            {
+                fluidLayoutmanager._is_changed_tabletemplate = false;
+            }
         }
     }
 
