@@ -293,6 +293,20 @@ fn_GetViewAttributeList = function()
                                 "id": "bodyformat",
                                 "edittype": "layout",
 								"defaultvalue": "",
+								"userproperties" : {
+									"propertycount" : "2",
+									"properties" :
+									[
+										{
+											"id" : "text", "edittype" : "String", "defaultvalue" : ""
+											, "description" : "Enter the text to be expressed in this cell."
+										},
+										{
+											"id" : "cssclass", "edittype" : "String", "defaultvalue" : ""
+											, "description" : "Express the cell style as the class defined in XCSS."
+										}
+									]
+								},
 								"description": "Body Band Layout을 설정"
 												+ "\n" + "(Layout을 설정할 경우 band, direction 속성은 무시됩니다.)"
                             },
@@ -300,6 +314,20 @@ fn_GetViewAttributeList = function()
                                 "id": "detailformat",
                                 "edittype": "layout",
 								"defaultvalue": "",
+								"userproperties" : {
+									"propertycount" : "2",
+									"properties" :
+									[
+										{
+											"id" : "text", "edittype" : "String", "defaultvalue" : ""
+											, "description" : "해당영역 Cell에 설정할 text"
+										},
+										{
+											"id" : "cssclass", "edittype" : "String", "defaultvalue" : ""
+											, "description" : "해당영역 Cell에 설정할 cssclass"
+										}
+									]
+								},
 								"description": "Detail Band Layout을 설정"
 												+ "\n" + "(Layout을 설정할 경우 band, direction 속성은 무시됩니다.)"
                             }
@@ -1291,20 +1319,43 @@ fn_GetBandCellByLayout = function(sBand, arrFieldList, oLayout)
 		if(!nColSpan)nColSpan = 1;
 		if(!nRowSpan)nRowSpan = 1;
 
-		//Continue if there are no Fields on the Cell
-		if(!oCell.fieldlist)continue;
-
 		//Import the Left/Top Location Value of the current Cell
 		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef);
 		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef);
 		
 		if(nCol==0)bStartCol = true;
 		else bStartCol = false;
-
-		arrCellRet = fn_GetBandCell(sBand, nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, nRow, bStartCol);
 		
-		if (arrCellRet.length > 0) {
-			arrBandCells = arrBandCells.concat(arrCellRet);
+		// fieldlist가 없는 경우 text, cssclass 값 설정시 설정된 Cell생성
+		if(!oCell.fieldlist)
+		{
+			var sLabel = oCell.text;
+			var sCssClass = oCell.cssclass;
+			
+			// text, cssclass 값 설정시 설정된 Cell생성
+			if (!this.lfn_IsNull(sLabel) || !this.lfn_IsNull(sCssClass))
+			{
+				var sCellClassNm = "Cell";
+				var sCompId = this.lfn_GetCompId(sCellClassNm + "_" + this.VIEW_COMP_FIELD_ID);
+				var oComp = {
+							"tag" : sCellClassNm,
+							"attribute" :
+							{
+								"id" : sCompId, "left" : nLeft, "top" : nTop, "width" : oCell.realcolsize, "height" : oCell.realrowsize
+								, "text": sLabel, "displaytype" : "normal" , "cssclass":sCssClass
+							}
+						};
+				arrBandCells.push(oComp);
+			}
+		}
+		// fieldlist정보로 Cell 생성
+		else
+		{
+			arrCellRet = fn_GetBandCell(sBand, nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, nRow, bStartCol);
+			
+			if (arrCellRet.length > 0) {
+				arrBandCells = arrBandCells.concat(arrCellRet);
+			}
 		}
 	}
 	
