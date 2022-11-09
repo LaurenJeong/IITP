@@ -29,19 +29,18 @@ if (!nexacro.DsDeleteSelectDataAction)
     //===============================================================		
     nexacro.DsDeleteSelectDataAction.prototype.run = function()		
 	{
-		var objForm;			
-					
-		//Import the object set as TargetView			
-		var objView = this.getTargetView();	
-		
-		var sTarget = this.targetgrid;
-		
-		var objGrid;
-		var objComp;
-
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
-		{			
+		{
+			//Import the object set as TargetView			
+			var objView = this.getTargetView();
+			var objForm;
+			
+			var sTarget = this.targetgrid;
+			
+			var objGrid;
+			var objComp;
+		
 			//If the TargetView is set as View, not Form		
 			var objForm = this.gfnGetForm();
 			

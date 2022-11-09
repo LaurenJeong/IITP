@@ -29,12 +29,12 @@ if (!nexacro.OpenBrowserAction)
     //===============================================================		
     nexacro.OpenBrowserAction.prototype.run = function()		
 	{
-		var sUrl = this.url;
-		var bNewWindow = this.newwindow;
-		
         //canrun 이벤트의 리턴값이 false가 아닐경우
 		if(this.on_fire_canrun()!=false)
 		{
+			var sUrl = this.url;
+			var bNewWindow = this.newwindow;
+		
 			if (this.gfnIsNull(sUrl))
 			{
 				this.gfnLog("url 속성이 설정되지 않았습니다.","info");
