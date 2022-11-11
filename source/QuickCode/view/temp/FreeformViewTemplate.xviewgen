@@ -100,6 +100,8 @@ this.COMP_READONLY_LABEL_STYLE		= "true";
 
 //Component Readonly시 Static형식 CSS Class
 this.COMP_READONLY_CSSCLASS		  = "com_View";
+
+this.MERGE_LABEL		= "true";
 //////////////////////////////Constant Setting END ////////////////////////////////////////////////////
 
 /*============================================================================================*
@@ -491,7 +493,7 @@ fn_GetViewAttributeList = function()
 									"properties" :
 									[
 										{
-											"id" : "mergelabel", "edittype" : "Boolean", "defaultvalue" : false
+											"id" : "mergelabel", "edittype" : "Boolean", "defaultvalue" : this.MERGE_LABEL
 											, "description" : "다중 field 설정 시 label 통합표시 여부"
 															+ "\n" + " - 첫번째 field 기준으로 생성됩니다."
 										}
