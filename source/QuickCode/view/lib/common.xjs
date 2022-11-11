@@ -51,7 +51,7 @@ this.COMP_NAMING_RULE	= "C";
 this.LOG_LEVEL			= -1;
 
 // Abstract 컴포넌트 사용여부
-this.USE_ABSTRACT_COMP	= true;
+this.USE_ABSTRACT_COMP	= false;
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -561,40 +561,16 @@ this.lfn_GetCellSize = function(arrList, nIdx, nSpan, nDefSize)
 				- sType : Col or Row
                 - nIdx1 : Component Index Value to Calculate Padding
                 - nIdx2 : Component Index Value to Calculate Padding + Space
-				- bLayout : Whether Layout was used
+				- bMergeLabel : Label을 합쳐서 표시할지 여부
  * Return       : nTemp : Calibrated px value
  * Description  : If the interval value set as padding is converted to Padding + CompSpace or LineSpace
                   Function to evaluate px value that needs calibration
  *---------------------------------------------------------------------------------------------*/
-this.lfn_CalcPaddingToSpace = function(sType, nIdx1, nIdx2, nPadding, nSpace, bLayout)
+this.lfn_CalcPaddingToSpace = function(sType, nIdx1, nIdx2, nPadding, nSpace, bMergeLabel)
 {
 	var nTemp;
 
-	//Formula to calibrate the location as the gap between components is calculated with Comp/Line Space instead of Padding information
-	//Component Padding Formula = (Component Left/Right Padding * Component number
-	//Component Space Formula = (Left/Top Padding of the First Component + Right/Bottom Padding of Last Component + Space * Component number)
-	//Calculate difference = Component Padding Formula - Component Space Formula
-// 	if(bLayout==true)
-// 	{
-// 		if(sType=="Col")
-// 		{
-// 			nTemp = ((this.COMP_PADDING_LEFT+this.COMP_PADDING_RIGHT) * nIdx1) - (this.COMP_PADDING_LEFT + this.COMP_PADDING_RIGHT + (this.COMP_SPACE * nIdx2));
-// 		}else
-// 		{
-// 			nTemp = ((this.COMP_PADDING_TOP+this.COMP_PADDING_BOTTOM) * nIdx1) - (this.COMP_PADDING_TOP + this.COMP_PADDING_BOTTOM + (this.LINE_SPACE * nIdx2));
-// 		}
-// 	}else
-// 	{
-// 		if(sType=="Col")
-// 		{
-// 			nTemp = (this.COMP_PADDING_RIGHT * nIdx1) - (this.COMP_PADDING_RIGHT + (this.COMP_SPACE * nIdx2));
-// 		}else
-// 		{
-// 			nTemp = -(this.LINE_SPACE * nIdx2);
-// 		}
-// 	}
-
-	if(bLayout==true)
+	if(bMergeLabel==true)
 	{
 		if(sType=="Col")
 		{

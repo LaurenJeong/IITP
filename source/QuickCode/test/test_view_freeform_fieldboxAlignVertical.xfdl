@@ -15,19 +15,21 @@
         <View id="View00_00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="40" width="550" height="130" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Static id="staCompanyBg" left="0" top="0" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyBg" left="0" top="0" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="0" top="0" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbCompany" left="105" top="5" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Static id="staDepartmentBg" left="0" top="39" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentBg" left="0" top="39" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staDepartmentLabel" left="0" top="39" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbDepartment" left="105" top="44" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
-              <Static id="staNameBg" left="0" top="78" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNameBg" left="0" top="78" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staNameLabel" left="0" top="78" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="105" top="83" width="140" height="30"/>
-              <Static id="staPhoneLabel" left="250" top="0" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
-              <Edit id="edtPhone" left="355" top="5" width="140" height="30"/>
-              <Static id="staEmailLabel" left="250" top="39" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
-              <Edit id="edtEmail" left="355" top="44" width="140" height="30"/>
+              <Static id="staPhoneBg" left="249" top="0" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="249" top="0" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="354" top="5" width="140" height="30"/>
+              <Static id="staEmailBg" left="249" top="39" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="249" top="39" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="354" top="44" width="140" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -67,11 +69,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Department" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Name" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Phone" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Email" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyBg" fields="Company"/>
@@ -83,8 +85,10 @@
               <Component id="staNameBg" fields="Name"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>
               <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
               <Component id="staEmailLabel" fields="Email"/>
               <Component id="edtEmail" fields="Email"/>
             </Components>
@@ -100,19 +104,21 @@
         <View id="View00_00_00" taborder="2" text="View00" viewdataset="viewdataset" left="590" top="40" width="550" height="130" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Static id="staCompanyBg" left="25" top="0" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyBg" left="25" top="0" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="25" top="0" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbCompany" left="130" top="5" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Static id="staDepartmentBg" left="25" top="39" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentBg" left="25" top="39" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staDepartmentLabel" left="25" top="39" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbDepartment" left="130" top="44" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
-              <Static id="staNameBg" left="25" top="78" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNameBg" left="25" top="78" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staNameLabel" left="25" top="78" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="130" top="83" width="140" height="30"/>
-              <Static id="staPhoneLabel" left="275" top="0" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
-              <Edit id="edtPhone" left="380" top="5" width="140" height="30"/>
-              <Static id="staEmailLabel" left="275" top="39" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
-              <Edit id="edtEmail" left="380" top="44" width="140" height="30"/>
+              <Static id="staPhoneBg" left="274" top="0" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="274" top="0" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="379" top="5" width="140" height="30"/>
+              <Static id="staEmailBg" left="274" top="39" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="274" top="39" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="379" top="44" width="140" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -152,11 +158,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Department" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Name" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Phone" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Email" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyBg" fields="Company"/>
@@ -168,8 +174,10 @@
               <Component id="staNameBg" fields="Name"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>
               <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
               <Component id="staEmailLabel" fields="Email"/>
               <Component id="edtEmail" fields="Email"/>
             </Components>
@@ -185,19 +193,21 @@
         <View id="View00_00_00_00" taborder="4" text="View00" viewdataset="viewdataset" left="1170" top="40" width="550" height="130" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Static id="staCompanyBg" left="50" top="0" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyBg" left="50" top="0" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="50" top="0" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbCompany" left="155" top="5" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Static id="staDepartmentBg" left="50" top="39" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentBg" left="50" top="39" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staDepartmentLabel" left="50" top="39" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbDepartment" left="155" top="44" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
-              <Static id="staNameBg" left="50" top="78" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNameBg" left="50" top="78" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staNameLabel" left="50" top="78" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="155" top="83" width="140" height="30"/>
-              <Static id="staPhoneLabel" left="300" top="0" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
-              <Edit id="edtPhone" left="405" top="5" width="140" height="30"/>
-              <Static id="staEmailLabel" left="300" top="39" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
-              <Edit id="edtEmail" left="405" top="44" width="140" height="30"/>
+              <Static id="staPhoneBg" left="299" top="0" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="299" top="0" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="404" top="5" width="140" height="30"/>
+              <Static id="staEmailBg" left="299" top="39" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="299" top="39" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="404" top="44" width="140" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -237,11 +247,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Department" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Name" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Phone" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Email" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyBg" fields="Company"/>
@@ -253,8 +263,10 @@
               <Component id="staNameBg" fields="Name"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>
               <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
               <Component id="staEmailLabel" fields="Email"/>
               <Component id="edtEmail" fields="Email"/>
             </Components>
@@ -270,19 +282,21 @@
         <View id="View00_00_01" taborder="6" text="View00" viewdataset="viewdataset" left="10" top="230" width="550" height="130" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Static id="staCompanyBg" left="0" top="5" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyBg" left="0" top="5" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="0" top="5" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbCompany" left="105" top="10" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Static id="staDepartmentBg" left="0" top="44" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentBg" left="0" top="44" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staDepartmentLabel" left="0" top="44" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbDepartment" left="105" top="49" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
-              <Static id="staNameBg" left="0" top="83" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNameBg" left="0" top="83" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staNameLabel" left="0" top="83" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="105" top="88" width="140" height="30"/>
-              <Static id="staPhoneLabel" left="250" top="25" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
-              <Edit id="edtPhone" left="355" top="30" width="140" height="30"/>
-              <Static id="staEmailLabel" left="250" top="64" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
-              <Edit id="edtEmail" left="355" top="69" width="140" height="30"/>
+              <Static id="staPhoneBg" left="249" top="25" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="249" top="25" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="354" top="30" width="140" height="30"/>
+              <Static id="staEmailBg" left="249" top="64" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="249" top="64" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="354" top="69" width="140" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -322,11 +336,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Department" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Name" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Phone" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Email" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyBg" fields="Company"/>
@@ -338,8 +352,10 @@
               <Component id="staNameBg" fields="Name"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>
               <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
               <Component id="staEmailLabel" fields="Email"/>
               <Component id="edtEmail" fields="Email"/>
             </Components>
@@ -355,19 +371,21 @@
         <View id="View00_00_00_01" taborder="8" text="View00" viewdataset="viewdataset" left="590" top="230" width="550" height="130" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Static id="staCompanyBg" left="25" top="5" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyBg" left="25" top="5" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="25" top="5" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbCompany" left="130" top="10" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Static id="staDepartmentBg" left="25" top="44" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentBg" left="25" top="44" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staDepartmentLabel" left="25" top="44" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbDepartment" left="130" top="49" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
-              <Static id="staNameBg" left="25" top="83" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNameBg" left="25" top="83" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staNameLabel" left="25" top="83" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="130" top="88" width="140" height="30"/>
-              <Static id="staPhoneLabel" left="275" top="25" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
-              <Edit id="edtPhone" left="380" top="30" width="140" height="30"/>
-              <Static id="staEmailLabel" left="275" top="64" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
-              <Edit id="edtEmail" left="380" top="69" width="140" height="30"/>
+              <Static id="staPhoneBg" left="274" top="25" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="274" top="25" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="379" top="30" width="140" height="30"/>
+              <Static id="staEmailBg" left="274" top="64" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="274" top="64" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="379" top="69" width="140" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -407,11 +425,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Department" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Name" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Phone" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Email" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyBg" fields="Company"/>
@@ -423,8 +441,10 @@
               <Component id="staNameBg" fields="Name"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>
               <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
               <Component id="staEmailLabel" fields="Email"/>
               <Component id="edtEmail" fields="Email"/>
             </Components>
@@ -440,19 +460,21 @@
         <View id="View00_00_00_00_00" taborder="10" text="View00" viewdataset="viewdataset" left="1170" top="230" width="550" height="130" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Static id="staCompanyBg" left="50" top="5" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyBg" left="50" top="5" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="50" top="5" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbCompany" left="155" top="10" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Static id="staDepartmentBg" left="50" top="44" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentBg" left="50" top="44" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staDepartmentLabel" left="50" top="44" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbDepartment" left="155" top="49" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
-              <Static id="staNameBg" left="50" top="83" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNameBg" left="50" top="83" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staNameLabel" left="50" top="83" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="155" top="88" width="140" height="30"/>
-              <Static id="staPhoneLabel" left="300" top="25" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
-              <Edit id="edtPhone" left="405" top="30" width="140" height="30"/>
-              <Static id="staEmailLabel" left="300" top="64" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
-              <Edit id="edtEmail" left="405" top="69" width="140" height="30"/>
+              <Static id="staPhoneBg" left="299" top="25" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="299" top="25" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="404" top="30" width="140" height="30"/>
+              <Static id="staEmailBg" left="299" top="64" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="299" top="64" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="404" top="69" width="140" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -492,11 +514,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Department" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Name" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Phone" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Email" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyBg" fields="Company"/>
@@ -508,8 +530,10 @@
               <Component id="staNameBg" fields="Name"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>
               <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
               <Component id="staEmailLabel" fields="Email"/>
               <Component id="edtEmail" fields="Email"/>
             </Components>
@@ -525,19 +549,21 @@
         <View id="View00_00_01_00" taborder="12" text="View00" viewdataset="viewdataset" left="10" top="430" width="550" height="130" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Static id="staCompanyBg" left="0" top="10" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyBg" left="0" top="10" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="0" top="10" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbCompany" left="105" top="15" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Static id="staDepartmentBg" left="0" top="49" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentBg" left="0" top="49" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staDepartmentLabel" left="0" top="49" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbDepartment" left="105" top="54" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
-              <Static id="staNameBg" left="0" top="88" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNameBg" left="0" top="88" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staNameLabel" left="0" top="88" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="105" top="93" width="140" height="30"/>
-              <Static id="staPhoneLabel" left="250" top="50" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
-              <Edit id="edtPhone" left="355" top="55" width="140" height="30"/>
-              <Static id="staEmailLabel" left="250" top="89" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
-              <Edit id="edtEmail" left="355" top="94" width="140" height="30"/>
+              <Static id="staPhoneBg" left="249" top="50" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="249" top="50" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="354" top="55" width="140" height="30"/>
+              <Static id="staEmailBg" left="249" top="89" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="249" top="89" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="354" top="94" width="140" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -577,11 +603,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Department" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Name" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Phone" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Email" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyBg" fields="Company"/>
@@ -593,8 +619,10 @@
               <Component id="staNameBg" fields="Name"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>
               <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
               <Component id="staEmailLabel" fields="Email"/>
               <Component id="edtEmail" fields="Email"/>
             </Components>
@@ -610,19 +638,21 @@
         <View id="View00_00_00_01_00" taborder="14" text="View00" viewdataset="viewdataset" left="590" top="430" width="550" height="130" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Static id="staCompanyBg" left="25" top="10" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyBg" left="25" top="10" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="25" top="10" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbCompany" left="130" top="15" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Static id="staDepartmentBg" left="25" top="49" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentBg" left="25" top="49" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staDepartmentLabel" left="25" top="49" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbDepartment" left="130" top="54" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
-              <Static id="staNameBg" left="25" top="88" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNameBg" left="25" top="88" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staNameLabel" left="25" top="88" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="130" top="93" width="140" height="30"/>
-              <Static id="staPhoneLabel" left="275" top="50" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
-              <Edit id="edtPhone" left="380" top="55" width="140" height="30"/>
-              <Static id="staEmailLabel" left="275" top="89" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
-              <Edit id="edtEmail" left="380" top="94" width="140" height="30"/>
+              <Static id="staPhoneBg" left="274" top="50" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="274" top="50" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="379" top="55" width="140" height="30"/>
+              <Static id="staEmailBg" left="274" top="89" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="274" top="89" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="379" top="94" width="140" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -662,11 +692,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Department" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Name" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Phone" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Email" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyBg" fields="Company"/>
@@ -678,8 +708,10 @@
               <Component id="staNameBg" fields="Name"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>
               <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
               <Component id="staEmailLabel" fields="Email"/>
               <Component id="edtEmail" fields="Email"/>
             </Components>
@@ -695,19 +727,21 @@
         <View id="View00_00_00_00_00_00" taborder="16" text="View00" viewdataset="viewdataset" left="1170" top="430" width="550" height="130" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <Static id="staCompanyBg" left="50" top="10" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyBg" left="50" top="10" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="50" top="10" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbCompany" left="155" top="15" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Static id="staDepartmentBg" left="50" top="49" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentBg" left="50" top="49" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staDepartmentLabel" left="50" top="49" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbDepartment" left="155" top="54" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
-              <Static id="staNameBg" left="50" top="88" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNameBg" left="50" top="88" width="250" height="40" cssclass="sta_fieldbox"/>
               <Static id="staNameLabel" left="50" top="88" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="155" top="93" width="140" height="30"/>
-              <Static id="staPhoneLabel" left="300" top="50" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
-              <Edit id="edtPhone" left="405" top="55" width="140" height="30"/>
-              <Static id="staEmailLabel" left="300" top="89" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
-              <Edit id="edtEmail" left="405" top="94" width="140" height="30"/>
+              <Static id="staPhoneBg" left="299" top="50" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="299" top="50" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="404" top="55" width="140" height="30"/>
+              <Static id="staEmailBg" left="299" top="89" width="250" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="299" top="89" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="404" top="94" width="140" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -747,11 +781,11 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Department" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Name" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Phone" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Email" description="" comptype="auto" fieldwidth="150" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staCompanyBg" fields="Company"/>
@@ -763,8 +797,820 @@
               <Component id="staNameBg" fields="Name"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>
               <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="vertical"/>
+            <Attribute id="halign" value="right"/>
+            <Attribute id="valign" value="bottom"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="Static00_00_02" taborder="18" text="vertical | left | top" left="5" top="605" width="295" height="25" cssclass="sta_WF_title02"/>
+        <Static id="Static00_00_00_02" taborder="19" text="vertical | center | top" left="585" top="605" width="295" height="25" cssclass="sta_WF_title02"/>
+        <Static id="Static00_00_00_00_01" taborder="20" text="vertical | right | top" left="1165" top="605" width="295" height="25" cssclass="sta_WF_title02"/>
+        <Static id="Static00_00_01_01" taborder="21" text="vertical | left | middle" left="5" top="845" width="295" height="25" cssclass="sta_WF_title02"/>
+        <Static id="Static00_00_00_01_01" taborder="22" text="vertical | center | middle" left="585" top="845" width="295" height="25" cssclass="sta_WF_title02"/>
+        <Static id="Static00_00_00_00_00_01" taborder="23" text="vertical | right | middle" left="1165" top="845" width="295" height="25" cssclass="sta_WF_title02"/>
+        <Static id="Static00_00_01_00_00" taborder="24" text="vertical | left | bottom" left="5" top="1095" width="295" height="25" cssclass="sta_WF_title02"/>
+        <Static id="Static00_00_00_01_00_00" taborder="25" text="vertical | center | bottom" left="585" top="1095" width="295" height="25" cssclass="sta_WF_title02"/>
+        <Static id="Static00_00_00_00_00_00_00" taborder="26" text="vertical | right | bottom" left="1165" top="1095" width="295" height="25" cssclass="sta_WF_title02"/>
+        <View id="View00_00_02" taborder="27" text="View00" viewdataset="viewdataset" left="10" top="640" width="550" height="180" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staCompanyBg" left="0" top="0" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyLabel" left="0" top="0" width="150" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbCompany" left="5" top="45" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentBg" left="0" top="79" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="0" top="79" width="150" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="5" top="124" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameBg" left="149" top="0" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staNameLabel" left="149" top="0" width="150" height="40" text="성명" cssclass="sta_labelbox_essential"/>
+              <Edit id="edtName" left="154" top="45" width="140" height="30"/>
+              <Static id="staPhoneBg" left="149" top="79" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="149" top="79" width="150" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="154" top="124" width="140" height="30"/>
+              <Static id="staEmailBg" left="298" top="0" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="298" top="0" width="150" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="303" top="45" width="140" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameBg" fields="Name"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="vertical"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View00_00_00_02" taborder="28" text="View00" viewdataset="viewdataset" left="590" top="640" width="550" height="180" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staCompanyBg" left="50" top="0" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyLabel" left="50" top="0" width="150" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbCompany" left="55" top="45" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentBg" left="50" top="79" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="50" top="79" width="150" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="55" top="124" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameBg" left="199" top="0" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staNameLabel" left="199" top="0" width="150" height="40" text="성명" cssclass="sta_labelbox_essential"/>
+              <Edit id="edtName" left="204" top="45" width="140" height="30"/>
+              <Static id="staPhoneBg" left="199" top="79" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="199" top="79" width="150" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="204" top="124" width="140" height="30"/>
+              <Static id="staEmailBg" left="348" top="0" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="348" top="0" width="150" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="353" top="45" width="140" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameBg" fields="Name"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="vertical"/>
+            <Attribute id="halign" value="center"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View00_00_00_00_01" taborder="29" text="View00" viewdataset="viewdataset" left="1170" top="640" width="550" height="180" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staCompanyBg" left="100" top="0" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyLabel" left="100" top="0" width="150" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbCompany" left="105" top="45" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentBg" left="100" top="79" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="100" top="79" width="150" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="105" top="124" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameBg" left="249" top="0" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staNameLabel" left="249" top="0" width="150" height="40" text="성명" cssclass="sta_labelbox_essential"/>
+              <Edit id="edtName" left="254" top="45" width="140" height="30"/>
+              <Static id="staPhoneBg" left="249" top="79" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="249" top="79" width="150" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="254" top="124" width="140" height="30"/>
+              <Static id="staEmailBg" left="398" top="0" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="398" top="0" width="150" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="403" top="45" width="140" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameBg" fields="Name"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="vertical"/>
+            <Attribute id="halign" value="right"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View00_00_01_01" taborder="30" text="View00" viewdataset="viewdataset" left="10" top="880" width="550" height="180" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staCompanyBg" left="0" top="10" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyLabel" left="0" top="10" width="150" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbCompany" left="5" top="55" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentBg" left="0" top="89" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="0" top="89" width="150" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="5" top="134" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameBg" left="149" top="10" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staNameLabel" left="149" top="10" width="150" height="40" text="성명" cssclass="sta_labelbox_essential"/>
+              <Edit id="edtName" left="154" top="55" width="140" height="30"/>
+              <Static id="staPhoneBg" left="149" top="89" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="149" top="89" width="150" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="154" top="134" width="140" height="30"/>
+              <Static id="staEmailBg" left="298" top="50" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="298" top="50" width="150" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="303" top="95" width="140" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameBg" fields="Name"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="vertical"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="middle"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View00_00_00_01_01" taborder="31" text="View00" viewdataset="viewdataset" left="590" top="880" width="550" height="180" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staCompanyBg" left="50" top="10" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyLabel" left="50" top="10" width="150" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbCompany" left="55" top="55" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentBg" left="50" top="89" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="50" top="89" width="150" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="55" top="134" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameBg" left="199" top="10" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staNameLabel" left="199" top="10" width="150" height="40" text="성명" cssclass="sta_labelbox_essential"/>
+              <Edit id="edtName" left="204" top="55" width="140" height="30"/>
+              <Static id="staPhoneBg" left="199" top="89" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="199" top="89" width="150" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="204" top="134" width="140" height="30"/>
+              <Static id="staEmailBg" left="348" top="50" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="348" top="50" width="150" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="353" top="95" width="140" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameBg" fields="Name"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="vertical"/>
+            <Attribute id="halign" value="center"/>
+            <Attribute id="valign" value="middle"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View00_00_00_00_00_01" taborder="32" text="View00" viewdataset="viewdataset" left="1170" top="880" width="550" height="180" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staCompanyBg" left="100" top="10" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyLabel" left="100" top="10" width="150" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbCompany" left="105" top="55" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentBg" left="100" top="89" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="100" top="89" width="150" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="105" top="134" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameBg" left="249" top="10" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staNameLabel" left="249" top="10" width="150" height="40" text="성명" cssclass="sta_labelbox_essential"/>
+              <Edit id="edtName" left="254" top="55" width="140" height="30"/>
+              <Static id="staPhoneBg" left="249" top="89" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="249" top="89" width="150" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="254" top="134" width="140" height="30"/>
+              <Static id="staEmailBg" left="398" top="50" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="398" top="50" width="150" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="403" top="95" width="140" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameBg" fields="Name"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="vertical"/>
+            <Attribute id="halign" value="right"/>
+            <Attribute id="valign" value="middle"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View00_00_01_00_00" taborder="33" text="View00" viewdataset="viewdataset" left="10" top="1130" width="550" height="180" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staCompanyBg" left="0" top="20" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyLabel" left="0" top="20" width="150" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbCompany" left="5" top="65" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentBg" left="0" top="99" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="0" top="99" width="150" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="5" top="144" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameBg" left="149" top="20" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staNameLabel" left="149" top="20" width="150" height="40" text="성명" cssclass="sta_labelbox_essential"/>
+              <Edit id="edtName" left="154" top="65" width="140" height="30"/>
+              <Static id="staPhoneBg" left="149" top="99" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="149" top="99" width="150" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="154" top="144" width="140" height="30"/>
+              <Static id="staEmailBg" left="298" top="100" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="298" top="100" width="150" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="303" top="145" width="140" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameBg" fields="Name"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="vertical"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="bottom"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View00_00_00_01_00_00" taborder="34" text="View00" viewdataset="viewdataset" left="590" top="1130" width="550" height="180" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staCompanyBg" left="50" top="20" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyLabel" left="50" top="20" width="150" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbCompany" left="55" top="65" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentBg" left="50" top="99" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="50" top="99" width="150" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="55" top="144" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameBg" left="199" top="20" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staNameLabel" left="199" top="20" width="150" height="40" text="성명" cssclass="sta_labelbox_essential"/>
+              <Edit id="edtName" left="204" top="65" width="140" height="30"/>
+              <Static id="staPhoneBg" left="199" top="99" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="199" top="99" width="150" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="204" top="144" width="140" height="30"/>
+              <Static id="staEmailBg" left="348" top="100" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="348" top="100" width="150" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="353" top="145" width="140" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameBg" fields="Name"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
+              <Component id="staEmailLabel" fields="Email"/>
+              <Component id="edtEmail" fields="Email"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="vertical"/>
+            <Attribute id="halign" value="center"/>
+            <Attribute id="valign" value="bottom"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View00_00_00_00_00_00_00" taborder="35" text="View00" viewdataset="viewdataset" left="1170" top="1130" width="550" height="180" cssclass="viw_bg">
+          <Layouts>
+            <Layout>
+              <Static id="staCompanyBg" left="100" top="20" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyLabel" left="100" top="20" width="150" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbCompany" left="105" top="65" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentBg" left="100" top="99" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="100" top="99" width="150" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="105" top="144" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameBg" left="249" top="20" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staNameLabel" left="249" top="20" width="150" height="40" text="성명" cssclass="sta_labelbox_essential"/>
+              <Edit id="edtName" left="254" top="65" width="140" height="30"/>
+              <Static id="staPhoneBg" left="249" top="99" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="249" top="99" width="150" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <Edit id="edtPhone" left="254" top="144" width="140" height="30"/>
+              <Static id="staEmailBg" left="398" top="100" width="150" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staEmailLabel" left="398" top="100" width="150" height="40" text="이메일주소" cssclass="sta_labelbox"/>
+              <Edit id="edtEmail" left="403" top="145" width="140" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="40" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameBg" fields="Name"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
+              <Component id="staPhoneLabel" fields="Phone"/>
+              <Component id="edtPhone" fields="Phone"/>
+              <Component id="staEmailBg" fields="Email"/>
               <Component id="staEmailLabel" fields="Email"/>
               <Component id="edtEmail" fields="Email"/>
             </Components>

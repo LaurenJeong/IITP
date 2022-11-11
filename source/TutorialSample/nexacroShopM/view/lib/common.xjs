@@ -33,11 +33,11 @@ this.arrBindItems = [];
 //Grid, Listview Field별 cell정보
 this.oFieldCellInfo = {};
 
-//Innerdataset 정보 Field Attribute ID
-this.VIEW_INNERDS_ATTR_ID = "innerdatasetinfo";
-
 // View에서 생성한 컴포넌트의 Field ID
 this.VIEW_COMP_FIELD_ID = "_viewcomp";
+
+// Innser Dataset 정보가 있는 Field ID
+this.INNSER_DS_FIELD_ID = "innerdatasetinfo";
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -49,6 +49,9 @@ this.COMP_NAMING_RULE	= "C";
 /** @const {string} */
 // 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 this.LOG_LEVEL			= -1;
+
+// Abstract 컴포넌트 사용여부
+this.USE_ABSTRACT_COMP	= false;
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -291,6 +294,10 @@ this.lfn_MakeGenerationInfo = function(fieldarray, contents, generationattr, bUs
 	//Initialize Model Information
 	this.oContents.View.Model = [];
 	
+	//View 레이아웃 초기화
+	this.oContents.View.View[0].tag = "Layouts";
+	this.oContents.View.View[0].Layouts = [];
+	
 	if (this.oContentsOrg.View.Model == null) {
 		this.oContentsOrg.View.Model = [];
 	}
@@ -340,10 +347,17 @@ this.lfn_MakeUseFieldArray = function(fieldarray)
  * Return       : component class data
  * Description  : Returns class information of the component based on Field data
  *---------------------------------------------------------------------------------------------*/
-this.lfn_GetCompClass = function(sCompType)
+this.lfn_GetCompClass = function(sCompType, oField, sAutoField)
 {
 	var oCompClass = { "classId" : null, "prefix" : null };
-
+	
+	// comptype이 auto일때 oField정보로 매칭되는 컴포넌트 반환
+	if (this.lfn_IsNotNull(oField))
+	{
+		sCompType = this.lfn_GetAutoCompType(oField, sAutoField);
+	}
+	
+	// 컴포넌트별 
 	switch(sCompType)
 	{
 		case "button" : oCompClass.classId = "Button";
@@ -388,12 +402,94 @@ this.lfn_GetCompClass = function(sCompType)
 		case "webview" : oCompClass.classId = "WebView";
 						oCompClass.prefix = "web";
 						break;
+		case "selectone" : oCompClass.classId = "AbstractSelectOne";
+						oCompClass.prefix = "aso";
+						break;
+		case "selectany" : oCompClass.classId = "AbstractSelectAny";
+						oCompClass.prefix = "asa";
+						break;
 		default : oCompClass.classId = "Static";
 				  oCompClass.prefix = "sta";
 	}
 
     //컴포넌트 정보 리턴
     return oCompClass;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetAutoCompType
+ * Parameter    :
+ *                - oField : Field 정보
+ * Return       : comptype
+ * Description  : comptype이 auto일때 oField정보로 매칭되는 컴포넌트 반환
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetAutoCompType = function(oField, sAutoField)
+{
+	if (this.lfn_IsNull(sAutoField))		sAutoField = "comptype";
+	
+	var sCompType = oField[sAutoField];
+	
+	//Auto 일때 처리
+	if (sCompType == "auto")
+	{
+		var sFieldType = oField["fieldtype"];
+		var sDataType = oField["datatype"];
+		var sDataSize = oField["datasize"];
+		
+		if (sFieldType == "SelectOne")				// SelectOne일때 AbstractSelectOne
+		{
+			if (this.USE_ABSTRACT_COMP)
+			{
+				sCompType = "selectone";
+			}
+			else
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","combotext","edittype","combo","combo");
+			}
+		}
+		else if (sFieldType == "SelectAny")			// SelectAny일때 AbstractSelectAny
+		{
+			if (this.USE_ABSTRACT_COMP)
+			{
+				sCompType = "selectany";
+			}
+			else
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","combotext","edittype","combo","combo");
+			}
+		}
+		else if (sFieldType == "MultiMedia")		// MultiMedia일때 imageviewer
+		{
+			sCompType = this.lfn_Decode(sAutoField,"displaytype","imagecontrol","edittype","none","imageviewer");
+		}
+		else if (sFieldType == "FreeText")			// FreeText일때 datatype에 따라 분기
+		{
+			if (sDataType == "INT" || sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","number","edittype","normal","maskedit");
+			}
+			else if (sDataType == "DATE" || sDataType == "TIME" || sDataType == "DATETIME")
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","date","edittype","date","calendar");
+			}
+			else if (sDataType == "STRING")
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","normal","edittype","normal","edit");
+			}
+			else if (sDataType == "BLOB")
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","imagecontrol","edittype","none","imageviewer");
+			}
+		}
+		
+		// 해당되는 값이 없고 auto인 경우 edit로 기본값 처리
+		if (sCompType == "auto")
+		{
+			sCompType = this.lfn_Decode(sAutoField,"displaytype","normal","edittype","normal","edit");
+		}
+	}
+	
+	return sCompType;
 };
 
 /*---------------------------------------------------------------------------------------------*
@@ -729,7 +825,7 @@ this.lfn_GetInnerDataset = function(objFieldArr)
         sFieldId 	= oField["id"];
 		sFieldType	= oField["fieldtype"];
         sDataType 	= oField["datatype"];
-        sInnerInfo 	= oField[this.VIEW_INNERDS_ATTR_ID];
+        sInnerInfo 	= oField[this.INNSER_DS_FIELD_ID];
 		
 		sInnerDatasetId = "";
 		sCodeField = "";
@@ -799,7 +895,8 @@ this.lfn_GetInnerDataset = function(objFieldArr)
 							oFieldComp = oFieldComps[k];
 							sCompTag = oFieldComp["tag"];
 							
-							if (sCompTag == "Combo" || sCompTag == "Radio" || sCompTag == "ListBox")
+							if (sCompTag == "Combo" || sCompTag == "Radio" || sCompTag == "ListBox"
+								|| sCompTag == "AbstractSelectOne" || sCompTag == "AbstractSelectAny")
 							{
 								oFieldComp["attribute"]["innerdataset"] = sInnerDatasetId;
 								
