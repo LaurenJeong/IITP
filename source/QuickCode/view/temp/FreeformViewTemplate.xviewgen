@@ -791,7 +791,7 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
 }
 
 /*---------------------------------------------------------------------------------------------*
- * Function     : fn_CalcFieldByLayout
+ * Function     : fn_CalcFieldMergeLabel
  * Parameter    :
 				- sDirection : Component Production Direction
 				- sVAlign : Component Vertical Alignment Method(top|middle|bottom)
@@ -999,7 +999,7 @@ fn_CalcFieldMergeLabel = function(sDirection, sVAlign, sHAlign, nColSize, nRowSi
 				nEndY = nTop + nFiledHeightMax;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nRowIdx+1, nRowIdx, nPaddingV, this.LINE_SPACE, true);
+				if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nRowIdx+1, nRowIdx, nPaddingV, this.LINE_SPACE, false);
 				else nTemp = 0;
 				
 				//Evaluate the VAlign Starting Location Value
@@ -1012,7 +1012,7 @@ fn_CalcFieldMergeLabel = function(sDirection, sVAlign, sHAlign, nColSize, nRowSi
 				nEndY = nTop + nCompHeight;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx+1, nColIdx, nPaddingV, this.LINE_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx+1, nColIdx, nPaddingV, this.LINE_SPACE, false);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
