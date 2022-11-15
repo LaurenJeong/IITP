@@ -477,7 +477,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 		{
 
 			//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx+1, nColIdx, 0, this.LINE_SPACE, true);
+			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, 0, this.LINE_SPACE, true);
 			else nTemp = 0;
 
 			//Start a new line if the Field exceeds the Cell Width
@@ -487,7 +487,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndX = nLeft;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx, nColIdx-1, 0, this.LINE_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx, 0, this.LINE_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
@@ -518,7 +518,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 		else
 		{
 			//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx+1, nColIdx, 0, this.LINE_SPACE, true);
+			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, 0, this.LINE_SPACE, true);
 			else nTemp = 0;
 
 			//Start a new line if the Field exceeds the Cell Height
@@ -528,7 +528,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndY = nTop;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx, nColIdx-1, 0, this.LINE_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx, 0, this.LINE_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the VAlign Starting Location Value of this Row
@@ -572,7 +572,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndX = nLeft + nFieldWidth;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx+1, nColIdx, 0, this.COMP_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, 0, this.COMP_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
@@ -582,7 +582,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndY = nTop + nFiledHeightMax;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nRowIdx+1, nRowIdx, 0, this.LINE_SPACE, true);
+				if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nRowIdx+1, 0, this.LINE_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the VAlign Starting Location Value
@@ -595,7 +595,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndY = nTop+nFieldHeight;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx+1, nColIdx, 0, this.LINE_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, 0, this.LINE_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
@@ -605,7 +605,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndX = nLeft + nFiledWidthMax;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nRowIdx+1, nRowIdx, 0, this.COMP_SPACE, true);
+				if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nRowIdx+1, 0, this.COMP_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
