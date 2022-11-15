@@ -117,9 +117,9 @@
                 </Layouts>
               </Div>
               <Static id="staCompanyLabel" left="0" top="30" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
-              <Combo id="cmbCompany" left="105" top="35" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <AbstractSelectOne id="asoCompany" left="105" top="35" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
               <Static id="staDepartmentLabel" left="0" top="69" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
-              <Combo id="cmbDepartment" left="105" top="74" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <AbstractSelectOne id="asoDepartment" left="105" top="74" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
               <Static id="staNameLabel" left="0" top="108" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="105" top="113" width="140" height="30"/>
               <Static id="staPhoneLabel" left="249" top="30" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
@@ -157,13 +157,13 @@
             </Dataset>
           </Objects>
           <Bind>
-            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
-            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_asoCompany" compid="asoCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_asoDepartment" compid="asoDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
             <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
             <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
             <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
           </Bind>
-          <Script><![CDATA[this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){if (obj.cssclass == 'btn_title_open') {this.View00_00.form.lfn_Title_SetSearchOpenClose(obj,'open');} else {this.View00_00.form.lfn_Title_SetSearchOpenClose(obj,'close');}};this.lfn_Title_SetSearchOpenClose = function(obj,sStatus){var objForm = obj.parent.parent.parent;var objView = objForm.parent;if (sStatus == 'close') {objView.set_height('30');objView.set_formscrolltype('none');obj.set_cssclass('btn_title_open');} else {if (objView._openHeight > 0) {objView.set_height(objView._openHeight);} else {objView.set_bottom(objView._openBottom);}objView.set_formscrolltype(objView._formscrolltype);obj.set_cssclass('btn_title_close');}objView['_openclose'] = sStatus;objView.parent.resetScroll();};this.lfn_Title_SetViewInit = function(obj,sStatus){var objView = obj.parent;objView._openclose = sStatus;objView._openHeight = objView.height;objView._openBottom = objView.bottom;objView._formscrolltype = objView.formscrolltype;this.lfn_Title_SetSearchOpenClose(obj.divTitle.form.btnExpand,sStatus);};this.lfn_Title_SetViewInit(this,'open');]]></Script>
+          <Script><![CDATA[this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){if (obj.cssclass == 'btn_title_open') {this.View00_00.form.lfn_Title_SetSearchOpenClose(obj,'open');} else {this.View00_00.form.lfn_Title_SetSearchOpenClose(obj,'close');}};this.lfn_Title_SetSearchOpenClose = function(obj,sStatus){var objDivTitle = obj.parent.parent;var objForm = objDivTitle.parent;var objView = objForm.parent;if (sStatus == 'close') {objView.set_height(objView._closeHeight);objView.set_formscrolltype('none');obj.set_cssclass('btn_title_open');} else {if (objView._openHeight > 0) {objView.set_height(objView._openHeight);} else {objView.set_bottom(objView._openBottom);}objView.set_formscrolltype(objView._formscrolltype);obj.set_cssclass('btn_title_close');}objView['_openclose'] = sStatus;objView.parent.resetScroll();};this.lfn_Title_SetViewInit = function(obj,sStatus){var objView = obj.parent;objView._openclose = sStatus;objView._openHeight = objView.height;objView._openBottom = objView.bottom;objView._closeHeight = nexacro.toNumber(obj.divTitle.top,0) + nexacro.toNumber(obj.divTitle.height,0) + 5;objView._formscrolltype = objView.formscrolltype;this.lfn_Title_SetSearchOpenClose(obj.divTitle.form.btnExpand,sStatus);};this.lfn_Title_SetViewInit(this,'open');]]></Script>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
               <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
@@ -175,9 +175,9 @@
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
               <Component id="staCompanyLabel" fields="Company"/>
-              <Component id="cmbCompany" fields="Company"/>
+              <Component id="asoCompany" fields="Company"/>
               <Component id="staDepartmentLabel" fields="Department"/>
-              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="asoDepartment" fields="Department"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
               <Component id="staPhoneLabel" fields="Phone"/>
@@ -206,9 +206,9 @@
                 </Layouts>
               </Div>
               <Static id="staCompanyLabel" left="0" top="30" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
-              <Combo id="cmbCompany" left="105" top="35" width="165" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <AbstractSelectOne id="asoCompany" left="105" top="35" width="165" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
               <Static id="staDepartmentLabel" left="274" top="30" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
-              <Combo id="cmbDepartment" left="379" top="35" width="165" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <AbstractSelectOne id="asoDepartment" left="379" top="35" width="165" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
               <Static id="staNameLabel" left="0" top="69" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
               <Edit id="edtName" left="105" top="74" width="165" height="30"/>
               <Static id="staPhoneLabel" left="274" top="69" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
@@ -246,8 +246,8 @@
             </Dataset>
           </Objects>
           <Bind>
-            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
-            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_asoCompany" compid="asoCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_asoDepartment" compid="asoDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
             <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
             <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
             <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
@@ -263,9 +263,9 @@
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
               <Component id="staCompanyLabel" fields="Company"/>
-              <Component id="cmbCompany" fields="Company"/>
+              <Component id="asoCompany" fields="Company"/>
               <Component id="staDepartmentLabel" fields="Department"/>
-              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="asoDepartment" fields="Department"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
               <Component id="staPhoneLabel" fields="Phone"/>
@@ -297,8 +297,8 @@
               </Div>
               <Static id="staCompanyBg" left="0" top="30" width="549" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="0" top="30" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
-              <Combo id="cmbCompany" left="105" top="35" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Combo id="cmbDepartment" left="250" top="35" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <AbstractSelectOne id="asoCompany" left="105" top="35" width="140" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <AbstractSelectOne id="asoDepartment" left="250" top="35" width="140" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
               <Edit id="edtName" left="395" top="35" width="140" height="30"/>
               <Static id="staPhoneBg" left="0" top="69" width="183" height="40" cssclass="sta_fieldbox"/>
               <Static id="staPhoneLabel" left="0" top="69" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
@@ -337,13 +337,13 @@
             </Dataset>
           </Objects>
           <Bind>
-            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
-            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_asoCompany" compid="asoCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_asoDepartment" compid="asoDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
             <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
             <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
             <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
           </Bind>
-          <Script><![CDATA[this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){if (obj.cssclass == 'btn_title_open') {this.View01.form.lfn_Title_SetSearchOpenClose(obj,'open');} else {this.View01.form.lfn_Title_SetSearchOpenClose(obj,'close');}};this.lfn_Title_SetSearchOpenClose = function(obj,sStatus){var objForm = obj.parent.parent.parent;var objView = objForm.parent;if (sStatus == 'close') {objView.set_height('30');objView.set_formscrolltype('none');obj.set_cssclass('btn_title_open');} else {if (objView._openHeight > 0) {objView.set_height(objView._openHeight);} else {objView.set_bottom(objView._openBottom);}objView.set_formscrolltype(objView._formscrolltype);obj.set_cssclass('btn_title_close');}objView['_openclose'] = sStatus;objView.parent.resetScroll();};this.lfn_Title_SetViewInit = function(obj,sStatus){var objView = obj.parent;objView._openclose = sStatus;objView._openHeight = objView.height;objView._openBottom = objView.bottom;objView._formscrolltype = objView.formscrolltype;this.lfn_Title_SetSearchOpenClose(obj.divTitle.form.btnExpand,sStatus);};this.lfn_Title_SetViewInit(this,'close');]]></Script>
+          <Script><![CDATA[this.lfn_Title_btnTitleOpenClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){if (obj.cssclass == 'btn_title_open') {this.View01.form.lfn_Title_SetSearchOpenClose(obj,'open');} else {this.View01.form.lfn_Title_SetSearchOpenClose(obj,'close');}};this.lfn_Title_SetSearchOpenClose = function(obj,sStatus){var objDivTitle = obj.parent.parent;var objForm = objDivTitle.parent;var objView = objForm.parent;if (sStatus == 'close') {objView.set_height(objView._closeHeight);objView.set_formscrolltype('none');obj.set_cssclass('btn_title_open');} else {if (objView._openHeight > 0) {objView.set_height(objView._openHeight);} else {objView.set_bottom(objView._openBottom);}objView.set_formscrolltype(objView._formscrolltype);obj.set_cssclass('btn_title_close');}objView['_openclose'] = sStatus;objView.parent.resetScroll();};this.lfn_Title_SetViewInit = function(obj,sStatus){var objView = obj.parent;objView._openclose = sStatus;objView._openHeight = objView.height;objView._openBottom = objView.bottom;objView._closeHeight = nexacro.toNumber(obj.divTitle.top,0) + nexacro.toNumber(obj.divTitle.height,0) + 5;objView._formscrolltype = objView.formscrolltype;this.lfn_Title_SetSearchOpenClose(obj.divTitle.form.btnExpand,sStatus);};this.lfn_Title_SetViewInit(this,'close');]]></Script>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
               <Field id="Company" description="" comptype="auto" compwidth="150" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
@@ -356,8 +356,8 @@
               <Component id="divTitle" fields="_viewcomp"/>
               <Component id="staCompanyBg" fields="Company"/>
               <Component id="staCompanyLabel" fields="Company"/>
-              <Component id="cmbCompany" fields="Company"/>
-              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="asoCompany" fields="Company"/>
+              <Component id="asoDepartment" fields="Department"/>
               <Component id="edtName" fields="Name"/>
               <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>

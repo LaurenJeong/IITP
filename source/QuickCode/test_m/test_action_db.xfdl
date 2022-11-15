@@ -8,12 +8,12 @@
             <Layout>
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
               <Button id="btnSearch" left="20" height="60" right="20" bottom="20" cssclass="btn_search" text="Search"/>
-              <Static id="staCompanyLabel" left="20" top="20" width="105" height="60" text="Company" cssclass="sta_label"/>
-              <Edit id="edtCompany" left="130" top="20" width="290" height="60"/>
-              <Static id="staDepartmentLabel" left="20" top="90" width="105" height="60" text="Department" cssclass="sta_label"/>
-              <Edit id="edtDepartment" left="130" top="90" width="290" height="60"/>
-              <Static id="staNameLabel" left="20" top="160" width="105" height="60" text="Name" cssclass="sta_label"/>
-              <Edit id="edtName" left="130" top="160" width="290" height="60"/>
+              <Static id="staCompanyLabel" left="20" top="20" width="110" height="60" text="Company" cssclass="sta_label"/>
+              <Combo id="cmbCompany" left="135" top="20" width="285" height="60"/>
+              <Static id="staDepartmentLabel" left="20" top="90" width="110" height="60" text="Department" cssclass="sta_label"/>
+              <Combo id="cmbDepartment" left="135" top="90" width="285" height="60"/>
+              <Static id="staNameLabel" left="20" top="160" width="110" height="60" text="Name" cssclass="sta_label"/>
+              <Edit id="edtName" left="135" top="160" width="285" height="60"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -29,23 +29,23 @@
             </Dataset>
           </Objects>
           <Bind>
-            <BindItem id="bind_edtCompany" compid="edtCompany" propid="value" datasetid="viewdataset" columnid="company"/>
-            <BindItem id="bind_edtDepartment" compid="edtDepartment" propid="value" datasetid="viewdataset" columnid="department"/>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="department"/>
             <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="name"/>
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="Tran" modelid="input" filepath="sample\Tran.xmodel">
             <Fields>
-              <Field id="company" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="department" required="false" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="name" required="false" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="company" comptype="auto" compwidth="100%" compheight="60px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="department" required="false" comptype="auto" compwidth="100%" compheight="60px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="name" required="false" comptype="auto" compwidth="100%" compheight="60px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
               <Component id="btnSearch" fields="_viewcomp"/>
               <Component id="staCompanyLabel" fields="company"/>
-              <Component id="edtCompany" fields="company"/>
+              <Component id="cmbCompany" fields="company"/>
               <Component id="staDepartmentLabel" fields="department"/>
-              <Component id="edtDepartment" fields="department"/>
+              <Component id="cmbDepartment" fields="department"/>
               <Component id="staNameLabel" fields="name"/>
               <Component id="edtName" fields="name"/>
             </Components>

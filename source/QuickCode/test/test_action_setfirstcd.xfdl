@@ -7,22 +7,21 @@
           <Layouts>
             <Layout>
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
-              <Button id="btnSearch" width="100" height="30" right="5" bottom="5" cssclass="btn_search" text="Search"/>
-              <Static id="stcompany_Label" left="5" top="5" width="95" height="30" text="Company" cssclass="sta_label"/>
-              <Radio id="rdocompany" left="105" top="5" width="330" height="30" innerdataset="dsCompanyS" codecolumn="COMN_CD" datacolumn="COMN_CD_NM" rowcount="1"/>
-              <Static id="stdepartment_Label" left="5" top="40" width="95" height="30" text="Department" cssclass="sta_label"/>
-              <Combo id="cmbdepartment" left="105" top="40" width="330" height="30" innerdataset="dsDepartmentS" codecolumn="COMN_CD" datacolumn="COMN_CD_NM"/>
-              <Static id="stname_Label" left="5" top="75" width="95" height="30" text="Name" cssclass="sta_label"/>
-              <Edit id="edtname" left="105" top="75" width="330" height="30"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staCompanyLabel" left="10" top="10" width="100" height="30" text="Company" cssclass="sta_label"/>
+              <Radio id="rdoCompany" left="115" top="10" width="334" height="30" direction="vertical"/>
+              <Static id="staDepartmentLabel" left="10" top="45" width="100" height="30" text="Department" cssclass="sta_label"/>
+              <Combo id="cmbDepartment" left="115" top="45" width="334" height="30"/>
+              <Static id="staNameLabel" left="10" top="80" width="100" height="30" text="Name" cssclass="sta_label"/>
+              <Edit id="edtName" left="115" top="80" width="334" height="30"/>
             </Layout>
-            <Layout/>
           </Layouts>
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="company" type="BLOB" size="80"/>
-                <Column id="department" type="BLOB" size="80"/>
-                <Column id="name" type="STRING" size="80"/>
+                <Column id="company" type="STRING" size="80" description="Company"/>
+                <Column id="department" type="STRING" size="80" description="Department"/>
+                <Column id="name" type="STRING" size="80" description="Name"/>
               </ColumnInfo>
               <Rows>
                 <Row/>
@@ -30,23 +29,25 @@
             </Dataset>
           </Objects>
           <Bind>
-            <BindItem id="bind_rdocompany" compid="rdocompany" propid="value" datasetid="viewdataset" columnid="company"/>
-            <BindItem id="bind_cmbdepartment" compid="cmbdepartment" propid="value" datasetid="viewdataset" columnid="department"/>
-            <BindItem id="bind_edtname" compid="edtname" propid="value" datasetid="viewdataset" columnid="name"/>
+            <BindItem id="bind_rdoCompany" compid="rdoCompany" propid="value" datasetid="viewdataset" columnid="company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="name"/>
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="svcQuickCodeTutorial" modelid="tutorial_SearchEmployee" filepath="svcQuickCodeTutorial.xmodel">
             <Fields>
-              <Field id="company" comptype="radio" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label"/>
-              <Field id="department" required="false" comptype="combo" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label"/>
-              <Field id="name" required="false" comptype="edit" fieldwidth="110px" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_label"/>
+              <Field id="company" comptype="radio" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="department" required="false" comptype="combo" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="name" required="false" comptype="edit" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="stcompany_Label" fields="company"/>
-              <Component id="rdocompany" fields="company"/>
-              <Component id="stdepartment_Label" fields="department"/>
-              <Component id="cmbdepartment" fields="department"/>
-              <Component id="stname_Label" fields="name"/>
-              <Component id="edtname" fields="name"/>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staCompanyLabel" fields="company"/>
+              <Component id="rdoCompany" fields="company"/>
+              <Component id="staDepartmentLabel" fields="department"/>
+              <Component id="cmbDepartment" fields="department"/>
+              <Component id="staNameLabel" fields="name"/>
+              <Component id="edtName" fields="name"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">

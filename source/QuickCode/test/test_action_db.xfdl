@@ -8,12 +8,12 @@
             <Layout>
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
               <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
-              <Static id="staCompanyLabel" left="10" top="10" width="95" height="30" text="Company" cssclass="sta_label"/>
-              <Edit id="edtCompany" left="110" top="10" width="100" height="30"/>
-              <Static id="staDepartmentLabel" left="215" top="10" width="95" height="30" text="Department" cssclass="sta_label"/>
-              <Edit id="edtDepartment" left="315" top="10" width="100" height="30"/>
-              <Static id="staNameLabel" left="420" top="10" width="95" height="30" text="Name" cssclass="sta_label"/>
-              <Edit id="edtName" left="520" top="10" width="100" height="30"/>
+              <Static id="staCompanyLabel" left="10" top="10" width="100" height="30" text="Company" cssclass="sta_label"/>
+              <Edit id="edtCompany" left="115" top="10" width="95" height="30"/>
+              <Static id="staDepartmentLabel" left="215" top="10" width="100" height="30" text="Department" cssclass="sta_label"/>
+              <Edit id="edtDepartment" left="320" top="10" width="95" height="30"/>
+              <Static id="staNameLabel" left="420" top="10" width="100" height="30" text="Name" cssclass="sta_label"/>
+              <Edit id="edtName" left="525" top="10" width="95" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -35,9 +35,9 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="Tran" modelid="input" filepath="sample\Tran.xmodel">
             <Fields>
-              <Field id="company" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="department" required="false" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="name" required="false" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="company" comptype="edit" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="department" required="false" comptype="edit" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="name" required="false" comptype="edit" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -80,28 +80,28 @@
                       <Row size="30" band="summ"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_company" col="0" row="0" text="Company"/>
-                      <Cell id="cell_department" col="1" row="0" text="Department"/>
-                      <Cell id="cell_name" col="2" row="0" text="Name"/>
-                      <Cell id="cell_position" col="3" row="0" text="Position"/>
-                      <Cell id="cell_phone" col="4" row="0" text="Phone"/>
-                      <Cell id="cell_address" col="5" row="0" text="Address"/>
+                      <Cell id="cell_head_0_0_company" col="0" row="0" text="Company"/>
+                      <Cell id="cell_head_1_0_department" col="1" row="0" text="Department"/>
+                      <Cell id="cell_head_2_0_name" col="2" row="0" text="Name"/>
+                      <Cell id="cell_head_3_0_position" col="3" row="0" text="Position"/>
+                      <Cell id="cell_head_4_0_phone" col="4" row="0" text="Phone"/>
+                      <Cell id="cell_head_5_0_address" col="5" row="0" text="Address"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_company" col="0" row="0" text="bind:company" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_department" col="1" row="0" text="bind:department" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_name" col="2" row="0" text="bind:name" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_position" col="3" row="0" text="bind:position" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_phone" col="4" row="0" text="bind:phone" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_address" col="5" row="0" text="bind:address" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_0_company" col="0" row="0" text="bind:company" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_department" col="1" row="0" text="bind:department" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_2_0_name" col="2" row="0" text="bind:name" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_3_0_position" col="3" row="0" text="bind:position" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_4_0_phone" col="4" row="0" text="bind:phone" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_5_0_address" col="5" row="0" text="bind:address" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary">
-                      <Cell id="cell_company" col="0" row="0" text=""/>
-                      <Cell id="cell_department" col="1" row="0" text=""/>
-                      <Cell id="cell_name" col="2" row="0" text=""/>
-                      <Cell id="cell_position" col="3" row="0" text=""/>
-                      <Cell id="cell_phone" col="4" row="0" text=""/>
-                      <Cell id="cell_address" col="5" row="0" text=""/>
+                      <Cell id="cell_summ_company" col="0" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_department" col="1" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_name" col="2" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_position" col="3" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_phone" col="4" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_address" col="5" row="0" text="" displaytype="normal"/>
                     </Band>
                   </Format>
                 </Formats>
