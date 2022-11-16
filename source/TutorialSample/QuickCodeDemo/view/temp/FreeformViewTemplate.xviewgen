@@ -118,6 +118,9 @@ this.COMP_READONLY_LABEL_STYLE	= "true";
 
 //Component Readonly시 Static형식 CSS Class
 this.COMP_READONLY_CSSCLASS		= "com_View";
+
+//라벨을 첫줄만 생성할지 여부
+this.MERGE_COMP_BG			= "false";
 //////////////////////////////Constant Setting END ////////////////////////////////////////////////////
 
 /*============================================================================================*
@@ -657,7 +660,7 @@ fn_GetModel = function()
 		var oLayout = this.oGenerationAttr.attributes.format;
 
 		//Load Layout Calculation Function
-		fn_CalcLayout(arrFieldUse, oLayout, nViewCompWidth, nViewCompHeight);
+		fn_CalcLayout(oLayout, nViewCompWidth, nViewCompHeight);
 
 		//Load Layout-based Component Production Function
 		fn_MakeCompByLayout(oLayout);
@@ -1791,20 +1794,39 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		//bMergeLabel이 false인 경우 Fieldbox, label 생성, bMergeLabel이 true인 경우 첫번째 Field 경우에만 생성
 		if (bMergeLabel=="false" || i==0)
 		{
-			// Field배경 Box 생성(Field마다 생성되도록 수정)
+			// Field배경 Box 생성
 			if(sUseFieldBox == "true")
 			{
-				//필드 배경 Static 추가
-				sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
-				oComp = {
-							"tag" : oCompBgClass.classId,
-							"attribute" :
-							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nFieldAreaWidth, "height" : nFieldAreaHeight
-								,"cssclass" : sFieldBgCssClass
-							}
-						};
-				oModel[oModel.length-1].Components.push(oComp);
+				// 첫번째 Field일때만 생성
+				if (this.MERGE_COMP_BG == "true" && nLayoutCol == 0)
+				{
+					//필드 배경 Static 추가
+					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+					oComp = {
+								"tag" : oCompBgClass.classId,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+				// Field마다 생성
+				else
+				{
+					//필드 배경 Static 추가
+					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+					oComp = {
+								"tag" : oCompBgClass.classId,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nFieldAreaWidth, "height" : nFieldAreaHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
 			}
 			
 			//라벨 Static 추가
