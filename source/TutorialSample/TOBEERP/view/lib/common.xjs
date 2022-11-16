@@ -35,6 +35,9 @@ this.oFieldCellInfo = {};
 
 // View에서 생성한 컴포넌트의 Field ID
 this.VIEW_COMP_FIELD_ID = "_viewcomp";
+
+// Innser Dataset 정보가 있는 Field ID
+this.INNSER_DS_FIELD_ID = "innerdatasetinfo";
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -279,7 +282,6 @@ this.lfn_MakeGenerationInfo = function(fieldarray, contents, generationattr, bUs
 		//trace(">> contents : " + contents);
 		this.oContents = JSON.parse(contents);
 		this.oContentsOrg = JSON.parse(contents);
-		
 	}
 	
 	//Set Option Setting Information as JSON Object
@@ -288,10 +290,14 @@ this.lfn_MakeGenerationInfo = function(fieldarray, contents, generationattr, bUs
 	//Initialize Model Information
 	this.oContents.View.Model = [];
 	
+	//View 레이아웃 초기화
+	this.oContents.View.View[0].tag = "Layouts";
+	this.oContents.View.View[0].Layouts = [];
+	
 	if (this.oContentsOrg.View.Model == null) {
 		this.oContentsOrg.View.Model = [];
 	}
-	
+
 	if (bUseComp) {
 		this.lfn_MakeUseFieldArray(fieldarray);
 	}
@@ -337,10 +343,17 @@ this.lfn_MakeUseFieldArray = function(fieldarray)
  * Return       : component class data
  * Description  : Returns class information of the component based on Field data
  *---------------------------------------------------------------------------------------------*/
-this.lfn_GetCompClass = function(sCompType)
+this.lfn_GetCompClass = function(sCompType, oField, sAutoField)
 {
 	var oCompClass = { "classId" : null, "prefix" : null };
-
+	
+	// comptype이 auto일때 oField정보로 매칭되는 컴포넌트 반환
+	if (this.lfn_IsNotNull(oField))
+	{
+		sCompType = this.lfn_GetAutoCompType(oField, sAutoField);
+	}
+	
+	// 컴포넌트별 
 	switch(sCompType)
 	{
 		case "button" : oCompClass.classId = "Button";
@@ -382,12 +395,97 @@ this.lfn_GetCompClass = function(sCompType)
 		case "grid" : oCompClass.classId = "Grid";
 						oCompClass.prefix = "grd";
 						break;
+		case "webview" : oCompClass.classId = "WebView";
+						oCompClass.prefix = "web";
+						break;
+		case "selectone" : oCompClass.classId = "AbstractSelectOne";
+						oCompClass.prefix = "aso";
+						break;
+		case "selectany" : oCompClass.classId = "AbstractSelectAny";
+						oCompClass.prefix = "asa";
+						break;
 		default : oCompClass.classId = "Static";
 				  oCompClass.prefix = "sta";
 	}
 
     //컴포넌트 정보 리턴
     return oCompClass;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetAutoCompType
+ * Parameter    :
+ *                - oField : Field 정보
+ * Return       : comptype
+ * Description  : comptype이 auto일때 oField정보로 매칭되는 컴포넌트 반환
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetAutoCompType = function(oField, sAutoField)
+{
+	if (this.lfn_IsNull(sAutoField))		sAutoField = "comptype";
+	
+	var sCompType = oField[sAutoField];
+	
+	//Auto 일때 처리
+	if (sCompType == "auto")
+	{
+		var sFieldType = oField["fieldtype"];
+		var sDataType = oField["datatype"];
+		var sDataSize = oField["datasize"];
+		
+		if (sFieldType == "SelectOne")				// SelectOne일때 AbstractSelectOne
+		{
+			if (this.USE_ABSTRACT_COMP)
+			{
+				sCompType = "selectone";
+			}
+			else
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","combotext","edittype","combo","combo");
+			}
+		}
+		else if (sFieldType == "SelectAny")			// SelectAny일때 AbstractSelectAny
+		{
+			if (this.USE_ABSTRACT_COMP)
+			{
+				sCompType = "selectany";
+			}
+			else
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","combotext","edittype","combo","combo");
+			}
+		}
+		else if (sFieldType == "MultiMedia")		// MultiMedia일때 imageviewer
+		{
+			sCompType = this.lfn_Decode(sAutoField,"displaytype","imagecontrol","edittype","none","imageviewer");
+		}
+		else if (sFieldType == "FreeText")			// FreeText일때 datatype에 따라 분기
+		{
+			if (sDataType == "INT" || sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","number","edittype","normal","maskedit");
+			}
+			else if (sDataType == "DATE" || sDataType == "TIME" || sDataType == "DATETIME")
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","date","edittype","date","calendar");
+			}
+			else if (sDataType == "STRING")
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","normal","edittype","normal","edit");
+			}
+			else if (sDataType == "BLOB")
+			{
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","imagecontrol","edittype","none","imageviewer");
+			}
+		}
+		
+		// 해당되는 값이 없고 auto인 경우 edit로 기본값 처리
+		if (sCompType == "auto")
+		{
+			sCompType = this.lfn_Decode(sAutoField,"displaytype","normal","edittype","normal","edit");
+		}
+	}
+	
+	return sCompType;
 };
 
 /*---------------------------------------------------------------------------------------------*
@@ -460,37 +558,22 @@ this.lfn_GetCellSize = function(arrList, nIdx, nSpan, nDefSize)
 				- sType : Col or Row
                 - nIdx1 : Component Index Value to Calculate Padding
                 - nIdx2 : Component Index Value to Calculate Padding + Space
-				- bLayout : Whether Layout was used
+				- bBetweenPadding : Padding계산 시 양 컴포넌트 모두 Padding계산을 하는지 여부
  * Return       : nTemp : Calibrated px value
  * Description  : If the interval value set as padding is converted to Padding + CompSpace or LineSpace
                   Function to evaluate px value that needs calibration
  *---------------------------------------------------------------------------------------------*/
-this.lfn_CalcPaddingToSpace = function(sType, nIdx1, nIdx2, nPadding, nSpace, bLayout)
+this.lfn_CalcPaddingToSpace = function(nIdx1, nPadding, nSpace, bBetweenPadding)
 {
 	var nTemp;
+	var nIdx2 = nIdx1 -1;
 
-	//Formula to calibrate the location as the gap between components is calculated with Comp/Line Space instead of Padding information
-	//Component Padding Formula = (Component Left/Right Padding * Component number
-	//Component Space Formula = (Left/Top Padding of the First Component + Right/Bottom Padding of Last Component + Space * Component number)
-	//Calculate difference = Component Padding Formula - Component Space Formula
-	if(bLayout==true)
+	if(bBetweenPadding==false)
 	{
-		if(sType=="Col")
-		{
-			nTemp = (nPadding * nIdx1) - (nPadding + (nSpace * nIdx2));
-		}else
-		{
-			nTemp = (nPadding * nIdx1) - (nPadding + (nSpace * nIdx2));
-		}
+		nTemp = -(nSpace * nIdx1);
 	}else
 	{
-		if(sType=="Col")
-		{
-			nTemp = (nPadding * nIdx1) - (nPadding + (nSpace * nIdx2));
-		}else
-		{
-			nTemp = -(nSpace * nIdx2);
-		}
+		nTemp = (nPadding * nIdx1) - (nPadding + (nSpace * nIdx2));
 	}
 
 	return nTemp;
@@ -700,10 +783,10 @@ this.lfn_GetInnerDataset = function(objFieldArr)
     {
         oField = objFieldArr.fields[i];
 
-        sFieldId 	= oField.id;
-		sFieldType	= oField.fieldtype;
-        sDataType 	= oField.datatype;
-        sInnerInfo 	= oField.innerdatasetinfo;
+        sFieldId 	= oField["id"];
+		sFieldType	= oField["fieldtype"];
+        sDataType 	= oField["datatype"];
+        sInnerInfo 	= oField[this.INNSER_DS_FIELD_ID];
 		
 		sInnerDatasetId = "";
 		sCodeField = "";
@@ -773,7 +856,8 @@ this.lfn_GetInnerDataset = function(objFieldArr)
 							oFieldComp = oFieldComps[k];
 							sCompTag = oFieldComp["tag"];
 							
-							if (sCompTag == "Combo" || sCompTag == "Radio" || sCompTag == "ListBox")
+							if (sCompTag == "Combo" || sCompTag == "Radio" || sCompTag == "ListBox"
+								|| sCompTag == "AbstractSelectOne" || sCompTag == "AbstractSelectAny")
 							{
 								oFieldComp["attribute"]["innerdataset"] = sInnerDatasetId;
 								
@@ -873,7 +957,7 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
         sCompId		= arrBindItem[i].compid;
 		sFieldId	= arrBindItem[i].fieldid;
         sCompType	= arrBindItem[i].comptype;
-		
+
 		if(sCompType=="static")
 		{
 			oBindItems[i] =
@@ -893,6 +977,17 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 				"attribute" :
 				{
 					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "image", "datasetid" : sBindDataset, "columnid" : sFieldId
+				}
+			}
+		}
+		else if(sCompType=="webview")
+		{
+			oBindItems[i] =
+			{
+				"tag" : "BindItem",
+				"attribute" :
+				{
+					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "url", "datasetid" : sBindDataset, "columnid" : sFieldId
 				}
 			}
 		}
@@ -1125,11 +1220,12 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 		// expand 토글 함수
 		sScript += "this.lfn_Title_SetSearchOpenClose = function(obj,sStatus)";
 		sScript += "{";
-		sScript += "	var objForm = obj.parent.parent.parent;";
+		sScript += "	var objDivTitle = obj.parent.parent;";
+		sScript += "	var objForm = objDivTitle.parent;";
 		sScript += "	var objView = objForm.parent;";
 		sScript += "	";
 		sScript += "	if (sStatus == 'close') {";
-		sScript += "		objView.set_height('" + this.TITLE_AREA_HEIGHT + "');";
+		sScript += "		objView.set_height(objView._closeHeight);";
 		sScript += "		objView.set_formscrolltype('none');";
 		sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');";
 		sScript += "	} else {";
@@ -1154,6 +1250,7 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 		sScript += "	objView._openclose = sStatus;";
 		sScript += "	objView._openHeight = objView.height;";
 		sScript += "	objView._openBottom = objView.bottom;";
+		sScript += "	objView._closeHeight = nexacro.toNumber(obj."+this.DIV_TITLE_ID+".top,0) + nexacro.toNumber(obj."+this.DIV_TITLE_ID+".height,0);";
 		sScript += "	objView._formscrolltype = objView.formscrolltype;";
 		sScript += "	this.lfn_Title_SetSearchOpenClose(obj."+this.DIV_TITLE_ID+".form."+"btnExpand,sStatus);";
 		sScript += "};";

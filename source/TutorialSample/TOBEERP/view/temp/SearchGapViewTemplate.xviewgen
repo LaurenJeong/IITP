@@ -70,7 +70,7 @@ this.LABEL_WIDTH					= 100;
 this.LABEL_HEIGHT					= 28;
 
 //Component Default Type
-this.COMP_TYPE						= "edit";
+this.COMP_TYPE						= "auto";
 
 //Label Default Type
 this.LABEL_TYPE						= "static";
@@ -539,7 +539,7 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id": "comptype",
                                 "edittype": "Enum",
-								"enumlist" : ["button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar", "calFromTo"],
+								"enumlist" : ["auto", "button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar", "calFromTo"],
                                 "defaultvalue": this.COMP_TYPE,
                                 "description": "Types of Components to be Expressed"
                             },
@@ -993,11 +993,14 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 		{
 			sFieldId =  arrFieldInCellList[i];
 			oField = arrFieldList.filter(arrFieldList=>arrFieldList.id==sFieldId)[0];
-		}else
+		}
+		else
 		{
 			oField = arrFieldList[i];
 			sFieldId = oField.id;
 		}
+		
+		if (this.lfn_IsNull(oField))	continue;
 
 		nLabelWidth = nexacro.toNumber(oField.labelwidth);
 		nLabelHeight = nexacro.toNumber(oField.labelheight);
@@ -1025,13 +1028,12 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 		{
 			if(nLabelWidth==0)
 			{
-				nTemp = nLeft + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
+				nTemp = nLeft + nCompWidth + nCompWidthPadding;
 			}else
 			{
-				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
+				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
 			}
-
-
+			
 			if(nColSize<nTemp)
 			{
 				nLeft = 0;
@@ -1042,9 +1044,9 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 		}
 		else
 		{
-			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding - this.VIEW_PADDING_TOP;
-			nTempComp = nTop + nCompHeight + nCompHeightPadding - this.VIEW_PADDING_TOP;
-
+			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
+			nTempComp = nTop + nCompHeight + nCompHeightPadding;
+			
 			if(nRowSize<nTempLabel||nRowSize<nTempComp)
 			{
 				nLeft = nMaxWidth;
@@ -1205,9 +1207,11 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		oFieldPosition = arrFields[i];
 		sFieldId = oFieldPosition.fieldid;
 		oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
-
+		
+		if (this.lfn_IsNull(oField))	continue;
+		
 		//Import Component Naming Rules
-		oCompClass = this.lfn_GetCompClass(oField.comptype);
+		oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
 
 		//Import Component Css Class Id Value
 		sCompCssClass = oField.cssclass;
@@ -1315,15 +1319,14 @@ fn_GetObjects = function()
 {
 	//Initialize Object
 	var oObjects = [];
-	var oInner = [];
 
 	var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
 
 	//Object Information Setting
 	oObjects.push(oViewDataset);
-
+	
 	// InnerDataset 정보
-	oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+	var oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
 
 	oObjects = oObjects.concat(oInner);
 

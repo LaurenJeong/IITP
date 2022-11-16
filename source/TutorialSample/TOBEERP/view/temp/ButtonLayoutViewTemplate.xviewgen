@@ -55,6 +55,8 @@ this.LINE_SPACE     		  = 5;
 //Component Default CSS Class
 this.COMP_CSSCLASS		  = "";
 
+//컴포넌트 사이즈 조정 기본값
+this.COMP_SIZING			= "none";
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -193,7 +195,7 @@ fn_GetViewAttributeList = function() {
 							, {
                                 "id": "compsizing",
                                 "edittype": "Enum",
-                                "defaultvalue": "none",
+                                "defaultvalue": this.COMP_SIZING,
 								"enumlist" : ["none", "fittocontents", "flexgrow"],
                                 "description": "컴포넌트 사이즈 조정"
 												+ "\n" + " - none : 사이즈 조절안함. (fieldwidth,fieldheight로 사이즈 생성)"
@@ -250,6 +252,13 @@ fn_GetFieldUserAttributeList = function ()
 	var oFieldAttr = {
                         "attributes": [
                             {
+                                "id": "comptype",
+                                "edittype": "Enum",
+								"enumlist" : ["button", "static", "imageviewer"],
+                                "defaultvalue": this.COMP_TYPE,
+                                "description": "Types of Components to be Expressed"
+                            },
+							, {
                                 "id": "fieldwidth",
                                 "edittype": "String",
 								"defaultvalue": this.FIELD_WIDTH,
@@ -456,6 +465,8 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 			oField = arrFieldList[j];
 			sFieldId = oField.id;
 		}
+		
+		if (this.lfn_IsNull(oField))	continue;
 
 		//Evaluate the Width/Height Value where the Field will be expressed
 		nFieldWidth = this.lfn_GetRealSize(oField.fieldwidth, 0, nColSize, this.FIELD_WIDTH, 0, 0);
@@ -466,7 +477,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 		{
 
 			//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx+1, nColIdx, 0, this.LINE_SPACE, true);
+			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, 0, this.LINE_SPACE, true);
 			else nTemp = 0;
 
 			//Start a new line if the Field exceeds the Cell Width
@@ -476,7 +487,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndX = nLeft;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx, nColIdx-1, 0, this.LINE_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx, 0, this.LINE_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
@@ -507,7 +518,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 		else
 		{
 			//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx+1, nColIdx, 0, this.LINE_SPACE, true);
+			if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, 0, this.LINE_SPACE, true);
 			else nTemp = 0;
 
 			//Start a new line if the Field exceeds the Cell Height
@@ -517,7 +528,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndY = nTop;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx, nColIdx-1, 0, this.LINE_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx, 0, this.LINE_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the VAlign Starting Location Value of this Row
@@ -561,7 +572,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndX = nLeft + nFieldWidth;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nColIdx+1, nColIdx, 0, this.COMP_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, 0, this.COMP_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
@@ -571,7 +582,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndY = nTop + nFiledHeightMax;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nRowIdx+1, nRowIdx, 0, this.LINE_SPACE, true);
+				if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nRowIdx+1, 0, this.LINE_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the VAlign Starting Location Value
@@ -584,7 +595,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndY = nTop+nFieldHeight;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Row", nColIdx+1, nColIdx, 0, this.LINE_SPACE, true);
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, 0, this.LINE_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
@@ -594,7 +605,7 @@ fn_CalcFieldByFuildLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRo
 				nEndX = nLeft + nFiledWidthMax;
 
 				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
-				if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace("Col", nRowIdx+1, nRowIdx, 0, this.COMP_SPACE, true);
+				if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nRowIdx+1, 0, this.COMP_SPACE, true);
 				else nTemp = 0;
 
 				//Evaluate the HAlign Starting Value of this Row
@@ -689,9 +700,11 @@ fn_MakeCompByFuildLayout = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight
 		oFieldPosition = arrFieldPosition[i];
 		sFieldId = oFieldPosition.fieldid;
 		oField = this.oFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
-
+		
+		if (this.lfn_IsNull(oField))	continue;
+		
 		//Import Component Naming Rule Information
-		oCompClass = this.lfn_GetCompClass(this.COMP_TYPE);
+		oCompClass = this.lfn_GetCompClass(oField.comptype);
 
 		//Import Row/Col Index where the Field will be located
 		nRowIdx = oFieldPosition.rowidx;

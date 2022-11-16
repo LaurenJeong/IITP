@@ -27,7 +27,7 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="getproductlist" modelid="dsinput" filepath="UI_TEST\product\getproductlist.xmodel">
             <Fields>
-              <Field id="PRODUCT" description="" comptype="edit" fieldwidth="100%" fieldheight="28px" labelwidth="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="PRODUCT" description="" comptype="auto" compwidth="100%" compheight="28px" labelsize="100" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -53,22 +53,21 @@
                 <Formats>
                   <Format id="default">
                     <Columns>
-                      <Column size="260" band="body"/>
-                      <Column size="200" band="body"/>
+                      <Column size="260"/>
+                      <Column size="200"/>
                     </Columns>
                     <Rows>
                       <Row size="38" band="head"/>
-                      <Row size="38" band="body"/>
+                      <Row size="38"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_head_0_0_PRODUCT_NAME" col="0" row="0" text="품목명"/>
-                      <Cell id="cell_head_1_0_COMPANY_CODE" col="1" row="0" text="제조회사"/>
+                      <Cell id="cell_head_0_0_PRODUCT_NAME" text="품목명"/>
+                      <Cell col="1" id="cell_head_1_0_COMPANY_CODE" text="제조회사"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_body_0_0_PRODUCT_NAME" col="0" row="0" text="bind:PRODUCT_NAME" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_1_0_COMPANY_CODE" col="1" row="0" text="bind:COMPANY_CODE" displaytype="combotext" edittype="none" combodataset="innerdatasetCompanyCode" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_0_0_PRODUCT_NAME" text="bind:PRODUCT_NAME" displaytype="normal" edittype="none"/>
+                      <Cell col="1" id="cell_body_1_0_COMPANY_CODE" text="bind:COMPANY_CODE" displaytype="combotext" edittype="none" combodataset="innerdatasetCompanyCode" combocodecol="code" combodatacol="value"/>
                     </Band>
-                    <Band id="summary"/>
                   </Format>
                 </Formats>
               </Grid>
@@ -114,29 +113,29 @@
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="getproductlist" modelid="dsproduct" filepath="UI_TEST\product\getproductlist.xmodel">
             <Fields>
-              <Field id="COUNT_PER_BOX" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="PRODUCT_STORAGE_AREA" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="SAFETY_STOCK_COUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="UNIT_COUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="BOX_COUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="NOW_STOCK_COUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="BASIC_STOCK_COUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="DISCOUNT_RATE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="TAX_FREE_CHECK" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="SPECIAL_PRICE3" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="SPECIAL_PRICE2" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="SPECIAL_PRICE1" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="RETAIL_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="WHOLESALE_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="RECEIVING_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="BARCODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="UNIT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="COLOR" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="STANDARD" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="ASSET_GROUPS" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="PRODUCT_GROUPS" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="PRODUCT_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="PRODUCT_NAME" displaytype="normal" edittype="none" fieldwidth="260" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="COUNT_PER_BOX" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_STORAGE_AREA" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SAFETY_STOCK_COUNT" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="UNIT_COUNT" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="BOX_COUNT" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="NOW_STOCK_COUNT" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="BASIC_STOCK_COUNT" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DISCOUNT_RATE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="TAX_FREE_CHECK" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SPECIAL_PRICE3" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SPECIAL_PRICE2" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SPECIAL_PRICE1" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="RETAIL_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="WHOLESALE_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="RECEIVING_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="BARCODE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="UNIT" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="COLOR" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="STANDARD" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ASSET_GROUPS" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_GROUPS" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_CODE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_NAME" displaytype="auto" edittype="none" fieldwidth="260" cssclass="" summprop="none" usecomp="true"/>
               <Field id="COMPANY_CODE" label="제조회사" displaytype="combotext" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>

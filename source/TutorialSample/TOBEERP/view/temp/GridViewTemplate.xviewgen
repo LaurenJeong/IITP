@@ -45,7 +45,7 @@ this.BODY_BAND_SIZE			= 38;
 this.SUMM_BAND_SIZE			= -1;
 this.COL_SIZE				= 80;
 
-this.DISPLAY_TYPE			= "normal";
+this.DISPLAY_TYPE			= "auto";
 this.EDIT_TYPE				= "none";
 this.CELL_CSSCLASS			= "";
 this.USE_COMP				= "true";
@@ -523,14 +523,14 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id": "displaytype",
                                 "edittype": "Enum",
-								"enumlist" : ["normal", "none", "buttoncontrol", "calendarcontrol", "date", "checkboxcontrol", "combocontrol", "combotext", "currency", "decoratetext", "editcontrol", "imagecontrol", "mask", "maskeditcontrol", "number",  "progressbarcontrol",  "text",  "textareacontrol",  "treeitemcontrol"],
+								"enumlist" : ["auto", "normal", "none", "buttoncontrol", "calendarcontrol", "date", "checkboxcontrol", "combocontrol", "combotext", "currency", "decoratetext", "editcontrol", "imagecontrol", "mask", "maskeditcontrol", "number",  "progressbarcontrol",  "text",  "textareacontrol",  "treeitemcontrol"],
                                 "defaultvalue": this.DISPLAY_TYPE,
                                 "description": "Set the Field Expression"
                             },
 							{
                                 "id": "edittype",
                                 "edittype" : "Enum",
-								"enumlist" : ["normal", "none", "button", "checkbox", "combo", "date", "mask", "readonly", "text", "textarea", "tree"],
+								"enumlist" : ["auto", "normal", "none", "button", "checkbox", "combo", "date", "mask", "readonly", "text", "textarea", "tree"],
 								"defaultvalue" : this.EDIT_TYPE,
                                 "description" : "Set the Field Editing Format"
                             },
@@ -549,7 +549,7 @@ fn_GetFieldUserAttributeList = function ()
 							{
                                 "id": "summprop",
                                 "edittype": "Enum",
-								"enumlist": ["none", "avg", "count", "max", "min", "sum"],
+								"enumlist": ["none", "avg", "count", "max", "min", "sum", "rowcount"],
 								"defaultvalue": "none",
                                 "description": "Types of Values when expressing Summaries"
                             },
@@ -1103,8 +1103,8 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 					{
 						sFieldId = oCell.fieldlist[0];
 						oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
-						sDisplayType = oField.displaytype;
-						sEditType = oField.edittype;
+						sDisplayType = this.lfn_GetAutoCompType(oField,"displaytype");
+						sEditType = this.lfn_GetAutoCompType(oField,"edittype");
 						sCssClass = oField.cssclass;
 						sLabel = "bind:"+sFieldId;
 					}
@@ -1186,8 +1186,8 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 
 				sFieldId = oField.id;
 				sLabel = "bind:"+sFieldId;
-				sDisplayType = oField.displaytype;
-				sEditType = oField.edittype;
+				sDisplayType = this.lfn_GetAutoCompType(oField,"displaytype");
+				sEditType = this.lfn_GetAutoCompType(oField,"edittype");
 				sCssClass = oField.cssclass;
 				nCol = oBodys.length;
 				nRow = 0;
@@ -1247,6 +1247,7 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
     var sSummProp;
 	var sCssClass = "";
 	var sCellId = "";
+	var sDisplayType = "";
 	
 	var oCellInfo = [];
 	
@@ -1289,7 +1290,7 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 						sFieldId = oCell.fieldlist[j];
 						oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
 
-						//Import Summ Expression Type Value (none, avg, count, max, min, sum)
+						//Import Summ Expression Type Value (none, avg, count, max, min, sum, rowcount)
 						sSummProp = oField.summprop;
 
 						//Create expr based on Summ Expression Type
@@ -1315,6 +1316,10 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 						{
 							if(sLabel=="")sLabel = "expr:dataset.getSum('"+sFieldId+"')";
 							else sLabel += "+dataset.getSum('"+sFieldId+"')";
+						}else if(sSummProp=="rowcount")
+						{
+							if(sLabel=="")sLabel = "expr:dataset.getRowCount('"+sFieldId+"')";
+							else sLabel += "+dataset.getRowCount('"+sFieldId+"')";
 						}
 					}
 				}
@@ -1362,9 +1367,39 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 				oField = this.oUseFieldArray.fields[i];
 
 				sFieldId = oField.id;
-				sLabel = oField.label;
 				nCol = oSumms.length;
 				nRow = 0;
+				sLabel = "";
+				sDisplayType = "normal";
+				
+				//Import Summ Expression Type Value (none, avg, count, max, min, sum, rowcount)
+				sSummProp = oField.summprop;
+				
+				//Create expr based on Summ Expression Type
+				if(sSummProp!="none")
+				{
+					if(sSummProp=="avg")
+					{
+						sLabel = "expr:dataset.getAvg('"+sFieldId+"')";
+					}else if(sSummProp=="count")
+					{
+						sLabel = "expr:dataset.getCount('"+sFieldId+"')";
+					}else if(sSummProp=="max")
+					{
+						sLabel = "expr:dataset.getMax('"+sFieldId+"')";
+					}else if(sSummProp=="min")
+					{
+						sLabel = "expr:dataset.getMax('"+sFieldId+"')";
+					}else if(sSummProp=="sum")
+					{
+						sLabel = "expr:dataset.getSum('"+sFieldId+"')";
+					}else if(sSummProp=="rowcount")
+					{
+						sLabel = "expr:dataset.getRowCount('"+sFieldId+"')";
+					}
+					
+					sDisplayType = "number";
+				}
 				
 				// Field별 Cell정보 설정
 				sCellId = "cell_summ_"+nCol+"_"+nRow+"_"+sFieldId;
@@ -1382,7 +1417,7 @@ fn_GetSumms = function(oBaseLayout, oSummLayout)
 					"tag": "Cell",
 					"attribute":
 					{
-						"id": "cell_summ_"+sFieldId, "col": nCol, "row": nRow, "text" : ""
+						"id": "cell_summ_"+sFieldId, "col": nCol, "row": nRow, "text" : sLabel, "displaytype" : sDisplayType
 					}
 				};
 			}

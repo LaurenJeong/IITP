@@ -11,11 +11,11 @@
               <Static id="staCustomerLabel" left="5" top="6" width="70" height="28" text="거래처" cssclass="sta_WF_label"/>
               <Combo id="cmbCustomer" left="80" top="6" width="150" height="28" innerdataset="innerdatasetCustomer" codecolumn="code" datacolumn="value"/>
               <Static id="staTitleLabel" left="250" top="6" width="70" height="28" text="거래날짜" cssclass="sta_WF_label"/>
-              <Combo id="cmbTitle" left="325" top="6" width="90" height="28" innerdataset="innerdatasetTitle" codecolumn="code" datacolumn="value" onitemchanged="viewSearch_cmbTitle_onitemchanged"/>
+              <Combo id="cmbTitle" left="325" top="6" width="90" height="28" innerdataset="innerdatasetTitle" codecolumn="code" datacolumn="value"/>
               <Static id="staStartdayLabel" left="415" top="6" width="-1" height="28" text="거래시작일" cssclass="sta_WF_label"/>
-              <Calendar id="calStartday" left="419" top="6" width="120" height="28"/>
+              <Edit id="edtStartday" left="419" top="6" width="120" height="28"/>
               <Static id="staEnddayLabel" left="539" top="6" width="-1" height="28" text="거래종료일" cssclass="sta_WF_label"/>
-              <Calendar id="calEndday" left="543" top="6" width="120" height="28"/>
+              <Edit id="edtEndday" left="543" top="6" width="120" height="28"/>
               <Static id="staSalesmanLabel" left="683" top="6" width="70" height="28" text="영업사원" cssclass="sta_WF_label"/>
               <Combo id="cmbSalesman" left="758" top="6" width="120" height="28" innerdataset="innerdatasetSalesman" codecolumn="code" datacolumn="value"/>
             </Layout>
@@ -78,20 +78,20 @@
           <Bind>
             <BindItem id="bind_cmbCustomer" compid="cmbCustomer" propid="value" datasetid="viewdataset" columnid="CUSTOMER"/>
             <BindItem id="bind_cmbTitle" compid="cmbTitle" propid="value" datasetid="viewdataset" columnid="TITLE"/>
-            <BindItem id="bind_calStartday" compid="calStartday" propid="value" datasetid="viewdataset" columnid="STARTDAY"/>
-            <BindItem id="bind_calEndday" compid="calEndday" propid="value" datasetid="viewdataset" columnid="ENDDAY"/>
+            <BindItem id="bind_edtStartday" compid="edtStartday" propid="value" datasetid="viewdataset" columnid="STARTDAY"/>
+            <BindItem id="bind_edtEndday" compid="edtEndday" propid="value" datasetid="viewdataset" columnid="ENDDAY"/>
             <BindItem id="bind_cmbSalesman" compid="cmbSalesman" propid="value" datasetid="viewdataset" columnid="SALESMAN"/>
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="getdeallist" modelid="dsinput" filepath="UI_TEST\deal\getdeallist.xmodel">
             <Fields>
-              <Field id="DEAL_CODE" comptype="edit" compwidth="150px" compheight="28px" labelwidth="100" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="false"/>
-              <Field id="STATUS" comptype="edit" compwidth="150px" compheight="28px" labelwidth="100" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="false"/>
-              <Field id="TYPE" comptype="edit" compwidth="150px" compheight="28px" labelwidth="100" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="false"/>
-              <Field id="CUSTOMER" comptype="combo" compwidth="150px" compheight="28px" labelwidth="70" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="TITLE" label="거래날짜" fieldtype="SelectOne" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;0&quot;,&quot;value&quot;:&quot;전체기간&quot;},{&quot;code&quot;:&quot;1&quot;,&quot;value&quot;:&quot;최근1개월&quot;},{&quot;code&quot;:&quot;3&quot;,&quot;value&quot;:&quot;최근3개월&quot;},{&quot;code&quot;:&quot;12&quot;,&quot;value&quot;:&quot;최근1년&quot;}]}" comptype="combo" compwidth="90" compheight="28px" labelwidth="70" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 20" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="STARTDAY" comptype="calendar" compwidth="120" compheight="28px" labelwidth="-1" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="ENDDAY" comptype="calendar" compwidth="120" compheight="28px" labelwidth="-1" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
-              <Field id="SALESMAN" comptype="combo" compwidth="120" compheight="28px" labelwidth="70" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 20" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="DEAL_CODE" comptype="auto" compwidth="150px" compheight="28px" labelwidth="100" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="false"/>
+              <Field id="STATUS" comptype="auto" compwidth="150px" compheight="28px" labelwidth="100" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="false"/>
+              <Field id="TYPE" comptype="auto" compwidth="150px" compheight="28px" labelwidth="100" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="false"/>
+              <Field id="CUSTOMER" comptype="auto" compwidth="150px" compheight="28px" labelwidth="70" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="TITLE" label="거래날짜" fieldtype="SelectOne" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;0&quot;,&quot;value&quot;:&quot;전체기간&quot;},{&quot;code&quot;:&quot;1&quot;,&quot;value&quot;:&quot;최근1개월&quot;},{&quot;code&quot;:&quot;3&quot;,&quot;value&quot;:&quot;최근3개월&quot;},{&quot;code&quot;:&quot;12&quot;,&quot;value&quot;:&quot;최근1년&quot;}]}" comptype="auto" compwidth="90" compheight="28px" labelwidth="70" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 20" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="STARTDAY" comptype="auto" compwidth="120" compheight="28px" labelwidth="-1" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="ENDDAY" comptype="auto" compwidth="120" compheight="28px" labelwidth="-1" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 0" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
+              <Field id="SALESMAN" comptype="auto" compwidth="120" compheight="28px" labelwidth="70" labelheight="28" comppadding="0 0 5 0" labelpadding="0 5 5 20" cssclass="" labelcssclass="sta_WF_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staBg" fields="_viewcomp"/>
@@ -101,9 +101,9 @@
               <Component id="staTitleLabel" fields="TITLE"/>
               <Component id="cmbTitle" fields="TITLE"/>
               <Component id="staStartdayLabel" fields="STARTDAY"/>
-              <Component id="calStartday" fields="STARTDAY"/>
+              <Component id="edtStartday" fields="STARTDAY"/>
               <Component id="staEnddayLabel" fields="ENDDAY"/>
-              <Component id="calEndday" fields="ENDDAY"/>
+              <Component id="edtEndday" fields="ENDDAY"/>
               <Component id="staSalesmanLabel" fields="SALESMAN"/>
               <Component id="cmbSalesman" fields="SALESMAN"/>
             </Components>
@@ -215,38 +215,38 @@
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="getdeallist" modelid="dsdeal" filepath="UI_TEST\deal\getdeallist.xmodel">
             <Fields>
-              <Field id="TAX_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="PAYMENT_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="UNIT_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="TAX_TYPE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="DEAL_SEQ" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="DEAL_STATUS" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="ETC" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="USE_RESERVE_FUND" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="ADD_RESERVE_FUND" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="ACCOUMULATE_FUND" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="CARD_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="BILL_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="ACCOUNT_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="CASH_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="CREDIT_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="LAST_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="DISCOUNT_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="BEFORE_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="SALESMAN_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="ACCOUNT_BILL" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="ADD_IN_TAX" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="CUSTOMER_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="TOTAL_AMOUNT" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="DEAL_TITLE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="DEAL_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="TAX_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PAYMENT_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="UNIT_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="TAX_TYPE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_SEQ" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_STATUS" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ETC" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="USE_RESERVE_FUND" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ADD_RESERVE_FUND" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ACCOUMULATE_FUND" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CARD_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="BILL_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ACCOUNT_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CASH_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CREDIT_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="LAST_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DISCOUNT_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="BEFORE_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SALESMAN_CODE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ACCOUNT_BILL" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ADD_IN_TAX" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CUSTOMER_CODE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="TOTAL_AMOUNT" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_TITLE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_CODE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
               <Field id="DEAL_DATE" displaytype="date" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
               <Field id="DEAL_TYPE" label="구분" displaytype="combotext" edittype="none" fieldwidth="80" cssclass="expr:DEAL_TYPE == &quot;pS&quot; ? &quot;grd_WF_red&quot; : &quot;grd_WF_blue&quot;" summprop="none" usecomp="true"/>
               <Field id="TOTAL_PRICE" label="합계금액" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PS_PAYMENT_PRICE" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
               <Field id="lS_PAYMENT_PRICE" label="지불금액" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
               <Field id="STATEMENT_BALANCE_PRICE" datatype="INT" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="ESTIMATE_CODE" label="견적서" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ESTIMATE_CODE" label="견적서" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="grdList" fields="DEAL_DATE,DEAL_TYPE,TOTAL_PRICE,PS_PAYMENT_PRICE,lS_PAYMENT_PRICE,STATEMENT_BALANCE_PRICE,ESTIMATE_CODE"/>
@@ -339,20 +339,20 @@
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="getdeallist" modelid="dsdetail" filepath="UI_TEST\deal\getdeallist.xmodel">
             <Fields>
-              <Field id="TOTAL_PRICE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="SURTAX_TYPE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="PRODUCT_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="DEAL_NUMBER" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="DEAL_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="PRODUCT_NAME" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="STANDARD" label="규격" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="TOTAL_PRICE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="SURTAX_TYPE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_CODE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_NUMBER" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="DEAL_CODE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_NAME" displaytype="auto" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="STANDARD" label="규격" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="UNIT" displaytype="combotext" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="AMOUNT" displaytype="number" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="UNIT_PRICE" displaytype="currency" edittype="none" fieldwidth="100" cssclass="" summprop="none" usecomp="true"/>
               <Field id="DISCOUNT_PRICE" displaytype="currency" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="LAST_PRICE" displaytype="currency" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
               <Field id="TAX_PRICE" displaytype="currency" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="ETC" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ETC" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="grdList" fields="PRODUCT_NAME,STANDARD,UNIT,AMOUNT,UNIT_PRICE,DISCOUNT_PRICE,LAST_PRICE,TAX_PRICE,ETC"/>
@@ -370,34 +370,40 @@
         <View id="viewCustomerDetail" taborder="9" text="viewCustomerDetail" viewdataset="viewdataset" top="btnCustomer:11" width="547" right="20" bottom="btnList:19" sourceview="viewCustomerList">
           <Layouts>
             <Layout>
-              <Static id="staPurchaseTotalPriceBg" left="0" top="0" width="547" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staPurchaseTotalPriceBg" left="0" top="0" width="273" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staPurchaseTotalPriceLabel" left="0" top="0" width="110" height="40" text="매입합계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskPurchaseTotalPrice" left="115" top="5" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
-              <Static id="staSalesTotalPriceLabel" left="273" top="0" width="110" height="40" text="매출합계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskSalesTotalPrice" left="388" top="5" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
-              <Static id="staPurchasePaymentPriceBg" left="0" top="39" width="547" height="40" cssclass="sta_cm_box02L"/>
+              <MaskEdit id="mskPurchaseTotalPrice" left="115" top="6" width="153" height="28" readonly="true" format="###,###,###"/>
+              <Static id="staSalesTotalPriceBg" left="272" top="0" width="273" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staSalesTotalPriceLabel" left="272" top="0" width="110" height="40" text="매출합계" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskSalesTotalPrice" left="387" top="6" width="153" height="28" readonly="true" format="###,###,###"/>
+              <Static id="staPurchasePaymentPriceBg" left="0" top="39" width="273" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staPurchasePaymentPriceLabel" left="0" top="39" width="110" height="40" text="지급합계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskPurchasePaymentPrice" left="115" top="44" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
-              <Static id="staSalesPaymentPriceLabel" left="273" top="39" width="110" height="40" text="수금합계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskSalesPaymentPrice" left="388" top="44" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
-              <Static id="staPurchaseDiscountBg" left="0" top="78" width="547" height="40" cssclass="sta_cm_box02L"/>
+              <MaskEdit id="mskPurchasePaymentPrice" left="115" top="45" width="153" height="28" readonly="true" format="###,###,###"/>
+              <Static id="staSalesPaymentPriceBg" left="272" top="39" width="273" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staSalesPaymentPriceLabel" left="272" top="39" width="110" height="40" text="수금합계" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskSalesPaymentPrice" left="387" top="45" width="153" height="28" readonly="true" format="###,###,###"/>
+              <Static id="staPurchaseDiscountBg" left="0" top="78" width="273" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staPurchaseDiscountLabel" left="0" top="78" width="110" height="40" text="지급할인" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskPurchaseDiscount" left="115" top="83" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
-              <Static id="staSalesDiscountLabel" left="273" top="78" width="110" height="40" text="수금할인" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskSalesDiscount" left="388" top="83" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
-              <Static id="staNonPurchasePaymentBg" left="0" top="117" width="547" height="40" cssclass="sta_cm_box02L"/>
+              <MaskEdit id="mskPurchaseDiscount" left="115" top="84" width="153" height="28" readonly="true" format="###,###,###"/>
+              <Static id="staSalesDiscountBg" left="272" top="78" width="273" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staSalesDiscountLabel" left="272" top="78" width="110" height="40" text="수금할인" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskSalesDiscount" left="387" top="84" width="153" height="28" readonly="true" format="###,###,###"/>
+              <Static id="staNonPurchasePaymentBg" left="0" top="117" width="273" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staNonPurchasePaymentLabel" left="0" top="117" width="110" height="40" text="미지급계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskNonPurchasePayment" left="115" top="122" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
-              <Static id="staNonSalesPaymentLabel" left="273" top="117" width="110" height="40" text="미수금계" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskNonSalesPayment" left="388" top="122" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
-              <Static id="staNonTotalPaymentLabel" left="273" top="156" width="110" height="40" text="지급할금액" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskNonTotalPayment" left="388" top="161" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
-              <Static id="staAccoumulateFundBg" left="0" top="195" width="547" height="40" cssclass="sta_cm_box02L"/>
+              <MaskEdit id="mskNonPurchasePayment" left="115" top="123" width="153" height="28" readonly="true" format="###,###,###"/>
+              <Static id="staNonSalesPaymentBg" left="272" top="117" width="273" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staNonSalesPaymentLabel" left="272" top="117" width="110" height="40" text="미수금계" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskNonSalesPayment" left="387" top="123" width="153" height="28" readonly="true" format="###,###,###"/>
+              <Static id="staNonTotalPaymentBg" left="272" top="156" width="273" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staNonTotalPaymentLabel" left="272" top="156" width="110" height="40" text="지급할금액" cssclass="sta_cm_box01L"/>
+              <MaskEdit id="mskNonTotalPayment" left="387" top="162" width="153" height="28" readonly="true" format="###,###,###"/>
+              <Static id="staAccoumulateFundBg" left="0" top="195" width="273" height="40" cssclass="sta_cm_box02L"/>
               <Static id="staAccoumulateFundLabel" left="0" top="195" width="110" height="40" text="적립금" cssclass="sta_cm_box01L"/>
-              <MaskEdit id="mskAccoumulateFund" left="115" top="200" width="153" height="30" cssclass="" readonly="true" format="###,###,###"/>
-              <Static id="staPaymentDateLabel" left="273" top="195" width="110" height="40" text="결제약속일" cssclass="sta_cm_box01L"/>
-              <Calendar id="calPaymentDate" left="388" top="200" width="153" height="30" cssclass="" readonly="true" buttonsize="0"/>
-              <Static id="Static08_00_00_00" taborder="27" text="(미수금계 - 미지급계)" top="156" width="273" height="40" cssclass="sta_cm_box01L" right="274" textAlign="right"/>
+              <MaskEdit id="mskAccoumulateFund" left="115" top="201" width="153" height="28" readonly="true" format="###,###,###"/>
+              <Static id="staPaymentDateBg" left="272" top="195" width="273" height="40" cssclass="sta_cm_box02L"/>
+              <Static id="staPaymentDateLabel" left="272" top="195" width="110" height="40" text="결제약속일" cssclass="sta_cm_box01L"/>
+              <Calendar id="calPaymentDate" left="387" top="201" width="153" height="28" readonly="true"/>
+              <Static id="Static08_00_00_00" taborder="33" text="(미수금계 - 미지급계)" top="156" width="272" height="40" cssclass="sta_cm_box01L" right="275" textAlign="right"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -436,49 +442,55 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="getdeallist" modelid="dsdealcustomer" filepath="UI_TEST\deal\getdeallist.xmodel">
             <Fields>
-              <Field id="PURCHASE_TOTAL_PRICE" label="매입합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
-              <Field id="SALES_TOTAL_PRICE" label="매출합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
-              <Field id="PURCHASE_PAYMENT_PRICE" label="지급합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
-              <Field id="SALES_PAYMENT_PRICE" label="수금합계" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
-              <Field id="PURCHASE_DISCOUNT" label="지급할인" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
-              <Field id="SALES_DISCOUNT" label="수금할인" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
-              <Field id="NON_PURCHASE_PAYMENT" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
-              <Field id="NON_SALES_PAYMENT" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
-              <Field id="NON_TOTAL_PAYMENT" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
-              <Field id="ACCOUMULATE_FUND" comptype="maskedit" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
-              <Field id="PAYMENT_DATE" label="결제약속일" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="110" cssclass="" labelcssclass="sta_cm_box01L" usecomp="true" fieldreadonly="true"/>
+              <Field id="PURCHASE_TOTAL_PRICE" label="매입합계" comptype="auto" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
+              <Field id="SALES_TOTAL_PRICE" label="매출합계" comptype="auto" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
+              <Field id="PURCHASE_PAYMENT_PRICE" label="지급합계" comptype="auto" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
+              <Field id="SALES_PAYMENT_PRICE" label="수금합계" comptype="auto" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
+              <Field id="PURCHASE_DISCOUNT" label="지급할인" comptype="auto" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
+              <Field id="SALES_DISCOUNT" label="수금할인" comptype="auto" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
+              <Field id="NON_PURCHASE_PAYMENT" comptype="auto" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
+              <Field id="NON_SALES_PAYMENT" comptype="auto" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
+              <Field id="NON_TOTAL_PAYMENT" comptype="auto" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
+              <Field id="ACCOUMULATE_FUND" comptype="auto" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
+              <Field id="PAYMENT_DATE" label="결제약속일" comptype="calendar" compwidth="100%" compheight="40px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_cm_box01L" compreadonly="true" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staPurchaseTotalPriceBg" fields="PURCHASE_TOTAL_PRICE"/>
               <Component id="staPurchaseTotalPriceLabel" fields="PURCHASE_TOTAL_PRICE"/>
               <Component id="mskPurchaseTotalPrice" fields="PURCHASE_TOTAL_PRICE"/>
+              <Component id="staSalesTotalPriceBg" fields="SALES_TOTAL_PRICE"/>
               <Component id="staSalesTotalPriceLabel" fields="SALES_TOTAL_PRICE"/>
               <Component id="mskSalesTotalPrice" fields="SALES_TOTAL_PRICE"/>
               <Component id="staPurchasePaymentPriceBg" fields="PURCHASE_PAYMENT_PRICE"/>
               <Component id="staPurchasePaymentPriceLabel" fields="PURCHASE_PAYMENT_PRICE"/>
               <Component id="mskPurchasePaymentPrice" fields="PURCHASE_PAYMENT_PRICE"/>
+              <Component id="staSalesPaymentPriceBg" fields="SALES_PAYMENT_PRICE"/>
               <Component id="staSalesPaymentPriceLabel" fields="SALES_PAYMENT_PRICE"/>
               <Component id="mskSalesPaymentPrice" fields="SALES_PAYMENT_PRICE"/>
               <Component id="staPurchaseDiscountBg" fields="PURCHASE_DISCOUNT"/>
               <Component id="staPurchaseDiscountLabel" fields="PURCHASE_DISCOUNT"/>
               <Component id="mskPurchaseDiscount" fields="PURCHASE_DISCOUNT"/>
+              <Component id="staSalesDiscountBg" fields="SALES_DISCOUNT"/>
               <Component id="staSalesDiscountLabel" fields="SALES_DISCOUNT"/>
               <Component id="mskSalesDiscount" fields="SALES_DISCOUNT"/>
               <Component id="staNonPurchasePaymentBg" fields="NON_PURCHASE_PAYMENT"/>
               <Component id="staNonPurchasePaymentLabel" fields="NON_PURCHASE_PAYMENT"/>
               <Component id="mskNonPurchasePayment" fields="NON_PURCHASE_PAYMENT"/>
+              <Component id="staNonSalesPaymentBg" fields="NON_SALES_PAYMENT"/>
               <Component id="staNonSalesPaymentLabel" fields="NON_SALES_PAYMENT"/>
               <Component id="mskNonSalesPayment" fields="NON_SALES_PAYMENT"/>
+              <Component id="staNonTotalPaymentBg" fields="NON_TOTAL_PAYMENT"/>
               <Component id="staNonTotalPaymentLabel" fields="NON_TOTAL_PAYMENT"/>
               <Component id="mskNonTotalPayment" fields="NON_TOTAL_PAYMENT"/>
               <Component id="staAccoumulateFundBg" fields="ACCOUMULATE_FUND"/>
               <Component id="staAccoumulateFundLabel" fields="ACCOUMULATE_FUND"/>
               <Component id="mskAccoumulateFund" fields="ACCOUMULATE_FUND"/>
+              <Component id="staPaymentDateBg" fields="PAYMENT_DATE"/>
               <Component id="staPaymentDateLabel" fields="PAYMENT_DATE"/>
               <Component id="calPaymentDate" fields="PAYMENT_DATE"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="FreeformReadonlyViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="halign" value="left"/>
             <Attribute id="valign" value="top"/>
@@ -531,10 +543,10 @@
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="getdeallist" modelid="dsdealcustomer" filepath="UI_TEST\deal\getdeallist.xmodel">
             <Fields>
-              <Field id="PAYMENT_DATE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="CUSTOMER_CODE" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="CUSTOMER_NAME" displaytype="normal" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="REPRESENT_NAME" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PAYMENT_DATE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CUSTOMER_CODE" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CUSTOMER_NAME" displaytype="auto" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="REPRESENT_NAME" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
               <Field id="STAFF_TELNUM" displaytype="mask" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>

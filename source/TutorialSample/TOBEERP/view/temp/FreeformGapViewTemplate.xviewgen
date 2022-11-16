@@ -58,7 +58,7 @@ this.LABEL_WIDTH		= 100;
 this.LABEL_HEIGHT		= 40;
 
 //컴포넌트 디폴트 Type
-this.COMP_TYPE			= "edit";
+this.COMP_TYPE			= "auto";
 
 //Label Default Type
 this.LABEL_TYPE			= "static";
@@ -80,6 +80,9 @@ this.COMP_BG_CSSCLASS	= "sta_WF_fieldbox";
 
 //레이블 디폴트 CSS Class
 this.LABEL_CSSCLASS		= "sta_WF_labelbox";
+
+//Required Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS	= "sta_labelbox_essential";
 
 //Background Component Use Type
 this.USE_COMP_BG		= "true";
@@ -515,7 +518,7 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id": "comptype",
                                 "edittype": "Enum",
-								"enumlist" : ["button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar", "calFromTo"],
+								"enumlist" : ["auto", "button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar", "calFromTo"],
                                 "defaultvalue": this.COMP_TYPE,
                                 "description": "Types of Components to be Expressed"
                             },
@@ -822,6 +825,8 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 		//Import Field Information registered on the Model based on the Fields connected to the Cell
 		sFieldId =  arrFieldInCellList[i];
 		oField = arrFieldList.filter(arrFieldList=>arrFieldList.id==sFieldId)[0];
+		
+		if (this.lfn_IsNull(oField))	continue;
 
 		//Import Label Width Information set on the first Field
 		if(i==0)
@@ -970,10 +975,10 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		{
 			if(nLabelWidth==0)
 			{
-				nTemp = nLeft + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
+				nTemp = nLeft + nCompWidth + nCompWidthPadding;
 			}else
 			{
-				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding - this.VIEW_PADDING_LEFT;
+				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
 			}
 
 			if(nColSize<nTemp)
@@ -986,9 +991,9 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		}
 		else
 		{
-			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding - this.VIEW_PADDING_TOP;
-			nTempComp =  nTop + nCompHeight + nCompHeightPadding - this.VIEW_PADDING_TOP;
-
+			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
+			nTempComp =  nTop + nCompHeight + nCompHeightPadding;
+			
 			if(nTempLabel>nTempComp)nTemp = nTempLabel;
 			else nTemp = nTempComp;
 
@@ -1149,6 +1154,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 	var oModel = this.oContents.View.Model;
 	var sCompId;
+	var sCompClassId;
 	var oCompClass;
 	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
 	var oCompBgClass		= this.lfn_GetCompClass(this.COMP_BG_TYPE);
@@ -1171,15 +1177,17 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			oFieldPosition = arrFields[i];
 			sFieldId = oFieldPosition.fieldid;
 			oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			if (this.lfn_IsNull(oField))	continue;
 
 			//Import Component Naming Rules
-			oCompClass = this.lfn_GetCompClass(oField.comptype);
+			oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
 
 			//Import Component Css Class Id Value
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.labelcssclass;
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 			sLabelText = oField.label;
 
@@ -1221,7 +1229,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 				if(bStartCol==true && sUseFieldBox == "true")
 				{
-					nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
+					//nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
 					
 					//필드 배경 Static 추가
 					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
@@ -1229,7 +1237,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 								"tag" : oCompBgClass.classId,
 								"attribute" :
 								{
-									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
 									,"cssclass" : sFieldBgCssClass
 								}
 							};
@@ -1252,28 +1260,30 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			}
 
 			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompClassId = oCompClass.classId;
 			oComp =	{
-						"tag" : oCompClass.classId,
+						"tag" : sCompClassId,
 						"attribute" :
 						{
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 						}
 					};
 					
-			if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
+			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 			{
 				oComp.attribute.text = oField.label;
 			}
 
-			if(oField.comptype=="radio")
+			if(sCompClassId=="Radio")
 			{
 				oComp.attribute.direction = "vertical";
 			}
 
-			if(oField.comptype!="button")
+			if(sCompClassId!="Button")
 			{
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
 			}
+			
 			oModel[oModel.length-1].Components.push(oComp)
 		}
 	}
@@ -1286,15 +1296,17 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			oFieldPosition = arrFields[i];
 			sFieldId = oFieldPosition.fieldid;
 			oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			if (this.lfn_IsNull(oField))	continue;
 
 			//Import Component Naming Rules
-			oCompClass = this.lfn_GetCompClass(oField.comptype);
+			oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
 
 			//Import Component Css Class Id Value
 			sCompCssClass = oField.cssclass;
 
 			//Import Label Css Class Id Value
-			sLabelCssClass = oField.labelcssclass;
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 
 			sLabelText = oField.label;
 
@@ -1337,7 +1349,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 							"tag" : oCompBgClass.classId,
 							"attribute" :
 							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
 								,"cssclass" : sFieldBgCssClass
 							}
 						};
@@ -1359,25 +1371,26 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			}
 
 			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompClassId = oCompClass.classId;
 			oComp =	{
-						"tag" : oCompClass.classId,
+						"tag" : sCompClassId,
 						"attribute" :
 						{
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 						}
 					};
 					
-			if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
+			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 			{
 				oComp.attribute.text = oField.label;
 			}
 
-			if(oField.comptype=="radio")
+			if(sCompClassId=="Radio")
 			{
 				oComp.attribute.direction = "vertical";
 			}
 
-			if(oField.comptype!="button")
+			if(sCompClassId!="Button")
 			{
 				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
 			}
@@ -1406,9 +1419,8 @@ fn_GetInitValue = function(){
  *---------------------------------------------------------------------------------------------*/
 fn_GetObjects = function()
 {
-	//Initialize Object
+    //Initialize Object
 	var oObjects = [];
-	var oInner = [];
 
 	var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
 
@@ -1416,7 +1428,7 @@ fn_GetObjects = function()
 	oObjects.push(oViewDataset);
 
 	// InnerDataset 정보
-	oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+	var oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
 
 	oObjects = oObjects.concat(oInner);
 

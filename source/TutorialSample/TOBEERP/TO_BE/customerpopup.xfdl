@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="customerpopup" width="520" height="330" titletext="거래처찾기" onload="customerpopup_onload" onkeydown="customerpopup_onkeydown">
+    <Layouts>
+      <Layout height="330" mobileorientation="landscape" width="520">
+        <Static id="Static01_00_00_00" taborder="4" left="20" top="55" height="40" cssclass="sta_cm_box01L" text="" right="20"/>
+        <Static id="Static02_00" taborder="5" text="거래처명" left="20" top="55" width="69" height="40" cssclass="sta_cm_box01L"/>
+        <Button id="btnSearch" taborder="1" text="조회(F8)" top="61" width="70" height="28" cssclass="btn_WF_search" left="356" onclick="btnSearch_onclick"/>
+        <Edit id="edtSearch" taborder="0" left="97" top="61" width="253" height="28" autoselect="true" onkeydown="edtSearch_onkeydown"/>
+        <Grid id="grdCustomerList" taborder="2" left="20" top="105" width="480" height="205" autofittype="col" binddataset="dsCustomer" oncellclick="grdCustomerList_oncellclick" onkeydown="grdCustomerList_onkeydown">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="130"/>
+                <Column size="100"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="38"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="거래처명"/>
+                <Cell col="1" text="대표자"/>
+                <Cell col="2" text="담당자"/>
+                <Cell col="3" text="지역"/>
+                <Cell col="4" text="거래단가"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:CORPORATE_NAME" textAlign="center"/>
+                <Cell col="1" text="bind:REPRESENTATIVE_NAME" combodataset="dsManufacture" combocodecol="code" combodatacol="value" textAlign="center"/>
+                <Cell col="2" text="bind:STAFF_NAME" textAlign="center"/>
+                <Cell col="3" text="bind:CORPORATE_AREA" displaytype="combotext" combodataset="gdsArea" combocodecol="code" combodatacol="value" textAlign="center"/>
+                <Cell col="4" text="bind:UNIT_PRICE_CODE" displaytype="combotext" combodataset="dsDealUnit" combocodecol="code" combodatacol="value" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staMiddlebar" taborder="6" text="거래처검색" left="20" top="20" height="28" cssclass="sta_WF_title02" right="140" onclick="divManufactCo_staMiddlebar_onclick"/>
+        <Button id="btnClose" taborder="3" top="20" height="28" cssclass="btn_WF_popup_close" onclick="btnClose_onclick" right="20" width="28"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsCustomer">
+        <ColumnInfo>
+          <Column id="BUSINESS_LICENSE_NUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_NAME" type="STRING" size="256"/>
+          <Column id="ESTABLISHMENT_NUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_TYPE" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_NAME" type="STRING" size="256"/>
+          <Column id="REPRESENTATIVE_SOCIAL_NUM" type="STRING" size="256"/>
+          <Column id="BUSINESS_CONDITION" type="STRING" size="256"/>
+          <Column id="BUSINESS_TYPE" type="STRING" size="256"/>
+          <Column id="CORPORATE_AREA" type="STRING" size="256"/>
+          <Column id="STAFF_NAME" type="STRING" size="256"/>
+          <Column id="STAFF_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_EMAIL" type="STRING" size="256"/>
+          <Column id="CORPORATE_HOMEPAGE" type="STRING" size="256"/>
+          <Column id="CORPORATE_TELNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_FAXNUM" type="STRING" size="256"/>
+          <Column id="CORPORATE_POSTAL_CODE" type="STRING" size="256"/>
+          <Column id="CORPORATE_ADRESS1" type="STRING" size="256"/>
+          <Column id="CORPORATE_ADRESS2" type="STRING" size="256"/>
+          <Column id="SALESPERSON_CODE" type="STRING" size="256"/>
+          <Column id="UNIT_PRICE_CODE" type="STRING" size="256"/>
+          <Column id="SALES_STATUS_CODE" type="STRING" size="256"/>
+          <Column id="ORDER_PASSWORD" type="STRING" size="256"/>
+          <Column id="DEAL_START_DATE" type="STRING" size="256"/>
+          <Column id="DEAL_FINAL_DATE" type="STRING" size="256"/>
+          <Column id="PAYMENT_DATE" type="STRING" size="256"/>
+          <Column id="LOAN_LIMIT" type="INT" size="256"/>
+          <Column id="UNCOLLECTED_AMOUNT" type="INT" size="256"/>
+          <Column id="UNPAID_AMOUNT" type="INT" size="256"/>
+          <Column id="ACCOUMULATE_FUND" type="INT" size="256"/>
+          <Column id="ADD_TAX_RATE" type="INT" size="256"/>
+          <Column id="DISCOUNT_EXTRA_RATE" type="INT" size="256"/>
+          <Column id="ETC1" type="STRING" size="256"/>
+          <Column id="ETC2" type="STRING" size="256"/>
+          <Column id="CORPORATE_CODE" type="STRING" size="256"/>
+          <Column id="UNIT_DISPLAY" type="STRING" size="256"/>
+          <Column id="INIT_ACCOUMULATE_FUND" type="INT" size="256"/>
+          <Column id="DEAL_STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsDealUnit">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @MenuPath    customerpopup
+*  @FileName	customerpopup.xfdl
+*  @Desction	거래처 검색 (팝업)
+*******************************************************************************
+*  2020.12.28		nana			최초 생성
+*******************************************************************************
+*/
+
+/**************************************************************************
+ * include 영역 
+ **************************************************************************/ 
+include "lib::libCommon.xjs";
+
+/**************************************************************************
+ * FORM 변수 선언 영역
+ **************************************************************************/
+this.application = null;
+this.rowPosition = -1;
+
+/**************************************************************************
+ * FORM EVENT 영역(onload)
+ **************************************************************************/
+/**
+ * @description form onload
+ */
+this.customerpopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.application = nexacro.getApplication();
+	
+	//get arguments
+	if(this.getOwnerFrame().strCustomer != null)
+	{
+		if(this.getOwnerFrame().strType == "row")
+		{
+			this.rowPosition = this.getOwnerFrame().strCustomer;
+		}
+		else
+		{
+			this.edtSearch.set_value(this.getOwnerFrame().strCustomer);
+		}
+	}	
+};
+
+/**
+ * @description form onkeydown
+ */
+this.customerpopup_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode==119)
+	{
+		this.fn_initSearch();
+	}
+	else if(e.keycode == 27)
+	{
+		this.close();
+	}
+};
+
+/**************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction)
+ **************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+ */
+this.fn_callback = function(strSvcID, sErrorCode, sErrorMsg)
+{
+	if(sErrorCode < 0)
+	{
+		trace("sErrorCode :: " + sErrorCode);
+		return;
+	}
+	
+	if(strSvcID == "selectCustomer")
+	{
+		this.grdCustomerList.setFocus();
+	}	
+};
+
+/**************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ **************************************************************************/
+/**
+ * @description 거래처 조회
+ */
+this.fn_search = function(strArgument)
+{
+	var strSvcID = "selectCustomer";
+	var strURL = "IP::getcustomerlist.jsp"
+	var strInDatasets = "";
+	var strOutDatasets = "dsCustomer=dscustomer dsDealUnit=dsdealunit";
+	var strCallbackFunc = "fn_callback";
+		strArgument += " argDB=" + this.application.gvDBurl;
+	this.transaction(strSvcID,strURL,strInDatasets,strOutDatasets,strArgument,strCallbackFunc);
+}
+
+/**************************************************************************
+ * 사용자 FUNCTION 영역
+ **************************************************************************/
+/**
+* Function Name : fn_initSearch
+* Description   : 거래처 조회 세팅 (거래처 조회 검색 내역 만들기)
+* Arguments     : none
+* Return        : none
+*/ 
+this.fn_initSearch = function()
+{
+	var sArgument = "";
+	var sEdit = this.edtSearch.value;
+	
+	if(!this.gfn_isNull(sEdit))
+	{
+		sArgument = "argSearch=" + sEdit;
+	}
+	
+	this.fn_search(sArgument);
+}
+
+/**
+* Function Name : fn_selectCustomer
+* Description   : 그리드 셀 선택 시 데이터셋 복사 및 값 전달
+* Arguments     : rowp - rowposition
+* Return        : none / this.cloase
+*/
+this.fn_selectCustomer = function(rowp)
+{
+	this.opener.customerCode = this.dsCustomer.getColumn(rowp,"CORPORATE_CODE");
+	this.opener.customerUnitType = this.dsCustomer.getColumn(rowp,"UNIT_PRICE_CODE");
+	
+	if(this.rowPosition > -1)
+	{
+		this.opener.config.objList.copyRow(this.rowPosition,this.dsCustomer,rowp);
+		this.opener.config.objList.setColumn(this.rowPosition,"SALESMAN_CODE",this.dsCustomer.getColumn(rowp,"SALESPERSON_CODE"));
+	}
+	
+	this.close(this.dsCustomer.getColumn(rowp,"CORPORATE_NAME"));
+}
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+ * @description edtSearch onkeydown event : 조회영역 키다운 이벤트 발생
+ */
+this.edtSearch_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 13)
+	{
+		this.fn_initSearch();
+	}
+};
+
+/**
+ * @description btnClose onclick event : 팝업 닫기버튼 클릭
+ */
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+/**
+ * @description btnSearch onclick event : 조회 버튼 클릭
+ */
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_initSearch();
+};
+
+/**
+ * @description grdCustomerList onkeydown event : 그리드 내 키다운 (그리드 row 선택 grdCustomerList_onkeydown = grdCustomerList_oncellclick)
+ */
+this.grdCustomerList_onkeydown = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 13)
+	{
+		this.fn_selectCustomer(this.dsCustomer.rowposition);
+	}
+};
+
+/**
+ * @description grdCustomerList oncellclick event : 그리드 마우스 셀 클릭
+ */
+this.grdCustomerList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fn_selectCustomer(e.row);
+};
+]]></Script>
+  </Form>
+</FDL>
