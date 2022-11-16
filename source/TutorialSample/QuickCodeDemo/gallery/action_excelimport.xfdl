@@ -99,7 +99,7 @@
         <View id="viwExcelImport" taborder="12" viewdataset="viewdataset" left="10" top="260" height="243" right="20">
           <Layouts>
             <Layout>
-              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -117,65 +117,63 @@
                       <Row size="30" band="body"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_TEXT" col="0" row="0" text="TEXT"/>
-                      <Cell id="cell_TEXTAREA" col="1" row="0" text="TEXTAREA"/>
-                      <Cell id="cell_CHECK" col="2" row="0" text="CHECK"/>
-                      <Cell id="cell_COMBO" col="3" row="0" text="COMBO"/>
-                      <Cell id="cell_DATE" col="4" row="0" text="DATE"/>
-                      <Cell id="cell_DECOTEXT" col="5" row="0" text="DECOTEXT"/>
-                      <Cell id="cell_NUMBER" col="6" row="0" text="NUMBER"/>
-                      <Cell id="cell_CURRENCY" col="7" row="0" text="CURRENCY"/>
+                      <Cell id="cell_head_0_0_TEXT" col="0" row="0" text="TEXT"/>
+                      <Cell id="cell_head_1_0_TEXTAREA" col="1" row="0" text="TEXTAREA"/>
+                      <Cell id="cell_head_2_0_CHECK" col="2" row="0" text="CHECK"/>
+                      <Cell id="cell_head_3_0_COMBO" col="3" row="0" text="COMBO"/>
+                      <Cell id="cell_head_4_0_DATE" col="4" row="0" text="DATE"/>
+                      <Cell id="cell_head_5_0_DECOTEXT" col="5" row="0" text="DECOTEXT"/>
+                      <Cell id="cell_head_6_0_NUMBER" col="6" row="0" text="NUMBER"/>
+                      <Cell id="cell_head_7_0_CURRENCY" col="7" row="0" text="CURRENCY"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_TEXT" col="0" row="0" text="bind:TEXT" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_TEXTAREA" col="1" row="0" text="bind:TEXTAREA" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_CHECK" col="2" row="0" text="bind:CHECK" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_COMBO" col="3" row="0" text="bind:COMBO" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_DATE" col="4" row="0" text="bind:DATE" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_DECOTEXT" col="5" row="0" text="bind:DECOTEXT" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_NUMBER" col="6" row="0" text="bind:NUMBER" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_CURRENCY" col="7" row="0" text="bind:CURRENCY" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_0_TEXT" col="0" row="0" text="bind:TEXT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_TEXTAREA" col="1" row="0" text="bind:TEXTAREA" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_2_0_CHECK" col="2" row="0" text="bind:CHECK" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_3_0_COMBO" col="3" row="0" text="bind:COMBO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_4_0_DATE" col="4" row="0" text="bind:DATE" displaytype="date" edittype="none"/>
+                      <Cell id="cell_body_5_0_DECOTEXT" col="5" row="0" text="bind:DECOTEXT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_6_0_NUMBER" col="6" row="0" text="bind:NUMBER" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_7_0_CURRENCY" col="7" row="0" text="bind:CURRENCY" displaytype="number" edittype="none"/>
                     </Band>
                     <Band id="summary"/>
                   </Format>
                 </Formats>
               </Grid>
             </Layout>
-            <Layout/>
           </Layouts>
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="TEXT" type="STRING" size="80"/>
-                <Column id="TEXTAREA" type="STRING" size="80"/>
-                <Column id="CHECK" type="STRING" size="80"/>
-                <Column id="COMBO" type="STRING" size="80"/>
-                <Column id="DATE" type="DATE" size="80"/>
-                <Column id="DECOTEXT" type="STRING" size="80"/>
-                <Column id="NUMBER" type="BIGDECIMAL" size="80"/>
-                <Column id="CURRENCY" type="BIGDECIMAL" size="80"/>
+                <Column id="TEXT" type="STRING" size="80" description="TEXT"/>
+                <Column id="TEXTAREA" type="STRING" size="80" description="TEXTAREA"/>
+                <Column id="CHECK" type="STRING" size="80" description="CHECK"/>
+                <Column id="COMBO" type="STRING" size="80" description="COMBO"/>
+                <Column id="DATE" type="DATE" size="80" description="DATE"/>
+                <Column id="DECOTEXT" type="STRING" size="80" description="DECOTEXT"/>
+                <Column id="NUMBER" type="BIGDECIMAL" size="80" description="NUMBER"/>
+                <Column id="CURRENCY" type="BIGDECIMAL" size="80" description="CURRENCY"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="ExcelModel001" filepath="sample\Excel.xmodel">
             <Fields>
-              <Field id="TEXT" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
-              <Field id="TEXTAREA" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
-              <Field id="CHECK" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
-              <Field id="COMBO" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
-              <Field id="DATE" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
-              <Field id="DECOTEXT" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
-              <Field id="NUMBER" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
-              <Field id="CURRENCY" description="" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none"/>
+              <Field id="TEXT" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="TEXTAREA" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="CHECK" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="COMBO" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DATE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DECOTEXT" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="NUMBER" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="CURRENCY" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="grdList" fields="TEXT,TEXTAREA,CHECK,COMBO,DATE,DECOTEXT,NUMBER,CURRENCY"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
             <Attribute id="headbandsize" value="30"/>
             <Attribute id="bodybandsize" value="30"/>
             <Attribute id="summbandsize" value="-1"/>

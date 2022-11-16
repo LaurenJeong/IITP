@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="view_listview" width="1080" height="1450" titletext="ListViewViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
+  <Form id="view_listview" width="1080" height="2060" titletext="ListViewViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
     <Layouts>
-      <Layout height="1450" mobileorientation="landscape" width="1080">
+      <Layout height="2060" mobileorientation="landscape" width="1080">
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="7" text="ListView 영역을 구성하기 위한 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
@@ -22,26 +22,33 @@
               <ListView id="livList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="accordion">
                 <Formats>
                   <Format id="default">
-                    <Band id="body" width="100%" height="90" expandbartype="true" expandbarsize="30 30">
-                      <Cell id="cellBgPhoto" left="0" top="0" right="0" height="90" cssclass=""/>
-                      <Cell id="cellPhoto" left="4" top="5" width="71" height="80" text="bind:Photo" displaytype="imagecontrol" edittype="none"/>
-                      <Cell id="cellLabelCompany" left="80" top="0" width="100" height="45" text="회사명"/>
-                      <Cell id="cellCompany" left="185" top="7.5" width="140" height="30" text="bind:Company" displaytype="normal" edittype="none"/>
-                      <Cell id="cellDepartment" left="330" top="7.5" width="140" height="30" text="bind:Department" displaytype="normal" edittype="none"/>
-                      <Cell id="cellLabelName" left="80" top="44" width="100" height="45" text="성명"/>
-                      <Cell id="cellName" left="185" top="51.5" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
+                    <Band id="body" width="100%" height="80" expandbartype="true" expandbarsize="30 30">
+                      <Cell id="cellBgPhoto" left="0" top="0" width="70" height="80" cssclass=""/>
+                      <Cell id="cellPhoto" left="4" top="5" width="61" height="70" text="bind:Photo" displaytype="imagecontrol" edittype="none"/>
+                      <Cell id="cellBgCompany" left="69" top="0" width="250" height="40" cssclass=""/>
+                      <Cell id="cellLabelCompany" left="69" top="0" width="100" height="40" text="회사명" cssclass=""/>
+                      <Cell id="cellCompany" left="174" top="5" width="140" height="30" text="bind:Company" displaytype="normal" edittype="none"/>
+                      <Cell id="cellBgDepartment" left="318" top="0" width="250" height="40" cssclass=""/>
+                      <Cell id="cellLabelDepartment" left="318" top="0" width="100" height="40" text="부서명" cssclass=""/>
+                      <Cell id="cellDepartment" left="423" top="5" width="140" height="30" text="bind:Department" displaytype="normal" edittype="none"/>
+                      <Cell id="cellBgName" left="69" top="39" width="250" height="40" cssclass=""/>
+                      <Cell id="cellLabelName" left="69" top="39" width="100" height="40" text="성명" cssclass=""/>
+                      <Cell id="cellName" left="174" top="44" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="detail" width="100%" height="79">
-                      <Cell id="cellBgCompany" left="0" top="0" right="0" height="40" cssclass=""/>
-                      <Cell id="cellLabelCompany_1" left="0" top="0" width="100" height="40" text="회사명"/>
+                      <Cell id="cellBgCompany_1" left="0" top="0" width="250" height="40" cssclass=""/>
+                      <Cell id="cellLabelCompany_1" left="0" top="0" width="100" height="40" text="회사명" cssclass=""/>
                       <Cell id="cellCompany_1" left="105" top="5" width="140" height="30" text="bind:Company" displaytype="normal" edittype="none"/>
-                      <Cell id="cellLabelDepartment" left="250" top="0" width="100" height="40" text="부서명"/>
-                      <Cell id="cellDepartment_1" left="355" top="5" width="140" height="30" text="bind:Department" displaytype="normal" edittype="none"/>
-                      <Cell id="cellLabelName_1" left="500" top="0" width="100" height="40" text="성명"/>
-                      <Cell id="cellName_1" left="605" top="5" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
-                      <Cell id="cellLabelPhone" left="750" top="0" width="100" height="40" text="전화번호"/>
-                      <Cell id="cellPhone" left="855" top="5" width="140" height="30" text="bind:Phone" displaytype="normal" edittype="none"/>
-                      <Cell id="cellBgEmail" left="0" top="39" right="0" height="40" cssclass=""/>
+                      <Cell id="cellBgDepartment_1" left="249" top="0" width="250" height="40" cssclass=""/>
+                      <Cell id="cellLabelDepartment_1" left="249" top="0" width="100" height="40" text="부서명" cssclass=""/>
+                      <Cell id="cellDepartment_1" left="354" top="5" width="140" height="30" text="bind:Department" displaytype="normal" edittype="none"/>
+                      <Cell id="cellBgName_1" left="498" top="0" width="250" height="40" cssclass=""/>
+                      <Cell id="cellLabelName_1" left="498" top="0" width="100" height="40" text="성명" cssclass=""/>
+                      <Cell id="cellName_1" left="603" top="5" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
+                      <Cell id="cellBgPhone" left="747" top="0" width="250" height="40" cssclass=""/>
+                      <Cell id="cellLabelPhone" left="747" top="0" width="100" height="40" text="전화번호"/>
+                      <Cell id="cellPhone" left="852" top="5" width="140" height="30" text="bind:Phone" displaytype="normal" edittype="none"/>
+                      <Cell id="cellBgEmail" left="0" top="39" width="250" height="40" cssclass=""/>
                       <Cell id="cellLabelEmail" left="0" top="39" width="100" height="40" text="이메일주소"/>
                       <Cell id="cellEmail" left="105" top="44" width="140" height="30" text="bind:Email" displaytype="normal" edittype="none"/>
                     </Band>
@@ -68,12 +75,12 @@
           <Bind/>
           <ModelInfo modelserviceid="model" serviceid="" modelid="ListViewModel001" filepath="sample\ListView.xmodel">
             <Fields>
-              <Field id="Company" description="" band="detail" displaytype="auto" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Department" description="" band="detail" displaytype="auto" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Name" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Phone" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Email" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" fieldwidth="150px" fieldheight="40" labelwidth="100" fieldcssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Photo" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" fieldwidth="100%" fieldheight="100%" labelwidth="-1" fieldcssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Company" description="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Department" description="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Name" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Phone" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Email" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Photo" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="100%" cellheight="100%" labelsize="-1" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
@@ -86,11 +93,11 @@
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="usefieldbox" value="true"/>
             <Attribute id="bandexpandtype" value="accordion"/>
-            <Attribute id="bodyformat" value="{&quot;columnsize&quot;:[80,535],&quot;rowsize&quot;:[45,45],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;rowspan&quot;:&quot;2&quot;,&quot;fieldlist&quot;:[&quot;Photo&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Company&quot;,&quot;Department&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Name&quot;]}]}"/>
+            <Attribute id="bodyformat" value="{&quot;columnsize&quot;:[70,535],&quot;rowsize&quot;:[40,40],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;rowspan&quot;:&quot;2&quot;,&quot;fieldlist&quot;:[&quot;Photo&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Company&quot;,&quot;Department&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Name&quot;]}]}"/>
           </ViewTemplateInfo>
         </View>
         <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="323" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="439" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -119,7 +126,7 @@
           </Formats>
         </Grid>
         <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="234" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="299" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -149,10 +156,10 @@
         </Grid>
         <Static id="staFieldUserAttribute00" taborder="10" text="Cell간격" left="0" top="grdFieldUserAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00_01" taborder="13" text="FreeFromTemplate과 유사" left="10" top="staFieldUserAttribute00:0" height="25" cssclass="sta_WF_notice01" right="0"/>
-        <Div id="Div00" taborder="11" text="Div00" left="0" top="Static00_00_01:0" height="160" cssclass="div_cm_box01" right="10">
+        <Div id="Div00" taborder="11" text="Div00" left="0" top="1338" height="590" cssclass="div_cm_box01" right="10">
           <Layouts>
             <Layout>
-              <Div id="divField1" taborder="0" text="divField1" left="20" top="20" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+              <Div id="divField1" taborder="0" text="divField1" left="20" top="40" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
                 <Layouts>
                   <Layout>
                     <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label Cell 영역" cssclass="sta_labelbox" taborder="0" bottom="-1"/>
@@ -162,7 +169,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divField1_00" taborder="1" text="divField1" left="288" top="20" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+              <Div id="divField1_00" taborder="1" text="divField1" left="288" top="40" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
                 <Layouts>
                   <Layout>
                     <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label Cell 영역" cssclass="sta_labelbox" taborder="0" bottom="-1"/>
@@ -173,51 +180,133 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divField1_00_00" taborder="2" text="divField1" left="20" top="77" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+              <Div id="divField1_00_00" taborder="2" text="divField1" left="20" top="97" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
                 <Layouts>
                   <Layout>
                     <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label Cell 영역" cssclass="sta_labelbox" taborder="0" bottom="-1"/>
                     <Static id="staTextLabel00" left="109" top="10" text="Data Cell 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
-                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
+                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="-110"/>
                     <Static id="sta00_01" taborder="3" top="0" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="99" bottom="0"/>
+                    <Static id="sta00_00_00" taborder="4" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divField1_00_00_00" taborder="3" text="divField1" left="288" top="77" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+              <Div id="divField1_00_00_00" taborder="3" text="divField1" left="288" top="97" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
                 <Layouts>
                   <Layout>
                     <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label Cell 영역" cssclass="sta_labelbox" taborder="0" bottom="-1"/>
                     <Static id="staTextLabel00" left="109" top="10" text="Data Cell 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
-                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
+                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="-10"/>
                     <Static id="sta00_01" taborder="3" top="0" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="99" bottom="0"/>
-                    <Static id="sta00_01_00" taborder="4" top="0" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0" text=""/>
+                    <Static id="sta00_01_00" taborder="4" top="0" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
+                    <Static id="sta00_00_00" taborder="5" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
                   </Layout>
                 </Layouts>
               </Div>
-              <Static id="staTextLabel00_00_00" left="21" top="68" width="526" height="20" taborder="4" textAlign="center" verticalAlign="middle" background="#eed429" opacity="0.6"/>
-              <Static id="staTextLabel00_00" left="269" top="20" width="20" height="117" taborder="5" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
-              <Static id="staTextLabel" left="569" top="52" width="40" cssclass="sta_labelbox" taborder="6" height="25"/>
-              <Static id="Static00" taborder="7" left="609" top="52" height="25" cssclass="sta_WF_notice02" width="100" text="Label Cell 영역"/>
-              <Static id="staTextLabel00" left="569" top="82" width="40" taborder="8" height="25" background="#ffffff" border="1px solid #8e8e8e"/>
-              <Static id="Static00_00" taborder="9" left="609" top="82" height="25" cssclass="sta_WF_notice02" width="100" text="Data Cell 영역"/>
-              <Static id="staTextLabel01" left="919" top="52" width="40" taborder="10" height="25" background="#eed429" opacity="0.6"/>
-              <Static id="Static00_01" taborder="11" left="959" top="22" height="25" cssclass="sta_WF_notice02" width="90" text="Comp Space"/>
-              <Static id="Static00_02" taborder="12" left="959" top="52" height="25" cssclass="sta_WF_notice02" width="90" text="Line Space"/>
-              <Static id="Static00_03" taborder="13" left="764" top="22" height="25" cssclass="sta_WF_notice02" width="140" text="Data Left Padding"/>
-              <Static id="Static00_00_00" taborder="14" left="764" top="52" height="25" cssclass="sta_WF_notice02" width="140" text="Data Top Padding"/>
-              <Static id="Static00_01_00" taborder="15" left="764" top="82" height="25" cssclass="sta_WF_notice02" width="140" text="Data Right Padding"/>
-              <Static id="Static00_02_00" taborder="16" left="764" top="112" height="25" cssclass="sta_WF_notice02" width="140" text="Data Bottom Padding"/>
-              <Static id="staTextLabel00_00_01" left="919" top="22" width="40" height="25" taborder="17" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
-              <Static id="sta00_01" taborder="18" top="22" width="40" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="724" height="25"/>
-              <Static id="sta00" taborder="19" top="52" height="25" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="724" width="40"/>
-              <Static id="sta00_01_00" taborder="20" top="82" width="40" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" left="724" height="25"/>
-              <Static id="sta00_00" taborder="21" height="25" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="724" top="112" width="40"/>
-              <Static id="staTextLabel02" left="569" top="22" width="40" cssclass="sta_labelbox" taborder="22" height="25" border="1px solid #125dae" background="#f7f7f7"/>
-              <Static id="Static00_04" taborder="23" left="609" top="22" height="25" cssclass="sta_WF_notice02" width="100" text="Field 영역"/>
+              <Static id="staTextLabel00_00_00" left="21" top="88" width="526" height="20" taborder="4" textAlign="center" verticalAlign="middle" background="#eed429" opacity="0.6"/>
+              <Static id="staTextLabel00_00" left="269" top="40" width="20" height="116" taborder="5" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+              <Static id="Static00_00_00_00" taborder="6" text="fieldposition - horizontal(좌우배치)" left="20" top="10" height="25" cssclass="sta_WF_notice01" width="230"/>
+              <Static id="Static00_00_00_00_00" taborder="7" text="fieldposition - vertical(상하배치)" left="586" top="10" height="25" cssclass="sta_WF_notice01" width="230"/>
+              <Div id="divField1_01" taborder="8" text="divField1" left="586" top="40" width="150" height="100" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" text="Label Cell 영역" cssclass="sta_labelbox" taborder="0" right="-1" height="41"/>
+                    <Static id="staTextLabel00" left="10" top="50" text="Data Cell 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
+                    <Static id="sta00_01" taborder="2" top="39" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="0" bottom="0"/>
+                    <Static id="sta00" taborder="3" top="40" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="10" right="10"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divField1_01_00" taborder="9" text="divField1" left="734" top="40" width="150" height="100" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" text="Label Cell 영역" cssclass="sta_labelbox" taborder="0" right="-1" height="41"/>
+                    <Static id="staTextLabel00" left="10" top="50" text="Data Cell 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
+                    <Static id="sta00" taborder="2" top="40" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="10" right="10"/>
+                    <Static id="sta00_01_00" taborder="3" top="39" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divField1_01_01" taborder="10" text="divField1" left="586" top="149" width="150" height="100" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" text="Label Cell 영역" cssclass="sta_labelbox" taborder="0" right="-1" height="40"/>
+                    <Static id="staTextLabel00" left="10" top="50" text="Data Cell 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
+                    <Static id="sta00_01" taborder="2" top="39" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="0" bottom="0"/>
+                    <Static id="sta00" taborder="3" top="39" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="10" right="10"/>
+                    <Static id="sta00_00" taborder="4" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="10" right="10" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divField1_01_01_00" taborder="11" text="divField1" left="734" top="149" width="150" height="100" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" text="Label Cell 영역" cssclass="sta_labelbox" taborder="0" right="-1" height="40"/>
+                    <Static id="staTextLabel00" left="10" top="50" text="Data Cell 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
+                    <Static id="sta00" taborder="2" top="39" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="10" right="10"/>
+                    <Static id="sta00_00" taborder="3" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="10" right="10" bottom="0"/>
+                    <Static id="sta00_01_00" taborder="4" top="39" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="staTextLabel00_00_02" left="725" top="41" width="20" height="207" taborder="12" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+              <Static id="staTextLabel00_00_00_00" left="586" top="129" width="297" height="20" taborder="13" textAlign="center" verticalAlign="middle" background="#eed429" opacity="0.6"/>
+              <Div id="divField1_02" taborder="14" text="divField1" left="20" top="304" width="461" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label1 영역" cssclass="sta_labelbox" taborder="0" bottom="-1"/>
+                    <Static id="staTextLabel00" left="109" top="10" text="Data1 Cell 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="sta00" taborder="2" top="0" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="109" right="10"/>
+                    <Static id="sta00_01" taborder="3" top="0" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="99" bottom="0"/>
+                    <Static id="staTextLabel00_00" left="229" top="10" text="Data2 Cell 영역" taborder="4" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="staTextLabel00_01" left="349" top="10" text="Data3 Cell 영역" taborder="5" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="staTextLabel00_00_00" left="209" top="10" width="20" height="37" taborder="6" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+                    <Static id="staTextLabel00_00_00_00" left="329" top="10" width="20" height="37" taborder="7" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+                    <Static id="sta00_01_00" taborder="8" top="0" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
+                    <Static id="sta00_00" taborder="9" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="Static00_00_00_00_01" taborder="15" text="fieldposition  - horizontal(좌우배치),  mergelabel - true(label 통합표시, 좌측고정)" left="20" top="274" height="25" cssclass="sta_WF_notice01" width="470"/>
+              <Static id="Static00_00_00_00_01_00" taborder="16" text="fieldposition - vertical(상하배치),  mergelabel - true(label 통합표시, 상단고정)" left="586" top="274" height="25" cssclass="sta_WF_notice01" width="450"/>
+              <Div id="divField1_02_00" taborder="17" text="divField1" left="586" top="304" width="362" height="100" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" text="Label1 영역" cssclass="sta_labelbox" taborder="0" height="41" right="-1"/>
+                    <Static id="staTextLabel00" left="10" top="50" text="Data1 Cell 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="sta00" taborder="2" top="40" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="10" right="10"/>
+                    <Static id="sta00_01" taborder="3" top="40" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="0" bottom="0"/>
+                    <Static id="staTextLabel00_00" left="130" top="50" text="Data2 Cell 영역" taborder="4" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="staTextLabel00_01" left="250" top="50" text="Data3 Cell 영역" taborder="5" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="staTextLabel00_00_00" left="110" top="50" width="20" height="38" taborder="6" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+                    <Static id="staTextLabel00_00_00_00" left="230" top="50" width="20" height="38" taborder="7" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+                    <Static id="sta00_01_00" taborder="8" top="40" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
+                    <Static id="sta00_00" taborder="9" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="10" right="10" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="staTextLabel" left="20" top="482" width="40" cssclass="sta_labelbox" taborder="18" height="25"/>
+              <Static id="Static00" taborder="19" left="60" top="482" height="25" cssclass="sta_WF_notice02" width="100" text="Label Cell 영역"/>
+              <Static id="staTextLabel00" left="20" top="512" width="40" taborder="20" height="25" background="#ffffff" border="1px solid #8e8e8e"/>
+              <Static id="Static00_00" taborder="21" left="60" top="512" height="25" cssclass="sta_WF_notice02" width="100" text="Data Cell 영역"/>
+              <Static id="staTextLabel01" left="370" top="482" width="40" taborder="22" height="25" background="#eed429" opacity="0.6"/>
+              <Static id="Static00_01" taborder="23" left="410" top="452" height="25" cssclass="sta_WF_notice02" width="90" text="Comp Space"/>
+              <Static id="Static00_02" taborder="24" left="410" top="482" height="25" cssclass="sta_WF_notice02" width="90" text="Line Space"/>
+              <Static id="Static00_03" taborder="25" left="215" top="452" height="25" cssclass="sta_WF_notice02" width="140" text="Data Left Padding"/>
+              <Static id="Static00_00_00" taborder="26" left="215" top="482" height="25" cssclass="sta_WF_notice02" width="140" text="Data Top Padding"/>
+              <Static id="Static00_01_00" taborder="27" left="215" top="512" height="25" cssclass="sta_WF_notice02" width="140" text="Data Right Padding"/>
+              <Static id="Static00_02_00" taborder="28" left="215" top="542" height="25" cssclass="sta_WF_notice02" width="140" text="Data Bottom Padding"/>
+              <Static id="staTextLabel00_00_01" left="370" top="452" width="40" height="25" taborder="29" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+              <Static id="sta00_01" taborder="30" top="452" width="40" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="175" height="25"/>
+              <Static id="sta00" taborder="31" top="482" height="25" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="175" width="40"/>
+              <Static id="sta00_01_00" taborder="32" top="512" width="40" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" left="175" height="25"/>
+              <Static id="sta00_00" taborder="33" height="25" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="175" top="542" width="40"/>
+              <Static id="staTextLabel02" left="20" top="452" width="40" cssclass="sta_labelbox" taborder="34" height="25" border="1px solid #125dae" background="#f7f7f7"/>
+              <Static id="Static00_04" taborder="35" left="60" top="452" height="25" cssclass="sta_WF_notice02" width="100" text="Field 영역"/>
             </Layout>
           </Layouts>
         </Div>
-        <TextArea id="txaInfo00" taborder="12" left="0" top="Div00:10" height="110" right="10" value="- Field 영역(레이블Cell+데이터Cell)의 높이는 fieldheight, 넓이는 labelwidth + fieldwidth 입니다.&#10;- Label Cell 영역의 높이는 fieldheight, 넓이는 labelwidth 입니다.&#10;- 데이터Cell 영역의 높이는 fieldheight에서 ViewTemplate에 정의된 Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 fieldwidth에서 ViewTemplate에 정의된 Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다." readonly="true"/>
+        <TextArea id="txaInfo00" taborder="12" left="0" top="Div00:10" height="110" right="10" value="- Field 영역(레이블Cell+데이터Cell)의 높이는 cellheight, 넓이는 labelsize + cellwidth 입니다.&#10;- Label Cell 영역의 높이는 cellheight, 넓이는 labelsize 입니다.&#10;- 데이터Cell 영역의 높이는 cellheight에서 ViewTemplate에 정의된 Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 cellwidth에서 ViewTemplate에 정의된 Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다." readonly="true"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -263,11 +352,6 @@
             <Col id="TYPE_VALUE">none | expand | accordion | popup</Col>
           </Row>
           <Row>
-            <Col id="ID">expandbartype</Col>
-            <Col id="TYPE">Boolean</Col>
-            <Col id="DESCPTION">Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부</Col>
-          </Row>
-          <Row>
             <Col id="ID">bodyformat</Col>
             <Col id="TYPE">Layout</Col>
             <Col id="DESCPTION">Body 영역의 Layout을 설정하기 위한 속성
@@ -278,6 +362,26 @@
             <Col id="TYPE">Layout</Col>
             <Col id="DESCPTION">Detail Band Layout을 설정하기 위한 속성
 (Layout을 설정할 경우 band, direction 속성은 무시됩니다.)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">  └ text</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">해당 Cell에 표현될 텍스트
+-expr 사용시에도 사용가능.
+ (bodyformat, detailformat 내부 속성으로 지원)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">  └ cssclass</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">해당 Cell에 적용할 CSS Class Id
+ (bodyformat, summformat 내부 속성으로 지원)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">  └ mergelabel</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">다중 field 설정 시 label 통합표시 여부
+ - 첫번째 field 기준으로 생성
+ (bodyformat, summformat 내부 속성으로 지원)</Col>
           </Row>
         </Rows>
       </Dataset>
@@ -308,24 +412,33 @@
             <Col id="DESCPTION">데이터 Cell 입력타입</Col>
           </Row>
           <Row>
-            <Col id="ID">fieldwidth</Col>
+            <Col id="ID">cellwidth</Col>
             <Col id="TYPE">String</Col>
             <Col id="TYPE_VALUE">px or %</Col>
             <Col id="DESCPTION">데이터 Cell의 넓이</Col>
           </Row>
           <Row>
-            <Col id="ID">fieldheight</Col>
+            <Col id="ID">cellheight</Col>
             <Col id="TYPE">String</Col>
             <Col id="TYPE_VALUE">px or %</Col>
             <Col id="DESCPTION">데이터 Cell의 높이</Col>
           </Row>
           <Row>
-            <Col id="ID">labelwidth</Col>
+            <Col id="ID">labelsize</Col>
             <Col id="TYPE">Number</Col>
-            <Col id="DESCPTION">레이블 Cell의 넓이</Col>
+            <Col id="DESCPTION">레이블 Cell 크기
+ - fieldposition값에 따라 width(horizontal), height(vertical)사이즈로 동작됨.</Col>
           </Row>
           <Row>
-            <Col id="ID">fieldcssclass</Col>
+            <Col id="ID">fieldposition</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">horizontal | vertical</Col>
+            <Col id="DESCPTION">레이블과 데이터 Cell 위치
+ - horizontal : 좌우배치
+ - vertical : 상하배치</Col>
+          </Row>
+          <Row>
+            <Col id="ID">cssclass</Col>
             <Col id="TYPE">String</Col>
             <Col id="DESCPTION">데이터 Cell 생성시 사용할 CSS Class Id</Col>
           </Row>

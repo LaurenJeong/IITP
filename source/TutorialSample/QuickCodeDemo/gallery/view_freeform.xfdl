@@ -18,16 +18,19 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Static id="staCompanyBg" left="0" top="30" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyBg" left="0" top="30" width="260" height="40" cssclass="sta_fieldbox"/>
               <Static id="staCompanyLabel" left="0" top="30" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
               <Combo id="cmbCompany" left="105" top="35" width="150" height="30" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
-              <Static id="staDepartmentLabel" left="260" top="30" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
-              <Combo id="cmbDepartment" left="365" top="35" width="150" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
-              <Static id="staNameLabel" left="520" top="30" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
-              <Edit id="edtName" left="625" top="35" width="150" height="30"/>
-              <Static id="staPhoneLabel" left="780" top="30" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
-              <MaskEdit id="mskPhone" left="885" top="35" width="150" height="30"/>
-              <Static id="staEmailBg" left="0" top="69" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentBg" left="259" top="30" width="260" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="259" top="30" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="364" top="35" width="150" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameBg" left="518" top="30" width="260" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staNameLabel" left="518" top="30" width="100" height="40" text="성명" cssclass="sta_labelbox_essential"/>
+              <Edit id="edtName" left="623" top="35" width="150" height="30"/>
+              <Static id="staPhoneBg" left="777" top="30" width="260" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPhoneLabel" left="777" top="30" width="100" height="40" text="전화번호" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskPhone" left="882" top="35" width="150" height="30"/>
+              <Static id="staEmailBg" left="0" top="69" width="520" height="40" cssclass="sta_fieldbox"/>
               <Static id="staEmailLabel" left="0" top="69" width="100" height="40" text="이메일주소" cssclass="sta_labelbox"/>
               <Edit id="edtEmail" left="105" top="74" width="410" height="30"/>
             </Layout>
@@ -69,21 +72,24 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
-              <Field id="Company" description="" comptype="auto" fieldwidth="160" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Department" description="" comptype="auto" fieldwidth="160" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Name" description="" comptype="auto" fieldwidth="160" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Phone" description="" comptype="maskedit" fieldwidth="160" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="Email" description="" comptype="auto" fieldwidth="420" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="Company" description="" comptype="auto" compwidth="160" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="160" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="160" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Phone" description="" comptype="maskedit" compwidth="160" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Email" description="" comptype="auto" compwidth="420" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
               <Component id="staCompanyBg" fields="Company"/>
               <Component id="staCompanyLabel" fields="Company"/>
               <Component id="cmbCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
               <Component id="staDepartmentLabel" fields="Department"/>
               <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameBg" fields="Name"/>
               <Component id="staNameLabel" fields="Name"/>
               <Component id="edtName" fields="Name"/>
+              <Component id="staPhoneBg" fields="Phone"/>
               <Component id="staPhoneLabel" fields="Phone"/>
               <Component id="mskPhone" fields="Phone"/>
               <Component id="staEmailBg" fields="Email"/>
@@ -101,7 +107,7 @@
           </ViewTemplateInfo>
         </View>
         <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="236" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="337" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -130,7 +136,7 @@
           </Formats>
         </Grid>
         <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="188" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="276" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -159,10 +165,10 @@
           </Formats>
         </Grid>
         <Static id="staFieldUserAttribute00" taborder="7" text="컴포넌트간격" left="0" top="grdFieldUserAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Div id="Div00" taborder="8" text="Div00" left="0" top="staFieldUserAttribute00:0" height="160" cssclass="div_cm_box01" right="10">
+        <Div id="Div00" taborder="8" text="Div00" left="0" top="staFieldUserAttribute00:0" height="590" cssclass="div_cm_box01" right="10">
           <Layouts>
             <Layout>
-              <Div id="divField1" taborder="0" text="divField1" left="20" top="20" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+              <Div id="divField1" taborder="0" text="divField1" left="20" top="40" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
                 <Layouts>
                   <Layout>
                     <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label 영역" cssclass="sta_labelbox" taborder="0" bottom="-1"/>
@@ -172,7 +178,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divField1_00" taborder="1" text="divField1" left="288" top="20" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+              <Div id="divField1_00" taborder="1" text="divField1" left="288" top="40" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
                 <Layouts>
                   <Layout>
                     <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label 영역" cssclass="sta_labelbox" taborder="0" bottom="-1"/>
@@ -183,51 +189,133 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divField1_00_00" taborder="2" text="divField1" left="20" top="77" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+              <Div id="divField1_00_00" taborder="2" text="divField1" left="20" top="97" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
                 <Layouts>
                   <Layout>
                     <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label 영역" cssclass="sta_labelbox" taborder="0" bottom="-1"/>
                     <Static id="staTextLabel00" left="109" top="10" text="컴포넌트 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
-                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
+                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="-110"/>
                     <Static id="sta00_01" taborder="3" top="0" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="99" bottom="0"/>
+                    <Static id="sta00_00_00" taborder="4" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divField1_00_00_00" taborder="3" text="divField1" left="288" top="77" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+              <Div id="divField1_00_00_00" taborder="3" text="divField1" left="288" top="97" width="260" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
                 <Layouts>
                   <Layout>
                     <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label 영역" cssclass="sta_labelbox" taborder="0" bottom="-1"/>
                     <Static id="staTextLabel00" left="109" top="10" text="컴포넌트 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
-                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
+                    <Static id="sta00_00" taborder="2" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="-10"/>
                     <Static id="sta00_01" taborder="3" top="0" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="99" bottom="0"/>
                     <Static id="sta00_01_00" taborder="4" top="0" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
+                    <Static id="sta00_00_00" taborder="5" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
                   </Layout>
                 </Layouts>
               </Div>
-              <Static id="staTextLabel00_00_00" left="21" top="68" width="526" height="20" taborder="4" textAlign="center" verticalAlign="middle" background="#eed429" opacity="0.6"/>
-              <Static id="staTextLabel00_00" left="269" top="20" width="20" height="117" taborder="5" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
-              <Static id="staTextLabel" left="569" top="52" width="40" cssclass="sta_labelbox" taborder="6" height="25"/>
-              <Static id="Static00" taborder="7" left="609" top="52" height="25" cssclass="sta_WF_notice02" width="90" text="Label 영역"/>
-              <Static id="staTextLabel00" left="569" top="82" width="40" taborder="8" height="25" background="#ffffff" border="1px solid #8e8e8e"/>
-              <Static id="Static00_00" taborder="9" left="609" top="82" height="25" cssclass="sta_WF_notice02" width="90" text="컴포넌트 영역"/>
-              <Static id="staTextLabel01" left="919" top="52" width="40" taborder="10" height="25" background="#eed429" opacity="0.6"/>
-              <Static id="Static00_01" taborder="11" left="959" top="22" height="25" cssclass="sta_WF_notice02" width="90" text="Comp Space"/>
-              <Static id="Static00_02" taborder="12" left="959" top="52" height="25" cssclass="sta_WF_notice02" width="90" text="Line Space"/>
-              <Static id="Static00_03" taborder="13" left="764" top="22" height="25" cssclass="sta_WF_notice02" width="140" text="Comp Left Padding"/>
-              <Static id="Static00_00_00" taborder="14" left="764" top="52" height="25" cssclass="sta_WF_notice02" width="140" text="Comp Top Padding"/>
-              <Static id="Static00_01_00" taborder="15" left="764" top="82" height="25" cssclass="sta_WF_notice02" width="140" text="Comp Right Padding"/>
-              <Static id="Static00_02_00" taborder="16" left="764" top="112" height="25" cssclass="sta_WF_notice02" width="140" text="Comp Bottom Padding"/>
-              <Static id="staTextLabel00_00_01" left="919" top="22" width="40" height="25" taborder="17" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
-              <Static id="sta00_01" taborder="18" top="22" width="40" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="724" height="25"/>
-              <Static id="sta00" taborder="19" top="52" height="25" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="724" width="40"/>
-              <Static id="sta00_01_00" taborder="20" top="82" width="40" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" left="724" height="25"/>
-              <Static id="sta00_00" taborder="21" height="25" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="724" top="112" width="40"/>
-              <Static id="staTextLabel02" left="569" top="22" width="40" cssclass="sta_labelbox" taborder="22" height="25" border="1px solid #125dae" background="#f7f7f7"/>
-              <Static id="Static00_04" taborder="23" left="609" top="22" height="25" cssclass="sta_WF_notice02" width="90" text="Field 영역"/>
+              <Static id="staTextLabel00_00_00" left="21" top="88" width="526" height="20" taborder="4" textAlign="center" verticalAlign="middle" background="#eed429" opacity="0.6"/>
+              <Static id="staTextLabel00_00" left="269" top="40" width="20" height="117" taborder="5" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+              <Static id="staTextLabel" left="20" top="481" width="40" cssclass="sta_labelbox" taborder="6" height="25"/>
+              <Static id="Static00" taborder="7" left="60" top="481" height="25" cssclass="sta_WF_notice02" width="90" text="Label 영역"/>
+              <Static id="staTextLabel00" left="20" top="511" width="40" taborder="8" height="25" background="#ffffff" border="1px solid #8e8e8e"/>
+              <Static id="Static00_00" taborder="9" left="60" top="511" height="25" cssclass="sta_WF_notice02" width="90" text="컴포넌트 영역"/>
+              <Static id="staTextLabel01" left="370" top="481" width="40" taborder="10" height="25" background="#eed429" opacity="0.6"/>
+              <Static id="Static00_01" taborder="11" left="410" top="451" height="25" cssclass="sta_WF_notice02" width="90" text="Comp Space"/>
+              <Static id="Static00_02" taborder="12" left="410" top="481" height="25" cssclass="sta_WF_notice02" width="90" text="Line Space"/>
+              <Static id="Static00_03" taborder="13" left="215" top="451" height="25" cssclass="sta_WF_notice02" width="140" text="Comp Left Padding"/>
+              <Static id="Static00_00_00" taborder="14" left="215" top="481" height="25" cssclass="sta_WF_notice02" width="140" text="Comp Top Padding"/>
+              <Static id="Static00_01_00" taborder="15" left="215" top="511" height="25" cssclass="sta_WF_notice02" width="140" text="Comp Right Padding"/>
+              <Static id="Static00_02_00" taborder="16" left="215" top="541" height="25" cssclass="sta_WF_notice02" width="140" text="Comp Bottom Padding"/>
+              <Static id="staTextLabel00_00_01" left="370" top="451" width="40" height="25" taborder="17" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+              <Static id="sta00_01" taborder="18" top="451" width="40" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="175" height="25"/>
+              <Static id="sta00" taborder="19" top="481" height="25" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="175" width="40"/>
+              <Static id="sta00_01_00" taborder="20" top="511" width="40" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" left="175" height="25"/>
+              <Static id="sta00_00" taborder="21" height="25" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="175" top="541" width="40"/>
+              <Static id="staTextLabel02" left="20" top="451" width="40" cssclass="sta_labelbox" taborder="22" height="25" border="1px solid #125dae" background="#f7f7f7"/>
+              <Static id="Static00_04" taborder="23" left="60" top="451" height="25" cssclass="sta_WF_notice02" width="90" text="Field 영역"/>
+              <Static id="Static00_00_00_00" taborder="24" text="fieldposition - horizontal(좌우배치)" left="20" top="10" height="25" cssclass="sta_WF_notice01" width="230"/>
+              <Static id="Static00_00_00_00_00" taborder="25" text="fieldposition - vertical(상하배치)" left="586" top="10" height="25" cssclass="sta_WF_notice01" width="230"/>
+              <Div id="divField1_01" taborder="26" text="divField1" left="586" top="40" width="150" height="100" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" text="Label 영역" cssclass="sta_labelbox" taborder="0" right="-1" height="41"/>
+                    <Static id="staTextLabel00" left="10" top="50" text="컴포넌트 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
+                    <Static id="sta00_01" taborder="2" top="39" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="0" bottom="0"/>
+                    <Static id="sta00" taborder="3" top="40" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="10" right="10"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divField1_01_00" taborder="27" text="divField1" left="734" top="40" width="150" height="100" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" text="Label 영역" cssclass="sta_labelbox" taborder="0" right="-1" height="41"/>
+                    <Static id="staTextLabel00" left="10" top="50" text="컴포넌트 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
+                    <Static id="sta00" taborder="2" top="40" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="10" right="10"/>
+                    <Static id="sta00_01_00" taborder="3" top="39" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divField1_01_01" taborder="28" text="divField1" left="586" top="149" width="150" height="100" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" text="Label 영역" cssclass="sta_labelbox" taborder="0" right="-1" height="40"/>
+                    <Static id="staTextLabel00" left="10" top="50" text="컴포넌트 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
+                    <Static id="sta00_01" taborder="2" top="39" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="0" bottom="0"/>
+                    <Static id="sta00" taborder="3" top="39" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="10" right="10"/>
+                    <Static id="sta00_00" taborder="4" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="10" right="10" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divField1_01_01_00" taborder="29" text="divField1" left="734" top="149" width="150" height="100" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" text="Label 영역" cssclass="sta_labelbox" taborder="0" right="-1" height="40"/>
+                    <Static id="staTextLabel00" left="10" top="50" text="컴포넌트 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" right="10" bottom="10"/>
+                    <Static id="sta00" taborder="2" top="39" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="10" right="10"/>
+                    <Static id="sta00_00" taborder="3" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="10" right="10" bottom="0"/>
+                    <Static id="sta00_01_00" taborder="4" top="39" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="staTextLabel00_00_02" left="725" top="41" width="20" height="207" taborder="30" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+              <Static id="staTextLabel00_00_00_00" left="586" top="129" width="297" height="20" taborder="31" textAlign="center" verticalAlign="middle" background="#eed429" opacity="0.6"/>
+              <Div id="divField1_02" taborder="32" text="divField1" left="20" top="304" width="461" height="59" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" width="100" text="Label1 영역" cssclass="sta_labelbox" taborder="0" bottom="-1"/>
+                    <Static id="staTextLabel00" left="109" top="10" text="컴포넌트1 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="sta00" taborder="2" top="0" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="109" right="10"/>
+                    <Static id="sta00_01" taborder="3" top="0" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="99" bottom="0"/>
+                    <Static id="staTextLabel00_00" left="229" top="10" text="컴포넌트2 영역" taborder="4" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="staTextLabel00_01" left="349" top="10" text="컴포넌트3 영역" taborder="5" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="staTextLabel00_00_00" left="209" top="10" width="20" height="37" taborder="6" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+                    <Static id="staTextLabel00_00_00_00" left="329" top="10" width="20" height="37" taborder="7" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+                    <Static id="sta00_01_00" taborder="8" top="0" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
+                    <Static id="sta00_00" taborder="9" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="109" right="10" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="Static00_00_00_00_01" taborder="33" text="fieldposition  - horizontal(좌우배치),  mergelabel - true(label 통합표시, 좌측고정)" left="20" top="274" height="25" cssclass="sta_WF_notice01" width="470"/>
+              <Static id="Static00_00_00_00_01_00" taborder="34" text="fieldposition - vertical(상하배치),  mergelabel - true(label 통합표시, 상단고정)" left="586" top="274" height="25" cssclass="sta_WF_notice01" width="450"/>
+              <Div id="divField1_02_00" taborder="35" text="divField1" left="586" top="304" width="362" height="100" cssclass="div_cm_box01" formscrolltype="none" border="1px solid #125dae">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTextLabel" left="-1" top="-1" text="Label1 영역" cssclass="sta_labelbox" taborder="0" height="41" right="-1"/>
+                    <Static id="staTextLabel00" left="10" top="50" text="컴포넌트1 영역" taborder="1" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="sta00" taborder="2" top="40" height="10" cssclass="sta_WF_guide_padding" background="#eeaaa9" opacity="0.4" left="10" right="10"/>
+                    <Static id="sta00_01" taborder="3" top="40" width="10" cssclass="sta_WF_guide_padding" background="#9bf352" opacity="0.4" left="0" bottom="0"/>
+                    <Static id="staTextLabel00_00" left="130" top="50" text="컴포넌트2 영역" taborder="4" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="staTextLabel00_01" left="250" top="50" text="컴포넌트3 영역" taborder="5" background="#ffffff" textAlign="center" verticalAlign="middle" border="1px solid #8e8e8e" bottom="10" width="100"/>
+                    <Static id="staTextLabel00_00_00" left="110" top="50" width="20" height="38" taborder="6" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+                    <Static id="staTextLabel00_00_00_00" left="230" top="50" width="20" height="38" taborder="7" textAlign="center" verticalAlign="middle" background="#db99ef" opacity="0.6"/>
+                    <Static id="sta00_01_00" taborder="8" top="40" width="10" cssclass="sta_WF_guide_padding" background="#83a9f0" opacity="0.4" right="0" bottom="0"/>
+                    <Static id="sta00_00" taborder="9" height="10" cssclass="sta_WF_guide_padding" background="#e7b454" opacity="0.4" left="10" right="10" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
             </Layout>
           </Layouts>
         </Div>
-        <TextArea id="txaInfo00" taborder="9" left="0" top="Div00:10" height="110" right="10" value="- Field 영역(레이블+컴포넌트)의 높이는 fieldheight, 넓이는 labelwidth + fieldwidth 입니다.&#10;- Label 영역의 높이는 fieldheight, 넓이는 labelwidth 입니다.&#10;- 컴포넌트 영역의 높이는 fieldheight에서 ViewTemplate에 정의된 Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 fieldwidth에서 ViewTemplate에 정의된 Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다." readonly="true"/>
+        <TextArea id="txaInfo00" taborder="9" left="0" top="Div00:10" height="110" right="10" value="- Field 영역(레이블+컴포넌트)의 높이는 compheight, 넓이는 labelsize + compwidth 입니다.&#10;- Label 영역의 높이는 compheight, 넓이는 labelsize 입니다.&#10;- 컴포넌트 영역의 높이는 compheight에서 ViewTemplate에 정의된 Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 compwidth에서 ViewTemplate에 정의된 Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다." readonly="true"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -285,6 +373,13 @@
             <Col id="DESCPTION">Layout을 설정하기 위한 속성
 (※Layout을 설정할 경우 direction, halign, valign 속성은 무시됩니다.)</Col>
           </Row>
+          <Row>
+            <Col id="ID">  └ mergelabel</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">다중 field 설정 시 label 통합표시 여부
+ - 첫번째 field 기준으로 생성
+ (format 내부 속성으로 지원)</Col>
+          </Row>
         </Rows>
       </Dataset>
       <Dataset id="dsFieldUserAttribute">
@@ -302,21 +397,30 @@
             <Col id="DESCPTION">필드에 표현 할 컴포넌트 타입</Col>
           </Row>
           <Row>
-            <Col id="ID">fieldwidth</Col>
+            <Col id="ID">compwidth</Col>
             <Col id="TYPE">String</Col>
             <Col id="TYPE_VALUE">px or %</Col>
-            <Col id="DESCPTION">필드의 넓이</Col>
+            <Col id="DESCPTION">컴포넌트의 넓이</Col>
           </Row>
           <Row>
-            <Col id="ID">fieldheight</Col>
+            <Col id="ID">compheight</Col>
             <Col id="TYPE">String</Col>
             <Col id="TYPE_VALUE">px or %</Col>
-            <Col id="DESCPTION">필드의 높이</Col>
+            <Col id="DESCPTION">컴포넌트의 높이</Col>
           </Row>
           <Row>
-            <Col id="ID">labelwidth</Col>
+            <Col id="ID">labelsize</Col>
             <Col id="TYPE">Number</Col>
-            <Col id="DESCPTION">레이블 영역의 넓이</Col>
+            <Col id="DESCPTION">레이블 영역의 크기
+ - fieldposition값에 따라 width(horizontal), height(vertical)사이즈로 동작됨.</Col>
+          </Row>
+          <Row>
+            <Col id="ID">fieldposition</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">horizontal | vertical</Col>
+            <Col id="DESCPTION">레이블과 컴포넌트 위치
+ - horizontal : 좌우배치
+ - vertical : 상하배치</Col>
           </Row>
           <Row>
             <Col id="ID">cssclass</Col>
@@ -327,6 +431,11 @@
             <Col id="ID">labelcssclass</Col>
             <Col id="TYPE">String</Col>
             <Col id="DESCPTION">레이블 생성시 사용할 CSS Class Id</Col>
+          </Row>
+          <Row>
+            <Col id="ID">compreadonly</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">컴포넌트 읽기전용 설정 여부</Col>
           </Row>
           <Row>
             <Col id="ID">usecomp</Col>
