@@ -1987,16 +1987,14 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 						, "cssclass" : sCompCssClass
 					}
 				};
-
+		
+		// 컴포넌트별 기본 속성 설정
+		if (!this.lfn_IsNull(oCompClass.attribute))		Object.assign(oComp.attribute, oCompClass.attribute);
+		
 		//If the Component Type is Button,Checkbox,Static, add label text to the text properties
 		if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
 		{
 			oComp.attribute.text = oField.label;
-		}
-		// Radio 컴포넌트에서 한줄로 표시되도록 처리
-		else if(sCompClassId=="Radio")
-		{
-			oComp.attribute.direction = "vertical";
 		}
 		
 		// Readonly 처리

@@ -908,6 +908,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCssClass
 					}
 				};
+		
+		// 컴포넌트별 기본 속성 설정
+		if (!this.lfn_IsNull(oCompClass.attribute))		Object.assign(oComp.attribute, oCompClass.attribute);
 				
 		// webview 일때 라벨값 처리 안함
 		if(sCompClassId!="WebView")
