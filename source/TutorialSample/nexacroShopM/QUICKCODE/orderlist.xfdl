@@ -8,12 +8,12 @@
             <Layout>
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
               <Button id="btnSearch" left="20" height="60" right="20" bottom="20" cssclass="btn_search" text="Search"/>
-              <Static id="staOrderDtFromLabel" left="20" top="20" width="100" height="60" text="주문기간" cssclass="sta_label"/>
-              <Calendar id="calOrderDtFrom" left="130" top="20" height="60" right="20"/>
-              <Static id="staOrderDtToLabel" left="20" top="90" width="100" height="60" cssclass="sta_label"/>
-              <Calendar id="calOrderDtTo" left="130" top="90" height="60" right="20"/>
-              <Static id="staOrderStatusLabel" left="20" top="160" width="100" height="60" text="상태" cssclass="sta_label"/>
-              <Combo id="cmbOrderStatus" left="130" top="160" height="60" innerdataset="innerdatasetOrderStatus" codecolumn="code" datacolumn="value" right="20"/>
+              <Static id="staOrderDtFromLabel" left="20" top="20" width="110" height="60" text="주문기간" cssclass="sta_label"/>
+              <Calendar id="calOrderDtFrom" left="140" top="20" width="280" height="60"/>
+              <Static id="staOrderDtToLabel" left="20" top="90" width="110" height="60" cssclass="sta_label"/>
+              <Calendar id="calOrderDtTo" left="140" top="90" width="280" height="60"/>
+              <Static id="staOrderStatusLabel" left="20" top="160" width="110" height="60" text="상태" cssclass="sta_label"/>
+              <Combo id="cmbOrderStatus" left="140" top="160" width="280" height="60" innerdataset="innerdatasetOrderStatus" codecolumn="code" datacolumn="value"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -55,9 +55,9 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="dsinput" filepath="order\getorderlist.xmodel">
             <Fields>
-              <Field id="ORDER_DT_FROM" label="주문기간" comptype="calendar" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="ORDER_DT_TO" label="" comptype="calendar" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="ORDER_STATUS" comptype="combo" fieldwidth="100%" fieldheight="60px" labelwidth="110" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="ORDER_DT_FROM" label="주문기간" comptype="auto" compwidth="100%" compheight="60px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="ORDER_DT_TO" label="" comptype="auto" compwidth="100%" compheight="60px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="ORDER_STATUS" comptype="auto" compwidth="100%" compheight="60px" labelsize="110" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -80,7 +80,7 @@
             <Attribute id="searchbgcssclass" value="sta_searchbox"/>
           </ViewTemplateInfo>
         </View>
-        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="20" top="viewSearch:20" right="20" bottom="20" minheight="320" maxheight="">
+        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="20" top="viewSearch:20" right="20" bottom="20" minheight="320">
           <Layouts>
             <Layout>
               <Div id="divTitle" left="0" top="0" height="60" right="0">
@@ -96,27 +96,28 @@
                 <Formats>
                   <Format id="default">
                     <Columns>
-                      <Column size="100"/>
-                      <Column size="150"/>
-                      <Column size="90"/>
-                      <Column size="90"/>
+                      <Column size="120" band="body"/>
+                      <Column size="200" band="body"/>
+                      <Column size="120" band="body"/>
+                      <Column size="120" band="body"/>
                     </Columns>
                     <Rows>
                       <Row size="60" band="head"/>
-                      <Row size="65"/>
+                      <Row size="65" band="body"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_head_0_0_ORDER_TIME" text="주문일자"/>
-                      <Cell col="1" id="cell_head_1_0_PRODUCT_NAME" text="품목명"/>
-                      <Cell col="2" id="cell_head_2_0_ORDER_PRICE" text="주문금액"/>
-                      <Cell col="3" id="cell_head_3_0_ORDER_STATUS" text="상태"/>
+                      <Cell id="cell_head_0_0_ORDER_TIME" col="0" row="0" text="주문일자"/>
+                      <Cell id="cell_head_1_0_PRODUCT_NAME" col="1" row="0" text="품목명"/>
+                      <Cell id="cell_head_2_0_ORDER_PRICE" col="2" row="0" text="주문금액"/>
+                      <Cell id="cell_head_3_0_ORDER_STATUS" col="3" row="0" text="상태"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_body_0_0_ORDER_TIME" text="bind:ORDER_TIME" displaytype="date" edittype="none" calendardateformat="yyyy-MM-dd"/>
-                      <Cell col="1" id="cell_body_1_0_PRODUCT_NAME" text="bind:PRODUCT_NAME" displaytype="normal" edittype="none"/>
-                      <Cell col="2" id="cell_body_2_0_ORDER_PRICE" text="bind:ORDER_PRICE" displaytype="currency" edittype="none"/>
-                      <Cell col="3" id="cell_body_3_0_ORDER_STATUS" text="bind:ORDER_STATUS" displaytype="combotext" edittype="none" combodataset="innerdatasetOrderStatus" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_0_0_ORDER_TIME" col="0" row="0" text="bind:ORDER_TIME" displaytype="date" edittype="none" calendardateformat="yyyy-MM-dd ddd HH:mm:ss"/>
+                      <Cell id="cell_body_1_0_PRODUCT_NAME" col="1" row="0" text="bind:PRODUCT_NAME" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_2_0_ORDER_PRICE" col="2" row="0" text="bind:ORDER_PRICE" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_3_0_ORDER_STATUS" col="3" row="0" text="bind:ORDER_STATUS" displaytype="combotext" edittype="none" combodataset="innerdatasetOrderStatus" combocodecol="code" combodatacol="value"/>
                     </Band>
+                    <Band id="summary"/>
                   </Format>
                 </Formats>
               </Grid>
@@ -127,7 +128,7 @@
               <ColumnInfo>
                 <Column id="ORDER_NO" type="STRING" size="80" description="주문번호"/>
                 <Column id="USER_ID" type="STRING" size="80" description="사용자ID"/>
-                <Column id="ORDER_TIME" type="STRING" size="80" description="주문일자"/>
+                <Column id="ORDER_TIME" type="DATETIME" size="80" description="주문일자"/>
                 <Column id="CUSTOMER_CODE" type="STRING" size="80" description="거래처코드"/>
                 <Column id="PRODUCT_CODE" type="STRING" size="80" description="품목코드"/>
                 <Column id="PRODUCT_NAME" type="STRING" size="80" description="품목명"/>
@@ -161,16 +162,16 @@
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="dsorderlist" filepath="order\getorderlist.xmodel">
             <Fields>
-              <Field id="ORDER_COUNT" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="PRODUCT_PRICE" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="PRODUCT_CODE" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="CUSTOMER_CODE" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="USER_ID" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="ORDER_NO" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="ORDER_TIME" label="주문일자" displaytype="date" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="PRODUCT_NAME" displaytype="normal" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="ORDER_PRICE" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="ORDER_STATUS" displaytype="combotext" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ORDER_COUNT" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_PRICE" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_CODE" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="CUSTOMER_CODE" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="USER_ID" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ORDER_NO" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ORDER_TIME" label="주문일자" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PRODUCT_NAME" displaytype="auto" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ORDER_PRICE" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ORDER_STATUS" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
@@ -262,16 +263,16 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="dsorderlist" filepath="order\getorderlist.xmodel">
             <Fields>
-              <Field id="PRODUCT_CODE" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="CUSTOMER_CODE" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="USER_ID" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="ORDER_NO" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="ORDER_TIME" comptype="calendar" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="PRODUCT_NAME" label="제품명" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="PRODUCT_PRICE" label="가격" comptype="maskedit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="ORDER_COUNT" comptype="maskedit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="ORDER_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="ORDER_STATUS" comptype="combo" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="PRODUCT_CODE" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" compreadonly="true"/>
+              <Field id="CUSTOMER_CODE" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" compreadonly="true"/>
+              <Field id="USER_ID" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" compreadonly="true"/>
+              <Field id="ORDER_NO" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" compreadonly="true"/>
+              <Field id="ORDER_TIME" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" compreadonly="true"/>
+              <Field id="PRODUCT_NAME" label="제품명" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" compreadonly="true"/>
+              <Field id="PRODUCT_PRICE" label="가격" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" compreadonly="true"/>
+              <Field id="ORDER_COUNT" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" compreadonly="true"/>
+              <Field id="ORDER_PRICE" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" compreadonly="true"/>
+              <Field id="ORDER_STATUS" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" compreadonly="true"/>
             </Fields>
             <Components>
               <Component id="staOrderNoBg" fields="ORDER_NO"/>
@@ -297,7 +298,7 @@
               <Component id="cmbOrderStatus" fields="ORDER_STATUS"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="FreeformReadonlyViewTemplateM.xviewgen">
+          <ViewTemplateInfo filepath="FreeformViewTemplateM.xviewgen">
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="halign" value="left"/>
             <Attribute id="valign" value="top"/>

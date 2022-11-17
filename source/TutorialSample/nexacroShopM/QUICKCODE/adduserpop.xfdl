@@ -55,18 +55,18 @@
             <BindItem id="bind_edtUserAdress1" compid="edtUserAdress1" propid="value" datasetid="viewdataset" columnid="USER_ADRESS1"/>
             <BindItem id="bind_edtUserAdress2" compid="edtUserAdress2" propid="value" datasetid="viewdataset" columnid="USER_ADRESS2"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="dsuserinfo" filepath="login\setuser.xmodel">
+          <ModelInfo modelserviceid="model" serviceid="setuser" modelid="dsuserinfo" filepath="login\setuser.xmodel">
             <Fields>
-              <Field id="USER_TYPE" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
-              <Field id="USER_ID" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_PW" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_PW_OK" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_NM" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_HP" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_EMAIL" description="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_POSTAL_CODE" label="주소" description="" innerdatasetinfo="" comptype="edit" fieldwidth="150" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_ADRESS1" description="" innerdatasetinfo="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="0" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_ADRESS2" description="" innerdatasetinfo="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="0" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="USER_TYPE" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="false"/>
+              <Field id="USER_ID" description="" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_PW" description="" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_PW_OK" description="" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_NM" description="" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_HP" description="" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_EMAIL" description="" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_POSTAL_CODE" label="주소" description="" comptype="auto" compwidth="150" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_ADRESS1" description="" comptype="auto" compwidth="100%" compheight="60px" labelwidth="0" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_ADRESS2" description="" comptype="auto" compwidth="100%" compheight="60px" labelwidth="0" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staUserIdLabel" fields="USER_ID"/>
@@ -135,6 +135,5 @@
       <TriggerItem id="item1" triggertype="Action Success" triggerview="adduserpop" triggerobj="DsCopyDataAction00" targetaction="PopupCloseAction01" condition=""/>
       <TriggerItem id="item2" triggertype="Click" triggerview="adduserpop" triggerobj="btnClose" targetaction="PopupCloseAction00" condition=""/>
     </Trigger>
-    <Script type="xscript5.1"><![CDATA[]]></Script>
   </Form>
 </FDL>

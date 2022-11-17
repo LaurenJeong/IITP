@@ -14,7 +14,7 @@
               <Edit id="edtUserHp" left="440" top="117" width="440" height="60"/>
               <Static id="staUserEmailLabel" left="0" top="176" width="100%" height="60" text="이메일주소" cssclass="sta_label"/>
               <Edit id="edtUserEmail" left="440" top="176" width="440" height="60"/>
-              <Static id="staUserPostalCodeLabel" left="0" top="235" width="100%" height="60" text="주소" cssclass="sta_label"/>
+              <Static id="staUserPostalCodeLabel" left="0" top="235" width="100%" height="60" text="우편번호" cssclass="sta_label"/>
               <Edit id="edtUserPostalCode" left="440" top="235" width="150" height="60"/>
               <Edit id="edtUserAdress1" left="0" top="294" width="440" height="60"/>
               <Edit id="edtUserAdress2" left="0" top="353" width="440" height="60"/>
@@ -25,10 +25,12 @@
               <ColumnInfo>
                 <Column id="USER_ID" type="STRING" size="80" description="사용자 ID"/>
                 <Column id="USER_TYPE" type="STRING" size="80" description="사용자구분"/>
+                <Column id="USER_PW" type="STRING" size="80" description="비밀번호"/>
+                <Column id="USER_PW_OK" type="STRING" size="80" description="비밀번호 확인"/>
                 <Column id="USER_NM" type="STRING" size="80" description="사용자명"/>
                 <Column id="USER_HP" type="STRING" size="80" description="휴대폰번호"/>
                 <Column id="USER_EMAIL" type="STRING" size="80" description="이메일주소"/>
-                <Column id="USER_POSTAL_CODE" type="STRING" size="80" description="주소"/>
+                <Column id="USER_POSTAL_CODE" type="STRING" size="80" description="우편번호"/>
                 <Column id="USER_ADRESS1" type="STRING" size="80" description="주소"/>
                 <Column id="USER_ADRESS2" type="STRING" size="80" description="상세주소"/>
               </ColumnInfo>
@@ -46,16 +48,18 @@
             <BindItem id="bind_edtUserAdress1" compid="edtUserAdress1" propid="value" datasetid="viewdataset" columnid="USER_ADRESS1"/>
             <BindItem id="bind_edtUserAdress2" compid="edtUserAdress2" propid="value" datasetid="viewdataset" columnid="USER_ADRESS2"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="dsuserinfo" filepath="login\getlogin.xmodel">
+          <ModelInfo modelserviceid="model" serviceid="setuser" modelid="dsuserinfo" filepath="login\setuser.xmodel">
             <Fields>
-              <Field id="USER_TYPE" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="false"/>
-              <Field id="USER_ID" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_NM" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_HP" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_EMAIL" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_POSTAL_CODE" label="주소" innerdatasetinfo="" comptype="edit" fieldwidth="150" fieldheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_ADRESS1" innerdatasetinfo="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="0" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="USER_ADRESS2" innerdatasetinfo="" comptype="edit" fieldwidth="100%" fieldheight="60px" labelwidth="0" labelheight="60px" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="USER_PW_OK" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="false"/>
+              <Field id="USER_PW" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="false"/>
+              <Field id="USER_TYPE" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="false"/>
+              <Field id="USER_ID" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="true" usecomp="true"/>
+              <Field id="USER_NM" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_HP" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_EMAIL" comptype="auto" compwidth="100%" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_POSTAL_CODE" comptype="auto" compwidth="150" compheight="60px" labelwidth="100%" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_ADRESS1" comptype="auto" compwidth="100%" compheight="60px" labelwidth="0" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="USER_ADRESS2" comptype="auto" compwidth="100%" compheight="60px" labelwidth="0" labelheight="60px" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staUserIdLabel" fields="USER_ID"/>
@@ -81,12 +85,12 @@
         <View id="viewBtn" taborder="1" text="View00" viewdataset="viewdataset" left="20" top="viewDetail:20" height="80" right="20">
           <Layouts>
             <Layout type="horizontal" flexwrap="wrap" horizontalgap="10" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="end">
-              <Button id="btnSave" left="320" top="0" width="120" height="60" text="저장" cssclass="btn_cm_basic02" flexgrow="1"/>
+              <Button id="btnSave" left="320" top="0" width="120" height="60" text="저장" cssclass="btn_cm_basic02" flexgrow="1" onclick="viewBtn_btnSave_onclick"/>
             </Layout>
           </Layouts>
           <ModelInfo modelserviceid="model" serviceid="" modelid="common" filepath="common\button.xmodel">
             <Fields>
-              <Field id="Save" description="" fieldwidth="120px" fieldheight="60px"/>
+              <Field id="Save" description="" comptype="button" fieldwidth="120px" fieldheight="60px"/>
             </Fields>
             <Components>
               <Component id="btnSave" fields="Save"/>
@@ -119,6 +123,11 @@
       <TriggerItem id="item1" triggertype="Click" triggerview="viewBtn" triggerobj="btnSave" targetaction="DsCopyRowDataAction01" condition=""/>
       <TriggerItem id="item2" triggertype="Action Success" triggerview="myinfo" triggerobj="DsCopyRowDataAction01" targetaction="MessageAction00" condition=""/>
     </Trigger>
-    <Script type="xscript5.1"><![CDATA[]]></Script>
+    <Script type="xscript5.1"><![CDATA[
+this.viewBtn_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
   </Form>
 </FDL>

@@ -545,6 +545,10 @@ this.lfn_GetCompProp = function(sCompType, oField)
 			{
 				oProps["format"] = "#,###.##";
 			}
+			else if(sDataType == "STRING")
+			{
+				oProps["type"] = "string";
+			}
 			break;
 		default :
 			break;
@@ -600,6 +604,10 @@ this.lfn_GetCellProp = function(sBand, sDisplayType, sEditType, oField)
 			else if (sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
 			{
 				oProps["maskeditformat"] = "#,###.##";
+			}
+			else if(sDataType == "STRING")
+			{
+				oProps["maskedittype"] = "string";
 			}
 			break;
 		default :

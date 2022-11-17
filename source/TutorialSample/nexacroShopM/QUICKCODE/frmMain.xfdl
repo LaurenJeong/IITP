@@ -77,12 +77,12 @@
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="dsorderlist" filepath="main\getorderlist.xmodel">
             <Fields>
-              <Field id="ORDER_TIME" innerdatasetinfo="" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="USER_ID" innerdatasetinfo="" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="ORDER_NO" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
-              <Field id="PRODUCT_NAME" displaytype="normal" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ORDER_TIME" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="USER_ID" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="ORDER_NO" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PRODUCT_NAME" displaytype="auto" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
               <Field id="ORDER_PRICE" displaytype="currency" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="ORDER_STATUS" displaytype="combotext" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="ORDER_STATUS" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
@@ -101,7 +101,7 @@
         <View id="viewQuickMenu" taborder="3" text="viewQuickMenu" viewdataset="viewdataset" left="30" height="120" right="30" bottom="30">
           <Layouts>
             <Layout type="horizontal" flexwrap="wrap" horizontalgap="10" verticalgap="20" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="start">
-              <Static id="staNeworder" left="0" top="0" width="194" height="120" cssclass="sta_main_icon02" flexgrow="1" onclick="viewQuickMenu_staNeworder_onclick"/>
+              <Static id="staNeworder" left="0" top="0" width="194" height="120" text=" " cssclass="sta_main_icon02" flexgrow="1" onclick="viewQuickMenu_staNeworder_onclick"/>
               <Static id="staUser" left="204" top="0" width="194" height="120" text=" " cssclass="sta_main_icon03" flexgrow="1" onclick="viewQuickMenu_staUser_onclick"/>
             </Layout>
           </Layouts>

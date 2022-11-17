@@ -22,7 +22,7 @@
                     <Band id="body">
                       <Cell rowspan="3" id="cell_body_0_0_PRODUCT_IMG" text="bind:PRODUCT_IMG" displaytype="imagecontrol" edittype="none"/>
                       <Cell col="1" id="cell_body_1_0_PRODUCT_GROUPS" text="bind:PRODUCT_GROUPS" displaytype="combotext" edittype="none" combodataset="innerdatasetProductGroups" combocodecol="code" combodatacol="value"/>
-                      <Cell col="2" rowspan="3" id="cell_body_2_0_PRODUCT_GROUPS" text="+" displaytype="buttoncontrol" edittype="none"/>
+                      <Cell col="2" rowspan="3" id="cell_body_2_0_PRODUCT_GROUPS" text="+" displaytype="buttoncontrol" edittype="button"/>
                       <Cell row="1" col="1" id="cell_body_1_1_PRODUCT_NAME" text="bind:PRODUCT_NAME" displaytype="normal" edittype="none"/>
                       <Cell row="2" col="1" id="cell_body_1_2_PRODUCT_PRICE" text="bind:PRODUCT_PRICE" displaytype="currency" edittype="none"/>
                     </Band>
@@ -74,15 +74,15 @@
           <Bind/>
           <ModelInfo modelserviceid="model" serviceid="" modelid="dsproduct" filepath="order\getproductlist.xmodel">
             <Fields>
-              <Field id="CUSTOMER_CODE" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="PRODUCT_CODE" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="CUSTOMER_CODE" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PRODUCT_CODE" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PRODUCT_GROUPS" displaytype="combotext" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="PRODUCT_NAME" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PRODUCT_NAME" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PRODUCT_IMG" displaytype="imagecontrol" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PRODUCT_PRICE" displaytype="currency" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="PRODUCT_DESCRIPTION" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="STOCK_COUNT" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="USE_YN" displaytype="normal" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="PRODUCT_DESCRIPTION" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="STOCK_COUNT" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="USE_YN" displaytype="auto" edittype="none" fieldwidth="120" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="grdList" fields="CUSTOMER_CODE,PRODUCT_CODE,PRODUCT_GROUPS,PRODUCT_NAME,PRODUCT_IMG,PRODUCT_PRICE,PRODUCT_DESCRIPTION,STOCK_COUNT,USE_YN"/>
@@ -96,29 +96,56 @@
             <Attribute id="bodyformat" value="{&quot;columnsize&quot;:[100,276,60],&quot;rowsize&quot;:[30,40,30],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_IMG&quot;],&quot;rowspan&quot;:&quot;3&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_GROUPS&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;+&quot;,&quot;rowspan&quot;:&quot;3&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_NAME&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;right&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_PRICE&quot;]}]}"/>
           </ViewTemplateInfo>
         </View>
+        <View id="viewBtn" taborder="2" text="viewBtn" viewdataset="viewdataset" left="500" height="100" right="-500" bottom="0">
+          <Layouts>
+            <Layout type="horizontal" flexwrap="wrap" horizontalgap="10" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="end" spacing="20px">
+              <Button id="btnCancel" left="210" top="20" width="120" height="60" text="취소" cssclass="btn_cm_basic01" flexgrow="1" onclick="viewBtn_btnCancel_onclick"/>
+              <Button id="btnSave" left="340" top="20" width="120" height="60" text="주문하기" cssclass="btn_cm_basic02" flexgrow="1"/>
+            </Layout>
+          </Layouts>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="popup" filepath="common\button.xmodel">
+            <Fields>
+              <Field id="Cancel" description="" fieldwidth="120px" fieldheight="60px"/>
+              <Field id="Save" label="주문하기" description="" fieldwidth="120px" fieldheight="60px"/>
+            </Fields>
+            <Components>
+              <Component id="btnCancel" fields="Cancel"/>
+              <Component id="btnSave" fields="Save"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="ButtonLayoutViewTemplateM.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="right"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="compsizing" value="flexgrow"/>
+            <Attribute id="viewpadding" value="20"/>
+            <Attribute id="horizontalgap" value="10"/>
+            <Attribute id="verticalgap" value="5"/>
+          </ViewTemplateInfo>
+        </View>
         <View id="viewDetail" taborder="1" text="viewDetail" viewdataset="viewdataset" left="500" top="0" bottom="100" visible="false" background="#ffffff" right="-500">
           <Layouts>
-            <Layout flexwrap="wrap" horizontalgap="10" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="start" spacing="20px">
-              <Static id="staProductImgBg" left="20" top="20" height="129" cssclass="sta_fieldbox" right="20"/>
+            <Layout>
+              <Static id="staProductImgBg" left="20" top="20" right="20" height="129" cssclass="sta_fieldbox"/>
               <ImageViewer id="imgProductImg" left="30" top="25" width="110" height="120"/>
-              <Edit id="edtProductName" left="150" top="25" height="55" cssclass="com_View" readonly="true" right="30"/>
-              <MaskEdit id="mskProductPrice" left="150" top="89" height="55" cssclass="com_View" readonly="true" right="30" format="#,###"/>
-              <Static id="staProductGroupsBg" left="20" top="148" height="65" cssclass="sta_fieldbox" right="20"/>
+              <Edit id="edtProductName" left="159" top="25" width="291" height="55" cssclass="com_View" readonly="true"/>
+              <MaskEdit id="mskProductPrice" left="159" top="89" width="291" height="55" cssclass="com_View" readonly="true" format="#,###"/>
+              <Static id="staProductGroupsBg" left="20" top="148" right="20" height="65" cssclass="sta_fieldbox"/>
               <Static id="staProductGroupsLabel" left="20" top="148" width="120" height="65" text="품목구분" cssclass="sta_labelbox"/>
-              <Combo id="cmbProductGroups" left="150" top="153" height="55" cssclass="com_View" readonly="true" buttonsize="0" innerdataset="innerdatasetProductGroups" codecolumn="code" datacolumn="value" right="30"/>
-              <Static id="staProductDescriptionBg" left="20" top="212" height="200" cssclass="sta_fieldbox" right="20"/>
+              <Combo id="cmbProductGroups" left="150" top="153" width="301" height="55" cssclass="com_View" readonly="true" buttonsize="0" innerdataset="innerdatasetProductGroups" codecolumn="code" datacolumn="value"/>
+              <Static id="staProductDescriptionBg" left="20" top="212" right="20" height="200" cssclass="sta_fieldbox"/>
               <Static id="staProductDescriptionLabel" left="20" top="212" width="120" height="200" text="상품설명" cssclass="sta_labelbox"/>
-              <TextArea id="txtProductDescription" left="150" top="217" height="190" cssclass="com_View" readonly="true" right="30"/>
-              <Static id="staOrderCountBg" left="20" top="411" height="65" cssclass="sta_fieldbox" right="20"/>
-              <Static id="staOrderCountLabel" left="20" top="411" width="120" height="65" text="주문건수" cssclass="sta_labelbox"/>
-              <Spin id="spnOrderCount" left="150" top="416" height="55" right="30" displaycomma="true" min="1" max="10000" value=""/>
-              <Static id="staOrderPriceBg" left="20" top="475" height="65" cssclass="sta_fieldbox" right="20"/>
+              <TextArea id="txtProductDescription" left="150" top="217" width="301" height="190" cssclass="com_View" readonly="true"/>
+              <Static id="staOrderCountBg" left="20" top="411" right="20" height="65" cssclass="sta_fieldbox"/>
+              <Static id="staOrderCountLabel" left="20" top="411" width="120" height="65" text="주문건수" cssclass="sta_labelbox_essential"/>
+              <Spin id="spnOrderCount" left="150" top="416" width="301" height="55"/>
+              <Static id="staOrderPriceBg" left="20" top="475" right="20" height="65" cssclass="sta_fieldbox"/>
               <Static id="staOrderPriceLabel" left="20" top="475" width="120" height="65" text="주문금액" cssclass="sta_labelbox"/>
-              <MaskEdit id="mskOrderPrice" left="150" top="480" height="55" cssclass="com_View" readonly="true" right="30" format="#,###"/>
+              <MaskEdit id="mskOrderPrice" left="150" top="480" width="301" height="55" cssclass="com_View" readonly="true" format="#,###"/>
             </Layout>
           </Layouts>
           <Objects>
-            <Dataset id="viewdataset" oncolumnchanged="viewDetail_viewdataset_oncolumnchanged">
+            <Dataset id="viewdataset">
               <ColumnInfo>
                 <Column id="ORDER_NO" type="STRING" size="80" description="주문번호"/>
                 <Column id="USER_ID" type="STRING" size="80" description="사용자ID"/>
@@ -129,11 +156,14 @@
                 <Column id="PRODUCT_GROUPS" type="STRING" size="80" description="품목구분"/>
                 <Column id="PRODUCT_IMG" type="STRING" size="80" description="제품이미지"/>
                 <Column id="PRODUCT_DESCRIPTION" type="STRING" size="80" description="상품설명"/>
-                <Column id="PRODUCT_PRICE" type="STRING" size="80" description="단가"/>
-                <Column id="ORDER_COUNT" type="STRING" size="80" description="주문건수"/>
-                <Column id="ORDER_PRICE" type="STRING" size="80" description="주문금액"/>
+                <Column id="PRODUCT_PRICE" type="BIGDECIMAL" size="80" description="단가"/>
+                <Column id="ORDER_COUNT" type="INT" size="80" description="주문건수"/>
+                <Column id="ORDER_PRICE" type="BIGDECIMAL" size="80" description="주문금액"/>
                 <Column id="ORDER_STATUS" type="STRING" size="80" description="상태"/>
               </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
             </Dataset>
             <Dataset id="innerdatasetProductGroups">
               <ColumnInfo>
@@ -171,24 +201,26 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="" modelid="dsorder" filepath="order\getproductlist.xmodel">
             <Fields>
-              <Field id="ORDER_STATUS" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="PRODUCT_CODE" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="CUSTOMER_CODE" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="ORDER_TIME" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="USER_ID" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="ORDER_NO" comptype="edit" fieldwidth="100%" fieldheight="70px" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="false" fieldreadonly="true"/>
-              <Field id="PRODUCT_IMG" comptype="imageviewer" fieldwidth="100%" fieldheight="100%" labelwidth="0" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="PRODUCT_NAME" comptype="edit" fieldwidth="100%" fieldheight="100%" labelwidth="0" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="PRODUCT_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="100%" labelwidth="0" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="PRODUCT_GROUPS" comptype="combo" fieldwidth="100%" fieldheight="100%" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="PRODUCT_DESCRIPTION" comptype="textarea" fieldwidth="100%" fieldheight="100%" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
-              <Field id="ORDER_COUNT" comptype="spin" fieldwidth="100%" fieldheight="100%" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="false"/>
-              <Field id="ORDER_PRICE" comptype="maskedit" fieldwidth="100%" fieldheight="100%" labelwidth="120" cssclass="" labelcssclass="sta_labelbox" usecomp="true" fieldreadonly="true"/>
+              <Field id="ORDER_STATUS" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="false"/>
+              <Field id="PRODUCT_CODE" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="false"/>
+              <Field id="CUSTOMER_CODE" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="false"/>
+              <Field id="ORDER_TIME" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="false"/>
+              <Field id="USER_ID" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="false"/>
+              <Field id="ORDER_NO" comptype="auto" compwidth="100%" compheight="70px" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="false"/>
+              <Field id="PRODUCT_IMG" comptype="auto" compwidth="100%" compheight="100%" labelsize="0" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="PRODUCT_NAME" comptype="auto" compwidth="100%" compheight="100%" labelsize="0" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="PRODUCT_PRICE" comptype="auto" compwidth="100%" compheight="100%" labelsize="0" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="PRODUCT_GROUPS" comptype="auto" compwidth="100%" compheight="100%" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="PRODUCT_DESCRIPTION" comptype="textarea" compwidth="100%" compheight="100%" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="ORDER_COUNT" comptype="spin" compwidth="100%" compheight="100%" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="ORDER_PRICE" comptype="auto" compwidth="100%" compheight="100%" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staProductImgBg" fields="PRODUCT_IMG"/>
               <Component id="imgProductImg" fields="PRODUCT_IMG"/>
+              <Component id="staProductNameBg" fields="PRODUCT_NAME"/>
               <Component id="edtProductName" fields="PRODUCT_NAME"/>
+              <Component id="staProductPriceBg" fields="PRODUCT_PRICE"/>
               <Component id="mskProductPrice" fields="PRODUCT_PRICE"/>
               <Component id="staProductGroupsBg" fields="PRODUCT_GROUPS"/>
               <Component id="staProductGroupsLabel" fields="PRODUCT_GROUPS"/>
@@ -204,7 +236,7 @@
               <Component id="mskOrderPrice" fields="ORDER_PRICE"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="FreeformReadonlyViewTemplateM.xviewgen">
+          <ViewTemplateInfo filepath="FreeformViewTemplateM.xviewgen">
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="halign" value="left"/>
             <Attribute id="valign" value="top"/>
@@ -212,33 +244,6 @@
             <Attribute id="usefieldbox" value="true"/>
             <Attribute id="format" value="{&quot;columnsize&quot;:[130,311],&quot;rowsize&quot;:[65,65,65,200,65,65],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_IMG&quot;],&quot;rowspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_NAME&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_PRICE&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_GROUPS&quot;],&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;3&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PRODUCT_DESCRIPTION&quot;],&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;4&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;ORDER_COUNT&quot;],&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;5&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;ORDER_PRICE&quot;],&quot;colspan&quot;:&quot;2&quot;}]}"/>
             <Attribute id="viewpadding" value="20"/>
-          </ViewTemplateInfo>
-        </View>
-        <View id="viewBtn" taborder="2" text="viewBtn" viewdataset="viewdataset" left="500" height="100" right="-500" bottom="0">
-          <Layouts>
-            <Layout type="horizontal" flexwrap="wrap" horizontalgap="10" verticalgap="5" flexcrossaxisalign="start" flexcrossaxiswrapalign="start" flexmainaxisalign="end" spacing="20px">
-              <Button id="btnCancel" left="210" top="20" width="120" height="60" text="취소" cssclass="btn_cm_basic01" flexgrow="1" onclick="viewBtn_btnCancel_onclick"/>
-              <Button id="btnSave" left="340" top="20" width="120" height="60" text="주문하기" cssclass="btn_cm_basic02" flexgrow="1"/>
-            </Layout>
-          </Layouts>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="popup" filepath="common\button.xmodel">
-            <Fields>
-              <Field id="Cancel" description="" fieldwidth="120px" fieldheight="60px"/>
-              <Field id="Save" label="주문하기" description="" fieldwidth="120px" fieldheight="60px"/>
-            </Fields>
-            <Components>
-              <Component id="btnCancel" fields="Cancel"/>
-              <Component id="btnSave" fields="Save"/>
-            </Components>
-          </ModelInfo>
-          <ViewTemplateInfo filepath="ButtonLayoutViewTemplateM.xviewgen">
-            <Attribute id="direction" value="horizontal"/>
-            <Attribute id="halign" value="right"/>
-            <Attribute id="valign" value="top"/>
-            <Attribute id="compsizing" value="flexgrow"/>
-            <Attribute id="viewpadding" value="20"/>
-            <Attribute id="horizontalgap" value="10"/>
-            <Attribute id="verticalgap" value="5"/>
           </ViewTemplateInfo>
         </View>
       </Layout>
@@ -465,6 +470,11 @@ this.MessageAction00_onerror = function(obj:nexacro.MessageAction, e:nexacro.Act
 	
 	// 물품리스트
 	this.fnSetView("list");
+};
+
+this.viewDetail_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	trace(this.viewDetail.form.viewdataset.saveXML())
 };
 ]]></Script>
   </Form>

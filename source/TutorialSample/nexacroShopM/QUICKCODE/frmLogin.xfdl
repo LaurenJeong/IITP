@@ -7,9 +7,11 @@
           <Layouts>
             <Layout>
               <Button id="btnLogin" left="20" height="60" right="20" bottom="20" cssclass="btn_login" text="Login" onclick="viewLogin_btnLogin_onclick"/>
-              <Edit id="edtUserId" left="19" top="20" height="60" password="false" displaynulltext="ID" right="20"/>
-              <Edit id="edtUserPw" left="19" top="90" height="60" password="true" displaynulltext="Password" right="20"/>
-              <CheckBox id="chkSaveId" left="19" top="160" height="60" right="0" text="Save User ID" cssclass="chk_login"/>
+              <Static id="staUserIdLabel" left="20" top="20" width="268" height="-1" text="ID" cssclass="sta_login_label"/>
+              <Edit id="edtUserId" left="20" top="29" height="50" width="268" password="false" displaynulltext="ID"/>
+              <Static id="staUserPwLabel" left="20" top="89" width="268" height="-1" text="비밀번호" cssclass="sta_login_label"/>
+              <Edit id="edtUserPw" left="20" top="98" height="50" width="268" password="true" displaynulltext="Password"/>
+              <CheckBox id="chkSaveId" left="20" top="158" height="60" right="0" text="Save User ID" cssclass="chk_login"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -32,13 +34,16 @@
           </Bind>
           <ModelInfo modelserviceid="model" serviceid="getlogin" modelid="dsinput" filepath="login\getlogin.xmodel">
             <Fields>
-              <Field id="USER_ID" description="" comptype="edit" password="false" fieldwidth="100%" fieldheight="60px" cssclass="" displaynulltext="ID" labelwidth="-1" labelcssclass="sta_login_label"/>
-              <Field id="USER_PW" description="" comptype="edit" password="true" fieldwidth="100%" fieldheight="60px" cssclass="" displaynulltext="Password" labelwidth="-1" labelcssclass="sta_login_label"/>
+              <Field id="USER_ID" description="" comptype="auto" password="false" compwidth="100%" compheight="60px" labelsize="-1" fieldposition="vertical" displaynulltext="ID" cssclass="" labelcssclass="sta_login_label"/>
+              <Field id="USER_PW" description="" comptype="auto" password="true" compwidth="100%" compheight="60px" labelsize="-1" fieldposition="vertical" displaynulltext="Password" cssclass="" labelcssclass="sta_login_label"/>
             </Fields>
             <Components>
               <Component id="btnLogin" fields="_viewcomp"/>
+              <Component id="staUserIdLabel" fields="USER_ID"/>
               <Component id="edtUserId" fields="USER_ID"/>
+              <Component id="staUserPwLabel" fields="USER_PW"/>
               <Component id="edtUserPw" fields="USER_PW"/>
+              <Component id="chkSaveId" fields="_viewcomp"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="LoginViewTemplateM.xviewgen">

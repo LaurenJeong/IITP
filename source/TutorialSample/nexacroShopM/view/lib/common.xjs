@@ -49,9 +49,6 @@ this.COMP_NAMING_RULE	= "C";
 /** @const {string} */
 // 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 this.LOG_LEVEL			= -1;
-
-// Abstract 컴포넌트 사용여부
-this.USE_ABSTRACT_COMP	= false;
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
@@ -80,14 +77,14 @@ this.oAttrViewPadding =	{
 // Title 영역 Div ID
 this.DIV_TITLE_ID						= "divTitle";
 // Title 영역 Height
-this.TITLE_AREA_HEIGHT					= 60;
+this.TITLE_AREA_HEIGHT					= 30;
 // Title 영역 컴포넌트 Gap
 this.TITLE_AREA_COMP_SPACE				= 5;
 
 // Title ID
 this.TITLE_ID							= "staTitle";
 // Title 높이
-this.TITLE_HEIGHT						= 60;
+this.TITLE_HEIGHT						= 30;
 // Title Text (ViewTemplate에서 this.TITLE_TEXT 설정하지 않을때 기본값)
 this.TITLE_TEXT_BASE					= "";
 // Title fittocontents
@@ -102,7 +99,7 @@ this.USE_TOT_COUNT_BASE					= "false";
 // TotalCount ID
 this.TOT_COUNT_ID						= "staTotCnt";
 // TotalCount 높이
-this.TOT_COUNT_HEIGHT					= 100;
+this.TOT_COUNT_HEIGHT					= 30;
 // TotalCount 기본Text
 this.TOT_COUNT_TEXT						= "(총 <b v='true'><fc v='#da291c'>0</fc></b>건)";
 // TotalCount fittocontents
@@ -115,7 +112,7 @@ this.TOT_COUNT_CSSCLASS					= "sta_total_count";
 // expand 버튼 객체 사용여부 (ViewTemplate에서 this.USE_EXPAND_BUTTON 설정하지 않을때 기본값)
 this.USE_EXPAND_BUTTON_BASE				= "none";
 // expand/collapse 버튼 사이즈(width, height)
-this.EXPAND_BUTTON_SIZE					= 60;
+this.EXPAND_BUTTON_SIZE					= 20;
 
 // expand 버튼 ID
 this.EXPAND_BUTTON_ID					= "btnExpand";
@@ -285,7 +282,6 @@ this.lfn_MakeGenerationInfo = function(fieldarray, contents, generationattr, bUs
 		//trace(">> contents : " + contents);
 		this.oContents = JSON.parse(contents);
 		this.oContentsOrg = JSON.parse(contents);
-		
 	}
 	
 	//Set Option Setting Information as JSON Object
@@ -349,12 +345,16 @@ this.lfn_MakeUseFieldArray = function(fieldarray)
  *---------------------------------------------------------------------------------------------*/
 this.lfn_GetCompClass = function(sCompType, oField, sAutoField)
 {
-	var oCompClass = { "classId" : null, "prefix" : null };
+	var oCompClass = { "classId" : null, "prefix" : null , "attribute" : null};
+	var oProp = {};
 	
 	// comptype이 auto일때 oField정보로 매칭되는 컴포넌트 반환
 	if (this.lfn_IsNotNull(oField))
 	{
 		sCompType = this.lfn_GetAutoCompType(oField, sAutoField);
+		
+		oProp = this.lfn_GetCompProp(sCompType,oField);
+		oCompClass.attribute = oProp;
 	}
 	
 	// 컴포넌트별 
@@ -400,6 +400,9 @@ this.lfn_GetCompClass = function(sCompType, oField, sAutoField)
 						oCompClass.prefix = "grd";
 						break;
 		case "webview" : oCompClass.classId = "WebView";
+						oCompClass.prefix = "web";
+						break;
+		case "webbrowser" : oCompClass.classId = "WebBrowser";
 						oCompClass.prefix = "web";
 						break;
 		case "selectone" : oCompClass.classId = "AbstractSelectOne";
@@ -493,6 +496,157 @@ this.lfn_GetAutoCompType = function(oField, sAutoField)
 };
 
 /*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetCompProp
+ * Parameter    :
+ *                - sCompType : comptype
+ *                - oField : Field 정보
+ * Return       : {Object} 기본속성정보
+ * Description  : 컴포넌트별 기본으로 설정할 Property 반환
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetCompProp = function(sCompType, oField)
+{
+	var oProps = {};
+	
+	var sFieldType, sDataType, sDataSize;
+	
+	if (!this.lfn_IsNull(oField))
+	{
+		sFieldType = oField["fieldtype"];
+		sDataType = oField["datatype"];
+		sDataSize = oField["datasize"];
+	}
+	
+	// 컴포넌트별 
+	switch(sCompType)
+	{
+		case "radio" :
+			oProps["direction"] = "vertical";		// Radio 컴포넌트에서 한줄로 표시되도록 처리
+			break;
+		case "calendar" :
+			if (sDataType == "DATETIME"
+				|| (sDataType == "STRING" && sDataSize == "17"))
+			{
+				oProps["dateformat"] = "yyyy-MM-dd ddd HH:mm:ss";
+				oProps["editformat"] = "yyyy-MM-dd HH:mm:ss";
+			}
+// 			else if (sDataType == "DATE"
+// 				|| (sDataType == "STRING" && sDataSize == "8"))
+// 			{
+// 				oProps["dateformat"] = "SHORTDATE";
+// 				oProps["editformat"] = "SHORTDATE";
+// 			}
+			break;
+		case "maskedit" :
+			if (sDataType == "INT")
+			{
+				oProps["format"] = "#,###";
+			}
+			else if (sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
+			{
+				oProps["format"] = "#,###.##";
+			}
+			else if(sDataType == "STRING")
+			{
+				oProps["type"] = "string";
+			}
+			break;
+		default :
+			break;
+	}
+	
+	return oProps;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetCellProp
+ * Parameter    :
+ *                - sBand : band id("head","body","summ","detail")
+ *                - sDisplayType : displaytype 값
+ *                - sEditType : edittype 값
+ *                - oField : Field 정보
+ * Return       : {Object} 기본속성정보
+ * Description  : Cell 기본으로 설정할 Property 반환(Grid, ListView)
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetCellProp = function(sBand, sDisplayType, sEditType, oField)
+{
+	var oProps = {};
+	var sFieldType, sDataType, sDataSize;
+	
+	if (!this.lfn_IsNull(oField))
+	{
+		sFieldType = oField["fieldtype"];
+		sDataType = oField["datatype"];
+		sDataSize = oField["datasize"];
+	}
+	
+	// displaytype
+	switch(sDisplayType)
+	{
+		case "calendarcontrol" :
+		case "date" :
+			if (sDataType == "DATETIME"
+				|| (sDataType == "STRING" && sDataSize == "17"))
+			{
+				oProps["calendardateformat"] = "yyyy-MM-dd ddd HH:mm:ss";
+			}
+// 			else if (sDataType == "DATE"
+// 				|| (sDataType == "STRING" && sDataSize == "8"))
+// 			{
+// 				oProps["calendardateformat"] = "SHORTDATE";
+// 			}
+			break;
+		case "mask" :
+		case "maskeditcontrol" :
+			if (sDataType == "INT")
+			{
+				oProps["maskeditformat"] = "#,###";
+			}
+			else if (sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
+			{
+				oProps["maskeditformat"] = "#,###.##";
+			}
+			else if(sDataType == "STRING")
+			{
+				oProps["maskedittype"] = "string";
+			}
+			break;
+		default :
+			break;
+	}
+	
+	// edittype
+	switch(sEditType)
+	{
+		case "date" :
+			if (sDataType == "DATETIME"
+				|| (sDataType == "STRING" && sDataSize == "17"))
+			{
+				oProps["calendareditformat"] = "yyyy-MM-dd HH:mm:ss";
+			}
+// 			else if (sDataType == "DATE"
+// 				|| (sDataType == "STRING" && sDataSize == "8"))
+// 			{
+// 				oProps["calendareditformat"] = "SHORTDATE";
+// 			}
+			break;
+		case "mask" :
+			if (sDataType == "INT")
+			{
+				oProps["maskeditformat"] = "#,###";
+			}
+			else if (sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
+			{
+				oProps["maskeditformat"] = "#,###.##";
+			}
+			break;
+		default :
+			break;
+	}
+	
+	return oProps;
+};
+
+/*---------------------------------------------------------------------------------------------*
  * Function     : lfn_GetRealSize
  * Parameter    :
 				- sSize : Size Information(% or px)
@@ -562,57 +716,22 @@ this.lfn_GetCellSize = function(arrList, nIdx, nSpan, nDefSize)
 				- sType : Col or Row
                 - nIdx1 : Component Index Value to Calculate Padding
                 - nIdx2 : Component Index Value to Calculate Padding + Space
-				- bLayout : Whether Layout was used
+				- bBetweenPadding : Padding계산 시 양 컴포넌트 모두 Padding계산을 하는지 여부
  * Return       : nTemp : Calibrated px value
  * Description  : If the interval value set as padding is converted to Padding + CompSpace or LineSpace
                   Function to evaluate px value that needs calibration
  *---------------------------------------------------------------------------------------------*/
-this.lfn_CalcPaddingToSpace = function(sType, nIdx1, nIdx2, nPadding, nSpace, bLayout)
+this.lfn_CalcPaddingToSpace = function(nIdx1, nPadding, nSpace, bBetweenPadding)
 {
 	var nTemp;
+	var nIdx2 = nIdx1 -1;
 
-	//Formula to calibrate the location as the gap between components is calculated with Comp/Line Space instead of Padding information
-	//Component Padding Formula = (Component Left/Right Padding * Component number
-	//Component Space Formula = (Left/Top Padding of the First Component + Right/Bottom Padding of Last Component + Space * Component number)
-	//Calculate difference = Component Padding Formula - Component Space Formula
-// 	if(bLayout==true)
-// 	{
-// 		if(sType=="Col")
-// 		{
-// 			nTemp = ((this.COMP_PADDING_LEFT+this.COMP_PADDING_RIGHT) * nIdx1) - (this.COMP_PADDING_LEFT + this.COMP_PADDING_RIGHT + (this.COMP_SPACE * nIdx2));
-// 		}else
-// 		{
-// 			nTemp = ((this.COMP_PADDING_TOP+this.COMP_PADDING_BOTTOM) * nIdx1) - (this.COMP_PADDING_TOP + this.COMP_PADDING_BOTTOM + (this.LINE_SPACE * nIdx2));
-// 		}
-// 	}else
-// 	{
-// 		if(sType=="Col")
-// 		{
-// 			nTemp = (this.COMP_PADDING_RIGHT * nIdx1) - (this.COMP_PADDING_RIGHT + (this.COMP_SPACE * nIdx2));
-// 		}else
-// 		{
-// 			nTemp = -(this.LINE_SPACE * nIdx2);
-// 		}
-// 	}
-
-	if(bLayout==true)
+	if(bBetweenPadding==false)
 	{
-		if(sType=="Col")
-		{
-			nTemp = (nPadding * nIdx1) - (nPadding + (nSpace * nIdx2));
-		}else
-		{
-			nTemp = (nPadding * nIdx1) - (nPadding + (nSpace * nIdx2));
-		}
+		nTemp = -(nSpace * nIdx1);
 	}else
 	{
-		if(sType=="Col")
-		{
-			nTemp = (nPadding * nIdx1) - (nPadding + (nSpace * nIdx2));
-		}else
-		{
-			nTemp = -(nSpace * nIdx2);
-		}
+		nTemp = (nPadding * nIdx1) - (nPadding + (nSpace * nIdx2));
 	}
 
 	return nTemp;
@@ -989,15 +1108,17 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
     var sCompId
     var sFieldId;
 	var sCompType;
+	var sCompClassId;
 	var nBindItemCount = arrBindItems.length;
 
     for(var i=0;i<nBindItemCount;i++)
     {
-        sCompId		= arrBindItem[i].compid;
-		sFieldId	= arrBindItem[i].fieldid;
-        sCompType	= arrBindItem[i].comptype;
+        sCompId			= arrBindItem[i].compid;
+		sFieldId		= arrBindItem[i].fieldid;
+        sCompType		= arrBindItem[i].comptype;
+		sCompClassId	= arrBindItem[i].compclassid;
 
-		if(sCompType=="static")
+		if(sCompClassId=="Static" || sCompType == "static")
 		{
 			oBindItems[i] =
 			{
@@ -1008,7 +1129,7 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 				}
 			}
 		}
-		else if(sCompType=="imageviewer")
+		else if(sCompClassId=="ImageViewer" || sCompType == "imageviewer")
 		{
 			oBindItems[i] =
 			{
@@ -1019,7 +1140,7 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 				}
 			}
 		}
-		else if(sCompType=="webview")
+		else if(sCompClassId=="WebView" || sCompClassId=="WebBrowser" || sCompType == "webview" || sCompType == "webbrowser" )
 		{
 			oBindItems[i] =
 			{
@@ -1188,7 +1309,7 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton, 
 		sText		= this.TOT_COUNT_TEXT;
 		sCssClass	= this.TOT_COUNT_CSSCLASS;
 		
-		nCompWidth	= 50;
+		nCompWidth	= 100;
 		nCompHeight	= this.TOT_COUNT_HEIGHT;
 		nCompLeft	= this.TITLE_ID + ":5";
 	
@@ -1259,11 +1380,12 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 		// expand 토글 함수
 		sScript += "this.lfn_Title_SetSearchOpenClose = function(obj,sStatus)";
 		sScript += "{";
-		sScript += "	var objForm = obj.parent.parent.parent;";
+		sScript += "	var objDivTitle = obj.parent.parent;";
+		sScript += "	var objForm = objDivTitle.parent;";
 		sScript += "	var objView = objForm.parent;";
 		sScript += "	";
 		sScript += "	if (sStatus == 'close') {";
-		sScript += "		objView.set_height('" + this.TITLE_AREA_HEIGHT + "');";
+		sScript += "		objView.set_height(objView._closeHeight);";
 		sScript += "		objView.set_formscrolltype('none');";
 		sScript += "		obj.set_cssclass('" + this.EXPAND_BUTTON_OPEN_CSSCLASS + "');";
 		sScript += "	} else {";
@@ -1288,6 +1410,7 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 		sScript += "	objView._openclose = sStatus;";
 		sScript += "	objView._openHeight = objView.height;";
 		sScript += "	objView._openBottom = objView.bottom;";
+		sScript += "	objView._closeHeight = nexacro.toNumber(obj."+this.DIV_TITLE_ID+".top,0) + nexacro.toNumber(obj."+this.DIV_TITLE_ID+".height,0);";
 		sScript += "	objView._formscrolltype = objView.formscrolltype;";
 		sScript += "	this.lfn_Title_SetSearchOpenClose(obj."+this.DIV_TITLE_ID+".form."+"btnExpand,sStatus);";
 		sScript += "};";
