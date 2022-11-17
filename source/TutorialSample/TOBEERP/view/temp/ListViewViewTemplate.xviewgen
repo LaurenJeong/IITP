@@ -127,6 +127,8 @@ this.CELL_COMP_BG			= "true";
 //Component Use Type
 this.USE_COMP				= "true";
 
+//라벨을 첫줄만 생성할지 여부
+this.MERGE_COMP_BG			= "false";
 //--------------------------------------------------------------------------------------------------------
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
@@ -1550,6 +1552,7 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 	var sLabelCssClass;
 	var sFieldBgCssClass = this.CELL_BG_CSSCLASS;
 	var sFieldPosition;
+	var oCellProp;
 	
 	var oCellInfo = [];
 	
@@ -1835,18 +1838,34 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 			// Field배경 Box 생성(Field마다 생성되도록 수정)
 			if(sUseFieldBox == "true")
 			{
-				//nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
-
-				sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
-				oComp = {
-							"tag" : sCellClassNm,
-							"attribute" :
-							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nFieldAreaWidth, "height" : nFieldAreaHeight
-								,"cssclass" : sFieldBgCssClass
-							}
-						};
-				arrBandCells.push(oComp);
+				// 첫번째 Field일때만 생성
+				if (this.MERGE_COMP_BG == "true" && nLayoutCol == 0)
+				{
+					sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
+					oComp = {
+								"tag" : sCellClassNm,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					arrBandCells.push(oComp);
+				}
+				// Field마다 생성
+				else
+				{
+					sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
+					oComp = {
+								"tag" : sCellClassNm,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nFieldAreaWidth, "height" : nFieldAreaHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					arrBandCells.push(oComp);
+				}
 			}
 				
 			if(nLabelWidth>0)
@@ -1875,13 +1894,16 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 						, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sFieldCssClass
 					}
 				};
+				
+		// Cell 기본 속성 설정
+		oCellProp = this.lfn_GetCellProp(sBand,sDisplayType,sEditType,oField);
+		if (!this.lfn_IsNull(oCellProp))		Object.assign(oComp.attribute, oCellProp);
 
 		// Field별 Cell정보 설정
 		if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
 		{
 			this.oFieldCellInfo[sFieldId] = {"body":[],"detail":[]};
 		}
-		
 		oCellInfo = this.oFieldCellInfo[sFieldId][sBand];
 		oCellInfo.push({"id": sCompId});
 
