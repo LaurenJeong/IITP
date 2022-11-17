@@ -398,6 +398,9 @@ this.lfn_GetCompClass = function(sCompType, oField, sAutoField)
 		case "webview" : oCompClass.classId = "WebView";
 						oCompClass.prefix = "web";
 						break;
+		case "webbrowser" : oCompClass.classId = "WebBrowser";
+						oCompClass.prefix = "web";
+						break;
 		case "selectone" : oCompClass.classId = "AbstractSelectOne";
 						oCompClass.prefix = "aso";
 						break;
@@ -950,15 +953,17 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
     var sCompId
     var sFieldId;
 	var sCompType;
+	var sCompClassId;
 	var nBindItemCount = arrBindItems.length;
 
     for(var i=0;i<nBindItemCount;i++)
     {
-        sCompId		= arrBindItem[i].compid;
-		sFieldId	= arrBindItem[i].fieldid;
-        sCompType	= arrBindItem[i].comptype;
+        sCompId			= arrBindItem[i].compid;
+		sFieldId		= arrBindItem[i].fieldid;
+        sCompType		= arrBindItem[i].comptype;
+		sCompClassId	= arrBindItem[i].compclassid;
 
-		if(sCompType=="static")
+		if(sCompClassId=="Static" || sCompType == "static")
 		{
 			oBindItems[i] =
 			{
@@ -969,7 +974,7 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 				}
 			}
 		}
-		else if(sCompType=="imageviewer")
+		else if(sCompClassId=="ImageViewer" || sCompType == "imageviewer")
 		{
 			oBindItems[i] =
 			{
@@ -980,7 +985,7 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 				}
 			}
 		}
-		else if(sCompType=="webview")
+		else if(sCompClassId=="WebView" || sCompClassId=="WebBrowser" || sCompType == "webview" || sCompType == "webbrowser" )
 		{
 			oBindItems[i] =
 			{

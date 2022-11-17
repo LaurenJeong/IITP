@@ -287,13 +287,13 @@ fn_GetFieldUserAttributeList = function ()
                                 "description": "Types of Components to be Expressed"
                             },
 							{
-                                "id": "fieldwidth",
+                                "id": "compwidth",
                                 "edittype": "String",
 								"defaultvalue": this.COMP_WIDTH,
                                 "description": "Component Width(px or %)"
                             },
 							{
-                                "id": "fieldheight",
+                                "id": "compheight",
                                 "edittype": "String",
 								"defaultvalue": this.COMP_HEIGHT,
                                 "description": "Component Height(px or %)"
@@ -516,8 +516,8 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		//this.lfn_Log("nLabelWidth : " + nLabelWidth + " nLabelHeight : " + nLabelHeight);
 
 		//Evaluate Width/Height that this field will be expressed on
-		nFieldWidth = this.lfn_GetRealSize(oField.fieldwidth, 0, nColSize, this.COMP_WIDTH, 0, 0);
-		nFieldHeight = this.lfn_GetRealSize(oField.fieldheight, 0, nRowSize, this.COMP_HEIGHT, 0, 0);
+		nFieldWidth = this.lfn_GetRealSize(oField.compwidth, 0, nColSize, this.COMP_WIDTH, 0, 0);
+		nFieldHeight = this.lfn_GetRealSize(oField.compheight, 0, nRowSize, this.COMP_HEIGHT, 0, 0);
 
 		//If the Component Production Direction is Horizontal
 		if(sDirection=="horizontal")
@@ -891,7 +891,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 		if(sCompClassId!="Button")
 		{
-			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
+			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype, "compclassid" : sCompClassId};
 		}
 		
 		oModel[oModel.length-1].Components.push(oComp)

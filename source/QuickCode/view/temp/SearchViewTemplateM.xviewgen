@@ -1760,7 +1760,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		if(sCompClassId!="Button")
 		{
 			//In order to process the Bind, add Id, Field Id to BindItems Array
-			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
+			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype, "compclassid" : sCompClassId};
 		}
 
 		oModel[oModel.length-1].Components.push(oComp);

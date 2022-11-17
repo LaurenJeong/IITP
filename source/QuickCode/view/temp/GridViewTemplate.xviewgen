@@ -49,6 +49,9 @@ this.DISPLAY_TYPE			= "auto";
 this.EDIT_TYPE				= "none";
 this.CELL_CSSCLASS			= "";
 this.USE_COMP				= "true";
+
+// Grid autofittype 속성 기본값
+this.AUTOFIT_TYPE			= "none";
 //--------------------------------------------------------------------------------------------------------
 /*============================================================================================*
 * Parameter Structure Example
@@ -670,6 +673,7 @@ fn_GetModel = function()
                     "attribute" :
                     {
                         "id" : "grdList", "left" : nLeft, "top" : nTop, "right" : nRight, "bottom" : nBottom, "binddataset" : "viewdataset"
+						, "autofittype"	: this.AUTOFIT_TYPE
                     },
                     "Grid" :
                     [

@@ -802,6 +802,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 	var sLabel;
 	var sClssClass;
+	var sCompClassId;
 
 	if(!bUseLayout)bUseLayout = false;
 
@@ -899,8 +900,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		//Add Component Tag
 		oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
 		sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+		sCompClassId = oCompClass.classId;
 		oComp =	{
-					"tag" : oCompClass.classId,
+					"tag" : sCompClassId,
 					"attribute" :
 					{
 						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCssClass
@@ -908,14 +910,14 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				};
 				
 		// webview 일때 라벨값 처리 안함
-		if(oField.comptype!="webview")
+		if(sCompClassId!="WebView")
 		{
 			oComp["text"] = sLabel;
 		}
 		
-		if(oField.comptype!="button")
+		if(sCompClassId!="Button")
 		{
-			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
+			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype, "compclassid" : sCompClassId};
 		}
 
 		oModel[oModel.length-1].Components.push(oComp);
