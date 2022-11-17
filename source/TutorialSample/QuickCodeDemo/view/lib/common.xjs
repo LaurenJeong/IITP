@@ -345,12 +345,16 @@ this.lfn_MakeUseFieldArray = function(fieldarray)
  *---------------------------------------------------------------------------------------------*/
 this.lfn_GetCompClass = function(sCompType, oField, sAutoField)
 {
-	var oCompClass = { "classId" : null, "prefix" : null };
+	var oCompClass = { "classId" : null, "prefix" : null , "attribute" : null};
+	var oProp = {};
 	
 	// comptype이 auto일때 oField정보로 매칭되는 컴포넌트 반환
 	if (this.lfn_IsNotNull(oField))
 	{
 		sCompType = this.lfn_GetAutoCompType(oField, sAutoField);
+		
+		oProp = this.lfn_GetCompProp(sCompType,oField);
+		oCompClass.attribute = oProp;
 	}
 	
 	// 컴포넌트별 
@@ -396,6 +400,9 @@ this.lfn_GetCompClass = function(sCompType, oField, sAutoField)
 						oCompClass.prefix = "grd";
 						break;
 		case "webview" : oCompClass.classId = "WebView";
+						oCompClass.prefix = "web";
+						break;
+		case "webbrowser" : oCompClass.classId = "WebBrowser";
 						oCompClass.prefix = "web";
 						break;
 		case "selectone" : oCompClass.classId = "AbstractSelectOne";
@@ -486,6 +493,158 @@ this.lfn_GetAutoCompType = function(oField, sAutoField)
 	}
 	
 	return sCompType;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetCompProp
+ * Parameter    :
+ *                - sCompType : comptype
+ *                - oField : Field 정보
+ * Return       : {Object} 기본속성정보
+ * Description  : 컴포넌트별 기본으로 설정할 Property 반환
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetCompProp = function(sCompType, oField)
+{
+	var oProps = {};
+	
+	var sFieldType, sDataType, sDataSize;
+	
+	if (!this.lfn_IsNull(oField))
+	{
+		sFieldType = oField["fieldtype"];
+		sDataType = oField["datatype"];
+		sDataSize = oField["datasize"];
+	}
+	
+	// 컴포넌트별 
+	switch(sCompType)
+	{
+		case "radio" :
+			oProps["direction"] = "vertical";		// Radio 컴포넌트에서 한줄로 표시되도록 처리
+			break;
+		case "calendar" :
+			if (sDataType == "DATETIME"
+				|| (sDataType == "STRING" && sDataSize == "17"))
+			{
+				oProps["dateformat"] = "yyyy-MM-dd ddd HH:mm:ss";
+				oProps["editformat"] = "yyyy-MM-dd HH:mm:ss";
+			}
+// 			else if (sDataType == "DATE"
+// 				|| (sDataType == "STRING" && sDataSize == "8"))
+// 			{
+// 				oProps["dateformat"] = "SHORTDATE";
+// 				oProps["editformat"] = "SHORTDATE";
+// 			}
+			break;
+		case "maskedit" :
+			
+			if (sDataType == "INT")
+			{
+				oProps["format"] = "#,###";
+			}
+			else if (sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
+			{
+				oProps["format"] = "#,###.##";
+			}
+			else if(sDataType == "STRING")
+			{
+				oProps["type"] = "string";
+			}
+			break;
+		default :
+			break;
+	}
+	
+	return oProps;
+};
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetCellProp
+ * Parameter    :
+ *                - sBand : band id("head","body","summ","detail")
+ *                - sDisplayType : displaytype 값
+ *                - sEditType : edittype 값
+ *                - oField : Field 정보
+ * Return       : {Object} 기본속성정보
+ * Description  : Cell 기본으로 설정할 Property 반환(Grid, ListView)
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetCellProp = function(sBand, sDisplayType, sEditType, oField)
+{
+	var oProps = {};
+	var sFieldType, sDataType, sDataSize;
+	
+	if (!this.lfn_IsNull(oField))
+	{
+		sFieldType = oField["fieldtype"];
+		sDataType = oField["datatype"];
+		sDataSize = oField["datasize"];
+	}
+	
+	// displaytype
+	switch(sDisplayType)
+	{
+		case "calendarcontrol" :
+		case "date" :
+			if (sDataType == "DATETIME"
+				|| (sDataType == "STRING" && sDataSize == "17"))
+			{
+				oProps["calendardateformat"] = "yyyy-MM-dd ddd HH:mm:ss";
+			}
+// 			else if (sDataType == "DATE"
+// 				|| (sDataType == "STRING" && sDataSize == "8"))
+// 			{
+// 				oProps["calendardateformat"] = "SHORTDATE";
+// 			}
+			break;
+		case "mask" :
+		case "maskeditcontrol" :
+			if (sDataType == "INT")
+			{
+				oProps["maskeditformat"] = "#,###";
+			}
+			else if (sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
+			{
+				oProps["maskeditformat"] = "#,###.##";
+			}
+			else if(sDataType == "STRING")
+			{
+				oProps["maskedittype"] = "string";
+			}
+			break;
+		default :
+			break;
+	}
+	
+	// edittype
+	switch(sEditType)
+	{
+		case "date" :
+			if (sDataType == "DATETIME"
+				|| (sDataType == "STRING" && sDataSize == "17"))
+			{
+				oProps["calendareditformat"] = "yyyy-MM-dd HH:mm:ss";
+			}
+// 			else if (sDataType == "DATE"
+// 				|| (sDataType == "STRING" && sDataSize == "8"))
+// 			{
+// 				oProps["calendareditformat"] = "SHORTDATE";
+// 			}
+			break;
+		case "mask" :
+			if (sDataType == "INT")
+			{
+				oProps["maskeditformat"] = "#,###";
+			}
+			else if (sDataType == "FLOAT" || sDataType == "BIGDECIMAL")
+			{
+				oProps["maskeditformat"] = "#,###.##";
+			}
+			break;
+		default :
+			break;
+	}
+	
+	return oProps;
 };
 
 /*---------------------------------------------------------------------------------------------*
@@ -950,15 +1109,17 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
     var sCompId
     var sFieldId;
 	var sCompType;
+	var sCompClassId;
 	var nBindItemCount = arrBindItems.length;
 
     for(var i=0;i<nBindItemCount;i++)
     {
-        sCompId		= arrBindItem[i].compid;
-		sFieldId	= arrBindItem[i].fieldid;
-        sCompType	= arrBindItem[i].comptype;
+        sCompId			= arrBindItem[i].compid;
+		sFieldId		= arrBindItem[i].fieldid;
+        sCompType		= arrBindItem[i].comptype;
+		sCompClassId	= arrBindItem[i].compclassid;
 
-		if(sCompType=="static")
+		if(sCompClassId=="Static" || sCompType == "static")
 		{
 			oBindItems[i] =
 			{
@@ -969,7 +1130,7 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 				}
 			}
 		}
-		else if(sCompType=="imageviewer")
+		else if(sCompClassId=="ImageViewer" || sCompType == "imageviewer")
 		{
 			oBindItems[i] =
 			{
@@ -980,7 +1141,7 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 				}
 			}
 		}
-		else if(sCompType=="webview")
+		else if(sCompClassId=="WebView" || sCompClassId=="WebBrowser" || sCompType == "webview" || sCompType == "webbrowser" )
 		{
 			oBindItems[i] =
 			{

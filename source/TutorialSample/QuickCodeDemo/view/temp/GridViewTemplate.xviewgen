@@ -49,6 +49,9 @@ this.DISPLAY_TYPE			= "auto";
 this.EDIT_TYPE				= "none";
 this.CELL_CSSCLASS			= "";
 this.USE_COMP				= "true";
+
+// Grid autofittype 속성 기본값
+this.AUTOFIT_TYPE			= "none";
 //--------------------------------------------------------------------------------------------------------
 /*============================================================================================*
 * Parameter Structure Example
@@ -670,6 +673,7 @@ fn_GetModel = function()
                     "attribute" :
                     {
                         "id" : "grdList", "left" : nLeft, "top" : nTop, "right" : nRight, "bottom" : nBottom, "binddataset" : "viewdataset"
+						, "autofittype"	: this.AUTOFIT_TYPE
                     },
                     "Grid" :
                     [
@@ -1060,6 +1064,8 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 	var sCssClass = "";
 	var sCellCssClass = "";
 	var sCellId = "";
+	var oCell;
+	var oCellProp;
 	
 	var oCellInfo = [];
 
@@ -1139,6 +1145,7 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 					//Set as displaytype = normal, edittype=none
 					sDisplayType = "normal";
 					sEditType = "none";
+					oField = null;
 
 					//Set text value as label if there is text property value
 					if(sCellText)sLabel = sCellText;
@@ -1146,20 +1153,12 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 
 				if(sCellCssClass)sCssClass = sCellCssClass;
 				
+				// Cell 기본속성값
+				oCellProp = this.lfn_GetCellProp("body",sDisplayType,sEditType,oField);
+				
 				// Field별 Cell정보 설정
 				sCellId = "cell_body_"+nCol+"_"+nRow+"_"+sFieldId;
-				
-				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
-				{
-					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
-				}
-				
-				oCellInfo = this.oFieldCellInfo[sFieldId]["body"];
-				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan});
-
-				//Add Cell Tag on Body Band
-				oBodys[oBodys.length] =
-				{
+				oCell = {
 					"tag": "Cell",
 					"attribute":
 					{
@@ -1167,6 +1166,20 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 						, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
 					}
 				};
+				
+				// Cell 기본 속성 설정
+				if (!this.lfn_IsNull(oCellProp))		Object.assign(oCell.attribute, oCellProp);
+				
+				// Field별 Cell정보 설정
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				oCellInfo = this.oFieldCellInfo[sFieldId]["body"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow, "colspan": nColSpan, "rowspan": nRowSpan});
+
+				//Add Cell Tag on Body Band
+				oBodys[oBodys.length] = oCell;
 			}
 		}
 	}
@@ -1191,25 +1204,31 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 				nCol = oBodys.length;
 				nRow = 0;
 				
+				// Cell 기본속성값
+				oCellProp = this.lfn_GetCellProp("body",sDisplayType,sEditType,oField);
+				
 				// Field별 Cell정보 설정
 				sCellId = "cell_body_"+nCol+"_"+nRow+"_"+sFieldId;
-				
-				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
-				{
-					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
-				}
-				
-				oCellInfo = this.oFieldCellInfo[sFieldId]["body"];
-				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow});
-				
-				oBodys[oBodys.length] =
-				{
+				oCell = {
 					"tag": "Cell",
 					"attribute":
 					{
 						"id": sCellId, "col": nCol, "row": nRow, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
 					}
 				};
+				
+				// Cell 기본 속성 설정
+				if (!this.lfn_IsNull(oCellProp))		Object.assign(oCell.attribute, oCellProp);
+				
+				// Field별 Cell정보 설정
+				if (!this.oFieldCellInfo.hasOwnProperty(sFieldId))
+				{
+					this.oFieldCellInfo[sFieldId] = {"head":[],"body":[],"summ":[]};
+				}
+				oCellInfo = this.oFieldCellInfo[sFieldId]["body"];
+				oCellInfo.push({"id": sCellId, "col": nCol, "row": nRow});
+				
+				oBodys[oBodys.length] = oCell;
 			}
 		}
 	}
