@@ -333,7 +333,7 @@
       </Layout>
     </Layouts>
     <Objects>
-      <APIInzentTranAction id="APIInzentTranAction00" serviceurl="http://172.10.12.58:28080/test.do" inputdatasets="SI=view_search.form.viewdataset " outputdatasets="view_page.form.viewdataset=SO  view_master.form.viewdataset=SO_grid2" onerror="APIInzentTranAction00_onerror" onsuccess="APIInzentTranAction00_onsuccess" servicemodel="IUI_M_COR_S_RCV00713">
+      <APITransactionAction id="APITransactionAction00" serviceurl="http://172.10.12.58:28080/test.do" inputdatasets="SI=view_search.form.viewdataset " outputdatasets="view_page.form.viewdataset=SO  view_master.form.viewdataset=SO_grid2" onerror="APITransactionAction00_onerror" onsuccess="APITransactionAction00_onsuccess" servicemodel="IUI_M_COR_S_RCV00713">
         <Contents><![CDATA[{
     "model":{
         "modelinfo":[
@@ -408,7 +408,7 @@
     },
 "reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>COR</Col><Col id='SvcID'>ISD_IUI_M_COR_S_RCV00713</Col><Col id='IFID'>IUI_M_COR_S_RCV00713</Col><Col id='UUID'>20220808152037274</Col><Col id='BizCode'>RCV</Col><Col id='ChlCode'>IUI</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SO_grid2</Col><Col id='iotype'>output</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data[0].FormData.grid2</Col></Row></Rows></Dataset>"
 }]]></Contents>
-      </APIInzentTranAction>
+      </APITransactionAction>
       <Dataset id="viewdataset">
         <ColumnInfo>
           <ConstColumn id="NEXT_PAGE_EXS_YN_1_S1" type="STRING" size="1" value="N"/>
@@ -445,17 +445,17 @@
       </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[
-this.APIInzentTranAction00_onerror = function(obj:nexacro.Action, e:nexacro.TranActionErrorEventInfo)
+this.APITransactionAction00_onerror = function(obj:nexacro.Action, e:nexacro.TranActionErrorEventInfo)
 {
 	//trace("onerror >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
 };
 
-this.APIInzentTranAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
+this.APITransactionAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
 	//trace("onsuccess >> [" + obj.name + "] " + e.errorcode + " : " + e.errormsg);
 };]]></Script>
     <Trigger>
-      <TriggerItem id="item0" triggertype="Click" triggerview="view_search" triggerobj="btnSearch" targetaction="APIInzentTranAction00" condition=""/>
+      <TriggerItem id="item0" triggertype="Click" triggerview="view_search" triggerobj="btnSearch" targetaction="APITransactionAction00" condition=""/>
     </Trigger>
   </Form>
 </FDL>
