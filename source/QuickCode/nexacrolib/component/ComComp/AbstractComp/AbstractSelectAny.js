@@ -327,7 +327,7 @@ if(!nexacro.AbstractSelectAny)
 	// TODO : 바인딩된 dataset이 변경되어 바인딩이 끊어지는 경우 갱신
 	_pAbstractSelectAny.on_init_bindSource = function (columnid, propid, ds)
 	{
-		//trace("on_init_bindSource:");
+		//("on_init_bindSource:");
 	};
 
 	_pAbstractSelectAny.on_change_bindSource = function (propid, ds, row, col)
@@ -1427,7 +1427,7 @@ if(!nexacro.AbstractSelectAny)
 				var evt_id = this._evt_arr[i];
 				var listener = this[evt_id];
 				if (listener && listener._has_handlers)
-					ctrlobj._setEventHandler(evt_id, listener._user_handlers[0].handler, this);
+					ctrlobj._setEventHandler(evt_id, listener._user_handlers[0].handler, listener._user_handlers[0].target);
 			}
 		}
 	};

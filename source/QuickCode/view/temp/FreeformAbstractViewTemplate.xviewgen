@@ -1867,6 +1867,12 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		{
 			oComp.attribute.text = oField.label;
 		}
+		// AbstractSelectAny일때 multi value값이 bind되지 않아 View Script로 제공
+		else if(sCompClassId=="AbstractSelectAny")
+		{
+			var sViewNm = this.oContents.View.attribute.id;
+			oComp.attribute.onitemchanged = sViewNm + ".form." + "lfn_AbstractSelectAny_onitemchanged";
+		}
 		
 		// Readonly 처리
 		if(oField.compreadonly == "true")
@@ -1963,10 +1969,49 @@ fn_GetScript = function()
 	var sViewNm = this.oContents.View.attribute.id;
 	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
 	
+	// 1) ExpandButton
 	if (sUseExpandButton != "none")
 	{
 		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
 	}
+	
+	// 2) AbstractSelectAny일때 multi value값이 bind되지 않아 View Script로 제공
+	sScript += "this.lfn_AbstractSelectAny_onitemchanged = function(obj,e)";
+	sScript += "{";
+	sScript += "	var oSelectAny = obj.parent;";
+	sScript += "	var sMultiValue = '';";
+	sScript += "	var aMultiValue = new Array();";
+	sScript += "	var aSelectIdx = obj.getSelectedItems();";
+	sScript += "	var oInnerDs = obj.getInnerDataset();";
+		
+	sScript += "	for(var i=0; i < aSelectIdx.length; i++)";
+	sScript += "	{";
+	sScript += "		aMultiValue.push(oInnerDs.getColumn(aSelectIdx[i],obj.codecolumn));";
+	sScript += "	}";
+		
+	// multivalue 속성에 값 설정
+	sScript += "	sMultiValue = aMultiValue.join(',');";
+	sScript += "	oSelectAny.multivalue = sMultiValue;";
+		
+	// Bind정보로 dataset에 업데이트
+	sScript += "	var oForm = oSelectAny.parent;";
+	sScript += "	var aBindList = oForm.binds;";
+	sScript += "	var oBindInfo;";
+		
+	sScript += "	for(var i=0;i<aBindList.length;i++)";
+	sScript += "	{";
+	sScript += "		if (aBindList[i]['compid'] == obj.parent.id)";
+	sScript += "		{";
+	sScript += "			oBindInfo = aBindList[i];";
+	sScript += "			break;";
+	sScript += "		}";
+	sScript += "	}";
+		
+	sScript += "	if (oBindInfo) {";
+	sScript += "		var oBindDs = oForm.all[oBindInfo['datasetid']];";
+	sScript += "		oBindDs.setColumn(oBindDs.rowposition,oBindInfo['columnid'],sMultiValue);";
+	sScript += "	}";
+	sScript += "};";
 	
     if (this.lfn_IsNotNull(sScript))
 	{

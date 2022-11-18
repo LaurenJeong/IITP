@@ -1376,7 +1376,7 @@ if(!nexacro.AbstractSelectOne)
 				var evt_id = this._evt_arr[i];
 				var listener = this[evt_id];
 				if (listener && listener._has_handlers)
-					ctrlobj._setEventHandler(evt_id, listener._user_handlers[0].handler, this);
+					ctrlobj._setEventHandler(evt_id, listener._user_handlers[0].handler, listener._user_handlers[0].target);
 			}
 		}
 	};
@@ -1385,7 +1385,7 @@ if(!nexacro.AbstractSelectOne)
 	_pAbstractSelectOne._onControlItemChanged = function (o, e)
 	{
 		this.value = e.postvalue;
-		trace("_onControlItemChanged - object : ", o, " / event : ",  e);
+		//trace("_onControlItemChanged - object : ", o, " / event : ",  e);
 		this.on_fire_onitemchanged(o, e);
 	};
 
@@ -1402,7 +1402,7 @@ if(!nexacro.AbstractSelectOne)
 
 	_pAbstractSelectOne._onControlItemClick = function (o, e) {
 		this.value = e.postvalue;
-		trace("_onControlItemClick - object : ", o, " / event : ", e);
+		//trace("_onControlItemClick - object : ", o, " / event : ", e);
 		this.on_fire_onitemclick(o, e);
 	};
 

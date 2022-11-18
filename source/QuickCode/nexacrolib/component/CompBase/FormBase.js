@@ -719,7 +719,7 @@ if (!nexacro.Form)
             { // CYBIND_TYPE_SIMPLE
                 if (comp.enable && comp.parent._isEnable())
                 {
-                    if (row_idx < 0)
+                    if (row_idx < 0 && !comp._is_abstract)
                     {
                         comp._setEnable(false);
                     }

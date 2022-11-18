@@ -1151,6 +1151,18 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 				}
 			}
 		}
+		// [AbstractSelectAny] AbstractSelectAny일때 multi value값이 bind되지 않아 View Script로 제공
+		else if(sCompClassId=="AbstractSelectAny" || sCompType == "selectany")
+		{
+			oBindItems[i] =
+			{
+				"tag" : "BindItem",
+				"attribute" :
+				{
+					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "multivalue", "datasetid" : sBindDataset, "columnid" : sFieldId
+				}
+			}
+		}
 		else
 		{
 			oBindItems[i] =

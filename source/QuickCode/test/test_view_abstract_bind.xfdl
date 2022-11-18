@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_20221118_01" width="1050" height="600" titletext="AbstractComponent view script">
+    <Layouts>
+      <Layout height="600" width="1050">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="8" top="7" width="540" height="328">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staCompanyLabel" left="10" top="10" width="100" height="30" text="회사명" cssclass="sta_label_essential"/>
+              <AbstractSelectAny id="asaCompany" left="115" top="10" width="95" height="30" onitemchanged="View00.form.lfn_AbstractSelectAny_onitemchanged" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentLabel" left="215" top="10" width="100" height="30" text="부서명" cssclass="sta_label_essential"/>
+              <AbstractSelectAny id="asaDepartment" left="320" top="10" width="95" height="30" onitemchanged="View00.form.lfn_AbstractSelectAny_onitemchanged" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staStatusLabel" left="10" top="45" width="100" height="30" text="상태" cssclass="sta_label_essential"/>
+              <AbstractSelectAny id="asaStatus" left="115" top="45" width="95" height="30" onitemchanged="View00.form.lfn_AbstractSelectAny_onitemchanged" innerdataset="innerdatasetStatus" codecolumn="code" datacolumn="value"/>
+              <Grid id="Grid00" taborder="8" left="21" top="92" width="485" height="121" binddataset="viewdataset">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row band="head" size="24"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="Company"/>
+                      <Cell col="1" text="Department"/>
+                      <Cell col="2" text="Status"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:Company"/>
+                      <Cell col="1" text="bind:Department"/>
+                      <Cell col="2" text="bind:Status"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Status" type="STRING" size="80" description="상태"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">01</Col>
+                  <Col id="value">TOBESOFT</Col>
+                </Row>
+                <Row>
+                  <Col id="code">02</Col>
+                  <Col id="value">A Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">03</Col>
+                  <Col id="value">B Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">04</Col>
+                  <Col id="value">C Company</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">A</Col>
+                  <Col id="value">경영본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">B</Col>
+                  <Col id="value">연구소</Col>
+                </Row>
+                <Row>
+                  <Col id="code">C</Col>
+                  <Col id="value">제조본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">D</Col>
+                  <Col id="value">영업본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">E</Col>
+                  <Col id="value">고객지원본부</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetStatus">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">01</Col>
+                  <Col id="value">재직</Col>
+                </Row>
+                <Row>
+                  <Col id="code">02</Col>
+                  <Col id="value">휴직</Col>
+                </Row>
+                <Row>
+                  <Col id="code">09</Col>
+                  <Col id="value">퇴직</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_asaCompany" compid="asaCompany" propid="multivalue" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_asaDepartment" compid="asaDepartment" propid="multivalue" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_asaStatus" compid="asaStatus" propid="multivalue" datasetid="viewdataset" columnid="Status"/>
+          </Bind>
+          <Script><![CDATA[this.lfn_AbstractSelectAny_onitemchanged = function(obj,e){var oSelectAny = obj.parent;var sMultiValue = '';var aMultiValue = new Array();var aSelectIdx = obj.getSelectedItems();var oInnerDs = obj.getInnerDataset();for(var i=0; i < aSelectIdx.length; i++){aMultiValue.push(oInnerDs.getColumn(aSelectIdx[i],obj.codecolumn));}sMultiValue = aMultiValue.join(',');oSelectAny.multivalue = sMultiValue;var oForm = oSelectAny.parent;var aBindList = oForm.binds;var oBindInfo;for(var i=0;i<aBindList.length;i++){if (aBindList[i]['compid'] == obj.parent.id){oBindInfo = aBindList[i];break;}}if (oBindInfo) {var oBindDs = oForm.all[oBindInfo['datasetid']];oBindDs.setColumn(oBindDs.rowposition,oBindInfo['columnid'],sMultiValue);}};]]></Script>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="AbstractComponent" filepath="test\AbstractComponent.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="Status" description="" comptype="auto" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="asaCompany" fields="Company"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="asaDepartment" fields="Department"/>
+              <Component id="staStatusLabel" fields="Status"/>
+              <Component id="asaStatus" fields="Status"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="SearchAbstractViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="14" top="349" width="539" height="241">
+          <Layouts>
+            <Layout>
+              <Static id="staCompanyBg" left="0" top="0" width="539" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCompanyLabel" left="0" top="0" width="100" height="40" text="회사명" cssclass="sta_labelbox_essential"/>
+              <AbstractSelectAny id="asaCompany" left="105" top="5" width="429" height="30" onitemchanged="View01.form.lfn_AbstractSelectAny_onitemchanged" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentBg" left="0" top="39" width="539" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="0" top="39" width="100" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <AbstractSelectAny id="asaDepartment" left="105" top="44" width="429" height="30" onitemchanged="View01.form.lfn_AbstractSelectAny_onitemchanged" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staStatusBg" left="0" top="78" width="539" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staStatusLabel" left="0" top="78" width="100" height="40" text="상태" cssclass="sta_labelbox_essential"/>
+              <AbstractSelectAny id="asaStatus" left="105" top="83" width="429" height="30" onitemchanged="View01.form.lfn_AbstractSelectAny_onitemchanged" innerdataset="innerdatasetStatus" codecolumn="code" datacolumn="value"/>
+              <Grid id="Grid00" taborder="9" left="25" top="132" width="492" height="86" binddataset="viewdataset">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row band="head" size="24"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="Company"/>
+                      <Cell col="1" text="Department"/>
+                      <Cell col="2" text="Status"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:Company"/>
+                      <Cell col="1" text="bind:Department"/>
+                      <Cell col="2" text="bind:Status"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Status" type="STRING" size="80" description="상태"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">01</Col>
+                  <Col id="value">TOBESOFT</Col>
+                </Row>
+                <Row>
+                  <Col id="code">02</Col>
+                  <Col id="value">A Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">03</Col>
+                  <Col id="value">B Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">04</Col>
+                  <Col id="value">C Company</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">A</Col>
+                  <Col id="value">경영본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">B</Col>
+                  <Col id="value">연구소</Col>
+                </Row>
+                <Row>
+                  <Col id="code">C</Col>
+                  <Col id="value">제조본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">D</Col>
+                  <Col id="value">영업본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">E</Col>
+                  <Col id="value">고객지원본부</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetStatus">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">01</Col>
+                  <Col id="value">재직</Col>
+                </Row>
+                <Row>
+                  <Col id="code">02</Col>
+                  <Col id="value">휴직</Col>
+                </Row>
+                <Row>
+                  <Col id="code">09</Col>
+                  <Col id="value">퇴직</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_asaCompany" compid="asaCompany" propid="multivalue" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_asaDepartment" compid="asaDepartment" propid="multivalue" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_asaStatus" compid="asaStatus" propid="multivalue" datasetid="viewdataset" columnid="Status"/>
+          </Bind>
+          <Script><![CDATA[this.lfn_AbstractSelectAny_onitemchanged = function(obj,e){var oSelectAny = obj.parent;var sMultiValue = '';var aMultiValue = new Array();var aSelectIdx = obj.getSelectedItems();var oInnerDs = obj.getInnerDataset();for(var i=0; i < aSelectIdx.length; i++){aMultiValue.push(oInnerDs.getColumn(aSelectIdx[i],obj.codecolumn));}sMultiValue = aMultiValue.join(',');oSelectAny.multivalue = sMultiValue;var oForm = oSelectAny.parent;var aBindList = oForm.binds;var oBindInfo;for(var i=0;i<aBindList.length;i++){if (aBindList[i]['compid'] == obj.parent.id){oBindInfo = aBindList[i];break;}}if (oBindInfo) {var oBindDs = oForm.all[oBindInfo['datasetid']];oBindDs.setColumn(oBindDs.rowposition,oBindInfo['columnid'],sMultiValue);}};]]></Script>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="AbstractComponent" filepath="test\AbstractComponent.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="Status" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staCompanyBg" fields="Company"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="asaCompany" fields="Company"/>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="asaDepartment" fields="Department"/>
+              <Component id="staStatusBg" fields="Status"/>
+              <Component id="staStatusLabel" fields="Status"/>
+              <Component id="asaStatus" fields="Status"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformAbstractViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.AbstractSelectAny_onitemchanged = function(obj,e)
+{
+	var oSelectAny = obj.parent;
+	var sMultiValue = "";
+	var aMultiValue = new Array();
+	var aSelectIdx = obj.getSelectedItems();
+	var oInnerDs = obj.getInnerDataset();
+	
+	for(var i=0; i < aSelectIdx.length; i++)
+	{
+		aMultiValue.push(oInnerDs.getColumn(aSelectIdx[i],obj.codecolumn));
+	}
+	
+	// multivalue 속성에 값 설정
+	sMultiValue = aMultiValue.join(",");
+	oSelectAny.multivalue = sMultiValue;
+	
+	// Bind정보로 dataset에 업데이트
+	var oForm = oSelectAny.parent;
+	var aBindList = oForm.binds;
+	var oBindInfo;
+	
+	for(var i=0;i<aBindList.length;i++)
+	{
+		if (aBindList[i]["compid"] == obj.parent.id)
+		{
+			oBindInfo = aBindList[i];
+			break;
+		}
+	}
+	
+	if (oBindInfo) {
+		var oBindDs = oForm.all[oBindInfo["datasetid"]];
+		oBindDs.setColumn(oBindDs.rowposition,oBindInfo["columnid"],sMultiValue);
+	}
+};
+]]></Script>
+  </Form>
+</FDL>
