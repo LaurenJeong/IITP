@@ -40,8 +40,8 @@
             <Fields>
               <Field id="START_DATE" label="요청일자" description="" innerdatasetinfo="" comptype="calendar" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
               <Field id="END_DATE" description="" innerdatasetinfo="" comptype="calendar" fieldwidth="100px" fieldheight="30px" labelwidth="-1" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="CHG_NM" description="" innerdatasetinfo="" comptype="edit" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="PURCHASE_NO" label="구매요청번호" description="" innerdatasetinfo="" comptype="edit" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="CHG_NM" description="" innerdatasetinfo="" comptype="auto" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="PURCHASE_NO" label="구매요청번호" description="" innerdatasetinfo="" comptype="auto" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -308,14 +308,16 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Static id="staPurchaseDateBg" left="0" top="30" width="100%" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPurchaseDateBg" left="0" top="30" width="346" height="40" cssclass="sta_fieldbox"/>
               <Static id="staPurchaseDateLabel" left="0" top="30" width="100" height="40" text="구매날자" cssclass="sta_labelbox"/>
               <Calendar id="calPurchaseDate" left="105" top="35" width="236" height="30"/>
-              <Static id="staPaymentTermsLabel" left="346" top="30" width="100" height="40" text="결재조건" cssclass="sta_labelbox"/>
-              <Edit id="edtPaymentTerms" left="451" top="35" width="236" height="30"/>
-              <Static id="staPurchaseEmpLabel" left="692" top="30" width="100" height="40" text="구매담당" cssclass="sta_labelbox"/>
-              <Edit id="edtPurchaseEmp" left="797" top="35" width="236" height="30"/>
-              <Static id="staPurchaseOpinionBg" left="0" top="69" width="100%" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPaymentTermsBg" left="345" top="30" width="346" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPaymentTermsLabel" left="345" top="30" width="100" height="40" text="결재조건" cssclass="sta_labelbox"/>
+              <Edit id="edtPaymentTerms" left="450" top="35" width="236" height="30"/>
+              <Static id="staPurchaseEmpBg" left="690" top="30" width="346" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPurchaseEmpLabel" left="690" top="30" width="100" height="40" text="구매담당" cssclass="sta_labelbox"/>
+              <Edit id="edtPurchaseEmp" left="795" top="35" width="236" height="30"/>
+              <Static id="staPurchaseOpinionBg" left="0" top="69" width="1038" height="80" cssclass="sta_fieldbox"/>
               <Static id="staPurchaseOpinionLabel" left="0" top="69" width="100" height="80" text="구매의견" cssclass="sta_labelbox"/>
               <TextArea id="txtPurchaseOpinion" left="105" top="74" width="928" height="70"/>
             </Layout>
@@ -342,19 +344,21 @@
           </Bind>
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00001" modelid="SO_PURCHASE_LIST" filepath="IITP\BIZ_M_ERP_S_COM00001.xmodel">
             <Fields>
-              <Field id="PURCHASE_NO" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="false"/>
-              <Field id="PURCHASE_DATE" label="구매날자" innerdatasetinfo="" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="PAYMENT_TERMS" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="PURCHASE_OPINION" label="구매의견" innerdatasetinfo="" comptype="textarea" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="PURCHASE_NO" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="PURCHASE_DATE" label="구매날자" innerdatasetinfo="" comptype="calendar" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="PAYMENT_TERMS" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="PURCHASE_OPINION" label="구매의견" innerdatasetinfo="" comptype="textarea" compwidth="100%" compheight="100%" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
               <Component id="staPurchaseDateBg" fields="PURCHASE_DATE"/>
               <Component id="staPurchaseDateLabel" fields="PURCHASE_DATE"/>
               <Component id="calPurchaseDate" fields="PURCHASE_DATE"/>
+              <Component id="staPaymentTermsBg" fields="PAYMENT_TERMS"/>
               <Component id="staPaymentTermsLabel" fields="PAYMENT_TERMS"/>
               <Component id="edtPaymentTerms" fields="PAYMENT_TERMS"/>
+              <Component id="staPurchaseEmpBg" fields="PURCHASE_EMP"/>
               <Component id="staPurchaseEmpLabel" fields="PURCHASE_EMP"/>
               <Component id="edtPurchaseEmp" fields="PURCHASE_EMP"/>
               <Component id="staPurchaseOpinionBg" fields="PURCHASE_OPINION"/>

@@ -1033,8 +1033,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			{
 				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
 			}
-
-
+			
 			if(nColSize<nTemp)
 			{
 				nLeft = 0;
@@ -1047,7 +1046,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 		{
 			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
 			nTempComp = nTop + nCompHeight + nCompHeightPadding;
-
+			
 			if(nRowSize<nTempLabel||nRowSize<nTempComp)
 			{
 				nLeft = nMaxWidth;
@@ -1196,7 +1195,6 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var oModel = this.oContents.View.Model;
 
 	var sCompId;
-	var sCompClassId;
 	var oCompClass;
 	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
 	var sCompCssClass;
@@ -1266,21 +1264,19 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		oModel[oModel.length-1].Components.push(oComp);
 
 		sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
-		sCompClassId = oCompClass.classId;
 		oComp =	{
-					"tag" : sCompClassId,
+					"tag" : oCompClass.classId,
 					"attribute" :
 					{
 						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
 					}
 				};
-				
-		if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
+		if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
 		{
 			oComp.attribute.text = oField.label;
 		}
 
-		if(sCompClassId=="Radio")
+		if(oField.comptype=="radio")
 		{
 			oComp.attribute.direction = "vertical";
 		}
@@ -1290,9 +1286,9 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			oComp.attribute.url = oCompClass.formurl;
 		}
 
-		if(sCompClassId!="Button" && oField.comptype!="calFromTo")
+		if(oField.comptype!="button"&&oField.comptype!="calFromTo")
 		{
-			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
+			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype, "compclassid" : oCompClass.classId};
 		}
 
 		oModel[oModel.length-1].Components.push(oComp);

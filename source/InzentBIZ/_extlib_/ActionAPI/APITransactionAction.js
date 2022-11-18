@@ -2,40 +2,40 @@
 //	Define the Action.
 //==============================================================================
 //==============================================================================		
-// Object : nexacro.APIInzentTranAction		
+// Object : nexacro.APITransactionAction		
 // Group : Action		
 //==============================================================================		
-if (!nexacro.APIInzentTranAction)		
+if (!nexacro.APITransactionAction)		
 {
-    nexacro.APIInzentTranAction = function(id, parent)		
+    nexacro.APITransactionAction = function(id, parent)		
     {		
         nexacro.Action.call(this, id, parent);
 		this.addEvent("canrun");
     };		
         		
-    nexacro.APIInzentTranAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.APIInzentTranAction);		
-    nexacro.APIInzentTranAction.prototype._type_name = "APIInzentTranAction";	
+    nexacro.APITransactionAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.APITransactionAction);		
+    nexacro.APITransactionAction.prototype._type_name = "APITransactionAction";	
 	
 	//===============================================================
-    // nexacro.APIInzentTranAction : 변수선언 부분
+    // nexacro.APITransactionAction : 변수선언 부분
     //===============================================================
-	nexacro.APIInzentTranAction.prototype._LOG_LEVEL			= -1;							// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
+	nexacro.APITransactionAction.prototype._LOG_LEVEL			= -1;							// 디버깅 레벨. 설정된 레벨보다 낮은 디버깅 로그는 출력안됨.(-1 : 체크안함) [0:"debug", 1:"info", 2:"warn", 3:"error"]
 	
-	nexacro.APIInzentTranAction.prototype._TRAN_CALLBACK_NM		= "fnTranActionCallback";		// Action공통 Callback함수명
+	nexacro.APITransactionAction.prototype._TRAN_CALLBACK_NM		= "fnTranActionCallback";		// Action공통 Callback함수명
 	
-	// Inzent Service URL prefix로 전환용
-	nexacro.APIInzentTranAction.prototype._INZENT_SVC_PREFIX	= "svc::";						// prefix ID
-	nexacro.APIInzentTranAction.prototype._INZENT_SVC_URL		= "http://172.10.12.58:28080/";	// Inzent Service URL
+	// Service URL prefix로 전환용
+	nexacro.APITransactionAction.prototype._API_SVC_PREFIX	= "svc::";						// prefix ID
+	nexacro.APITransactionAction.prototype._API_SVC_URL		= "http://172.10.12.58:28080/";	// Service URL
 	
 	//===============================================================
-    // nexacro.APIInzentTranAction : Action관련 공통함수
+    // nexacro.APITransactionAction : Action관련 공통함수
     //===============================================================
 	/**
 	 * Action에서 targetview 기준으로 form 반환
 	 * @return {Object} Form 객체
 	 */
 	// run()에서만 동작함.
-	nexacro.APIInzentTranAction.prototype.gfnGetForm = function ()				
+	nexacro.APITransactionAction.prototype.gfnGetForm = function ()				
 	{				
 		//var objView 		= this._findViewObject(this.targetview);
 		var objView 		= this.getTargetView();
@@ -53,7 +53,7 @@ if (!nexacro.APIInzentTranAction)
 	 * @return {Object} 컴포넌트 객체
 	 */
 	// run()에서만 동작함.
-	nexacro.APIInzentTranAction.prototype.gfnGetTargetComp = function (sCompId)				
+	nexacro.APITransactionAction.prototype.gfnGetTargetComp = function (sCompId)				
 	{
 		if (this._targetcomp) {
 			return this._targetcomp;
@@ -77,7 +77,7 @@ if (!nexacro.APIInzentTranAction)
 	 * @return {Object} 데이터셋 객체
 	 */
 	// run()에서만 동작함.
-	nexacro.APIInzentTranAction.prototype.gfnGetDataset = function (objView, sDatasetId)
+	nexacro.APITransactionAction.prototype.gfnGetDataset = function (objView, sDatasetId)
 	{
 		var objForm;
 		var objDs;
@@ -99,7 +99,7 @@ if (!nexacro.APIInzentTranAction)
 		return objDs;
 	};
 	//===============================================================
-    // nexacro.APIInzentTranAction : 공통함수(Util)
+    // nexacro.APITransactionAction : 공통함수(Util)
     //===============================================================
 	/**
 	 * @class 값이 존재하는지 여부 체크 <br>
@@ -108,7 +108,7 @@ if (!nexacro.APIInzentTranAction)
 	 * @example
 	 * var bNull = this.gfnIsNull("aaa");	// false
 	 */
-	nexacro.APIInzentTranAction.prototype.gfnIsNull = function (Val)				
+	nexacro.APITransactionAction.prototype.gfnIsNull = function (Val)				
 	{				
 		if (new String(Val).valueOf() == "undefined") return true;			
 		if (Val == null) return true;			
@@ -123,7 +123,7 @@ if (!nexacro.APIInzentTranAction)
 	 * @param {String} sMsg 로그 출력 문자열
 	 * @param {String} sType 로그 타입("debug","info","warn","error")	
 	 */
-	nexacro.APIInzentTranAction.prototype.gfnLog = function(sMsg, sType)
+	nexacro.APITransactionAction.prototype.gfnLog = function(sMsg, sType)
 	{
 		var arrLogLevel = ["debug","info","warn","error"];
 	
@@ -149,17 +149,17 @@ if (!nexacro.APIInzentTranAction)
 	};
 	
 	//===============================================================		
-    // nexacro.APIInzentTranAction : Create & Destroy		
+    // nexacro.APITransactionAction : Create & Destroy		
     //===============================================================		
-    nexacro.APIInzentTranAction.prototype.destroy = function()		
+    nexacro.APITransactionAction.prototype.destroy = function()		
 	{	
 		nexacro.Action.prototype.destroy.call(this);
 	};	
 		
     //===============================================================		
-    // nexacro.APIInzentTranAction : Method		
+    // nexacro.APITransactionAction : Method		
     //===============================================================		
-    nexacro.APIInzentTranAction.prototype.run = function()		
+    nexacro.APITransactionAction.prototype.run = function()		
 	{	
         //canrun 이벤트의 리턴값이 false가 아닐경우
 		if(this.on_fire_canrun("userdata")!=false)
@@ -176,7 +176,7 @@ if (!nexacro.APIInzentTranAction)
 		}
 	};
 	
-	nexacro.APIInzentTranAction.prototype.set_servicemodel = function (v)
+	nexacro.APITransactionAction.prototype.set_servicemodel = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -185,8 +185,8 @@ if (!nexacro.APIInzentTranAction)
 		}
 	};
 	
-	nexacro.APIInzentTranAction.prototype.serviceurl = "";
-	nexacro.APIInzentTranAction.prototype.set_serviceurl = function (v)
+	nexacro.APITransactionAction.prototype.serviceurl = "";
+	nexacro.APITransactionAction.prototype.set_serviceurl = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -195,8 +195,8 @@ if (!nexacro.APIInzentTranAction)
 		}
 	};
 	
-	nexacro.APIInzentTranAction.prototype.inputdatasets = "";
-	nexacro.APIInzentTranAction.prototype.set_inputdatasets = function (v)
+	nexacro.APITransactionAction.prototype.inputdatasets = "";
+	nexacro.APITransactionAction.prototype.set_inputdatasets = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -205,8 +205,8 @@ if (!nexacro.APIInzentTranAction)
 		}
 	};
 	
-	nexacro.APIInzentTranAction.prototype.outputdatasets = "";
-	nexacro.APIInzentTranAction.prototype.set_outputdatasets = function (v)
+	nexacro.APITransactionAction.prototype.outputdatasets = "";
+	nexacro.APITransactionAction.prototype.set_outputdatasets = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -215,8 +215,8 @@ if (!nexacro.APIInzentTranAction)
 		}
 	};
 	
-	nexacro.APIInzentTranAction.prototype.args = "";
-	nexacro.APIInzentTranAction.prototype.set_args = function (v)
+	nexacro.APITransactionAction.prototype.args = "";
+	nexacro.APITransactionAction.prototype.set_args = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -226,8 +226,8 @@ if (!nexacro.APIInzentTranAction)
 		}
 	};
 // 	
-// 	nexacro.APIInzentTranAction.prototype.async = "";
-// 	nexacro.APIInzentTranAction.prototype.set_async = function (v)
+// 	nexacro.APITransactionAction.prototype.async = "";
+// 	nexacro.APITransactionAction.prototype.set_async = function (v)
 // 	{
 // 		// TODO : enter your code here.
 // 		v = nexacro._toBoolean(v);
@@ -239,7 +239,7 @@ if (!nexacro.APIInzentTranAction)
 // 	};
 	
 	
-	nexacro.APIInzentTranAction.prototype.on_fire_canrun = function (userdata)
+	nexacro.APITransactionAction.prototype.on_fire_canrun = function (userdata)
 	{
 		var event = this.canrun;
 		if (event && event._has_handlers)
@@ -250,7 +250,7 @@ if (!nexacro.APIInzentTranAction)
 		return true;	
 	};
 	
-	nexacro.APIInzentTranAction.prototype.on_fire_onsuccess = function (sSvcId, nErrorCd, sErrorMsg)
+	nexacro.APITransactionAction.prototype.on_fire_onsuccess = function (sSvcId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onsuccess;
 		if (event && event._has_handlers)
@@ -260,7 +260,7 @@ if (!nexacro.APIInzentTranAction)
 		}
 	};
 	
-	nexacro.APIInzentTranAction.prototype.on_fire_onerror = function (sSvcId, nErrorCd, sErrorMsg)
+	nexacro.APITransactionAction.prototype.on_fire_onerror = function (sSvcId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onerror;
 		if (event && event._has_handlers)
@@ -274,7 +274,7 @@ if (!nexacro.APIInzentTranAction)
     // nexacro.DsCopyRowDataAction : 공통함수 전환부분
     //===============================================================
 	// Transaction
-	nexacro.APIInzentTranAction.prototype.gfnTransaction = function(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync)
+	nexacro.APITransactionAction.prototype.gfnTransaction = function(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync)
 	{	
 		if (this.gfnIsNull(sSvcId) || this.gfnIsNull(sService))
 		{
@@ -303,13 +303,13 @@ if (!nexacro.APIInzentTranAction)
 			sArgs = sAddArg + " " + sArgs;
 		}
 		
-		// TODO : Inzent용 Service URL 전환
+		// TODO : Service URL 전환
 		if (this.gfnIsNull(sService) == false) {
-			sService = nexacro.replaceAll(sService,this._INZENT_SVC_URL,this._INZENT_SVC_PREFIX);
+			sService = nexacro.replaceAll(sService,this._API_SVC_URL,this._API_SVC_PREFIX);
 		}
 		
-		// Inzent용 Dataset 생성 및 InputDataset 정보 반환
-		var sAddInDs = this.gfnSetInzentDataset(objForm);
+		// API용 Dataset 생성 및 InputDataset 정보 반환
+		var sAddInDs = this.gfnSetAPIDataset(objForm);
 		if (this.gfnIsNull(sAddInDs) == false) {
 			sInDs = sAddInDs + " " + sInDs;
 		}
@@ -339,7 +339,7 @@ if (!nexacro.APIInzentTranAction)
 	};
 	
 	// Transaction Callback
-	nexacro.APIInzentTranAction.prototype.fnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
+	nexacro.APITransactionAction.prototype.fnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
 	{
 		var objSvcId = JSON.parse(svcId);
 		var sSvcId = objSvcId.svcId;
@@ -366,7 +366,7 @@ if (!nexacro.APIInzentTranAction)
 	};
 	
 	// Model Argument 처리 : 해당 데이터셋에 value값 설정
-	nexacro.APIInzentTranAction.prototype.gfnSetModelArgument = function(objForm)
+	nexacro.APITransactionAction.prototype.gfnSetModelArgument = function(objForm)
 	{
 		var oModelList = this.getContents("model");		// Action 내 model 정보 
 		
@@ -424,7 +424,7 @@ if (!nexacro.APIInzentTranAction)
 	};
 	
 	// Field의 value값 반환
-	nexacro.APIInzentTranAction.prototype.gfnGetFieldValue = function(oField, oView)
+	nexacro.APITransactionAction.prototype.gfnGetFieldValue = function(oField, oView)
 	{
 		var sReturnValue;
 		
@@ -461,7 +461,7 @@ if (!nexacro.APIInzentTranAction)
 	};
 	
 	// expr Text 처리
-	nexacro.APIInzentTranAction.prototype.gfnGetExprText = function(sExprText, sViewNm)
+	nexacro.APITransactionAction.prototype.gfnGetExprText = function(sExprText, sViewNm)
 	{
 		if (this.gfnIsNull(sExprText))				return sExprText;
 		
@@ -528,7 +528,7 @@ if (!nexacro.APIInzentTranAction)
 	};
 	
 	// User Argument 처리 : transaction Argument로 추가
-	nexacro.APIInzentTranAction.prototype.gfnSetUserArgument = function(objForm)
+	nexacro.APITransactionAction.prototype.gfnSetUserArgument = function(objForm)
 	{
 		var sReturnValue = "";
 		
@@ -564,8 +564,8 @@ if (!nexacro.APIInzentTranAction)
 		return sReturnValue;
 	};
 	
-	// Inzent 통신용 Dataset 생성 및 InputDataset 정보 반환
-	nexacro.APIInzentTranAction.prototype.gfnSetInzentDataset = function(objForm)
+	// API 통신용 Dataset 생성 및 InputDataset 정보 반환
+	nexacro.APITransactionAction.prototype.gfnSetAPIDataset = function(objForm)
 	{
 		var sReference = this.getContents("reference");		// Action 내 reference 정보 
 		
@@ -587,8 +587,8 @@ if (!nexacro.APIInzentTranAction)
 		var sDatasetXML;
 		var bRet;
 		
-		// Inzent 연동용 input dataset Array
-		var aInzentDs = new Array();
+		// API 연동용 input dataset Array
+		var aAPIDs = new Array();
 
 		// reference 정보를 Dom객체로 전환
 		domDoc = domPar.parseFromString(sReference);
@@ -610,7 +610,7 @@ if (!nexacro.APIInzentTranAction)
 				oDataset = null;
 				
 				// Input Dataset용 Array
-				aInzentDs.push(sDatasetId+"="+sDatasetId);
+				aAPIDs.push(sDatasetId+"="+sDatasetId);
 				
 				// Form에 Dataset있는지 체크
 				bRet = objForm.isValidObject(sDatasetId);
@@ -638,6 +638,6 @@ if (!nexacro.APIInzentTranAction)
 		}
 		
 		// Return Input Ds
-		return aInzentDs.join(" ");
+		return aAPIDs.join(" ");
 	};
 }

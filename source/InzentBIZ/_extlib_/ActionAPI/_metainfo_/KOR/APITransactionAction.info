@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <MetaInfo version="2.0">
-  <Object id="APIInzentTranAction">
-    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.APIInzentTranAction" shorttypename="APIInzentTranAction" csstypename="APIInzentTranAction" csscontrolname="APIInzentTranActionControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Trigger가 발생하는 시점에 수행하는 Action을 설정합니다." finalclass="true"/>
+  <Object id="APITransactionAction">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.APITransactionAction" shorttypename="APITransactionAction" csstypename="APITransactionAction" csscontrolname="APITransactionActionControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Trigger가 발생하는 시점에 수행하는 Action을 설정합니다." finalclass="true"/>
     <PropertyInfo>
       <Property name="servicemodel" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="ModelServiceID" refreshinfo="servicemodel"/>
       <Property name="serviceurl" readonly="true" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" group="" edittype="ModelServiceURL" normalpropertyname="serviceurl" displayinfo=""/>
@@ -17,10 +17,10 @@
     <MethodInfo/>
     <EventHandlerInfo>
       <EventHandler name="canrun" group="Event" unused="false" description="Action이 실행될 때 발생하는 이벤트 입니다.">
-        <Syntax text="canrun(obj:nexacro.APIInzentTranAction, e:nexacro.ActionRunEventInfo)">
+        <Syntax text="canrun(obj:nexacro.APITransactionAction, e:nexacro.ActionRunEventInfo)">
           <Return type="Boolean" description="이벤트에서 리턴값을 &quot;true&quot;로 반환하면 Action이 실행됩니다.&#13;&#10;이벤트에서 리턴값을 &quot;false&quot;로 반환하면 Action이 실행되지 않습니다.&#13;&#10;&#13;&#10;이벤트에서 리턴값을 생략하면 &quot;true&quot;로 적영됩니다."/>
           <Arguments>
-            <Argument name="obj" type="nexacro.APIInzentTranAction"/>
+            <Argument name="obj" type="nexacro.APITransactionAction"/>
             <Argument name="e" type="nexacro.ActionRunEventInfo"/>
           </Arguments>
         </Syntax>

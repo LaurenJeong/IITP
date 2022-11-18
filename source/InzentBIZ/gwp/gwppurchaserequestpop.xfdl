@@ -6,22 +6,27 @@
         <View id="viewMaster" taborder="0" text="viewMaster" viewdataset="viewdataset" left="10" top="10" height="80" right="10">
           <Layouts>
             <Layout>
-              <Static id="staPurchaseNoBg" left="0" top="39" width="100%" height="40" cssclass="sta_fieldbox"/>
-              <Static id="staReqDateBg" left="0" top="0" width="100%" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staReqDateBg" left="0" top="0" width="257" height="40" cssclass="sta_fieldbox"/>
               <Static id="staReqDateLabel" left="0" top="0" width="100" height="40" text="날짜" cssclass="sta_labelbox"/>
               <Calendar id="calReqDate" left="105" top="5" width="147" height="30"/>
-              <Static id="staPjCdLabel" left="257" top="0" width="100" height="40" text="프로젝트" cssclass="sta_labelbox"/>
-              <Edit id="edtPjCd" left="362" top="5" width="147" height="30"/>
-              <Static id="staEmployeeLabel" left="514" top="0" width="100" height="40" text="요청자" cssclass="sta_labelbox"/>
-              <Edit id="edtEmployee" left="619" top="5" width="147" height="30"/>
-              <Static id="staMemoLabel" left="771" top="0" width="100" height="80" text="메모" cssclass="sta_labelbox"/>
-              <Edit id="edtMemo" left="876" top="5" width="147" height="70"/>
+              <Static id="staPjCdBg" left="256" top="0" width="257" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPjCdLabel" left="256" top="0" width="100" height="40" text="프로젝트" cssclass="sta_labelbox"/>
+              <Edit id="edtPjCd" left="361" top="5" width="147" height="30"/>
+              <Static id="staEmployeeBg" left="512" top="0" width="257" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staEmployeeLabel" left="512" top="0" width="100" height="40" text="요청자" cssclass="sta_labelbox"/>
+              <Edit id="edtEmployee" left="617" top="5" width="147" height="30"/>
+              <Static id="staMemoBg" left="768" top="0" width="257" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staMemoLabel" left="768" top="0" width="100" height="80" text="메모" cssclass="sta_labelbox"/>
+              <TextArea id="txtMemo" left="873" top="5" width="147" height="70"/>
+              <Static id="staPurchaseNoBg" left="0" top="39" width="257" height="40" cssclass="sta_fieldbox"/>
               <Static id="staPurchaseNoLabel" left="0" top="39" width="100" height="40" text="구매요청번호" cssclass="sta_labelbox"/>
               <Edit id="edtPurchaseNo" left="105" top="44" width="147" height="30"/>
-              <Static id="staBuyCdLabel" left="257" top="39" width="100" height="40" text="거래처코드" cssclass="sta_labelbox"/>
-              <Edit id="edtBuyCd" left="362" top="44" width="147" height="30"/>
-              <Static id="staBuyDescLabel" left="514" top="39" width="100" height="40" text="구매처" cssclass="sta_labelbox"/>
-              <Edit id="edtBuyDesc" left="619" top="44" width="147" height="30"/>
+              <Static id="staBuyCdBg" left="256" top="39" width="257" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staBuyCdLabel" left="256" top="39" width="100" height="40" text="거래처코드" cssclass="sta_labelbox"/>
+              <Edit id="edtBuyCd" left="361" top="44" width="147" height="30"/>
+              <Static id="staBuyDescBg" left="512" top="39" width="257" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staBuyDescLabel" left="512" top="39" width="100" height="40" text="구매처" cssclass="sta_labelbox"/>
+              <Edit id="edtBuyDesc" left="617" top="44" width="147" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -46,38 +51,43 @@
             <BindItem id="bind_calReqDate" compid="calReqDate" propid="value" datasetid="viewdataset" columnid="REQ_DATE"/>
             <BindItem id="bind_edtPjCd" compid="edtPjCd" propid="value" datasetid="viewdataset" columnid="PJ_CD"/>
             <BindItem id="bind_edtEmployee" compid="edtEmployee" propid="value" datasetid="viewdataset" columnid="EMPLOYEE"/>
-            <BindItem id="bind_edtMemo" compid="edtMemo" propid="value" datasetid="viewdataset" columnid="MEMO"/>
+            <BindItem id="bind_txtMemo" compid="txtMemo" propid="value" datasetid="viewdataset" columnid="MEMO"/>
             <BindItem id="bind_edtPurchaseNo" compid="edtPurchaseNo" propid="value" datasetid="viewdataset" columnid="PURCHASE_NO"/>
             <BindItem id="bind_edtBuyCd" compid="edtBuyCd" propid="value" datasetid="viewdataset" columnid="BUY_CD"/>
             <BindItem id="bind_edtBuyDesc" compid="edtBuyDesc" propid="value" datasetid="viewdataset" columnid="BUY_DESC"/>
           </Bind>
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_GWP_S_COM00003" modelid="SI" filepath="IITP\BIZ_M_GWP_S_COM00003.xmodel">
             <Fields>
-              <Field id="GRID_COUNT" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="false"/>
-              <Field id="PRICE" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="false"/>
-              <Field id="REQ_DATE" label="날짜" innerdatasetinfo="" comptype="calendar" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="PJ_CD" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="EMPLOYEE" label="요청자" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="MEMO" label="메모" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="100%" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="PURCHASE_NO" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="BUY_CD" label="거래처코드" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
-              <Field id="BUY_DESC" innerdatasetinfo="" comptype="auto" fieldwidth="100%" fieldheight="40px" labelwidth="100" cssclass="" labelcssclass="sta_labelbox" usecomp="true"/>
+              <Field id="GRID_COUNT" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="PRICE" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="REQ_DATE" label="날짜" innerdatasetinfo="" comptype="calendar" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="PJ_CD" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="EMPLOYEE" label="요청자" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="MEMO" label="메모" innerdatasetinfo="" comptype="textarea" compwidth="100%" compheight="100%" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="PURCHASE_NO" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="BUY_CD" label="거래처코드" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="BUY_DESC" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="staReqDateBg" fields="REQ_DATE"/>
               <Component id="staReqDateLabel" fields="REQ_DATE"/>
               <Component id="calReqDate" fields="REQ_DATE"/>
+              <Component id="staPjCdBg" fields="PJ_CD"/>
               <Component id="staPjCdLabel" fields="PJ_CD"/>
               <Component id="edtPjCd" fields="PJ_CD"/>
+              <Component id="staEmployeeBg" fields="EMPLOYEE"/>
               <Component id="staEmployeeLabel" fields="EMPLOYEE"/>
               <Component id="edtEmployee" fields="EMPLOYEE"/>
+              <Component id="staMemoBg" fields="MEMO"/>
               <Component id="staMemoLabel" fields="MEMO"/>
-              <Component id="edtMemo" fields="MEMO"/>
+              <Component id="txtMemo" fields="MEMO"/>
               <Component id="staPurchaseNoBg" fields="PURCHASE_NO"/>
               <Component id="staPurchaseNoLabel" fields="PURCHASE_NO"/>
               <Component id="edtPurchaseNo" fields="PURCHASE_NO"/>
+              <Component id="staBuyCdBg" fields="BUY_CD"/>
               <Component id="staBuyCdLabel" fields="BUY_CD"/>
               <Component id="edtBuyCd" fields="BUY_CD"/>
+              <Component id="staBuyDescBg" fields="BUY_DESC"/>
               <Component id="staBuyDescLabel" fields="BUY_DESC"/>
               <Component id="edtBuyDesc" fields="BUY_DESC"/>
             </Components>

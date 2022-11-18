@@ -518,7 +518,7 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id": "comptype",
                                 "edittype": "Enum",
-								"enumlist" : ["auto","button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar", "calFromTo"],
+								"enumlist" : ["auto", "button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar", "calFromTo"],
                                 "defaultvalue": this.COMP_TYPE,
                                 "description": "Types of Components to be Expressed"
                             },
@@ -993,7 +993,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		{
 			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
 			nTempComp =  nTop + nCompHeight + nCompHeightPadding;
-
+			
 			if(nTempLabel>nTempComp)nTemp = nTempLabel;
 			else nTemp = nTempComp;
 
@@ -1230,7 +1230,6 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				if(bStartCol==true && sUseFieldBox == "true")
 				{
 					//nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
-					nCompBgWidth = "100%";
 					
 					//필드 배경 Static 추가
 					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
@@ -1238,7 +1237,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 								"tag" : oCompBgClass.classId,
 								"attribute" :
 								{
-									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
 									,"cssclass" : sFieldBgCssClass
 								}
 							};
@@ -1282,7 +1281,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 			if(sCompClassId!="Button")
 			{
-				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
+				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype, "compclassid" : sCompClassId};
 			}
 			
 			oModel[oModel.length-1].Components.push(oComp)
@@ -1342,8 +1341,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 			if(nColIdx==0 && sUseFieldBox == "true")
 			{
-				//nCompBgWidth = nColSize;
-				nCompBgWidth = "100%";
+				nCompBgWidth = nColSize;
 				
 				//필드 배경 Static 추가
 				sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
@@ -1351,7 +1349,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 							"tag" : oCompBgClass.classId,
 							"attribute" :
 							{
-								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
+								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
 								,"cssclass" : sFieldBgCssClass
 							}
 						};
@@ -1394,7 +1392,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 
 			if(sCompClassId!="Button")
 			{
-				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
+				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype, "compclassid" : sCompClassId};
 			}
 
 			oModel[oModel.length-1].Components.push(oComp)
