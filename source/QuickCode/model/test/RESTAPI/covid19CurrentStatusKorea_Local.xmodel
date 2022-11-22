@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="covid19CurrentStatusKorea" name="covid19CurrentStatusKorea" iotype="output" description="" dataobjectpath="$.response.result[*]">
+      <Field required="false" id="mmddhh" label="조회 기준 일시" fieldtype="FreeText" datatype="STRING" datasize="15" innerdatasetinfo="" description="데이터 조회 기준 일시"/>
+      <Field required="false" id="cnt_deaths" label="일일 사망" fieldtype="FreeText" datatype="INT" datasize="15" innerdatasetinfo="" description="일일 사망 발생현황"/>
+      <Field required="false" id="rate_deaths" label="인구 10만명당 사망" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="15" innerdatasetinfo="" description="인구 10만명당 사망 발생현황"/>
+      <Field required="false" id="cnt_severe_symptoms" label="일일 재원 위중증" fieldtype="FreeText" datatype="INT" datasize="15" innerdatasetinfo="" description="일일 재원 위중증 발생현황"/>
+      <Field required="false" id="rate_severe_symptoms" label="인구 10만명당 재원 위중증" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="15" innerdatasetinfo="" description="인구 10만명당 재원 위중증 발생현황"/>
+      <Field required="false" id="cnt_hospitalizations" label="일일 신규입원" fieldtype="FreeText" datatype="INT" datasize="15" innerdatasetinfo="" description="일일 신규입원 발생현황"/>
+      <Field required="false" id="rate_hospitalizations" label="인구 10만명당 신규입원" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="15" innerdatasetinfo="" description="인구 10만명당 신규입원 발생현황"/>
+      <Field required="false" id="cnt_confirmations" label="일일 확진" fieldtype="FreeText" datatype="INT" datasize="15" innerdatasetinfo="" description="일일 확진 발생현황"/>
+      <Field required="false" id="rate_confirmations" label="인구 10만명당 확진" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="15" description="인구 10만명당 확진 발생현황" innerdatasetinfo=""/>
+      <ModelUserAttributes/>
+      <FieldUserAttributes/>
+    </Model>
+    <Model id="result" name="result" iotype="output" description="" dataobjectpath="">
+      <Field required="false" id="resultCode" label="결과코드" fieldtype="FreeText" datatype="STRING" datasize="2" description="결과코드" innerdatasetinfo=""/>
+      <Field required="false" id="resultMsg" label="결과메시지" fieldtype="FreeText" datatype="STRING" datasize="50" description="결과메시지" innerdatasetinfo=""/>
+      <Field required="false" id="resultCnt" label="결과 개수" fieldtype="FreeText" datatype="INT" datasize="80" description="결과 개수" innerdatasetinfo=""/>
+      <ModelUserAttributes/>
+    </Model>
+  </Models>
+  <Service id="covid19CurrentStatusKorea" name="질병관리청_코로나19 국내발생현황 조회" url="http://localhost:8080/service/covid19CurrentStatusKorea.json" dataformat="restjson">
+    <ServiceUserAttributes/>
+  </Service>
+</ModelInfo>

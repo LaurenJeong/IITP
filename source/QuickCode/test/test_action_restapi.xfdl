@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test_action_restapi" width="1050" height="600" titletext="REST API">
+    <Layouts>
+      <Layout height="600" width="1050">
+        <Static id="staTitle" left="10" top="10" height="30" width="69" text="REST API" fittocontents="width" cssclass="sta_subtitle" taborder="0"/>
+        <CheckBox id="chkOnCanEvent" taborder="1" text="Action 실행여부" left="staTitle:10" top="5" width="116" height="40" value="true" fittocontents="width"/>
+        <View id="View00" taborder="2" text="View00" viewdataset="viewdataset" left="12" top="86" width="498" height="359">
+          <Layouts>
+            <Layout>
+              <Static id="staMmddhhBg" left="0" top="0" width="498" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staMmddhhLabel" left="0" top="0" width="100" height="40" text="조회 기준 일시" cssclass="sta_labelbox"/>
+              <Edit id="edtMmddhh" left="105" top="5" width="388" height="30"/>
+              <Static id="staCntDeathsBg" left="0" top="39" width="498" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCntDeathsLabel" left="0" top="39" width="100" height="40" text="일일 사망" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskCntDeaths" left="105" top="44" width="388" height="30" format="#,###"/>
+              <Static id="staRateDeathsBg" left="0" top="78" width="498" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staRateDeathsLabel" left="0" top="78" width="100" height="40" text="인구 10만명당 사망" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskRateDeaths" left="105" top="83" width="388" height="30" format="#,###.##"/>
+              <Static id="staCntSevereSymptomsBg" left="0" top="117" width="498" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCntSevereSymptomsLabel" left="0" top="117" width="100" height="40" text="일일 재원 위중증" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskCntSevereSymptoms" left="105" top="122" width="388" height="30" format="#,###"/>
+              <Static id="staRateSevereSymptomsBg" left="0" top="156" width="498" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staRateSevereSymptomsLabel" left="0" top="156" width="100" height="40" text="인구 10만명당 재원 위중증" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskRateSevereSymptoms" left="105" top="161" width="388" height="30" format="#,###.##"/>
+              <Static id="staCntHospitalizationsBg" left="0" top="195" width="498" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCntHospitalizationsLabel" left="0" top="195" width="100" height="40" text="일일 신규입원" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskCntHospitalizations" left="105" top="200" width="388" height="30" format="#,###"/>
+              <Static id="staRateHospitalizationsBg" left="0" top="234" width="498" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staRateHospitalizationsLabel" left="0" top="234" width="100" height="40" text="인구 10만명당 신규입원" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskRateHospitalizations" left="105" top="239" width="388" height="30" format="#,###.##"/>
+              <Static id="staCntConfirmationsBg" left="0" top="273" width="498" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staCntConfirmationsLabel" left="0" top="273" width="100" height="40" text="일일 확진" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskCntConfirmations" left="105" top="278" width="388" height="30" format="#,###"/>
+              <Static id="staRateConfirmationsBg" left="0" top="312" width="498" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staRateConfirmationsLabel" left="0" top="312" width="100" height="40" text="인구 10만명당 확진" cssclass="sta_labelbox"/>
+              <MaskEdit id="mskRateConfirmations" left="105" top="317" width="388" height="30" format="#,###.##"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="mmddhh" type="STRING" size="15" description="조회 기준 일시"/>
+                <Column id="cnt_deaths" type="INT" size="15" description="일일 사망"/>
+                <Column id="rate_deaths" type="BIGDECIMAL" size="15" description="인구 10만명당 사망"/>
+                <Column id="cnt_severe_symptoms" type="INT" size="15" description="일일 재원 위중증"/>
+                <Column id="rate_severe_symptoms" type="BIGDECIMAL" size="15" description="인구 10만명당 재원 위중증"/>
+                <Column id="cnt_hospitalizations" type="INT" size="15" description="일일 신규입원"/>
+                <Column id="rate_hospitalizations" type="BIGDECIMAL" size="15" description="인구 10만명당 신규입원"/>
+                <Column id="cnt_confirmations" type="INT" size="15" description="일일 확진"/>
+                <Column id="rate_confirmations" type="BIGDECIMAL" size="15" description="인구 10만명당 확진"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtMmddhh" compid="edtMmddhh" propid="value" datasetid="viewdataset" columnid="mmddhh"/>
+            <BindItem id="bind_mskCntDeaths" compid="mskCntDeaths" propid="value" datasetid="viewdataset" columnid="cnt_deaths"/>
+            <BindItem id="bind_mskRateDeaths" compid="mskRateDeaths" propid="value" datasetid="viewdataset" columnid="rate_deaths"/>
+            <BindItem id="bind_mskCntSevereSymptoms" compid="mskCntSevereSymptoms" propid="value" datasetid="viewdataset" columnid="cnt_severe_symptoms"/>
+            <BindItem id="bind_mskRateSevereSymptoms" compid="mskRateSevereSymptoms" propid="value" datasetid="viewdataset" columnid="rate_severe_symptoms"/>
+            <BindItem id="bind_mskCntHospitalizations" compid="mskCntHospitalizations" propid="value" datasetid="viewdataset" columnid="cnt_hospitalizations"/>
+            <BindItem id="bind_mskRateHospitalizations" compid="mskRateHospitalizations" propid="value" datasetid="viewdataset" columnid="rate_hospitalizations"/>
+            <BindItem id="bind_mskCntConfirmations" compid="mskCntConfirmations" propid="value" datasetid="viewdataset" columnid="cnt_confirmations"/>
+            <BindItem id="bind_mskRateConfirmations" compid="mskRateConfirmations" propid="value" datasetid="viewdataset" columnid="rate_confirmations"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="covid19CurrentStatusKorea" modelid="covid19CurrentStatusKorea" filepath="test\RESTAPI\covid19CurrentStatusKorea.xmodel">
+            <Fields>
+              <Field id="mmddhh" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="cnt_deaths" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="rate_deaths" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="cnt_severe_symptoms" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="rate_severe_symptoms" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="cnt_hospitalizations" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="rate_hospitalizations" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="cnt_confirmations" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="rate_confirmations" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staMmddhhBg" fields="mmddhh"/>
+              <Component id="staMmddhhLabel" fields="mmddhh"/>
+              <Component id="edtMmddhh" fields="mmddhh"/>
+              <Component id="staCntDeathsBg" fields="cnt_deaths"/>
+              <Component id="staCntDeathsLabel" fields="cnt_deaths"/>
+              <Component id="mskCntDeaths" fields="cnt_deaths"/>
+              <Component id="staRateDeathsBg" fields="rate_deaths"/>
+              <Component id="staRateDeathsLabel" fields="rate_deaths"/>
+              <Component id="mskRateDeaths" fields="rate_deaths"/>
+              <Component id="staCntSevereSymptomsBg" fields="cnt_severe_symptoms"/>
+              <Component id="staCntSevereSymptomsLabel" fields="cnt_severe_symptoms"/>
+              <Component id="mskCntSevereSymptoms" fields="cnt_severe_symptoms"/>
+              <Component id="staRateSevereSymptomsBg" fields="rate_severe_symptoms"/>
+              <Component id="staRateSevereSymptomsLabel" fields="rate_severe_symptoms"/>
+              <Component id="mskRateSevereSymptoms" fields="rate_severe_symptoms"/>
+              <Component id="staCntHospitalizationsBg" fields="cnt_hospitalizations"/>
+              <Component id="staCntHospitalizationsLabel" fields="cnt_hospitalizations"/>
+              <Component id="mskCntHospitalizations" fields="cnt_hospitalizations"/>
+              <Component id="staRateHospitalizationsBg" fields="rate_hospitalizations"/>
+              <Component id="staRateHospitalizationsLabel" fields="rate_hospitalizations"/>
+              <Component id="mskRateHospitalizations" fields="rate_hospitalizations"/>
+              <Component id="staCntConfirmationsBg" fields="cnt_confirmations"/>
+              <Component id="staCntConfirmationsLabel" fields="cnt_confirmations"/>
+              <Component id="mskCntConfirmations" fields="cnt_confirmations"/>
+              <Component id="staRateConfirmationsBg" fields="rate_confirmations"/>
+              <Component id="staRateConfirmationsLabel" fields="rate_confirmations"/>
+              <Component id="mskRateConfirmations" fields="rate_confirmations"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="Static00_00" taborder="3" left="10" top="50" height="25" cssclass="sta_WF_notice01" right="890" text="REST API(공공데이터포털)" width="150"/>
+        <Button id="Button00" taborder="4" text="request" left="423" top="48" width="87" height="28"/>
+        <Static id="Static00_00_00" taborder="5" left="10" top="450" height="25" cssclass="sta_WF_notice01" text="local JSON" width="150"/>
+        <Button id="Button01" taborder="6" text="request" left="423" top="448" width="87" height="28"/>
+        <View id="View01" taborder="7" text="View01" viewdataset="viewdataset" left="16" top="490" width="496" height="99">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="none">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_mmddhh" col="0" row="0" text="조회 기준 일시"/>
+                      <Cell id="cell_head_1_0_cnt_deaths" col="1" row="0" text="일일 사망"/>
+                      <Cell id="cell_head_2_0_rate_deaths" col="2" row="0" text="인구 10만명당 사망"/>
+                      <Cell id="cell_head_3_0_cnt_severe_symptoms" col="3" row="0" text="일일 재원 위중증"/>
+                      <Cell id="cell_head_4_0_rate_severe_symptoms" col="4" row="0" text="인구 10만명당 재원 위중증"/>
+                      <Cell id="cell_head_5_0_cnt_hospitalizations" col="5" row="0" text="일일 신규입원"/>
+                      <Cell id="cell_head_6_0_rate_hospitalizations" col="6" row="0" text="인구 10만명당 신규입원"/>
+                      <Cell id="cell_head_7_0_cnt_confirmations" col="7" row="0" text="일일 확진"/>
+                      <Cell id="cell_head_8_0_rate_confirmations" col="8" row="0" text="인구 10만명당 확진"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_mmddhh" col="0" row="0" text="bind:mmddhh" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_cnt_deaths" col="1" row="0" text="bind:cnt_deaths" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_2_0_rate_deaths" col="2" row="0" text="bind:rate_deaths" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_3_0_cnt_severe_symptoms" col="3" row="0" text="bind:cnt_severe_symptoms" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_4_0_rate_severe_symptoms" col="4" row="0" text="bind:rate_severe_symptoms" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_5_0_cnt_hospitalizations" col="5" row="0" text="bind:cnt_hospitalizations" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_6_0_rate_hospitalizations" col="6" row="0" text="bind:rate_hospitalizations" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_7_0_cnt_confirmations" col="7" row="0" text="bind:cnt_confirmations" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_8_0_rate_confirmations" col="8" row="0" text="bind:rate_confirmations" displaytype="number" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="mmddhh" type="STRING" size="15" description="조회 기준 일시"/>
+                <Column id="cnt_deaths" type="INT" size="15" description="일일 사망"/>
+                <Column id="rate_deaths" type="BIGDECIMAL" size="15" description="인구 10만명당 사망"/>
+                <Column id="cnt_severe_symptoms" type="INT" size="15" description="일일 재원 위중증"/>
+                <Column id="rate_severe_symptoms" type="BIGDECIMAL" size="15" description="인구 10만명당 재원 위중증"/>
+                <Column id="cnt_hospitalizations" type="INT" size="15" description="일일 신규입원"/>
+                <Column id="rate_hospitalizations" type="BIGDECIMAL" size="15" description="인구 10만명당 신규입원"/>
+                <Column id="cnt_confirmations" type="INT" size="15" description="일일 확진"/>
+                <Column id="rate_confirmations" type="BIGDECIMAL" size="15" description="인구 10만명당 확진"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="covid19CurrentStatusKorea" modelid="covid19CurrentStatusKorea" filepath="test\RESTAPI\covid19CurrentStatusKorea_Local.xmodel">
+            <Fields>
+              <Field id="mmddhh" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="cnt_deaths" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="rate_deaths" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="cnt_severe_symptoms" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="rate_severe_symptoms" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="cnt_hospitalizations" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="rate_hospitalizations" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="cnt_confirmations" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="rate_confirmations" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="mmddhh,cnt_deaths,rate_deaths,cnt_severe_symptoms,rate_severe_symptoms,cnt_hospitalizations,rate_hospitalizations,cnt_confirmations,rate_confirmations"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <TextArea id="txtOutput" taborder="8" left="522" top="50" right="108" bottom="10"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <RestAPIAction id="RestAPIAction00" servicemodel="covid19CurrentStatusKorea" serviceurl="http://apis.data.go.kr/1790387/covid19CurrentStatusKorea/covid19CurrentStatusKoreaJason?serviceKey=IlzucYLgUMh7DeZxrJoxiY%2BpcTmZaaCT7tX3ptYthCDZgBlPqiXKNaTW87Jq0JCrPsKXK8ufTMhPUDawJ0t9EQ%3D%3D" targetview="View00" rootpath="$.response.result[*]" canrun="Common_canrun" onsuccess="CommonTran_onsuccess" onerror="RestAPIAction00_onerror">
+        <Contents/>
+      </RestAPIAction>
+      <RestAPIAction id="RestAPIAction01" servicemodel="Tran" serviceurl="http://localhost:8080/service/covid19CurrentStatusKorea.json" targetview="View01" rootpath="$.response.result[*]" canrun="Common_canrun" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
+        <Contents/>
+      </RestAPIAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="test_action_restapi" triggerobj="Button00" targetaction="RestAPIAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_restapi" triggerobj="Button01" targetaction="RestAPIAction01" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[this.Common_canrun = function(obj, e:nexacro.ActionRunEventInfo)
+{
+	this.txtOutput.insertText("\n" + "Common_canrun " + obj.name +" : " + this.chkOnCanEvent.value);
+	
+	return this.chkOnCanEvent.value;
+};
+
+this.CommonTran_onerror = function(obj, e:nexacro.TranActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onerror : [" + e.errorcode + "] " + e.errormsg);
+};
+
+this.CommonTran_onsuccess = function(obj, e:nexacro.TranActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : [" + e.errorcode + "] " + e.errormsg);
+};
+
+this.RestAPIAction00_onerror = function(obj:nexacro.Action, e:nexacro.TranActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onerror : [" + e.errorcode + "] " + e.errormsg);
+};
+]]></Script>
+  </Form>
+</FDL>

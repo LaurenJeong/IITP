@@ -8217,8 +8217,8 @@ if (!nexacro._Init_systembase)
                 var protocol = ar[0];
                 if (protocol == "file")
                     path = decodeURI(path);
-                else
-                    path = encodeURI(path);
+                //else
+                    //path = encodeURI(path);
             }
         }
 
