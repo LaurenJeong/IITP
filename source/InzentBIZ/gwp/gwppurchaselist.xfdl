@@ -8,13 +8,14 @@
             <Layout>
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
               <Button id="btnSearch" width="80" height="30" right="10" bottom="10" cssclass="btn_search" text="검색"/>
-              <Static id="staStartDateLabel" left="10" top="10" width="95" height="30" text="요청일자" cssclass="sta_label"/>
-              <Calendar id="calStartDate" left="110" top="10" width="100" height="30"/>
-              <Calendar id="calEndDate" left="214" top="10" width="100" height="30"/>
-              <Static id="staChgNmLabel" left="319" top="10" width="95" height="30" text="요청자" cssclass="sta_label"/>
-              <Edit id="edtChgNm" left="419" top="10" width="100" height="30"/>
-              <Static id="staPurchaseNoLabel" left="524" top="10" width="95" height="30" text="구매요청번호" cssclass="sta_label"/>
-              <Edit id="edtPurchaseNo" left="624" top="10" width="150" height="30"/>
+              <Static id="staStartDateLabel" left="10" top="10" width="100" height="30" text="요청일자" cssclass="sta_label"/>
+              <Calendar id="calStartDate" left="115" top="10" width="95" height="30"/>
+              <Static id="staEndDateLabel" left="215" top="10" width="100" height="30" text="조회종료일" cssclass="sta_label"/>
+              <Calendar id="calEndDate" left="320" top="10" width="95" height="30"/>
+              <Static id="staChgNmLabel" left="420" top="10" width="100" height="30" text="요청자" cssclass="sta_label"/>
+              <Edit id="edtChgNm" left="525" top="10" width="95" height="30"/>
+              <Static id="staPurchaseNoLabel" left="625" top="10" width="100" height="30" text="구매요청번호" cssclass="sta_label"/>
+              <Edit id="edtPurchaseNo" left="730" top="10" width="95" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -38,16 +39,17 @@
           </Bind>
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_GWP_S_COM00001" modelid="SI" filepath="IITP\BIZ_M_GWP_S_COM00001.xmodel">
             <Fields>
-              <Field id="START_DATE" label="요청일자" description="" innerdatasetinfo="" comptype="calendar" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="END_DATE" description="" innerdatasetinfo="" comptype="calendar" fieldwidth="100px" fieldheight="30px" labelwidth="-1" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="CHG_NM" description="" innerdatasetinfo="" comptype="auto" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="PURCHASE_NO" label="구매요청번호" description="" innerdatasetinfo="" comptype="auto" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="START_DATE" label="요청일자" description="" innerdatasetinfo="" comptype="calendar" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="END_DATE" description="" innerdatasetinfo="" comptype="calendar" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="CHG_NM" description="" innerdatasetinfo="" comptype="auto" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="PURCHASE_NO" label="구매요청번호" description="" innerdatasetinfo="" comptype="auto" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
               <Component id="btnSearch" fields="_viewcomp"/>
               <Component id="staStartDateLabel" fields="START_DATE"/>
               <Component id="calStartDate" fields="START_DATE"/>
+              <Component id="staEndDateLabel" fields="END_DATE"/>
               <Component id="calEndDate" fields="END_DATE"/>
               <Component id="staChgNmLabel" fields="CHG_NM"/>
               <Component id="edtChgNm" fields="CHG_NM"/>
@@ -55,7 +57,7 @@
               <Component id="edtPurchaseNo" fields="PURCHASE_NO"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="Asset\SearchViewTemplate.xviewgen">
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="halign" value="left"/>
             <Attribute id="valign" value="top"/>
@@ -156,7 +158,7 @@
               <Component id="grdList" fields="PURCHASE_NO,REQ_DATE,BUY_CD,BUY_DESC,PJ_CD,EMPLOYEE,PRICE,STATUS,PURCHASE_EMP,PURCHASE_DATE,MEMO"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
             <Attribute id="usetotalcount" value="false"/>
             <Attribute id="headbandsize" value="30"/>
             <Attribute id="bodybandsize" value="30"/>
@@ -268,7 +270,7 @@
               <Component id="grdList" fields="PRODUCT_NO,PRODUCT_NM,COUNT,UNIT,UNIT_PRICE,PURCHASE_PRICE,SUM_PRICE,REQ_DATE,DELIVERY_ADDRESS,TEMP"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
             <Attribute id="titletext" value="상세내역"/>
             <Attribute id="usetotalcount" value="false"/>
             <Attribute id="headbandsize" value="30"/>
@@ -294,7 +296,7 @@
             </Fields>
             <Components/>
           </ModelInfo>
-          <ViewTemplateInfo filepath="DatasetOnlyViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="Asset\DatasetOnlyViewTemplate.xviewgen">
             <Attribute id="viewvisible" value="false"/>
           </ViewTemplateInfo>
         </View>
