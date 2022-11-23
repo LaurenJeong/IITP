@@ -1,29 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="FloatChart를 그려주는 템플릿"/>
+  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="영역형 그래프(Area Chart)를 그려주는 템플릿"/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  [Chart] FloatChart View Template
-*  @FileName 	FloatChartViewTemplate.xviewgen 
+*  [Chart] AreaChart View Template
+*  @FileName 	AreaChartViewTemplate.xviewgen 
 *  @Creator 	Creator
-*  @CreateDate 	2022.03.25
-*  @Desction    FloatChart를 그려주는 템플릿
+*  @CreateDate 	2022.03.16
+*  @Desction    영역형 그래프(Area Chart)를 그려주는 템플릿
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
 *******************************************************************************
-*  2022.03.25     		Creator       	      		최초 생성
+*  2022.03.16     		Creator       	      		최초 생성
 *******************************************************************************
 */
 /************************************************************************************************
  * include 선언부
  ************************************************************************************************/
-include "view_lib::util.xjs";
-include "view_lib::common.xjs";
-include "view_lib::chart.xjs";
+include "quickcode::viewtemplate/lib/util.xjs";
+include "quickcode::viewtemplate/lib/common.xjs";
+include "quickcode::viewtemplate/lib/chart.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
 // View 여백
 this.VIEW_PADDING = "20";
+
+this.SERIES_LINE_STYLE = "1px solid";				// 시리즈 선 스타일
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -174,7 +176,27 @@ fn_GetViewAttributeList = function() {
     var sViewAttr = "";
     var oViewAttr = {
                         "attributes": [
-							{									
+							{
+                                "id": "chartdisplay",
+                                "edittype": "Enum",
+                                "defaultvalue": "grouped",
+                                "enumlist" : ["grouped", "stacked", "100%stacked"],
+                                "description": "차트의 유형을 설정."
+												+ "\n" + " - grouped : 영역형 차트"
+												+ "\n" + " - stacked : 누적 영역형 차트"
+												+ "\n" + " - 100%stacked : 100% 기준 누적 영역형 차트"
+                            }
+							, {
+                                "id": "linetype",
+                                "edittype": "Enum",
+                                "defaultvalue": "segment",
+                                "enumlist" : ["segment", "step", "curve"],
+                                "description": "영역차트 모양 설정"
+												+ "\n" + " - segment : 꺽은선 차트"
+												+ "\n" + " - step : 스텝 차트"
+												+ "\n" + " - curve : 곡선 차트"
+                            }
+							, {									
                                 "id": "enableanimation",									
                                 "edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList									
                                 "defaultvalue": "true",									
@@ -199,6 +221,13 @@ fn_GetViewAttributeList = function() {
                                 "enumlist" : ["topleft", "topcenter", "topright", "bottomleft", "bottomcenter", "bottomright", "lefttop", "leftcenter", "leftbottom", "righttop", "rightcenter", "rightbottom"],
                                 "description": "타이틀 표시 위치"
                             }
+							, {
+                                "id": "legendposition",
+                                "edittype": "Enum",
+                                "defaultvalue": "rightcenter",
+                                "enumlist" : ["none", "topleft", "topcenter", "topright", "bottomleft", "bottomcenter", "bottomright", "lefttop", "leftcenter", "leftbottom", "righttop", "rightcenter", "rightbottom"],
+                                "description": "범례 표시 위치"
+                            }
 							, {									
                                 "id": "categoryaxistitletext",									
                                 "edittype": "String",											
@@ -209,13 +238,13 @@ fn_GetViewAttributeList = function() {
                                 "id": "valueaxistitletext",									
                                 "edittype": "String",											
                                 "defaultvalue": "",									
-                                "description": "데이터축(y축) 타이틀 Text"									
+                                "description": "데이터축(y축) 타이틀 Text(여러 축 설정시 ,를 구분자로 여러개 입력)"									
                             }
 							, {
-                                "id": "itemtextposition",		// [FloatChart]
+                                "id": "itemtextposition",		// [AreaChart]
                                 "edittype": "Enum",
                                 "defaultvalue": "none",
-                                "enumlist" : ["none", "start", "middle", "end", "outside"],
+                                "enumlist" : ["none", "lefttop", "centertop", "righttop", "leftmiddle", "centermiddle", "rightmiddle", "leftbottom", "centerbottom", "rightbottom"],
                                 "description": "값 표시 위치"
                             }
 							, this.oAttrViewPadding
@@ -259,13 +288,25 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id"			: "displaytype",
                                 "edittype"		: "Enum",
-								"defaultvalue"	: "none",
-								"enumlist" 		: ["none", "category", "seriesfrom","seriesto"],
+								"enumlist" 		: ["none", "category", "series"],
+                                "defaultvalue"	: "series",
                                 "description"	: "데이터 표현방식"
 												+ "\n" + " - none : 사용안함"
 												+ "\n" + " - category : 데이터명 Field(1개)"
-												+ "\n" + " - seriesfrom : 시작 데이터값 Field(1개)"
-												+ "\n" + " - seriesto : 종료 데이터값 Field(1개)"
+												+ "\n" + " - series : 데이터값 Field(n개)"
+                            }
+							, {
+                                "id"			: "valueaxes",
+                                "edittype" 		: "Enum",
+								"enumlist" 		: ["y", "y1", "y2"],
+								"defaultvalue"	: "y",
+                                "description"	: "데이터축을 설정. y는 왼쪽, y1,y2는 오른쪽에 표시됨."
+                            }
+							, {
+                                "id"			: "stackedgroupname",
+                                "edittype" 		: "String",
+								"defaultvalue"	: "",
+                                "description"	: "누적(stacked) 차트에서 그룹핑하는 경우 명칭 설정.(chartdisplay이 'stacked','100%stacked'인 경우에만 동작)"
                             }
                         ]
                   };
@@ -276,6 +317,7 @@ fn_GetFieldUserAttributeList = function ()
 
     return sFieldAttr;
 }
+
 /************************************************************************************************
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
@@ -290,12 +332,13 @@ fn_GetFieldUserAttributeList = function ()
  *---------------------------------------------------------------------------------------------*/
 fn_GetModel = function(bPreviewMode)
 {
+
 	// Chart Attribute
 	var oChartAttr = {};
 	var oTitle = {};
 	var oLegend = {};
 	
-	var sChartType = this.oGenerationAttr.attributes.charttype;
+	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
 	var sTitletext = this.oGenerationAttr.attributes.titletext;
 	var sSubTitletext = this.oGenerationAttr.attributes.subtitletext;
 	var sTitleAlign = this.oGenerationAttr.attributes.titlealign;
@@ -308,7 +351,10 @@ fn_GetModel = function(bPreviewMode)
 	var oCategoryField;
 	
 	var arrField = new Array(); 
-	var arrSeriesField = new Array();			// [seriesto, seriesfrom]
+	var arrSeriesField = new Array();
+	var arrAxisYField = new Array();
+	var arrAxisY1Field = new Array();
+	var arrAxisY2Field = new Array();
 
 	var sDisplaytype, sValueaxes;
 	
@@ -330,17 +376,16 @@ fn_GetModel = function(bPreviewMode)
 				this.lfn_Log("category가 여러개 설정되었습니다.(1개의 필드만 설정가능합니다)","warn");
 			}
 			
-		} else if (sDisplaytype == "seriesto") {
-			if (this.lfn_IsNull(arrSeriesField[0])) {
-				arrSeriesField[0] = oField;
+		} else if (sDisplaytype == "series") {
+			arrSeriesField.push(oField);
+			
+			// valueaxes에 따라 Y축 Array() 셋팅
+			if (sValueaxes == "y1") {
+				arrAxisY1Field.push(oField);
+			} else if (sValueaxes == "y2") {
+				arrAxisY2Field.push(oField);
 			} else {
-				this.lfn_Log("seriesto가 여러개 설정되었습니다.(1개의 필드만 설정가능합니다)","warn");
-			}
-		} else if (sDisplaytype == "seriesfrom") {
-			if (this.lfn_IsNull(arrSeriesField[1])) {
-				arrSeriesField[1] = oField;
-			} else {
-				this.lfn_Log("seriesfrom이 여러개 설정되었습니다.(1개의 필드만 설정가능합니다)","warn");
+				arrAxisYField.push(oField);
 			}
 		}
     }
@@ -354,9 +399,11 @@ fn_GetModel = function(bPreviewMode)
 	oChartAttr["right"] = this.VIEW_PADDING_RIGHT;
 	oChartAttr["bottom"] = this.VIEW_PADDING_BOTTOM;
 	
-	// 차트종류설정
-	if (sChartType == "timeline") {
-		oChartAttr["isdatetimevalue"] = "true";
+	// [AreaChart] 차트유형설정
+	if (sChartDisplay == "stacked") {
+		oChartAttr["stacktype"] = "normal";
+	} else if (sChartDisplay == "100%stacked") {
+		oChartAttr["stacktype"] = "percent";
 	}
 	
 	// 에니메이션 설정
@@ -370,33 +417,27 @@ fn_GetModel = function(bPreviewMode)
 		oTitle["align"] = sTitleAlign;
 		oTitle["visible"] = true;
 	}
+				
+	// 범례 설정
+	oLegend = this.lfn_CloneObject(this.oBaseLegend);
+	if (this.lfn_IsNotNull(sLegendPosition) && sLegendPosition != "none")
+	{
+		oLegend["align"] = sLegendPosition;
+		oLegend["visible"] = true;
+	}
 	
 	// 카테고리 설정
 	if(this.lfn_IsNull(oCategoryField)) {
 		this.lfn_Log("category가 설정되지 않았습니다.","warn");
-	} else {
-		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
-	}
-	
-	// Preview모드일때 Field 예외처리
-	if (bPreviewMode == true)
-	{
-		// category없는 경우 예외처리
-		if(this.lfn_IsNull(oCategoryField))
+		
+		// Preview모드일때 category 예외처리
+		if (bPreviewMode == true)
 		{
 			oCategoryField = this.lfn_Nvl(this.oFieldArray.fields.find(oField => oField.datatype == "STRING"),this.oFieldArray.fields[0]);
 			oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
 		}
-		
-		// series없는 경우 예외처리
-		if(arrSeriesField.length==0)
-		{
-			var oFilterField = this.oFieldArray.fields.filter(oField => oField.datatype == "INT" || oField.datatype == "FLOAT" || oField.datatype == "BIGDECIMAL");
-			if (this.lfn_IsNotNull(oFilterField) && oFilterField.length >= 2)
-			{
-				arrSeriesField = [oFilterField[0],oFilterField[1]];
-			}
-		}
+	} else {
+		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
 	}
 	
 	//차트 컴포넌트 추가
@@ -406,18 +447,19 @@ fn_GetModel = function(bPreviewMode)
             "Components" :
             [
                 {
-                    "tag" : "FloatChart",
+                    "tag" : "BasicChart",
                     "attribute" : oChartAttr,
-                    "FloatChart" :
+                    "BasicChart" :
                     [
                         {
                             "tag"	: "Contents",
 							"value"	: {
 								"title" 		: oTitle,
+								"legend" 		: oLegend,
 								"tooltip" 		: this.oBaseTooltip,
 								"board" 		: this.oBaseBoard,
 								"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField),
-								"valueaxes" 	: fn_GetValueAxes(arrSeriesField),
+								"valueaxes" 	: fn_GetValueAxes(arrAxisYField,arrAxisY1Field,arrAxisY2Field),
 								"seriesset" 	: fn_GetSeries(arrSeriesField)
 							}
                         }
@@ -454,35 +496,63 @@ fn_GetCategoryAxes = function(oCategoryField)
 };
 
 // 데이터 축 설정
-fn_GetValueAxes = function(arrAxisYField)
+fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
 {
 	var sAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.valueaxistitletext);
+	var arrAxisTitleText = sAxisTitleText.split(",");
 	
 	var arrValueAxes = new Array();
 	var oValueAxes;
 	
-	var oField;
 	var arrMaskInfo = new Array();
+	var oFieldy, oFieldy1, oFieldy2;
 	
 	// 기본y축 추가
 	oValueAxes = {};
 	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
 	oValueAxes["id"] = "valueaxis" + "y";
-	oValueAxes["titletext"] = this.lfn_Trim(sAxisTitleText);
+	oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[0]);
 	
-	if (arrAxisYField.length > 0) {
-		oField = arrAxisYField[0];				// 첫번째 시리즈 기준으로 축값 설정
-		
-		if(this.lfn_IsNull(oField)) {
-			this.lfn_Log("valueaxis가 설정되지 않았습니다.","warn");
-		} else {
-			arrMaskInfo = this.lfn_GetDataTypeMask(oField.datatype);
-			oValueAxes["labelmask"] = arrMaskInfo[0];
-			oValueAxes["labeltype"] = arrMaskInfo[1];
-		}
+	if (arrAxisYField.length == 0) {
+		this.lfn_Log("valueaxis가 설정되지 않았습니다.","warn");
+	} else {
+		oFieldy = arrAxisYField[0];				// 첫번째 시리즈 기준으로 축값 설정
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy.datatype);
+		oValueAxes["labelmask"] = arrMaskInfo[0];
+		oValueAxes["labeltype"] = arrMaskInfo[1];
 	}
 	
 	arrValueAxes.push(oValueAxes);
+	
+	// Y1추가
+	if (arrAxisY1Field.length > 0) {
+		oFieldy1 = arrAxisY1Field[0];			// 첫번째 시리즈 기준으로 축값 설정
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy1.datatype);
+		
+		oValueAxes = {};
+		oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis2);
+		oValueAxes["id"] = "valueaxis" + "y1";
+		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[1]);
+		oValueAxes["labelmask"] = arrMaskInfo[0];
+		oValueAxes["labeltype"] = arrMaskInfo[1];
+		
+		arrValueAxes.push(oValueAxes);
+	}
+	
+	// Y2추가
+	if (arrAxisY2Field.length > 0) {
+		oFieldy2 = arrAxisY2Field[0];			// 첫번째 시리즈 기준으로 축값 설정
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy2.datatype);
+		
+		oValueAxes = {};
+		oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis2);
+		oValueAxes["id"] = "valueaxis" + "y2";
+		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[2]);
+		oValueAxes["labelmask"] = arrMaskInfo[0];
+		oValueAxes["labeltype"] = arrMaskInfo[1];
+		
+		arrValueAxes.push(oValueAxes);
+	}
 
     return arrValueAxes;
 }
@@ -490,6 +560,7 @@ fn_GetValueAxes = function(arrAxisYField)
 // 시리즈 셋팅
 fn_GetSeries = function(arrSeriesField)
 {
+	var sLineType = this.oGenerationAttr.attributes.linetype;
 	var sItemTextPosition = this.oGenerationAttr.attributes.itemtextposition;
 	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
 	
@@ -497,44 +568,53 @@ fn_GetSeries = function(arrSeriesField)
 	var oSeries;
 	
 	var oField;
+	
 	var arrMaskInfo = new Array();
 	
-	var oFieldSeriesTo 		= arrSeriesField[0];
-	var oFieldSeriesFrom 	= arrSeriesField[1];
+	var nCount = arrSeriesField.length;
 	
-	if (oFieldSeriesTo == undefined) {
-		this.lfn_Log("seriesto가 설정되지 않았습니다.","error");
-		return arrSeries;
-	}
-	
-	oSeries = {};
-	oSeries = this.lfn_CloneObject(this.oBaseSeriesFloat);
-	oSeries["id"] = this.lfn_GetCompId("series");
-	oSeries["valuecolumn"] = "bind:" + oFieldSeriesTo.id;
-	
-	if (oFieldSeriesFrom != undefined) {
-		oSeries["value2column"] = "bind:" + oFieldSeriesFrom.id;
-	}
-	
-	// [FloatChart] 시리즈 색상처리
-	oSeries["positivebarfillstyle"] = this.arrBaseChartColor.join(",");		// 양수
-	oSeries["negativebarfillstyle"] = this.arrBaseChartColor.join(",");		// 음수
-	
-	// 데이터 출력설정
-	if (sItemTextPosition == "none") {
-		oSeries["itemtextvisible"] = false;
-	} else {
-		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldSeriesTo.datatype);
-			
-		oSeries["itemtextvisible"]		= true;
-		oSeries["itemtextmask"]			= arrMaskInfo[0];
-		oSeries["itemtexttype"]			= arrMaskInfo[1];
+	// arrSeriesField 갯수 기준으로 series 태그 생성
+	for(var i=0;i<nCount;i++)
+	{
+		oField = arrSeriesField[i];
 		
-		// [BarChart]
-		oSeries["itemtextposition"] = sItemTextPosition;
+		oSeries = {};
+		oSeries = this.lfn_CloneObject(this.oBaseSeriesArea);
+		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
+		oSeries["titletext"] = oField.label;
+		oSeries["valuecolumn"] = "bind:" + oField.id;
+		
+		// [AreaChart] 선유형설정
+		oSeries["linetype"] = sLineType;
+		
+		// [AreaChart] 시리즈 색상처리
+		oSeries["linestyle"] = this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i);
+		oSeries["lineareafillstyle"] = this.lfn_GetChartColor(i);
+		oSeries["pointfillstyle"] = this.lfn_GetChartColor(i);
+		
+		// 데이터 출력설정
+		if (sItemTextPosition == "none") {
+			oSeries["itemtextvisible"] = false;
+		} else {
+			arrMaskInfo = this.lfn_GetDataTypeMask(oField.datatype);
+			
+			oSeries["itemtextvisible"] = true;
+			oSeries["itemtextmask"]			= arrMaskInfo[0];
+			oSeries["itemtexttype"]			= arrMaskInfo[1];
+			
+			// [AreaChart]
+			oSeries["lineitemtextposition"] = sItemTextPosition;
+		}
+		
+		// [BasicChart] Y축설정
+		if (oField.valueaxes == "y1") {
+			oSeries["valueaxis"] = "valueaxisy1";
+		} else if (oField.valueaxes == "y2") {
+			oSeries["valueaxis"] = "valueaxisy2";
+		}
+		
+		arrSeries.push(oSeries);
 	}
-	
-	arrSeries.push(oSeries);
 	
     return arrSeries;
 }
