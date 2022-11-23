@@ -23,16 +23,13 @@
                 <Column id="PAGE_NO5" type="BIGDECIMAL" size="5"/>
               </ColumnInfo>
               <Rows>
-                <Row>
-                  <Col id="PAGE_NO5">1</Col>
-                </Row>
+                <Row/>
               </Rows>
             </Dataset>
           </Objects>
           <Bind>
             <BindItem id="bind_edtMngChrgEmpno" compid="edtMngChrgEmpno" propid="value" datasetid="viewdataset" columnid="MNG_CHRG_EMPNO"/>
             <BindItem id="bind_edtLoanNo" compid="edtLoanNo" propid="value" datasetid="viewdataset" columnid="LOAN_NO"/>
-            <BindItem id="item0" compid="Static00" propid="text" datasetid="viewdataset" columnid="PAGE_NO5"/>
           </Bind>
           <ModelInfo modelserviceid="model_eims2" serviceid="IUI_M_COR_S_RCV00567" modelid="SI" filepath="API_TEST\IUI_M_COR_S_RCV00567.xmodel">
             <Fields>
@@ -50,7 +47,7 @@
               <Component id="edtLoanNo" fields="LOAN_NO"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="SearchViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="Asset\SearchViewTemplate.xviewgen">
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="halign" value="left"/>
             <Attribute id="valign" value="top"/>
@@ -144,7 +141,7 @@
               <Component id="grdList" fields="LOAN_NO,CUST_NM,BNK_CD,TRX_DT,TRX_AMT,MNRC_ACC_DEPR_NM,GDS_NM,RMK"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
             <Attribute id="titletext" value="법비용환급대출번호기준목록조회"/>
             <Attribute id="usetotalcount" value="false"/>
             <Attribute id="headbandsize" value="30"/>
@@ -187,7 +184,7 @@
               <Component id="btnNext" fields="NEXT_PAGE_EXS_YN5"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="PagingPrevNextViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="Inzent\PagingPrevNextViewTemplate.xviewgen">
             <Attribute id="buttonposition" value="right"/>
             <Attribute id="usedatacount" value="true"/>
             <Attribute id="useprevbutton" value="true"/>

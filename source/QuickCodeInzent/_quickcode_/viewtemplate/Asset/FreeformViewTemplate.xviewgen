@@ -1,24 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="FreeformViewTemplate" viewtype="IITP" description=""/>
+  <ViewTemplate id="FreeformViewTemplate" viewtype="Asset" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  Freeform Readonly View Template
-*  @FileName 	FreeformReadonlyViewTemplate.xviewgen
-*  @Creator 	Creator
-*  @CreateDate 	2022.05.16
-*  @Desction    상세화면(조회모드) 생성 템플릿(FreeformViewTemplate.xviewgen에서 Readonly처리 함. [FreeformReadonly] 확인)
+*  Freeform View Template
+*  @FileName 	FreeformViewTemplate.xviewgen
+*  @Creator 	Kim Dae Won
+*  @CreateDate 	2021.04.29
+*  @Desction    상세화면 생성 템플릿
 *  @version		1.0.0.0
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
 *******************************************************************************
-*  2022.05.16     		Creator       	    최초 생성
+*  2021.04.29     		Kim Dae Won       	    최초 생성
 *******************************************************************************
 */
 /************************************************************************************************
  * include 선언부
  ************************************************************************************************/
-include "view_lib::util.xjs";
-include "view_lib::common.xjs";
+include "quickcode::viewtemplate/lib/util.xjs";
+include "quickcode::viewtemplate/lib/common.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
@@ -56,9 +56,6 @@ this.LABEL_WIDTH			= 100;
 //Component Default Type
 this.COMP_TYPE				= "edit";
 
-//[FreeformReadonly] Component Readonly
-this.COMP_READONLY		= "true";
-
 //Label Default Type
 this.LABEL_TYPE				= "static";
 
@@ -79,9 +76,6 @@ this.LINE_SPACE     		  = 5;
 
 //Component Default CSS Class
 this.COMP_CSSCLASS		  = "";
-
-//[FreeformReadonly] Component Readonly CSS Class
-this.COMP_READONLY_CSSCLASS		  = "com_View";
 
 //Background Component Default CSS Class
 this.COMP_BG_CSSCLASS	  = "sta_fieldbox";
@@ -563,13 +557,6 @@ fn_GetFieldUserAttributeList = function ()
                                 "edittype": "Boolean",
 								"defaultvalue": this.USE_COMP,
                                 "description": "Use Component"
-                            },
-							// [FreeformReadonly] Field ReadOnly 설정
-							{
-                                "id": "fieldreadonly",
-                                "edittype": "Boolean",
-								"defaultvalue": this.COMP_READONLY,
-                                "description": "Field Readonly"
                             }
                         ]
                   };
@@ -599,7 +586,7 @@ fn_GetModel = function()
 	
 	// Title 영역
 	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
-	var sUseTotalCount		= "false";												// 전체건수 Static 생성
+	var sUseTotalCount		= this.USE_TOT_COUNT;									// 전체건수 Static 생성
 	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 생성
 	
 	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
@@ -1361,13 +1348,8 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var sCompCssClass;
 	var sLabelCssClass;
 	var sFieldBgCssClass = this.COMP_BG_CSSCLASS;
-	var sFieldReadonly;
-	var sFieldReadonlyCssClass;
 	
-	// [FreeformReadonly] FieldBox 사용여부
-	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
-	
-	// [FreeformReadonly] Field ReadOnly
+	// FieldBox 사용여부
 	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
 
 	if(!bUseLayout)bUseLayout = false;
@@ -1523,29 +1505,20 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 							, "cssclass" : sCompCssClass
 						}
 					};
-			
-			// 라벨을 text로 처리
-			if(oField.comptype=="button" || oField.comptype=="checkbox" || oField.comptype=="static")
+
+			//If the Component Type is Button, add label text to the text properties
+			if(oField.comptype=="button")
 			{
 				oComp.attribute.text = oField.label;
 			}
-			
-			// [FreeformReadonly] Readonly 처리
-			if(oField.fieldreadonly == "true")
+			//If the Component Type is Checkbox, add label text to the text properties
+			else if(oField.comptype=="checkbox")
 			{
-				// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
-				if(oField.comptype=="calendar" || oField.comptype=="checkbox" || oField.comptype=="combo" || oField.comptype=="edit"
-					|| oField.comptype=="maskedit" || oField.comptype=="radio" || oField.comptype=="spin" || oField.comptype=="textarea")
-				{
-					oComp.attribute.readonly = "true";
-					oComp.attribute.cssclass = this.COMP_READONLY_CSSCLASS;
-					
-					// 스핀버튼, 드롭다운버튼 안보이게 처리
-					if (oField.comptype=="spin" || oField.comptype=="combo" || oField.comptype=="calendar")
-					{
-						oComp.attribute.buttonsize = "0";
-					}
-				}
+				oComp.attribute.text = oField.label;
+			}//If the Component Type is Static, add label text to the text properties
+			else if(oField.comptype=="static")
+			{
+				oComp.attribute.text = oField.label;
 			}
 
 			if(oField.comptype!="button")
@@ -1692,28 +1665,18 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 						}
 					};
 
-			// 라벨을 text로 처리
-			if(oField.comptype=="button" || oField.comptype=="checkbox" || oField.comptype=="static")
+			if(oField.comptype=="button")
 			{
 				oComp.attribute.text = oField.label;
 			}
-			
-			// [FreeformReadonly] Readonly 처리
-			if(oField.fieldreadonly == "true")
+			//If the Component Type is Checkbox, add label text to the text properties
+			else if(oField.comptype=="checkbox")
 			{
-				// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
-				if(oField.comptype=="calendar" || oField.comptype=="checkbox" || oField.comptype=="combo" || oField.comptype=="edit"
-					|| oField.comptype=="maskedit" || oField.comptype=="radio" || oField.comptype=="spin" || oField.comptype=="textarea")
-				{
-					oComp.attribute.readonly = "true";
-					oComp.attribute.cssclass = this.COMP_READONLY_CSSCLASS;
-					
-					// 스핀버튼, 드롭다운버튼 안보이게 처리
-					if (oField.comptype=="spin" || oField.comptype=="combo" || oField.comptype=="calendar")
-					{
-						oComp.attribute.buttonsize = "0";
-					}
-				}
+				oComp.attribute.text = oField.label;
+			}//If the Component Type is Static, add label text to the text properties
+			else if(oField.comptype=="static")
+			{
+				oComp.attribute.text = oField.label;
 			}
 
 			if(oField.comptype!="button")

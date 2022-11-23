@@ -1,24 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="FreeformViewTemplate" viewtype="Asset" description=""/>
+  <ViewTemplate id="FreeformViewTemplate" viewtype="IITP" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  Freeform View Template
-*  @FileName 	FreeformViewTemplate.xviewgen
-*  @Creator 	Kim Dae Won
-*  @CreateDate 	2021.04.29
-*  @Desction    상세화면 생성 템플릿
+*  ListView View Template
+*  @FileName 	ListViewViewTemplate.xviewgen
+*  @Creator 	Creator
+*  @CreateDate 	2022.04.28
+*  @Desction    리스트뷰 생성 템플릿
 *  @version		1.0.0.0
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
 *******************************************************************************
-*  2021.04.29     		Kim Dae Won       	    최초 생성
+*  2022.04.28     		Creator       	    	최초 생성
 *******************************************************************************
 */
 /************************************************************************************************
  * include 선언부
  ************************************************************************************************/
-include "view_lib::util.xjs";
-include "view_lib::common.xjs";
+include "quickcode::viewtemplate/lib/util.xjs";
+include "quickcode::viewtemplate/lib/common.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
@@ -27,296 +27,80 @@ include "view_lib::common.xjs";
 //--------------------------------------------------------------------------------------------------------
 // View 여백
 this.VIEW_PADDING			= "";
-// 컴포넌트 생성 방향
-this.DIRECTION				= "horizontal";
-// 컴포넌트 생성 수평 정렬방식
-this.HALIGN					= "left";
-// 컴포넌트 생성 수직 정렬방식
-this.VALIGN					= "top";
 //--------------------------------------------------------------------------------------------------------
+
 //--------------------------------------------------------------------------------------------------------
 // 타이틀 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
-//타이틀 영역 전체건수 표시여부(Freeform에서는 사용안함)
-this.USE_TOT_COUNT			= "false";
-//타이틀 영역 접기/펼치기 버튼 표시여부("none", "open","close")
+//ListView 영역 top 위치(title영역에 따라 위치 변경됨)
+this.VIEW_TOP				= 0;
+//타이틀 영역 전체건수 표시여부
+this.USE_TOT_COUNT			= "true";
+//타이틀 영역 접기/펼치기 버튼 표시여부(ListView에서는 사용안함)
 this.USE_EXPAND_BUTTON		= "none";
-//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------	
 
-//////////////////////////////상수 설정부 START ////////////////////////////////////////////////////
+//--------------------------------------------------------------------------------------------------------
+// ListView 객체 관련 상수
+//--------------------------------------------------------------------------------------------------------
+// ListView ID
+this.LISTVIEW_ID			= "livList";
+
+//Band Default Width
+this.BAND_WIDTH				= "100%";
+
 //Field Default Width
-this.FIELD_WIDTH			= "100%";
+this.FIELD_WIDTH			= "150px";
 
 //Field Default Height
 this.FIELD_HEIGHT			= "40px";
 
 //Label Default Width
-this.LABEL_WIDTH			= 100;
+this.LABEL_WIDTH			= "100px";
 
-//Component Default Type
-this.COMP_TYPE				= "edit";
+//Detail 밴드가 표시되는 방법. bandexpandtype 기본 설정 값
+this.BAND_EXPAND_TYPE		= "none";			// bandexpandtype : 'none' | 'expand' | 'accordion' | 'popup'
+
+//Band 오른쪽 끝에 확장바(ExpandBar)의 표시 여부를 설정. expandbartype 기본 설정 값
+this.EXPAND_BAR_TYPE		= "fasle";			// expandbartype : 'true' | 'fasle'
+this.EXPAND_BAR_WIDTH		= 40;
+this.EXPAND_BAR_HEIGHT		= 40;
+
+//Field Default Type
+this.FIELD_DISPLAY_TYPE		= "normal";
+this.FIELD_EDIT_TYPE		= "none";
 
 //Label Default Type
-this.LABEL_TYPE				= "static";
-
-//Background Default Type
-this.COMP_BG_TYPE			= "static";
+this.LABEL_DISPLAY_TYPE		= "normal";
 
 //Component Padding
-this.COMP_PADDING_LEFT     = 5;
-this.COMP_PADDING_TOP      = 5;
-this.COMP_PADDING_RIGHT    = 5;
-this.COMP_PADDING_BOTTOM   = 5;
+this.COMP_PADDING_LEFT		= 5;
+this.COMP_PADDING_TOP		= 5;
+this.COMP_PADDING_RIGHT		= 5;
+this.COMP_PADDING_BOTTOM	= 5;
 
 //Gap Between Components (Left and Right)
-this.COMP_SPACE     		  = 5;
+this.COMP_SPACE				= 5;
 
 //Gap Between Components (Top and Bottom)
-this.LINE_SPACE     		  = 5;
+this.LINE_SPACE				= 5;
 
-//Component Default CSS Class
-this.COMP_CSSCLASS		  = "";
+//Component Cell Default CSS Class
+this.FIELD_CSSCLASS			= "";
 
-//Background Component Default CSS Class
-this.COMP_BG_CSSCLASS	  = "sta_fieldbox";
+//Label Cell Default CSS Class
+this.LABEL_CSSCLASS			= "";
 
-//Label Default CSS Class
-this.LABEL_CSSCLASS		  = "sta_labelbox";
+//Background Cell Default CSS Class
+this.FIELD_BG_CSSCLASS		= "";
 
 //Background Component Use Type
-this.USE_COMP_BG		= "true";
+this.FIELD_COMP_BG			= "true";
 
 //Component Use Type
-this.USE_COMP 			  = "true";
+this.USE_COMP				= "true";
 
-//////////////////////////////Constant Setting END ////////////////////////////////////////////////////
-
-/*============================================================================================*
-* Parameter Structure Example
-
-1. 'fieldarray' structure example
-{
-    "modelinfo":
-    {
-        "serviceid":"model_sample",                                // model service id
-        "serviceurl":"http://127.0.0.1:8983/app/addSearchApi.do?"  // model service url
-    },
-    "fieldcount" : "2",                                            // number of fields in model
-    "fields" :
-    [
-        {                                                          // About the first field
-            "id": "company",
-            "label": "Company Name",
-            "fieldtype": "SelectOne",
-            "datatype": "STRING",
-            "datasize": "80",
-            "editable": "true",
-            "uselabel": "true"
-        },
-        {                                                          // About the second field
-            "id": "department",
-            "label": "Department Name",
-            "fieldtype": "SelectOne",
-            "datatype": "STRING",
-            "datasize": "80",
-            "editable": "true",
-            "uselabel": "true"
-        }
-    ]
-}
-
-2. 'generationattr' structure example
-{                                                                  // user-entered attributes for 'view' generation
-  "attributes": {
-    "use_triggerbutton": "true"
-    "triggerbuttontext": "Search"
-  }
-}
-
-3. 'contents' structure example
-// --- design source of xfdl --- //
-//   <View id="View00" viewtype="FreeForm" taborder="2" ... >
-//     <Layouts>
-//       <Layout>
-//         <Static id="Static00" text="Company Name" left="0" .../>
-//         <Combo id="Combo00" left="85" top="0" .../>
-//         <Button id="btn_Trigger" left="617" top="5" .../>
-//         ...
-//       </Layout>
-//     </Layouts>
-//     <InitValue>
-//       <Combo id="Combo00" enable="true"/>
-//     </InitValue>
-//     <Objects>
-//       <Dataset id="Viewdataset">
-//         <ColumnInfo>
-//           <Column id="company" type="BLOB" size="80"/>
-//           <Column id="department" type="BLOB" size="80"/>
-//         </ColumnInfo>
-//         <Rows>
-//           <Row/>
-//         </Rows>
-//       </Dataset>
-//     </Objects>
-//     <Bind>
-//       <BindItem id="item0" compid="Combo00" propid="value" datasetid="viewdataset" columnid="company"/>
-//     </Bind>
-//     <Script type="xscript5.1"><![CDATA[this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}; ] ]></Script>
-//   </View>
-
-// --- design source converted to json format --- //
-{
-    "View": {                                                     // <View id="View00" viewtype="FreeForm" taborder="2" ... />
-        "tag": "View",
-        "referenceinfo": {
-            "realwidth": "500",                                   // Real width of view component
-            "realheight": "250"                                   // Real height of view component
-        },
-        "attribute": {
-            "id": "View00",                                       // 'ID' of view component
-            "viewtype": "FreeForm",                               // 'viewtype' property value of view component
-            "taborder": "2",                                      // 'taborder' property value of view component
-            "text": "search view",                                // 'text' property value of view component
-            "left": "0",                                          // 'left' property value of view component
-            "top": "0",                                           // 'top' property value of view component
-            "width": "100%",                                      // 'width' property value of view component
-            "height": "50%"                                       // 'height' property value of view component
-        },
-        "Model": [                                                // Information of components generated by each model field information.
-            {                                                     // "fieldid" : "value" => The component generated by the field of Model
-                "fieldid": "company",                             // "fieldid" : ""      => The component generated without the field of Model
-                "Components": [                                   // The component information generated by the 'company' field.
-                    {                                             //   <Static id="Static00" text="Company Name" left="0" .../>
-                        "tag": "Static",
-                        "attribute": {
-                            "id": "Static00",
-                            "text": "Company Name",
-                            "left": "0",
-                            "top": "0",
-                            "width": "80",
-                            "height": "20",
-                        }
-                    },
-                    {                                             //   <Combo id="Combo00" left="85" top="0" .../>
-                        "tag": "Combo",
-                        "attribute": {
-                            "id": "Combo00",
-                            "left": "85",
-                            "top": "0",
-                            "width": "100",
-                            "height": "24",
-                        }
-                    }
-                ]
-            },
-            {   // with field
-                "fieldid": "department",                          // "fieldid" : "value" => The component generated by the field of Model
-                "Components": [
-                ...
-                ]
-            },
-            {
-                "fieldid": "",                                    // "fieldid" : ""      => The component generated without the field of Model
-                "Components": [
-                    {                                             //   <Button id="btn_Trigger" left="617" top="5" .../>
-                        "tag": "Button",
-                        "attribute": {
-                          "id": "btn_Trigger",
-                          "left": "617",
-                          "top": "5",
-                          "width": "70",
-                          "height": "50",
-                          "text": "Search"
-                        }
-                    }
-                ]
-            }
-        ],
-        "InitValue": [
-          {                                                       //   <InitValue>
-            "tag": "InitValue",                                   //     <Combo id="Combo00" enable="true"/>
-            "InitValue": [                                        //   </InitValue>
-              {
-                "tag": "Combo",
-                "attribute": {
-                  "id": "Combo00",
-                  "enable": "true"
-                }
-              }
-            ]
-          }
-        ],
-        "Objects": [
-          {                                                       //   <Objects>
-            "tag": "Objects",                                     //     <Dataset id="Viewdataset">
-            "Objects": [                                          //       <ColumnInfo>
-              {                                                   //         <Column id="company" type="BLOB" size="80"/>
-                "tag": "Dataset",                                 //         <Column id="department" type="BLOB" size="80"/>
-                "attribute": {                                    //       </ColumnInfo>
-                  "id": "viewdataset"                             //       <Rows>
-                },                                                //         <Row/>
-                "Dataset": [                                      //       </Rows>
-                  {                                               //     </Dataset>
-                    "tag": "ColumnInfo",                          //   </Objects>
-                    "ColumnInfo": [
-                      {
-                        "tag": "Column",
-                        "attribute": {
-                          "id": "company",
-                          "type": "BLOB",
-                          "size": "80"
-                        }
-                      },
-                      {
-                        "tag": "Column",
-                        "attribute": {
-                          "id": "department",
-                          "type": "BLOB",
-                          "size": "80"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "tag": "Rows",
-                    "Rows": [
-                      {
-                        "tag": "Row"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "Bind": [
-        {                                                         //   <Bind>
-          "tag": "Bind",                                          //     <BindItem id="item0" compid="Combo00" propid="value" datasetid="viewdataset" columnid="company"/>
-          "Bind": [                                               //   </Bind>
-              {
-                "tag": "BindItem",
-                "attribute": {
-                  "id": "item0",
-                  "compid": "Combo00",
-                  "propid": "value",
-                  "datasetid": "viewdataset",
-                  "columnid": "company"
-                }
-              }
-            ]
-          }
-        ],
-        "Script": {                                               // <Script type="xscript5.1"><![CDATA[this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}; ] ]></Script>
-            "tag": "Script",
-            "attribute": {
-                "type": "xscript5.1"
-            },
-            "value": "this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}"
-        }
-    }
-}
-*============================================================================================*/
+//--------------------------------------------------------------------------------------------------------
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -373,25 +157,24 @@ this.USE_COMP 			  = "true";
  *---------------------------------------------------------------------------------------------*/
 fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 {
-
 	//Return Value
     var vResult = "";
 
     //trace(">> fieldarray : " + fieldarray);
 	//trace(">> contents : " + contents);
     //trace(">> generationattr : " + generationattr);
-
-    //Make Generation Info
+	
+	//Make Generation Info
 	//this.oFieldArray : Model Information as JSON Object
 	//this.oContents : View Component Information as JSON Object
 	//this.oContents.View.Model : Model Information Initialization
 	//this.oGenerationAttr : Setting Information as JSON Object
 	//this.oUseFieldArray : Use Model Information as JSON Object
-	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, true);
+	this.lfn_MakeGenerationInfo(fieldarray, contents, generationattr, false);
 	
 	// View Padding 설정
 	this.lfn_SetViewPadding();
-
+	
 	//Load Model Information Generation Function
 	fn_GetModel();
 
@@ -442,41 +225,54 @@ fn_GetViewAttributeList = function()
     var sViewAttr = "";
     var oViewAttr = {
                         "attributes": [
+							this.oAttrTitleText,					// Title Text
+							this.oAttrTitleUseTotolCount,			// 전체건수 표시여부
                             {
                                 "id": "direction",
                                 "edittype": "Enum",
-                                "defaultvalue": this.DIRECTION,
+                                "defaultvalue": "horizontal",
 								"enumlist" : ["horizontal", "vertical"],
-                                "description": "Set the Field Production Direction."
+                                "description": "Cell 생성 방향 지정"
+												+ "\n" + " - horizontal : 왼쪽에서 오른쪽으로 생성"
+												+ "\n" + " - vertical : 위에서 아래로 생성"
                             },
-							{
-                                "id": "halign",
-                                "edittype": "Enum",
-                                "defaultvalue": this.HALIGN,
-								"enumlist" : ["left", "center", "right"],
-                                "description": "Set the Field  Horizontal Alignment."
-                            },
-							{
-                                "id": "valign",
-                                "edittype": "Enum",
-                                "defaultvalue": this.VALIGN,
-								"enumlist" : ["top", "middle", "bottom"],
-                                "description": "Set the Field Vertical Alignment."
-                            },
-							this.oAttrTitleText,					// Title Text
-							this.oAttrTitleExpandButton,			// 접기/펼치기 버튼 표시여부
+
 							{
                                 "id": "usefieldbox",
                                 "edittype": "Boolean",
-                                "defaultvalue": this.USE_COMP_BG,
+                                "defaultvalue": this.FIELD_COMP_BG,
                                 "description": "Field영역에 배경 Box를 그릴지 여부"
                             },
 							{
-                                "id": "format",
+                                "id": "bandexpandtype",
+                                "edittype": "Enum",
+                                "defaultvalue": this.BAND_EXPAND_TYPE,
+								"enumlist" : ["none", "expand", "accordion", "popup"],
+                                "description": "Detail 밴드가 표시되는 방법을  지정"
+												+ "\n" + " - none : Detail 밴드를 항상 표시"
+												+ "\n" + " - expand : Detail 밴드를 표시/숨김"
+												+ "\n" + " - accordion : Detail 밴드를 표시/숨김(현재 아이템 이외에 다른 아이템에 표시된 Detail 밴드를 자동으로 숨김)"
+												+ "\n" + " - popup : Detail 밴드를 팝업으로 표시"
+                            },
+							{
+                                "id": "expandbartype",
+                                "edittype": "Boolean",
+                                "defaultvalue": this.EXPAND_BAR_TYPE,
+                                "description": "Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부"
+                            },
+							{
+                                "id": "bodyformat",
                                 "edittype": "layout",
 								"defaultvalue": "",
-								"description": "Set View Layout"
-
+								"description": "Body Band Layout을 설정"
+												+ "\n" + "(Layout을 설정할 경우 band, direction 속성은 무시됩니다.)"
+                            },
+							{
+                                "id": "detailformat",
+                                "edittype": "layout",
+								"defaultvalue": "",
+								"description": "Detail Band Layout을 설정"
+												+ "\n" + "(Layout을 설정할 경우 band, direction 속성은 무시됩니다.)"
                             }
 							//, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
                         ]
@@ -515,36 +311,50 @@ fn_GetFieldUserAttributeList = function ()
 	var sFieldAttr = "";
 	var oFieldAttr = {
                         "attributes": [
-                            {
-                                "id": "comptype",
+							{
+                                "id": "band",
                                 "edittype": "Enum",
-								"enumlist" : ["button", "combo", "edit", "maskedit", "textarea", "static", "radio", "checkbox", "spin", "calendar", "imageviewer", "progressbar"],
-                                "defaultvalue": this.COMP_TYPE,
-                                "description": "Types of Components to be Expressed"
+                                "defaultvalue": "body",
+								"enumlist" : ["body", "detail"],
+                                "description": "Cell 생성시 수직 정렬 방식을 설정하는 속성"
+                            },
+                            {
+                                "id": "displaytype",
+                                "edittype": "Enum",
+								"enumlist" : ["normal", "none", "buttoncontrol", "calendarcontrol", "date", "checkboxcontrol", "combocontrol", "combotext", "currency", "decoratetext", "editcontrol", "imagecontrol", "mask", "maskeditcontrol", "number",  "progressbarcontrol",  "text",  "textareacontrol",  "treeitemcontrol"],
+                                "defaultvalue": this.FIELD_DISPLAY_TYPE,
+                                "description": "Field Cell 표시타입"
+                            },
+							{
+                                "id": "edittype",
+                                "edittype" : "Enum",
+								"enumlist" : ["normal", "none", "button", "checkbox", "combo", "date", "mask", "readonly", "text", "textarea", "tree"],
+								"defaultvalue" : this.FIELD_EDIT_TYPE,
+                                "description" : "Field Cell 입력타입"
                             },
 							{
                                 "id": "fieldwidth",
                                 "edittype": "String",
 								"defaultvalue": this.FIELD_WIDTH,
-                                "description": "Field Width(px or %)"
+                                "description": "Field 넓이(px or %)"
                             },
 							{
                                 "id": "fieldheight",
                                 "edittype": "String",
 								"defaultvalue": this.FIELD_HEIGHT,
-                                "description": "Field Height(px or %)"
+                                "description": "Field 높이(px or %)"
                             },
 							{
                                 "id": "labelwidth",
                                 "edittype": "Number",
 								"defaultvalue": this.LABEL_WIDTH,
-                                "description": "Label Width(px)"
+                                "description": "Label 넓이(px)"
                             },
 							{
-                                "id": "cssclass",
+                                "id": "fieldcssclass",
                                 "edittype": "String",
-								"defaultvalue": this.COMP_CSSCLASS,
-                                "description": "Component CSS Class"
+								"defaultvalue": this.FIELD_CSSCLASS,
+                                "description": "Field CSS Class"
                             },
 							{
                                 "id": "labelcssclass",
@@ -556,7 +366,7 @@ fn_GetFieldUserAttributeList = function ()
                                 "id": "usecomp",
                                 "edittype": "Boolean",
 								"defaultvalue": this.USE_COMP,
-                                "description": "Use Component"
+                                "description": "Cell 생성여부"
                             }
                         ]
                   };
@@ -565,7 +375,8 @@ fn_GetFieldUserAttributeList = function ()
 
  	sFieldAttr = JSON.stringify(oFieldAttr, null, "\t");
     return sFieldAttr;
-}
+};
+
 /************************************************************************************************
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
@@ -577,7 +388,6 @@ fn_GetFieldUserAttributeList = function ()
  *---------------------------------------------------------------------------------------------*/
 fn_GetModel = function()
 {
-
 	//Import View Component Width Value
 	var nViewCompWidth = this.oContents.View.referenceinfo.realwidth;
 
@@ -586,50 +396,200 @@ fn_GetModel = function()
 	
 	// Title 영역
 	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
-	var sUseTotalCount		= this.USE_TOT_COUNT;									// 전체건수 Static 생성
-	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 생성
+	var sUseTotalCount		= this.oGenerationAttr.attributes.usetotalcount;		// 전체건수 Static 생성
+	var sUseExpandButton	= "none";												// expand 토글버튼 생성
 	
 	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 	
-	// View 사이즈에서 View 여백 설정
-	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
-	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
+	// Detail 밴드가 표시되는 방법을  지정
+	var sBandExpandType = this.oGenerationAttr.attributes.bandexpandtype;
+	
+	// Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부
+	var sExpandBarType	= this.oGenerationAttr.attributes.expandbartype;
+	var bExpandBar		= sExpandBarType == "true" ? true : false;
+	
+	// ListView 위치
+	var nTop = this.VIEW_PADDING_TOP;
+	var nBottom	= this.VIEW_PADDING_BOTTOM;
+	var nLeft	= this.VIEW_PADDING_LEFT;
+	var nRight	= this.VIEW_PADDING_RIGHT;
+	var nHeight	= nViewCompHeight - nTop;
+	var nWidth	= nViewCompWidth;
+	
+	// Field Array
+	var arrField = new Array();
+	var arrFieldUse = new Array(); 
+	var arrFieldBody = new Array(); 
+	var arrFieldDetail = new Array(); 
+	var oField;
+	
+	//Create Model Field ID List to use in LivtView
+    for(i=0;i<this.oFieldArray.fieldcount;i++)
+    {
+        oField = this.oFieldArray.fields[i];
+		
+		// this.oFieldArray Json Data로 Field Array() 셋팅
+		arrField.push(oField.id);
+		
+		
+		// 사용여부
+		if (oField.usecomp != "false") {
+			arrFieldUse.push(oField);
+			
+			if (oField.band == "detail") {
+				arrFieldDetail.push(oField);
+			} else {
+				arrFieldBody.push(oField);
+			}
+		}
+    }
+	
+	// Band 배열(body,detail)
+	var arrFormat = new Array();
+	var oBandBody = {};
+	var oBandDetail = {};
+	
+	// Body Band
+	oBandBody = fn_GetBands("body", arrFieldUse, arrFieldBody, this.oGenerationAttr.attributes.bodyformat, nWidth, nHeight, bExpandBar);
+	if (this.lfn_IsNotNull(oBandBody))		arrFormat.push(oBandBody);
+	
+	// Detail Band
+	oBandDetail = fn_GetBands("detail", arrFieldUse, arrFieldDetail, this.oGenerationAttr.attributes.detailformat, nWidth, nHeight, false);
+	if (this.lfn_IsNotNull(oBandDetail))		arrFormat.push(oBandDetail);
+	
+	//Add Grip Component
+	var oModel = this.oContents.View.Model;
+    oModel[oModel.length] = {
+            "fieldid" : arrField.join(","),
+            "Components" :
+            [
+                {
+                    "tag" : "ListView",
+                    "attribute" :
+                    {
+                        "id" : this.LISTVIEW_ID, "left" : nLeft,    "top" : nTop, "right" : nRight, "bottom" : nBottom, "binddataset" : "viewdataset"
+						, "bandexpandtype" : sBandExpandType
+                    },
+                    "ListView" :
+                    [
+                        {
+                            "tag": "Formats",
+                            "attribute": {},
+                            "Formats":
+                            [
+                                {
+                                    "tag": "Format",
+                                    "attribute": { "id": "default" },
+                                    "Format": arrFormat
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+		
+	//Return Information of Model to be Created
+    return oModel;
+};
 
-	//If format properties are set up, create components based on layout rules
-	if(this.oGenerationAttr.attributes.format)
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_GetBands
+ * Parameter    : 
+				- sBand : Band Type(body, detail)
+				- arrFieldList : Field List added on the Cell
+				- oLayout : Layout Setting Information
+				- nViewCompWidth : View Component Real Width
+				- nViewCompHeight : View Component Real Height
+				- bExpandBar : ExpandBar 표시여부
+				- 
+ * Return       : Band Info Object
+ * Description  : Band Information Production Function
+ *---------------------------------------------------------------------------------------------*/
+fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth, nViewCompHeight, bExpandBar)
+{
+	var arrBandCells = new Array();
+	var oBand = {};
+	
+	var nBandHeight = 0;
+	var nCellBottom = 0;
+	var oCell;
+	
+	if (bExpandBar)
 	{
-		//Import Layout Information
-		var oLayout = this.oGenerationAttr.attributes.format;
-
+		nViewCompWidth = nViewCompWidth - this.EXPAND_BAR_WIDTH - this.COMP_SPACE;
+	}
+	
+	//If format properties are set up, create components based on layout rules
+	if(oLayout)
+	{
+		// TODO : layout!!!!
 		//Load Layout Calculation Function
-		fn_CalcLayout(oLayout, nViewCompWidth, nViewCompHeight);
+		fn_CalcLayout(arrFieldUse, oLayout, nViewCompWidth, nViewCompHeight);
 
 		//Load Layout-based Component Production Function
-		fn_MakeCompByLayout(oLayout);
-
+		arrBandCells = fn_GetBandCellByLayout(arrFieldUse, oLayout);
 	}
 	//If the format properties are not set, create components based on default rules
 	else
 	{
-		//Import Field Information
-		var arrFieldList = this.oUseFieldArray.fields;
-
 		//Import Component Production Direction Information
 		var sDirection = this.oGenerationAttr.attributes.direction;
 
 		//Import Component Horizontal Alignment Information
-		var sHAlign = this.oGenerationAttr.attributes.halign;
+		var sHAlign = "left";
 
 		//Import Component Vertical Alignment Information
-		var sVAlign = this.oGenerationAttr.attributes.valign;
+		var sVAlign = "top";
 
 		//Load Component Location Calculation Information
-		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
-
+		var arrFieldPosition = fn_CalcField(arrFieldBand, sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
+		
 		//Load Component Production Function
-		fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
+		arrBandCells = fn_GetBandCell(0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
 	}
+	
+	// Band 객체값 셋팅
+	if (arrBandCells.length > 0 || bExpandBar) 		// Band Cell이 있거나, ExpandBar가 있는 경우 Band 설정
+	{
+		oBand = {
+			"tag" : "Band",
+			"attribute" : {
+				"id"		: sBand,
+				"width"		: "100%",
+				"height"	: nBandHeight
+			},
+			"Band" : arrBandCells
+		};
+		
+		// 가장 아래 Cell 기준으로 Band 높이 설정
+		if (arrBandCells.length > 0) {
+			for(var i = 0; i < arrBandCells.length; i++)
+			{
+				oCell = arrBandCells[i];
+				nCellBottom = nexacro.toNumber(oCell.attribute.top,0) + nexacro.toNumber(oCell.attribute.height,0);
+			
+				if (nBandHeight < nCellBottom)		nBandHeight = nCellBottom;
+			}
+			
+			oBand.attribute.height = nBandHeight;
+		}
+		
+		// bExpandBar 설정
+		if (bExpandBar) {
+			oBand.attribute.expandbartype = bExpandBar;
+			oBand.attribute.expandbarsize = this.EXPAND_BAR_WIDTH + " " + this.EXPAND_BAR_HEIGHT;
+			
+			// Band 사이즈가 ExpandBar보다 작은경우 Band 사이즈 설정
+			if (nBandHeight < this.EXPAND_BAR_HEIGHT) {
+				oBand.attribute.height = this.EXPAND_BAR_HEIGHT;
+			} 
+		}
+	}
+			
+	return oBand;
 };
+
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_CalcLayout
@@ -640,7 +600,7 @@ fn_GetModel = function()
 				- nViewCompHeight : View Component Real Height
  * Description  : Layout Calculation Function
  *---------------------------------------------------------------------------------------------*/
-fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
+fn_CalcLayout = function(arrFieldList, oLayout, nViewCompWidth, nViewCompHeight)
 {
 	//CellList Information set on Layout
 	var arrCellList = oLayout.celllist;
@@ -736,7 +696,7 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
 		if(oCell.fieldlist)
 		{
 			//Evaluate the Field Location Value to input on that Cell
-			oCell.fieldposition = fn_CalcFieldByLayout(sDirection, sVAlign, sHAlign, nColSize, nRowSize, oCell.fieldlist);
+			oCell.fieldposition = fn_CalcFieldByLayout(arrFieldList, sDirection, sVAlign, sHAlign, nColSize, nRowSize, oCell.fieldlist);
 		}
 	}
 }
@@ -753,7 +713,7 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
  * Return       : arrFieldPosition : Object Array with Field Location Information
  * Description  : Function to Evaluate the Field Location Value to be Expressed
  *---------------------------------------------------------------------------------------------*/
-fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, arrFieldInCellList)
+fn_CalcFieldByLayout = function(arrFieldList, sDirection, sVAlign, sHAlign, nColSize, nRowSize, arrFieldInCellList)
 {
 	var nLeft = 0;
 	var nTop = 0;
@@ -765,9 +725,6 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 	var nStartX, nStartY;
 	var nEndX, nEndX;
 	var nTemp;
-
-	//Import Field List Registered to the Model
-	var arrFieldList = this.oUseFieldArray.fields;
 
 	//Number of Fields connected to the Cell
 	var nFieldInCellCnt;
@@ -883,7 +840,7 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
 				nLeft += nFiledWidthMax;
 
 				//Initialize Top Coordinate
-				nTop  = 0;
+				nTop = 0;
 
 				//Initialize the largest Width Value
 				nFiledWidthMax = 0;
@@ -1016,10 +973,10 @@ fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize
  * Return       : arrFieldPosition : Object Array with Field Location Information
  * Description  : Function to Evaluate the Field Location Value to be Expressed
  *---------------------------------------------------------------------------------------------*/
-fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
+fn_CalcField = function(arrFieldList, sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 {
 	var nLeft = 0;
-	var nTop  = 0;
+	var nTop = 0;
 	var nRowIdx = 0;
 	var nColIdx = 0;
 	var nFiledWidthMax = 0;
@@ -1028,9 +985,6 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 	var nStartX, nStartY;
 	var nEndX, nEndX;
 	var nTemp;
-
-	//Import Field List Registered to the Model
-	var arrFieldList = this.oUseFieldArray.fields;
 
 	//Number of Fields connected to the Cell
 	var nFieldInCellCnt;
@@ -1077,7 +1031,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		nRealColSize = nColSize - nLabelWidth;
 
 		//Evaluate Width/Height that this field will be expressed on
-		nFieldWidth = this.lfn_GetRealSize(oField.fieldwidth, 0, nRealColSize, this.FIELD_WIDTH, 0, 0);
+		nFieldWidth = this.lfn_GetRealSize(oField.fieldwidth, 0 , nRealColSize, this.FIELD_WIDTH, 0, 0);
 		nFieldHeight = this.lfn_GetRealSize(oField.fieldheight, 0, nRowSize, this.FIELD_HEIGHT, 0, 0);
 
 		//If the Component Production Direction is Horizontal
@@ -1089,7 +1043,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 			else nTemp = 0;
 
 			//Start a new line if the Field exceeds the Cell Height
-			if(nLeft+nFieldWidth+nLabelWidth-nTemp-this.VIEW_PADDING_LEFT>nColSize)
+			if(nLeft+nFieldWidth+nLabelWidth-nTemp>nColSize)		// [ListView] ListView 컴포넌트에서 this.VIEW_PADDING_LEFT 여백 설정됨.
 			{
 				//The Right value of the last Field of this Row
 				nEndX = nLeft;
@@ -1126,7 +1080,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 		else
 		{
 			//Start a new line if the Field exceeds the Cell Height
-			if(nTop+nFieldHeight-this.VIEW_PADDING_TOP>nRowSize)
+			if(nTop+nFieldHeight>nRowSize)					// [ListView] ListView 컴포넌트에서 this.VIEW_PADDING_TOP 여백 설정됨.
 			{
 				//The Bottom Value of the last Field of this Row
 				nEndY = nTop;
@@ -1139,7 +1093,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 				nLeft += nFiledWidthMax + nLabelWidth;
 
 				//Initialize Top Coordinate
-				nTop  = 0;
+				nTop = 0;
 
 				//Initialize the largest Width Value
 				nFiledWidthMax = 0;
@@ -1204,6 +1158,8 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 				nAlignX = this.lfn_CalcAlignPos(sHAlign, nColSize, (nEndX - nStartX - nTemp));
 			}
 		}
+		
+		//this.lfn_Log(sFieldId + " => left : " + nLeft + ", top : " + nTop + ", width : " + nFieldWidth + ", height : " + nFieldHeight);
 
 		//Save the Field Location Information
 		arrFieldPosition[j] =
@@ -1253,14 +1209,17 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 }
 
 /*---------------------------------------------------------------------------------------------*
- * Function     : fn_MakeCompByLayout
+ * Function     : fn_GetBandCellByLayout
  * Parameter    :
 				- oLayout : Layout Setting Information
  * Return       :
  * Description  : Layout-based Component Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_MakeCompByLayout = function(oLayout)
+fn_GetBandCellByLayout = function(arrFieldList, oLayout)
 {
+	var arrBandCells = new Array();
+	var arrCellRet = new Array();
+	
 	//CellList Information set on Layout
 	var arrCellList = oLayout.celllist;
 
@@ -1278,6 +1237,7 @@ fn_MakeCompByLayout = function(oLayout)
 	var sDirection, sVAlign, sHAlign;
 	var nWidth;
 	var nHeight;
+	var bStartCol = true;
 
 	var oCell;
 	var oStatic;
@@ -1299,18 +1259,24 @@ fn_MakeCompByLayout = function(oLayout)
 		if(!oCell.fieldlist)continue;
 
 		//Import the Left/Top Location Value of the current Cell
-		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef) + this.VIEW_PADDING_LEFT;
-		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef) + this.VIEW_PADDING_TOP;
-
+		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef);
+		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef);
+		
 		if(nCol==0)bStartCol = true;
 		else bStartCol = false;
 
-		fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, nRow, bStartCol);
+		arrCellRet = fn_GetBandCell(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, nRow, bStartCol);
+		
+		if (arrCellRet.length > 0) {
+			arrBandCells = arrBandCells.concat(arrCellRet);
+		}
 	}
+	
+	return arrBandCells;
 }
 
 /*---------------------------------------------------------------------------------------------*
- * Function     : fn_MakeComp
+ * Function     : fn_GetBandCell
  * Parameter    :
 				- nBaseLeft : Reference Coordinate (Left) to create Component
 				- nBaseTop : Reference Coordinate (Top) to create Component
@@ -1324,8 +1290,10 @@ fn_MakeCompByLayout = function(oLayout)
  * Return       :
  * Description  : Component Tag Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, nLayoutRow, bStartCol)
+fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, nLayoutRow, bStartCol)
 {
+	var arrBandCells = new Array();
+	
 	var nLabelLeft, nLabelTop, nLabelWidth, nLabelHeight;
 	var nCompLeft, nCompTop, nCompWidth, nCompHeight, nCompBgWidth;
 	var nPosLeft, nPosTop, nPosWidth, nPosHeight;
@@ -1340,20 +1308,20 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var nAlignX, nAlignY;
 	var nCheckIdx;
 
-	var oModel = this.oContents.View.Model;
 	var sCompId;
-	var oCompClass;
-	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
-	var oCompBgClass		= this.lfn_GetCompClass(this.COMP_BG_TYPE);
-	var sCompCssClass;
+	var sCellClassNm = "Cell";
+	var sLabel;
+	var sDisplayType;
+	var sEditType;
+	var sFieldCssClass;
 	var sLabelCssClass;
-	var sFieldBgCssClass = this.COMP_BG_CSSCLASS;
+	var sFieldBgCssClass = this.FIELD_BG_CSSCLASS;
 	
 	// FieldBox 사용여부
 	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
 
 	if(!bUseLayout)bUseLayout = false;
-	
+
 	//If using Layout
 	if(bUseLayout==true)
 	{
@@ -1362,13 +1330,16 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			//Import Field Object
 			oFieldPosition = arrFields[i];
 			sFieldId = oFieldPosition.fieldid;
-			oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			oField = this.oFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			//Displaytype 설정
+			sDisplayType = oField.displaytype;
+			
+			//edittype 설정
+			sEditType = oField.edittype;
 
-			//Import Component Naming Rules
-			oCompClass = this.lfn_GetCompClass(oField.comptype);
-
-			//Import Component Css Class Id Value
-			sCompCssClass = oField.cssclass;
+			//Import Field Css Class Id Value
+			sFieldCssClass = oField.fieldcssclass;
 
 			//Import Label Css Class Id Value
 			sLabelCssClass = oField.labelcssclass;
@@ -1386,7 +1357,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			nPosTop = nexacro.toNumber(oFieldPosition.top);
 			nPosWidth = nexacro.toNumber(oFieldPosition.width);
 			nPosHeight = nexacro.toNumber(oFieldPosition.height);
-
+			
 			//Create Label Area with Label Information from the first Field
 			if(i==0)
 			{
@@ -1453,81 +1424,64 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 					nCompTop = nCompTop + this.COMP_PADDING_TOP;
 				}
 			}
-
+			
 			nLabelTop = nLabelTop - (nLayoutRow * 1);
 			nCompTop = nCompTop - (nLayoutRow * 1);
-
-			oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
 
 			//If it is the first label and the label width is no 0, add label tag
 			if(i==0)
 			{
-
+				//필드 배경 Cell 추가
 				if(bStartCol==true && sUseFieldBox == "true")
 				{
 					nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
 
-					//필드 배경 Static 추가
-					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+					sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
 					oComp = {
-								"tag" : oCompBgClass.classId,
+								"tag" : sCellClassNm,
 								"attribute" :
 								{
 									"id" : sCompId, "left" : 0, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
 									,"cssclass" : sFieldBgCssClass
 								}
 							};
-					oModel[oModel.length-1].Components.push(oComp);
+					arrBandCells.push(oComp);
 				}
-
+				
 				if(nLabelWidth>0)
 				{
-					sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
+					sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Label" + "_" + sFieldId );
 					oComp = {
-								"tag" : oLabelClass.classId,
+								"tag" : sCellClassNm,
 								"attribute" :
 								{
 									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
 									, "text" : oField.label, "cssclass" : sLabelCssClass
 								}
 							};
-					oModel[oModel.length-1].Components.push(oComp);
+					arrBandCells.push(oComp);
 				}
 			}
-
+			
 			//Add Component Tag
-			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompId = this.lfn_GetCompId(sCellClassNm + "_" + sFieldId);
+			sLabel = "bind:"+sFieldId;
 			oComp = {
-						"tag" : oCompClass.classId,
+						"tag" : sCellClassNm,
 						"attribute" :
 						{
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight
-							, "cssclass" : sCompCssClass
+							, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sFieldCssClass
 						}
 					};
 
 			//If the Component Type is Button, add label text to the text properties
-			if(oField.comptype=="button")
-			{
-				oComp.attribute.text = oField.label;
-			}
-			//If the Component Type is Checkbox, add label text to the text properties
-			else if(oField.comptype=="checkbox")
-			{
-				oComp.attribute.text = oField.label;
-			}//If the Component Type is Static, add label text to the text properties
-			else if(oField.comptype=="static")
+			if(sDisplayType=="buttoncontrol")
 			{
 				oComp.attribute.text = oField.label;
 			}
 
-			if(oField.comptype!="button")
-			{
-				//In order to process the Bind, add Id, Field Id to BindItems Array
-				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
-			}
-
-			oModel[oModel.length-1].Components.push(oComp);
+			arrBandCells.push(oComp);
 		}
 	}
 	//If Layout is not used
@@ -1538,13 +1492,16 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			//Import Field Object
 			oFieldPosition = arrFields[i];
 			sFieldId = oFieldPosition.fieldid;
-			oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
-
-			//Import Component Naming Rules
-			oCompClass = this.lfn_GetCompClass(oField.comptype);
-
+			oField = this.oFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			//Displaytype 설정
+			sDisplayType = oField.displaytype;
+			
+			//edittype 설정
+			sEditType = oField.edittype;
+			
 			//Import Component Css Class Id Value
-			sCompCssClass = oField.cssclass;
+			sFieldCssClass = oField.fieldcssclass;
 
 			//Import Label Css Class Id Value
 			sLabelCssClass = oField.labelcssclass;
@@ -1552,7 +1509,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			//Import Row/Col Index where the Field will be located
 			nRowIdx = oFieldPosition.rowidx;
 			nColIdx = oFieldPosition.colidx;
-
+			
 			nRowSize = oFieldPosition.rowsize;
 			nColSize = oFieldPosition.colsize;
 
@@ -1565,7 +1522,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			nPosTop = nexacro.toNumber(oFieldPosition.top);
 			nPosWidth = nexacro.toNumber(oFieldPosition.width);
 			nPosHeight = nexacro.toNumber(oFieldPosition.height);
-
+			
 			//Import Field Label Width Information
 			nLabelAreaWidth = nexacro.toNumber(oField.labelwidth);
 
@@ -1621,72 +1578,61 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				nCheckIdx = nRowIdx;
 			}
 			
-			oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
-			
-			//필드 배경 Static 추가
+			//필드 배경 Cell 추가
 			if(nCheckIdx==0 && sUseFieldBox == "true")
 			{
 				nCompBgWidth = nColSize - nLabelLeft;
 
-				sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+				sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
 				oComp = {
-							"tag" : oCompBgClass.classId,
+							"tag" : sCellClassNm,
 							"attribute" :
 							{
 								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nCompBgWidth, "height" : nLabelHeight
 								,"cssclass" : sFieldBgCssClass
 							}
 						};
-				oModel[oModel.length-1].Components.push(oComp);
+				arrBandCells.push(oComp);
 			}
 			
-			//라벨 Static 추가
+			// 라벨 Cell 추가
 			if(nLabelWidth>0)
 			{
-				sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
+				sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Label" + "_" + sFieldId);
 				oComp = {
-							"tag" : oLabelClass.classId,
+							"tag" : sCellClassNm,
 							"attribute" :
 							{
 								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
 								, "text" : oField.label, "cssclass" : sLabelCssClass
 							}
 						};
-				oModel[oModel.length-1].Components.push(oComp);
+				arrBandCells.push(oComp);
 			}
 			
-			// Field 추가
-			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			// Field Cell 추가
+			sCompId = this.lfn_GetCompId(sCellClassNm + "_" + sFieldId);
+			sLabel = "bind:"+sFieldId;
 			oComp =	{
-						"tag" : oCompClass.classId,
+						"tag" : sCellClassNm,
 						"attribute" :
 						{
-							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
+							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight
+							, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sFieldCssClass
 						}
 					};
-
-			if(oField.comptype=="button")
+			
+			
+			if(sDisplayType=="buttoncontrol")
 			{
 				oComp.attribute.text = oField.label;
-			}
-			//If the Component Type is Checkbox, add label text to the text properties
-			else if(oField.comptype=="checkbox")
-			{
-				oComp.attribute.text = oField.label;
-			}//If the Component Type is Static, add label text to the text properties
-			else if(oField.comptype=="static")
-			{
-				oComp.attribute.text = oField.label;
-			}
-
-			if(oField.comptype!="button")
-			{
-				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype};
 			}
 			
-			oModel[oModel.length-1].Components.push(oComp)
+			arrBandCells.push(oComp);
 		}
 	}
+	
+	return arrBandCells;
 };
 
 /*---------------------------------------------------------------------------------------------*
@@ -1709,10 +1655,10 @@ fn_GetInitValue = function()
  *---------------------------------------------------------------------------------------------*/
 fn_GetObjects = function()
 {
-	//Initialize Object
+    //Initialize Object
     var oObjects = [];
 
-    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
+    var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 0);
 
     //Object Information Setting
     oObjects.push(oViewDataset);
@@ -1741,27 +1687,15 @@ fn_GetBind = function()
 fn_GetScript = function()
 {
     var oScript = {};
-	var sScript = "";
-	
-	var sViewNm = this.oContents.View.attribute.id;
-	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
-	
-	if (sUseExpandButton != "none")
-	{
-		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
-	}
-	
-    if (this.lfn_IsNotNull(sScript))
-	{
-		sScript = nexacro.replaceAll(sScript,"\t","");
-		
-		oScript =
-		{
-			"tag": "Script",
-			"attribute": { "type" : "xscript5.1" },
-			"value": sScript
-		}
-	};
+
+    /*
+    oScript =
+    {
+        "tag": "Script",
+        "attribute": { "type" : "xscript5.1" },
+        "value": "this.fn_Alert = function(){this.alert('MESSAGE')};"
+    }
+    */
 
     return oScript;
 };]]></Script>
