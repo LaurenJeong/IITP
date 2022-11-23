@@ -557,7 +557,7 @@ this.viewSearch_Edit_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInf
 {
 	if(e.keycode ==13)
 	{
-		this.SearchDBAction01.run();
+		this.TransactionAction01.run();
 	}
 };
 
@@ -579,12 +579,12 @@ this.viewList_viewdataset_onrowposchanged = function(obj:nexacro.NormalDataset,e
 };
 ]]></Script>
     <Objects>
-      <SearchDBAction id="SearchDBAction00" servicemodel="getpricelist" serviceurl="IP::getproductcode.jsp" inputdatasets="" outputdatasets="viewSearch.form.innerdatasetCustomerCode=dscustomer viewDetail.form.innerdatasetAssetGroups=dsasset viewDetail.form.innerdatasetProductGroups=dsgroup viewDetail.form.innerdatasetUnit=dsunit viewDetail.form.innerdatasetTradingType=dsstatus viewList.form.innerdatasetCompanyCode=dsmanufacture viewList.form.innerdatasetUnit=dsunit">
+      <TransactionAction id="TransactionAction00" servicemodel="getpricelist" serviceurl="IP::getproductcode.jsp" inputdatasets="" outputdatasets="viewSearch.form.innerdatasetCustomerCode=dscustomer viewDetail.form.innerdatasetAssetGroups=dsasset viewDetail.form.innerdatasetProductGroups=dsgroup viewDetail.form.innerdatasetUnit=dsunit viewDetail.form.innerdatasetTradingType=dsstatus viewList.form.innerdatasetCompanyCode=dsmanufacture viewList.form.innerdatasetUnit=dsunit">
         <Contents/>
-      </SearchDBAction>
-      <SearchDBAction id="SearchDBAction01" servicemodel="getmainlist" serviceurl="IP::getpricelist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=dsprice">
+      </TransactionAction>
+      <TransactionAction id="TransactionAction01" servicemodel="getmainlist" serviceurl="IP::getpricelist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=dsprice">
         <Contents/>
-      </SearchDBAction>
+      </TransactionAction>
       <DsAddDataAction id="DsAddDataAction00" targetview="viewList" onsuccess="DsAddDataAction00_onsuccess">
         <Contents><![CDATA[{
     "model":[
@@ -612,9 +612,9 @@ this.viewList_viewdataset_onrowposchanged = function(obj:nexacro.NormalDataset,e
       <DsIsUpdatedAction id="DsIsUpdatedAction00" targetview="viewList" checkfilter="false">
         <Contents/>
       </DsIsUpdatedAction>
-      <SearchDBAction id="SearchDBAction02" servicemodel="getpricelist" serviceurl="IP::setpricelist.jsp" inputdatasets="dsprice=viewList.form.viewdataset:U">
+      <TransactionAction id="TransactionAction02" servicemodel="getpricelist" serviceurl="IP::setpricelist.jsp" inputdatasets="dsprice=viewList.form.viewdataset:U">
         <Contents/>
-      </SearchDBAction>
+      </TransactionAction>
       <MessageAction id="MessageAction00" message="변경된 데이터가 없습니다." targetview="price" messagetype="alert">
         <Contents/>
       </MessageAction>
@@ -623,14 +623,14 @@ this.viewList_viewdataset_onrowposchanged = function(obj:nexacro.NormalDataset,e
       </MessageAction>
     </Objects>
     <Trigger>
-      <TriggerItem id="item0" triggertype="Form Init" triggerview="price" triggerobj="price" targetaction="SearchDBAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction01" condition=""/>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="price" triggerobj="price" targetaction="TransactionAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="TransactionAction01" condition=""/>
       <TriggerItem id="item2" triggertype="Click" triggerview="viewButton" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition="this.viewSearch.form.cmbCustomerCode.index!=-1"/>
       <TriggerItem id="item3" triggertype="Click" triggerview="viewButton" triggerobj="btnDelete" targetaction="DsDeleteDataAction00" condition=""/>
       <TriggerItem id="item6" triggertype="Click" triggerview="viewButton" triggerobj="btnSave" targetaction="DsIsUpdatedAction00" condition=""/>
-      <TriggerItem id="item4" triggertype="Action Success" triggerview="price" triggerobj="DsIsUpdatedAction00" targetaction="SearchDBAction02" condition=""/>
+      <TriggerItem id="item4" triggertype="Action Success" triggerview="price" triggerobj="DsIsUpdatedAction00" targetaction="TransactionAction02" condition=""/>
       <TriggerItem id="item7" triggertype="Action Fail" triggerview="price" triggerobj="DsIsUpdatedAction00" targetaction="MessageAction00" condition=""/>
-      <TriggerItem id="item8" triggertype="Action Success" triggerview="price" triggerobj="SearchDBAction02" targetaction="MessageAction01" condition=""/>
+      <TriggerItem id="item8" triggertype="Action Success" triggerview="price" triggerobj="TransactionAction02" targetaction="MessageAction01" condition=""/>
       <TriggerItem id="item5" triggertype="Click" triggerview="viewDetail" triggerobj="btnProductSelect" targetaction="PopupAction00" condition=""/>
     </Trigger>
   </Form>

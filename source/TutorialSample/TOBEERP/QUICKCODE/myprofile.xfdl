@@ -252,16 +252,16 @@ this.MaskEdit_oninput = function(obj:nexacro.MaskEdit,e:nexacro.InputEventInfo)
 	obj.set_format("@@@@@@@@@@@");
 };]]></Script>
     <Objects>
-      <SearchDBAction id="SearchDBAction00" serviceurl="IP::getmyinfo.jsp" outputdatasets="viewMaster.form.viewdataset=dsmyinfo" servicemodel="getmyinfo">
+      <TransactionAction id="TransactionAction00" serviceurl="IP::getmyinfo.jsp" outputdatasets="viewMaster.form.viewdataset=dsmyinfo" servicemodel="getmyinfo">
         <Contents/>
-      </SearchDBAction>
+      </TransactionAction>
       <DsCopyDataAction id="DsCopyDataAction00" targetview="viewMaster" fromview="myprofile" copytype="replace" targetdataset="innerdatasetCorporateArea" fromdataset="gdsArea">
         <Contents/>
       </DsCopyDataAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item1" triggertype="Form Init" triggerview="myprofile" triggerobj="myprofile" targetaction="DsCopyDataAction00" condition=""/>
-      <TriggerItem id="item2" triggertype="Action Success" triggerview="myprofile" triggerobj="DsCopyDataAction00" targetaction="SearchDBAction00" condition=""/>
+      <TriggerItem id="item2" triggertype="Action Success" triggerview="myprofile" triggerobj="DsCopyDataAction00" targetaction="TransactionAction00" condition=""/>
     </Trigger>
   </Form>
 </FDL>

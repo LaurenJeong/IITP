@@ -29,23 +29,23 @@ if (!nexacro.PopupAction)
 	//===============================================================
 	nexacro.PopupAction.prototype.run = function()
 	{
-		//TargetView로 설정된 오브젝트 가져오기
-		var objView = this.getTargetView();
-		
-		//팝업 호출시 사용할 Param정보 가져오기
-		var sPopupId = this.popupid;
-		var sFormUrl = this.formurl;
-		var sTitle = this.title;
-		var sPopupStyle = this.popupstyle;
-		var nLeft = this.popupleft;
-		var nTop = this.popuptop;
-		var nWidth = this.popupwidth;
-		var nHeight = this.popupheight;
-		var objArgs = this._args;
-		
 		//canrun 이벤트의 리턴값이 false가 아닐경우
 		if(this.on_fire_canrun("userdata")!=false)
 		{
+			//TargetView로 설정된 오브젝트 가져오기
+			var objView = this.getTargetView();
+			
+			//팝업 호출시 사용할 Param정보 가져오기
+			var sPopupId = this.popupid;
+			var sFormUrl = this.formurl;
+			var sTitle = this.title;
+			var sPopupStyle = this.popupstyle;
+			var nLeft = this.popupleft;
+			var nTop = this.popuptop;
+			var nWidth = this.popupwidth;
+			var nHeight = this.popupheight;
+			var objArgs = this._args;
+		
 			if (this.gfnIsNull(sPopupId))
 			{
 				this.gfnLog("popupid가 설정되지 않았습니다.","error");
@@ -242,6 +242,7 @@ if (!nexacro.PopupAction)
 		var objOwnerFrame = objForm.getOwnerFrame();
 		var sOpenAlignType = "";
 		var bAutoSize = false;
+		var bTitle = true;
 		
 		if (this.gfnIsNull(nLeft))nLeft = -1;
 		if (this.gfnIsNull(nTop))nTop = -1;
@@ -255,6 +256,7 @@ if (!nexacro.PopupAction)
 			if (nLeft == -1 && nTop == -1 && nWidth == -1 && nHeight == -1)
 			{
 				bAutoSize = false;
+				bTitle = false;
 				
 				if (nWidth == -1 || nWidth > objApp.mainframe.width)
 				{	
@@ -324,7 +326,7 @@ if (!nexacro.PopupAction)
 			newChild.init(sPopupId, nLeft, nTop, nWidth, nHeight, null, null, sFormUrl);
 			
 			newChild.set_dragmovetype("none");
-			newChild.set_showtitlebar(false);		//titlebar는 안보임
+			newChild.set_showtitlebar(bTitle);
 			newChild.set_autosize(bAutoSize);	
 			newChild.set_resizable(false);			//resizable 안됨
 			if(!this.gfnIsNull(sTitle)) newChild.set_titletext(sTitle);

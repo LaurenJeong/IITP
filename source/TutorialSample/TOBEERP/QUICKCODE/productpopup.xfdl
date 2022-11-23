@@ -154,12 +154,12 @@
       </Layout>
     </Layouts>
     <Objects>
-      <SearchDBAction id="SearchDBAction00" servicemodel="getproductlist" serviceurl="IP::getproductcode.jsp" outputdatasets="viewList.form.innerdatasetCompanyCode=dsmanufacture">
+      <TransactionAction id="TransactionAction00" servicemodel="getproductlist" serviceurl="IP::getproductcode.jsp" outputdatasets="viewList.form.innerdatasetCompanyCode=dsmanufacture">
         <Contents/>
-      </SearchDBAction>
-      <SearchDBAction id="SearchDBAction01" servicemodel="getmainlist" serviceurl="IP::getproductlist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=dsproduct" onsuccess="SearchDBAction01_onsuccess">
+      </TransactionAction>
+      <TransactionAction id="TransactionAction01" servicemodel="getmainlist" serviceurl="IP::getproductlist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=dsproduct" onsuccess="TransactionAction01_onsuccess">
         <Contents/>
-      </SearchDBAction>
+      </TransactionAction>
       <PopupCloseAction id="PopupCloseAction00" targetview="productpopup" returntype="none">
         <Contents/>
       </PopupCloseAction>
@@ -168,8 +168,8 @@
       </PopupCloseAction>
     </Objects>
     <Trigger>
-      <TriggerItem id="item0" triggertype="Form Init" triggerview="productpopup" triggerobj="productpopup" targetaction="SearchDBAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction01" condition=""/>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="productpopup" triggerobj="productpopup" targetaction="TransactionAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="TransactionAction01" condition=""/>
       <TriggerItem id="item2" triggertype="Click" triggerview="productpopup" triggerobj="btnClose" targetaction="PopupCloseAction00" condition=""/>
       <TriggerItem id="item3" triggertype="Click" triggerview="viewList" triggerobj="grdList" targetaction="PopupCloseAction01" condition=""/>
     </Trigger>
@@ -180,14 +180,14 @@ this.viewSearch_edtProduct_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEv
 {
 	if(e.keycode == 13)
 	{
-		this.SearchDBAction01.run();
+		this.TransactionAction01.run();
 	}
 };
 
 /**
  * @description Transaction CallBack 함수
  */
-this.SearchDBAction01_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
+this.TransactionAction01_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
 	this.viewList.form.grdList.setFocus();
 };
