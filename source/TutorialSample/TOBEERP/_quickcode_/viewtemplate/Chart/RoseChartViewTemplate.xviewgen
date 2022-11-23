@@ -1,26 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="원그래프(Pie Chart)를 그려주는 템플릿&#13;&#10;- PieChart : 원차트&#13;&#10;- DoughnutChart : 도넛차트"/>
+  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="장미도표(Rose Diagrams)를 그려주는 템플릿"/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  [Chart] PieChart View Template
-*  @FileName 	PieChartViewTemplate.xviewgen 
+*  [Chart] RoseChart View Template
+*  @FileName 	RoseChartViewTemplate.xviewgen 
 *  @Creator 	Creator
-*  @CreateDate 	2022.03.16
-*  @Desction    원그래프(Pie Chart)를 그려주는 템플릿
-*  					- PieChart : 원차트
-*  					- DoughnutChart : 도넛차트
+*  @CreateDate 	2022.03.24
+*  @Desction    장미도표(RoseChart)를 그려주는 템플릿
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
 *******************************************************************************
-*  2022.03.16     		Creator       	      		최초 생성
+*  2022.03.24     		Creator       	      		최초 생성
 *******************************************************************************
 */
 /************************************************************************************************
  * include 선언부
  ************************************************************************************************/
-include "view_lib::util.xjs";
-include "view_lib::common.xjs";
-include "view_lib::chart.xjs";
+include "quickcode::viewtemplate/lib/util.xjs";
+include "quickcode::viewtemplate/lib/common.xjs";
+include "quickcode::viewtemplate/lib/chart.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
@@ -128,7 +126,7 @@ fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewMo
 
 	// View Padding 설정
 	this.lfn_SetViewPadding();
-	
+
 	//모델정보 생성 함수 호출
 	fn_GetModel(bPreviewMode);
 
@@ -176,36 +174,6 @@ fn_GetViewAttributeList = function() {
     var sViewAttr = "";
     var oViewAttr = {
                         "attributes": [
-							{
-                                "id": "charttype",
-                                "edittype": "Enum",
-                                "defaultvalue": "pie",
-                                "enumlist" : ["pie", "doughnut"],
-                                "description": "원차트 종류."
-												+ "\n" + " - pie : 원 차트"
-												+ "\n" + " - doughnut : 도넛 차트"
-                            }
-							, {
-                                "id": "chartdisplay",
-                                "edittype": "Enum",
-                                "defaultvalue": "circle",
-                                "enumlist" : ["circle", "semicircle"],
-                                "description": "원차트 표시모양"
-												+ "\n" + " - circle : 원"
-												+ "\n" + " - semicircle : 반원"
-                            }
-							, {
-                                "id": "innerradius",
-                                "edittype": "Number",
-                                "defaultvalue": "50",
-                                "description": "도넛차트의 안쪽 원의 지름 크기(%)"
-                            }
-							, {
-                                "id": "innertext",
-                                "edittype": "String",
-                                "defaultvalue": "",
-                                "description": "도넛차트의 안쪽 텍스트"
-                            }
 							, {									
                                 "id": "enableanimation",									
                                 "edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList									
@@ -227,7 +195,7 @@ fn_GetViewAttributeList = function() {
 							, {
                                 "id": "titlealign",
                                 "edittype": "Enum",
-                                "defaultvalue": "topleft",
+                                "defaultvalue": "topcenter",
                                 "enumlist" : ["topleft", "topcenter", "topright", "bottomleft", "bottomcenter", "bottomright", "lefttop", "leftcenter", "leftbottom", "righttop", "rightcenter", "rightbottom"],
                                 "description": "타이틀 표시 위치"
                             }
@@ -238,14 +206,14 @@ fn_GetViewAttributeList = function() {
                                 "enumlist" : ["none", "topleft", "topcenter", "topright", "bottomleft", "bottomcenter", "bottomright", "lefttop", "leftcenter", "leftbottom", "righttop", "rightcenter", "rightbottom"],
                                 "description": "범례 표시 위치"
                             }
+							, {
+                                "id": "itemtextposition",		// [RoseChart]
+                                "edittype": "Enum",
+                                "defaultvalue": "none",
+                                "enumlist" : ["none", "lefttop", "centertop", "righttop", "leftmiddle", "centermiddle", "rightmiddle", "leftbottom", "centerbottom", "rightbottom"],
+                                "description": "값 표시 위치"
+                            }
 							, this.oAttrViewPadding
-// 							, {
-//                                 "id": "itemtextposition",
-//                                 "edittype": "Enum",
-//                                 "defaultvalue": "none",
-//                                 "enumlist" : ["none", "start", "middle", "end", "outside"],
-//                                 "description": "값 표시 위치"
-//                             }
                         ]
                   };
 				  
@@ -286,12 +254,12 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id"			: "displaytype",
                                 "edittype"		: "Enum",
-								"enumlist" 		: ["none", "category", "series", "select"],
-                                "defaultvalue"	: "none",
+								"enumlist" 		: ["none", "category", "series"],
+                                "defaultvalue"	: "series",
                                 "description"	: "데이터 표현방식"
+												+ "\n" + " - none : 사용안함"
 												+ "\n" + " - category : 데이터명 Field(1개)"
-												+ "\n" + " - series : 데이터값 Field(1개)"
-												+ "\n" + " - select : 선택여부 데이터 Field(1개)"
+												+ "\n" + " - series : 데이터값 Field(n개)"
                             }
                         ]
                   };
@@ -302,7 +270,7 @@ fn_GetFieldUserAttributeList = function ()
 
     return sFieldAttr;
 }
- 
+
 /************************************************************************************************
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
@@ -322,8 +290,6 @@ fn_GetModel = function(bPreviewMode)
 	var oTitle = {};
 	var oLegend = {};
 	
-	var sChartType = this.oGenerationAttr.attributes.charttype;
-	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
 	var sTitletext = this.oGenerationAttr.attributes.titletext;
 	var sSubTitletext = this.oGenerationAttr.attributes.subtitletext;
 	var sTitleAlign = this.oGenerationAttr.attributes.titlealign;
@@ -335,10 +301,7 @@ fn_GetModel = function(bPreviewMode)
 	// 카테고리 필드
 	var oCategoryField;
 	
-	// 선택 필드 ID
-	var sSelectId;
-	
-	var arrField = new Array();
+	var arrField = new Array(); 
 	var arrSeriesField = new Array();
 
 	var sDisplaytype;
@@ -359,19 +322,9 @@ fn_GetModel = function(bPreviewMode)
 			} else {
 				this.lfn_Log("category가 여러개 설정되었습니다.(1개의 필드만 설정가능합니다)","warn");
 			}
-		} else if (sDisplaytype == "series") {
-			if (arrSeriesField.length == 0) {
-				arrSeriesField.push(oField);
-			} else {
-				this.lfn_Log("series가 여러개 설정되었습니다.(1개의 필드만 설정가능합니다.)","warn");
-			}
-		} else if (sDisplaytype == "select") {
-			if (this.lfn_IsNull(sSelectId)) {
-				sSelectId = oField.id;
-			} else {
-				this.lfn_Log("select가 여러개 설정되었습니다.(1개의 필드만 설정가능합니다.)","warn");
-			}
 			
+		} else if (sDisplaytype == "series") {
+			arrSeriesField.push(oField);
 		}
     }
 	
@@ -383,12 +336,6 @@ fn_GetModel = function(bPreviewMode)
 	oChartAttr["top"] = this.VIEW_PADDING_TOP;
 	oChartAttr["right"] = this.VIEW_PADDING_RIGHT;
 	oChartAttr["bottom"] = this.VIEW_PADDING_BOTTOM;
-	
-	// 도넛차트 내부 안쪽 원의 지름 크기, 텍스트 설정
-	if (sChartType == "doughnut") {
-		this.oBaseSeriesPie["innerradius"] = this.oGenerationAttr.attributes.innerradius;
-		this.oBaseBoard["text"] = this.oGenerationAttr.attributes.innertext;
-	}
 	
 	// 에니메이션 설정
 	oChartAttr["enableanimation"] = this.oGenerationAttr.attributes.enableanimation;
@@ -417,12 +364,6 @@ fn_GetModel = function(bPreviewMode)
 		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
 	}
 	
-	// 선택 필드 설정
-	if (this.lfn_IsNotNull(sSelectId)) {
-		this.oBaseSeriesPie["selectcolumn"] = "bind:" + sSelectId;
-		this.oBaseSeriesPie["selecttype"] = "bind";
-	}
-	
 	// Preview모드일때 Field 예외처리
 	if (bPreviewMode == true)
 	{
@@ -437,12 +378,7 @@ fn_GetModel = function(bPreviewMode)
 		if(arrSeriesField.length==0)
 		{
 			// 숫자형 데이터 filter
-			var oFilterField = this.oFieldArray.fields.find(oField => oField.datatype == "INT" || oField.datatype == "FLOAT" || oField.datatype == "BIGDECIMAL");
-			
-			if (this.lfn_IsNotNull(oFilterField))
-			{
-				arrSeriesField.push(oFilterField);
-			}
+			arrSeriesField = this.oFieldArray.fields.filter(oField => oField.datatype == "INT" || oField.datatype == "FLOAT" || oField.datatype == "BIGDECIMAL");
 		}
 	}
 	
@@ -453,9 +389,9 @@ fn_GetModel = function(bPreviewMode)
             "Components" :
             [
                 {
-                    "tag" : "PieChart",
+                    "tag" : "RoseChart",
                     "attribute" : oChartAttr,
-                    "PieChart" :
+                    "RoseChart" :
                     [
                         {
                             "tag"	: "Contents",
@@ -464,6 +400,8 @@ fn_GetModel = function(bPreviewMode)
 								"legend" 		: oLegend,
 								"tooltip" 		: this.oBaseTooltip,
 								"board" 		: this.oBaseBoard,
+								"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField),
+								"valueaxes" 	: fn_GetValueAxes(arrSeriesField),
 								"seriesset" 	: fn_GetSeries(arrSeriesField)
 							}
                         }
@@ -476,9 +414,58 @@ fn_GetModel = function(bPreviewMode)
     return oModel;
 };
 
+// 카테고리 축 설정
+fn_GetCategoryAxes = function(oCategoryField)
+{
+	var arrMaskInfo = new Array();
+	
+	var oCategoryAxes;
+	
+	// 카테고리축 추가
+	oCategoryAxes = {};
+	oCategoryAxes = this.lfn_CloneObject(this.oBaseCategoryaxis);
+	
+	if(this.lfn_IsNotNull(oCategoryField)) {
+		arrMaskInfo = this.lfn_GetDataTypeMask(oCategoryField.datatype);
+		oCategoryAxes["labelmask"] = arrMaskInfo[0];
+		oCategoryAxes["labeltype"] = arrMaskInfo[1];
+	}
+	
+	return oCategoryAxes;
+};
+
+// 데이터 축 설정
+fn_GetValueAxes = function(arrAxisYField)
+{
+	var arrValueAxes = new Array();
+	var oValueAxes;
+	
+	var arrMaskInfo = new Array();
+	var oField;
+	
+	// 기본y축 추가
+	oValueAxes = {};
+	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
+	oValueAxes["id"] = "valueaxis" + "y";
+	
+	if (arrAxisYField.length == 0) {
+		this.lfn_Log("series가 설정되지 않았습니다.","warn");
+	} else {
+		oFieldy = arrAxisYField[0];				// 첫번째 시리즈 기준으로 축값 설정
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy.datatype);
+		oValueAxes["labelmask"] = arrMaskInfo[0];
+		oValueAxes["labeltype"] = arrMaskInfo[1];
+	}
+	
+	arrValueAxes.push(oValueAxes);
+
+    return arrValueAxes;
+}
+
 // 시리즈 셋팅
 fn_GetSeries = function(arrSeriesField)
 {
+	var sItemTextPosition = this.oGenerationAttr.attributes.itemtextposition;
 	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
 	
 	var arrSeries = new Array();
@@ -494,21 +481,14 @@ fn_GetSeries = function(arrSeriesField)
 	for(var i=0;i<nCount;i++)
 	{
 		oField = arrSeriesField[i];
-		arrMaskInfo = this.lfn_GetDataTypeMask(oField.datatype);
 		
 		oSeries = {};
-		oSeries = this.lfn_CloneObject(this.oBaseSeriesPie);
+		oSeries = this.lfn_CloneObject(this.oBaseSeriesRadar);
 		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
 		oSeries["titletext"] = oField.label;
 		oSeries["valuecolumn"] = "bind:" + oField.id;
 		
-		// 차트유형설정
-		if (sChartDisplay == "semicircle") {		// 반원
-			oSeries["startangle"] = "270";
-			oSeries["endangle"] = "180";
-		}
-		
-		// [PieChart] 시리즈 색상처리
+		// [RoseChart] 시리즈의 색상처리
 		if (nCount == 1)	{				// 시리즈 1개
 			oSeries["fillstyle"] = this.arrBaseChartColor.toString();
 		} else {
@@ -516,9 +496,18 @@ fn_GetSeries = function(arrSeriesField)
 		}
 		
 		// 데이터 출력설정
-		oSeries["itemtextmask"]			= arrMaskInfo[0];
-		oSeries["itemtexttype"]			= arrMaskInfo[1];
+		if (sItemTextPosition == "none") {
+			oSeries["itemtextvisible"] = false;
+		} else {
+			arrMaskInfo = this.lfn_GetDataTypeMask(oField.datatype);
 			
+			oSeries["itemtextvisible"] 		= true;
+			oSeries["itemtextmask"]			= arrMaskInfo[0];
+			oSeries["itemtexttype"]			= arrMaskInfo[1];
+			
+			oSeries["lineitemtextposition"] = sItemTextPosition;
+		}
+		
 		arrSeries.push(oSeries);
 	}
 	
@@ -585,7 +574,6 @@ fn_GetObjects = function(bPreviewMode)
  *---------------------------------------------------------------------------------------------*/
 fn_GetScript = function()
 {
-
 	//스크립트 정보 초기화
     var oScript = {};
 

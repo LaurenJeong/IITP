@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="SearchViewTemplate" viewtype="Asset" description=""/>
+  <ViewTemplate id="dataViewTemplate" viewtype="Asset" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  Search View Template
-*  @FileName 	SearchViewTemplate.xviewgen
+*  Freeform View Template
+*  @FileName 	FreeformGapViewTemplate.xviewgen
 *  @Creator 	Kim Dae Won
 *  @CreateDate 	2021.04.29
-*  @Desction    조회조건영역(여백기능 추가) 생성 템플릿
+*  @Desction    상세화면(여백기능 추가) 생성 템플릿
 *  @version		1.0.0.0
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
@@ -17,16 +17,16 @@
 /************************************************************************************************
  * include 선언부
  ************************************************************************************************/
-include "view_lib::util.xjs";
-include "view_lib::common.xjs";
+include "quickcode::viewtemplate/lib/util.xjs";
+include "quickcode::viewtemplate/lib/common.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
 //--------------------------------------------------------------------------------------------------------
 // View 관련 상수
 //--------------------------------------------------------------------------------------------------------
-// View 여백(top/right/bottom/left)
-this.VIEW_PADDING			= "6 5";
+// View 여백
+this.VIEW_PADDING			= "";
 // 컴포넌트 생성 방향
 this.DIRECTION				= "horizontal";
 // 컴포넌트 생성 수평 정렬방식
@@ -34,68 +34,63 @@ this.HALIGN					= "left";
 // 컴포넌트 생성 수직 정렬방식
 this.VALIGN					= "top";
 //--------------------------------------------------------------------------------------------------------
-
 //--------------------------------------------------------------------------------------------------------
-// 조회 버튼 객체 관련 상수
+// 타이틀 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
-//Lookup Button Default Width
-this.SEARCH_BUTTON_WIDTH			= 70;
-
-//Lookup Button Default Height
-this.SEARCH_BUTTON_HEIGHT			= 28;
-
-// 조회버튼과 컴포넌트와의 가로 간격
-this.SEARCH_BUTTON_H_SPACE			= 20;
-
-//Lookup Button Default Text
-this.SEARCH_BUTTON_TEXT				= "조회";
-
-//Lookup Button Default Form
-this.SEARCH_BUTTON_TYPE				= "bottom";
-
-//Lookup Button Css Class
-this.SEARCH_BUTTON_CSSCLASS			= "btn_WF_add01";
+//타이틀 영역 전체건수 표시여부(Freeform에서는 사용안함)
+this.USE_TOT_COUNT			= "false";
+//타이틀 영역 접기/펼치기 버튼 표시여부("none", "open","close")
+this.USE_EXPAND_BUTTON		= "none";
 //--------------------------------------------------------------------------------------------------------
+
+//////////////////////////////상수 설정부 START ////////////////////////////////////////////////////
 
 //Field Default Width
-this.COMP_WIDTH						= "150px";
+this.COMP_WIDTH			= "100%";
 
 //Field Default Height
-this.COMP_HEIGHT					= "28px";
+this.COMP_HEIGHT		= "30px";
 
 //Label Default Width
-this.LABEL_WIDTH					= 100;
+this.LABEL_WIDTH		= 100;
 
 //Label Default Height
-this.LABEL_HEIGHT					= 28;
+this.LABEL_HEIGHT		= 40;
 
-//Component Default Type
-this.COMP_TYPE						= "auto";
+//컴포넌트 디폴트 Type
+this.COMP_TYPE			= "auto";
 
 //Label Default Type
-this.LABEL_TYPE						= "static";
+this.LABEL_TYPE			= "static";
+
+//Background Default Type
+this.COMP_BG_TYPE		= "static";
 
 //Label Padding
-this.LABEL_PADDING					= "0 5 5 0";
+this.LABEL_PADDING		= "0 0 0 0";
 
 //Component Padding
-this.COMP_PADDING					= "0 0 5 0";
+this.COMP_PADDING		= "5 5 5 5";
 
-//Component Default CSS Class
-this.COMP_CSSCLASS					= "";
+//컴포넌트 디폴트 CSS Class
+this.COMP_CSSCLASS		= "";
 
-//Label Default CSS Class
-this.LABEL_CSSCLASS					= "sta_WF_label";
+//컴포넌트 배경 디폴트 CSS Class
+this.COMP_BG_CSSCLASS	= "sta_WF_fieldbox";
 
-//Label Default CSS Class
-this.LABEL_REQUIRED_CSSCLASS		= "sta_WF_labelStar";
+//레이블 디폴트 CSS Class
+this.LABEL_CSSCLASS		= "sta_WF_labelbox";
 
-//Background Static Css Class
-this.SEARCH_BG_CSSCLASS				= "sta_cm_box01L";
+//Required Label Default CSS Class
+this.LABEL_REQUIRED_CSSCLASS	= "sta_labelbox_essential";
+
+//Background Component Use Type
+this.USE_COMP_BG		= "true";
 
 //컴포넌트 사용여부
-this.USE_COMP						= "true";
+this.USE_COMP			= "true";
 
+//////////////////////////////상수 설정부 END ////////////////////////////////////////////////////
 /*============================================================================================*
 * Parameter Structure Example
 
@@ -376,9 +371,9 @@ this.USE_COMP						= "true";
  *                            !!! This is a required function. !!!                             *
  *                            !!! Do not delete it. !!!                                        *
  *---------------------------------------------------------------------------------------------*/
-fn_GetViewGenerationResult = function(fieldarray, contents, generationattr) 
+fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 {
-    //Return Value
+	//리턴 값
     var vResult = "";
 
     //trace(">> fieldarray : " + fieldarray);
@@ -396,26 +391,26 @@ fn_GetViewGenerationResult = function(fieldarray, contents, generationattr)
 	// View Padding 설정
 	this.lfn_SetViewPadding();
 
-	//Load Model Information Generation Function
+	//모델정보 생성 함수 호출
 	fn_GetModel();
 
-	//Load InitValue Information Generation Function
+	//InitValue 정보 생성 함수 호출
     this.oContents.View.InitValue = fn_GetInitValue();
 
-	//Load Object Information Generation Function
+	//Object 정보 생성 함수 호출
     this.oContents.View.Objects = fn_GetObjects();
 
-	//Load BindInfo Information Generation Function
+	//BindInfo 정보 생성 함수 호출
     this.oContents.View.Bind = fn_GetBind();
 
-	//Load Script Information Generation Function
+	//Script 정보 생성 함수 호출
     this.oContents.View.Script = fn_GetScript();
 
-	//Convert View Component Information into String
+	//뷰 컴포넌트 정보를 String으로 변환
     vResult = JSON.stringify(this.oContents, null, "\t");
 
     //trace(">> vResult : " + vResult);
-    //Return View Component Information
+    //뷰 컴포넌트 정보 리턴
     return vResult;
 };
 
@@ -451,52 +446,35 @@ fn_GetViewAttributeList = function()
                                 "edittype": "Enum",
                                 "defaultvalue": this.DIRECTION,
 								"enumlist" : ["horizontal", "vertical"],
-                                "description": "Set the Field Production Direction."
+                                "description": "필드의 생성 방향을 설정합니다."
                             },
 							{
                                 "id": "halign",
                                 "edittype": "Enum",
                                 "defaultvalue": this.HALIGN,
 								"enumlist" : ["left", "center", "right"],
-                                "description": "Set the Field  Horizontal Alignment."
+                                "description": "필드의 수평 정렬방식을 설정합니다."
                             },
 							{
                                 "id": "valign",
                                 "edittype": "Enum",
                                 "defaultvalue": this.VALIGN,
 								"enumlist" : ["top", "middle", "bottom"],
-                                "description": "Set the Field Vertical Alignment."
+                                "description": "필드의 수직 정렬방식을 설정합니다."
                             },
+							this.oAttrTitleText,					// Title Text
+							this.oAttrTitleExpandButton,			// 접기/펼치기 버튼 표시여부
 							{
-                                "id": "searchbuttontype",
-                                "edittype": "Enum",
-                                "defaultvalue": this.SEARCH_BUTTON_TYPE,
-								"enumlist" : ["none", "top", "middle", "bottom", "full"],
-                                "description": "Set the Lookup Button Form."
-                            },
-							{
-                                "id": "searchbuttontext",
-                                "edittype": "String",
-                                "defaultvalue": this.SEARCH_BUTTON_TEXT,
-								"description": "Search Button Text"
-                            },
-							{
-                                "id": "searchbuttoncssclass",
-                                "edittype": "String",
-                                "defaultvalue": this.SEARCH_BUTTON_CSSCLASS,
-								"description": "Search Button CSS Class Id"
-                            },
-							{
-                                "id": "searchbgcssclass",
-                                "edittype": "String",
-                                "defaultvalue": this.SEARCH_BG_CSSCLASS,
-								"description": "Search Backgroudn Static CSS Class Id"
+                                "id": "usefieldbox",
+                                "edittype": "Boolean",
+                                "defaultvalue": this.USE_COMP_BG,
+                                "description": "Field영역에 배경 Box를 그릴지 여부"
                             },
 							{
                                 "id": "format",
                                 "edittype": "layout",
 								"defaultvalue": "",
-								"description": "Set the View Layout"
+								"description": "View Layout을 설정합니다."
 
                             }
 							//, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
@@ -535,6 +513,7 @@ fn_GetFieldUserAttributeList = function ()
 {
 	var sFieldAttr = "";
 	var oFieldAttr = {
+                        "attributecount": "9",
                         "attributes": [
                             {
                                 "id": "comptype",
@@ -613,258 +592,95 @@ fn_GetFieldUserAttributeList = function ()
  * Function     : fn_GetModel
  * Parameter    :
  * Return       :
- * Description  : Model Information Production Function
+ * Description  : 모델 정보 생성 함수
  *---------------------------------------------------------------------------------------------*/
-fn_GetModel = function()
-{
-	//Import View Component Width Value
+fn_GetModel = function(){
+
+	//View Component Width 값 가져오기
 	var nViewCompWidth = this.oContents.View.referenceinfo.realwidth;
 
-	//Import View Component Height Value
+	//View Component Height 값 가져오기
 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
-
-	//Load Lookup Area Background Static Production Function
-	fn_MakeSearchBackgroundStatic();
+	
+	// Title 영역
+	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
+	var sUseTotalCount		= this.USE_TOT_COUNT;									// 전체건수 Static 생성
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 생성
+	
+	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 	
 	// View 사이즈에서 View 여백 설정
 	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
 	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
-	
-	//When the Lookup Button Type is Not None
-	if(this.oGenerationAttr.attributes.searchbuttontype!="none")
-	{
-		//Load Lookup Button Production Function
-		var arrViewSize = fn_MakeSearchButton(nViewCompWidth, nViewCompHeight);
 
-		//Set area excluding lookup button area as component production area
-		nViewCompWidth		= arrViewSize[0];
-		nViewCompHeight		= arrViewSize[1];
-	}
-	
-	//If the format properties are set, produce component-based on layout rules
+	//format 속성이 설정되어있을 경우 Layout 룰에 따라 컴포넌트 생성
 	if(this.oGenerationAttr.attributes.format)
 	{
-		//Import Layout Information
+		//Layout 정보 가져오기
 		var oLayout = this.oGenerationAttr.attributes.format;
 
-		//Load Layout Calculation Function
+		//Layout 계산 함수 호출
 		fn_CalcLayout(oLayout, nViewCompWidth, nViewCompHeight);
 
-		//Load Layout-based Component Production Function
+		//Layout 기반 컴포넌트 생성 함수 호출
 		fn_MakeCompByLayout(oLayout);
+
 	}
-	//If the format properties are not set, create components based on basic rules
+	//format 속성이 설정되어있지 않을 경우 기본룰에 따라 컴포넌트 생성
 	else
 	{
-		//Import Field Information
+		//Field 정보 가져오기
 		var arrFieldList = this.oUseFieldArray.fields;
 
-		//Import Component Production Direction Information
+		//컴포넌트 생성 방향 정보 가져오기
 		var sDirection = this.oGenerationAttr.attributes.direction;
 
-		//Import Component Horizontal Alignment Information
+		//컴포넌트 수평 정렬방식 정보 가져오기
 		var sHAlign = this.oGenerationAttr.attributes.halign;
 
-		//Import Component Vertical Alignment Information
+		//컴포넌트 수직 정렬방식 정보 가져오기
 		var sVAlign = this.oGenerationAttr.attributes.valign;
 
-		//Load Component Location Calculation Information
-		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight, false);
+		//컴포넌트 위치 계산함수 호출
+		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
 
-		//Load Component Production Function
-		fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition);
+		//컴포넌트 생성 함수 호출
+		fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, false);
 	}
 };
-
-/*---------------------------------------------------------------------------------------------*
- * Function     : fn_MakeSearchBackgroundStatic
- * Parameter    :
- * Return       :
- * Description  : Lookup Area Background Production Function
- *---------------------------------------------------------------------------------------------*/
-fn_MakeSearchBackgroundStatic = function()
-{
-	//Import Background Static CSS Class Information
-	var sSearchBgCssClass = this.oGenerationAttr.attributes.searchbgcssclass;
-
-	var oModel = this.oContents.View.Model;
-	var oField;
-	var oComp;
-
-	var nCompTop;
-	var nCompRigth;
-	var nCompWidth;
-	var nCompHeight;
-	var nCompBottom;
-
-	//Add Background Static Component Tag
-	oModel[oModel.length] =
-	{
-		"fieldid" : this.VIEW_COMP_FIELD_ID,
-		"Components" :
-		[{
-			"tag" : "Static",
-			"attribute" :
-			{
-				"id" : "staBg", "left" : "0", "top" : "0", "right" : "0", "bottom" : "0",
-				"cssclass" : sSearchBgCssClass
-			}
-		}]
-	};
-};
-
-/*---------------------------------------------------------------------------------------------*
- * Function     : fn_MakeSearchButton
- * Parameter    : nViewCompWidth : View Component Width Value
-				  nViewCompHeight : View Component Height Value
- * Return       :
- * Description  : Lookup Button Creation Function
- *---------------------------------------------------------------------------------------------*/
-fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight)
-{
-	//Import Lookup Button Form Information (none, top, middle, bottom, full)
-	var sSearchButtonType = this.oGenerationAttr.attributes.searchbuttontype;
-	
-	if (sSearchButtonType=="none")	return;
-	
-	//Import Lookup Button CSS Class Information
-	var sSearchButtonCssClass = this.oGenerationAttr.attributes.searchbuttoncssclass;
-
-	//Import Lookup Button Text Information
-	var sSearchButtonText = this.oGenerationAttr.attributes.searchbuttontext;
-
-	var oModel = this.oContents.View.Model;
-	var oField;
-	var oComp;
-
-	var nCompTop;
-	var nCompLeft;
-	var nCompRigth;
-	var nCompWidth;
-	var nCompHeight;
-	var nCompBottom;
-
-	//Create Field Tag
-	oField = {"fieldid" : this.VIEW_COMP_FIELD_ID, "Components" : []};
-
-	//If the lookup button creation location is top
-	if(sSearchButtonType=="top")
-	{
-		nCompTop = this.VIEW_PADDING_TOP;
-		nCompRight = this.VIEW_PADDING_RIGHT;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH;
-		nCompHeight = this.SEARCH_BUTTON_HEIGHT;
-
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : "btnSearch", "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "right" : nCompRight,
-				"cssclass" : sSearchButtonCssClass,
-				"text" : sSearchButtonText
-			}
-		};
-	}
-	//If the lookup button creation location is middle
-	else if(sSearchButtonType=="middle")
-	{
-		nCompTop = ((nViewCompHeight/2) - (this.SEARCH_BUTTON_HEIGHT/2)) + this.VIEW_PADDING_TOP;
-		nCompRight = this.VIEW_PADDING_RIGHT;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH;
-		nCompHeight = this.SEARCH_BUTTON_HEIGHT;
-
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : "btnSearch", "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "right" : nCompRight,
-				"cssclass" : sSearchButtonCssClass,
-				"text" : sSearchButtonText
-			}
-		};
-	}
-	//If the lookup button creation location is bottom
-	else if(sSearchButtonType=="bottom")
-	{
-		nCompRight = this.VIEW_PADDING_RIGHT;
-		nCompBottom = this.VIEW_PADDING_BOTTOM;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH;
-		nCompHeight = this.SEARCH_BUTTON_HEIGHT;
-
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : "btnSearch", "width" : nCompWidth, "height" : nCompHeight, "right" : nCompRight, "bottom" : nCompBottom,
-				"cssclass" : sSearchButtonCssClass,
-				"text" : sSearchButtonText
-			}
-		};
-	}
-	//If the lookup button creation location is full
-	else
-	{
-		nCompTop = this.VIEW_PADDING_TOP;
-		nCompRight = this.VIEW_PADDING_RIGHT;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH;
-		nCompBottom = this.VIEW_PADDING_BOTTOM;
-
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : "btnSearch", "top" : nCompTop, "width" : nCompWidth, "right" : nCompRight, "bottom" : nCompBottom,
-				"cssclass" : sSearchButtonCssClass,
-				"text" : sSearchButtonText
-			}
-		};
-	}
-	
-	//Set area excluding lookup button area as component production area
-	nViewCompWidth = nViewCompWidth - this.SEARCH_BUTTON_WIDTH - this.SEARCH_BUTTON_H_SPACE;
-
-	//Add Lookup Button Tag
-	oModel[oModel.length] = oField;
-	
-	return [nViewCompWidth, nViewCompHeight];
-}
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_CalcLayout
- * Parameter    :
-				- oLayout : Layout Setting Information
+ * Parameter    : obj
+ * Return       :
+				- oLayout : 레이아웃 설정 정보
 				- nViewCompWidth : View Component Real Width
 				- nViewCompHeight : View Component Real Height
- * Return       :
- * Description  : Layout Calculation Information
+ * Description  : Layout 계산 함수
  *---------------------------------------------------------------------------------------------*/
 fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
 {
-	//CellList Information set on Layout
+	//레이아웃에 설정된 CellList 정보
 	var arrCellList = oLayout.celllist;
 
-	//ColumnSize Information set on Layout
+	//레이아웃에 설정된 ColumnSize 정도
 	var arrColSize = oLayout.columnsize;
 
-	//RowSize Information set on Layout
+	//레이아웃에 설정된 RowSize 정보
 	var arrRowSize = oLayout.rowsize;
 
-	//CellList Quantity
+	//CellList 갯수
 	var nCellCnt = arrCellList.length;
 
-	//The Sum of Column/Row Sizes that were not set at -1
+	//-1로 설정되지 않은 Column/Row의 사이즈의 합
 	var nAllColSize = 0;
 	var nAllRowSize = 0;
 
-	//Quantity of Column/Row Size set at -1
+	//Column/Row 사이즈가 -1로 설정된 갯수
 	var nNoColSizeCnt = 0;
 	var nNoRowSizeCnt = 0;
 
-	//Replacement Size if Column/Row Size is -1
+	//Column/Row 사이즈가 -1일 경우 대체할 사이즈
 	var nColSizeDef = 0;
 	var nRowSizeDef = 0 ;
 
@@ -880,13 +696,13 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
 	var nFieldHeightType;
 	var nFieldHeightMax;
 
-	//Evaluate Sum of Column Sizes that are not set at -1
+	//-1로 설정되지 않은 Column의 사이즈의 합 구하기
 	nAllColSize = arrColSize.reduce(function (pre, value){
 		if(value==-1)return pre;
 		else return pre + value;
 	});
 
-	//Evaluate Sum of Row Sizes that are not set at -1
+	//-1로 설정되지 않은 Row의 사이즈의 합 구하기
 	nAllRowSize = arrRowSize.reduce(function (pre, value){
 		if(value==-1)return pre;
 		else return pre + value;
@@ -896,23 +712,23 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
 
 	if(nAllRowSize==-1)nAllRowSize = 0;
 
-	//Evaluate Quantity of Column/Rows set at -1
+	//-1로 설정된 Column/Row의 갯수 구하기
 	nNoColSizeCnt = arrColSize.filter(arrColSize=>arrColSize==-1).length;
 	nNoRowSizeCnt = arrRowSize.filter(arrRowSize=>arrRowSize==-1).length;
 
-	//If there are Column/Rows set at -1
-	//(View Component Size -(The Sum of Column/Row Sizes not set at -1))/Number of Column/Rows set at -1
+	//-1로 설정된 Column/Row이 존재할 경우
+	//(View Component 사이즈 - (-1로 설정되지 않은 Column/Row 사이즈 합)) / -1로 설정된 Column/Row의 갯수
 	if(nNoColSizeCnt>0)nColSizeDef = (nViewCompWidth - nAllColSize)/nNoColSizeCnt;
 	if(nNoRowSizeCnt>0)nRowSizeDef = (nViewCompHeight - nAllRowSize)/nNoRowSizeCnt;
 
-	//Save Default Column/Row Size on Layout
+	//레이아웃에 Column/Row 디폴트 사이즈 저장
 	oLayout.colsizedef = nColSizeDef;
 	oLayout.rowsizedef = nRowSizeDef;
 
-	//Evaluate the Field Location Value of each Cell
+	//각 Cell별 필드의 위치값 구하기
 	for(var i=0;i<nCellCnt;i++)
 	{
-		//Import Information set on Cell
+		//Cell에 설정된 정보 가져오기
 		oCell = arrCellList[i];
 		sDirection = oCell.direction;
 		sVAlign = oCell.valign;
@@ -922,119 +738,123 @@ fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
 		nColSpan = nexacro.toNumber(oCell.colspan);
 		nRowSpan = nexacro.toNumber(oCell.rowspan);
 
-		//Initialize to 1 if there are no Col/RowSpan Values
+		//Col/RowSpan 값이 없을 경우 1로 초기화
 		if(!nColSpan)nColSpan = 1;
 		if(!nRowSpan)nRowSpan = 1;
 
-		//Evaluate the Width/Height of that Cell
+		//해당 Cell의 Width/Height 구하기
 		nColSize = this.lfn_GetCellSize(oLayout.columnsize, nCol, nColSpan, nColSizeDef);
 		nRowSize = this.lfn_GetCellSize(oLayout.rowsize, nRow, nRowSpan, nRowSizeDef);
 
-		//Save the Width/Height Value on that Cell
+		//해당 Cell에 Width/Height 값 저장
 		oCell.realcolsize = nColSize;
 		oCell.realrowsize = nRowSize;
 
-		//If there are fields connected to that Cell
+		//해당 Cell에 연결된 필드가 존재할 경우
 		if(oCell.fieldlist)
 		{
-			//Evaluate the Field Location Value to input on that Cell
-			oCell.fieldposition = fn_CalcField(sDirection, sVAlign, sHAlign, nColSize, nRowSize, true, oCell.fieldlist);
+			//해당 Cell에 표현할 Field의 위치값 구하기
+			oCell.fieldposition = fn_CalcFieldByLayout(sDirection, sVAlign, sHAlign, nColSize, nRowSize, oCell.fieldlist);
 		}
 	}
-};
+}
 
 /*---------------------------------------------------------------------------------------------*
- * Function     : fn_CalcField
+ * Function     : fn_CalcFieldByLayout
  * Parameter    :
-				- sDirection : Component Production Direction
-				- sVAlign : Component Vertical Alignment Method(top|middle|bottom)
-				- sHAlign : Component Horizontal Alignment Method(left|center|right)
-				- nColSize : The Width of The Cell to be Expressed
-				- nRowSize : The Height of The Cell to be Expressed
-				- bUseLayout : Whether Layout was used
-				- arrFieldInCellList : Field List connect to the Cell
- * Return       : arrFieldPosition : Object Array with Field Location Information
- * Description  : Function to Evaluate the Field Location Value to be Expressed
+				- sDirection : 컴포넌트 생성 방향
+				- sVAlign : 컴포넌트 수직 정렬 방식(top|middle|bottom)
+				- sHAlign : 컴포넌트 수평 정렬 방식(left|center|right)
+				- nColSize : 표현할 Cell의 Width
+				- nRowSize : 표현할 Cell의 Height
+				- arrFieldInCellList : Cell에 추가된 Field List
+ * Return       : arrFieldPosition : Field의 위치정보가 담긴 Object Array
+ * Description  : 표현될 Field의 위치값을 구하는 함수
  *---------------------------------------------------------------------------------------------*/
-fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLayout, arrFieldInCellList)
+fn_CalcFieldByLayout = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, arrFieldInCellList)
 {
 	var nLeft = 0;
 	var nTop = 0;
-	var nLabelWidth, nLabelHeight, nCompWidth, nCompHeight;
-	var arrLabelPadding, arrCompPadding;
-	var nLabelWidthPadding, nLabelHeightPadding, nCompWidthPadding, nCompHeightPadding
-	var nColIdx = nRowIdx = 0;
-	var nHeight = nWidth = 0;
+	var nRowIdx = 0;
+	var nColIdx = 0;
 	var nMaxWidth = nMaxHeight = 0;
 
 	var nStartX, nStartY;
 	var nEndX, nEndX;
+	var nTemp;
 
-	var nTemp, nTempLabel, nTempComp;
+	var oField;
 
 	//Import Field List Registered to the Model
 	var arrFieldList = this.oUseFieldArray.fields;
 
+	//Number of Fields connected to the Cell
+	var nFieldInCellCnt;
+
 	//Object Array to save the Field Location Information
 	var arrFieldPosition = [];
 
-	//Number of Fields connected to the Cell
-	var nFieldCnt = arrFieldList.length;
+	//Row Size without the Label Area
+	var nRealRowSize;
 
+	//Label Width
+	var nLabelWidth;
 
-	if(bUseLayout==true)
+	//Check Quantity with Field List connected to Cell
+	var nFieldInCellCnt = arrFieldInCellList.length;
+
+	//If the Component Production Direction is Horizontal
+	//Choose Array, as the x-coordinate for each row is different
+	//Choose Number, as the y-coordinate for each column is identical
+	if(sDirection=="horizontal")
 	{
-		nFieldCnt = arrFieldInCellList.length;
+		var arrAlignX = [];
+		var nAlignY;
+	}
+	//If the Component Production Direction is Vertical
+	//Choose Number, as the x-coordinate for each row is identical
+	//Choose Array, as the y-coordinate for each column is different
+	else
+	{
+		var nAlignX;
+		var arrAlignY = [];
 	}
 
-	for(var i=0;i<nFieldCnt;i++)
+	for(var i=0;i<nFieldInCellCnt;i++)
 	{
-		if(bUseLayout==true)
-		{
-			sFieldId =  arrFieldInCellList[i];
-			oField = arrFieldList.filter(arrFieldList=>arrFieldList.id==sFieldId)[0];
-		}
-		else
-		{
-			oField = arrFieldList[i];
-			sFieldId = oField.id;
-		}
+		//Import Field Information registered on the Model based on the Fields connected to the Cell
+		sFieldId =  arrFieldInCellList[i];
+		oField = arrFieldList.filter(arrFieldList=>arrFieldList.id==sFieldId)[0];
 		
 		if (this.lfn_IsNull(oField))	continue;
 
-		nLabelWidth = nexacro.toNumber(oField.labelwidth);
-		nLabelHeight = nexacro.toNumber(oField.labelheight);
+		//Import Label Width Information set on the first Field
+		if(i==0)
+		{
+			nLabelWidth = nexacro.toNumber(oField.labelwidth);
+			nLabelHeight = nexacro.toNumber(oField.labelheight);
 
-		arrLabelPadding = oField.labelpadding.split(" ");
+			arrLabelPadding = oField.labelpadding.split(" ");
+			nLabelWidthPadding = nexacro.toNumber(arrLabelPadding[3]) + nexacro.toNumber(arrLabelPadding[1]);
+			nLabelHeightPadding = nexacro.toNumber(arrLabelPadding[0]) + nexacro.toNumber(arrLabelPadding[2]);
+
+			nRealColSize = nColSize - nLabelWidth - nLabelWidthPadding;
+		}
+
 		arrCompPadding = oField.comppadding.split(" ");
-
-		nLabelWidthPadding = nexacro.toNumber(arrLabelPadding[3]) + nexacro.toNumber(arrLabelPadding[1]);
-		nLabelHeightPadding = nexacro.toNumber(arrLabelPadding[0]) + nexacro.toNumber(arrLabelPadding[2]);
-
 		nCompWidthPadding = nexacro.toNumber(arrCompPadding[3]) + nexacro.toNumber(arrCompPadding[1]);
 		nCompHeightPadding = nexacro.toNumber(arrCompPadding[0]) + nexacro.toNumber(arrCompPadding[2]);
 
-		if(nLabelWidth==0)
-		{
-			nCompWidth = this.lfn_GetRealSize(oField.compwidth, 0, nColSize, this.COMP_WIDTH, 0, nCompWidthPadding);
-		}else
-		{
-			nCompWidth = this.lfn_GetRealSize(oField.compwidth, nLabelWidth, nColSize, this.COMP_WIDTH, nLabelWidthPadding, nCompWidthPadding);
-		}
-
+		//Evaluate Width/Height that this field will be expressed on
+		nCompWidth = this.lfn_GetRealSize(oField.compwidth, 0, nRealColSize, this.COMP_WIDTH, 0, nCompWidthPadding);
 		nCompHeight = this.lfn_GetRealSize(oField.compheight, 0, nRowSize, this.COMP_HEIGHT, 0, nCompHeightPadding);
 
+		//If the Component Production Direction is Horizontal
 		if(sDirection=="horizontal")
 		{
-			if(nLabelWidth==0)
-			{
-				nTemp = nLeft + nCompWidth + nCompWidthPadding;
-			}else
-			{
-				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
-			}
-			
-			if(nColSize<nTemp)
+			nTempComp = nLeft + nCompWidth + nCompWidthPadding;
+
+			if(nRealColSize<nTempComp)
 			{
 				nLeft = 0;
 				nTop = nMaxHeight;
@@ -1042,12 +862,11 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 				nRowIdx++;
 			}
 		}
+		//If the Component Production Direction is Vertical
 		else
 		{
-			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
-			nTempComp = nTop + nCompHeight + nCompHeightPadding;
-			
-			if(nRowSize<nTempLabel||nRowSize<nTempComp)
+			nTemp = nTop + nCompHeight + nCompHeightPadding;
+			if(nRowSize<nTemp)
 			{
 				nLeft = nMaxWidth;
 				nTop = 0;
@@ -1070,26 +889,155 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			"alignx" : 0,
 			"aligny" : 0,
 			"colidx" : nColIdx,
-			"rowidx" : nRowIdx
+			"rowidx" : nRowIdx,
+			"colsize" : nColSize,
+			"rowsize" : nRowSize
 		};
+
+		if(sDirection=="horizontal")
+		{
+			nLeft = nLeft + nCompWidth + nCompWidthPadding;
+			nColIdx++;
+
+			nHeight = nTop + nCompHeight + nCompHeightPadding;
+
+			if(nHeight>nMaxHeight)nMaxHeight = nHeight;
+		}
+		else
+		{
+			nTop = nTop + nCompHeight + nCompHeightPadding;
+			nRowIdx++;
+
+			nWidth = nLeft + nCompWidth + nCompWidthPadding;
+
+			if(nWidth>nMaxWidth)nMaxWidth = nWidth;
+		}
+	}
+
+	return arrFieldPosition;
+}
+
+/*---------------------------------------------------------------------------------------------*
+ * Function     : fn_CalcField
+ * Parameter    :
+				- sDirection : 컴포넌트 생성 방향
+				- sVAlign : 컴포넌트 수직 정렬 방식(top|middle|bottom)
+				- sHAlign : 컴포넌트 수평 정렬 방식(left|center|right)
+				- nColSize : 표현할 Cell의 Width
+				- nRowSize : 표현할 Cell의 Height
+ * Return       : arrFieldPosition : Field의 위치정보가 담긴 Object Array
+ * Description  : 표현될 Field의 위치값을 구하는 함수
+ *---------------------------------------------------------------------------------------------*/
+fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
+{
+	var nLeft = 0;
+	var nTop = 0;
+	var nLabelWidth, nLabelHeight, nCompWidth, nCompHeight;
+	var arrLabelPadding, arrCompPadding;
+	var nLabelWidthPadding, nLabelHeightPadding, nCompWidthPadding, nCompHeightPadding
+	var nColIdx = nRowIdx = 0;
+	var nHeight = nWidth = 0;
+	var nMaxWidth = nMaxHeight = 0;
+
+	var nStartX, nStartY;
+	var nEndX, nEndX;
+
+	var nTemp, nTempLabel, nTempComp;
+
+	//Import Field List Registered to the Model
+	var arrFieldList = this.oUseFieldArray.fields;
+
+	//Object Array to save the Field Location Information
+	var arrFieldPosition = [];
+
+	//Check Quantity with Field List connected to Cell
+	var nFieldInCellCnt = arrFieldList.length;
+
+	for(var i=0; i<nFieldInCellCnt; i++)
+	{
+		oField = arrFieldList[i];
+		sFieldId = oField.id;
+		nLabelWidth = nexacro.toNumber(oField.labelwidth);
+		nLabelHeight = nexacro.toNumber(oField.labelheight);
+		arrLabelPadding = oField.labelpadding.split(" ");
+		arrCompPadding = oField.comppadding.split(" ");
+
+		nLabelWidthPadding = nexacro.toNumber(arrLabelPadding[3]) + nexacro.toNumber(arrLabelPadding[1]);
+		nLabelHeightPadding = nexacro.toNumber(arrLabelPadding[0]) + nexacro.toNumber(arrLabelPadding[2]);
+
+		nCompWidthPadding = nexacro.toNumber(arrCompPadding[3]) + nexacro.toNumber(arrCompPadding[1]);
+		nCompHeightPadding = nexacro.toNumber(arrCompPadding[0]) + nexacro.toNumber(arrCompPadding[2]);
+
+		nCompWidth = this.lfn_GetRealSize(oField.compwidth, nLabelWidth, nColSize, this.COMP_WIDTH, nLabelWidthPadding, nCompWidthPadding);
+		nCompHeight = this.lfn_GetRealSize(oField.compheight, 0, nRowSize, this.COMP_HEIGHT, 0, nCompHeightPadding);
 
 		if(sDirection=="horizontal")
 		{
 			if(nLabelWidth==0)
 			{
-				nLeft = nLeft + nCompWidth + nCompWidthPadding;
+				nTemp = nLeft + nCompWidth + nCompWidthPadding;
 			}else
 			{
-				nLeft = nLeft + nLabelWidth + nLabelWidthPadding+nCompWidth + nCompWidthPadding;
+				nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
 			}
+
+			if(nColSize<nTemp)
+			{
+				nLeft = 0;
+				nTop = nMaxHeight;
+				nColIdx = 0;
+				nRowIdx++;
+			}
+		}
+		else
+		{
+			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
+			nTempComp =  nTop + nCompHeight + nCompHeightPadding;
+			
+			if(nTempLabel>nTempComp)nTemp = nTempLabel;
+			else nTemp = nTempComp;
+
+			if(nRowSize<nTemp)
+			{
+				nLeft = nMaxWidth;
+				nTop = 0;
+				nColIdx++;
+				nRowIdx = 0;
+			}
+		}
+
+		arrFieldPosition[i] =
+		{
+			"fieldid" : sFieldId,
+			"left" : nLeft,
+			"top" : nTop,
+			"labelwidth" : nLabelWidth,
+			"labelheight" : nLabelHeight,
+			"labelpadding" : arrLabelPadding,
+			"compwidth" : nCompWidth,
+			"compheight" : nCompHeight,
+			"comppadding" : arrCompPadding,
+			"alignx" : 0,
+			"aligny" : 0,
+			"colidx" : nColIdx,
+			"rowidx" : nRowIdx,
+			"colsize" : nColSize,
+			"rowsize" : nRowSize
+		};
+
+		if(sDirection=="horizontal")
+		{
+			nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
 
 			nColIdx++;
 
-			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
-			nTempComp = nTop + nCompHeight + nCompHeightPadding;
+			nLeft = nTemp;
 
-			if(nTempLabel>nMaxHeight)nHeight = nTempLabel;
-			else if(nTempComp>nMaxHeight)nHeight = nTempComp;
+			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
+			nTempComp =  nTop + nCompHeight + nCompHeightPadding;
+
+			if(nTempLabel>nTempComp)nHeight = nTempLabel;
+			else nHeight = nTempComp;
 
 			if(nHeight>nMaxHeight)nMaxHeight = nHeight;
 		}
@@ -1098,17 +1046,18 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 			nTempLabel = nTop + nLabelHeight + nLabelHeightPadding;
 			nTempComp =  nTop + nCompHeight + nCompHeightPadding;
 
-			if(nTempLabel<nTempComp)nTop = nTempComp;
-			else nTop = nTempLabel;
+			if(nTempLabel>nTempComp)nTop = nTempLabel;
+			else nTop = nTempComp;
 
 			nRowIdx++;
 
-			nWidth = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
+			nTemp = nLeft + nLabelWidth + nLabelWidthPadding + nCompWidth + nCompWidthPadding;
+			nWidth = nTemp;
 
 			if(nWidth>nMaxWidth)nMaxWidth = nWidth;
 		}
 	}
-	
+
 	//Return Field Location Information
 	return arrFieldPosition;
 }
@@ -1116,22 +1065,22 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, bUseLa
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_MakeCompByLayout
  * Parameter    :
-				- oLayout : Layout Setting Information
+				- oLayout : 레이아웃 설정 정보
  * Return       :
- * Description  : Layout-based Component Production Function
+ * Description  : Layout 기반 컴포넌트 생성 함수
  *---------------------------------------------------------------------------------------------*/
 fn_MakeCompByLayout = function(oLayout)
 {
-	//CellList Information set on Layout
+	//레이아웃에 설정된 CellList 정보
 	var arrCellList = oLayout.celllist;
 
-	//ColumnSize Information set on Layout
+	//레이아웃에 설정된 ColumnSize 정도
 	var arrColSize = oLayout.columnsize;
 
-	//RowSize Information set on Layout
+	//레이아웃에 설정된 RowSize 정보
 	var arrRowSize = oLayout.rowsize;
 
-	//Import Column/Row Default Size
+	//Column/Row 디폴트 사이즈 가져오기
 	var nColSizeDef = oLayout.colsizedef;
 	var nRowSizeDef = oLayout.rowsizedef;
 
@@ -1143,6 +1092,9 @@ fn_MakeCompByLayout = function(oLayout)
 	var oCell;
 	var oStatic;
 
+	var bStartCol;
+	var bEndRow;
+
 	for(var i=0;i<arrCellList.length;i++)
 	{
 		oCell = arrCellList[i];
@@ -1152,157 +1104,308 @@ fn_MakeCompByLayout = function(oLayout)
 		nColSpan = nexacro.toNumber(oCell.colspan);
 		nRowSpan = nexacro.toNumber(oCell.rowspan);
 
-		//Initialize to 1 if there are no Col/RowSpan Values
+		//Col/RowSpan 값이 없을 경우 1로 초기화
 		if(!nColSpan)nColSpan = 1;
 		if(!nRowSpan)nRowSpan = 1;
 
-		//Continue if there are no Fields on the Cell
+		//Cell에 Field가 없을 경우 continue
 		if(!oCell.fieldlist)continue;
 
-		//Import the Left/Top Location Value of the current Cell
+		//현재 Cell의 Left/Top 위치값 가져오기
 		nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef) + this.VIEW_PADDING_LEFT;
 		nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef) + this.VIEW_PADDING_TOP;
 
-		fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition);
+		if(nCol==0)bStartCol = true;
+		else bStartCol = false;
+
+		fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, true, nRow, bStartCol);
 	}
 }
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_MakeComp
  * Parameter    :
-				- nBaseLeft : Reference Coordinate (Left) to create Component
-				- nBaseTop : Reference Coordinate (Top) to create Component
-				- nBaseWidth : Reference Coordinate (Width) to create Component
-				- nBaseHeight : Reference Coordinate (Height) to create Component
-				- sDirection : Component Production Direction
-				- arrFieldPosition: Object Array with Field Location Information
+				- nBaseLeft : 컴포넌트를 생성할 기준 좌표(Left)
+				- nBaseTop : 컴포넌트를 생성할 기준 좌표(Top)
+				- nBaseWidth : 컴포넌트를 생성할 기준 좌표(Width)
+				- nBaseHeight : 컴포넌트를 생성할 기준 좌표(Height)
+				- sDirection : 컴포넌트 생성 방향
+				- arrFieldPosition : Field의 위치정보가 담긴 Object Array
+				- bUseLayout : 레이아웃 사용 여부
+				- nLayoutRow : 레이아웃 기준 현재 Row Index
+				- bStartCol : 레이아웃 기준 첫번째 Col Index인지 여부
  * Return       :
- * Description  : Component Tag Production Function
+ * Description  : 컴포넌트 태그 생성 함수
  *---------------------------------------------------------------------------------------------*/
-fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields)
+fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, nLayoutRow, bStartCol)
 {
 	var nLabelLeft, nLabelTop, nLabelWidth, nLabelHeight;
-	var nCompLeft, nCompTop, nCompWidth, nCompHeight;
-	var nLabelLeftPadding, nLabelTopPadding, nLabelRightPadding, nLabelBottomPadding;
-	var nCompLeftPadding, nCompTopPadding, nCompWidthPadding, nCompHeightPadding;
+	var nCompLeft, nCompTop, nCompWidth, nCompHeight, nCompBgWidth;
+	var nPosLeft, nPosTop, nPosWidth, nPosHeight;
+	var nLabelAreaWidth;
 
+	var oAlignPos;
 	var sFieldId;
 	var oField;
 	var oFieldPosition;
 	var nRowIdx, nColIdx;
+	var nRowSize, nColSize;
 	var nAlignX, nAlignY;
 
 	var oModel = this.oContents.View.Model;
-
 	var sCompId;
+	var sCompClassId;
 	var oCompClass;
 	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
+	var oCompBgClass		= this.lfn_GetCompClass(this.COMP_BG_TYPE);
 	var sCompCssClass;
 	var sLabelCssClass;
 	var sLabelText;
+	var sFieldBgCssClass = this.COMP_BG_CSSCLASS;
+	
+	// FieldBox 사용여부
+	var sUseFieldBox = this.oGenerationAttr.attributes.usefieldbox;
 
-	for(var i=0;i<arrFields.length;i++)
+	if(!bUseLayout)bUseLayout = false;
+
+	//If using Layout
+	if(bUseLayout==true)
 	{
-		//Import Field Object
-		oFieldPosition = arrFields[i];
-		sFieldId = oFieldPosition.fieldid;
-		oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
-		
-		if (this.lfn_IsNull(oField))	continue;
-		
-		//Import Component Naming Rules
-		oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
-
-		//Import Component Css Class Id Value
-		sCompCssClass = oField.cssclass;
-
-		//Import Label Css Class Id Value
-		sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
-
-		sLabelText = oField.label;
-
-		//Import Row/Col Index where the Field will be located
-		nRowIdx = oFieldPosition.rowidx;
-		nColIdx = oFieldPosition.colidx;
-
-		//Import Align Location Information of the Field
-		nAlignX = oFieldPosition.alignx;
-		nAlignY = oFieldPosition.aligny;
-
-		nLabelLeftPadding = nexacro.toNumber(oFieldPosition.labelpadding[3]);
-		nLabelTopPadding = nexacro.toNumber(oFieldPosition.labelpadding[0]);
-		nLabelRightPadding = nexacro.toNumber(oFieldPosition.labelpadding[1]);
-		nLabelBottomPadding = nexacro.toNumber(oFieldPosition.labelpadding[2]);
-
-		nCompLeftPadding = nexacro.toNumber(oFieldPosition.comppadding[3]);
-		nCompTopPadding = nexacro.toNumber(oFieldPosition.comppadding[0]);
-		nCompRightPadding = nexacro.toNumber(oFieldPosition.comppadding[1]);
-		nCompBottomPadding = nexacro.toNumber(oFieldPosition.comppadding[2]);
-
-		nLabelLeft = nBaseLeft + oFieldPosition.left + 	nLabelLeftPadding;
-		nLabelTop = nBaseTop + oFieldPosition.top + nLabelTopPadding;
-		nLabelWidth = oFieldPosition.labelwidth;
-		nLabelHeight = oFieldPosition.labelheight;
-
-		nCompLeft = nLabelLeft + nLabelWidth + nLabelRightPadding + nCompLeftPadding;
-		nCompTop = nBaseTop + oFieldPosition.top + nCompTopPadding;
-
-		nCompWidth = oFieldPosition.compwidth;
-		nCompHeight = oFieldPosition.compheight;
-
-		oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
-		
-		sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
-		oComp = {
-					"tag" : oLabelClass.classId,
-					"attribute" :
-					{
-						"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
-						, "text" : sLabelText, "cssclass" : sLabelCssClass
-					}
-				};
-		oModel[oModel.length-1].Components.push(oComp);
-
-		sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
-		oComp =	{
-					"tag" : oCompClass.classId,
-					"attribute" :
-					{
-						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
-					}
-				};
-		if(oField.comptype=="button"||oField.comptype=="checkbox"||oField.comptype=="static")
+		for(var i=0;i<arrFields.length;i++)
 		{
-			oComp.attribute.text = oField.label;
-		}
+			//Import Field Object
+			oFieldPosition = arrFields[i];
+			sFieldId = oFieldPosition.fieldid;
+			oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			if (this.lfn_IsNull(oField))	continue;
 
-		if(oField.comptype=="radio")
+			//Import Component Naming Rules
+			oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
+
+			//Import Component Css Class Id Value
+			sCompCssClass = oField.cssclass;
+
+			//Import Label Css Class Id Value
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
+
+			sLabelText = oField.label;
+
+			//Import Row/Col Index where the Field will be located
+			nRowIdx = oFieldPosition.rowidx;
+			nColIdx = oFieldPosition.colidx;
+
+			nRowSize = oFieldPosition.rowsize;
+			nColSize = oFieldPosition.colsize;
+
+			//Import Align Location Information of the Field
+			nAlignX = oFieldPosition.alignx;
+			nAlignY = oFieldPosition.aligny;
+
+			if(i==0)
+			{
+				nLabelLeft = nBaseLeft + oFieldPosition.left + 	nexacro.toNumber(oFieldPosition.labelpadding[3]);
+				nLabelTop = nBaseTop + oFieldPosition.top + nexacro.toNumber(oFieldPosition.labelpadding[0]);
+				nLabelWidth = oFieldPosition.labelwidth;
+				nLabelHeight = nexacro.toNumber(nBaseHeight);
+			}
+
+			nCompLeft = nLabelLeft + nLabelWidth + oFieldPosition.left + nexacro.toNumber(oFieldPosition.labelpadding[1]) + nexacro.toNumber(oFieldPosition.comppadding[3]);
+			nCompTop = nBaseTop + oFieldPosition.top + nexacro.toNumber(oFieldPosition.comppadding[0]);
+
+			nCompWidth = oFieldPosition.compwidth;
+			nCompHeight = oFieldPosition.compheight;
+
+			//레이블 위/아래 사이 간격이 겹치게 표현되야 하므로
+			//첫번째 Row가 아닐 경우 Top 값을 -1px
+			nLabelTop = nLabelTop - (nLayoutRow * 1);
+			nCompTop = nCompTop - (nLayoutRow * 1);
+
+			oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
+
+			//첫번째 레이블이고 레이블 Width가 0이 아니면 레이블 태그 추가
+			if(i==0)
+			{
+
+				if(bStartCol==true && sUseFieldBox == "true")
+				{
+					//nCompBgWidth = this.oContents.View.referenceinfo.realwidth;
+					
+					//필드 배경 Static 추가
+					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+					oComp = {
+								"tag" : oCompBgClass.classId,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+
+				if(nLabelWidth>0)
+				{
+					sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
+					oComp = {
+								"tag" : oLabelClass.classId,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
+									, "text" : sLabelText, "cssclass" : sLabelCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+			}
+
+			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompClassId = oCompClass.classId;
+			oComp =	{
+						"tag" : sCompClassId,
+						"attribute" :
+						{
+							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
+						}
+					};
+					
+			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
+			{
+				oComp.attribute.text = oField.label;
+			}
+
+			if(sCompClassId=="Radio")
+			{
+				oComp.attribute.direction = "vertical";
+			}
+
+			if(sCompClassId!="Button")
+			{
+				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype, "compclassid" : sCompClassId};
+			}
+			
+			oModel[oModel.length-1].Components.push(oComp)
+		}
+	}
+	//If Layout is not used
+	else
+	{
+		for(var i=0;i<arrFields.length;i++)
 		{
-			oComp.attribute.direction = "vertical";
-		}
+			//Import Field Object
+			oFieldPosition = arrFields[i];
+			sFieldId = oFieldPosition.fieldid;
+			oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			if (this.lfn_IsNull(oField))	continue;
 
-		if(oField.comptype=="calFromTo")
-		{
-			oComp.attribute.url = oCompClass.formurl;
-		}
+			//Import Component Naming Rules
+			oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
 
-		if(oField.comptype!="button"&&oField.comptype!="calFromTo")
-		{
-			this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype, "compclassid" : oCompClass.classId};
-		}
+			//Import Component Css Class Id Value
+			sCompCssClass = oField.cssclass;
 
-		oModel[oModel.length-1].Components.push(oComp);
+			//Import Label Css Class Id Value
+			sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
+
+			sLabelText = oField.label;
+
+			//Import Row/Col Index where the Field will be located
+			nRowIdx = oFieldPosition.rowidx;
+			nColIdx = oFieldPosition.colidx;
+
+			nRowSize = oFieldPosition.rowsize;
+			nColSize = oFieldPosition.colsize;
+
+			//Import Align Location Information of the Field
+			nAlignX = oFieldPosition.alignx;
+			nAlignY = oFieldPosition.aligny;
+
+			nLabelLeft = nBaseLeft + oFieldPosition.left + 	nexacro.toNumber(oFieldPosition.labelpadding[3]);
+			nLabelTop = nBaseTop + oFieldPosition.top + nexacro.toNumber(oFieldPosition.labelpadding[0]);
+			nLabelWidth = oFieldPosition.labelwidth;
+			nLabelHeight = oFieldPosition.labelheight;
+
+			nCompLeft = nLabelLeft + nLabelWidth + nexacro.toNumber(oFieldPosition.labelpadding[1]) + nexacro.toNumber(oFieldPosition.comppadding[3]);
+			nCompTop = nBaseTop + oFieldPosition.top + nexacro.toNumber(oFieldPosition.comppadding[0]);
+
+			nCompWidth = oFieldPosition.compwidth;
+			nCompHeight = oFieldPosition.compheight;
+
+			//레이블 위/아래 사이 간격이 겹치게 표현되야 하므로
+			//첫번째 Row가 아닐 경우 Top 값을 -1px
+			nLabelTop = nLabelTop - (nRowIdx * 1);
+			nCompTop = nCompTop - (nRowIdx * 1);
+
+			oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
+
+			if(nColIdx==0 && sUseFieldBox == "true")
+			{
+				nCompBgWidth = nColSize;
+				
+				//필드 배경 Static 추가
+				sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+				oComp = {
+							"tag" : oCompBgClass.classId,
+							"attribute" :
+							{
+								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
+								,"cssclass" : sFieldBgCssClass
+							}
+						};
+				oModel[oModel.length-1].Components.push(oComp);
+			}
+
+			if(nLabelWidth>0)
+			{
+				sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
+				oComp = {
+							"tag" : oLabelClass.classId,
+							"attribute" :
+							{
+								"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
+								, "text" : sLabelText, "cssclass" : sLabelCssClass
+							}
+						};
+				oModel[oModel.length-1].Components.push(oComp);
+			}
+
+			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompClassId = oCompClass.classId;
+			oComp =	{
+						"tag" : sCompClassId,
+						"attribute" :
+						{
+							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
+						}
+					};
+					
+			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
+			{
+				oComp.attribute.text = oField.label;
+			}
+
+			if(sCompClassId=="Radio")
+			{
+				oComp.attribute.direction = "vertical";
+			}
+
+			if(sCompClassId!="Button")
+			{
+				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype, "compclassid" : sCompClassId};
+			}
+
+			oModel[oModel.length-1].Components.push(oComp)
+		}
 	}
 };
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetInitValue
- * Parameter    :
  * Return       : initvalue contents (JSON format)
  * Description  : Function to generate <InitValue> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetInitValue = function()
-{
+fn_GetInitValue = function(){
 
     var oInitValue = [];
 
@@ -1311,20 +1414,19 @@ fn_GetInitValue = function()
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetObjects
- * Parameter    :
  * Return       : objects contents (JSON format)
  * Description  : Function to generate <Objects> source
  *---------------------------------------------------------------------------------------------*/
 fn_GetObjects = function()
 {
-	//Initialize Object
+    //Initialize Object
 	var oObjects = [];
 
 	var oViewDataset = this.lfn_GetDataset("viewdataset", this.oFieldArray, 1);
 
 	//Object Information Setting
 	oObjects.push(oViewDataset);
-	
+
 	// InnerDataset 정보
 	var oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
 
@@ -1336,7 +1438,6 @@ fn_GetObjects = function()
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetBind
- * Parameter    :
  * Return       : bind contents (JSON format)
  * Description  : Function to generate <Bind> source
  *---------------------------------------------------------------------------------------------*/
@@ -1349,22 +1450,33 @@ fn_GetBind = function()
 
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetScript
- * Parameter    :
  * Return       : script contents (JSON format)
  * Description  : Function to generate <Script> source
  *---------------------------------------------------------------------------------------------*/
 fn_GetScript = function()
 {
     var oScript = {};
-
-    /*
-    oScript =
-    {
-        "tag": "Script",
-        "attribute": { "type" : "xscript5.1" },
-        "value": "this.fn_Alert = function(){this.alert('MESSAGE')};"
-    }
-    */
+	var sScript = "";
+	
+	var sViewNm = this.oContents.View.attribute.id;
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
+	
+	if (sUseExpandButton != "none")
+	{
+		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
+	}
+	
+    if (this.lfn_IsNotNull(sScript))
+	{
+		sScript = nexacro.replaceAll(sScript,"\t","");
+		
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sScript
+		}
+	};
 
     return oScript;
 };]]></Script>

@@ -1,29 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="막대 게이지 차트(Bar GaugeChart)를 그려주는 템플릿"/>
+  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="영역형 그래프(Area Chart)를 그려주는 템플릿"/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  [Chart] Bar GaugeChart View Template
-*  @FileName 	BarGaugeChartViewTemplate.xviewgen 
+*  [Chart] AreaChart View Template
+*  @FileName 	AreaChartViewTemplate.xviewgen 
 *  @Creator 	Creator
-*  @CreateDate 	2022.03.24
-*  @Desction    막대 게이지 차트(Bar GaugeChart)를 그려주는 템플릿
+*  @CreateDate 	2022.03.16
+*  @Desction    영역형 그래프(Area Chart)를 그려주는 템플릿
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
 *******************************************************************************
-*  2022.03.24     		Creator       	      		최초 생성
+*  2022.03.16     		Creator       	      		최초 생성
 *******************************************************************************
 */
 /************************************************************************************************
  * include 선언부
  ************************************************************************************************/
-include "view_lib::util.xjs";
-include "view_lib::common.xjs";
-include "view_lib::chart.xjs";
+include "quickcode::viewtemplate/lib/util.xjs";
+include "quickcode::viewtemplate/lib/common.xjs";
+include "quickcode::viewtemplate/lib/chart.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
 // View 여백
 this.VIEW_PADDING = "20";
+
+this.SERIES_LINE_STYLE = "1px solid";				// 시리즈 선 스타일
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -170,52 +172,29 @@ fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewMo
  * Description : Obtain a list of custom attributes required for view generation
  *---------------------------------------------------------------------------------------------*/
 fn_GetViewAttributeList = function() {
-	var arrColorSet = this.arrBaseChartColor;
-	arrColorSet.push(this.ENUM_INPUT);
 
     var sViewAttr = "";
     var oViewAttr = {
                         "attributes": [
 							{
-                                "id": "charttype",
+                                "id": "chartdisplay",
                                 "edittype": "Enum",
-                                "defaultvalue": "vertical",
-                                "enumlist" : ["vertical", "horizontal"],
-                                "description": "막대 게이지차트 종류."
-												+ "\n" + " - vertical : 세로 게이지차트"
-												+ "\n" + " - horizontal : 가로 게이지차트"
+                                "defaultvalue": "grouped",
+                                "enumlist" : ["grouped", "stacked", "100%stacked"],
+                                "description": "차트의 유형을 설정."
+												+ "\n" + " - grouped : 영역형 차트"
+												+ "\n" + " - stacked : 누적 영역형 차트"
+												+ "\n" + " - 100%stacked : 100% 기준 누적 영역형 차트"
                             }
 							, {
-                                "id": "gaugemin",
-                                "edittype": "Number",
-                                "defaultvalue": "0",
-                                "description": "게이지 최소값"
-                            }
-							, {
-                                "id": "gaugemax",
-                                "edittype": "Number",
-                                "defaultvalue": "100",
-                                "description": "게이지 최대값"
-                            }
-							, {
-                                "id": "chartcolorset",
+                                "id": "linetype",
                                 "edittype": "Enum",
-                                "defaultvalue": this.lfn_GetChartColor(0,arrColorSet),		// 첫번째를 디폴트값으로 설정
-                                "enumlist" : arrColorSet,
-                                "description": "게이지 색상 선택"
-                            }
-							, {
-                                "id": "chartcolor",
-                                "edittype": "String",
-                                "defaultvalue": "",
-                                "description": "게이지 색상(16진 색상코드) 입력"
-								+ "\n" + " (chartcolorset 값이 '" + this.ENUM_INPUT + "' 인 경우에만 동작.)"
-                            }
-							, {									
-                                "id": "visibleindicator",									
-                                "edittype": "Boolean",									
-                                "defaultvalue": "true",									
-                                "description": "게이지 지표선 보일지 여부"									
+                                "defaultvalue": "segment",
+                                "enumlist" : ["segment", "step", "curve"],
+                                "description": "영역차트 모양 설정"
+												+ "\n" + " - segment : 꺽은선 차트"
+												+ "\n" + " - step : 스텝 차트"
+												+ "\n" + " - curve : 곡선 차트"
                             }
 							, {									
                                 "id": "enableanimation",									
@@ -245,15 +224,27 @@ fn_GetViewAttributeList = function() {
 							, {
                                 "id": "legendposition",
                                 "edittype": "Enum",
-                                "defaultvalue": "bottomcenter",			// [GaugeChart] 
+                                "defaultvalue": "rightcenter",
                                 "enumlist" : ["none", "topleft", "topcenter", "topright", "bottomleft", "bottomcenter", "bottomright", "lefttop", "leftcenter", "leftbottom", "righttop", "rightcenter", "rightbottom"],
                                 "description": "범례 표시 위치"
                             }
+							, {									
+                                "id": "categoryaxistitletext",									
+                                "edittype": "String",											
+                                "defaultvalue": "",									
+                                "description": "데이터명축(x축) 타이틀 Text"									
+                            }
+							, {									
+                                "id": "valueaxistitletext",									
+                                "edittype": "String",											
+                                "defaultvalue": "",									
+                                "description": "데이터축(y축) 타이틀 Text(여러 축 설정시 ,를 구분자로 여러개 입력)"									
+                            }
 							, {
-                                "id": "itemtextposition",
+                                "id": "itemtextposition",		// [AreaChart]
                                 "edittype": "Enum",
-                                "defaultvalue": "middle",			// [BarGaugeChart]
-                                "enumlist" : ["none", "start", "middle", "end"],
+                                "defaultvalue": "none",
+                                "enumlist" : ["none", "lefttop", "centertop", "righttop", "leftmiddle", "centermiddle", "rightmiddle", "leftbottom", "centerbottom", "rightbottom"],
                                 "description": "값 표시 위치"
                             }
 							, this.oAttrViewPadding
@@ -298,10 +289,24 @@ fn_GetFieldUserAttributeList = function ()
                                 "id"			: "displaytype",
                                 "edittype"		: "Enum",
 								"enumlist" 		: ["none", "category", "series"],
-                                "defaultvalue"	: "none",
+                                "defaultvalue"	: "series",
                                 "description"	: "데이터 표현방식"
+												+ "\n" + " - none : 사용안함"
 												+ "\n" + " - category : 데이터명 Field(1개)"
-												+ "\n" + " - series : 데이터값 Field(1개)"
+												+ "\n" + " - series : 데이터값 Field(n개)"
+                            }
+							, {
+                                "id"			: "valueaxes",
+                                "edittype" 		: "Enum",
+								"enumlist" 		: ["y", "y1", "y2"],
+								"defaultvalue"	: "y",
+                                "description"	: "데이터축을 설정. y는 왼쪽, y1,y2는 오른쪽에 표시됨."
+                            }
+							, {
+                                "id"			: "stackedgroupname",
+                                "edittype" 		: "String",
+								"defaultvalue"	: "",
+                                "description"	: "누적(stacked) 차트에서 그룹핑하는 경우 명칭 설정.(chartdisplay이 'stacked','100%stacked'인 경우에만 동작)"
                             }
                         ]
                   };
@@ -312,7 +317,7 @@ fn_GetFieldUserAttributeList = function ()
 
     return sFieldAttr;
 }
- 
+
 /************************************************************************************************
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
@@ -332,10 +337,8 @@ fn_GetModel = function(bPreviewMode)
 	var oChartAttr = {};
 	var oTitle = {};
 	var oLegend = {};
-	var oIndicator = {};
 	
-	var sChartType = this.oGenerationAttr.attributes.charttype;
-	var sIndicator = this.oGenerationAttr.attributes.visibleindicator;
+	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
 	var sTitletext = this.oGenerationAttr.attributes.titletext;
 	var sSubTitletext = this.oGenerationAttr.attributes.subtitletext;
 	var sTitleAlign = this.oGenerationAttr.attributes.titlealign;
@@ -347,16 +350,20 @@ fn_GetModel = function(bPreviewMode)
 	// 카테고리 필드
 	var oCategoryField;
 	
-	var arrField = new Array();
+	var arrField = new Array(); 
 	var arrSeriesField = new Array();
+	var arrAxisYField = new Array();
+	var arrAxisY1Field = new Array();
+	var arrAxisY2Field = new Array();
 
-	var sDisplaytype;
+	var sDisplaytype, sValueaxes;
 	
 	//차트에서 사용할 모델 Field ID 리스트 만들기
     for(i=0;i<nFieldCount;i++)
     {
         oField = this.oFieldArray.fields[i];
 		sDisplaytype = oField.displaytype;
+		sValueaxes = oField.valueaxes;
 		
 		// this.oFieldArray Json Data로 Field Array() 셋팅
 		arrField.push(oField.id);
@@ -370,10 +377,15 @@ fn_GetModel = function(bPreviewMode)
 			}
 			
 		} else if (sDisplaytype == "series") {
-			if (arrSeriesField.length == 0) {
-				arrSeriesField.push(oField);
+			arrSeriesField.push(oField);
+			
+			// valueaxes에 따라 Y축 Array() 셋팅
+			if (sValueaxes == "y1") {
+				arrAxisY1Field.push(oField);
+			} else if (sValueaxes == "y2") {
+				arrAxisY2Field.push(oField);
 			} else {
-				this.lfn_Log("series가 여러개 설정되었습니다.(1개의 필드만 설정가능합니다.)","warn");
+				arrAxisYField.push(oField);
 			}
 		}
     }
@@ -387,12 +399,12 @@ fn_GetModel = function(bPreviewMode)
 	oChartAttr["right"] = this.VIEW_PADDING_RIGHT;
 	oChartAttr["bottom"] = this.VIEW_PADDING_BOTTOM;
 	
-	// 차트유형설정
-	oChartAttr["gaugetype"] = sChartType;
-	
-	// 인디케이터 설정
-	oIndicator = this.lfn_CloneObject(this.oBaseIndicator);
-	oIndicator["visible"] = sIndicator;
+	// [AreaChart] 차트유형설정
+	if (sChartDisplay == "stacked") {
+		oChartAttr["stacktype"] = "normal";
+	} else if (sChartDisplay == "100%stacked") {
+		oChartAttr["stacktype"] = "percent";
+	}
 	
 	// 에니메이션 설정
 	oChartAttr["enableanimation"] = this.oGenerationAttr.attributes.enableanimation;
@@ -417,31 +429,15 @@ fn_GetModel = function(bPreviewMode)
 	// 카테고리 설정
 	if(this.lfn_IsNull(oCategoryField)) {
 		this.lfn_Log("category가 설정되지 않았습니다.","warn");
-	} else {
-		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
-	}
-	
-	// Preview모드일때 Field 예외처리
-	if (bPreviewMode == true)
-	{
-		// category없는 경우 예외처리
-		if(this.lfn_IsNull(oCategoryField))
+		
+		// Preview모드일때 category 예외처리
+		if (bPreviewMode == true)
 		{
 			oCategoryField = this.lfn_Nvl(this.oFieldArray.fields.find(oField => oField.datatype == "STRING"),this.oFieldArray.fields[0]);
 			oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
 		}
-		
-		// series없는 경우 예외처리
-		if(arrSeriesField.length==0)
-		{
-			// 숫자형 데이터 filter
-			var oFilterField = this.oFieldArray.fields.find(oField => oField.datatype == "INT" || oField.datatype == "FLOAT" || oField.datatype == "BIGDECIMAL");
-			
-			if (this.lfn_IsNotNull(oFilterField))
-			{
-				arrSeriesField.push(oFilterField);
-			}
-		}
+	} else {
+		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
 	}
 	
 	//차트 컴포넌트 추가
@@ -451,9 +447,9 @@ fn_GetModel = function(bPreviewMode)
             "Components" :
             [
                 {
-                    "tag" : "GaugeChart",
+                    "tag" : "BasicChart",
                     "attribute" : oChartAttr,
-                    "GaugeChart" :
+                    "BasicChart" :
                     [
                         {
                             "tag"	: "Contents",
@@ -462,8 +458,8 @@ fn_GetModel = function(bPreviewMode)
 								"legend" 		: oLegend,
 								"tooltip" 		: this.oBaseTooltip,
 								"board" 		: this.oBaseBoard,
-								"indicator"		: oIndicator,
-								"valueaxes" 	: fn_GetValueAxes(arrSeriesField),
+								"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField),
+								"valueaxes" 	: fn_GetValueAxes(arrAxisYField,arrAxisY1Field,arrAxisY2Field),
 								"seriesset" 	: fn_GetSeries(arrSeriesField)
 							}
                         }
@@ -476,28 +472,49 @@ fn_GetModel = function(bPreviewMode)
     return oModel;
 };
 
-// 데이터 축 설정
-fn_GetValueAxes = function(arrAxisYField)
+// 카테고리 축 설정
+fn_GetCategoryAxes = function(oCategoryField)
 {
-	var nGaugeMin = nexacro.toNumber(this.oGenerationAttr.attributes.gaugemin,0);		// [GaugeChart]	
-	var nGaugeMax = nexacro.toNumber(this.oGenerationAttr.attributes.gaugemax,100);		// [GaugeChart]	
+	var sAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.categoryaxistitletext);
+	
+	var arrMaskInfo = new Array();
+	
+	var oCategoryAxes;
+	
+	// 카테고리축 추가
+	oCategoryAxes = {};
+	oCategoryAxes = this.lfn_CloneObject(this.oBaseCategoryaxis);
+	oCategoryAxes["titletext"] = this.lfn_Trim(sAxisTitleText);
+	
+	if(this.lfn_IsNotNull(oCategoryField)) {
+		arrMaskInfo = this.lfn_GetDataTypeMask(oCategoryField.datatype);
+		oCategoryAxes["labelmask"] = arrMaskInfo[0];
+		oCategoryAxes["labeltype"] = arrMaskInfo[1];
+	}
+	
+	return oCategoryAxes;
+};
+
+// 데이터 축 설정
+fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
+{
+	var sAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.valueaxistitletext);
+	var arrAxisTitleText = sAxisTitleText.split(",");
 	
 	var arrValueAxes = new Array();
 	var oValueAxes;
 	
 	var arrMaskInfo = new Array();
-	var oField;
+	var oFieldy, oFieldy1, oFieldy2;
 	
 	// 기본y축 추가
 	oValueAxes = {};
 	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
-	oValueAxes["id"] = "valueaxis";
-	oValueAxes["tickmin"] = nGaugeMin;
-	oValueAxes["tickmax"] = nGaugeMax;
-	oValueAxes["tickinterval"] = "10";
+	oValueAxes["id"] = "valueaxis" + "y";
+	oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[0]);
 	
 	if (arrAxisYField.length == 0) {
-		this.lfn_Log("series가 설정되지 않았습니다.","warn");
+		this.lfn_Log("valueaxis가 설정되지 않았습니다.","warn");
 	} else {
 		oFieldy = arrAxisYField[0];				// 첫번째 시리즈 기준으로 축값 설정
 		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy.datatype);
@@ -507,30 +524,51 @@ fn_GetValueAxes = function(arrAxisYField)
 	
 	arrValueAxes.push(oValueAxes);
 	
+	// Y1추가
+	if (arrAxisY1Field.length > 0) {
+		oFieldy1 = arrAxisY1Field[0];			// 첫번째 시리즈 기준으로 축값 설정
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy1.datatype);
+		
+		oValueAxes = {};
+		oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis2);
+		oValueAxes["id"] = "valueaxis" + "y1";
+		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[1]);
+		oValueAxes["labelmask"] = arrMaskInfo[0];
+		oValueAxes["labeltype"] = arrMaskInfo[1];
+		
+		arrValueAxes.push(oValueAxes);
+	}
+	
+	// Y2추가
+	if (arrAxisY2Field.length > 0) {
+		oFieldy2 = arrAxisY2Field[0];			// 첫번째 시리즈 기준으로 축값 설정
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy2.datatype);
+		
+		oValueAxes = {};
+		oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis2);
+		oValueAxes["id"] = "valueaxis" + "y2";
+		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[2]);
+		oValueAxes["labelmask"] = arrMaskInfo[0];
+		oValueAxes["labeltype"] = arrMaskInfo[1];
+		
+		arrValueAxes.push(oValueAxes);
+	}
+
     return arrValueAxes;
-};
+}
 
 // 시리즈 셋팅
 fn_GetSeries = function(arrSeriesField)
 {
-	var sChartColorSet = this.oGenerationAttr.attributes.chartcolorset;
-	var sChartColor = this.oGenerationAttr.attributes.chartcolor;
-	var sIndicator = this.oGenerationAttr.attributes.visibleindicator;
+	var sLineType = this.oGenerationAttr.attributes.linetype;
 	var sItemTextPosition = this.oGenerationAttr.attributes.itemtextposition;
-	
-	// 차트색상 설정(sChartColorSet값이 "input"이고 sChartColor값이 있는 경우,  sChartColor, 아니면 sChartColorSet)
-	var sSetColor = "";
-	if (sChartColorSet == this.ENUM_INPUT
-		&& this.lfn_IsNotNull(sChartColor)) {
-		sSetColor = sChartColor;
-	} else {
-		sSetColor = sChartColorSet;
-	}
+	var sChartDisplay = this.oGenerationAttr.attributes.chartdisplay;
 	
 	var arrSeries = new Array();
 	var oSeries;
 	
 	var oField;
+	
 	var arrMaskInfo = new Array();
 	
 	var nCount = arrSeriesField.length;
@@ -541,24 +579,18 @@ fn_GetSeries = function(arrSeriesField)
 		oField = arrSeriesField[i];
 		
 		oSeries = {};
-		oSeries = this.lfn_CloneObject(this.oBaseSeriesGauge);
+		oSeries = this.lfn_CloneObject(this.oBaseSeriesArea);
 		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
 		oSeries["titletext"] = oField.label;
 		oSeries["valuecolumn"] = "bind:" + oField.id;
 		
-		// 색상설정
-		if (sSetColor.indexOf("[") >= 0) {			// [GaugeChart] Array형식인 경우 userrange로 설정함.
-			oSeries["baropacity"] = "0";
-			oSeries["barsize"] = "0";
-			oSeries["opacity"] = "1";
-			oSeries["userrange"] = sSetColor;
-		} else {									// [GaugeChart] 색상을 설정한 경우
-			oSeries["barfillstyle"] = sSetColor;
-			oSeries["barlinestyle"] = "1px solid " + sSetColor;
-			oSeries["opacity"] = "0.5";
-			oSeries["fillstyle"] = sSetColor;
-			oSeries["linestyle"] = "1px solid " + sSetColor;
-		}
+		// [AreaChart] 선유형설정
+		oSeries["linetype"] = sLineType;
+		
+		// [AreaChart] 시리즈 색상처리
+		oSeries["linestyle"] = this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i);
+		oSeries["lineareafillstyle"] = this.lfn_GetChartColor(i);
+		oSeries["pointfillstyle"] = this.lfn_GetChartColor(i);
 		
 		// 데이터 출력설정
 		if (sItemTextPosition == "none") {
@@ -566,11 +598,19 @@ fn_GetSeries = function(arrSeriesField)
 		} else {
 			arrMaskInfo = this.lfn_GetDataTypeMask(oField.datatype);
 			
-			oSeries["itemtextvisible"] 		= true;
+			oSeries["itemtextvisible"] = true;
 			oSeries["itemtextmask"]			= arrMaskInfo[0];
 			oSeries["itemtexttype"]			= arrMaskInfo[1];
 			
-			oSeries["itemtextposition"] 	= sItemTextPosition;
+			// [AreaChart]
+			oSeries["lineitemtextposition"] = sItemTextPosition;
+		}
+		
+		// [BasicChart] Y축설정
+		if (oField.valueaxes == "y1") {
+			oSeries["valueaxis"] = "valueaxisy1";
+		} else if (oField.valueaxes == "y2") {
+			oSeries["valueaxis"] = "valueaxisy2";
 		}
 		
 		arrSeries.push(oSeries);
@@ -615,7 +655,7 @@ fn_GetObjects = function(bPreviewMode)
 	// Preview일때 임시데이터 생성
 	if (bPreviewMode)
 	{
-		nRowCnt = 1;
+		nRowCnt = 5;
 		arrRows = this.lfn_GetPreviewData(this.oFieldArray,nRowCnt);
 	}
 	
