@@ -29,19 +29,18 @@ if (!nexacro.DsDeleteDataAction)
     //===============================================================		
     nexacro.DsDeleteDataAction.prototype.run = function()		
 	{	
-        var objForm;			
-					
-		//Import the object set as TargetView			
-		var objView = this.getTargetView();	
-		
-		var sTargetDs = this.targetdataset;
-			
-		var objDataset;
-		var objComp;
-
+        
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
-		{			
+		{	
+			//Import the object set as TargetView			
+			var objView = this.getTargetView();	
+			var objForm;
+			
+			var sTargetDs = this.targetdataset;
+				
+			var objDataset;
+			var objComp;
 			var objDs = this._targetdataset;
 			
 			if (this.gfnIsNull(objDs))	objDs 	= this.gfnGetDataset(objView,sTargetDs);

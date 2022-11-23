@@ -48,7 +48,7 @@ if (!nexacro.CommActionAsset)
 	pAction._COM_CODE_COL = "COMN_CD";							// 공통코드 코드컬럼명
 	pAction._COM_NAME_COL = "COMN_CD_NM";						// 공통코드 코드명컬럼명
 	
-	// 대상 Action : SearchDBAction
+	// 대상 Action : TransactionAction
 	pAction._TRAN_CALLBACK_NM = "fnTranActionCallback";			// Action공통 Callback함수명
 	//===============================================================
     // nexacro.Action : 공통함수(Util)
