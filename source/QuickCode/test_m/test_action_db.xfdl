@@ -142,21 +142,21 @@
       </Layout>
     </Layouts>
     <Objects>
-      <SearchDBAction id="SearchDBAction00" servicemodel="Tran" serviceurl="svc::jsp/TransactionActionService01.jsp" inputdatasets="input=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=output" canrun="Common_canrun" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
+      <TransactionAction id="TransactionAction00" servicemodel="Tran" serviceurl="svc::jsp/TransactionActionService01.jsp" inputdatasets="input=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=output" canrun="Common_canrun" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
         <Contents/>
-      </SearchDBAction>
-      <SearchDBAction id="SearchDBAction01" servicemodel="Tran" serviceurl="svc::jsp/TransactionActionService02.jsp" canrun="Common_canrun" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
+      </TransactionAction>
+      <TransactionAction id="TransactionAction01" servicemodel="Tran" serviceurl="svc::jsp/TransactionActionService02.jsp" canrun="Common_canrun" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
         <Contents/>
-      </SearchDBAction>
+      </TransactionAction>
     </Objects>
     <Trigger>
-      <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_db" triggerobj="btnError" targetaction="SearchDBAction01" condition=""/>
+      <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="TransactionAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="test_action_db" triggerobj="btnError" targetaction="TransactionAction01" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[
 this.btnSetArg_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.SearchDBAction00.set_args(this.edtArg.value);
+	this.TransactionAction00.set_args(this.edtArg.value);
 };
 
 this.Common_canrun = function(obj, e:nexacro.ActionRunEventInfo)

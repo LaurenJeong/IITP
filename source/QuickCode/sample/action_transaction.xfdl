@@ -238,12 +238,12 @@
       </Layout>
     </Layouts>
     <Objects>
-      <SearchDBAction id="SearchDBAction00" servicemodel="Tran" serviceurl="svc::service/TransactionActionService01.jsp" inputdatasets="input=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=output" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
+      <TransactionAction id="TransactionAction00" servicemodel="Tran" serviceurl="svc::service/TransactionActionService01.jsp" inputdatasets="input=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=output" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
         <Contents/>
-      </SearchDBAction>
-      <SearchDBAction id="SearchDBAction01" servicemodel="Tran" serviceurl="svc::service/TransactionActionService02.jsp" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
+      </TransactionAction>
+      <TransactionAction id="TransactionAction01" servicemodel="Tran" serviceurl="svc::service/TransactionActionService02.jsp" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
         <Contents/>
-      </SearchDBAction>
+      </TransactionAction>
       <Dataset id="dsProperty">
         <ColumnInfo>
           <Column id="ID" type="STRING" size="256"/>
@@ -360,7 +360,7 @@ ex) View00.form.viewdataset=outputmodelid1 View01.form.viewdataset=outputmodelid
       </Dataset>
     </Objects>
     <Trigger>
-      <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction00" condition=""/>
+      <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="TransactionAction00" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {

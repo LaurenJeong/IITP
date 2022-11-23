@@ -2,32 +2,32 @@
 //	Define the Action.
 //==============================================================================
 //==============================================================================		
-// Object : nexacro.SearchDBAction		
+// Object : nexacro.TransactionAction		
 // Group : Action		
 //==============================================================================		
-if (!nexacro.SearchDBAction)		
+if (!nexacro.TransactionAction)		
 {		
-    nexacro.SearchDBAction = function(id, parent)		
+    nexacro.TransactionAction = function(id, parent)		
     {		
         nexacro.Action.call(this, id, parent);
 		this.addEvent("canrun");
     };		
         		
-    nexacro.SearchDBAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.SearchDBAction);		
-    nexacro.SearchDBAction.prototype._type_name = "SearchDBAction";	
+    nexacro.TransactionAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.TransactionAction);		
+    nexacro.TransactionAction.prototype._type_name = "TransactionAction";	
 	
 	//===============================================================		
-    // nexacro.SearchDBAction : Create & Destroy		
+    // nexacro.TransactionAction : Create & Destroy		
     //===============================================================		
-    nexacro.SearchDBAction.prototype.destroy = function()		
+    nexacro.TransactionAction.prototype.destroy = function()		
 	{	
 		nexacro.Action.prototype.destroy.call(this);
 	};	
 		
     //===============================================================		
-    // nexacro.SearchDBAction : Method		
+    // nexacro.TransactionAction : Method		
     //===============================================================		
-    nexacro.SearchDBAction.prototype.run = function()		
+    nexacro.TransactionAction.prototype.run = function()		
 	{	
         //canrun 이벤트의 리턴값이 false가 아닐경우
 		if(this.on_fire_canrun("userdata")!=false)
@@ -46,7 +46,7 @@ if (!nexacro.SearchDBAction)
 	
 	
 	
-	nexacro.SearchDBAction.prototype.set_servicemodel = function (v)
+	nexacro.TransactionAction.prototype.set_servicemodel = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -55,8 +55,8 @@ if (!nexacro.SearchDBAction)
 		}
 	};
 	
-	nexacro.SearchDBAction.prototype.serviceurl = "";
-	nexacro.SearchDBAction.prototype.set_serviceurl = function (v)
+	nexacro.TransactionAction.prototype.serviceurl = "";
+	nexacro.TransactionAction.prototype.set_serviceurl = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -65,8 +65,8 @@ if (!nexacro.SearchDBAction)
 		}
 	};
 	
-	nexacro.SearchDBAction.prototype.inputdatasets = "";
-	nexacro.SearchDBAction.prototype.set_inputdatasets = function (v)
+	nexacro.TransactionAction.prototype.inputdatasets = "";
+	nexacro.TransactionAction.prototype.set_inputdatasets = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -75,8 +75,8 @@ if (!nexacro.SearchDBAction)
 		}
 	};
 	
-	nexacro.SearchDBAction.prototype.outputdatasets = "";
-	nexacro.SearchDBAction.prototype.set_outputdatasets = function (v)
+	nexacro.TransactionAction.prototype.outputdatasets = "";
+	nexacro.TransactionAction.prototype.set_outputdatasets = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -85,8 +85,8 @@ if (!nexacro.SearchDBAction)
 		}
 	};
 	
-	nexacro.SearchDBAction.prototype.args = "";
-	nexacro.SearchDBAction.prototype.set_args = function (v)
+	nexacro.TransactionAction.prototype.args = "";
+	nexacro.TransactionAction.prototype.set_args = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -96,8 +96,8 @@ if (!nexacro.SearchDBAction)
 		}
 	};
 // 	
-// 	nexacro.SearchDBAction.prototype.async = "";
-// 	nexacro.SearchDBAction.prototype.set_async = function (v)
+// 	nexacro.TransactionAction.prototype.async = "";
+// 	nexacro.TransactionAction.prototype.set_async = function (v)
 // 	{
 // 		// TODO : enter your code here.
 // 		v = nexacro._toBoolean(v);
@@ -109,7 +109,7 @@ if (!nexacro.SearchDBAction)
 // 	};
 	
 	
-	nexacro.SearchDBAction.prototype.on_fire_canrun = function (userdata)
+	nexacro.TransactionAction.prototype.on_fire_canrun = function (userdata)
 	{
 		var event = this.canrun;
 		if (event && event._has_handlers)
@@ -120,7 +120,7 @@ if (!nexacro.SearchDBAction)
 		return true;	
 	};
 	
-	nexacro.SearchDBAction.prototype.on_fire_onsuccess = function (sSvcId, nErrorCd, sErrorMsg)
+	nexacro.TransactionAction.prototype.on_fire_onsuccess = function (sSvcId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onsuccess;
 		if (event && event._has_handlers)
@@ -130,7 +130,7 @@ if (!nexacro.SearchDBAction)
 		}
 	};
 	
-	nexacro.SearchDBAction.prototype.on_fire_onerror = function (sSvcId, nErrorCd, sErrorMsg)
+	nexacro.TransactionAction.prototype.on_fire_onerror = function (sSvcId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onerror;
 		if (event && event._has_handlers)
@@ -144,7 +144,7 @@ if (!nexacro.SearchDBAction)
     // nexacro.DsCopyRowDataAction : 공통함수 전환부분
     //===============================================================
 	// Transaction
-	nexacro.SearchDBAction.prototype.gfnTransaction = function(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync)
+	nexacro.TransactionAction.prototype.gfnTransaction = function(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync)
 	{	
 		if (this.gfnIsNull(sSvcId) || this.gfnIsNull(sService))
 		{
@@ -198,7 +198,7 @@ if (!nexacro.SearchDBAction)
 	};
 	
 	// Transaction Callback
-	nexacro.SearchDBAction.prototype.fnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
+	nexacro.TransactionAction.prototype.fnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
 	{
 		var objSvcId = JSON.parse(svcId);
 		var sSvcId = objSvcId.svcId;
@@ -225,7 +225,7 @@ if (!nexacro.SearchDBAction)
 	};
 	
 	// Model Argument 처리 : 해당 데이터셋에 value값 설정
-	nexacro.SearchDBAction.prototype.gfnSetModelArgument = function(objForm)
+	nexacro.TransactionAction.prototype.gfnSetModelArgument = function(objForm)
 	{
 		var oModelList = this.getContents("model");		// Action 내 model 정보 
 		
@@ -283,7 +283,7 @@ if (!nexacro.SearchDBAction)
 	};
 	
 	// User Argument 처리 : transaction Argument로 추가
-	nexacro.SearchDBAction.prototype.gfnSetUserArgument = function(objForm)
+	nexacro.TransactionAction.prototype.gfnSetUserArgument = function(objForm)
 	{
 		var sReturnValue = "";
 		
