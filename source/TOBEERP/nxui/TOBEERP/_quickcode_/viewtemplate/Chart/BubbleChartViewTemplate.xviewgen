@@ -1,25 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="혼합 차트(CombinationChart)를 그려주는 템플릿&#13;&#10;- 각 시리즈 데이터를 막대, 선, 영역으로 표현하는 차트를 그려주는 템플릿"/>
+  <ViewTemplate id="ColumnChartViewTemplate" viewtype="Chart" description="분산형차트를 그려주는 템플릿&#13;&#10;- BubbleChart : 버블차트&#13;&#10;- SatterPlot : 산점도"/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  [Chart] CombinationChart View Template
-*  @FileName 	CombinationChartViewTemplate.xviewgen 
+*  [Chart] BubbleChart View Template
+*  @FileName 	BubbleChartViewTemplate.xviewgen 
 *  @Creator 	Creator
-*  @CreateDate 	2022.03.28
-*  @Desction    혼합 차트(CombinationChart)를 그려주는 템플릿
-*  					- 각 시리즈 데이터를 막대, 선, 영역으로 표현하는 차트를 그려주는 템플릿
+*  @CreateDate 	2022.03.21
+*  @Desction    분산형차트를 그려주는 템플릿
+*  					- BubbleChart : 버블차트
+*  					- SatterPlot : 산점도
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
 *******************************************************************************
-*  2022.03.28     		Creator       	      		최초 생성
+*  2022.03.21     		Creator       	      		최초 생성
 *******************************************************************************
 */
 /************************************************************************************************
  * include 선언부
  ************************************************************************************************/
-include "view_lib::util.xjs";
-include "view_lib::common.xjs";
-include "view_lib::chart.xjs";
+include "quickcode::viewtemplate/lib/util.xjs";
+include "quickcode::viewtemplate/lib/common.xjs";
+include "quickcode::viewtemplate/lib/chart.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
@@ -150,7 +151,6 @@ fn_GetViewGeneration = function(fieldarray, contents, generationattr, bPreviewMo
     //뷰 컴포넌트 정보 리턴
     return vResult;
 };
-
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetViewAttributeList
  * Return       : View generation attribute list (JSON format)
@@ -199,7 +199,7 @@ fn_GetViewAttributeList = function() {
 							, {
                                 "id": "titlealign",
                                 "edittype": "Enum",
-                                "defaultvalue": "topleft",
+                                "defaultvalue": "topcenter",
                                 "enumlist" : ["topleft", "topcenter", "topright", "bottomleft", "bottomcenter", "bottomright", "lefttop", "leftcenter", "leftbottom", "righttop", "rightcenter", "rightbottom"],
                                 "description": "타이틀 표시 위치"
                             }
@@ -211,30 +211,23 @@ fn_GetViewAttributeList = function() {
                                 "description": "범례 표시 위치"
                             }
 							, {									
-                                "id": "categoryaxistitletext",									
+                                "id": "xaxistitletext",									
                                 "edittype": "String",											
                                 "defaultvalue": "",									
-                                "description": "데이터명축(x축) 타이틀 Text"									
+                                "description": "X축 타이틀 Text"									
                             }
 							, {									
-                                "id": "valueaxistitletext",									
+                                "id": "yaxistitletext",									
                                 "edittype": "String",											
                                 "defaultvalue": "",									
-                                "description": "데이터축(y축) 타이틀 Text(여러 축 설정시 ,를 구분자로 여러개 입력)"									
+                                "description": "X축 타이틀 Text"									
                             }
 							, {
-                                "id": "baritemtextposition",			// [CombinationChart]
-                                "edittype": "Enum",
-                                "defaultvalue": "none",
-                                "enumlist" : ["none", "start", "middle", "end", "outside"],
-                                "description": "seriesdisplay이 'bar'일때 값 표시 위치"
-                            }
-							, {
-                                "id": "lineareaitemtextposition",		// [CombinationChart]
+                                "id": "itemtextposition",		// [BubbleChart]
                                 "edittype": "Enum",
                                 "defaultvalue": "none",
                                 "enumlist" : ["none", "lefttop", "centertop", "righttop", "leftmiddle", "centermiddle", "rightmiddle", "leftbottom", "centerbottom", "rightbottom"],
-                                "description": "seriesdisplay이 'line', 'linepoint','area'일때 값 표시 위치"
+                                "description": "값 표시 위치"
                             }
 							, this.oAttrViewPadding
                         ]
@@ -277,40 +270,19 @@ fn_GetFieldUserAttributeList = function ()
                             {
                                 "id"			: "displaytype",
                                 "edittype"		: "Enum",
-								"enumlist" 		: ["none", "category", "series"],
-                                "defaultvalue"	: "series",
+								"enumlist" 		: ["none", "seriesx", "seriesy","bubblesize"],
+                                "defaultvalue"	: "none",
                                 "description"	: "데이터 표현방식"
 												+ "\n" + " - none : 사용안함"
-												+ "\n" + " - category : 데이터명 Field(1개)"
-												+ "\n" + " - series : 데이터값 Field(n개)"
+												+ "\n" + " - seriesx : X축(가로축데이터) Field(series당 1개)"
+												+ "\n" + " - seriesy : Y축(세로축데이터) Field(series당 1개)"
+												+ "\n" + " - bubblesize : 버블사이즈 Field(series당 1개. 지정안하는 경우 Scatter로 동작함.)"
                             }
 							, {
-                                "id"			: "seriesdisplay",
-                                "edittype" 		: "Enum",
-								"enumlist" 		: ["bar", "line", "linepoint","area"],
-								"defaultvalue"	: "bar",
-                                "description"	: "시리즈를 표시할 차트유형 설정"
-												+ "\n" + " - bar : 막대 그래프"
-												+ "\n" + " - line : 선 그래프"
-												+ "\n" + " - linepoint : 선 + 점 그래프"
-												+ "\n" + " - area : 영역형 그래프"
-                            }
-							, {
-                                "id"			: "linetype",
-                                "edittype"		: "Enum",
-                                "defaultvalue"	: "segment",
-                                "enumlist" 		: ["segment", "step", "curve"],
-                                "description"	: "선그래프 유형을 설정. (seriesdisplay이 'line', 'linepoint','area'일때 동작)"
-												+ "\n" + " - segment : 꺽은선 차트"
-												+ "\n" + " - step : 스텝 차트"
-												+ "\n" + " - curve : 곡선 차트"
-                            }
-							, {
-                                "id"			: "valueaxes",
-                                "edittype" 		: "Enum",
-								"enumlist" 		: ["y", "y1", "y2"],
-								"defaultvalue"	: "y",
-                                "description"	: "데이터축을 설정. y는 왼쪽, y1,y2는 오른쪽에 표시됨."
+                                "id"			: "seriesname",
+                                "edittype" 		: "String",
+								"defaultvalue"	: "",
+                                "description"	: "시리즈명(시리즈명을 기준으로 그룹핑)"
                             }
                         ]
                   };
@@ -321,9 +293,7 @@ fn_GetFieldUserAttributeList = function ()
 
     return sFieldAttr;
 }
-/************************************************************************************************
- * 사용자 FUNCTION 영역
- ************************************************************************************************/
+
 /*---------------------------------------------------------------------------------------------*
  * Function     : fn_GetModel
  * Parameter    :
@@ -345,61 +315,63 @@ fn_GetModel = function(bPreviewMode)
 	var sTitleAlign = this.oGenerationAttr.attributes.titlealign;
 	var sLegendPosition = this.oGenerationAttr.attributes.legendposition;
 	
-	//모델 필드 갯수 가져오기
+	// 모델 필드 갯수 가져오기
     var nFieldCount = this.oFieldArray.fieldcount;
 	
-	// 카테고리 필드
-	var oCategoryField;
+	// 시리즈 갯수
+	var nSeriesCnt = 0;								// FieldUserAttribute seriesname으로 구분
 	
+	var oBubbleField = {};
 	var arrField = new Array(); 
-	var arrSeriesField = new Array();
-	var arrSeriesFieldBar = new Array();				// [CombinationChart] bar인 series 임시 배열
-	var arrSeriesFieldBarN = new Array();				// [CombinationChart] bar가 아닌 series 임시 배열
-	var arrAxisYField = new Array();
-	var arrAxisY1Field = new Array();
-	var arrAxisY2Field = new Array();
-
-	var sDisplaytype, sValueaxes;
+	var arrSeriesField = new Array(); 
+	
+	var sDisplaytype, sSeriesName;
+	
 	
 	//차트에서 사용할 모델 Field ID 리스트 만들기
     for(i=0;i<nFieldCount;i++)
     {
-        oField = this.oFieldArray.fields[i];
-		sDisplaytype = oField.displaytype;
-		sValueaxes = oField.valueaxes;
+        oField 			= this.oFieldArray.fields[i];
+		sDisplaytype 	= oField.displaytype;
+		sSeriesName 	= oField.seriesname;
+		
+		if (sSeriesName == undefined) {			// 빈값일때 기본값 셋팅
+			sSeriesName = "seriesname";
+		}
 		
 		// this.oFieldArray Json Data로 Field Array() 셋팅
 		arrField.push(oField.id);
 		
+		// [BubbleChart] 버블 Series 정보 추가
+		if (sDisplaytype != "none" 
+			&& oBubbleField[sSeriesName] == undefined) {
+			oBubbleField[sSeriesName] = new Array(3);
+			nSeriesCnt++;
+		}
+		
+		arrSeriesField = oBubbleField[sSeriesName];
+		
 		// displaytype에 따라 Array() 셋팅
-		if (sDisplaytype == "category") {
-			if(this.lfn_IsNull(oCategoryField)) {
-				oCategoryField = oField;
+		if (sDisplaytype == "seriesx") {
+			if (this.lfn_IsNull(arrSeriesField[0])) {
+				arrSeriesField[0] = oField;
 			} else {
-				this.lfn_Log("category가 여러개 설정되었습니다.","warn");
+				this.lfn_Log(sSeriesName + "의 seriesx가 여러개 설정되었습니다.(동일한 seriesname 당 1개의 필드만 설정가능합니다)","warn");
 			}
-		} else if (sDisplaytype == "series") {
-			
-			// [CombinationChart] seriesdisplay 값이 bar것과 아닌거 구분하여 추가
-			if (oField.seriesdisplay == "bar") {
-				arrSeriesFieldBar.push(oField);
+		} else if (sDisplaytype == "seriesy") {
+			if (this.lfn_IsNull(arrSeriesField[1])) {
+				arrSeriesField[1] = oField;
 			} else {
-				arrSeriesFieldBarN.push(oField);
+				this.lfn_Log(sSeriesName + "의 seriesy가 여러개 설정되었습니다.(동일한 seriesname 당 1개의 필드만 설정가능합니다)","warn");
 			}
-			
-			// valueaxes에 따라 Y축 Array() 셋팅
-			if (sValueaxes == "y1") {
-				arrAxisY1Field.push(oField);
-			} else if (sValueaxes == "y2") {
-				arrAxisY2Field.push(oField);
+		} else if (sDisplaytype == "bubblesize") {
+			if (this.lfn_IsNull(arrSeriesField[2])) {
+				arrSeriesField[2] = oField;
 			} else {
-				arrAxisYField.push(oField);
+				this.lfn_Log(sSeriesName + "의 bubblesize가 여러개 설정되었습니다.(동일한 seriesname 당 1개의 필드만 설정가능합니다)","warn");
 			}
 		}
     }
-	
-	// [CombinationChart] bar형식을 arrSeriesField 앞쪽에 추가(∵ 중간에 시리즈가 추가되면 막대차트 사이에 공간이 생김.)
-	arrSeriesField = arrSeriesFieldBar.concat(arrSeriesFieldBarN);
 	
 	// 차트 기본속성 셋팅
 	oChartAttr = this.lfn_CloneObject(this.oBaseChartAttr);
@@ -430,18 +402,21 @@ fn_GetModel = function(bPreviewMode)
 		oLegend["visible"] = true;
 	}
 	
-	// 카테고리 설정
-	if(this.lfn_IsNull(oCategoryField)) {
-		this.lfn_Log("category가 설정되지 않았습니다.","warn");
-		
-		// Preview모드일때 category 예외처리
-		if (bPreviewMode == true)
+	// Preview모드일때 Field 예외처리
+	if (bPreviewMode == true)
+	{
+		// series없는 경우 예외처리
+		if(nSeriesCnt == 0)
 		{
-			oCategoryField = this.lfn_Nvl(this.oFieldArray.fields.find(oField => oField.datatype == "STRING"),this.oFieldArray.fields[0]);
-			oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
+			// 숫자형 데이터 filter
+			var oFilterField = this.oFieldArray.fields.filter(oField => oField.datatype == "INT" || oField.datatype == "FLOAT" || oField.datatype == "BIGDECIMAL");
+			
+			if (this.lfn_IsNotNull(oFilterField) && oFilterField.length >= 2)
+			{
+				oBubbleField["seriesname"] = [oFilterField[0],oFilterField[1]];
+				nSeriesCnt = 1;
+			}
 		}
-	} else {
-		oChartAttr["categorycolumn"] = "bind:" + oCategoryField.id;
 	}
 	
 	//차트 컴포넌트 추가
@@ -451,9 +426,9 @@ fn_GetModel = function(bPreviewMode)
             "Components" :
             [
                 {
-                    "tag" : "BasicChart",
+                    "tag" : "BubbleChart",
                     "attribute" : oChartAttr,
-                    "BasicChart" :
+                    "BubbleChart" :
                     [
                         {
                             "tag"	: "Contents",
@@ -462,9 +437,8 @@ fn_GetModel = function(bPreviewMode)
 								"legend" 		: oLegend,
 								"tooltip" 		: this.oBaseTooltip,
 								"board" 		: this.oBaseBoard,
-								"categoryaxis" 	: fn_GetCategoryAxes(oCategoryField),
-								"valueaxes" 	: fn_GetValueAxes(arrAxisYField,arrAxisY1Field,arrAxisY2Field),
-								"seriesset" 	: fn_GetSeries(arrSeriesField)
+								"valueaxes" 	: fn_GetValueAxes(oBubbleField,nSeriesCnt),
+								"seriesset" 	: fn_GetSeries(oBubbleField,nSeriesCnt)
 							}
                         }
                     ]
@@ -476,198 +450,143 @@ fn_GetModel = function(bPreviewMode)
     return oModel;
 };
 
-// 카테고리 축 설정
-fn_GetCategoryAxes = function(oCategoryField)
+// [BubbleChart] 데이터 축 설정
+fn_GetValueAxes = function(oBubbleField,nCount)
 {
-	var sAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.categoryaxistitletext);
+	var sXAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.xaxistitletext);
+	var sYAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.yaxistitletext);
 	
+	var oValueAxes;
+	var arrValueAxes = new Array();
 	var arrMaskInfo = new Array();
 	
-	var oCategoryAxes;
+	var sFirstSeriesName, arrFirstBubbleField;
+	var oFieldX, oFieldY;
 	
-	// 카테고리축 추가
-	oCategoryAxes = {};
-	oCategoryAxes = this.lfn_CloneObject(this.oBaseCategoryaxis);
-	oCategoryAxes["titletext"] = this.lfn_Trim(sAxisTitleText);
-	
-	if(this.lfn_IsNotNull(oCategoryField)) {
-		arrMaskInfo = this.lfn_GetDataTypeMask(oCategoryField.datatype);
-		oCategoryAxes["labelmask"] = arrMaskInfo[0];
-		oCategoryAxes["labeltype"] = arrMaskInfo[1];
+	// [BubbleChart] 첫번째 시리즈 기준으로 축생성
+	if (nCount > 0)
+	{
+		sFirstSeriesName = Object.keys(oBubbleField)[0];
+		arrFirstBubbleField = oBubbleField[sFirstSeriesName];		// arrBubbleField[seriesxField, seriesyField, bubblesizeField]
+		
+		oFieldX = arrFirstBubbleField[0];
+		oFieldY = arrFirstBubbleField[1];
 	}
 	
-	return oCategoryAxes;
-};
-
-// 데이터 축 설정
-fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
-{
-	var sAxisTitleText = this.lfn_IsNullEmpty(this.oGenerationAttr.attributes.valueaxistitletext);
-	var arrAxisTitleText = sAxisTitleText.split(",");
+	// TODO : 축관련 설정이 들어가면 수정필요.
 	
-	var arrValueAxes = new Array();
-	var oValueAxes;
-	
-	var arrMaskInfo = new Array();
-	var oFieldy, oFieldy1, oFieldy2;
-	
-	// 기본y축 추가
+	// x축 추가
 	oValueAxes = {};
 	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
-	oValueAxes["id"] = "valueaxis" + "y";
-	oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[0]);
+	oValueAxes["id"]		= "valueaxis" + "x";
+	oValueAxes["titletext"]	= this.lfn_Trim(sXAxisTitleText);
 	
-	if (arrAxisYField.length == 0) {
-		this.lfn_Log("valueaxis가 설정되지 않았습니다.","warn");
+	if (this.lfn_IsNull(oFieldX)) {
+		this.lfn_Log("seriesx가 설정되지 않았습니다.","error");
 	} else {
-		oFieldy = arrAxisYField[0];				// 첫번째 시리즈 기준으로 축값 설정
-		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy.datatype);
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldX.datatype);
 		oValueAxes["labelmask"] = arrMaskInfo[0];
 		oValueAxes["labeltype"] = arrMaskInfo[1];
 	}
 	
 	arrValueAxes.push(oValueAxes);
 	
-	// Y1추가
-	if (arrAxisY1Field.length > 0) {
-		oFieldy1 = arrAxisY1Field[0];			// 첫번째 시리즈 기준으로 축값 설정
-		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy1.datatype);
-		
-		oValueAxes = {};
-		oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis2);
-		oValueAxes["id"] = "valueaxis" + "y1";
-		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[1]);
+	// y축 추가
+	oValueAxes = {};
+	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
+	oValueAxes["id"] = "valueaxis" + "y";
+	oValueAxes["titletext"]	= this.lfn_Trim(sYAxisTitleText);
+
+	if (this.lfn_IsNull(oFieldY)) {
+		this.lfn_Log("seriesy가 설정되지 않았습니다.","error");
+	} else {
+		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldY.datatype);
 		oValueAxes["labelmask"] = arrMaskInfo[0];
 		oValueAxes["labeltype"] = arrMaskInfo[1];
-		
-		arrValueAxes.push(oValueAxes);
 	}
-	
-	// Y2추가
-	if (arrAxisY2Field.length > 0) {
-		oFieldy2 = arrAxisY2Field[0];			// 첫번째 시리즈 기준으로 축값 설정
-		arrMaskInfo = this.lfn_GetDataTypeMask(oFieldy2.datatype);
-		
-		oValueAxes = {};
-		oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis2);
-		oValueAxes["id"] = "valueaxis" + "y2";
-		oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[2]);
-		oValueAxes["labelmask"] = arrMaskInfo[0];
-		oValueAxes["labeltype"] = arrMaskInfo[1];
-		
-		arrValueAxes.push(oValueAxes);
-	}
+	arrValueAxes.push(oValueAxes);
 
     return arrValueAxes;
 }
 
-// 시리즈 셋팅
-fn_GetSeries = function(arrSeriesField)
+// [BubbleChart] 시리즈 셋팅
+fn_GetSeries = function(oBubbleField,nCount)
 {
-	var sBarItemTextPosition = this.oGenerationAttr.attributes.baritemtextposition;
-	var sLineAreaItemTextPosition = this.oGenerationAttr.attributes.lineareaitemtextposition;
+	var sItemTextPosition = this.oGenerationAttr.attributes.itemtextposition;
 	
 	var arrSeries = new Array();
 	var oSeries;
 	
-	var oField;
-	
+	var sSeriesId = "";
+	var sSeriesName;
+	var arrBubbleField;
+	var oFieldSeriesX, oFieldSeriesY, oFieldSeriesB;
 	var arrMaskInfo = new Array();
 	
-	var sSeriesDisplay;
-	var sLineType;
-	var sItemTextPositionNm = "";
-	var sItemTextPosition;
-	
-	var nCount = arrSeriesField.length;
-
-	// arrSeriesField 갯수 기준으로 series 태그 생성
+	//Model Field의 갯수 기준으로 Column 태그 생성
 	for(var i=0;i<nCount;i++)
 	{
+		sSeriesName = Object.keys(oBubbleField)[i];
+		arrBubbleField = oBubbleField[sSeriesName];		// arrBubbleField[seriesxField, seriesyField, bubblesizeField]
+		
+		oFieldSeriesX = arrBubbleField[0];
+		oFieldSeriesY = arrBubbleField[1];
+		oFieldSeriesB = arrBubbleField[2];
+		
+		if (this.lfn_IsNull(oFieldSeriesX)) {
+			this.lfn_Log(sSeriesName + "의 seriesx가 설정되지 않았습니다.","error");
+			continue;
+		}
+		
+		if (this.lfn_GetDataTypeMask(oFieldSeriesX.datatype)[2] != "number") {
+			this.lfn_Log(sSeriesName + "의 seriesx값에 숫자형 데이터를 지정하세요.","warn");
+		}
+		
+		if (this.lfn_IsNull(oFieldSeriesY)) {
+			this.lfn_Log(sSeriesName + "의 seriesy가 설정되지 않았습니다.","error");
+			continue;
+		}
+		
+		if (this.lfn_GetDataTypeMask(oFieldSeriesY.datatype)[2] != "number") {
+			this.lfn_Log(sSeriesName + "의 seriesy값에 숫자형 데이터를 지정하세요.","warn");
+		}
+		
+		// 한글제거(String으로 입력받은 시리즈명을 기준으로 id설정)
+		sSeriesId = sSeriesName.replace(/[^a-z|0-9]/gi,"");
+		sSeriesId = "series" + this.lfn_Decode(sSeriesId, "", "", "_" + sSeriesId);
+		
 		oSeries = {};
+		oSeries = this.lfn_CloneObject(this.oBaseSeriesBubble);
+		oSeries["id"] = this.lfn_GetCompId(sSeriesId);
+		oSeries["titletext"] = sSeriesName;
+		oSeries["valuecolumn"] = "bind:" + oFieldSeriesX.id;
+		oSeries["value2column"] = "bind:" + oFieldSeriesY.id;
 		
-		oField = arrSeriesField[i];
+		// [BubbleChart] 시리즈 색상처리
+		oSeries["fillstyle"] = this.lfn_GetChartColor(i);
+		oSeries["linestyle"] = this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i);
 		
-		sSeriesDisplay = oField.seriesdisplay;
+		if (this.lfn_IsNotNull(oFieldSeriesB)) {
+			if (this.lfn_GetDataTypeMask(oFieldSeriesB.datatype)[2] != "number") {
+				this.lfn_Log(sSeriesName + "의 bubblesize값에 숫자형 데이터를 지정하세요.","warn");
+			}
 		
-		// 시리즈 유형에 따라 값 처리
-		if (sSeriesDisplay == "line") {									// seriesdisplay = "line"
-			oSeries = this.lfn_CloneObject(this.oBaseSeriesLine);
-			
-			// 선유형설정
-			sLineType = oField.linetype;
-			
-			// 데이터 출력설정
-			sItemTextPositionNm = "lineitemtextposition";
-			sItemTextPosition 	= sLineAreaItemTextPosition;
-			
-		} else if (sSeriesDisplay == "linepoint") {						// seriesdisplay = "linepoint"
-			oSeries = this.lfn_CloneObject(this.oBaseSeriesLine);
-			
-			// 라인에 점을 표시할지 여부
-			oSeries["pointvisible"] = true;
-			
-			// 선유형설정
-			sLineType = oField.linetype;
-			
-			// 데이터 출력설정
-			sItemTextPositionNm = "pointitemtextposition";
-			sItemTextPosition 	= sLineAreaItemTextPosition;
-			
-		} else if (sSeriesDisplay == "area") {								// AreaChart
-			oSeries = this.lfn_CloneObject(this.oBaseSeriesArea);
-			
-			// 선유형설정
-			sLineType = oField.linetype;
-			
-			// 데이터 출력설정
-			sItemTextPositionNm = "lineitemtextposition";
-			sItemTextPosition 	= sLineAreaItemTextPosition;
-			
-		} else {															// BarChart
-			oSeries = this.lfn_CloneObject(this.oBaseSeriesBar);
-			
-			// 선유형설정
-			sLineType = "";
-			
-			// 데이터 출력설정
-			sItemTextPositionNm = "baritemtextposition";
-			sItemTextPosition 	= sBarItemTextPosition;
+			oSeries["value3column"] = "bind:" + oFieldSeriesB.id;
+			oSeries["opacity"] = "0.5";
 		}
-		
-		oSeries["id"] = this.lfn_GetCompId("series" + " " + oField.id);
-		oSeries["titletext"] = oField.label;
-		oSeries["valuecolumn"] = "bind:" + oField.id;
-		
-		// 선유형설정
-		if (this.lfn_IsNotNull(sLineType)) {
-			oSeries["linetype"] = sLineType;
-		}
-		
-		// [CombinationChart] 시리즈 색상처리
-		oSeries["barfillstyle"]			= this.lfn_GetChartColor(i);
-		oSeries["linestyle"]			= this.SERIES_LINE_STYLE + " " + this.lfn_GetChartColor(i);
-		oSeries["lineareafillstyle"]	= this.lfn_GetChartColor(i);
-		oSeries["pointfillstyle"]		= this.lfn_GetChartColor(i);
 		
 		// 데이터 출력설정
 		if (sItemTextPosition == "none") {
 			oSeries["itemtextvisible"] = false;
 		} else {
-			arrMaskInfo = this.lfn_GetDataTypeMask(oField.datatype);
+			arrMaskInfo = this.lfn_GetDataTypeMask(oFieldSeriesX.datatype);
 			
-			oSeries["itemtextvisible"]		= true;
+			oSeries["itemtextvisible"] = true;
 			oSeries["itemtextmask"]			= arrMaskInfo[0];
 			oSeries["itemtexttype"]			= arrMaskInfo[1];
 			
-			oSeries[sItemTextPositionNm] = sItemTextPosition;
-		}
-		
-		// [BasicChart] Y축설정
-		if (oField.valueaxes == "y1") {
-			oSeries["valueaxis"] = "valueaxisy1";
-		} else if (oField.valueaxes == "y2") {
-			oSeries["valueaxis"] = "valueaxisy2";
+			// [BubbleChart]
+			oSeries["itemtextposition"] = sItemTextPosition;
 		}
 		
 		arrSeries.push(oSeries);
@@ -734,7 +653,8 @@ fn_GetObjects = function(bPreviewMode)
  * Return       : script contents (JSON format)
  * Description  : Function to generate <Script> source
  *---------------------------------------------------------------------------------------------*/
-fn_GetScript = function(){
+fn_GetScript = function()
+{
 
 	//스크립트 정보 초기화
     var oScript = {};
