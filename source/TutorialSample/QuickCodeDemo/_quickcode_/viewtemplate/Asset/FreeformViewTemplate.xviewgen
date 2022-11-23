@@ -2,11 +2,11 @@
 <ViewTemplateInfo version="1.0">
   <ViewTemplate id="FreeformViewTemplate" viewtype="Asset" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
-*  Search View Template
-*  @FileName 	SearchViewTemplate.xviewgen
+*  Freeform View Template
+*  @FileName 	FreeformViewTemplate.xviewgen
 *  @Creator 	Kim Dae Won
 *  @CreateDate 	2021.04.29
-*  @Desction    조회조건영역 생성 템플릿
+*  @Desction    상세화면 생성 템플릿
 *  @version		1.0.0.0
 ************** 소스 수정 이력 ***********************************************
 *  date          		Modifier                Description
@@ -17,8 +17,8 @@
 /************************************************************************************************
  * include 선언부
  ************************************************************************************************/
-include "view_lib::util.xjs";
-include "view_lib::common.xjs";
+include "quickcode::viewtemplate/lib/util.xjs";
+include "quickcode::viewtemplate/lib/common.xjs";
 /************************************************************************************************
  * 변수 선언 영역
  ************************************************************************************************/
@@ -26,102 +26,102 @@ include "view_lib::common.xjs";
 // View 관련 상수
 //--------------------------------------------------------------------------------------------------------
 // View 여백
-this.VIEW_PADDING				= "10";
-// 컴포넌트 생성 방향("horizontal", "vertical")
-this.DIRECTION					= "horizontal";
+this.VIEW_PADDING			= "";
+// 컴포넌트 생성 방향
+this.DIRECTION				= "horizontal";
 // 컴포넌트 생성 수평 정렬방식
-this.HALIGN						= "left";
+this.HALIGN					= "left";
 // 컴포넌트 생성 수직 정렬방식
-this.VALIGN						= "top";
+this.VALIGN					= "top";
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+// 타이틀 객체 관련 상수
+//--------------------------------------------------------------------------------------------------------
+//타이틀 영역 전체건수 표시여부(Freeform에서는 사용안함)
+this.USE_TOT_COUNT			= "false";
+//타이틀 영역 접기/펼치기 버튼 표시여부("none", "open","close")
+this.USE_EXPAND_BUTTON		= "none";
 //--------------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------------
-// 조회 버튼 객체 관련 상수
-//--------------------------------------------------------------------------------------------------------
-//Lookup Button Default Width
-this.SEARCH_BUTTON_WIDTH		= 100;
-
-//Lookup Button Default Height
-this.SEARCH_BUTTON_HEIGHT		= 30;
-
-// 조회버튼과 컴포넌트와의 가로 간격
-this.SEARCH_BUTTON_H_SPACE		= 10;
-
-//Lookup Button Default Text
-this.SEARCH_BUTTON_TEXT			= "Search";
-
-//Lookup Button Default Form
-this.SEARCH_BUTTON_TYPE			= "bottom";
-
-//Lookup Button Css Class
-this.SEARCH_BUTTON_CSSCLASS		= "btn_search";
-//--------------------------------------------------------------------------------------------------------
-
+//////////////////////////////상수 설정부 START ////////////////////////////////////////////////////
 //Component Default Width
-this.COMP_WIDTH					= "100px";
+this.COMP_WIDTH				= "100%";
 
 //Component Default Height
-this.COMP_HEIGHT				= "30px";
+this.COMP_HEIGHT			= "40px";
 
 //Label Default Size
-this.LABEL_SIZE					= 100;
+this.LABEL_SIZE				= 100;
 
 //Component Default Type
-this.COMP_TYPE					= "auto";
+this.COMP_TYPE				= "auto";
 
 //Label Default Type
-this.LABEL_TYPE					= "static";
+this.LABEL_TYPE				= "static";
+
+//Background Default Type
+this.COMP_BG_TYPE			= "static";
 
 //fieldposition이 "horizontal"일때(라벨과 컴포넌트가 좌우배치) Component Padding
-this.H_COMP_PADDING_LEFT		= 5;
-this.H_COMP_PADDING_TOP			= 0;
-this.H_COMP_PADDING_RIGHT		= 0;
-this.H_COMP_PADDING_BOTTOM		= 0;
+this.H_COMP_PADDING_LEFT	= 5;
+this.H_COMP_PADDING_TOP		= 5;
+this.H_COMP_PADDING_RIGHT	= 5;
+this.H_COMP_PADDING_BOTTOM	= 5;
 
 //fieldposition이 "vertical"일때(라벨과 컴포넌트가 상하배치) Component Padding
-this.V_COMP_PADDING_LEFT		= 0;
-this.V_COMP_PADDING_TOP			= 5;
-this.V_COMP_PADDING_RIGHT		= 0;
-this.V_COMP_PADDING_BOTTOM		= 0;
+this.V_COMP_PADDING_LEFT	= 5;
+this.V_COMP_PADDING_TOP		= 5;
+this.V_COMP_PADDING_RIGHT	= 5;
+this.V_COMP_PADDING_BOTTOM	= 5;
 
 //Gap Between Components (Left and Right)
-this.COMP_SPACE					= 5;
+this.COMP_SPACE				= 5;
 
 //Gap Between Components (Top and Bottom)
-this.LINE_SPACE					= 5;
+this.LINE_SPACE				= 0;
 
 // Layout에서 mergelabel옵션 기본값
-this.MERGE_LABEL				= "false";
+this.MERGE_LABEL			= "false";
 
 //mergelabeldl "true"일때 (라벨1개 고정일때) Gap Between Components (Left and Right)
-this.MERGE_LABEL_COMP_SPACE		= 5;
+this.MERGE_LABEL_COMP_SPACE	= 5;
 
 //mergelabeldl "true"일때 (라벨1개 고정일때) Gap Between Components (Top and Bottom)
-this.MERGE_LABEL_LINE_SPACE		= 5;
+this.MERGE_LABEL_LINE_SPACE	= 5;
+
+// Border 겹치게 표시할지 여부
+this.BORDER_OVERLAP			= true;
 
 //Component Default CSS Class
-this.COMP_CSSCLASS				= "";
+this.COMP_CSSCLASS			= "";
+
+//Background Component Default CSS Class
+this.COMP_BG_CSSCLASS		= "sta_fieldbox";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS				= "sta_label";
+this.LABEL_CSSCLASS			= "sta_labelbox";
 
 //Required Label Default CSS Class
-this.LABEL_REQUIRED_CSSCLASS	= "sta_label_essential";
+this.LABEL_REQUIRED_CSSCLASS	= "sta_labelbox_essential";
 
-//Background Static Css Class
-this.SEARCH_BG_CSSCLASS			= "sta_searchbox";
+//Background Component Use Type
+this.USE_COMP_BG			= "true";
 
 //Component Use Type
-this.USE_COMP					= "true";
+this.USE_COMP				= "true";
 
 //Component Readonly
-this.COMP_READONLY				= "false";
+this.COMP_READONLY			= "false";
 
 //Component Readonly시 Static형식으로 표시(border없고, 투명배경, 추가버튼안보이게)
-this.COMP_READONLY_LABEL_STYLE	= "false";
+this.COMP_READONLY_LABEL_STYLE	= "true";
 
 //Component Readonly시 Static형식 CSS Class
 this.COMP_READONLY_CSSCLASS		= "com_View";
+
+//라벨을 첫줄만 생성할지 여부
+this.MERGE_COMP_BG			= "false";
+//////////////////////////////Constant Setting END ////////////////////////////////////////////////////
 
 /*============================================================================================*
 * Parameter Structure Example
@@ -495,30 +495,13 @@ fn_GetViewAttributeList = function()
 								"enumlist" : ["top", "middle", "bottom"],
                                 "description": "Set the Field Vertical Alignment."
                             },
+							this.oAttrTitleText,					// Title Text
+							this.oAttrTitleExpandButton,			// 접기/펼치기 버튼 표시여부
 							{
-                                "id": "searchbuttontype",
-                                "edittype": "Enum",
-                                "defaultvalue": this.SEARCH_BUTTON_TYPE,
-								"enumlist" : ["none", "top", "middle", "bottom", "full"],
-                                "description": "Set the Lookup Button Form."
-                            },
-							{
-                                "id": "searchbuttontext",
-                                "edittype": "String",
-                                "defaultvalue": this.SEARCH_BUTTON_TEXT,
-								"description": "Search Button Text"
-                            },
-							{
-                                "id": "searchbuttoncssclass",
-                                "edittype": "String",
-                                "defaultvalue": this.SEARCH_BUTTON_CSSCLASS,
-								"description": "Search Button CSS Class Id"
-                            },
-							{
-                                "id": "searchbgcssclass",
-                                "edittype": "String",
-                                "defaultvalue": this.SEARCH_BG_CSSCLASS,
-								"description": "Search Backgroudn Static CSS Class Id"
+                                "id": "usefieldbox",
+                                "edittype": "Boolean",
+                                "defaultvalue": this.USE_COMP_BG,
+                                "description": "Field영역에 배경 Box를 그릴지 여부"
                             },
 							{
                                 "id": "format",
@@ -659,25 +642,18 @@ fn_GetModel = function()
 	//Import View Component Height Value
 	var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
 	
-	//Load Lookup Area Background Static Production Function
-	fn_MakeSearchBackgroundStatic();
+	// Title 영역
+	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
+	var sUseTotalCount		= this.USE_TOT_COUNT;									// 전체건수 Static 생성
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 생성
+	
+	this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
 	
 	// View 사이즈에서 View 여백 설정
 	nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
 	nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
-	
-	//When the Lookup Button Type is Not None
-	if(this.oGenerationAttr.attributes.searchbuttontype!="none")
-	{
-		//Load Lookup Button Production Function
-		var arrViewSize = fn_MakeSearchButton(nViewCompWidth, nViewCompHeight);
 
-		//Set area excluding lookup button area as component production area
-		nViewCompWidth		= arrViewSize[0];
-		nViewCompHeight		= arrViewSize[1];
-	}
-	
-	//If the format properties are set, produce component-based on layout rules
+	//If format properties are set up, create components based on layout rules
 	if(this.oGenerationAttr.attributes.format)
 	{
 		//Import Layout Information
@@ -690,7 +666,7 @@ fn_GetModel = function()
 		fn_MakeCompByLayout(oLayout);
 
 	}
-	//If the format properties are not set, create components based on basic rules
+	//If the format properties are not set, create components based on default rules
 	else
 	{
 		//Import Field Information
@@ -708,168 +684,9 @@ fn_GetModel = function()
 		//Load Component Location Calculation Information
 		var arrFieldPosition = fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
 		
-		//this.lfn_Log(arrFieldPosition);
-		
 		//Load Component Production Function
 		fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, "false");
 	}
-};
-
-/*---------------------------------------------------------------------------------------------*
- * Function     : fn_MakeSearchBackgroundStatic
- * Parameter    :
- * Return       :
- * Description  : Lookup Area Background Production Function
- *---------------------------------------------------------------------------------------------*/
-fn_MakeSearchBackgroundStatic = function()
-{
-	//Import Background Static CSS Class Information
-	var sSearchBgCssClass = this.oGenerationAttr.attributes.searchbgcssclass;
-
-	var oModel = this.oContents.View.Model;
-	var oField;
-	var oComp;
-
-	var nCompTop;
-	var nCompRigth;
-	var nCompWidth;
-	var nCompHeight;
-	var nCompBottom;
-
-	//Add Background Static Component Tag
-	oModel[oModel.length] =
-	{
-		"fieldid" : this.VIEW_COMP_FIELD_ID,
-		"Components" :
-		[{
-			"tag" : "Static",
-			"attribute" :
-			{
-				"id" : "stBg", "left" : "0", "top" : "0", "right" : "0", "bottom" : "0",
-				"cssclass" : sSearchBgCssClass
-			}
-		}]
-	};
-};
-
-/*---------------------------------------------------------------------------------------------*
- * Function     : fn_MakeSearchButton
- * Parameter    : nViewCompWidth : View Component Width Value
-				  nViewCompHeight : View Component Height Value
- * Return       :
- * Description  : Lookup Button Creation Function
- *---------------------------------------------------------------------------------------------*/
-fn_MakeSearchButton = function(nViewCompWidth, nViewCompHeight)
-{
-	//Import Lookup Button Form Information (none, top, middle, bottom, full)
-	var sSearchButtonType = this.oGenerationAttr.attributes.searchbuttontype;
-	
-	if (sSearchButtonType=="none")	return;
-
-	//Import Lookup Button CSS Class Information
-	var sSearchButtonCssClass = this.oGenerationAttr.attributes.searchbuttoncssclass;
-
-	//Import Lookup Button Text Information
-	var sSearchButtonText = this.oGenerationAttr.attributes.searchbuttontext;
-
-	var oModel = this.oContents.View.Model;
-	var oField;
-	var oComp;
-
-	var nCompTop;
-	var nCompLeft;
-	var nCompRigth;
-	var nCompWidth;
-	var nCompHeight;
-	var nCompBottom;
-
-	//Create Field Tag
-	oField = {"fieldid" : this.VIEW_COMP_FIELD_ID, "Components" : []};
-
-	//If the lookup button creation location is top
-	if(sSearchButtonType=="top")
-	{
-		nCompTop = this.VIEW_PADDING_TOP;
-		nCompRight = this.VIEW_PADDING_RIGHT;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH;
-		nCompHeight = this.SEARCH_BUTTON_HEIGHT;
-
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : "btnSearch", "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "right" : nCompRight,
-				"cssclass" : sSearchButtonCssClass,
-				"text" : sSearchButtonText
-			}
-		};
-	}
-	//If the lookup button creation location is middle
-	else if(sSearchButtonType=="middle")
-	{
-		nCompTop = ((nViewCompHeight/2) - (this.SEARCH_BUTTON_HEIGHT/2)) + this.VIEW_PADDING_TOP;
-		nCompRight = this.VIEW_PADDING_RIGHT;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH;
-		nCompHeight = this.SEARCH_BUTTON_HEIGHT;
-		
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : "btnSearch", "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "right" : nCompRight,
-				"cssclass" : sSearchButtonCssClass,
-				"text" : sSearchButtonText
-			}
-		};
-	}
-	//If the lookup button creation location is bottom
-	else if(sSearchButtonType=="bottom")
-	{
-		nCompRight = this.VIEW_PADDING_RIGHT;
-		nCompBottom = this.VIEW_PADDING_BOTTOM;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH;
-		nCompHeight = this.SEARCH_BUTTON_HEIGHT;
-
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : "btnSearch", "width" : nCompWidth, "height" : nCompHeight, "right" : nCompRight, "bottom" : nCompBottom,
-				"cssclass" : sSearchButtonCssClass,
-				"text" : sSearchButtonText
-			}
-		};
-	}
-	//If the lookup button creation location is full
-	else
-	{
-		nCompTop = this.VIEW_PADDING_TOP;
-		nCompRight = this.VIEW_PADDING_RIGHT;
-		nCompWidth = this.SEARCH_BUTTON_WIDTH;
-		nCompBottom = this.VIEW_PADDING_BOTTOM;
-
-		oField.Components[0] =
-		{
-			"tag" : "Button",
-			"attribute" :
-			{
-				"id" : "btnSearch", "top" : nCompTop, "width" : nCompWidth, "right" : nCompRight, "bottom" : nCompBottom,
-				"cssclass" : sSearchButtonCssClass,
-				"text" : sSearchButtonText
-			}
-		};
-	}
-	
-	//Set area excluding lookup button area as component production area
-	nViewCompWidth = nViewCompWidth - this.SEARCH_BUTTON_WIDTH - this.SEARCH_BUTTON_H_SPACE;
-
-	//Add Lookup Button Tag
-	oModel[oModel.length] = oField;
-	
-	return [nViewCompWidth, nViewCompHeight];
 };
 
 /*---------------------------------------------------------------------------------------------*
@@ -1950,6 +1767,25 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 				nFieldAreaWidth = nLabelWidth + nPosWidth;
 				nFieldAreaHeight = nPosHeight;
 			}
+			
+			// border를 겹쳐서 표시할지 여부
+			if (this.BORDER_OVERLAP)
+			{
+				if(sDirection=="horizontal")
+				{
+					nLabelTop = nLabelTop - (nRowIdx * 1) - (nLayoutRow * 1);
+					nCompTop = nCompTop - (nRowIdx * 1) - (nLayoutRow * 1);
+					nLabelLeft = nLabelLeft - (nColIdx * 1) - (nLayoutCol * 1);
+					nCompLeft = nCompLeft - (nColIdx * 1) - (nLayoutCol * 1);
+				}
+				else
+				{
+					nLabelTop = nLabelTop - (nColIdx * 1) - (nLayoutCol * 1);
+					nCompTop = nCompTop - (nColIdx * 1) - (nLayoutCol * 1);
+					nLabelLeft = nLabelLeft - (nRowIdx * 1) - (nLayoutRow * 1);
+					nCompLeft = nCompLeft - (nRowIdx * 1) - (nLayoutRow * 1);
+				}
+			}
 		}
 		
 		// Model값 초기화
@@ -1958,6 +1794,41 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		//bMergeLabel이 false인 경우 Fieldbox, label 생성, bMergeLabel이 true인 경우 첫번째 Field 경우에만 생성
 		if (bMergeLabel=="false" || i==0)
 		{
+			// Field배경 Box 생성
+			if(sUseFieldBox == "true")
+			{
+				// 첫번째 Field일때만 생성
+				if (this.MERGE_COMP_BG == "true" && nLayoutCol == 0)
+				{
+					//필드 배경 Static 추가
+					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+					oComp = {
+								"tag" : oCompBgClass.classId,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : this.VIEW_PADDING_RIGHT, "height" : nLabelHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+				// Field마다 생성
+				else
+				{
+					//필드 배경 Static 추가
+					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+					oComp = {
+								"tag" : oCompBgClass.classId,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nFieldAreaWidth, "height" : nFieldAreaHeight
+									,"cssclass" : sFieldBgCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+			}
+			
 			//라벨 Static 추가
 			if(nLabelWidth>0)
 			{
@@ -2087,14 +1958,25 @@ fn_GetScript = function()
     var oScript = {};
 	var sScript = "";
 	
-	/*
-	oScript =
+	var sViewNm = this.oContents.View.attribute.id;
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
+	
+	if (sUseExpandButton != "none")
 	{
-		"tag": "Script",
-		"attribute": { "type" : "xscript5.1" },
-		"value": "this.fn_Alert = function(){this.alert('MESSAGE')};"
+		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
 	}
-	*/
+	
+    if (this.lfn_IsNotNull(sScript))
+	{
+		sScript = nexacro.replaceAll(sScript,"\t","");
+		
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sScript
+		}
+	};
 
     return oScript;
 };]]></Script>

@@ -151,16 +151,16 @@
           <Script><![CDATA[this.fn_Alert = function(){this.alert('MESSAGE')};]]></Script>
           <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">
             <Fields>
-              <Field id="Month" description="" displaytype="category" valueaxes="y" stackedgroupname=""/>
-              <Field id="Seoul" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
-              <Field id="Busan" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
-              <Field id="Gwangju" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
+              <Field id="Month" description="" innerdatasetinfo="" displaytype="category" valueaxes="y" stackedgroupname=""/>
+              <Field id="Seoul" description="" innerdatasetinfo="" displaytype="series" valueaxes="y" stackedgroupname=""/>
+              <Field id="Busan" description="" innerdatasetinfo="" displaytype="series" valueaxes="y" stackedgroupname=""/>
+              <Field id="Gwangju" description="" innerdatasetinfo="" displaytype="series" valueaxes="y" stackedgroupname=""/>
             </Fields>
             <Components>
               <Component id="chart" fields="Month,Seoul,Busan,Gwangju"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="BarChartViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="Chart\BarChartViewTemplate.xviewgen">
             <Attribute id="charttype" value="column"/>
             <Attribute id="chartdisplay" value="grouped"/>
             <Attribute id="enableanimation" value="true"/>
