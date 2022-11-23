@@ -733,18 +733,18 @@ this.DsFilterDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.Act
 };
 ]]></Script>
     <Objects>
-      <SearchDBAction id="SearchDBAction00" servicemodel="getdealcode" serviceurl="IP::getdealcode.jsp" outputdatasets="viewSearch.form.innerdatasetCustomer=dscustomer divList.form.innerdatasetDealType=dstype viewSearch.form.innerdatasetSalesman=dssalesman divDetail.form.innerdatasetUnit=dsunit">
+      <TransactionAction id="TransactionAction00" servicemodel="getdealcode" serviceurl="IP::getdealcode.jsp" outputdatasets="viewSearch.form.innerdatasetCustomer=dscustomer divList.form.innerdatasetDealType=dstype viewSearch.form.innerdatasetSalesman=dssalesman divDetail.form.innerdatasetUnit=dsunit">
         <Contents/>
-      </SearchDBAction>
+      </TransactionAction>
       <DsSetFirstCdAction id="DsSetFirstCdAction00" targetview="viewSearch" targetcomp="cmbCustomer" gridcell="-1" firstname="전체" initindex="0">
         <Contents/>
       </DsSetFirstCdAction>
       <DsSetFirstCdAction id="DsSetFirstCdAction01" targetview="viewSearch" targetcomp="cmbSalesman" gridcell="-1" firstname="전체" initindex="0">
         <Contents/>
       </DsSetFirstCdAction>
-      <SearchDBAction id="SearchDBAction01" servicemodel="getdealcode" serviceurl="IP::getdeallist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset   " outputdatasets="divList.form.viewdataset=dsdeal divDetail.form.viewdataset=dsdetail viewCustomerList.form.viewdataset=dsdealcustomer">
+      <TransactionAction id="TransactionAction01" servicemodel="getdealcode" serviceurl="IP::getdeallist.jsp" inputdatasets="dsinput=viewSearch.form.viewdataset   " outputdatasets="divList.form.viewdataset=dsdeal divDetail.form.viewdataset=dsdetail viewCustomerList.form.viewdataset=dsdealcustomer">
         <Contents/>
-      </SearchDBAction>
+      </TransactionAction>
       <DsFilterDataAction id="DsFilterDataAction00" targetview="divDetail" initrowposition="0" onsuccess="DsFilterDataAction00_onsuccess">
         <Contents><![CDATA[{
     "model":[
@@ -787,9 +787,9 @@ this.DsFilterDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.Act
       <DsDeleteDataAction id="DsDeleteDataAction00" targetview="divList">
         <Contents/>
       </DsDeleteDataAction>
-      <SearchDBAction id="SearchDBAction02" servicemodel="getdeallist" serviceurl="IP::setdeallist.jsp" inputdatasets="dsdeal=divList.form.viewdataset:U dsdeallist=divDetail.form.viewdataset:U">
+      <TransactionAction id="TransactionAction02" servicemodel="getdeallist" serviceurl="IP::setdeallist.jsp" inputdatasets="dsdeal=divList.form.viewdataset:U dsdeallist=divDetail.form.viewdataset:U">
         <Contents/>
-      </SearchDBAction>
+      </TransactionAction>
       <PopupAction id="PopupAction00" formurl="TO_BE::deallistpopup.xfdl" popupstyle="modal" popupid="popupdeallist" title="거래추가" targetview="deallist" popupdatatype="none" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1">
         <Contents><![CDATA[{
     "extra":
@@ -834,15 +834,15 @@ this.DsFilterDataAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.Act
       </PopupAction>
     </Objects>
     <Trigger>
-      <TriggerItem id="item0" triggertype="Form Init" triggerview="deallist" triggerobj="deallist" targetaction="SearchDBAction00" condition=""/>
-      <TriggerItem id="item1" triggertype="Action Success" triggerview="deallist" triggerobj="SearchDBAction00" targetaction="DsSetFirstCdAction00" condition=""/>
-      <TriggerItem id="item2" triggertype="Action Success" triggerview="deallist" triggerobj="SearchDBAction00" targetaction="DsSetFirstCdAction01" condition=""/>
-      <TriggerItem id="item3" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="SearchDBAction01" condition=""/>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="deallist" triggerobj="deallist" targetaction="TransactionAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Action Success" triggerview="deallist" triggerobj="TransactionAction00" targetaction="DsSetFirstCdAction00" condition=""/>
+      <TriggerItem id="item2" triggertype="Action Success" triggerview="deallist" triggerobj="TransactionAction00" targetaction="DsSetFirstCdAction01" condition=""/>
+      <TriggerItem id="item3" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="TransactionAction01" condition=""/>
       <TriggerItem id="item4" triggertype="Row Change" triggerview="divList" triggerobj="viewdataset" targetaction="DsFilterDataAction00" condition=""/>
       <TriggerItem id="item5" triggertype="Row Change" triggerview="viewCustomerList" triggerobj="viewdataset" targetaction="DsFilterDataAction01" condition=""/>
       <TriggerItem id="item6" triggertype="Click" triggerview="viewButton" triggerobj="btnDelete" targetaction="MessageAction00" condition=""/>
       <TriggerItem id="item7" triggertype="Action Success" triggerview="deallist" triggerobj="MessageAction00" targetaction="DsDeleteDataAction00" condition=""/>
-      <TriggerItem id="item8" triggertype="Action Success" triggerview="deallist" triggerobj="DsDeleteDataAction00" targetaction="SearchDBAction02" condition=""/>
+      <TriggerItem id="item8" triggertype="Action Success" triggerview="deallist" triggerobj="DsDeleteDataAction00" targetaction="TransactionAction02" condition=""/>
       <TriggerItem id="item9" triggertype="Click" triggerview="viewButton" triggerobj="btnAdddealdetail" targetaction="PopupAction00" condition=""/>
       <TriggerItem id="item10" triggertype="Click" triggerview="viewButton" triggerobj="btnOpendetail" targetaction="PopupAction01" condition=""/>
     </Trigger>

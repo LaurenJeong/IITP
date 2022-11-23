@@ -481,12 +481,12 @@
     </Layouts>
     <Script type="xscript5.1"><![CDATA[]]></Script>
     <Objects>
-      <SearchDBAction id="SearchDBAction00" servicemodel="getmainlist" serviceurl="IP::getmainlist.jsp" outputdatasets="viewDeal.form.viewdataset=dsdeal viewEstimate.form.viewdataset=dsestimate viewSales.form.viewdataset=dssales viewCustomerSales.form.viewdataset=dssalescustomer">
+      <TransactionAction id="TransactionAction00" servicemodel="getmainlist" serviceurl="IP::getmainlist.jsp" outputdatasets="viewDeal.form.viewdataset=dsdeal viewEstimate.form.viewdataset=dsestimate viewSales.form.viewdataset=dssales viewCustomerSales.form.viewdataset=dssalescustomer">
         <Contents/>
-      </SearchDBAction>
+      </TransactionAction>
     </Objects>
     <Trigger>
-      <TriggerItem id="item0" triggertype="Form Init" triggerview="frmMain" triggerobj="frmMain" targetaction="SearchDBAction00" condition=""/>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="frmMain" triggerobj="frmMain" targetaction="TransactionAction00" condition=""/>
     </Trigger>
   </Form>
 </FDL>

@@ -29,23 +29,21 @@ if (!nexacro.ExcelExportAction)
     //===============================================================		
     nexacro.ExcelExportAction.prototype.run = function()		
 	{	
-        //TODO
-		var objForm;			
-					
-		//Import the object set as TargetView			
-		var objView = this.getTargetView();	
-		
-		var sTarget = this.targetgrid;
-			
-		var sSheetName = this.sheetname;			
-		var sFileName = this.filename;			
-		var sExportType = this.exporttype;
-		var objGrid;
-		var objComp;
-
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
-		{			
+		{
+			//Import the object set as TargetView			
+			var objView = this.getTargetView();
+			var objForm;
+			
+			var sTarget = this.targetgrid;
+				
+			var sSheetName = this.sheetname;			
+			var sFileName = this.filename;			
+			var sExportType = this.exporttype;
+			var objGrid;
+			var objComp;
+		
 			//If the TargetView is set as View, not Form		
 			if(objView)objForm = objView.form;		
 			else objForm = this.parent;

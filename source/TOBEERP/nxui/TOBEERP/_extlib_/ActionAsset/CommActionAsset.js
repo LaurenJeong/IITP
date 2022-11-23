@@ -48,7 +48,7 @@ if (!nexacro.CommActionAsset)
 	pAction._COM_CODE_COL = "code";							// 공통코드 코드컬럼명
 	pAction._COM_NAME_COL = "value";						// 공통코드 코드명컬럼명
 	
-	// 대상 Action : SearchDBAction
+	// 대상 Action : TransactionAction
 	pAction._TRAN_CALLBACK_NM = "fnTranActionCallback";			// Action공통 Callback함수명
 	//===============================================================
     // nexacro.Action : 공통함수(Util)
@@ -233,7 +233,9 @@ if (!nexacro.CommActionAsset)
 		// [view:field] 형식 : view의 viewdataset field컬럼값 반환 
 		// [view:datasetid:field] 형식 : view의 datasetid field컬럼값 반환
 		// [view:datasetid:row:field] 형식 : view의 datasetid의 row행 field컬럼값 반환
-		var regEx = /(?<=\[)(.*?)(?=\])/g;
+		//var regEx = /(?<=\[)(.*?)(?=\])/g;
+		//var regEx = new RegExp('(?<=\\[)(.*?)(?=\\])','g');
+		var regEx = /\[.*?\]/g;
 		var sMatch;
 		var sView;
 		var sViewDataset;
@@ -249,7 +251,7 @@ if (!nexacro.CommActionAsset)
 				regEx.lastIndex++;
 			}
 			
-			sMatch = m[0];
+			sMatch = m[0].substring(1,  m[0].length-1);
 			
 			var arrMatch = sMatch.split(":");
 			

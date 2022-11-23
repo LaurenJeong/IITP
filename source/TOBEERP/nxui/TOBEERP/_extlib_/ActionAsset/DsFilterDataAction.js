@@ -29,15 +29,15 @@ if (!nexacro.DsFilterDataAction)
     //===============================================================		
     nexacro.DsFilterDataAction.prototype.run = function()		
 	{	
-        //Import the object set as TargetView			
-		var objView = this.getTargetView();	
-		var sTargetDs = this.targetdataset;
-		var sFilter = this.filter;
-		var nInitRowPosition = this.initrowposition;
-		
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
-		{			
+		{
+			//Import the object set as TargetView			
+			var objView = this.getTargetView();	
+			var sTargetDs = this.targetdataset;
+			var sFilter = this.filter;
+			var nInitRowPosition = this.initrowposition;
+		
 			var objDs 	= this._targetdataset;
 			
 			if (this.gfnIsNull(objDs))	objDs 	= this.gfnGetDataset(objView,sTargetDs);
@@ -181,7 +181,7 @@ if (!nexacro.DsFilterDataAction)
 		{
 			var sViewNm = objView ? objView.name : "";
 			
-			sFilterStr = this.gfnGetExprText(sFilter,sViewNm);
+			sFilterStr = this.gfnGetFieldValue(sFilter,sViewNm);
 		}
 		
 		// Model Argument로 Filter문자열 생성
