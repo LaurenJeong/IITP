@@ -1313,7 +1313,7 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 	var sLabel;
 	var sDisplayType;
 	var sEditType;
-	var sFieldCssClass;
+	var sCompCssClass;
 	var sLabelCssClass;
 	var sFieldBgCssClass = this.FIELD_BG_CSSCLASS;
 	
@@ -1339,7 +1339,7 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 			sEditType = oField.edittype;
 
 			//Import Field Css Class Id Value
-			sFieldCssClass = oField.fieldcssclass;
+			sCompCssClass = oField.fieldcssclass;
 
 			//Import Label Css Class Id Value
 			sLabelCssClass = oField.labelcssclass;
@@ -1471,7 +1471,7 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 						"attribute" :
 						{
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight
-							, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sFieldCssClass
+							, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCompCssClass
 						}
 					};
 
@@ -1501,7 +1501,7 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 			sEditType = oField.edittype;
 			
 			//Import Component Css Class Id Value
-			sFieldCssClass = oField.fieldcssclass;
+			sCompCssClass = oField.fieldcssclass;
 
 			//Import Label Css Class Id Value
 			sLabelCssClass = oField.labelcssclass;
@@ -1618,7 +1618,7 @@ fn_GetBandCell = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirecti
 						"attribute" :
 						{
 							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight
-							, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sFieldCssClass
+							, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCompCssClass
 						}
 					};
 			

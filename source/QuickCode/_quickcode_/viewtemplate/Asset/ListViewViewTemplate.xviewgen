@@ -1548,7 +1548,7 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 	var sLabel;
 	var sDisplayType;
 	var sEditType;
-	var sFieldCssClass;
+	var sCompCssClass;
 	var sLabelCssClass;
 	var sFieldBgCssClass = this.CELL_BG_CSSCLASS;
 	var sFieldPosition;
@@ -1579,7 +1579,7 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 		sCompCssClass = oField.cssclass;
 
 		//Import Label Css Class Id Value
-		sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
+		sLabelCssClass = (oField.required == "true" && oField.labelcssclass == this.LABEL_CSSCLASS) ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 		
 		sFieldPosition = oField.fieldposition;
 
@@ -1891,7 +1891,7 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 					"attribute" :
 					{
 						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight
-						, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sFieldCssClass
+						, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCompCssClass
 					}
 				};
 				

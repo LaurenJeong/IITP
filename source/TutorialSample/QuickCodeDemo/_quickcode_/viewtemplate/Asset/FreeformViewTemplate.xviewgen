@@ -1535,7 +1535,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		sCompCssClass = oField.cssclass;
 
 		//Import Label Css Class Id Value
-		sLabelCssClass = oField.required == "true" ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
+		sLabelCssClass = (oField.required == "true" && oField.labelcssclass == this.LABEL_CSSCLASS) ? this.LABEL_REQUIRED_CSSCLASS : oField.labelcssclass;
 		
 		sFieldPosition = oField.fieldposition;
 
