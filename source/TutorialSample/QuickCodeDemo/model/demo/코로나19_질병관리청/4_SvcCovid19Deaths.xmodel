@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="covid19Deaths" name="코로나19국내발생사망현황조회" iotype="output" description="">
+      <Field required="true" id="mmdd" label="일자" fieldtype="FreeText" datatype="STRING" datasize="10" description="데이터 조회 기준일"/>
+      <Field required="true" id="cnt" label="일일발생현황" fieldtype="FreeText" datatype="INT" datasize="10" description="일일"/>
+      <Field required="true" id="rate" label="인구 10만명당 발생현황" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="10" description="인구 10만명당"/>
+    </Model>
+  </Models>
+  <Service id="SvcCovid19Deaths" name="국내발생(사망)현황 조회" url="svc::service/covid19Deaths.xml"/>
+</ModelInfo>

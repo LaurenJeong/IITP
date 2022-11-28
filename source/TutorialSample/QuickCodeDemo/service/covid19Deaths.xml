@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root xmlns="http://www.nexacroplatform.com/platform/dataset" ver="5000" >
+  <Parameters>
+    <Parameter id="ErrorCode" type="int">0</Parameter>
+    <Parameter id="ErrorMsg" type="string">SUCC</Parameter>
+  </Parameters>
+  
+<Dataset id="covid19Deaths">
+	<ColumnInfo>
+	  <Column id="mmdd" type="STRING" size="10" description="일자"/>
+	  <Column id="cnt" type="INT" size="10" description="일일발생현황"/>
+	  <Column id="rate" type="BIGDECIMAL" size="10" description="인구 10만명당 발생현황"/>
+	</ColumnInfo>
+	<Rows>	 
+	
+	 <Row>
+		<Col id="mmdd">11.07</Col>
+		<Col id="cnt">26</Col>
+		<Col id="rate">0.05</Col>
+	  </Row>
+	  <Row>
+		<Col id="mmdd">11.08</Col>
+		<Col id="cnt">26</Col>
+		<Col id="rate">0.05</Col>
+	  </Row>
+	  <Row>
+		<Col id="mmdd">11.09</Col>
+		<Col id="cnt">31</Col>
+		<Col id="rate">0.06</Col>
+	  </Row>
+	  
+	  <Row>
+		<Col id="mmdd">11.10</Col>
+		<Col id="cnt">31</Col>
+		<Col id="rate">0.06</Col>
+	  </Row>
+	  <Row>
+		<Col id="mmdd">11.11</Col>
+		<Col id="cnt">27</Col>
+		<Col id="rate">0.05</Col>
+	  </Row>
+	  <Row>
+		<Col id="mmdd">11.12</Col>
+		<Col id="cnt">18</Col>
+		<Col id="rate">0.03</Col>
+	  </Row>
+	  <Row>
+		<Col id="mmdd">11.13</Col>
+		<Col id="cnt">33</Col>
+		<Col id="rate">0.06</Col>
+	  </Row>
+	  <Row>
+		<Col id="mmdd">11.15</Col>
+		<Col id="cnt">30</Col>
+		<Col id="rate">0.06</Col>
+	  </Row>
+	  <Row>
+		<Col id="mmdd">11.16</Col>
+		<Col id="cnt">41</Col>
+		<Col id="rate">0.08</Col>
+	  </Row>
+	  <Row>
+		<Col id="mmdd">11.17</Col>
+		<Col id="cnt">35</Col>
+		<Col id="rate">0.07</Col>
+	  </Row>
+	  <Row>
+		<Col id="cnt">30</Col>
+		<Col id="mmdd">주간일평균</Col>
+		<Col id="rate">0.06</Col>
+	  </Row>
+	</Rows>
+  </Dataset>
+</Root>

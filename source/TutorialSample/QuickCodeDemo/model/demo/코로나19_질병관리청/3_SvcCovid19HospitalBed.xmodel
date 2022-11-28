@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="covid19HospitalBed" name="코로나19병상현황조회" iotype="output" description="">
+      <Field required="true" id="itsv_bed_opr" label="중환자 병상 가동률" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="15" description="중환자 병상 가동률"/>
+      <Field required="true" id="itsv_bed_rtn" label="중환자 병상 보유병상수" fieldtype="FreeText" datatype="INT" datasize="15" description="중환자 병상 보유병상수"/>
+      <Field required="true" id="itsv_bed_avlb" label="중환자 병상 가용병상수" fieldtype="FreeText" datatype="INT" datasize="15" description="중환자 병상 가용병상수"/>
+      <Field required="true" id="nm_bed_opr" label="일반 병상 가동률" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="15" description="일반 병상 가동률"/>
+      <Field required="true" id="nm_bed_rtn" label="일반 병상 보유병상수" fieldtype="FreeText" datatype="INT" datasize="15" description="일반 병상 보유병상수"/>
+      <Field required="true" id="nm_bed_avlb" label="일반 병상 가용병상수" fieldtype="FreeText" datatype="INT" datasize="15" description="일반 병상 가용병상수"/>
+    </Model>
+  </Models>
+  <Service id="SvcCovid19HospitalBedStatus" name="병상현황 조회" url="svc::service/covid19HospitalBedStatus.json"/>
+</ModelInfo>

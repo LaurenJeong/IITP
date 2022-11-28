@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="covid19Vaccination" name="코로나19예방접종현황" iotype="output" description="">
+      <Field required="false" id="order" label="차수" fieldtype="FreeText" datatype="STRING" datasize="80" description="차수"/>
+      <Field required="true" id="today" label="당일누적" fieldtype="FreeText" datatype="INT" datasize="80" description="당일누적"/>
+      <Field required="true" id="before" label="전일누적" fieldtype="FreeText" datatype="INT" datasize="80" description="전일누적"/>
+      <Field required="true" id="total" label="전체건수" fieldtype="FreeText" datatype="INT" datasize="80" description="전체건수"/>
+      <Field required="true" id="over60" label="60세이상 접종률" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="80" description="60세이상 접종률"/>
+    </Model>
+    <Model id="covid19Total" name="코로나19예방접종실적총괄" iotype="output" description="시도별 코로나19 예방접종 실적총괄">
+      <Field required="true" id="tpcd" label="구분" fieldtype="FreeText" datatype="STRING" datasize="80" description="구분"/>
+      <Field required="true" id="firstCnt" label="1차접종" fieldtype="FreeText" datatype="INT" datasize="80" description="1차접종"/>
+      <Field required="true" id="secondCnt" label="2차접종" fieldtype="FreeText" datatype="INT" datasize="80" description="2차접종"/>
+      <Field required="true" id="thirdCnt" label="3차접종" fieldtype="FreeText" datatype="INT" datasize="80" description="3차접종"/>
+      <Field required="true" id="fourCnt" label="4차접종" fieldtype="FreeText" datatype="INT" datasize="80" description="4차접종"/>
+    </Model>
+    <Model id="covid19State" name="코로나19예방접종시도별현황" iotype="output" description="시도별 코로나19 예방접종 현황">
+      <Field required="true" id="sidoNm" label="시도" fieldtype="FreeText" datatype="STRING" datasize="80" description="시도 명"/>
+      <Field required="true" id="firstCnt" label="당일실적" fieldtype="FreeText" datatype="INT" datasize="80" description="1차접종 당일실적"/>
+      <Field required="true" id="firstTot" label="당일누계" fieldtype="FreeText" datatype="INT" datasize="80" description="1차접종 당일누계"/>
+      <Field required="true" id="secondCnt" label="당일실적" fieldtype="FreeText" datatype="INT" datasize="80" description="2차접종 당일실적"/>
+      <Field required="true" id="secondTot" label="당일누계" fieldtype="FreeText" datatype="INT" datasize="80" description="2차접종 당일누계"/>
+      <Field required="true" id="thirdCnt" label="당일실적" fieldtype="FreeText" datatype="INT" datasize="80" description="3차접종 당일실적"/>
+      <Field required="true" id="thirdTot" label="당일누계" fieldtype="FreeText" datatype="INT" datasize="80" description="3차접종 당일누계"/>
+      <Field required="true" id="fourCnt" label="당일실적" fieldtype="FreeText" datatype="INT" datasize="80" description="4차접종 당일실적"/>
+      <Field required="true" id="fourTot" label="당일누계" fieldtype="FreeText" datatype="INT" datasize="80" description="4차접종 당일누계"/>
+    </Model>
+  </Models>
+  <Service id="SvcCovid19Vaccination" name="예방접종현황" url="svc::service/covid19Vaccination.xml"/>
+</ModelInfo>
