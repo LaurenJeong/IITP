@@ -549,7 +549,7 @@
       <TransactionAction id="TransactionAction02" servicemodel="SvcCovid19CurrentStatusHospitalizations" serviceurl="svc::service/covid19Confirmations_1-6.xml" outputdatasets="view_chart_new.form.viewdataset=covid19Hospitalizations" onsuccess="TransactionAction02_onsuccess">
         <Contents/>
       </TransactionAction>
-      <TransactionAction id="TransactionAction03" servicemodel="SvcCovid19CurrentStatusHospitalizations" serviceurl="svc::service/covid19Confirmations_7-12.xml" outputdatasets="view_chart_new.form.viewdataset=covid19Hospitalizations">
+      <TransactionAction id="TransactionAction03" servicemodel="SvcCovid19CurrentStatusHospitalizations" serviceurl="svc::service/covid19Confirmations_7-12.xml" outputdatasets="view_chart_new.form.viewdataset=covid19Hospitalizations" onsuccess="TransactionAction03_onsuccess">
         <Contents/>
       </TransactionAction>
     </Objects>
@@ -567,7 +567,12 @@
     <Script type="xscript5.1"><![CDATA[
 this.TransactionAction02_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
-	
+	this.view_chart_new.form.chart.board.set_text("상반기");
+};
+
+this.TransactionAction03_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
+{
+	this.view_chart_new.form.chart.board.set_text("상반기");
 };
 ]]></Script>
   </Form>
