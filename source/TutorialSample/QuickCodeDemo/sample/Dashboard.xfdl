@@ -546,7 +546,7 @@
       <TransactionAction id="TransactionAction01" servicemodel="SvcCovid19Deaths" serviceurl="svc::service/covid19Deaths.xml" outputdatasets="view_chart_death.form.viewdataset=covid19Deaths">
         <Contents/>
       </TransactionAction>
-      <TransactionAction id="TransactionAction02" servicemodel="SvcCovid19CurrentStatusHospitalizations" serviceurl="svc::service/covid19Confirmations_1-6.xml" outputdatasets="view_chart_new.form.viewdataset=covid19Hospitalizations">
+      <TransactionAction id="TransactionAction02" servicemodel="SvcCovid19CurrentStatusHospitalizations" serviceurl="svc::service/covid19Confirmations_1-6.xml" outputdatasets="view_chart_new.form.viewdataset=covid19Hospitalizations" onsuccess="TransactionAction02_onsuccess">
         <Contents/>
       </TransactionAction>
       <TransactionAction id="TransactionAction03" servicemodel="SvcCovid19CurrentStatusHospitalizations" serviceurl="svc::service/covid19Confirmations_7-12.xml" outputdatasets="view_chart_new.form.viewdataset=covid19Hospitalizations">
@@ -564,6 +564,11 @@
       <TriggerItem id="item7" triggertype="Click" triggerview="view_title_week" triggerobj="btn1to6" targetaction="TransactionAction02" condition=""/>
       <TriggerItem id="item8" triggertype="Click" triggerview="view_title_week" triggerobj="btn7to12" targetaction="TransactionAction03" condition=""/>
     </Trigger>
-    <Script type="xscript5.1"><![CDATA[]]></Script>
+    <Script type="xscript5.1"><![CDATA[
+this.TransactionAction02_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
+{
+	
+};
+]]></Script>
   </Form>
 </FDL>
