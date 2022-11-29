@@ -128,20 +128,20 @@
             <Layout>
               <Static id="staProductImgBg" left="20" top="20" right="20" height="129" cssclass="sta_fieldbox"/>
               <ImageViewer id="imgProductImg" left="30" top="25" width="110" height="120"/>
-              <Edit id="edtProductName" left="159" top="25" width="291" height="55" cssclass="com_View" readonly="true"/>
-              <MaskEdit id="mskProductPrice" left="159" top="89" width="291" height="55" cssclass="com_View" readonly="true" format="#,###"/>
+              <Edit id="edtProductName" left="159" top="25" height="55" cssclass="com_View" readonly="true" right="30"/>
+              <MaskEdit id="mskProductPrice" left="159" top="89" height="55" cssclass="com_View" readonly="true" format="#,###" right="30"/>
               <Static id="staProductGroupsBg" left="20" top="148" right="20" height="65" cssclass="sta_fieldbox"/>
               <Static id="staProductGroupsLabel" left="20" top="148" width="120" height="65" text="품목구분" cssclass="sta_labelbox"/>
-              <Combo id="cmbProductGroups" left="150" top="153" width="301" height="55" cssclass="com_View" readonly="true" buttonsize="0" innerdataset="innerdatasetProductGroups" codecolumn="code" datacolumn="value"/>
+              <Combo id="cmbProductGroups" left="150" top="153" height="55" cssclass="com_View" readonly="true" buttonsize="0" innerdataset="innerdatasetProductGroups" codecolumn="code" datacolumn="value" right="29"/>
               <Static id="staProductDescriptionBg" left="20" top="212" right="20" height="200" cssclass="sta_fieldbox"/>
               <Static id="staProductDescriptionLabel" left="20" top="212" width="120" height="200" text="상품설명" cssclass="sta_labelbox"/>
-              <TextArea id="txtProductDescription" left="150" top="217" width="301" height="190" cssclass="com_View" readonly="true"/>
+              <TextArea id="txtProductDescription" left="150" top="217" height="190" cssclass="com_View" readonly="true" right="29"/>
               <Static id="staOrderCountBg" left="20" top="411" right="20" height="65" cssclass="sta_fieldbox"/>
               <Static id="staOrderCountLabel" left="20" top="411" width="120" height="65" text="주문건수" cssclass="sta_labelbox_essential"/>
-              <Spin id="spnOrderCount" left="150" top="416" width="301" height="55"/>
+              <Spin id="spnOrderCount" left="150" top="416" height="55" right="29"/>
               <Static id="staOrderPriceBg" left="20" top="475" right="20" height="65" cssclass="sta_fieldbox"/>
               <Static id="staOrderPriceLabel" left="20" top="475" width="120" height="65" text="주문금액" cssclass="sta_labelbox"/>
-              <MaskEdit id="mskOrderPrice" left="150" top="480" width="301" height="55" cssclass="com_View" readonly="true" format="#,###"/>
+              <MaskEdit id="mskOrderPrice" left="150" top="480" height="55" cssclass="com_View" readonly="true" format="#,###" right="29"/>
             </Layout>
           </Layouts>
           <Objects>
