@@ -32,14 +32,14 @@
                       <Row size="30" band="body"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_company" col="0" row="0" text="Company"/>
-                      <Cell id="cell_department" col="1" row="0" text="Department"/>
-                      <Cell id="cell_name" col="2" row="0" text="Name"/>
+                      <Cell id="cell_head_0_0_company" col="0" row="0" text="Company"/>
+                      <Cell id="cell_head_1_0_department" col="1" row="0" text="Department"/>
+                      <Cell id="cell_head_2_0_name" col="2" row="0" text="Name"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_company" col="0" row="0" text="bind:company" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_department" col="1" row="0" text="bind:department" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_name" col="2" row="0" text="bind:name" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_0_company" col="0" row="0" text="bind:company" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_department" col="1" row="0" text="bind:department" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_2_0_name" col="2" row="0" text="bind:name" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary"/>
                   </Format>
@@ -53,22 +53,28 @@
                 <Column id="company" type="STRING" size="80" description="Company"/>
                 <Column id="department" type="STRING" size="80" description="Department"/>
                 <Column id="name" type="STRING" size="80" description="Name"/>
+                <Column id="position" type="STRING" size="80" description="Position"/>
+                <Column id="phone" type="STRING" size="80" description="Phone"/>
+                <Column id="address" type="STRING" size="256" description="Address"/>
               </ColumnInfo>
               <Rows/>
             </Dataset>
           </Objects>
-          <ModelInfo modelserviceid="model" serviceid="svcQuickCodeTutorial" modelid="tutorial_DetailEmployee" filepath="svcQuickCodeTutorial.xmodel">
+          <ModelInfo modelserviceid="model" serviceid="Tran" modelid="output" filepath="sample\Tran.xmodel">
             <Fields>
-              <Field id="company" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="department" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="name" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="address" required="false" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="phone" required="false" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="position" required="false" fieldtype="FreeText" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="company" required="false" fieldtype="FreeText" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="department" required="false" fieldtype="FreeText" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="name" required="false" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
               <Component id="grdList" fields="company,department,name"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
             <Attribute id="titletext" value="팝업결과 데이터"/>
             <Attribute id="usetotalcount" value="false"/>
             <Attribute id="headbandsize" value="30"/>

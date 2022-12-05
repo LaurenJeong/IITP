@@ -56,6 +56,8 @@ this.SEARCH_BUTTON_TYPE			= "bottom";
 //Lookup Button Css Class
 this.SEARCH_BUTTON_CSSCLASS		= "btn_search";
 //--------------------------------------------------------------------------------------------------------
+//Label과 Comp영역 배치방식("horizontal", "vertical")
+this.FIELD_POSITION				= "horizontal";
 
 //Component Default Width
 this.COMP_WIDTH					= "100px";
@@ -603,9 +605,9 @@ fn_GetFieldUserAttributeList = function ()
 							{
                                 "id": "fieldposition",
                                 "edittype":  "Enum",
-								"defaultvalue": "horizontal",
+								"defaultvalue": this.FIELD_POSITION,
 								"enumlist" : ["horizontal", "vertical"],
-                                "description": "Labal과 Field영역 위치"
+                                "description": "Label과 Comp영역 위치"
 												+ "\n" + " - horizontal : 좌우배치"
 												+ "\n" + " - vertical : 상하배치"
                             },

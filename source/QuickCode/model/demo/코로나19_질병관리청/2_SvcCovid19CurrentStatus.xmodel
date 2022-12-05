@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="covid19CurrentStatus" name="코로나19국내발생현황조회" iotype="output" description="코로나19 국내발생현황 조회">
+      <Field required="true" id="cnt_deaths" label="일일 사망" fieldtype="FreeText" datatype="INT" datasize="15" description="일일 사망 발생현황"/>
+      <Field required="true" id="rate_deaths" label="인구 10만명당 사망" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="15" description="사망 인구 10만명당 발생현황"/>
+      <Field required="true" id="cnt_severe_symptoms" label="일일 재원 위중증" fieldtype="FreeText" datatype="INT" datasize="15" description="일일 재원 위중증 발생현황"/>
+      <Field required="true" id="rate_severe_symptoms" label="인구 10만명당 재원 위중증" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="15" description="인구 10만명당 재원 위중증 발생현황"/>
+      <Field required="true" id="cnt_hospitalizations" label="일일 신규입원" fieldtype="FreeText" datatype="INT" datasize="15" description="일일 신규입원 발생현황"/>
+      <Field required="true" id="rate_hospitalizations" label="인구 10만명당 신규입원" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="15" description="인구 10만명당 신규입원 발생현황"/>
+      <Field required="true" id="cnt_confirmations" label="일일 확진" fieldtype="FreeText" datatype="INT" datasize="15" description="일일 확진 발생현황"/>
+      <Field required="true" id="rate_confirmations" label="인구 10만명당 확진" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="15" description="인구 10만명당 확진 발생현황"/>
+    </Model>
+  </Models>
+  <Service id="SvcCovid19CurrentStatusKorea" name="국내발생현황 조회" url="svc::service/covid19CurrentStatus.json"/>
+</ModelInfo>

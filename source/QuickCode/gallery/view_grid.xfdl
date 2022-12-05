@@ -19,7 +19,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset">
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" autofittype="none">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -35,20 +35,20 @@
                       <Row size="30" band="body"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_Check" col="0" row="0" text="선택"/>
-                      <Cell id="cell_Company" col="1" row="0" text="회사명"/>
-                      <Cell id="cell_Department" col="2" row="0" text="부서명"/>
-                      <Cell id="cell_Name" col="3" row="0" text="성명"/>
-                      <Cell id="cell_Phone" col="4" row="0" text="전화번호"/>
-                      <Cell id="cell_Email" col="5" row="0" text="이메일주소"/>
+                      <Cell id="cell_head_0_0_Check" col="0" row="0" text="선택"/>
+                      <Cell id="cell_head_1_0_Company" col="1" row="0" text="회사명"/>
+                      <Cell id="cell_head_2_0_Department" col="2" row="0" text="부서명"/>
+                      <Cell id="cell_head_3_0_Name" col="3" row="0" text="성명"/>
+                      <Cell id="cell_head_4_0_Phone" col="4" row="0" text="전화번호"/>
+                      <Cell id="cell_head_5_0_Email" col="5" row="0" text="이메일주소"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_Check" col="0" row="0" text="bind:Check" displaytype="checkboxcontrol" edittype="checkbox"/>
-                      <Cell id="cell_Company" col="1" row="0" text="bind:Company" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_Department" col="2" row="0" text="bind:Department" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_Name" col="3" row="0" text="bind:Name" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_Phone" col="4" row="0" text="bind:Phone" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_Email" col="5" row="0" text="bind:Email" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_0_Check" col="0" row="0" text="bind:Check" displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell id="cell_body_1_0_Company" col="1" row="0" text="bind:Company" displaytype="combotext" edittype="none" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_2_0_Department" col="2" row="0" text="bind:Department" displaytype="combotext" edittype="none" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_3_0_Name" col="3" row="0" text="bind:Name" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_4_0_Phone" col="4" row="0" text="bind:Phone" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_5_0_Email" col="5" row="0" text="bind:Email" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary"/>
                   </Format>
@@ -66,9 +66,18 @@
                 <Column id="Phone" type="STRING" size="80" description="전화번호"/>
                 <Column id="Email" type="STRING" size="80" description="이메일주소"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
             </Dataset>
           </Objects>
           <Bind>
@@ -81,18 +90,18 @@
           <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
             <Fields>
               <Field id="Check" description="" displaytype="checkboxcontrol" edittype="checkbox" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Company" description="" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Department" description="" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Name" description="" displaytype="normal" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Phone" description="" displaytype="normal" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="Email" description="" displaytype="normal" edittype="none" fieldwidth="300" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Company" description="" displaytype="auto" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Department" description="" displaytype="auto" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Name" description="" displaytype="auto" edittype="none" fieldwidth="150" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Phone" description="" displaytype="auto" edittype="none" fieldwidth="200" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Email" description="" displaytype="auto" edittype="none" fieldwidth="300" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="divTitle" fields="_viewcomp"/>
               <Component id="grdList" fields="Check,Company,Department,Name,Phone,Email"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="GridViewTemplate.xviewgen">
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
             <Attribute id="titletext" value="상세내역"/>
             <Attribute id="usetotalcount" value="true"/>
             <Attribute id="headbandsize" value="30"/>
@@ -101,7 +110,7 @@
           </ViewTemplateInfo>
         </View>
         <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="253" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="341" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -211,6 +220,19 @@
             <Col id="ID">summformat</Col>
             <Col id="TYPE">Layout</Col>
             <Col id="DESCPTION">Summ 영역의 Layout을 설정하기 위한 속성</Col>
+          </Row>
+          <Row>
+            <Col id="ID">  └ text</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">해당 Cell에 표현될 텍스트
+-expr 사용시에도 사용가능.
+ (headformat, bodyformat, summformat 내부 속성으로 지원)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">  └ cssclass</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">해당 Cell에 적용할 CSS Class Id
+ (headformat, bodyformat, summformat 내부 속성으로 지원)</Col>
           </Row>
         </Rows>
       </Dataset>

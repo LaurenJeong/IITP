@@ -44,6 +44,9 @@ this.USE_EXPAND_BUTTON		= "none";
 //--------------------------------------------------------------------------------------------------------
 
 //////////////////////////////상수 설정부 START ////////////////////////////////////////////////////
+//Label과 Comp영역 배치방식("horizontal", "vertical")
+this.FIELD_POSITION				= "horizontal";
+
 //Component Default Width
 this.COMP_WIDTH				= "100%";
 
@@ -119,7 +122,7 @@ this.COMP_READONLY_LABEL_STYLE	= "true";
 //Component Readonly시 Static형식 CSS Class
 this.COMP_READONLY_CSSCLASS		= "com_View";
 
-//라벨을 첫줄만 생성할지 여부
+//Background Component를 첫줄만 생성할지 여부
 this.MERGE_COMP_BG			= "false";
 //////////////////////////////Constant Setting END ////////////////////////////////////////////////////
 
@@ -586,7 +589,7 @@ fn_GetFieldUserAttributeList = function ()
 							{
                                 "id": "fieldposition",
                                 "edittype":  "Enum",
-								"defaultvalue": "horizontal",
+								"defaultvalue": this.FIELD_POSITION,
 								"enumlist" : ["horizontal", "vertical"],
                                 "description": "Labal과 Field영역 위치"
 												+ "\n" + " - horizontal : 좌우배치"
