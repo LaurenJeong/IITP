@@ -12,7 +12,7 @@
               <Static id="staIdLabel" left="20" top="20" width="100" height="30" text="아이디" cssclass="sta_login_label"/>
               <Edit id="edtId" left="125" top="20" height="30" width="485" password="false"/>
               <Static id="staPwLabel" left="20" top="55" width="100" height="30" text="패스워드" cssclass="sta_login_label"/>
-              <Edit id="edtPw" left="125" top="55" height="30" width="485" password="false"/>
+              <Edit id="edtPw" left="125" top="55" height="30" width="485" password="true"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -33,7 +33,7 @@
           <ModelInfo modelserviceid="model" serviceid="" modelid="LoginModel001" filepath="sample\Login.xmodel">
             <Fields>
               <Field id="ID" description="" comptype="auto" password="false" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" displaynulltext="" cssclass="" labelcssclass="sta_login_label"/>
-              <Field id="PW" description="" comptype="auto" password="false" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" displaynulltext="" cssclass="" labelcssclass="sta_login_label"/>
+              <Field id="PW" description="" comptype="auto" password="true" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" displaynulltext="" cssclass="" labelcssclass="sta_login_label"/>
             </Fields>
             <Components>
               <Component id="btnLogin" fields="_viewcomp"/>
@@ -44,7 +44,6 @@
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="Asset\LoginViewTemplate.xviewgen">
-            <Attribute id="loginbuttontype" value="bottom"/>
             <Attribute id="loginbuttontext" value="Login"/>
             <Attribute id="loginbuttoncssclass" value="btn_login"/>
             <Attribute id="saveidcheckboxuse" value="false"/>

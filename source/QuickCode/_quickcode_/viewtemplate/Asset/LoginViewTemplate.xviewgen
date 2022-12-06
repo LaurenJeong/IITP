@@ -52,13 +52,16 @@ this.LOGIN_BUTTON_V_SPACE		= 10;
 this.LOGIN_BUTTON_TEXT			= "Login";
 
 //Login Button Default Form
-this.LOGIN_BUTTON_TYPE			= "bottom";
+this.LOGIN_BUTTON_TYPE			= "bottomfull";
+
 //Login Button Css Class
 this.LOGIN_BUTTON_CSSCLASS		= "btn_login";
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 // 아이디저장 Checkbox 관련 상수
 //--------------------------------------------------------------------------------------------------------
+// 아이디저장 체크박스 사용여부
+this.SAVEID_CHECKBOX_USE		= "true";
 // 아이디저장 체크박스 ID
 this.SAVEID_CHECKBOX_ID			= "chkSaveId";
 // 아이디저장 체크박스 TEXT
@@ -69,6 +72,9 @@ this.SAVEID_CHECKBOX_CSSCLASS	= "chk_login";
 //--------------------------------------------------------------------------------------------------------
 // 컴포넌트(Label + Field) 관련 상수
 //--------------------------------------------------------------------------------------------------------
+//Label과 Comp영역 배치방식("horizontal", "vertical")
+this.FIELD_POSITION				= "horizontal";
+
 //Component Default Width
 this.COMP_WIDTH					= "100%";
 
@@ -239,9 +245,13 @@ fn_GetViewAttributeList = function()
 							{
 								"id": "loginbuttontype",
                                 "edittype": "Enum",
-								"enumlist" : ["right", "bottom", "rightfull"],
+								"enumlist" : ["right", "bottomfull", "rightfull"],
                                 "defaultvalue": this.LOGIN_BUTTON_TYPE,
                                 "description": "로그인버튼 위치"
+												+ "\n" + " - right : 로그인버튼을 오른쪽에 생성"
+												+ "\n" + " - rightfull : 로그인버튼을 오른쪽에 꽉 채워서 생성"
+												+ "\n" + " - bottomfull : 로그인버튼을 하단에 꽉 채워서 생성"
+
                             },
 							{
                                 "id": "loginbuttontext",
@@ -257,8 +267,8 @@ fn_GetViewAttributeList = function()
                             },
 							{
                                 "id": "saveidcheckboxuse",
-                                "edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList
-                                "defaultvalue": "true",
+                                "edittype": "Boolean",
+                                "defaultvalue": this.SAVEID_CHECKBOX_USE,
                                 "description": "아이디저장 체크박스 사용여부"
                             },
 							{
@@ -315,7 +325,6 @@ fn_GetFieldUserAttributeList = function ()
 	var sFieldAttr = "";
 
 	var oFieldAttr = {
-                        "attributecount": "8",
                         "attributes": [
 							{
                                 "id": "comptype",
@@ -352,7 +361,7 @@ fn_GetFieldUserAttributeList = function ()
 							{
                                 "id": "fieldposition",
                                 "edittype":  "Enum",
-								"defaultvalue": "horizontal",
+								"defaultvalue": this.FIELD_POSITION,
 								"enumlist" : ["horizontal", "vertical"],
                                 "description": "Labal과 Field영역 위치"
 												+ "\n" + " - horizontal : 좌우배치"
@@ -486,7 +495,7 @@ fn_GetModel = function()
  *---------------------------------------------------------------------------------------------*/
 fn_MakeLoginButton = function(nViewCompWidth, nViewCompHeight)
 {
-	//Import Lookup Button Form Information (none, right, rightfull, bottom)
+	//Import Lookup Button Form Information (none, right, rightfull, bottomfull)
 	var sLoginButtonType = this.oGenerationAttr.attributes.loginbuttontype;
 	
 	if (sLoginButtonType =="none")	return;
@@ -511,7 +520,7 @@ fn_MakeLoginButton = function(nViewCompWidth, nViewCompHeight)
 	//Create Field Tag
 	oField = {"fieldid" : this.VIEW_COMP_FIELD_ID, "Components" : []};
 
-	//If the lookup button creation location is bottom
+	//로그인 버튼을 우측에 생성
 	if(sLoginButtonType=="right")
 	{
 		nCompTop 	= this.VIEW_PADDING_TOP;
@@ -533,6 +542,7 @@ fn_MakeLoginButton = function(nViewCompWidth, nViewCompHeight)
 		//Set area excluding lookup button area as component production area
 		nViewCompWidth = nViewCompWidth - this.LOGIN_BUTTON_WIDTH - this.LOGIN_BUTTON_H_SPACE;
 	}
+	// 로그인 버튼을 우측에 꽉 채워서 생성
 	else if(sLoginButtonType=="rightfull")
 	{
 		nCompTop = this.VIEW_PADDING_TOP;
@@ -554,6 +564,7 @@ fn_MakeLoginButton = function(nViewCompWidth, nViewCompHeight)
 		//Set area excluding lookup button area as component production area
 		nViewCompWidth = nViewCompWidth - this.LOGIN_BUTTON_WIDTH - this.LOGIN_BUTTON_H_SPACE;
 	}
+	// 로그인 버튼을 하단에 꽉 채워서 생성
 	else
 	{
 		nCompLeft	= this.VIEW_PADDING_LEFT;
