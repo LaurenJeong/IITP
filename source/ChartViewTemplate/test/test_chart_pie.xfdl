@@ -3,7 +3,7 @@
   <Form id="test_chart" width="1280" height="720" titletext="PieChart, PyramidChart">
     <Layouts>
       <Layout height="720" width="1280">
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="180" top="42" binddataset="dsData" categorycolumn="bind:Month" enableanimation="true" width="730" height="289" background="#e1e1e1">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="15" top="11" binddataset="dsData" categorycolumn="bind:Month" enableanimation="true" width="730" height="289" background="#e1e1e1">
           <Layouts>
             <Layout>
               <PieChart id="chart" left="10" top="10" right="10" bottom="10" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:BROWSER_NAME">
@@ -59,6 +59,8 @@
 											"id" : "seriesShare",
 											"titletext" : "점유율",
 											"valuecolumn" : "bind:SHARE",
+											"startangle" : "270",
+											"endangle" : "180",
 											"fillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
 											"itemtextmask" : "",
 											"itemtexttype" : "number"
@@ -71,14 +73,12 @@
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="DEVICE" type="STRING" size="80"/>
-                <Column id="BROWSER_NAME" type="STRING" size="80"/>
-                <Column id="SHARE" type="BIGDECIMAL" size="80"/>
-                <Column id="CHK" type="STRING" size="1"/>
+                <Column id="DEVICE" type="STRING" size="80" description="디바이스"/>
+                <Column id="BROWSER_NAME" type="STRING" size="80" description="브라우저명"/>
+                <Column id="SHARE" type="BIGDECIMAL" size="80" description="점유율"/>
+                <Column id="CHK" type="STRING" size="1" description="check"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="piemodel" filepath="nexacrochart\chartModelService.xmodel">
@@ -86,7 +86,7 @@
               <Field id="DEVICE" description="" displaytype="none"/>
               <Field id="BROWSER_NAME" description="" displaytype="category"/>
               <Field id="SHARE" description="" displaytype="series"/>
-              <Field id="CHK" description="" displaytype="series"/>
+              <Field id="CHK" description="" displaytype="none"/>
             </Fields>
             <Components>
               <Component id="chart" fields="DEVICE,BROWSER_NAME,SHARE,CHK"/>
@@ -94,7 +94,7 @@
           </ModelInfo>
           <ViewTemplateInfo filepath="Chart\PieChartViewTemplate.xviewgen">
             <Attribute id="charttype" value="pie"/>
-            <Attribute id="chartdisplay" value="circle"/>
+            <Attribute id="chartdisplay" value="semicircle"/>
             <Attribute id="innerradius" value="50"/>
             <Attribute id="innertext" value="DeskTop"/>
             <Attribute id="enableanimation" value="true"/>
@@ -103,7 +103,7 @@
             <Attribute id="viewpadding" value="10"/>
           </ViewTemplateInfo>
         </View>
-        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="241" top="431" width="572" height="227" background="#e1e1e1">
+        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="15" top="667" width="572" height="227" background="#e1e1e1">
           <Layouts>
             <Layout>
               <PyramidChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:BROWSER_NAME">
@@ -181,6 +181,108 @@
             <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
+        <View id="View00_00" taborder="2" text="View00" viewdataset="viewdataset" left="15" top="316" binddataset="dsData" categorycolumn="bind:Month" enableanimation="true" width="730" height="289" background="#e1e1e1">
+          <Layouts>
+            <Layout>
+              <PieChart id="chart" left="10" top="10" right="10" bottom="10" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:BROWSER_NAME">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board",
+										"text" : "점유율"
+									},
+									"seriesset" : [
+										{
+											"radius" : "70",
+											"opacity" : "0.8",
+											"linestyle" : "1px solid #ffffff",
+											"itemtextvisible" : true,
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"itemtextguidelinestyle" : "1px solid darkgray",
+											"itemtextguideopacity" : "1",
+											"itemtextguidesize" : "20",
+											"selectindent" : "20",
+											"highlightvisible" : true,
+											"highlightradius" : "70",
+											"highlightopacity" : "0.3",
+											"highlightfillstyle" : "#ffffff",
+											"highlightlinestyle" : "1px solid #ffffff",
+											"innerradius" : "30",
+											"id" : "seriesShare",
+											"titletext" : "점유율",
+											"valuecolumn" : "bind:SHARE",
+											"startangle" : "270",
+											"endangle" : "180",
+											"fillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
+											"itemtextmask" : "",
+											"itemtexttype" : "number"
+										}
+									]
+								}]]></Contents>
+              </PieChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="DEVICE" type="STRING" size="80" description="디바이스"/>
+                <Column id="BROWSER_NAME" type="STRING" size="80" description="브라우저명"/>
+                <Column id="SHARE" type="BIGDECIMAL" size="80" description="점유율"/>
+                <Column id="CHK" type="STRING" size="1" description="check"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="piemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="DEVICE" description="" displaytype="none"/>
+              <Field id="BROWSER_NAME" description="" displaytype="category"/>
+              <Field id="SHARE" description="" displaytype="series"/>
+              <Field id="CHK" description="" displaytype="none"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="DEVICE,BROWSER_NAME,SHARE,CHK"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Chart\PieChartViewTemplate.xviewgen">
+            <Attribute id="charttype" value="doughnut"/>
+            <Attribute id="chartdisplay" value="semicircle"/>
+            <Attribute id="innerradius" value="30"/>
+            <Attribute id="innertext" value="점유율"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="viewpadding" value="10"/>
+          </ViewTemplateInfo>
+        </View>
       </Layout>
     </Layouts>
     <Objects>
@@ -236,6 +338,9 @@
       <DsCopyDataAction id="DsCopyDataAction01" targetview="View01" copytype="replace" fromdataset="dsData" fromview="test_chart">
         <Contents/>
       </DsCopyDataAction>
+      <DsCopyDataAction id="DsCopyDataAction02" targetview="View00_00" copytype="replace" fromdataset="dsData" fromview="test_chart">
+        <Contents/>
+      </DsCopyDataAction>
     </Objects>
     <Script type="xscript5.1"><![CDATA[
 this.View00_BasicChart00_onclick = function(obj:nexacro.BasicChart,e:nexacro.ChartClickEventInfo)
@@ -246,6 +351,7 @@ this.View00_BasicChart00_onclick = function(obj:nexacro.BasicChart,e:nexacro.Cha
     <Trigger>
       <TriggerItem id="item0" triggertype="Form Init" triggerview="test_chart" triggerobj="test_chart" targetaction="DsCopyDataAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Form Init" triggerview="test_chart" triggerobj="test_chart" targetaction="DsCopyDataAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Form Init" triggerview="test_chart" triggerobj="test_chart" targetaction="DsCopyDataAction02" condition=""/>
     </Trigger>
   </Form>
 </FDL>

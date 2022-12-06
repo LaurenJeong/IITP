@@ -3,7 +3,7 @@
   <Form id="test_chart_gauge" width="1280" height="720" titletext="GaugeChart, BarGaugeChart">
     <Layouts>
       <Layout height="720" width="1280">
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="27" top="25" width="437" height="361">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="27" top="25" width="437" height="361" background="#e1e1e1">
           <Layouts>
             <Layout>
               <GaugeChart id="chart" left="0" top="0" right="0" bottom="0" legendspacing="10px" binddataset="viewdataset" gaugetype="circular" enableanimation="true" categorycolumn="bind:ID_1">
@@ -59,7 +59,10 @@
 											"boardlinevisible" : true,
 											"boardlinestyle" : "1px solid #d0d0d0",
 											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
 											"labeltextcolor" : "#6f6f6f",
 											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
 											"ticklinestyle" : "1px solid #525252",
@@ -107,16 +110,14 @@
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="ID_1" type="STRING" size="80"/>
-                <Column id="VALUE_1" type="BIGDECIMAL" size="80"/>
-                <Column id="ID_2" type="STRING" size="80"/>
-                <Column id="VALUE_2" type="BIGDECIMAL" size="80"/>
-                <Column id="ID_TOT" type="STRING" size="80"/>
-                <Column id="VALUE_TOT" type="BIGDECIMAL" size="80"/>
+                <Column id="ID_1" type="STRING" size="80" description="male"/>
+                <Column id="VALUE_1" type="BIGDECIMAL" size="80" description="male value"/>
+                <Column id="ID_2" type="STRING" size="80" description="female"/>
+                <Column id="VALUE_2" type="BIGDECIMAL" size="80" description="female value"/>
+                <Column id="ID_TOT" type="STRING" size="80" description="totoal"/>
+                <Column id="VALUE_TOT" type="BIGDECIMAL" size="80" description="totoal value"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="gaugemodel" filepath="nexacrochart\chartModelService.xmodel">

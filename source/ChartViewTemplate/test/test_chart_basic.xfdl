@@ -3,343 +3,7 @@
   <Form id="test_chart" width="1280" height="720" titletext="BarChart, LineChart, AreaChart">
     <Layouts>
       <Layout height="720" width="1280">
-        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="60" top="130" width="910" height="289" background="#e1e1e1">
-          <Layouts>
-            <Layout>
-              <BasicChart id="chart" left="10" top="10" right="10" bottom="10" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
-                <Contents><![CDATA[{
-									"title" : {
-										"id" : "title",
-										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
-										"padding" : "0px 0px 5px",
-										"subtextcolor" : "gray",
-										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
-										"visible" : false
-									},
-									"legend" : {
-										"id" : "legend",
-										"padding" : "3px 10px 3px 10px",
-										"itemtextfont" : "9pt 'Malgun Gothic'",
-										"itemtextcolor" : "#4c4c4c",
-										"itemautofit" : true,
-										"markertextgap" : "5",
-										"markertype" : "circle",
-										"verticalitemgap" : "5",
-										"linestyle" : "1px dashed #4c4c4c",
-										"visible" : true,
-										"align" : "rightcenter"
-									},
-									"tooltip" : {
-										"id" : "tooltip",
-										"background" : "#4b4b4b",
-										"linestyle" : "0px none",
-										"textcolor" : "white",
-										"textfont" : "10pt/normal 'Malgun Gothic'",
-										"padding" : "5px"
-									},
-									"board" : {
-										"id" : "board"
-									},
-									"categoryaxis" : {
-										"id" : "categoryaxis",
-										"titletextcolor" : "#4c4c4c",
-										"titletextfont" : "bold 9pt 'Malgun Gothic'",
-										"labeltextcolor" : "#6f6f6f",
-										"labeltextfont" : "9pt 'Malgun Gothic'",
-										"axislinestyle" : "1px solid #525252",
-										"ticklinestyle" : "1px solid #525252",
-										"boardlinestyle" : "1px solid #d0d0d0",
-										"ticksize" : "5",
-										"labelgap" : "5",
-										"titletext" : "",
-										"labelmask" : "",
-										"labeltype" : "normal"
-									},
-									"valueaxes" : [
-										{
-											"id" : "valueaxisy",
-											"boardlinevisible" : true,
-											"boardlinestyle" : "1px solid #d0d0d0",
-											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 9pt 'Malgun Gothic'",
-											"labeltextcolor" : "#6f6f6f",
-											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
-											"ticklinestyle" : "1px solid #525252",
-											"axislinestyle" : "1px solid #525252",
-											"labelgap" : "5",
-											"ticksize" : "5",
-											"autotickscale" : "10",
-											"titletext" : "",
-											"labelmask" : "",
-											"labeltype" : "number"
-										}
-									],
-									"seriesset" : [
-										{
-											"barvisible" : true,
-											"barsize" : "75",
-											"barlinestyle" : "1px solid #1f77b4",
-											"itemtextcolor" : "#4c4c4c",
-											"itemtextfont" : "9pt 'Malgun Gothic'",
-											"baritemtextgap" : 5,
-											"id" : "seriesSeoul",
-											"titletext" : "서울지점",
-											"valuecolumn" : "bind:Seoul",
-											"barfillstyle" : "#1f77b4",
-											"itemtextvisible" : true,
-											"itemtextmask" : "",
-											"itemtexttype" : "number",
-											"baritemtextposition" : "outside"
-										},
-										{
-											"barvisible" : true,
-											"barsize" : "75",
-											"barlinestyle" : "1px solid #ff7f0e",
-											"itemtextcolor" : "#4c4c4c",
-											"itemtextfont" : "9pt 'Malgun Gothic'",
-											"baritemtextgap" : 5,
-											"id" : "seriesBusan",
-											"titletext" : "부산지점",
-											"valuecolumn" : "bind:Busan",
-											"barfillstyle" : "#ff7f0e",
-											"itemtextvisible" : true,
-											"itemtextmask" : "",
-											"itemtexttype" : "number",
-											"baritemtextposition" : "outside"
-										},
-										{
-											"barvisible" : true,
-											"barsize" : "75",
-											"barlinestyle" : "1px solid #2ca02c",
-											"itemtextcolor" : "#4c4c4c",
-											"itemtextfont" : "9pt 'Malgun Gothic'",
-											"baritemtextgap" : 5,
-											"id" : "seriesGwangju",
-											"titletext" : "광주지점",
-											"valuecolumn" : "bind:Gwangju",
-											"barfillstyle" : "#2ca02c",
-											"itemtextvisible" : true,
-											"itemtextmask" : "",
-											"itemtexttype" : "number",
-											"baritemtextposition" : "outside"
-										}
-									]
-								}]]></Contents>
-              </BasicChart>
-            </Layout>
-          </Layouts>
-          <Objects>
-            <Dataset id="viewdataset">
-              <ColumnInfo>
-                <Column id="Month" type="STRING" size="80"/>
-                <Column id="Seoul" type="BIGDECIMAL" size="80"/>
-                <Column id="Busan" type="BIGDECIMAL" size="80"/>
-                <Column id="Gwangju" type="BIGDECIMAL" size="80"/>
-              </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
-            </Dataset>
-          </Objects>
-          <Script><![CDATA[this.fn_Alert = function(){this.alert('MESSAGE')};]]></Script>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">
-            <Fields>
-              <Field id="Month" description="" displaytype="category" valueaxes="y" stackedgroupname=""/>
-              <Field id="Seoul" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
-              <Field id="Busan" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
-              <Field id="Gwangju" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
-            </Fields>
-            <Components>
-              <Component id="chart" fields="Month,Seoul,Busan,Gwangju"/>
-            </Components>
-          </ModelInfo>
-          <ViewTemplateInfo filepath="Chart\BarChartViewTemplate.xviewgen">
-            <Attribute id="charttype" value="column"/>
-            <Attribute id="chartdisplay" value="grouped"/>
-            <Attribute id="enableanimation" value="true"/>
-            <Attribute id="titlealign" value="topcenter"/>
-            <Attribute id="legendposition" value="rightcenter"/>
-            <Attribute id="itemtextposition" value="outside"/>
-            <Attribute id="viewpadding" value="10"/>
-          </ViewTemplateInfo>
-        </View>
-        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="74" top="441" width="737" height="252" background="#e1e1e1">
-          <Layouts>
-            <Layout>
-              <BasicChart id="chart" left="10" top="10" right="10" bottom="10" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
-                <Contents><![CDATA[{
-									"title" : {
-										"id" : "title",
-										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
-										"padding" : "0px 0px 5px",
-										"subtextcolor" : "gray",
-										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
-										"visible" : false
-									},
-									"legend" : {
-										"id" : "legend",
-										"padding" : "3px 10px 3px 10px",
-										"itemtextfont" : "9pt 'Malgun Gothic'",
-										"itemtextcolor" : "#4c4c4c",
-										"itemautofit" : true,
-										"markertextgap" : "5",
-										"markertype" : "circle",
-										"verticalitemgap" : "5",
-										"linestyle" : "1px dashed #4c4c4c",
-										"visible" : true,
-										"align" : "rightcenter"
-									},
-									"tooltip" : {
-										"id" : "tooltip",
-										"background" : "#4b4b4b",
-										"linestyle" : "0px none",
-										"textcolor" : "white",
-										"textfont" : "10pt/normal 'Malgun Gothic'",
-										"padding" : "5px"
-									},
-									"board" : {
-										"id" : "board"
-									},
-									"categoryaxis" : {
-										"id" : "categoryaxis",
-										"titletextcolor" : "#4c4c4c",
-										"titletextfont" : "bold 9pt 'Malgun Gothic'",
-										"labeltextcolor" : "#6f6f6f",
-										"labeltextfont" : "9pt 'Malgun Gothic'",
-										"axislinestyle" : "1px solid #525252",
-										"ticklinestyle" : "1px solid #525252",
-										"boardlinestyle" : "1px solid #d0d0d0",
-										"ticksize" : "5",
-										"labelgap" : "5",
-										"titletext" : "월",
-										"labelmask" : "",
-										"labeltype" : "normal"
-									},
-									"valueaxes" : [
-										{
-											"id" : "valueaxisy",
-											"boardlinevisible" : true,
-											"boardlinestyle" : "1px solid #d0d0d0",
-											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 9pt 'Malgun Gothic'",
-											"labeltextcolor" : "#6f6f6f",
-											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
-											"ticklinestyle" : "1px solid #525252",
-											"axislinestyle" : "1px solid #525252",
-											"labelgap" : "5",
-											"ticksize" : "5",
-											"autotickscale" : "10",
-											"titletext" : "(%)",
-											"labelmask" : "",
-											"labeltype" : "number"
-										}
-									],
-									"seriesset" : [
-										{
-											"barvisible" : false,
-											"linevisible" : true,
-											"pointsize" : "7",
-											"pointlinestyle" : "0px solid",
-											"itemtextcolor" : "#4c4c4c",
-											"itemtextfont" : "9pt 'Malgun Gothic'",
-											"lineitemtextgap" : 5,
-											"pointitemtextgap" : 5,
-											"id" : "seriesSeoul",
-											"titletext" : "서울지점",
-											"valuecolumn" : "bind:Seoul",
-											"linetype" : "segment",
-											"pointvisible" : "true",
-											"linestyle" : "1px solid #1f77b4",
-											"pointfillstyle" : "#1f77b4",
-											"itemtextvisible" : true,
-											"itemtextmask" : "",
-											"itemtexttype" : "number",
-											"pointitemtextposition" : "centertop"
-										},
-										{
-											"barvisible" : false,
-											"linevisible" : true,
-											"pointsize" : "7",
-											"pointlinestyle" : "0px solid",
-											"itemtextcolor" : "#4c4c4c",
-											"itemtextfont" : "9pt 'Malgun Gothic'",
-											"lineitemtextgap" : 5,
-											"pointitemtextgap" : 5,
-											"id" : "seriesBusan",
-											"titletext" : "부산지점",
-											"valuecolumn" : "bind:Busan",
-											"linetype" : "segment",
-											"pointvisible" : "true",
-											"linestyle" : "1px solid #ff7f0e",
-											"pointfillstyle" : "#ff7f0e",
-											"itemtextvisible" : true,
-											"itemtextmask" : "",
-											"itemtexttype" : "number",
-											"pointitemtextposition" : "centertop"
-										},
-										{
-											"barvisible" : false,
-											"linevisible" : true,
-											"pointsize" : "7",
-											"pointlinestyle" : "0px solid",
-											"itemtextcolor" : "#4c4c4c",
-											"itemtextfont" : "9pt 'Malgun Gothic'",
-											"lineitemtextgap" : 5,
-											"pointitemtextgap" : 5,
-											"id" : "seriesGwangju",
-											"titletext" : "광주지점",
-											"valuecolumn" : "bind:Gwangju",
-											"linetype" : "segment",
-											"pointvisible" : "true",
-											"linestyle" : "1px solid #2ca02c",
-											"pointfillstyle" : "#2ca02c",
-											"itemtextvisible" : true,
-											"itemtextmask" : "",
-											"itemtexttype" : "number",
-											"pointitemtextposition" : "centertop"
-										}
-									]
-								}]]></Contents>
-              </BasicChart>
-            </Layout>
-          </Layouts>
-          <Objects>
-            <Dataset id="viewdataset">
-              <ColumnInfo>
-                <Column id="Month" type="STRING" size="80"/>
-                <Column id="Seoul" type="BIGDECIMAL" size="80"/>
-                <Column id="Busan" type="BIGDECIMAL" size="80"/>
-                <Column id="Gwangju" type="BIGDECIMAL" size="80"/>
-              </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
-            </Dataset>
-          </Objects>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">
-            <Fields>
-              <Field id="Month" description="" displaytype="category" valueaxes="y"/>
-              <Field id="Seoul" description="" displaytype="series" valueaxes="y"/>
-              <Field id="Busan" description="" displaytype="series" valueaxes="y"/>
-              <Field id="Gwangju" description="" displaytype="series" valueaxes="y"/>
-            </Fields>
-            <Components>
-              <Component id="chart" fields="Month,Seoul,Busan,Gwangju"/>
-            </Components>
-          </ModelInfo>
-          <ViewTemplateInfo filepath="Chart\LineChartViewTemplate.xviewgen">
-            <Attribute id="linetype" value="segment"/>
-            <Attribute id="visiblepoint" value="true"/>
-            <Attribute id="enableanimation" value="true"/>
-            <Attribute id="titlealign" value="topcenter"/>
-            <Attribute id="legendposition" value="rightcenter"/>
-            <Attribute id="categoryaxistitletext" value="월"/>
-            <Attribute id="valueaxistitletext" value="(%)"/>
-            <Attribute id="itemtextposition" value="centertop"/>
-            <Attribute id="viewpadding" value="10"/>
-          </ViewTemplateInfo>
-        </View>
-        <View id="View02" taborder="2" text="View02" viewdataset="viewdataset" left="72" top="745" width="764" height="224" background="#e1e1e1">
+        <View id="View00" taborder="0" text="View00" viewdataset="viewdataset" left="60" top="130" width="910" height="289">
           <Layouts>
             <Layout>
               <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
@@ -379,7 +43,9 @@
 									"categoryaxis" : {
 										"id" : "categoryaxis",
 										"titletextcolor" : "#4c4c4c",
-										"titletextfont" : "bold 9pt 'Malgun Gothic'",
+										"titletextfont" : "bold 8pt 'Malgun Gothic'",
+										"titletextalign" : "high",
+										"titlegap" : "5",
 										"labeltextcolor" : "#6f6f6f",
 										"labeltextfont" : "9pt 'Malgun Gothic'",
 										"axislinestyle" : "1px solid #525252",
@@ -397,7 +63,10 @@
 											"boardlinevisible" : true,
 											"boardlinestyle" : "1px solid #d0d0d0",
 											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 9pt 'Malgun Gothic'",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
 											"labeltextcolor" : "#6f6f6f",
 											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
 											"ticklinestyle" : "1px solid #525252",
@@ -414,65 +83,56 @@
 										{
 											"barvisible" : false,
 											"linevisible" : true,
-											"lineareavisible" : true,
+											"pointsize" : "7",
 											"pointlinestyle" : "0px solid",
-											"lineareaopacity" : "0.5",
 											"itemtextcolor" : "#4c4c4c",
 											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
 											"id" : "seriesSeoul",
 											"titletext" : "서울지점",
 											"valuecolumn" : "bind:Seoul",
 											"linetype" : "segment",
+											"pointvisible" : "true",
 											"linestyle" : "1px solid #1f77b4",
-											"lineareafillstyle" : "#1f77b4",
 											"pointfillstyle" : "#1f77b4",
-											"itemtextvisible" : true,
-											"itemtextmask" : "",
-											"itemtexttype" : "number",
-											"lineitemtextposition" : "centertop"
+											"itemtextvisible" : false
 										},
 										{
 											"barvisible" : false,
 											"linevisible" : true,
-											"lineareavisible" : true,
+											"pointsize" : "7",
 											"pointlinestyle" : "0px solid",
-											"lineareaopacity" : "0.5",
 											"itemtextcolor" : "#4c4c4c",
 											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
 											"id" : "seriesBusan",
 											"titletext" : "부산지점",
 											"valuecolumn" : "bind:Busan",
 											"linetype" : "segment",
+											"pointvisible" : "true",
 											"linestyle" : "1px solid #ff7f0e",
-											"lineareafillstyle" : "#ff7f0e",
 											"pointfillstyle" : "#ff7f0e",
-											"itemtextvisible" : true,
-											"itemtextmask" : "",
-											"itemtexttype" : "number",
-											"lineitemtextposition" : "centertop"
+											"itemtextvisible" : false
 										},
 										{
 											"barvisible" : false,
 											"linevisible" : true,
-											"lineareavisible" : true,
+											"pointsize" : "7",
 											"pointlinestyle" : "0px solid",
-											"lineareaopacity" : "0.5",
 											"itemtextcolor" : "#4c4c4c",
 											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
 											"id" : "seriesGwangju",
 											"titletext" : "광주지점",
 											"valuecolumn" : "bind:Gwangju",
 											"linetype" : "segment",
+											"pointvisible" : "true",
 											"linestyle" : "1px solid #2ca02c",
-											"lineareafillstyle" : "#2ca02c",
 											"pointfillstyle" : "#2ca02c",
-											"itemtextvisible" : true,
-											"itemtextmask" : "",
-											"itemtexttype" : "number",
-											"lineitemtextposition" : "centertop"
+											"itemtextvisible" : false
 										}
 									]
 								}]]></Contents>
@@ -482,34 +142,368 @@
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="Month" type="STRING" size="80"/>
-                <Column id="Seoul" type="BIGDECIMAL" size="80"/>
-                <Column id="Busan" type="BIGDECIMAL" size="80"/>
-                <Column id="Gwangju" type="BIGDECIMAL" size="80"/>
+                <Column id="Month" type="STRING" size="80" description="월"/>
+                <Column id="Seoul" type="BIGDECIMAL" size="80" description="서울지점"/>
+                <Column id="Busan" type="BIGDECIMAL" size="80" description="부산지점"/>
+                <Column id="Gwangju" type="BIGDECIMAL" size="80" description="광주지점"/>
               </ColumnInfo>
-              <Rows>
-                <Row/>
-              </Rows>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">
             <Fields>
-              <Field id="Month" description="" displaytype="category" valueaxes="y" stackedgroupname=""/>
-              <Field id="Seoul" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
-              <Field id="Busan" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
-              <Field id="Gwangju" description="" displaytype="series" valueaxes="y" stackedgroupname=""/>
+              <Field id="Month" description="" displaytype="category" valueaxes="y"/>
+              <Field id="Seoul" description="" displaytype="series" valueaxes="y"/>
+              <Field id="Busan" description="" displaytype="series" valueaxes="y"/>
+              <Field id="Gwangju" description="" displaytype="series" valueaxes="y"/>
             </Fields>
             <Components>
               <Component id="chart" fields="Month,Seoul,Busan,Gwangju"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="Chart\AreaChartViewTemplate.xviewgen">
-            <Attribute id="chartdisplay" value="grouped"/>
+          <ViewTemplateInfo filepath="Chart\LineChartViewTemplate.xviewgen">
             <Attribute id="linetype" value="segment"/>
+            <Attribute id="visiblepoint" value="true"/>
             <Attribute id="enableanimation" value="true"/>
             <Attribute id="titlealign" value="topcenter"/>
             <Attribute id="legendposition" value="rightcenter"/>
-            <Attribute id="itemtextposition" value="centertop"/>
+            <Attribute id="itemtextposition" value="none"/>
+            <Attribute id="viewpadding" value="20"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View01" taborder="1" text="View01" viewdataset="viewdataset" left="60" top="441" width="910" height="289" background="#e1e1e1">
+          <Layouts>
+            <Layout>
+              <BasicChart id="chart" left="10" top="10" right="10" bottom="10" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 8pt 'Malgun Gothic'",
+										"titletextalign" : "high",
+										"titlegap" : "5",
+										"labeltextcolor" : "#6f6f6f",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"barvisible" : false,
+											"linevisible" : true,
+											"pointsize" : "7",
+											"pointlinestyle" : "0px solid",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
+											"id" : "seriesSeoul",
+											"titletext" : "서울지점",
+											"valuecolumn" : "bind:Seoul",
+											"linetype" : "step",
+											"pointvisible" : "true",
+											"linestyle" : "1px solid #1f77b4",
+											"pointfillstyle" : "#1f77b4",
+											"itemtextvisible" : false
+										},
+										{
+											"barvisible" : false,
+											"linevisible" : true,
+											"pointsize" : "7",
+											"pointlinestyle" : "0px solid",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
+											"id" : "seriesBusan",
+											"titletext" : "부산지점",
+											"valuecolumn" : "bind:Busan",
+											"linetype" : "step",
+											"pointvisible" : "true",
+											"linestyle" : "1px solid #ff7f0e",
+											"pointfillstyle" : "#ff7f0e",
+											"itemtextvisible" : false
+										},
+										{
+											"barvisible" : false,
+											"linevisible" : true,
+											"pointsize" : "7",
+											"pointlinestyle" : "0px solid",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
+											"id" : "seriesGwangju",
+											"titletext" : "광주지점",
+											"valuecolumn" : "bind:Gwangju",
+											"linetype" : "step",
+											"pointvisible" : "true",
+											"linestyle" : "1px solid #2ca02c",
+											"pointfillstyle" : "#2ca02c",
+											"itemtextvisible" : false
+										}
+									]
+								}]]></Contents>
+              </BasicChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Month" type="STRING" size="80" description="월"/>
+                <Column id="Seoul" type="BIGDECIMAL" size="80" description="서울지점"/>
+                <Column id="Busan" type="BIGDECIMAL" size="80" description="부산지점"/>
+                <Column id="Gwangju" type="BIGDECIMAL" size="80" description="광주지점"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="Month" description="" displaytype="category" valueaxes="y"/>
+              <Field id="Seoul" description="" displaytype="series" valueaxes="y"/>
+              <Field id="Busan" description="" displaytype="series" valueaxes="y"/>
+              <Field id="Gwangju" description="" displaytype="series" valueaxes="y"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="Month,Seoul,Busan,Gwangju"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Chart\LineChartViewTemplate.xviewgen">
+            <Attribute id="linetype" value="step"/>
+            <Attribute id="visiblepoint" value="true"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="itemtextposition" value="none"/>
+            <Attribute id="viewpadding" value="10"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="View02" taborder="2" text="View02" viewdataset="viewdataset" left="60" top="745" width="910" height="289" background="#e1e1e1">
+          <Layouts>
+            <Layout>
+              <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : false
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 8pt 'Malgun Gothic'",
+										"titletextalign" : "high",
+										"titlegap" : "5",
+										"labeltextcolor" : "#6f6f6f",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"barvisible" : false,
+											"linevisible" : true,
+											"pointsize" : "7",
+											"pointlinestyle" : "0px solid",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
+											"id" : "seriesSeoul",
+											"titletext" : "서울지점",
+											"valuecolumn" : "bind:Seoul",
+											"linetype" : "curve",
+											"pointvisible" : "true",
+											"linestyle" : "1px solid #1f77b4",
+											"pointfillstyle" : "#1f77b4",
+											"itemtextvisible" : false
+										},
+										{
+											"barvisible" : false,
+											"linevisible" : true,
+											"pointsize" : "7",
+											"pointlinestyle" : "0px solid",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
+											"id" : "seriesBusan",
+											"titletext" : "부산지점",
+											"valuecolumn" : "bind:Busan",
+											"linetype" : "curve",
+											"pointvisible" : "true",
+											"linestyle" : "1px solid #ff7f0e",
+											"pointfillstyle" : "#ff7f0e",
+											"itemtextvisible" : false
+										},
+										{
+											"barvisible" : false,
+											"linevisible" : true,
+											"pointsize" : "7",
+											"pointlinestyle" : "0px solid",
+											"itemtextcolor" : "#4c4c4c",
+											"itemtextfont" : "9pt 'Malgun Gothic'",
+											"lineitemtextgap" : 5,
+											"pointitemtextgap" : 5,
+											"id" : "seriesGwangju",
+											"titletext" : "광주지점",
+											"valuecolumn" : "bind:Gwangju",
+											"linetype" : "curve",
+											"pointvisible" : "true",
+											"linestyle" : "1px solid #2ca02c",
+											"pointfillstyle" : "#2ca02c",
+											"itemtextvisible" : false
+										}
+									]
+								}]]></Contents>
+              </BasicChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Month" type="STRING" size="80" description="월"/>
+                <Column id="Seoul" type="BIGDECIMAL" size="80" description="서울지점"/>
+                <Column id="Busan" type="BIGDECIMAL" size="80" description="부산지점"/>
+                <Column id="Gwangju" type="BIGDECIMAL" size="80" description="광주지점"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="Month" description="" displaytype="category" valueaxes="y"/>
+              <Field id="Seoul" description="" displaytype="series" valueaxes="y"/>
+              <Field id="Busan" description="" displaytype="series" valueaxes="y"/>
+              <Field id="Gwangju" description="" displaytype="series" valueaxes="y"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="Month,Seoul,Busan,Gwangju"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Chart\LineChartViewTemplate.xviewgen">
+            <Attribute id="linetype" value="curve"/>
+            <Attribute id="visiblepoint" value="true"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="itemtextposition" value="none"/>
             <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
