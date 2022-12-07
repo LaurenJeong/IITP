@@ -535,6 +535,7 @@ this.lfn_GetCompProp = function(sCompType, oField)
 // 				oProps["dateformat"] = "SHORTDATE";
 // 				oProps["editformat"] = "SHORTDATE";
 // 			}
+			oProps["autoselect"] = "true";
 			break;
 		case "maskedit" :
 			if (sDataType == "INT")
@@ -594,6 +595,7 @@ this.lfn_GetCellProp = function(sBand, sDisplayType, sEditType, oField)
 // 			{
 // 				oProps["calendardateformat"] = "SHORTDATE";
 // 			}
+			oProps["calendardisplaynulltype"] = "none";
 			break;
 		case "mask" :
 		case "maskeditcontrol" :
