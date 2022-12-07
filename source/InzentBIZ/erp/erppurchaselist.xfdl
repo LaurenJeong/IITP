@@ -8,13 +8,13 @@
             <Layout>
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
               <Button id="btnSearch" width="80" height="30" right="10" bottom="10" cssclass="btn_search" text="검색"/>
-              <Static id="staStartDateLabel" left="10" top="10" width="95" height="30" text="요청일자" cssclass="sta_label"/>
-              <Calendar id="calStartDate" left="110" top="10" width="100" height="30"/>
-              <Calendar id="calEndDate" left="214" top="10" width="100" height="30"/>
-              <Static id="staChgNmLabel" left="319" top="10" width="95" height="30" text="요청자" cssclass="sta_label"/>
-              <Edit id="edtChgNm" left="419" top="10" width="100" height="30"/>
-              <Static id="staPurchaseNoLabel" left="524" top="10" width="95" height="30" text="구매요청번호" cssclass="sta_label"/>
-              <Edit id="edtPurchaseNo" left="624" top="10" width="150" height="30"/>
+              <Static id="staStartDateLabel" left="10" top="10" width="100" height="30" text="요청일자" cssclass="sta_label"/>
+              <Calendar id="calStartDate" left="115" top="10" width="115" height="30"/>
+              <Calendar id="calEndDate" left="239" top="10" width="115" height="30"/>
+              <Static id="staChgNmLabel" left="359" top="10" width="100" height="30" text="요청자" cssclass="sta_label"/>
+              <Edit id="edtChgNm" left="464" top="10" width="115" height="30"/>
+              <Static id="staPurchaseNoLabel" left="584" top="10" width="100" height="30" text="구매요청번호" cssclass="sta_label"/>
+              <Edit id="edtPurchaseNo" left="689" top="10" width="115" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -38,10 +38,10 @@
           </Bind>
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00001" modelid="SI" filepath="IITP\BIZ_M_ERP_S_COM00001.xmodel">
             <Fields>
-              <Field id="START_DATE" label="요청일자" description="" innerdatasetinfo="" comptype="calendar" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="END_DATE" description="" innerdatasetinfo="" comptype="calendar" fieldwidth="100px" fieldheight="30px" labelwidth="-1" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="CHG_NM" description="" innerdatasetinfo="" comptype="auto" fieldwidth="100px" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
-              <Field id="PURCHASE_NO" label="구매요청번호" description="" innerdatasetinfo="" comptype="auto" fieldwidth="150" fieldheight="30px" labelwidth="100" cssclass="" labelcssclass="sta_label" usecomp="true"/>
+              <Field id="START_DATE" label="요청일자" description="" innerdatasetinfo="" comptype="calendar" compwidth="120px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="END_DATE" description="" innerdatasetinfo="" comptype="calendar" compwidth="120px" compheight="30px" labelsize="-1" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="CHG_NM" description="" innerdatasetinfo="" comptype="auto" compwidth="120px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="PURCHASE_NO" label="구매요청번호" description="" innerdatasetinfo="" comptype="auto" compwidth="120px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
             </Fields>
             <Components>
               <Component id="stBg" fields="_viewcomp"/>
@@ -96,7 +96,7 @@
                       <Cell id="cell_head_4_0_PJ_CD" col="4" row="0" text="프로젝트"/>
                       <Cell id="cell_head_5_0_EMPLOYEE" col="5" row="0" text="담당자"/>
                       <Cell id="cell_head_6_0_PRICE" col="6" row="0" text="가격"/>
-                      <Cell id="cell_head_7_0_STATUS" col="7" row="0" text="구매상태"/>
+                      <Cell id="cell_head_7_0_STATUS" col="7" row="0" text="상태"/>
                       <Cell id="cell_head_8_0_PURCHASE_EMP" col="8" row="0" text="구매담당"/>
                       <Cell id="cell_head_9_0_PURCHASE_DATE" col="9" row="0" text="구매확정일"/>
                       <Cell id="cell_head_10_0_MEMO" col="10" row="0" text="메모"/>
@@ -130,16 +130,20 @@
                 <Column id="PJ_CD" type="STRING" size="10" description="프로젝트"/>
                 <Column id="EMPLOYEE" type="STRING" size="20" description="담당자"/>
                 <Column id="PRICE" type="BIGDECIMAL" size="10" description="가격"/>
-                <Column id="STATUS" type="STRING" size="12" description="구매상태"/>
+                <Column id="STATUS" type="STRING" size="12" description="상태"/>
                 <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당"/>
                 <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매확정일"/>
                 <Column id="MEMO" type="STRING" size="300" description="메모"/>
+                <Column id="PAYMENT_TERMS" type="STRING" size="10" description="결재조건"/>
+                <Column id="PURCHASE_OPINION" type="STRING" size="300" description="구매담당자의견"/>
               </ColumnInfo>
               <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00001" modelid="SO_PURCHASE_LIST" filepath="IITP\BIZ_M_ERP_S_COM00001.xmodel">
             <Fields>
+              <Field id="PURCHASE_OPINION" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="PAYMENT_TERMS" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
               <Field id="PURCHASE_NO" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="REQ_DATE" label="요청날짜" innerdatasetinfo="" displaytype="date" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="BUY_CD" label="거래처코드" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
@@ -147,7 +151,7 @@
               <Field id="PJ_CD" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="EMPLOYEE" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PRICE" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="STATUS" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="STATUS" label="상태" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PURCHASE_DATE" innerdatasetinfo="" displaytype="date" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="MEMO" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
@@ -298,7 +302,7 @@
             <Attribute id="viewvisible" value="false"/>
           </ViewTemplateInfo>
         </View>
-        <View id="viewDetail2" taborder="4" viewdataset="viewdataset" left="0" top="viewDetail:10" height="150" right="10">
+        <View id="viewDetail2" taborder="4" viewdataset="viewdataset" left="0" top="viewDetail:10" height="150" right="10" sourceview="viewList">
           <Layouts>
             <Layout>
               <Div id="divTitle" left="0" top="0" height="30" right="0">
@@ -308,16 +312,14 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Static id="staPurchaseDateBg" left="0" top="30" width="346" height="40" cssclass="sta_fieldbox"/>
-              <Static id="staPurchaseDateLabel" left="0" top="30" width="100" height="40" text="구매날자" cssclass="sta_labelbox"/>
+              <Static id="staPurchaseDateBg" left="0" top="30" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staPurchaseDateLabel" left="0" top="30" width="100" height="40" text="구매일자" cssclass="sta_labelbox"/>
               <Calendar id="calPurchaseDate" left="105" top="35" width="236" height="30"/>
-              <Static id="staPaymentTermsBg" left="345" top="30" width="346" height="40" cssclass="sta_fieldbox"/>
               <Static id="staPaymentTermsLabel" left="345" top="30" width="100" height="40" text="결재조건" cssclass="sta_labelbox"/>
               <Edit id="edtPaymentTerms" left="450" top="35" width="236" height="30"/>
-              <Static id="staPurchaseEmpBg" left="690" top="30" width="346" height="40" cssclass="sta_fieldbox"/>
               <Static id="staPurchaseEmpLabel" left="690" top="30" width="100" height="40" text="구매담당" cssclass="sta_labelbox"/>
               <Edit id="edtPurchaseEmp" left="795" top="35" width="236" height="30"/>
-              <Static id="staPurchaseOpinionBg" left="0" top="69" width="1038" height="80" cssclass="sta_fieldbox"/>
+              <Static id="staPurchaseOpinionBg" left="0" top="69" right="0" height="80" cssclass="sta_fieldbox"/>
               <Static id="staPurchaseOpinionLabel" left="0" top="69" width="100" height="80" text="구매의견" cssclass="sta_labelbox"/>
               <TextArea id="txtPurchaseOpinion" left="105" top="74" width="928" height="70"/>
             </Layout>
@@ -327,7 +329,7 @@
               <ColumnInfo>
                 <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
                 <Column id="PAYMENT_TERMS" type="STRING" size="10" description="결재조건"/>
-                <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매날자"/>
+                <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매일자"/>
                 <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당"/>
                 <Column id="PURCHASE_OPINION" type="STRING" size="300" description="구매의견"/>
               </ColumnInfo>
@@ -345,7 +347,7 @@
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00001" modelid="SO_PURCHASE_LIST" filepath="IITP\BIZ_M_ERP_S_COM00001.xmodel">
             <Fields>
               <Field id="PURCHASE_NO" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
-              <Field id="PURCHASE_DATE" label="구매날자" innerdatasetinfo="" comptype="calendar" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+              <Field id="PURCHASE_DATE" label="구매일자" innerdatasetinfo="" comptype="calendar" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
               <Field id="PAYMENT_TERMS" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
               <Field id="PURCHASE_EMP" label="구매담당" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
               <Field id="PURCHASE_OPINION" label="구매의견" innerdatasetinfo="" comptype="textarea" compwidth="100%" compheight="100%" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
@@ -355,10 +357,8 @@
               <Component id="staPurchaseDateBg" fields="PURCHASE_DATE"/>
               <Component id="staPurchaseDateLabel" fields="PURCHASE_DATE"/>
               <Component id="calPurchaseDate" fields="PURCHASE_DATE"/>
-              <Component id="staPaymentTermsBg" fields="PAYMENT_TERMS"/>
               <Component id="staPaymentTermsLabel" fields="PAYMENT_TERMS"/>
               <Component id="edtPaymentTerms" fields="PAYMENT_TERMS"/>
-              <Component id="staPurchaseEmpBg" fields="PURCHASE_EMP"/>
               <Component id="staPurchaseEmpLabel" fields="PURCHASE_EMP"/>
               <Component id="edtPurchaseEmp" fields="PURCHASE_EMP"/>
               <Component id="staPurchaseOpinionBg" fields="PURCHASE_OPINION"/>
@@ -376,12 +376,93 @@
             <Attribute id="format" value="{&quot;columnsize&quot;:[346,346,346],&quot;rowsize&quot;:[40,80],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_DATE&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PAYMENT_TERMS&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_EMP&quot;]},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;PURCHASE_OPINION&quot;],&quot;colspan&quot;:&quot;3&quot;}]}"/>
           </ViewTemplateInfo>
         </View>
+        <View id="viewPurchase" taborder="5" viewdataset="viewdataset" left="379" top="606" width="306" height="37" visible="false" text="viewPurchase">
+          <Layouts/>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
+                <Column id="PAYMENT_TERMS" type="STRING" size="10" description="결재조건"/>
+                <Column id="PURCHASE_DATE" type="STRING" size="8" description="구매확정일"/>
+                <Column id="PURCHASE_EMP" type="STRING" size="20" description="구매담당자"/>
+                <Column id="PURCHASE_OPINION" type="STRING" size="300" description="구매담당자의견"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00003" modelid="SI" filepath="IITP\BIZ_M_ERP_S_COM00003.xmodel">
+            <Fields>
+              <Field id="PURCHASE_NO" innerdatasetinfo=""/>
+              <Field id="PAYMENT_TERMS" innerdatasetinfo=""/>
+              <Field id="PURCHASE_DATE" innerdatasetinfo=""/>
+              <Field id="PURCHASE_EMP" innerdatasetinfo=""/>
+              <Field id="PURCHASE_OPINION" innerdatasetinfo=""/>
+            </Fields>
+            <Components/>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\DatasetOnlyViewTemplate.xviewgen">
+            <Attribute id="viewvisible" value="false"/>
+          </ViewTemplateInfo>
+        </View>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[this.fnComBtn = function(sBtnId)
+    <Script type="xscript5.1"><![CDATA[// 상단 공통버튼 처리
+this.fnComBtn = function(sBtnId)
 {
-	this.gfnLog("fnComBtn : " + sBtnId);
+	if (sBtnId == "BTN_1")		// 구매승인
+	{
+		this.DsCopyRowDataAction00.run();
+	}
 };]]></Script>
-    <Objects/>
+    <Objects>
+      <APITransactionAction id="APITransactionAction00" servicemodel="BIZ_M_ERP_S_COM00001" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=SO_PURCHASE_LIST">
+        <Contents><![CDATA[{
+"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>ERP</Col><Col id='SvcID'>ISD_BIZ_M_ERP_S_COM00001</Col><Col id='IFID'>BIZ_M_ERP_S_COM00001</Col><Col id='UUID'>20221101172210360</Col><Col id='BizCode'>CMM</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SO_PURCHASE_LIST</Col><Col id='iotype'>output</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data[0].FormData.PURCHASE_LIST</Col></Row></Rows></Dataset>"
+}]]></Contents>
+      </APITransactionAction>
+      <APITransactionAction id="APITransactionAction01" servicemodel="BIZ_M_ERP_S_COM00002" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewSearchDetail.form.viewdataset " outputdatasets="viewDetail.form.viewdataset=SO_PURCHASE_DETAIL_LIST">
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"viewSearchDetail",
+            "modelid":"SI",
+            "iotype":"input",
+            "fieldlist":[
+                {
+                    "name":"viewSearchDetail:PURCHASE_NO",
+                    "fieldid":"PURCHASE_NO",
+                    "value":"expr:[viewList:PURCHASE_NO]"
+                }
+            ]
+        }
+    ],
+"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='4'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>ERP</Col><Col id='SvcID'>ISD_BIZ_M_ERP_S_COM00002</Col><Col id='IFID'>BIZ_M_ERP_S_COM00002</Col><Col id='UUID'>20221101172227795</Col><Col id='BizCode'>IITP</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SO_PURCHASE_DETAIL_LIST</Col><Col id='iotype'>output</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data[0].FormData.PURCHASE_DETAIL_LIST</Col></Row></Rows></Dataset>"
+}]]></Contents>
+      </APITransactionAction>
+      <DsCopyRowDataAction id="DsCopyRowDataAction00" targetview="viewPurchase" fromview="viewDetail2">
+        <Contents/>
+      </DsCopyRowDataAction>
+      <MessageAction id="MessageAction00" message="에러가 발생하였습니다." messagetype="alert">
+        <Contents/>
+      </MessageAction>
+      <APITransactionAction id="APITransactionAction02" servicemodel="BIZ_M_ERP_S_COM00003" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewPurchase.form.viewdataset">
+        <Contents><![CDATA[{
+"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='4'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>ERP</Col><Col id='SvcID'>ISD_BIZ_M_ERP_S_COM00003</Col><Col id='IFID'>BIZ_M_ERP_S_COM00003</Col><Col id='UUID'>20221101172238394</Col><Col id='BizCode'>IITP</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row></Rows></Dataset>"
+}]]></Contents>
+      </APITransactionAction>
+      <MessageAction id="MessageAction01" message="승인되었습니다." messagetype="alert">
+        <Contents/>
+      </MessageAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="APITransactionAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Row Change" triggerview="viewList" triggerobj="viewdataset" targetaction="APITransactionAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Action Success" triggerview="erppurchaselist" triggerobj="DsCopyRowDataAction00" targetaction="APITransactionAction02" condition=""/>
+      <TriggerItem id="item3" triggertype="Action Fail" triggerview="erppurchaselist" triggerobj="APITransactionAction00" targetaction="MessageAction00" condition=""/>
+      <TriggerItem id="item4" triggertype="Action Fail" triggerview="erppurchaselist" triggerobj="APITransactionAction02" targetaction="MessageAction00" condition=""/>
+      <TriggerItem id="item5" triggertype="Action Success" triggerview="erppurchaselist" triggerobj="APITransactionAction02" targetaction="MessageAction01" condition=""/>
+    </Trigger>
   </Form>
 </FDL>

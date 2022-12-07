@@ -43,7 +43,17 @@
                 <Column id="GRID_COUNT" type="BIGDECIMAL" size="5" description="상세정보갯수"/>
               </ColumnInfo>
               <Rows>
-                <Row/>
+                <Row>
+                  <Col id="PURCHASE_NO">I000000001</Col>
+                  <Col id="REQ_DATE">20221108</Col>
+                  <Col id="BUY_CD">1234</Col>
+                  <Col id="BUY_DESC">INZENT</Col>
+                  <Col id="PJ_CD">IGATE</Col>
+                  <Col id="EMPLOYEE">MANAGER</Col>
+                  <Col id="PRICE">999999</Col>
+                  <Col id="MEMO">구매테스트</Col>
+                  <Col id="GRID_COUNT">2</Col>
+                </Row>
               </Rows>
             </Dataset>
           </Objects>
@@ -146,12 +156,12 @@
                     <Band id="body">
                       <Cell id="cell_body_0_0_PRODUCT_NO" col="0" row="0" text="bind:PRODUCT_NO" displaytype="normal" edittype="normal"/>
                       <Cell id="cell_body_1_0_PRODUCT_NM" col="1" row="0" text="bind:PRODUCT_NM" displaytype="normal" edittype="normal"/>
-                      <Cell id="cell_body_2_0_COUNT" col="2" row="0" text="bind:COUNT" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_body_2_0_COUNT" col="2" row="0" text="bind:COUNT" displaytype="number" edittype="normal"/>
                       <Cell id="cell_body_3_0_UNIT" col="3" row="0" text="bind:UNIT" displaytype="normal" edittype="normal"/>
                       <Cell id="cell_body_4_0_UNIT_PRICE" col="4" row="0" text="bind:UNIT_PRICE" displaytype="number" edittype="normal"/>
                       <Cell id="cell_body_5_0_PURCHASE_PRICE" col="5" row="0" text="bind:PURCHASE_PRICE" displaytype="number" edittype="normal"/>
                       <Cell id="cell_body_6_0_SUM_PRICE" col="6" row="0" text="bind:SUM_PRICE" displaytype="number" edittype="normal"/>
-                      <Cell id="cell_body_7_0_REQ_DATE" col="7" row="0" text="bind:REQ_DATE" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_body_7_0_REQ_DATE" col="7" row="0" text="bind:REQ_DATE" displaytype="date" edittype="date"/>
                       <Cell id="cell_body_8_0_DELIVERY_ADDRESS" col="8" row="0" text="bind:DELIVERY_ADDRESS" displaytype="normal" edittype="normal"/>
                       <Cell id="cell_body_9_0_TEMP" col="9" row="0" text="bind:TEMP" displaytype="normal" edittype="normal"/>
                     </Band>
@@ -177,7 +187,7 @@
               <ColumnInfo>
                 <Column id="PRODUCT_NO" type="STRING" size="10" description="제품번호"/>
                 <Column id="PRODUCT_NM" type="STRING" size="10" description="상품명"/>
-                <Column id="COUNT" type="STRING" size="5" description="수량"/>
+                <Column id="COUNT" type="BIGDECIMAL" size="5" description="수량"/>
                 <Column id="UNIT" type="STRING" size="10" description="단위"/>
                 <Column id="UNIT_PRICE" type="BIGDECIMAL" size="10" description="단가"/>
                 <Column id="PURCHASE_PRICE" type="BIGDECIMAL" size="10" description="구입가"/>
@@ -186,7 +196,32 @@
                 <Column id="DELIVERY_ADDRESS" type="STRING" size="10" description="배송지"/>
                 <Column id="TEMP" type="STRING" size="300" description="비고"/>
               </ColumnInfo>
-              <Rows/>
+              <Rows>
+                <Row>
+                  <Col id="PRODUCT_NO">INZENT0001</Col>
+                  <Col id="PRODUCT_NM">IGATE</Col>
+                  <Col id="COUNT">1</Col>
+                  <Col id="UNIT">1</Col>
+                  <Col id="UNIT_PRICE">999999</Col>
+                  <Col id="PURCHASE_PRICE">999999</Col>
+                  <Col id="SUM_PRICE">999999</Col>
+                  <Col id="REQ_DATE">20221108</Col>
+                  <Col id="DELIVERY_ADDRESS">Seoul</Col>
+                  <Col id="TEMP"></Col>
+                </Row>
+                <Row>
+                  <Col id="PRODUCT_NO">INZENT0002</Col>
+                  <Col id="PRODUCT_NM">YELLOWPAGE</Col>
+                  <Col id="COUNT">1</Col>
+                  <Col id="UNIT">1</Col>
+                  <Col id="UNIT_PRICE">8888888</Col>
+                  <Col id="PURCHASE_PRICE">8888888</Col>
+                  <Col id="SUM_PRICE">1</Col>
+                  <Col id="DELIVERY_ADDRESS">Hongkang</Col>
+                  <Col id="REQ_DATE">20221108</Col>
+                  <Col id="TEMP"></Col>
+                </Row>
+              </Rows>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_GWP_S_COM00003" modelid="SI_PURCHASE_DETAIL_LIST" filepath="IITP\BIZ_M_GWP_S_COM00003.xmodel">
@@ -198,7 +233,7 @@
               <Field id="UNIT_PRICE" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PURCHASE_PRICE" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="SUM_PRICE" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="sum" usecomp="true"/>
-              <Field id="REQ_DATE" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="REQ_DATE" innerdatasetinfo="" displaytype="date" edittype="date" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="DELIVERY_ADDRESS" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="TEMP" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
@@ -268,15 +303,37 @@
     </Layouts>
     <Objects>
       <DsAddDataAction id="DsAddDataAction00" targetview="viewList">
-        <Contents/>
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"viewList",
+            "modelid":"SI_PURCHASE_DETAIL_LIST",
+            "iotype":"input",
+            "fieldlist":[
+                {
+                    "name":"viewList:REQ_DATE",
+                    "fieldid":"REQ_DATE",
+                    "value":"expr:this.parent.gfnGetDate()"
+                }
+            ]
+        }
+    ]
+}]]></Contents>
       </DsAddDataAction>
       <DsDeleteDataAction id="DsDeleteDataAction00" targetview="viewList">
         <Contents/>
       </DsDeleteDataAction>
+      <APITransactionAction id="APITransactionAction00" servicemodel="BIZ_M_GWP_S_COM00003" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewMaster.form.viewdataset SI_PURCHASE_DETAIL_LIST=viewList.form.viewdataset">
+        <Contents><![CDATA[{
+"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='4'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>GWP</Col><Col id='SvcID'>ISD_BIZ_M_GWP_S_COM00003</Col><Col id='IFID'>BIZ_M_GWP_S_COM00003</Col><Col id='UUID'>20221101172153405</Col><Col id='BizCode'>IITP</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SI_PURCHASE_DETAIL_LIST</Col><Col id='iotype'>input</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data.PURCHASE_DETAIL_LIST</Col></Row></Rows></Dataset>"
+}]]></Contents>
+      </APITransactionAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="viewGridBtn" triggerobj="btnAdd" targetaction="DsAddDataAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Click" triggerview="viewGridBtn" triggerobj="btnDel" targetaction="DsDeleteDataAction00" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="viewBottom" triggerobj="btnSave" targetaction="APITransactionAction00" condition=""/>
     </Trigger>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
   </Form>
 </FDL>

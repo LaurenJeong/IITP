@@ -242,6 +242,7 @@ if (!nexacro.PopupAction)
 		var objOwnerFrame = objForm.getOwnerFrame();
 		var sOpenAlignType = "";
 		var bAutoSize = false;
+		var bTitle = true;
 		
 		if (this.gfnIsNull(nLeft))nLeft = -1;
 		if (this.gfnIsNull(nTop))nTop = -1;
@@ -255,6 +256,7 @@ if (!nexacro.PopupAction)
 			if (nLeft == -1 && nTop == -1 && nWidth == -1 && nHeight == -1)
 			{
 				bAutoSize = false;
+				bTitle = false;
 				
 				if (nWidth == -1 || nWidth > objApp.mainframe.width)
 				{	
@@ -320,12 +322,11 @@ if (!nexacro.PopupAction)
 		}
 		else
 		{
-			trace(sTitle);
 			var newChild = new nexacro.ChildFrame;		
 			newChild.init(sPopupId, nLeft, nTop, nWidth, nHeight, null, null, sFormUrl);
 			
-			newChild.set_dragmovetype("none");
-			newChild.set_showtitlebar(true);		//titlebar는 안보임
+			//newChild.set_dragmovetype("none");
+			newChild.set_showtitlebar(bTitle);
 			newChild.set_autosize(bAutoSize);	
 			newChild.set_resizable(false);			//resizable 안됨
 			if(!this.gfnIsNull(sTitle)) newChild.set_titletext(sTitle);
