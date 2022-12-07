@@ -52,7 +52,7 @@
             <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
-        <Combo id="Combo00" taborder="1" text="구매요청자" left="staCenter:-156" width="310" innerdataset="dsTempUser" codecolumn="USER_ID" datacolumn="USER_NAME" index="0" value="10" bottom="viewLogin:10" height="50"/>
+        <Combo id="cboTempUser" taborder="1" text="구매요청자" left="staCenter:-156" width="310" innerdataset="dsTempUser" codecolumn="USER_ID" datacolumn="USER_NAME" index="0" value="10" bottom="viewLogin:10" height="50"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[/**
@@ -99,9 +99,9 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 this.fnSetLogin = function()
 {
 	// 사용자 임시설정
-	this.objApp.gdsUserInfo.setColumn(0,"USER_ID",this.Combo00.value);
-	this.objApp.gdsUserInfo.setColumn(0,"USER_NAME",this.Combo00.text);
-	this.objApp.gdsUserInfo.setColumn(0,"AUTH_CD",this.dsTempUser.getColumn(this.Combo00.index,"AUTH_CD"));
+	this.objApp.gdsUserInfo.setColumn(0,"USER_ID",this.cboTempUser.value);
+	this.objApp.gdsUserInfo.setColumn(0,"USER_NAME",this.cboTempUser.text);
+	this.objApp.gdsUserInfo.setColumn(0,"AUTH_CD",this.dsTempUser.getColumn(this.cboTempUser.index,"AUTH_CD"));
 	
 	// 메인화면으로 전환
 	this.objApp.gvAllFrame.fnGoLogin(true);
@@ -136,6 +136,11 @@ this.viewLogin_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
             <Col id="USER_ID">FMS</Col>
             <Col id="USER_NAME">재무담당자</Col>
             <Col id="AUTH_CD">30</Col>
+          </Row>
+          <Row>
+            <Col id="USER_ID">ADMIN</Col>
+            <Col id="USER_NAME">시스템관리자</Col>
+            <Col id="AUTH_CD">99</Col>
           </Row>
         </Rows>
       </Dataset>

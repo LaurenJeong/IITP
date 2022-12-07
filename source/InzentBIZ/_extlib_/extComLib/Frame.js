@@ -13,6 +13,8 @@
 
 var pForm  = nexacro.Form.prototype;
 
+pForm.ADMIN_AUTH_CD = "99";				// 권한코드(관리자)
+
 /**
  * @class 현재 실행된 어플리케이션의 Application 오브젝트를 반환하는 메소드 <br>
  * @param  none
@@ -116,4 +118,12 @@ pForm.gfnMenuGetParams = function(sParamNm)
 	}
 	
 	return oRtn;
+};
+
+// 사용자정보 반환
+pForm.gfnGetUserInfo = function (sKey)
+{
+	sUserInfo = nexacro.getApplication().gdsUserInfo.getColumn(0, sKey);
+	
+	return sUserInfo;
 };

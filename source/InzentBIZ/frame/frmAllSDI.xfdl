@@ -17,7 +17,7 @@
         <Div id="divLeft" taborder="1" left="0" top="65" width="190" bottom="0">
           <Layouts>
             <Layout>
-              <Grid id="grdLeft" taborder="1" left="0" top="0" width="190" binddataset="dsLeftMenu" autofittype="col" treeusecheckbox="false" cssclass="grd_LF_treeMenu" bottom="0" treeinitstatus="expand,all" oncellclick="divLeft_grdLeft_oncellclick" border="0px solid #c7c7c7,1px solid #c7c7c7" visible="false">
+              <Grid id="grdLeft" taborder="1" left="0" top="0" binddataset="dsLeftMenu" autofittype="col" treeusecheckbox="false" cssclass="grd_LF_treeMenu" bottom="0" treeinitstatus="expand,all" oncellclick="divLeft_grdLeft_oncellclick" border="0px solid #c7c7c7,1px solid #c7c7c7" right="0">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -35,7 +35,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divWork" taborder="2" left="0" top="65" right="0" bottom="0">
+        <Div id="divWork" taborder="2" left="divLeft:0" top="65" right="0" bottom="0" text="">
           <Layouts>
             <Layout/>
           </Layouts>
@@ -203,16 +203,26 @@ this.fnGoLogin = function(bLogin)
 {
 	if (bLogin)			// 로그인
 	{
-		var oUserDs = nexacro.getApplication().gdsUserInfo;
+		var sUserAuth = this.gfnGetUserInfo("AUTH_CD");
 		
 		// Top
-		this.divTop.form.staUserName.set_text(oUserDs.getColumn(0,"USER_NAME") + "  ");
+		this.divTop.form.staUserName.set_text(this.gfnGetUserInfo("USER_NAME") + "  ");
 		
 		// Left 메뉴처리
 		var oMenuDs = nexacro.getApplication().gdsMenu;
-		oMenuDs.filter("AUTH_CD=='" + oUserDs.getColumn(0,"AUTH_CD")+ "'");
+		var sMenuAuth = "";
+		if (sUserAuth != this.ADMIN_AUTH_CD)		// 관리자인 경우 전체메뉴, 그외 권한메뉴
+		{
+			sMenuAuth = "AUTH_CD=='" + sUserAuth+ "'"
+		}
+		oMenuDs.filter(sMenuAuth);
 		this.dsLeftMenu.copyData(oMenuDs,true);
 		oMenuDs.filter(""); 
+		
+		// 메뉴가 1개인 경우에는 Left 메뉴 안보이게 처리
+		var nMenuCnt = this.dsLeftMenu.getCaseCount("PGM_ID.toString().length > 0");
+		var nLeftWidth = nMenuCnt == 1 ? 0 : 190;
+		this.divLeft.set_width(nLeftWidth);
 		
 		this.objApp.gvVFrameSet.set_separatesize("0,*");
 		this.fnOpenHome();
