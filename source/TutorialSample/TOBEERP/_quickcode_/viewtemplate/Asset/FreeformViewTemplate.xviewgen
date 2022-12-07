@@ -1797,20 +1797,22 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 			// Field배경 Box 생성
 			if(sUseFieldBox == "true")
 			{
-				// 첫번째 Field일때만 생성
-				if (this.MERGE_COMP_BG == "true" && nLayoutCol == 0)
+				if (this.MERGE_COMP_BG == "true")
 				{
-					//필드 배경 Static 추가
-					sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
-					oComp = {
-								"tag" : oCompBgClass.classId,
-								"attribute" :
-								{
-									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : this.VIEW_PADDING_RIGHT, "height" : nLabelHeight
-									,"cssclass" : sFieldBgCssClass
-								}
-							};
-					oModel[oModel.length-1].Components.push(oComp);
+					if (nLayoutCol == 0)
+					{
+						//필드 배경 Static 추가
+						sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+						oComp = {
+									"tag" : oCompBgClass.classId,
+									"attribute" :
+									{
+										"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : this.VIEW_PADDING_RIGHT, "height" : nLabelHeight
+										,"cssclass" : sFieldBgCssClass
+									}
+								};
+						oModel[oModel.length-1].Components.push(oComp);
+					}
 				}
 				// Field마다 생성
 				else

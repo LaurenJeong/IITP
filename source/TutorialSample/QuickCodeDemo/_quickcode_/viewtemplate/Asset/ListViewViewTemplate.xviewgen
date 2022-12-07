@@ -1840,19 +1840,21 @@ fn_GetBandCell = function(sBand, nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, s
 			// Field배경 Box 생성(Field마다 생성되도록 수정)
 			if(sUseFieldBox == "true")
 			{
-				// 첫번째 Field일때만 생성
-				if (this.MERGE_COMP_BG == "true" && nLayoutCol == 0)
+				if (this.MERGE_COMP_BG == "true")
 				{
-					sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
-					oComp = {
-								"tag" : sCellClassNm,
-								"attribute" :
-								{
-									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
-									,"cssclass" : sFieldBgCssClass
-								}
-							};
-					arrBandCells.push(oComp);
+					if (nLayoutCol == 0)
+					{
+						sCompId = this.lfn_GetCompId(sCellClassNm + "_" + "Bg" + "_" + sFieldId );
+						oComp = {
+									"tag" : sCellClassNm,
+									"attribute" :
+									{
+										"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : 0, "height" : nLabelHeight
+										,"cssclass" : sFieldBgCssClass
+									}
+								};
+						arrBandCells.push(oComp);
+					}
 				}
 				// Field마다 생성
 				else
