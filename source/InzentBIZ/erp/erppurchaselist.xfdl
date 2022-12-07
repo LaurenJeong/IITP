@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="erppurchaselist" width="1050" height="770" titletext="구매요청목록">
+  <Form id="erppurchaselist" width="1050" height="770" titletext="구매요청목록" onload="form_onload">
     <Layouts>
       <Layout height="770" width="1050">
         <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="0" top="0" height="50" right="10" background="pink">
@@ -72,49 +72,48 @@
                 <Formats>
                   <Format id="default">
                     <Columns>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
-                      <Column size="80" band="body"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
                     </Columns>
                     <Rows>
                       <Row size="30" band="head"/>
-                      <Row size="30" band="body"/>
+                      <Row size="30"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_head_0_0_PURCHASE_NO" col="0" row="0" text="구매요청번호"/>
-                      <Cell id="cell_head_1_0_REQ_DATE" col="1" row="0" text="요청날짜"/>
-                      <Cell id="cell_head_2_0_BUY_CD" col="2" row="0" text="거래처코드"/>
-                      <Cell id="cell_head_3_0_BUY_DESC" col="3" row="0" text="구매처"/>
-                      <Cell id="cell_head_4_0_PJ_CD" col="4" row="0" text="프로젝트"/>
-                      <Cell id="cell_head_5_0_EMPLOYEE" col="5" row="0" text="담당자"/>
-                      <Cell id="cell_head_6_0_PRICE" col="6" row="0" text="가격"/>
-                      <Cell id="cell_head_7_0_STATUS" col="7" row="0" text="상태"/>
-                      <Cell id="cell_head_8_0_PURCHASE_EMP" col="8" row="0" text="구매담당"/>
-                      <Cell id="cell_head_9_0_PURCHASE_DATE" col="9" row="0" text="구매확정일"/>
-                      <Cell id="cell_head_10_0_MEMO" col="10" row="0" text="메모"/>
+                      <Cell id="cell_head_0_0_PURCHASE_NO" text="구매요청번호"/>
+                      <Cell col="1" id="cell_head_1_0_REQ_DATE" text="요청날짜"/>
+                      <Cell col="2" id="cell_head_2_0_BUY_CD" text="거래처코드"/>
+                      <Cell col="3" id="cell_head_3_0_BUY_DESC" text="구매처"/>
+                      <Cell col="4" id="cell_head_4_0_PJ_CD" text="프로젝트"/>
+                      <Cell col="5" id="cell_head_5_0_EMPLOYEE" text="담당자"/>
+                      <Cell col="6" id="cell_head_6_0_PRICE" text="가격"/>
+                      <Cell col="7" id="cell_head_7_0_STATUS" text="상태"/>
+                      <Cell col="8" id="cell_head_8_0_PURCHASE_EMP" text="구매담당"/>
+                      <Cell col="9" id="cell_head_9_0_PURCHASE_DATE" text="구매확정일"/>
+                      <Cell col="10" id="cell_head_10_0_MEMO" text="메모"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_body_0_0_PURCHASE_NO" col="0" row="0" text="bind:PURCHASE_NO" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_1_0_REQ_DATE" col="1" row="0" text="bind:REQ_DATE" displaytype="date" edittype="none"/>
-                      <Cell id="cell_body_2_0_BUY_CD" col="2" row="0" text="bind:BUY_CD" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_3_0_BUY_DESC" col="3" row="0" text="bind:BUY_DESC" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_4_0_PJ_CD" col="4" row="0" text="bind:PJ_CD" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_5_0_EMPLOYEE" col="5" row="0" text="bind:EMPLOYEE" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_6_0_PRICE" col="6" row="0" text="bind:PRICE" displaytype="number" edittype="none"/>
-                      <Cell id="cell_body_7_0_STATUS" col="7" row="0" text="bind:STATUS" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_8_0_PURCHASE_EMP" col="8" row="0" text="bind:PURCHASE_EMP" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_9_0_PURCHASE_DATE" col="9" row="0" text="bind:PURCHASE_DATE" displaytype="date" edittype="none"/>
-                      <Cell id="cell_body_10_0_MEMO" col="10" row="0" text="bind:MEMO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_0_PURCHASE_NO" text="bind:PURCHASE_NO" displaytype="normal" edittype="none"/>
+                      <Cell col="1" id="cell_body_1_0_REQ_DATE" text="bind:REQ_DATE" displaytype="date" edittype="none"/>
+                      <Cell col="2" id="cell_body_2_0_BUY_CD" text="bind:BUY_CD" displaytype="normal" edittype="none"/>
+                      <Cell col="3" id="cell_body_3_0_BUY_DESC" text="bind:BUY_DESC" displaytype="normal" edittype="none"/>
+                      <Cell col="4" id="cell_body_4_0_PJ_CD" text="bind:PJ_CD" displaytype="normal" edittype="none"/>
+                      <Cell col="5" id="cell_body_5_0_EMPLOYEE" text="bind:EMPLOYEE" displaytype="normal" edittype="none"/>
+                      <Cell col="6" id="cell_body_6_0_PRICE" text="bind:PRICE" displaytype="number" edittype="none"/>
+                      <Cell col="7" id="cell_body_7_0_STATUS" text="bind:STATUS" displaytype="normal" edittype="none"/>
+                      <Cell col="8" id="cell_body_8_0_PURCHASE_EMP" text="bind:PURCHASE_EMP" displaytype="normal" edittype="none"/>
+                      <Cell col="9" id="cell_body_9_0_PURCHASE_DATE" text="bind:PURCHASE_DATE" displaytype="date" edittype="none" calendardisplaynulltype="none"/>
+                      <Cell col="10" id="cell_body_10_0_MEMO" text="bind:MEMO" displaytype="normal" edittype="none"/>
                     </Band>
-                    <Band id="summary"/>
                   </Format>
                 </Formats>
               </Grid>
@@ -212,22 +211,22 @@
                     <Band id="body">
                       <Cell id="cell_body_0_0_PRODUCT_NO" text="bind:PRODUCT_NO" displaytype="normal" edittype="none"/>
                       <Cell col="1" id="cell_body_1_0_PRODUCT_NM" text="bind:PRODUCT_NM" displaytype="normal" edittype="none"/>
-                      <Cell col="2" id="cell_body_2_0_COUNT" text="bind:COUNT" displaytype="normal" edittype="none"/>
+                      <Cell col="2" id="cell_body_2_0_COUNT" text="bind:COUNT" displaytype="number" edittype="none"/>
                       <Cell col="3" id="cell_body_3_0_UNIT" text="bind:UNIT" displaytype="normal" edittype="none"/>
                       <Cell col="4" id="cell_body_4_0_UNIT_PRICE" text="bind:UNIT_PRICE" displaytype="number" edittype="none"/>
                       <Cell col="5" id="cell_body_5_0_PURCHASE_PRICE" text="bind:PURCHASE_PRICE" displaytype="number" edittype="none"/>
                       <Cell col="6" id="cell_body_6_0_SUM_PRICE" text="bind:SUM_PRICE" displaytype="number" edittype="none"/>
-                      <Cell col="7" id="cell_body_7_0_REQ_DATE" text="bind:REQ_DATE" displaytype="normal" edittype="none"/>
+                      <Cell col="7" id="cell_body_7_0_REQ_DATE" text="bind:REQ_DATE" displaytype="date" edittype="none" calendardisplaynulltype="none"/>
                       <Cell col="8" id="cell_body_8_0_DELIVERY_ADDRESS" text="bind:DELIVERY_ADDRESS" displaytype="normal" edittype="none"/>
                       <Cell col="9" id="cell_body_9_0_TEMP" text="bind:TEMP" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary">
-                      <Cell id="cell_summ_PRODUCT_NO" text="* 전체상품 :" displaytype="normal"/>
+                      <Cell id="cell_summ_PRODUCT_NO" text="수량" displaytype="normal"/>
                       <Cell col="1" id="cell_summ_PRODUCT_NM" text="expr:dataset.getRowCount('PRODUCT_NM')" displaytype="number"/>
                       <Cell col="2" id="cell_summ_COUNT" text="" displaytype="normal"/>
                       <Cell col="3" id="cell_summ_UNIT" text="" displaytype="normal"/>
                       <Cell col="4" id="cell_summ_UNIT_PRICE" text="" displaytype="normal"/>
-                      <Cell col="5" id="cell_summ_PURCHASE_PRICE" text="* 입고(구입)가" displaytype="normal"/>
+                      <Cell col="5" id="cell_summ_PURCHASE_PRICE" text="합계" displaytype="normal"/>
                       <Cell col="6" id="cell_summ_SUM_PRICE" text="expr:dataset.getSum('SUM_PRICE')" displaytype="number"/>
                       <Cell col="7" id="cell_summ_REQ_DATE" text="" displaytype="normal"/>
                       <Cell col="8" id="cell_summ_DELIVERY_ADDRESS" text="" displaytype="normal"/>
@@ -243,7 +242,7 @@
               <ColumnInfo>
                 <Column id="PRODUCT_NO" type="STRING" size="10" description="제품번호"/>
                 <Column id="PRODUCT_NM" type="STRING" size="10" description="상품명"/>
-                <Column id="COUNT" type="STRING" size="5" description="수량"/>
+                <Column id="COUNT" type="BIGDECIMAL" size="5" description="수량"/>
                 <Column id="UNIT" type="STRING" size="10" description="단위"/>
                 <Column id="UNIT_PRICE" type="BIGDECIMAL" size="10" description="단가"/>
                 <Column id="PURCHASE_PRICE" type="BIGDECIMAL" size="10" description="구입가"/>
@@ -252,6 +251,7 @@
                 <Column id="DELIVERY_ADDRESS" type="STRING" size="10" description="배송지"/>
                 <Column id="TEMP" type="STRING" size="300" description="비고"/>
               </ColumnInfo>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_ERP_S_COM00002" modelid="SO_PURCHASE_DETAIL_LIST" filepath="IITP\BIZ_M_ERP_S_COM00002.xmodel">
@@ -263,7 +263,7 @@
               <Field id="UNIT_PRICE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PURCHASE_PRICE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="SUM_PRICE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="sum" usecomp="true"/>
-              <Field id="REQ_DATE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="REQ_DATE" description="" innerdatasetinfo="" displaytype="date" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="DELIVERY_ADDRESS" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="TEMP" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
@@ -408,14 +408,64 @@
         </View>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[// 상단 공통버튼 처리
+    <Script type="xscript5.1"><![CDATA[/**
+*  SW통합실증
+*  @MenuPath	ERP > 구매요청목록
+*  @FileName	erppurchaselist.xfdl
+*  @Creator		TOBESOFT
+*  @CreateDate	2022.12.07
+*  @Desction	구매요청목록
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2022.12.07     		TOBESOFT       	      	최초 생성
+*******************************************************************************
+*/
+/************************************************************************************************
+ * include 선언부
+ ************************************************************************************************/
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 조회조건 기본값 처리
+	var sToday = this.gfnGetDate();		// 로컬시간
+	this.viewSearch.form.viewdataset.setColumn(0,"START_DATE",sToday.substr(0,6) + "01");
+	this.viewSearch.form.viewdataset.setColumn(0,"END_DATE",sToday);
+};
+
+/************************************************************************************************
+ * 공통버튼 Function 영역
+ ************************************************************************************************/
+/**
+ * @description 공통버튼 클릭시 호출
+*/
 this.fnComBtn = function(sBtnId)
 {
 	if (sBtnId == "BTN_1")		// 구매승인
 	{
 		this.DsCopyRowDataAction00.run();
 	}
-};]]></Script>
+};
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/]]></Script>
     <Objects>
       <APITransactionAction id="APITransactionAction00" servicemodel="BIZ_M_ERP_S_COM00001" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=SO_PURCHASE_LIST">
         <Contents><![CDATA[{
@@ -444,7 +494,7 @@ this.fnComBtn = function(sBtnId)
       <DsCopyRowDataAction id="DsCopyRowDataAction00" targetview="viewPurchase" fromview="viewDetail2">
         <Contents/>
       </DsCopyRowDataAction>
-      <MessageAction id="MessageAction00" message="에러가 발생하였습니다." messagetype="alert">
+      <MessageAction id="MessageAction00" message="서버 오류입니다. 관리자에게 문의하세요." messagetype="alert">
         <Contents/>
       </MessageAction>
       <APITransactionAction id="APITransactionAction02" servicemodel="BIZ_M_ERP_S_COM00003" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewPurchase.form.viewdataset">

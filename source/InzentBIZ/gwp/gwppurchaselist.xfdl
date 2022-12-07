@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="gwppurchaselist" width="1050" height="600" titletext="구매목록">
+  <Form id="gwppurchaselist" width="1050" height="600" titletext="구매목록" onload="form_onload">
     <Layouts>
       <Layout height="600" width="1050">
         <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="0" top="0" height="50" right="10" background="pink">
@@ -9,12 +9,12 @@
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
               <Button id="btnSearch" width="80" height="30" right="10" bottom="10" cssclass="btn_search" text="검색"/>
               <Static id="staStartDateLabel" left="10" top="10" width="100" height="30" text="요청일자" cssclass="sta_label"/>
-              <Calendar id="calStartDate" left="115" top="10" width="115" height="30"/>
-              <Calendar id="calEndDate" left="239" top="10" width="115" height="30"/>
+              <Calendar id="calStartDate" left="115" top="10" width="115" height="30" autoselect="true"/>
+              <Calendar id="calEndDate" left="239" top="10" width="115" height="30" autoselect="true"/>
               <Static id="staChgNmLabel" left="359" top="10" width="100" height="30" text="요청자" cssclass="sta_label"/>
               <Edit id="edtChgNm" left="464" top="10" width="115" height="30"/>
               <Static id="staPurchaseNoLabel" left="584" top="10" width="100" height="30" text="구매요청번호" cssclass="sta_label"/>
-              <Edit id="edtPurchaseNo" left="689" top="10" width="115" height="30" text="I000000001"/>
+              <Edit id="edtPurchaseNo" left="689" top="10" width="115" height="30"/>
             </Layout>
           </Layouts>
           <Objects>
@@ -103,7 +103,7 @@
                     </Band>
                     <Band id="body">
                       <Cell id="cell_body_0_0_PURCHASE_NO" col="0" row="0" text="bind:PURCHASE_NO" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_1_0_REQ_DATE" col="1" row="0" text="bind:REQ_DATE" displaytype="date" edittype="none"/>
+                      <Cell id="cell_body_1_0_REQ_DATE" col="1" row="0" text="bind:REQ_DATE" displaytype="date" edittype="none" calendardisplaynulltype="none"/>
                       <Cell id="cell_body_2_0_BUY_CD" col="2" row="0" text="bind:BUY_CD" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_3_0_BUY_DESC" col="3" row="0" text="bind:BUY_DESC" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_4_0_PJ_CD" col="4" row="0" text="bind:PJ_CD" displaytype="normal" edittype="none"/>
@@ -111,7 +111,7 @@
                       <Cell id="cell_body_6_0_PRICE" col="6" row="0" text="bind:PRICE" displaytype="number" edittype="none"/>
                       <Cell id="cell_body_7_0_STATUS" col="7" row="0" text="bind:STATUS" displaytype="normal" edittype="none"/>
                       <Cell id="cell_body_8_0_PURCHASE_EMP" col="8" row="0" text="bind:PURCHASE_EMP" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_body_9_0_PURCHASE_DATE" col="9" row="0" text="bind:PURCHASE_DATE" displaytype="date" edittype="none"/>
+                      <Cell id="cell_body_9_0_PURCHASE_DATE" col="9" row="0" text="bind:PURCHASE_DATE" displaytype="date" edittype="none" calendardisplaynulltype="none"/>
                       <Cell id="cell_body_10_0_MEMO" col="10" row="0" text="bind:MEMO" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary"/>
@@ -213,17 +213,17 @@
                       <Cell col="4" id="cell_body_4_0_UNIT_PRICE" text="bind:UNIT_PRICE" displaytype="number" edittype="none"/>
                       <Cell col="5" id="cell_body_5_0_PURCHASE_PRICE" text="bind:PURCHASE_PRICE" displaytype="number" edittype="none"/>
                       <Cell col="6" id="cell_body_6_0_SUM_PRICE" text="bind:SUM_PRICE" displaytype="number" edittype="none"/>
-                      <Cell col="7" id="cell_body_7_0_REQ_DATE" text="bind:REQ_DATE" displaytype="normal" edittype="none"/>
+                      <Cell col="7" id="cell_body_7_0_REQ_DATE" text="bind:REQ_DATE" displaytype="date" edittype="none" calendardisplaynulltype="none"/>
                       <Cell col="8" id="cell_body_8_0_DELIVERY_ADDRESS" text="bind:DELIVERY_ADDRESS" displaytype="normal" edittype="none"/>
                       <Cell col="9" id="cell_body_9_0_TEMP" text="bind:TEMP" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary">
-                      <Cell id="cell_summ_PRODUCT_NO" text="* 전체상품 :" displaytype="normal"/>
+                      <Cell id="cell_summ_PRODUCT_NO" text="* 전체상품" displaytype="normal"/>
                       <Cell col="1" id="cell_summ_PRODUCT_NM" text="expr:dataset.getRowCount('PRODUCT_NM')" displaytype="number"/>
                       <Cell col="2" id="cell_summ_COUNT" text="" displaytype="normal"/>
                       <Cell col="3" id="cell_summ_UNIT" text="" displaytype="normal"/>
                       <Cell col="4" id="cell_summ_UNIT_PRICE" text="" displaytype="normal"/>
-                      <Cell col="5" id="cell_summ_PURCHASE_PRICE" text="* 입고(구입)가" displaytype="normal"/>
+                      <Cell col="5" id="cell_summ_PURCHASE_PRICE" text="*입고(구입)가" displaytype="normal"/>
                       <Cell col="6" id="cell_summ_SUM_PRICE" text="expr:dataset.getSum('SUM_PRICE')" displaytype="number"/>
                       <Cell col="7" id="cell_summ_REQ_DATE" text="" displaytype="normal"/>
                       <Cell col="8" id="cell_summ_DELIVERY_ADDRESS" text="" displaytype="normal"/>
@@ -248,6 +248,7 @@
                 <Column id="DELIVERY_ADDRESS" type="STRING" size="10" description="배송지"/>
                 <Column id="TEMP" type="STRING" size="300" description="비고"/>
               </ColumnInfo>
+              <Rows/>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_GWP_S_COM00002" modelid="SO_PURCHASE_DETAIL_LIST" filepath="IITP\BIZ_M_GWP_S_COM00002.xmodel">
@@ -259,7 +260,7 @@
               <Field id="UNIT_PRICE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="PURCHASE_PRICE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="SUM_PRICE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="sum" usecomp="true"/>
-              <Field id="REQ_DATE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="REQ_DATE" description="" innerdatasetinfo="" displaytype="date" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="DELIVERY_ADDRESS" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
               <Field id="TEMP" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
             </Fields>
@@ -300,14 +301,64 @@
         </View>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[// 상단 공통버튼 처리
+    <Script type="xscript5.1"><![CDATA[/**
+*  SW통합실증
+*  @MenuPath	GWP > 구매목록 
+*  @FileName	gwppurchaselist.xfdl
+*  @Creator		TOBESOFT
+*  @CreateDate	2022.12.07
+*  @Desction	구매목록
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2022.12.07     		TOBESOFT       	      	최초 생성
+*******************************************************************************
+*/
+/************************************************************************************************
+ * include 선언부
+ ************************************************************************************************/
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 조회조건 기본값 처리
+	var sToday = this.gfnGetDate();		// 로컬시간
+	this.viewSearch.form.viewdataset.setColumn(0,"START_DATE",sToday.substr(0,6) + "01");
+	this.viewSearch.form.viewdataset.setColumn(0,"END_DATE",sToday);
+};
+
+/************************************************************************************************
+ * 공통버튼 Function 영역
+ ************************************************************************************************/
+/**
+ * @description 공통버튼 클릭시 호출
+*/
 this.fnComBtn = function(sBtnId)
 {
 	if (sBtnId == "BTN_1")		// 구매요청
 	{
 		this.PopupAction00.run();
 	}
-};]]></Script>
+};
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/]]></Script>
     <Objects>
       <PopupAction id="PopupAction00" formurl="gwp::gwppurchaserequestpop.xfdl" popupstyle="modal" popupid="popup" popupdatatype="none" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" title="구매요청" targetview="gwppurchaselist">
         <Contents/>
@@ -336,7 +387,7 @@ this.fnComBtn = function(sBtnId)
 "reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='4'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>GWP</Col><Col id='SvcID'>ISD_BIZ_M_GWP_S_COM00002</Col><Col id='IFID'>BIZ_M_GWP_S_COM00002</Col><Col id='UUID'>20221101172142112</Col><Col id='BizCode'>IITP</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SO_PURCHASE_DETAIL_LIST</Col><Col id='iotype'>output</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data[0].FormData.PURCHASE_DETAIL_LIST</Col></Row></Rows></Dataset>"
 }]]></Contents>
       </APITransactionAction>
-      <MessageAction id="MessageAction00" message="에러가 발생하였습니다." messagetype="alert">
+      <MessageAction id="MessageAction00" message="서버 오류입니다. 관리자에게 문의하세요." messagetype="alert">
         <Contents/>
       </MessageAction>
     </Objects>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="purchaserequestpop" width="1050" height="600" titletext="구매요청">
+  <Form id="purchaserequestpop" width="1050" height="600" titletext="구매요청" onload="form_onload">
     <Layouts>
       <Layout height="600" mobileorientation="landscape" width="1050">
         <View id="viewMaster" taborder="0" text="viewMaster" viewdataset="viewdataset" left="10" top="10" height="80" right="10">
@@ -207,7 +207,7 @@
                   <Col id="SUM_PRICE">999999</Col>
                   <Col id="REQ_DATE">20221108</Col>
                   <Col id="DELIVERY_ADDRESS">Seoul</Col>
-                  <Col id="TEMP"></Col>
+                  <Col id="TEMP"/>
                 </Row>
                 <Row>
                   <Col id="PRODUCT_NO">INZENT0002</Col>
@@ -219,7 +219,7 @@
                   <Col id="SUM_PRICE">1</Col>
                   <Col id="DELIVERY_ADDRESS">Hongkang</Col>
                   <Col id="REQ_DATE">20221108</Col>
-                  <Col id="TEMP"></Col>
+                  <Col id="TEMP"/>
                 </Row>
               </Rows>
             </Dataset>
@@ -323,7 +323,7 @@
       <DsDeleteDataAction id="DsDeleteDataAction00" targetview="viewList">
         <Contents/>
       </DsDeleteDataAction>
-      <APITransactionAction id="APITransactionAction00" servicemodel="BIZ_M_GWP_S_COM00003" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewMaster.form.viewdataset SI_PURCHASE_DETAIL_LIST=viewList.form.viewdataset">
+      <APITransactionAction id="APITransactionAction00" servicemodel="BIZ_M_GWP_S_COM00003" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewMaster.form.viewdataset SI_PURCHASE_DETAIL_LIST=viewList.form.viewdataset" canrun="APITransactionAction00_canrun">
         <Contents><![CDATA[{
 "reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='4'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>GWP</Col><Col id='SvcID'>ISD_BIZ_M_GWP_S_COM00003</Col><Col id='IFID'>BIZ_M_GWP_S_COM00003</Col><Col id='UUID'>20221101172153405</Col><Col id='BizCode'>IITP</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SI_PURCHASE_DETAIL_LIST</Col><Col id='iotype'>input</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data.PURCHASE_DETAIL_LIST</Col></Row></Rows></Dataset>"
 }]]></Contents>
@@ -334,6 +334,64 @@
       <TriggerItem id="item1" triggertype="Click" triggerview="viewGridBtn" triggerobj="btnDel" targetaction="DsDeleteDataAction00" condition=""/>
       <TriggerItem id="item2" triggertype="Click" triggerview="viewBottom" triggerobj="btnSave" targetaction="APITransactionAction00" condition=""/>
     </Trigger>
-    <Script type="xscript5.1"><![CDATA[]]></Script>
+    <Script type="xscript5.1"><![CDATA[/**
+*  SW통합실증
+*  @MenuPath	GWP > 구매요청 팝업
+*  @FileName	purchaserequestpop.xfdl
+*  @Creator		TOBESOFT
+*  @CreateDate	2022.12.07
+*  @Desction	구매요청 팝업
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2022.12.07     		TOBESOFT       	      	최초 생성
+*******************************************************************************
+*/
+/************************************************************************************************
+ * include 선언부
+ ************************************************************************************************/
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 기본값 처리
+	this.viewMaster.form.viewdataset.setColumn(0,"REQ_DATE",this.gfnGetDate());					// 로컬날짜
+	this.viewMaster.form.viewdataset.setColumn(0,"EMPLOYEE",this.gfnGetUserInfo("USER_ID"));	// 로그인유저
+};
+
+/************************************************************************************************
+ * 공통버튼 Function 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+// 요청 전 처리
+this.APITransactionAction00_canrun = function(obj:nexacro.APITransactionAction, e:nexacro.ActionRunEventInfo)
+{
+	// Master Data 셋팅
+	this.viewMaster.form.viewdataset.setColumn(0,"PRICE",this.viewList.form.viewdataset.getSum("SUM_PRICE"));
+	this.viewMaster.form.viewdataset.setColumn(0,"GRID_COUNT",this.viewList.form.viewdataset.rowcount);
+	
+	//trace(this.viewMaster.form.viewdataset.saveXML());
+	
+	return true;
+};
+]]></Script>
   </Form>
 </FDL>
