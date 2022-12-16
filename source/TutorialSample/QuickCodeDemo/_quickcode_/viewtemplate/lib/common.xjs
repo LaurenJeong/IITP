@@ -443,7 +443,7 @@ this.lfn_GetAutoCompType = function(oField, sAutoField)
 		{
 			if (this.USE_ABSTRACT_COMP)
 			{
-				sCompType = "selectone";
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","combotext","edittype","selectone");
 			}
 			else
 			{
@@ -454,7 +454,7 @@ this.lfn_GetAutoCompType = function(oField, sAutoField)
 		{
 			if (this.USE_ABSTRACT_COMP)
 			{
-				sCompType = "selectany";
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","combotext","edittype","combo","selectany");
 			}
 			else
 			{
@@ -537,7 +537,6 @@ this.lfn_GetCompProp = function(sCompType, oField)
 // 			}
 			break;
 		case "maskedit" :
-			
 			if (sDataType == "INT")
 			{
 				oProps["format"] = "#,###";
@@ -1149,6 +1148,18 @@ this.lfn_GetBindItem = function(sBindDataset, arrBindItem)
 				"attribute" :
 				{
 					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "url", "datasetid" : sBindDataset, "columnid" : sFieldId
+				}
+			}
+		}
+		// [AbstractSelectAny] AbstractSelectAny일때 multi value값이 bind되지 않아 View Script로 제공
+		else if(sCompClassId=="AbstractSelectAny" || sCompType == "selectany")
+		{
+			oBindItems[i] =
+			{
+				"tag" : "BindItem",
+				"attribute" :
+				{
+					"id" : "bind_"+sCompId, "compid" : sCompId, "propid" : "multivalue", "datasetid" : sBindDataset, "columnid" : sFieldId
 				}
 			}
 		}
