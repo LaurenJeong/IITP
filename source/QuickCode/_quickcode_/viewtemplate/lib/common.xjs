@@ -443,7 +443,7 @@ this.lfn_GetAutoCompType = function(oField, sAutoField)
 		{
 			if (this.USE_ABSTRACT_COMP)
 			{
-				sCompType = "selectone";
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","combotext","edittype","selectone");
 			}
 			else
 			{
@@ -454,7 +454,7 @@ this.lfn_GetAutoCompType = function(oField, sAutoField)
 		{
 			if (this.USE_ABSTRACT_COMP)
 			{
-				sCompType = "selectany";
+				sCompType = this.lfn_Decode(sAutoField,"displaytype","combotext","edittype","combo","selectany");
 			}
 			else
 			{
