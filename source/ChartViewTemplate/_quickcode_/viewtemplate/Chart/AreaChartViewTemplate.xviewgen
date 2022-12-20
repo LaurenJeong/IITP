@@ -513,6 +513,11 @@ fn_GetValueAxes = function(arrAxisYField,arrAxisY1Field, arrAxisY2Field)
 	oValueAxes["id"] = "valueaxis" + "y";
 	oValueAxes["titletext"] = this.lfn_Trim(arrAxisTitleText[0]);
 	
+	// [AreaChart] 차트유형이 '100%stacked'일때 autotickscale 초기화 설정
+	if (this.oGenerationAttr.attributes.chartdisplay ==  "100%stacked") {
+		oValueAxes["autotickscale"] = "";
+	}
+	
 	if (arrAxisYField.length == 0) {
 		this.lfn_Log("valueaxis가 설정되지 않았습니다.","warn");
 	} else {
