@@ -3,11 +3,11 @@
   <Form id="view_freeform" width="1080" height="1150" titletext="FreeFormViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
     <Layouts>
       <Layout height="1150" mobileorientation="landscape" width="1080">
-        <Static id="Static00_00_00" taborder="12" text="ViewTemplate 사용예" left="0" top="175" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="95" height="100" right="10" value="- 하나의 필드는 레이블(Static) + 컴포넌트로 구성&#10;- direction, halign, valign 속성에 설정된 값으로 Field가 순서대로 배치되어 생성됨.&#10;- titletext 값을 입력하여 Title영역을 생성할 수 있으며, useexpandbutton 속성값을 설정하여 View를 접기/펼치기 기능 제공&#10;- format 속성을 활용하여 여러 개의 필드를 하나의 영역에 표현할 경우(ex. 주소 : 우편번호, 주소, 상세주소), &#10;  mergelabel 속성을 “true”로 설정하여, 1:N으로 레이블(Static) + 컴포넌트로 표현 할 수 있습니다. (레이블은 첫 번째 필드의 레이블정보로 표현)" readonly="true"/>
+        <Static id="Static00_00_00" taborder="12" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Static id="Static00_00" taborder="11" text="FreeForm 영역을 구성하기 위한 View Template" left="0" top="staInfo:0" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="70" right="10" value="- 하나의 필드는 레이블(Static) + 컴포넌트로 구성&#10;- direction, halign, valign 속성에 설정된 값으로 Field가 순서대로 배치되어 생성됨.&#10;- format 속성을 활용하여 여러 개의 필드를 하나의 Cell에 표현할 경우 1:N으로 레이블(Static) + 컴포넌트로 표현(레이블은 첫 번째 필드의 레이블정보로 표현)" readonly="true"/>
+        <Static id="Static00_00" taborder="11" text="단건 데이터를 표시하기 위한 Freeform 영역을 구성하기 위한 ViewTemplate" left="0" top="staInfo:0" height="25" cssclass="sta_WF_notice01" right="10"/>
         <View id="viewSample" taborder="10" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="109" right="10">
           <Layouts>
             <Layout>
@@ -136,7 +136,7 @@
           </Formats>
         </Grid>
         <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="276" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="388" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -159,7 +159,7 @@
                 <Cell text="bind:ID"/>
                 <Cell col="1" text="bind:TYPE"/>
                 <Cell col="2" text="bind:TYPE_VALUE"/>
-                <Cell col="3" text="bind:DESCPTION"/>
+                <Cell col="3" text="bind:DESCPTION" wordWrap="english"/>
               </Band>
             </Format>
           </Formats>
@@ -315,7 +315,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <TextArea id="txaInfo00" taborder="9" left="0" top="Div00:10" height="110" right="10" value="- Field 영역(레이블+컴포넌트)의 높이는 compheight, 넓이는 labelsize + compwidth 입니다.&#10;- Label 영역의 높이는 compheight, 넓이는 labelsize 입니다.&#10;- 컴포넌트 영역의 높이는 compheight에서 ViewTemplate에 정의된 Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 compwidth에서 ViewTemplate에 정의된 Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다." readonly="true"/>
+        <TextArea id="txaInfo00" taborder="9" left="0" top="Div00:10" height="150" right="10" value="- fieldposition속성과 mergelabel속성값에 따라 Padding이 다르게 적용됩니다.&#10;- fieldposition - horizontal(좌우배치)일때 Field 영역(레이블+컴포넌트)의 높이는 compheight, 넓이는 labelsize + compwidth 이며,&#10;  Label 영역의 높이는 compheight, 넓이는 labelsize 입니다.&#10;- fieldposition - vertical(상하배치)일때 Field 영역(레이블+컴포넌트)의 높이는 labelsize + compheight, 넓이는 compwidth 이며,&#10;  Label 영역의 높이는 labelsize, 넓이는 compwidth 입니다.&#10;- 컴포넌트 영역의 높이는 compheight에서 ViewTemplate에 정의된 Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 compwidth에서 ViewTemplate에 정의된 Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다." readonly="true"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -393,20 +393,24 @@
           <Row>
             <Col id="ID">comptype</Col>
             <Col id="TYPE">Enum</Col>
-            <Col id="TYPE_VALUE">button | combo | edit | maskedit…</Col>
-            <Col id="DESCPTION">필드에 표현 할 컴포넌트 타입</Col>
+            <Col id="TYPE_VALUE">auto | button | combo | edit | maskedit…</Col>
+            <Col id="DESCPTION">필드에 표현 할 컴포넌트 타입
+ - auto로 지정한 경우 Field의 정보를 기준으로 컴포넌트 타입을 지정.
+   ex) datatype이 숫자형(INT, FLOAT, BIGDECIMAL)인 경우 maskedit, 날짜형(DATE, TIME, DATETIME) 인 경우 calendar로 생성됨.</Col>
           </Row>
           <Row>
             <Col id="ID">compwidth</Col>
             <Col id="TYPE">String</Col>
             <Col id="TYPE_VALUE">px or %</Col>
-            <Col id="DESCPTION">컴포넌트의 넓이</Col>
+            <Col id="DESCPTION">컴포넌트의 넓이
+ - View Template에 정의된 COMP_PADDING값에 따라 실제 컴포넌트는 입력된 값과 다르게 생성될 수 있음.</Col>
           </Row>
           <Row>
             <Col id="ID">compheight</Col>
             <Col id="TYPE">String</Col>
             <Col id="TYPE_VALUE">px or %</Col>
-            <Col id="DESCPTION">컴포넌트의 높이</Col>
+            <Col id="DESCPTION">컴포넌트의 높이
+ - View Template에 정의된 COMP_PADDING값에 따라 실제 컴포넌트는 입력된 값과 다르게 생성될 수 있음.</Col>
           </Row>
           <Row>
             <Col id="ID">labelsize</Col>
@@ -435,7 +439,8 @@
           <Row>
             <Col id="ID">compreadonly</Col>
             <Col id="TYPE">Boolean</Col>
-            <Col id="DESCPTION">컴포넌트 읽기전용 설정 여부</Col>
+            <Col id="DESCPTION">컴포넌트 읽기전용 설정 여부
+ - COMP_READONLY_LABEL_STYLE값에 따라 디자인이 적용됨.</Col>
           </Row>
           <Row>
             <Col id="ID">usecomp</Col>
