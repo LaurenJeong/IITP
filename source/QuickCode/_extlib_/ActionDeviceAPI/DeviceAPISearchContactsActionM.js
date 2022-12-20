@@ -11,6 +11,16 @@ if (!nexacro.DeviceAPISearchContactsActionM)
     {		
         nexacro.Action.call(this, id, parent);
 		this.addEvent("canrun");
+		
+		// ContactSet이 여러개인 경우 오작동함. Action실행시 ContactSet찾아서 실행하는것으로 수정
+		// ContactSet을 생성 후 바로 query()실행시 오작동하여 Action 생성시 만듬.
+		var oContactSet = this.fnGetContactSet(parent);
+		if (this.gfnIsNull(oContactSet))
+		{
+			oContactSet = new nexacro.ContactSet();
+			parent.addChild("ContactSet" + this.id, oContactSet); 
+			this._contactset = oContactSet;
+		}
     };		
         		
     nexacro.DeviceAPISearchContactsActionM.prototype = nexacro._createPrototype(nexacro.Action, nexacro.DeviceAPISearchContactsActionM);		
@@ -51,9 +61,15 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 			
 			if (this.gfnIsNull(oContactSet))
 			{
-				oContactSet = new nexacro.ContactSet();
-				objForm.addChild("ContactSet" + this.id, oContactSet); 
-				this._contactset = oContactSet;
+				oContactSet = this.fnGetContactSet(parent);
+				
+				// 정상동작하지 않지만 스크립트는 넣어둠.
+				if (this.gfnIsNull(oContactSet))
+				{
+					oContactSet = new nexacro.ContactSet();
+					objForm.addChild("ContactSet" + this.id, oContactSet); 
+					this._contactset = oContactSet;
+				}
 			}
 			
 			if (this.gfnIsNull(this._contactset))
@@ -93,10 +109,12 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 			
 			this.gfnLog(strQueryString);
 			
+			this.parent.setWaitCursor(true);
 			var ret = oContactSet.query(strQueryString);
 
 			if (ret != true) 
 			{
+				this.parent.setWaitCursor(false);
 				this.gfnLog("검색조건 입력 오류.","info");
 				this.on_fire_onerror("error");
 				return;
@@ -302,6 +320,8 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 			
 			if (e.contacts.length == 0) 
 			{
+				this.parent.setWaitCursor(false);
+				this.on_fire_onsuccess(e.contacts);
 				return;
 			}
 			else        
@@ -314,8 +334,25 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 	};
 
 	nexacro.DeviceAPISearchContactsActionM.prototype.fnActionContactSetOnerror = function(obj,e)
-	{
+	{	
+		this.parent.setWaitCursor(false);
 		this.on_fire_onerror(e.errormsg);
+	};
+	
+	nexacro.DeviceAPISearchContactsActionM.prototype.fnGetContactSet = function(objForm)
+	{
+		var allobjects = objForm.all;
+		var oContactSet;
+		
+		for(var i = 0; i < allobjects.length; i++)
+		{
+			if (allobjects[i] instanceof nexacro.ContactSet)
+			{
+				oContactSet = allobjects[i];
+			}
+		}
+		
+		return oContactSet;
 	};
 	
 	// 리턴값 설정
@@ -324,6 +361,7 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 		var sReturnDataType = this.returndatatype;
 		var oTargetView = this.getTargetView();
 		var objDs = this._targetdataset;
+		var arrContData = arrContacts;
 		
 		//this.gfnLog(arrContacts);
 		//this.gfnLog(sReturnDataType);
@@ -372,7 +410,8 @@ if (!nexacro.DeviceAPISearchContactsActionM)
 			}
 		}
 		
-		this.on_fire_onsuccess(arrContacts.length);
+		this.parent.setWaitCursor(false);
+		this.on_fire_onsuccess(arrContacts);
 	};
 	
 	// Model Argument 처리 : 해당 데이터셋에 value값 설정(viewdataset용)

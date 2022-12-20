@@ -293,7 +293,6 @@
     ]
 }]]></Contents>
       </DeviceAPISearchContactsActionM>
-      <ContactSet id="ContactSet00"/>
     </Objects>
     <Script type="xscript5.1"><![CDATA[
 this.View00_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -318,7 +317,6 @@ this.DeviceAPISearchContactsActionM00_onerror = function(obj:nexacro.Action, e:n
 this.DeviceAPISearchContactsActionM00_onsuccess = function(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)
 {
 	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : " + e.userdata);
-};
-]]></Script>
+};]]></Script>
   </Form>
 </FDL>
