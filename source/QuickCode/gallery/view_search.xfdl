@@ -6,7 +6,7 @@
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="10" text="조회 영역을 구성하기 위한 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="80" right="10" value=" - 오른쪽 영역에 조회 버튼 생성&#10; - View 컴포넌트 사이즈와 동일한 배경(Static) 생성&#10; - 조회 버튼영역 을 제외한 영역을 컴포넌트 생성영역으로 사용&#10; - 하나의 필드는 레이블(Static) + 컴포넌트로 구성" readonly="true"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="90" right="10" value=" - 오른쪽 영역에 조회 버튼 생성&#10; - View 컴포넌트 사이즈와 동일한 배경(Static) 생성&#10; - 조회 버튼영역 을 제외한 영역을 컴포넌트 생성영역으로 사용&#10; - 하나의 필드는 레이블(Static) + 컴포넌트로 구성" readonly="true"/>
         <Static id="Static00_00_00" taborder="11" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
         <View id="viewSample" taborder="12" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="85" right="10" cssclass="viw_bg">
           <Layouts>
@@ -338,7 +338,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <TextArea id="txaInfo00" taborder="9" left="0" top="Div00:10" height="180" right="10" value="- Field 영역(레이블+컴포넌트)의 높이는 compheight, 넓이는 labelsize + compwidth 입니다.&#10;- Label 영역의 높이는 compheight에서 ViewTemplate에 정의된 Label Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- Label 영역의 넓이는 labelsize에서 ViewTemplate에 정의된 Label Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 높이는 compheight에서 ViewTemplate에 정의된 Comp Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 compwidth에서 ViewTemplate에 정의된 Comp Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다.&#10;- Search 버튼 영역은 ViewTemplate에 정의된 Search 버튼 넓이 입니다.&#10;- Button 컴포넌트 영역의 넓이는 ViewTemplate에 정의된 Search 버튼 넓이에서 SearchButton Space값이 제외된 영역에 생성됩니다.&#10;- Button 컴포넌트 영역의 높이는 searchbuttontype이 'full'인 경우 View 컴포넌트 높이 입니다.&#10;- Button 컴포넌트 영역의 높이는 searchbuttontype이 'full'이 아닌 경우 ViewTemplate에 정의된 Search 버튼 높이 입니다." readonly="true"/>
+        <TextArea id="txaInfo00" taborder="9" left="0" top="Div00:10" height="210" right="10" value="- View 전체 영역에서 ViewTemplate에 정의된 Search 버튼 넓이를 제외한 영역에 Field가 생성됩니다.&#10;- fieldposition이 horizontal(좌우배치)일때 Field 영역(레이블+컴포넌트)의 높이는 compheight, 넓이는 labelsize + compwidth 이며,&#10;  Label 영역의 높이는 compheight, 넓이는 labelsize 입니다.&#10;- fieldposition이 vertical(상하배치)일때 Field 영역(레이블+컴포넌트)의 높이는 labelsize + compheight, 넓이는 compwidth 이며,&#10;  Label 영역의 높이는 labelsize, 넓이는 compwidth 입니다.&#10;- 컴포넌트 영역의 높이는 compheight에서 ViewTemplate에 정의된 Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 compwidth에서 ViewTemplate에 정의된 Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다.&#10;- format에서 한 영역에 여러 Field를 선택하고 mergelabel값을 true로 설정한 경우, Label은 fieldposition에 따라 좌측(horizontal) 또는 상단(vertical)에 고정되어 labelsize 크기로 생성됩니다.&#10;- Button 컴포넌트 영역의 넓이는 ViewTemplate에 정의된 Search 버튼 넓이에서 SearchButton Space값이 제외된 영역에 생성됩니다.&#10;- Button 컴포넌트 영역의 높이는 searchbuttontype이 'full'인 경우 View 컴포넌트 높이 입니다.&#10;- Button 컴포넌트 영역의 높이는 searchbuttontype이 'full'이 아닌 경우 ViewTemplate에 정의된 Search 버튼 높이 입니다." readonly="true"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -389,12 +389,12 @@
           <Row>
             <Col id="ID">searchbuttoncssclass</Col>
             <Col id="TYPE">String</Col>
-            <Col id="DESCPTION">조회버튼의 기본 CSS Class Id</Col>
+            <Col id="DESCPTION">조회버튼의 CSS Class Id</Col>
           </Row>
           <Row>
             <Col id="ID">searchbgcssclass</Col>
             <Col id="TYPE">String</Col>
-            <Col id="DESCPTION">조회영역 배경의 기본 CSS Class Id</Col>
+            <Col id="DESCPTION">조회영역 배경의 CSS Class Id</Col>
           </Row>
           <Row>
             <Col id="ID">format</Col>

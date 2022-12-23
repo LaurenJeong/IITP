@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="view_grid" width="1080" height="1020" titletext="GridViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
+  <Form id="view_grid" width="1080" height="1190" titletext="GridViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
     <Layouts>
-      <Layout height="1020" mobileorientation="landscape" width="1080">
+      <Layout height="1190" mobileorientation="landscape" width="1080">
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="7" text="Grid 영역을 구성하기 위한 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
@@ -66,18 +66,21 @@
                 <Column id="Phone" type="STRING" size="80" description="전화번호"/>
                 <Column id="Email" type="STRING" size="80" description="이메일주소"/>
               </ColumnInfo>
+              <Rows/>
             </Dataset>
             <Dataset id="innerdatasetCompany">
               <ColumnInfo>
                 <Column id="code" type="STRING" size="256"/>
                 <Column id="value" type="STRING" size="256"/>
               </ColumnInfo>
+              <Rows/>
             </Dataset>
             <Dataset id="innerdatasetDepartment">
               <ColumnInfo>
                 <Column id="code" type="STRING" size="256"/>
                 <Column id="value" type="STRING" size="256"/>
               </ColumnInfo>
+              <Rows/>
             </Dataset>
           </Objects>
           <Bind>
@@ -139,7 +142,7 @@
           </Formats>
         </Grid>
         <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="165" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="249" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -162,7 +165,7 @@
                 <Cell text="bind:ID"/>
                 <Cell col="1" text="bind:TYPE"/>
                 <Cell col="2" text="bind:TYPE_VALUE"/>
-                <Cell col="3" text="bind:DESCPTION"/>
+                <Cell col="3" text="bind:DESCPTION" wordWrap="english"/>
               </Band>
             </Format>
           </Formats>
@@ -247,14 +250,18 @@
           <Row>
             <Col id="ID">displaytype</Col>
             <Col id="TYPE">Enum</Col>
-            <Col id="TYPE_VALUE">normal  | none | buttoncontrol…</Col>
-            <Col id="DESCPTION">Body Band Cell의 displaytype을 설정하기 위한 속성</Col>
+            <Col id="TYPE_VALUE">auto | normal  | none | buttoncontrol…</Col>
+            <Col id="DESCPTION">Body Band Cell의 displaytype을 설정하기 위한 속성
+ - auto로 지정한 경우 Field의 정보를 기준으로 컴포넌트 타입을 지정.
+   ex) datatype이 숫자형(INT, FLOAT, BIGDECIMAL)인 경우 number, 날짜형(DATE, TIME, DATETIME) 인 경우 date로 생성됨.</Col>
           </Row>
           <Row>
             <Col id="ID">edittype</Col>
             <Col id="TYPE">Enum</Col>
-            <Col id="TYPE_VALUE">normal  | none | button | checkbox…</Col>
-            <Col id="DESCPTION">Body Band Cell의 edittype을 설정하기 위한 속성</Col>
+            <Col id="TYPE_VALUE">auto | normal  | none | button | checkbox…</Col>
+            <Col id="DESCPTION">Body Band Cell의 edittype을 설정하기 위한 속성
+ - auto로 지정한 경우 Field의 정보를 기준으로 컴포넌트 타입을 지정.
+   ex) datatype이 숫자형(INT, FLOAT, BIGDECIMAL)인 경우 normal, 날짜형(DATE, TIME, DATETIME) 인 경우 date로 생성됨.</Col>
           </Row>
           <Row>
             <Col id="ID">fieldwidth</Col>

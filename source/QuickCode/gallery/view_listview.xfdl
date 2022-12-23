@@ -6,7 +6,7 @@
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="7" text="ListView 영역을 구성하기 위한 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="80" right="10" value="- 하나의 필드는 레이블Cell + 데이터Cell로 구성&#10;- direction ,band 속성에 설정된 값으로 각 Band별 Field가 순서대로 배치되어 생성됨.&#10;- format 속성을 이용하여, 동일한 필드를 각 Band에 추가하여 생성가능.&#10;- format 속성을 활용하여 여러 개의 필드를 하나의 Cell에 표현할 경우 1:N으로 레이블Cell + 데이터Cell로 표현(레이블은 첫 번째 필드의 레이블정보로 표현)" readonly="true"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="120" right="10" value="- 하나의 필드는 레이블Cell + 데이터Cell로 구성&#10;- direction ,band 속성에 설정된 값으로 각 Band별 Field가 순서대로 배치되어 생성됨.&#10;- 각 Band의 넓이는 100% 고정이며, 높이는 해당 band에 생성된 Cell 사이즈를 기준으로 최대값으로 설정됨. &#10;  body Band에 설정된 Field가 없어도 bandexpandtype이 “none”이 아니고, detail Band에 Field가 있으면 자동으로 expandbutton 사이즈만큼 body Band가 생성됨.&#10;- format 속성을 이용하여, 동일한 필드를 각 Band에 추가하여 생성가능.&#10;- format 속성을 활용하여 여러 개의 필드를 하나의 Cell에 표현할 경우 1:N으로 레이블Cell + 데이터Cell로 표현(레이블은 첫 번째 필드의 레이블정보로 표현)" readonly="true"/>
         <Static id="Static00_00_00" taborder="8" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
         <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="245" right="10">
           <Layouts>
@@ -68,20 +68,7 @@
                 <Column id="Photo" type="STRING" size="80" description="사진"/>
               </ColumnInfo>
               <Rows>
-                <Row>
-                  <Col id="Company">투비소프트</Col>
-                  <Col id="Department">연구소</Col>
-                  <Col id="Name">홍길동</Col>
-                  <Col id="Phone">010-OOOO-OOOO</Col>
-                  <Col id="Email">XXXXX@tobesoft.com</Col>
-                  <Col id="Photo">imagerc::img_main_smIcon01.png</Col>
-                </Row>
-                <Row>
-                  <Col id="Company">투비소프트</Col>
-                  <Col id="Department">연구소</Col>
-                  <Col id="Name">김투비</Col>
-                  <Col id="Photo">imagerc::img_main_smIcon02.png</Col>
-                </Row>
+                <Row/>
               </Rows>
             </Dataset>
           </Objects>
@@ -139,7 +126,7 @@
           </Formats>
         </Grid>
         <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="299" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="439" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -162,7 +149,7 @@
                 <Cell text="bind:ID"/>
                 <Cell col="1" text="bind:TYPE"/>
                 <Cell col="2" text="bind:TYPE_VALUE"/>
-                <Cell col="3" text="bind:DESCPTION"/>
+                <Cell col="3" text="bind:DESCPTION" wordWrap="english"/>
               </Band>
             </Format>
           </Formats>
@@ -319,7 +306,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <TextArea id="txaInfo00" taborder="12" left="0" top="Div00:10" height="110" right="10" value="- Field 영역(레이블Cell+데이터Cell)의 높이는 cellheight, 넓이는 labelsize + cellwidth 입니다.&#10;- Label Cell 영역의 높이는 cellheight, 넓이는 labelsize 입니다.&#10;- 데이터Cell 영역의 높이는 cellheight에서 ViewTemplate에 정의된 Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 컴포넌트 영역의 넓이는 cellwidth에서 ViewTemplate에 정의된 Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- Field 영역이 가로로 나열된 경우 Field 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- Field 영역이 세로로 나열된 경우 Field 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다." readonly="true"/>
+        <TextArea id="txaInfo00" taborder="12" left="0" top="Div00:10" height="160" right="10" value="- fieldposition이 horizontal(좌우배치)일때 Field 영역(레이블Cell+데이터Cell)의 높이는 compheight, 넓이는 labelsize + compwidth 이며,&#10;  Label Cell 영역의 높이는 compheight, 넓이는 labelsize 입니다.&#10;- fieldposition이 vertical(상하배치)일때 Field 영역(레이블Cell+데이터Cell)의 높이는 labelsize + compheight, 넓이는 compwidth 이며,&#10;  Label Cell 영역의 높이는 labelsize, 넓이는 compwidth 입니다.&#10;- 데이터Cell 영역의 높이는 compheight에서 ViewTemplate에 정의된 Top, Bottom Padding값이 제외된 영역에 생성됩니다.&#10;- 데이터Cell 영역의 넓이는 compwidth에서 ViewTemplate에 정의된 Left, Right Padding값이 제외된 영역에 생성됩니다.&#10;- 데이터Cell 영역이 가로로 나열된 경우 데이터Cell 영역간 가로 Gap은 컴포넌트 Right Padding이 아닌 Comp Space값으로 대체됩니다.&#10;- 데이터Cell 영역이 세로로 나열된 경우 데이터Cell 영역간 세로 Gap은 컴포넌트 Top, Bottom Padding이 아닌 Line Space값으로 대체됩니다.&#10;- format에서 한 영역에 여러 Field를 선택하고 mergelabel값을 true로 설정한 경우, Label Cell은 fieldposition에 따라 좌측(horizontal) 또는 상단(vertical)에 고정되어 labelsize 크기로 생성됩니다." readonly="true"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -415,26 +402,32 @@
           <Row>
             <Col id="ID">displaytype</Col>
             <Col id="TYPE">Enum</Col>
-            <Col id="TYPE_VALUE">normal  | none | buttoncontrol…</Col>
-            <Col id="DESCPTION">데이터 Cell 표시타입</Col>
+            <Col id="TYPE_VALUE">auto | normal  | none | buttoncontrol…</Col>
+            <Col id="DESCPTION">데이터 Cell 표시타입
+ - auto로 지정한 경우 Field의 정보를 기준으로 컴포넌트 타입을 지정.
+   ex) datatype이 숫자형(INT, FLOAT, BIGDECIMAL)인 경우 number, 날짜형(DATE, TIME, DATETIME) 인 경우 date로 생성됨.</Col>
           </Row>
           <Row>
             <Col id="ID">edittype</Col>
             <Col id="TYPE">Enum</Col>
-            <Col id="TYPE_VALUE">normal  | none | button | checkbox…</Col>
-            <Col id="DESCPTION">데이터 Cell 입력타입</Col>
+            <Col id="TYPE_VALUE">auto | normal  | none | button | checkbox…</Col>
+            <Col id="DESCPTION">데이터 Cell 입력타입
+ - auto로 지정한 경우 Field의 정보를 기준으로 컴포넌트 타입을 지정.
+   ex) datatype이 숫자형(INT, FLOAT, BIGDECIMAL)인 경우 normal, 날짜형(DATE, TIME, DATETIME) 인 경우 date로 생성됨.</Col>
           </Row>
           <Row>
             <Col id="ID">cellwidth</Col>
             <Col id="TYPE">String</Col>
             <Col id="TYPE_VALUE">px or %</Col>
-            <Col id="DESCPTION">데이터 Cell의 넓이</Col>
+            <Col id="DESCPTION">데이터 Cell의 넓이
+ - View Template에 정의된 COMP_PADDING값에 따라 실제 컴포넌트는 입력된 값과 다르게 생성될 수 있음.</Col>
           </Row>
           <Row>
             <Col id="ID">cellheight</Col>
             <Col id="TYPE">String</Col>
             <Col id="TYPE_VALUE">px or %</Col>
-            <Col id="DESCPTION">데이터 Cell의 높이</Col>
+            <Col id="DESCPTION">데이터 Cell의 높이
+ - View Template에 정의된 COMP_PADDING값에 따라 실제 컴포넌트는 입력된 값과 다르게 생성될 수 있음.</Col>
           </Row>
           <Row>
             <Col id="ID">labelsize</Col>
