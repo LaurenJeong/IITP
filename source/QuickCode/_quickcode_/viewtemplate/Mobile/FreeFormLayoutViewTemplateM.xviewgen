@@ -70,9 +70,6 @@ this.COMP_TYPE				= "auto";
 //Label Default Type
 this.LABEL_TYPE				= "static";
 
-//Background Default Type
-this.COMP_BG_TYPE			= "static";
-
 //Gap Between Components (Left and Right)
 this.COMP_SPACE     		  = 5;
 
@@ -479,7 +476,7 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 	var nRealColSize;
 
 	//Label Width
-	var nLabelWidth;
+	var labelwidth;
 
 	//Check Quantity with Field List connected to Cell
 	var nFieldInCellCnt = arrFieldList.length;
@@ -709,10 +706,12 @@ fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize)
 fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bUseLayout, nLayoutRow, bStartCol)
 {
 	var nLabelLeft, nLabelTop, nLabelWidth, nLabelHeight;
-	var nCompLeft, nCompTop, nCompWidth, nCompHeight, nCompBgWidth;
+	var nCompLeft, nCompTop, nCompWidth, nCompHeight;
 	var nPosLeft, nPosTop, nPosWidth, nPosHeight;
 	var nLabelAreaWidth;
 	var nColSize, nRowSize;
+	var sLabelWidth, sLabelHeight;
+	var sCompWidth, sCompHeight;
 
 	var oAlignPos;
 	var sFieldId;
@@ -727,7 +726,6 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 	var sCompClassId;
 	var oCompClass;
 	var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
-	var oCompBgClass		= this.lfn_GetCompClass(this.COMP_BG_TYPE);
 	var sCompCssClass;
 	var sLabelCssClass;
 	var sFieldBgCssClass = this.COMP_BG_CSSCLASS;
@@ -773,7 +771,11 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		nPosHeight = nexacro.toNumber(oFieldPosition.height);
 
 		//Import Field Label Width Information
-		nLabelAreaWidth = oField.labelwidth;
+		sLabelWidth = oField.labelwidth;
+		sLabelHeight = oField.labelheight;
+		
+		sCompWidth = oField.compwidth;
+		sCompHeight = oField.compheight;
 		
 		//Calculate the Left/Top Coordinate where the Component will be located
 		//Evaluate actual Component Location Information reflecting Align, Padding, Comp/Line Space, etc.
@@ -837,7 +839,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 						"tag" : oLabelClass.classId,
 						"attribute" :
 						{
-							"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelAreaWidth, "height" : nLabelHeight
+							"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : sLabelWidth, "height" : sLabelHeight
 							, "text" : oField.label, "cssclass" : sLabelCssClass
 						}
 					};
@@ -851,7 +853,7 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 					"tag" : sCompClassId,
 					"attribute" :
 					{
-						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight, "cssclass" : sCompCssClass
+						"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : sCompWidth, "height" : sCompHeight, "cssclass" : sCompCssClass
 					}
 				};
 		
@@ -955,10 +957,11 @@ fn_GetScript = function()
     var oScript = {};
 	var sScript = "";
 	
-	var sViewNm = this.oContents.View.attribute.id;
+	var sViewNm 			= this.oContents.View.attribute.id;
+	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
 	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
 	
-	if (sUseExpandButton != "none")
+	if (this.lfn_IsNotNull(sTitleText) && sUseExpandButton != "none")
 	{
 		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
 	}
