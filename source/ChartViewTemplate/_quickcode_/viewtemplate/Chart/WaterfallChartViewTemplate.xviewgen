@@ -396,9 +396,9 @@ fn_GetModel = function(bPreviewMode)
 		if(arrSeriesField.length==0)
 		{
 			var oFilterField = this.oFieldArray.fields.filter(oField => oField.datatype == "INT" || oField.datatype == "FLOAT" || oField.datatype == "BIGDECIMAL");
-			if (this.lfn_IsNotNull(oFilterField) && oFilterField.length >= 2)
+			if (this.lfn_IsNotNull(oFilterField) && oFilterField.length >= 1)
 			{
-				arrSeriesField = [oFilterField[0],oFilterField[1]];
+				arrSeriesField = [oFilterField[0]];
 			}
 		}
 	}
