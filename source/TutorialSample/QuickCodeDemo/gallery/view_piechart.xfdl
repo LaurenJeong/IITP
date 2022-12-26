@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="view_piechart" width="1080" height="1080" titletext="PieChartViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
+  <Form id="view_piechart" width="1080" height="1080" titletext="PieChartViewTemplate" onload="form_onload">
     <Layouts>
       <Layout height="1080" mobileorientation="landscape" width="1080">
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
         <Static id="Static00_00" taborder="7" text="원그래프(Pie Chart)를 그려주는 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
         <Static id="Static00" taborder="10" text="- PieChart : 원차트&#13;&#10;- DoughnutChart : 도넛차트" left="13" top="Static00_00:0" height="28" cssclass="sta_WF_notice02" width="1050" fittocontents="height"/>
-        <TextArea id="txaInfo" taborder="2" left="0" top="Static00:5" height="100" right="10" readonly="true" value="- Field User Attribute의 displaytype에 설정된 값에 따라 Chart가 생성.&#10;  .원차트의 명칭에 해당하는 데이터를 category로 설정(1개의 필드만 선택가능)&#10;  .원차트의 데이터에 해당하는 데이터를 series로 설정(1개의 필드만 선택가능, 데이터형식은 숫자형만 가능)&#10;- displaytype을 select로 설정하고 데이터값이 true인 경우 선택되어 원에서 조각이 나와서 표시됨.&#10;- chartdisplay 속성에 따라 원, 반원으로 차트가 표시됨."/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00:5" height="100" right="10" readonly="true" value="- Field User Attribute의 displaytype에 설정된 값에 따라 Chart가 생성.&#10;  .원차트의 명칭에 해당하는 필드를 category로 설정(1개의 필드만 선택가능)&#10;  .원차트의 데이터에 해당하는 필드를 series로 설정(1개의 필드만 선택가능, 데이터형식은 숫자형만 가능)&#10;- displaytype을 select로 설정하고 데이터값이 true인 경우 선택되어 원에서 조각이 나와서 표시됨.&#10;- chartdisplay 속성에 따라 원, 반원으로 차트가 표시됨."/>
         <Static id="Static00_00_00" taborder="8" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
         <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="275" right="10" cssclass="viw_box">
           <Layouts>
