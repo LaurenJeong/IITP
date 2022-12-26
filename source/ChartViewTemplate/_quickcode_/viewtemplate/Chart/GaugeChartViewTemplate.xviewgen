@@ -622,8 +622,11 @@ fn_GetSeries = function(arrSeriesField)
 			
 			oSeries["itemtextposition"] 	= sItemTextPosition;
 			
+			// 게이지 중앙에 Text설정 시 위치값 조정
 			if (sIndicator == "true" && sItemTextPosition == "gaugecenter") {
-				oSeries["itemtextgap"] = "0 50";
+				var nChartHeight = this.oContents.View.referenceinfo.realheight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
+				var nVGap = nexacro.toNumber(nexacro.round(nChartHeight/10),0);
+				oSeries["itemtextgap"] = "0 " + nVGap;
 			}
 		}
 		
