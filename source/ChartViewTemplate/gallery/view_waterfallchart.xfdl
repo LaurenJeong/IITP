@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="view_piechart" width="1080" height="1080" titletext="PieChartViewTemplate" onload="form_onload">
+  <Form id="view_waterfallchart" width="1080" height="1180" titletext="WaterfallChartViewTemplate" onload="form_onload">
     <Layouts>
-      <Layout height="1080" mobileorientation="landscape" width="1080">
+      <Layout height="1180" mobileorientation="landscape" width="1080">
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
         <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Static id="Static00_00" taborder="7" text="원그래프(Pie Chart)를 그려주는 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <Static id="Static00" taborder="10" text="- PieChart : 원차트&#13;&#10;- DoughnutChart : 도넛차트" left="13" top="Static00_00:0" height="28" cssclass="sta_WF_notice02" width="1050" fittocontents="height"/>
-        <TextArea id="txaInfo" taborder="2" left="0" top="Static00:5" height="100" right="10" readonly="true" value="- Field User Attribute의 displaytype에 설정된 값에 따라 Chart가 생성.&#10;  .원차트의 명칭에 해당하는 필드를 category로 설정(1개의 필드만 선택가능)&#10;  .원차트의 데이터에 해당하는 필드를 series로 설정(1개의 필드만 선택가능, 데이터형식은 숫자형만 가능)&#10;- displaytype을 select로 설정하고 데이터값이 true인 경우 선택되어 원에서 조각이 나와서 표시됨.&#10;- chartdisplay 속성에 따라 원, 반원으로 차트가 표시됨."/>
+        <Static id="Static00_00" taborder="7" text="폭포수차트(Waterfall Chart)를 그려주는 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="90" right="10" readonly="true" value="- 데이터 값이 양수인지 음수인지 따라 막대차트의 색이 다르게 출력되며, 마지막에 증감합계 값이 추가로 표시됩니다.&#10;- Field User Attribute의 displaytype에 설정된 값에 따라 Chart가 생성된다.&#10;  .명칭에 해당하는 필드를 category로 설정(1개의 필드만 선택가능)&#10;  .증감값 데이터에 해당하는 필드를 serie로 설정(1개의 필드만 선택가능, 데이터형식은 숫자형만 가능)"/>
         <Static id="Static00_00_00" taborder="8" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="275" right="10" cssclass="viw_box">
+        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="245" right="10" cssclass="viw_box">
           <Layouts>
             <Layout>
-              <PieChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:BROWSER_NAME">
+              <FloatChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" waterfall="true" rotateaxis="false" waterfallsumtext="Gross" enableanimation="true" categorycolumn="bind:DAY">
                 <Contents><![CDATA[{
 									"title" : {
 										"id" : "title",
@@ -21,19 +20,6 @@
 										"subtextcolor" : "gray",
 										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
 										"visible" : false
-									},
-									"legend" : {
-										"id" : "legend",
-										"padding" : "3px 10px 3px 10px",
-										"itemtextfont" : "9pt 'Malgun Gothic'",
-										"itemtextcolor" : "#4c4c4c",
-										"itemautofit" : true,
-										"markertextgap" : "5",
-										"markertype" : "circle",
-										"verticalitemgap" : "5",
-										"linestyle" : "1px dashed #4c4c4c",
-										"visible" : true,
-										"align" : "rightcenter"
 									},
 									"tooltip" : {
 										"id" : "tooltip",
@@ -46,41 +32,71 @@
 									"board" : {
 										"id" : "board"
 									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 8pt 'Malgun Gothic'",
+										"titletextalign" : "high",
+										"titlegap" : "5",
+										"labeltextcolor" : "#6f6f6f",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"titletext" : "",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
 									"seriesset" : [
 										{
-											"radius" : "70",
-											"opacity" : "0.8",
-											"linestyle" : "1px solid #ffffff",
-											"itemtextvisible" : true,
+											"id" : "series",
+											"barvisible" : true,
+											"linevisible" : false,
+											"barsize" : "50",
 											"itemtextfont" : "9pt 'Malgun Gothic'",
-											"itemtextguidelinestyle" : "1px solid darkgray",
-											"itemtextguideopacity" : "1",
-											"itemtextguidesize" : "20",
-											"selectindent" : "20",
-											"highlightvisible" : true,
-											"highlightradius" : "70",
-											"highlightopacity" : "0.3",
-											"highlightfillstyle" : "#ffffff",
-											"highlightlinestyle" : "1px solid #ffffff",
-											"id" : "seriesShare",
-											"titletext" : "점유율",
-											"valuecolumn" : "bind:SHARE",
-											"fillstyle" : "#1f77b4,#ff7f0e,#2ca02c,#d62728,#9467bd,#8c564b,#e377c2,#7f7f7f,#bcbd22,#17becf",
-											"itemtextmask" : "",
-											"itemtexttype" : "number"
+											"baropacity" : "0.8",
+											"positivebarlinestyle" : "0px solid",
+											"negativebarlinestyle" : "0px solid",
+											"waterfallsumbarlinestyle" : "0px solid",
+											"valuecolumn" : "bind:FLUCTUATION",
+											"positivebarfillstyle" : "#1f77b4",
+											"negativebarfillstyle" : "#ff7f0e",
+											"waterfallsumbarfillstyle" : "#2ca02c",
+											"itemtextvisible" : false
 										}
 									]
 								}]]></Contents>
-              </PieChart>
+              </FloatChart>
             </Layout>
           </Layouts>
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="DEVICE" type="STRING" size="80" description="디바이스"/>
-                <Column id="BROWSER_NAME" type="STRING" size="80" description="브라우저명"/>
-                <Column id="SHARE" type="BIGDECIMAL" size="80" description="점유율"/>
-                <Column id="CHK" type="STRING" size="1" description="check"/>
+                <Column id="DAY" type="STRING" size="80" description="요일"/>
+                <Column id="FLUCTUATION" type="FLOAT" size="80" description="증감값"/>
               </ColumnInfo>
               <Rows/>
             </Dataset>
@@ -92,29 +108,25 @@
             <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
             <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="piemodel" filepath="nexacrochart\chartModelService.xmodel">
+          <ModelInfo modelserviceid="model" serviceid="" modelid="waterfallmodel" filepath="nexacrochart\chartModelService.xmodel">
             <Fields>
-              <Field id="DEVICE" description="" displaytype="none"/>
-              <Field id="BROWSER_NAME" description="" displaytype="category"/>
-              <Field id="SHARE" description="" displaytype="series"/>
-              <Field id="CHK" description="" displaytype="none"/>
+              <Field id="DAY" description="" displaytype="category"/>
+              <Field id="FLUCTUATION" description="" displaytype="series"/>
             </Fields>
             <Components>
-              <Component id="chart" fields="DEVICE,BROWSER_NAME,SHARE,CHK"/>
+              <Component id="chart" fields="DAY,FLUCTUATION"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="Chart\PieChartViewTemplate.xviewgen">
-            <Attribute id="charttype" value="pie"/>
-            <Attribute id="chartdisplay" value="circle"/>
-            <Attribute id="innerradius" value="50"/>
+          <ViewTemplateInfo filepath="Chart\WaterfallChartViewTemplate.xviewgen">
+            <Attribute id="waterfallsumtext" value="Gross"/>
             <Attribute id="enableanimation" value="true"/>
-            <Attribute id="titlealign" value="topleft"/>
-            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="itemtextposition" value="none"/>
             <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
         <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="383" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="304" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -143,7 +155,7 @@
           </Formats>
         </Grid>
         <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="106" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="92" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -183,30 +195,9 @@
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="ID">charttype</Col>
-            <Col id="TYPE">Enum</Col>
-            <Col id="DESCPTION">원차트 종류
- - pie : 원 차트
- - doughnut : 도넛 차트</Col>
-            <Col id="TYPE_VALUE">pie | doughnut</Col>
-          </Row>
-          <Row>
-            <Col id="ID">chartdisplay</Col>
-            <Col id="TYPE">Enum</Col>
-            <Col id="DESCPTION">원차트 표시모양
- - circle : 원
- - semicircle : 반원</Col>
-            <Col id="TYPE_VALUE">circle | semicircle</Col>
-          </Row>
-          <Row>
-            <Col id="ID">innerradius</Col>
-            <Col id="TYPE">Number</Col>
-            <Col id="DESCPTION">도넛차트의 안쪽 원의 지름 크기(%)</Col>
-          </Row>
-          <Row>
-            <Col id="ID">innertext</Col>
+            <Col id="ID">waterfallsumtext</Col>
             <Col id="TYPE">String</Col>
-            <Col id="DESCPTION">도넛차트의 안쪽 텍스트</Col>
+            <Col id="DESCPTION">Waterfall 증감합계명칭 Text</Col>
           </Row>
           <Row>
             <Col id="ID">enableanimation</Col>
@@ -230,10 +221,20 @@
             <Col id="TYPE_VALUE">topleft | topcenter | topright ...</Col>
           </Row>
           <Row>
-            <Col id="ID">legendposition</Col>
+            <Col id="ID">categoryaxistitletext</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">데이터명축(x축) 타이틀 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">valueaxistitletext</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">데이터축(y축) 타이틀 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">itemtextposition</Col>
             <Col id="TYPE">Enum</Col>
-            <Col id="DESCPTION">범례 표시 위치</Col>
-            <Col id="TYPE_VALUE">none | topleft | topcenter | topright ...</Col>
+            <Col id="TYPE_VALUE">none | start | middle | end | outside</Col>
+            <Col id="DESCPTION">값 표시 위치</Col>
           </Row>
           <Row>
             <Col id="ID">viewpadding</Col>
@@ -260,56 +261,45 @@
             <Col id="TYPE">Enum</Col>
             <Col id="TYPE_VALUE">none | category | series</Col>
             <Col id="DESCPTION">데이터 표현방식
- - none : 사용안함
- - category : 데이터명 Field(1개)
- - series : 데이터값 Field(1개)
- - select : 선택여부 데이터 Field(1개)</Col>
+- none : 사용안함
+- category : 데이터명 Field(1개)
+- series : 데이터값 Field(1개)</Col>
           </Row>
         </Rows>
       </Dataset>
       <Dataset id="dsData">
         <ColumnInfo>
-          <Column id="DEVICE" type="STRING" size="256"/>
-          <Column id="BROWSER_NAME" type="STRING" size="256"/>
-          <Column id="SHARE" type="BIGDECIMAL" size="256"/>
-          <Column id="CHK" type="STRING" size="1"/>
+          <Column id="DAY" type="STRING" size="256"/>
+          <Column id="FLUCTUATION" type="FLOAT" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="BROWSER_NAME">Chrome</Col>
-            <Col id="SHARE">70.43</Col>
-            <Col id="CHK">1</Col>
-            <Col id="DEVICE">desktop</Col>
+            <Col id="DAY">Monday</Col>
+            <Col id="FLUCTUATION">10</Col>
           </Row>
           <Row>
-            <Col id="BROWSER_NAME">Edge</Col>
-            <Col id="SHARE">12.84</Col>
-            <Col id="CHK">0</Col>
-            <Col id="DEVICE">desktop</Col>
+            <Col id="DAY">Tuesday</Col>
+            <Col id="FLUCTUATION">10</Col>
           </Row>
           <Row>
-            <Col id="BROWSER_NAME">IE</Col>
-            <Col id="SHARE">5.85</Col>
-            <Col id="CHK">0</Col>
-            <Col id="DEVICE">desktop</Col>
+            <Col id="DAY">Wednesday</Col>
+            <Col id="FLUCTUATION">5</Col>
           </Row>
           <Row>
-            <Col id="BROWSER_NAME">Whale Browser</Col>
-            <Col id="SHARE">5.45</Col>
-            <Col id="CHK">0</Col>
-            <Col id="DEVICE">desktop</Col>
+            <Col id="DAY">Thusday</Col>
+            <Col id="FLUCTUATION">-2</Col>
           </Row>
           <Row>
-            <Col id="BROWSER_NAME">Safari</Col>
-            <Col id="SHARE">2.46</Col>
-            <Col id="CHK">0</Col>
-            <Col id="DEVICE">desktop</Col>
+            <Col id="DAY">Friday</Col>
+            <Col id="FLUCTUATION">-5</Col>
           </Row>
           <Row>
-            <Col id="BROWSER_NAME">Firefox</Col>
-            <Col id="SHARE">1.72</Col>
-            <Col id="CHK">0</Col>
-            <Col id="DEVICE">desktop</Col>
+            <Col id="DAY">Saturday</Col>
+            <Col id="FLUCTUATION">6</Col>
+          </Row>
+          <Row>
+            <Col id="DAY">Sunday</Col>
+            <Col id="FLUCTUATION">-5</Col>
           </Row>
         </Rows>
       </Dataset>
