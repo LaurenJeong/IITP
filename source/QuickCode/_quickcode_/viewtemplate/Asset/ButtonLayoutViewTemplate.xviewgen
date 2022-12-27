@@ -721,8 +721,8 @@ fn_MakeCompByFuildLayout = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight
 		nPosWidth = nexacro.toNumber(oFieldPosition.width);
 		nPosHeight = nexacro.toNumber(oFieldPosition.height);
 		
-		sCompWidth = oField.fieldwidth;
-		sCompHeight = oField.fieldheight;
+		sCompWidth = this.lfn_GetSize(oField.fieldwidth);
+		sCompHeight = this.lfn_GetSize(oField.fieldheight);
 
 		//Import Field Label Information
 		sLabel = oField.label;

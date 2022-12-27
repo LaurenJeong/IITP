@@ -771,11 +771,11 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		nPosHeight = nexacro.toNumber(oFieldPosition.height);
 
 		//Import Field Label Width Information
-		sLabelWidth = oField.labelwidth;
-		sLabelHeight = oField.labelheight;
+		sLabelWidth = this.lfn_GetSize(oField.labelwidth);
+		sLabelHeight = this.lfn_GetSize(oField.labelheight);
 		
-		sCompWidth = oField.compwidth;
-		sCompHeight = oField.compheight;
+		sCompWidth = this.lfn_GetSize(oField.compwidth);
+		sCompHeight = this.lfn_GetSize(oField.compheight);
 		
 		//Calculate the Left/Top Coordinate where the Component will be located
 		//Evaluate actual Component Location Information reflecting Align, Padding, Comp/Line Space, etc.

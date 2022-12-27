@@ -682,6 +682,34 @@ this.lfn_GetRealSize = function(sSize, nLabelSize, nParentSize, sDefSize, nLabel
 };
 
 /*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetSize
+ * Parameter    :
+				- sSize : Size Information(% or px)
+				- sDefSize : Default Size Information
+ * Return       : 사이즈 값
+ * Description  : 입력된 값에서 숫자 이외의값이 입력되었을때 제외 후 사이즈값 반환
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetSize = function(sSize, sDefSize)
+{
+	var nSize;
+	var sSizeType;
+
+	if(!sSize)sSize = sDefSize;
+
+	sSizeType = sSize.replace(/[0-9]/g, "");
+
+	if(sSizeType=="%")
+	{
+		nSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, "")) + "%";
+	}else
+	{
+		nSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, ""));
+	}
+
+	return nSize;
+};
+
+/*---------------------------------------------------------------------------------------------*
  * Function     : lfn_GetCellSize
  * Parameter    :
 				- arrList : columnsize or rowsize 사이즈정보(% or px)
