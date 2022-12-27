@@ -1791,10 +1791,11 @@ fn_GetScript = function()
     var oScript = {};
 	var sScript = "";
 	
-	var sViewNm = this.oContents.View.attribute.id;
+	var sViewNm 			= this.oContents.View.attribute.id;
+	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
 	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
 	
-	if (sUseExpandButton != "none")
+	if (this.lfn_IsNotNull(sTitleText) && sUseExpandButton != "none")
 	{
 		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
 	}
