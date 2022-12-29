@@ -228,6 +228,7 @@ if (!nexacro.DsCopyDataAction)
 	{
 		var sOrgFilter = objFormDs.filterstr;
 		var nCnt = 0;
+		var sFilterStr = "";
 		
 		if (this.gfnIsNull(sOrgFilter))		sOrgFilter = "";
 		
@@ -235,8 +236,10 @@ if (!nexacro.DsCopyDataAction)
 		
 		if (!this.gfnIsNull(sFilter))
 		{
+			sFilterStr = this.gfnGetFieldValue(sFilter,"");
+			
 			objFormDs.filter("");
-			objFormDs.filter(sFilter);
+			objFormDs.filter(sFilterStr);
 		}
 		
 		if (sCopyType == "append")

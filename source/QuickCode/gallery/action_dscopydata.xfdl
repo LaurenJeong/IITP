@@ -256,9 +256,7 @@
         </View>
         <Button id="btnCopy" taborder="14" text="전체 복사(전환)" left="293" top="staSampleBg:-279" width="130" height="30"/>
         <Button id="btnCopy3" taborder="15" text="전체 복사(추가)" left="293" top="btnCopy:5" width="130" height="30"/>
-        <Button id="btnCopy2" taborder="16" text="필터 복사" left="293" top="btnCopy3:20" width="130" height="30" onclick="btnCopy2_onclick"/>
-        <Button id="btnCopy4" taborder="17" text="필터 복사(추가)" left="293" top="btnCopy2:5" width="130" height="30" onclick="btnCopy4_onclick"/>
-        <View id="View01" taborder="18" text="View00" viewdataset="viewdataset" left="440" top="staSampleBg:-279" width="265" height="269">
+        <View id="View01" taborder="16" text="View00" viewdataset="viewdataset" left="440" top="staSampleBg:-279" width="265" height="269">
           <Layouts>
             <Layout>
               <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="none">
@@ -376,6 +374,85 @@
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
+        <View id="View02" taborder="17" text="View01" viewdataset="viewdataset" left="293" top="btnCopy3:40" width="130" height="70">
+          <Layouts>
+            <Layout>
+              <Static id="staDepartmentBg" left="0" top="0" width="130" height="70" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="0" top="0" width="130" height="30" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="5" top="35" width="120" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value" text="경영본부" value="A"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+                <Column id="Status" type="STRING" size="80" description="상태"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">A</Col>
+                  <Col id="value">경영본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">B</Col>
+                  <Col id="value">연구소</Col>
+                </Row>
+                <Row>
+                  <Col id="code">C</Col>
+                  <Col id="value">제조본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">D</Col>
+                  <Col id="value">영업본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">E</Col>
+                  <Col id="value">고객지원본부</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel003" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Status" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="Email" description="" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="Phone" description="" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="Name" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="Company" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="Department" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="30" fieldposition="vertical" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <Button id="btnCopy2" taborder="18" text="필터 복사" left="293" top="View02:5" width="130" height="30" onclick="btnCopy2_onclick"/>
+        <Button id="btnCopy4" taborder="19" text="필터 복사(추가)" left="293" top="btnCopy2:5" width="130" height="30" onclick="btnCopy4_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -480,10 +557,10 @@
       <DsCopyDataAction id="DsCopyDataAction01" targetview="View01" fromview="View00" onerror="Common_onerror" onsuccess="Common_onsuccess" copytype="append">
         <Contents/>
       </DsCopyDataAction>
-      <DsCopyDataAction id="DsCopyDataAction02" targetview="View01" fromview="View00" copytype="replace" onerror="Common_onerror" onsuccess="Common_onsuccess" filter="Department=='B'">
+      <DsCopyDataAction id="DsCopyDataAction02" targetview="View01" fromview="View00" copytype="replace" onerror="Common_onerror" onsuccess="Common_onsuccess" filter="expr:Department==[View02:Department]">
         <Contents/>
       </DsCopyDataAction>
-      <DsCopyDataAction id="DsCopyDataAction03" targetview="View01" fromview="View00" copytype="append" onerror="Common_onerror" onsuccess="Common_onsuccess" filter="Department=='B'">
+      <DsCopyDataAction id="DsCopyDataAction03" targetview="View01" fromview="View00" copytype="append" onerror="Common_onerror" onsuccess="Common_onsuccess" filter="expr:Department==[View02:Department]">
         <Contents/>
       </DsCopyDataAction>
     </Objects>
@@ -520,6 +597,9 @@ this.Common_onerror = function(obj, e:nexacro.ActionErrorEventInfo)
 this.Common_onsuccess = function(obj, e:nexacro.ActionSuccessEventInfo)
 {
 	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : " + e.userdata);
-};]]></Script>
+};
+
+
+]]></Script>
   </Form>
 </FDL>

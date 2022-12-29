@@ -32,7 +32,7 @@ if (!nexacro.DsSetFirstCdAction)
 	{	
 		//If the canrun event return value is not false			
 		if(this.on_fire_canrun()!=false)			
-		{	
+		{
 			//Import the object set as TargetView			
 			var objView 		= this.getTargetView();
 			var objForm;
@@ -45,9 +45,11 @@ if (!nexacro.DsSetFirstCdAction)
 			var sFirstNameCol	= this.firstnamecol;
 			var nInitIndex		= this.initindex;
 			
-			var objComp;
 			var objDs;
-			var objComp = this.gfnGetTargetComp(sTarget);
+			var objComp = this._targetcomp;
+			
+			if (this.gfnIsNull(objComp))	objComp 	= this.gfnGetTargetComp(sTarget);
+			if (this.gfnIsNull(objComp))	objComp 	= this.gfnGetDataset(objView,sTarget);
 			
 			if (this.gfnIsNull(objComp))
 			{
@@ -71,7 +73,7 @@ if (!nexacro.DsSetFirstCdAction)
 	
 	nexacro.DsSetFirstCdAction.prototype._targetcomp = null;				// 객체
 	nexacro.DsSetFirstCdAction.prototype.set_targetcomp = function (v)				
-	{				
+	{
 		// TODO : enter your code here.
 		if (v instanceof nexacro.NormalDataset
 			|| v instanceof nexacro.Combo

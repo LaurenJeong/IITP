@@ -176,9 +176,11 @@ if (!nexacro.CommActionAsset)
 	 * Field의 value값 반환
 	 * @param {Object} oField - model Field 객체
 	 * @param {Object} oView - targetview가 아닌 경우 View 객체
+	 * @param {Boolean} bEval - eval을 실행한 결과값을 반환할지 여부
+	 * @param {Boolean} bQuote - 따옴표를 포함하여 반환할지 여부
 	 * @return Field의 value값 반환
 	 */
-	pAction.gfnGetFieldValue = function(oField, oView)
+	pAction.gfnGetFieldValue = function(oField, oView, bEval, bQuote)
 	{
 		var sReturnValue;
 		var sFieldValue;
@@ -204,9 +206,8 @@ if (!nexacro.CommActionAsset)
 				var sViewNm = oView ? oView.name : this.targetview;
 				
 				// expr Text 처리
-				sExprText = this.gfnGetExprText(sExprText,sViewNm);
+				sReturnValue = this.gfnGetExprText(sExprText, sViewNm, bEval, bQuote);
 				
-				sReturnValue = eval(sExprText);
 				break;
 			default:
 				sReturnValue = sFieldValue;
@@ -222,11 +223,14 @@ if (!nexacro.CommActionAsset)
 	 * @param {String} sViewNm - 디폴트값용 View ID
 	 * @return 예약어 단축어 처리된 Text값
 	 */
-	pAction.gfnGetExprText = function(sExprText, sViewNm)
+	pAction.gfnGetExprText = function(sExprText, sViewNm, bEval, bQuote)
 	{
-		if (this.gfnIsNull(sExprText))				return sExprText;
+		if (this.gfnIsNull(sExprText))			return sExprText;
+		if (this.gfnIsNull(bEval))				bEval = true;
+		if (this.gfnIsNull(bQuote))				bQuote = true;
 		
 		var sRetText = sExprText;
+		
 		
 		// 1) '['와 ']' 사이값 추출
 		// [field] 형식 : targetview의 viewdataset field컬럼값 반환 
@@ -242,6 +246,9 @@ if (!nexacro.CommActionAsset)
 		var sColumnId;
 		var sRow;
 		var sReText;
+		var sValue;
+		
+		var sForm = "this.parent";
 		
 		// 변환처리
 		while ((m = regEx.exec(sRetText)) !== null)
@@ -257,22 +264,22 @@ if (!nexacro.CommActionAsset)
 			
 			if (arrMatch.length == 1) {				// [field] 형식
 				sView			= sViewNm;
-				sViewDataset	= "this.parent." + sView + ".form.viewdataset";
+				sViewDataset	= sForm + "." + sView + ".form.viewdataset";
 				sRow			= sViewDataset + ".rowposition";
 				sColumnId		= arrMatch[0];
 			} else if (arrMatch.length == 2) {		// [view:field] 형식
 				sView			= arrMatch[0];
-				sViewDataset	= "this.parent." + sView + ".form.viewdataset";
+				sViewDataset	= sForm + "." + sView + ".form.viewdataset";
 				sRow			= sViewDataset + ".rowposition";
 				sColumnId		= arrMatch[1];
 			} else if (arrMatch.length == 3) {		// [view:datasetid:field] 형식
 				sView			= arrMatch[0];
-				sViewDataset	= "this.parent." + sView + ".form." + arrMatch[1];
+				sViewDataset	= sForm + "." + sView + ".form." + arrMatch[1];
 				sRow			= sViewDataset + ".rowposition";
 				sColumnId		= arrMatch[2];
 			} else if (arrMatch.length == 4) {		// [view:datasetid:row:field] 형식
 				sView			= arrMatch[0];
-				sViewDataset	= "this.parent." + sView + ".form." + arrMatch[1];
+				sViewDataset	= sForm + "." + sView + ".form." + arrMatch[1];
 				sRow			= arrMatch[2];
 				sColumnId		= arrMatch[3];
 			} else {
@@ -281,6 +288,16 @@ if (!nexacro.CommActionAsset)
 			
 			// 변환처리 : this.parent.[view].form.viewdataset.getColumn(this.parent.[view].form.viewdataset.rowposition,'[field]')
 			sReplace = sViewDataset + ".getColumn(" + sRow + ",'" + sColumnId + "')";
+			
+			// 데이터셋값 실행하여 값가져오기
+			if (!this.gfnIsNull(sReplace) && bEval) {
+				sReplace = eval(sReplace);
+			}
+			
+			// 따옴표를 붙일지 여부
+			if (bQuote) {
+				sReplace = nexacro.wrapQuote(sReplace);
+			}
 			
 			sRetText = sRetText.replace("[" + sMatch + "]",sReplace);
 		}

@@ -1,0 +1,561 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="action_dssetfirstcd" width="1080" height="1330" titletext="DsSetFirstCdAction" onload="form_onload">
+    <Layouts>
+      <Layout height="1330" width="1080">
+        <TextArea id="txaInfo" taborder="6" left="0" top="95" height="100" right="10" value="- Combo, Radio 컴포넌트의 첫번째 데이터를(전체, 선택 등...) 추가할때 사용하는 Action.&#10;- targetcomp에는 데이터를 추가할 Object를 설정하며, Dataset, Combo, Radio, Grid만 설정해야합니다.&#10;- targetcomp에 Grid를 설정한 경우 gridcell을 설정하여 데이터를 추가할 Cell을 지정합니다.&#10;- initindex는 데이터를 추가 후 기본 데이터를 설정할때 사용합니다.&#10;  ex) 조회조건에 전체 데이터를 추가 후 기본값으로 사용하고 싶을때 0입력합니다.&#10;&#10;" readonly="true"/>
+        <Static id="Static00_00_00" taborder="7" text="Action 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staSampleBg" taborder="8" left="0" top="Static00_00_00:0" height="440" right="10" cssclass="sta_cm_box02C"/>
+        <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="10" top="Static00_00_00:50" height="120" width="750">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staCompanyLabel" left="10" top="10" width="100" height="30" text="회사명" cssclass="sta_label_essential"/>
+              <Radio id="rdoCompany" left="115" top="10" width="515" height="30" direction="vertical" innerdataset="innerdatasetCompany" codecolumn="code" datacolumn="value"/>
+              <Static id="staDepartmentLabel" left="10" top="45" width="100" height="30" text="부서명" cssclass="sta_label_essential"/>
+              <Combo id="cmbDepartment" left="115" top="45" width="515" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value"/>
+              <Static id="staNameLabel" left="10" top="80" width="100" height="30" text="성명" cssclass="sta_label_essential"/>
+              <Edit id="edtName" left="115" top="80" width="515" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">01</Col>
+                  <Col id="value">TOBESOFT</Col>
+                </Row>
+                <Row>
+                  <Col id="code">02</Col>
+                  <Col id="value">A Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">03</Col>
+                  <Col id="value">B Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">04</Col>
+                  <Col id="value">C Company</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">A</Col>
+                  <Col id="value">경영본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">B</Col>
+                  <Col id="value">연구소</Col>
+                </Row>
+                <Row>
+                  <Col id="code">C</Col>
+                  <Col id="value">제조본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">D</Col>
+                  <Col id="value">영업본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">E</Col>
+                  <Col id="value">고객지원본부</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_rdoCompany" compid="rdoCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel003" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" comptype="radio" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="Department" description="" comptype="auto" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+              <Field id="Name" description="" comptype="auto" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staCompanyLabel" fields="Company"/>
+              <Component id="rdoCompany" fields="Company"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+              <Component id="staNameLabel" fields="Name"/>
+              <Component id="edtName" fields="Name"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="10" top="viewSearch:10" width="750" height="249">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_Company" col="0" row="0" text="회사명"/>
+                      <Cell id="cell_head_1_0_Department" col="1" row="0" text="부서명"/>
+                      <Cell id="cell_head_2_0_Name" col="2" row="0" text="성명"/>
+                      <Cell id="cell_head_3_0_Phone" col="3" row="0" text="전화번호"/>
+                      <Cell id="cell_head_4_0_Email" col="4" row="0" text="이메일주소"/>
+                      <Cell id="cell_head_5_0_Status" col="5" row="0" text="상태"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_Company" col="0" row="0" text="bind:Company" displaytype="combotext" edittype="combo" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_1_0_Department" col="1" row="0" text="bind:Department" displaytype="combotext" edittype="combo" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_2_0_Name" col="2" row="0" text="bind:Name" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_body_3_0_Phone" col="3" row="0" text="bind:Phone" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_body_4_0_Email" col="4" row="0" text="bind:Email" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_body_5_0_Status" col="5" row="0" text="bind:Status" displaytype="combotext" edittype="combo" combodataset="innerdatasetStatus" combocodecol="code" combodatacol="value"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+                <Column id="Status" type="STRING" size="80" description="상태"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">01</Col>
+                  <Col id="value">TOBESOFT</Col>
+                </Row>
+                <Row>
+                  <Col id="code">02</Col>
+                  <Col id="value">A Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">03</Col>
+                  <Col id="value">B Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">04</Col>
+                  <Col id="value">C Company</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">A</Col>
+                  <Col id="value">경영본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">B</Col>
+                  <Col id="value">연구소</Col>
+                </Row>
+                <Row>
+                  <Col id="code">C</Col>
+                  <Col id="value">제조본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">D</Col>
+                  <Col id="value">영업본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">E</Col>
+                  <Col id="value">고객지원본부</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetStatus">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">01</Col>
+                  <Col id="value">재직</Col>
+                </Row>
+                <Row>
+                  <Col id="code">02</Col>
+                  <Col id="value">휴직</Col>
+                </Row>
+                <Row>
+                  <Col id="code">09</Col>
+                  <Col id="value">퇴직</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel003" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Company" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Department" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Name" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Phone" description="" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Email" description="" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Status" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="Company,Department,Name,Phone,Email,Status"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <TextArea id="txtOutput" taborder="2" top="Static00_00_00:10" right="20" left="770" height="420"/>
+        <Div id="divTitle" taborder="3" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="4" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="5" text="첫행에 데이터를 추가하는 Action" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staActionProperty" taborder="9" text="Action Property" left="0" top="viewList:20" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionProperty" taborder="10" left="0" top="staActionProperty:0" height="323" right="10" binddataset="dsProperty" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="200"/>
+                <Column size="550"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staActionMethod" taborder="11" text="Action Method" left="0" top="grdActionProperty:20" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionMethod" taborder="12" left="0" top="staActionMethod:0" height="50" right="10" binddataset="dsMethod" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="250"/>
+                <Column size="250"/>
+                <Column size="400"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="함수명"/>
+                <Cell col="1" text="파라미터"/>
+                <Cell col="2" text="리턴값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:PARAM"/>
+                <Cell col="2" text="bind:RETURN"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staActionEvent" taborder="13" text="Action Event" left="0" top="grdActionMethod:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionEvent" taborder="14" left="0" top="staActionEvent:0" height="138" right="10" binddataset="dsEvent" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="200"/>
+                <Column size="150"/>
+                <Column size="550"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Event 명"/>
+                <Cell col="1" text="EventInfo"/>
+                <Cell col="2" text="EventInfo 상세"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID" suppress="1"/>
+                <Cell col="1" text="bind:TYPE" suppress="2"/>
+                <Cell col="2" text="bind:PROP"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnFirstCd" taborder="15" text="첫행데이터 추가" left="660" top="240" width="100" height="30"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsProperty">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">targetview</Col>
+            <Col id="TYPE">ViewObjList</Col>
+            <Col id="TYPE_VALUE"/>
+            <Col id="DESCPTION">데이터를 추가할 Object가 있는 View 오브젝트를 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">targetcomp</Col>
+            <Col id="TYPE">ViewChildObjList</Col>
+            <Col id="TYPE_VALUE"/>
+            <Col id="DESCPTION">데이터를 추가할 Object를 설정
+- Dataset을 설정하는 경우 해당 데이터셋에 첫행 데이터를 추가합니다.
+- Combo, Radio등 Innerdataset이 설정된 Object의 경우 Innerdataset에 첫행 데이터를 추가합니다.
+- Grid의 경우 gridcell속성에 설정된 cell의  Innerdataset에 첫행 데이터를 추가합니다.
+- 그 외 Object의 경우 onerrer 이벤트가 발생되며 동작되지 않습니다.</Col>
+          </Row>
+          <Row>
+            <Col id="ID">gridcell</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="TYPE_VALUE"/>
+            <Col id="DESCPTION">targetcomp가 Grid일때 Innerdataset이 설정된 cell을 입력</Col>
+          </Row>
+          <Row>
+            <Col id="ID">firstname</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">첫번째 Row에 추가할 name 값을 입력
+ex) 전체, 선택 등...</Col>
+            <Col id="TYPE_VALUE"/>
+          </Row>
+          <Row>
+            <Col id="ID">firstcode</Col>
+            <Col id="DESCPTION">첫번째 Row에 추가할 code 값을 입력</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="TYPE_VALUE"/>
+          </Row>
+          <Row>
+            <Col id="ID">firstcodecol</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="TYPE_VALUE"/>
+            <Col id="DESCPTION">첫번째 Row에 추가할 코드 컬럼ID를 입력
+(기본값: Combo의 경우 codecolumn값 사용. Dataset은 공통코드의 코드컬럼값 사용.)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">firstnamecol</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="TYPE_VALUE"/>
+            <Col id="DESCPTION">첫번째 Row에 추가할 데이터 컬럼ID를 입력.
+(기본값: Combo의 경우 datacolumn값 사용. Dataset은 공통코드의 코드명컬럼값 사용.)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">initindex</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="TYPE_VALUE"/>
+            <Col id="DESCPTION">첫번째 Row 추가 후 Object(Combo, Radio)의 index에 설정할 값을 입력.
+-1 입력시 동작되지 않습니다.</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsMethod">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="PARAM" type="STRING" size="256"/>
+          <Column id="RETURN" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">run</Col>
+            <Col id="DESCPTION">Action을 실행시키는 함수</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsEvent">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="PROP" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+          <Column id="LVL" type="INT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">canrun</Col>
+            <Col id="TYPE">ActionRunEventInfo</Col>
+            <Col id="DESCPTION">Action이 실행될 때 발생하는 이벤트.
+ - 이벤트에서 리턴값을 "true"로 반환하면 Action이 실행됩니다.
+ - 이벤트에서 리턴값을 "false"로 반환하면 Action이 실행되지 않습니다.
+ - 이벤트에서 리턴값을 생략하면 "true"로 적용됩니다.</Col>
+            <Col id="LVL">0</Col>
+          </Row>
+          <Row>
+            <Col id="ID">onsuccess</Col>
+            <Col id="TYPE">ActionSuccessEventInfo</Col>
+            <Col id="DESCPTION">Action이 성공할때 발생하는 이벤트</Col>
+            <Col id="LVL">0</Col>
+          </Row>
+          <Row>
+            <Col id="ID">onerror</Col>
+            <Col id="TYPE">ActionErrorEventInfo</Col>
+            <Col id="DESCPTION">Action이 실패할때 발생하는 이벤트</Col>
+            <Col id="LVL">0</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <DsSetFirstCdAction id="DsSetFirstCdAction00" targetview="viewSearch" gridcell="-1" initindex="0" targetcomp="rdoCompany" firstname="전체">
+        <Contents/>
+      </DsSetFirstCdAction>
+      <DsSetFirstCdAction id="DsSetFirstCdAction01" targetview="viewSearch" gridcell="-1" firstname="전체" initindex="0" targetcomp="cmbDepartment">
+        <Contents/>
+      </DsSetFirstCdAction>
+      <DsSetFirstCdAction id="DsSetFirstCdAction02" targetview="viewList" gridcell="0" firstname="선택" initindex="-1" targetcomp="grdList">
+        <Contents/>
+      </DsSetFirstCdAction>
+      <DsSetFirstCdAction id="DsSetFirstCdAction03" targetview="viewList" targetcomp="innerdatasetDepartment" gridcell="-1" firstname="선택" initindex="-1" firstcodecol="code" firstnamecol="value">
+        <Contents/>
+      </DsSetFirstCdAction>
+      <Dataset id="dsList">
+        <ColumnInfo>
+          <Column id="Company" type="STRING" size="80"/>
+          <Column id="Department" type="STRING" size="80"/>
+          <Column id="Name" type="STRING" size="80"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Company">01</Col>
+            <Col id="Department">A</Col>
+            <Col id="Name">홍길동</Col>
+          </Row>
+          <Row>
+            <Col id="Company">01</Col>
+            <Col id="Department">B</Col>
+            <Col id="Name">홍상직</Col>
+          </Row>
+          <Row>
+            <Col id="Company">01</Col>
+            <Col id="Department">B</Col>
+            <Col id="Name">홍인형</Col>
+          </Row>
+          <Row>
+            <Col id="Company">01</Col>
+            <Col id="Department">C</Col>
+            <Col id="Name">백운도사</Col>
+          </Row>
+          <Row>
+            <Col id="Company">02</Col>
+            <Col id="Department">D</Col>
+            <Col id="Name">마숙</Col>
+          </Row>
+          <Row>
+            <Col id="Company"/>
+            <Col id="Department"/>
+            <Col id="Name">차돌바위</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="viewList" fromview="test_action_setfirstcd" fromdataset="dsList" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="action_dssetfirstcd" triggerobj="btnFirstCd" targetaction="DsSetFirstCdAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="action_dssetfirstcd" triggerobj="btnFirstCd" targetaction="DsSetFirstCdAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="action_dssetfirstcd" triggerobj="btnFirstCd" targetaction="DsSetFirstCdAction02" condition=""/>
+      <TriggerItem id="item3" triggertype="Click" triggerview="action_dssetfirstcd" triggerobj="btnFirstCd" targetaction="DsSetFirstCdAction03" condition=""/>
+      <TriggerItem id="item4" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="DsCopyDataAction00" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdActionProperty);
+	this.fnSetGridHeight(this.grdActionMethod);
+	this.fnSetGridHeight(this.grdActionEvent);
+	this.resetScroll();
+};
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
+	
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
+};
+
+this.CommonTran_onerror = function(obj, e:nexacro.TranActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onerror : [" + e.errorcode + "] " + e.errormsg);
+};
+
+this.CommonTran_onsuccess = function(obj, e:nexacro.TranActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : [" + e.errorcode + "] " + e.errormsg);
+};]]></Script>
+  </Form>
+</FDL>

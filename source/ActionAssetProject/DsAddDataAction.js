@@ -175,18 +175,18 @@ if (!nexacro.DsAddDataAction)
 		if (!objDs)							return false;
 		if (nAddRow < 0)					return false;
 		
-		if (objDs.id != "viewdataset")
-		{
-			this.gfnLog("viewdataset만 설정 할 수 있습니다.","info");
-			return true;
-		}
-		
 		var oModelList = this.getContents("model");		// Action 내 model 정보 
 		
 		//this.gfnLog("model >>> ");
 		//this.gfnLog(oModelList);
 		
 		if (!oModelList)					return true;
+		
+		if (objDs.id != "viewdataset")
+		{
+			this.gfnLog("viewdataset만 설정 할 수 있습니다.","info");
+			return true;
+		}
 		
 		var sViewId;
 		var sModelId;

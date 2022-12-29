@@ -43,9 +43,9 @@ if (!nexacro.OpenBrowserAction)
 			}
 			
 			// expr 처리
-			var sExprText = this.gfnGetFieldValue(sUrl);
+			var sExprText = this.gfnGetFieldValue(sUrl,"",true,false);
 			
-			this.gfnLog(this.gfnCheckUrl(sExprText));
+			//this.gfnLog(this.gfnCheckUrl(sExprText));
 			
 			// url 형태를 체크
 			if (!this.gfnCheckUrl(sExprText))

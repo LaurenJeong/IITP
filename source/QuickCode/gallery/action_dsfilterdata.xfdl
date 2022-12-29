@@ -97,7 +97,7 @@
           </Formats>
         </Grid>
         <TextArea id="txtOutput" taborder="10" left="720" top="Static00_00_00:10" right="20" height="270"/>
-        <View id="View00" taborder="13" text="View00" viewdataset="viewdataset" left="10" top="staSampleBg:-279" width="611" height="269">
+        <View id="View00" taborder="13" text="View00" viewdataset="viewdataset" left="10" top="staSampleBg:-239" width="700" height="229">
           <Layouts>
             <Layout>
               <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="none">
@@ -283,8 +283,86 @@
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
-        <Button id="btnFilter" taborder="14" text="필터" left="626" top="staSampleBg:-280" width="87" height="30"/>
-        <Button id="btnFilterCancel" taborder="15" text="필터 초기화" left="626" top="btnFilter:10" width="87" height="30"/>
+        <Button id="btnFilter" taborder="14" text="필터(Model Argument)" left="258" top="staSampleBg:-278" width="147" height="30" onclick="btnFilter_onclick"/>
+        <Button id="btnFilterCancel" taborder="15" text="필터 초기화" left="512" top="staSampleBg:-278" width="87" height="30"/>
+        <View id="View01" taborder="16" text="View01" viewdataset="viewdataset" left="10" top="237" width="237" height="43">
+          <Layouts>
+            <Layout>
+              <Static id="staDepartmentBg" left="0" top="0" width="237" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staDepartmentLabel" left="0" top="0" width="80" height="40" text="부서명" cssclass="sta_labelbox_essential"/>
+              <Combo id="cmbDepartment" left="85" top="5" width="147" height="30" innerdataset="innerdatasetDepartment" codecolumn="code" datacolumn="value" index="0" text="경영본부" value="A"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+                <Column id="Status" type="STRING" size="80" description="상태"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">A</Col>
+                  <Col id="value">경영본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">B</Col>
+                  <Col id="value">연구소</Col>
+                </Row>
+                <Row>
+                  <Col id="code">C</Col>
+                  <Col id="value">제조본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">D</Col>
+                  <Col id="value">영업본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">E</Col>
+                  <Col id="value">고객지원본부</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel003" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Status" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="Email" description="" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="Phone" description="" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="Name" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="Company" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="false"/>
+              <Field id="Department" description="" comptype="auto" compwidth="100%" compheight="40px" labelsize="80" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staDepartmentBg" fields="Department"/>
+              <Component id="staDepartmentLabel" fields="Department"/>
+              <Component id="cmbDepartment" fields="Department"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <Button id="btnFilter2" taborder="17" text="필터(filter속성)" left="410" top="staSampleBg:-278" width="97" height="30" onclick="Button00_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -371,7 +449,7 @@
           </Row>
         </Rows>
       </Dataset>
-      <DsFilterDataAction id="DsFilterDataAction00" targetview="View00">
+      <DsFilterDataAction id="DsFilterDataAction00" targetview="View00" onerror="Common_onerror" onsuccess="Common_onsuccess">
         <Contents><![CDATA[{
     "model":[
         {
@@ -382,20 +460,24 @@
                 {
                     "name":"View00:Department",
                     "fieldid":"Department",
-                    "value":"B"
+                    "value":"expr:[View01:Department]"
                 }
             ]
         }
     ]
 }]]></Contents>
       </DsFilterDataAction>
-      <DsFilterDataAction id="DsFilterDataAction01" targetview="View00">
+      <DsFilterDataAction id="DsFilterDataAction01" targetview="View00" onerror="Common_onerror" onsuccess="Common_onsuccess">
+        <Contents/>
+      </DsFilterDataAction>
+      <DsFilterDataAction id="DsFilterDataAction02" targetview="View00" filter="expr:Department==[View01:Department]" onerror="Common_onerror" onsuccess="Common_onsuccess">
         <Contents/>
       </DsFilterDataAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="action_dsfilterdata" triggerobj="btnFilter" targetaction="DsFilterDataAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Click" triggerview="action_dsfilterdata" triggerobj="btnFilterCancel" targetaction="DsFilterDataAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="action_dsfilterdata" triggerobj="btnFilter2" targetaction="DsFilterDataAction02" condition=""/>
     </Trigger>
     <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {

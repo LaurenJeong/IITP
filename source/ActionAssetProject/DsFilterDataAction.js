@@ -243,7 +243,7 @@ if (!nexacro.DsFilterDataAction)
 					sFieldValue = this.gfnGetFieldValue(oField, oParent);
 					
 					// Filter 값 셋팅
-					arrFilter.push(oField["fieldid"] + "=='" + sFieldValue + "'");
+					arrFilter.push(oField["fieldid"] + "==" + sFieldValue);
 				}
 				
 				sFilterModel = arrFilter.join(" && ")

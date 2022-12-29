@@ -325,7 +325,7 @@ if (!nexacro.PopupAction)
 			var newChild = new nexacro.ChildFrame;		
 			newChild.init(sPopupId, nLeft, nTop, nWidth, nHeight, null, null, sFormUrl);
 			
-			newChild.set_dragmovetype("none");
+			//newChild.set_dragmovetype("none");
 			newChild.set_showtitlebar(bTitle);
 			newChild.set_autosize(bAutoSize);	
 			newChild.set_resizable(false);			//resizable 안됨
