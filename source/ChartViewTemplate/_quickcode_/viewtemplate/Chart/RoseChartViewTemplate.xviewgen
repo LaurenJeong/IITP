@@ -174,19 +174,19 @@ fn_GetViewAttributeList = function() {
     var sViewAttr = "";
     var oViewAttr = {
                         "attributes": [
-							{
-                                "id": "axismin",			// [RoseChart]
-                                "edittype": "Number",
-                                "defaultvalue": "0",
-                                "description": "축 최소값"
-                            }
-							, {
-                                "id": "axismax",			// [RoseChart]
-                                "edittype": "Number",
-                                "defaultvalue": "100",
-                                "description": "축 최대값"
-                            }
-							, {									
+// 							{
+//                                 "id": "axismin",			// [RoseChart]
+//                                 "edittype": "Number",
+//                                 "defaultvalue": "0",
+//                                 "description": "축 최소값"
+//                             },
+// 							{
+//                                 "id": "axismax",			// [RoseChart]
+//                                 "edittype": "Number",
+//                                 "defaultvalue": "100",
+//                                 "description": "축 최대값"
+//                             },
+							{									
                                 "id": "enableanimation",									
                                 "edittype": "Boolean",							
                                 "defaultvalue": "true",									
@@ -460,9 +460,9 @@ fn_GetValueAxes = function(arrAxisYField)
 	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
 	oValueAxes["id"] = "valueaxis" + "y";
 	
-	// [RoseChart] 축 최대, 최소값 설정(현재 차트 버그로 최대, 최소값 입력시에만 정상적으로 출력됨)
- 	oValueAxes["tickmin"] = this.oGenerationAttr.attributes.axismin;
- 	oValueAxes["tickmax"] = this.oGenerationAttr.attributes.axismax;
+// 	// [RoseChart] 축 최대, 최소값 설정(현재 차트 버그로 최대, 최소값 입력시에만 정상적으로 출력됨)
+//  	oValueAxes["tickmin"] = this.oGenerationAttr.attributes.axismin;
+//  	oValueAxes["tickmax"] = this.oGenerationAttr.attributes.axismax;
 	
 	if (arrAxisYField.length == 0) {
 		this.lfn_Log("series가 설정되지 않았습니다.","warn");

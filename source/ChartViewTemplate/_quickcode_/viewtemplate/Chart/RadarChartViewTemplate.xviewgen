@@ -196,18 +196,18 @@ fn_GetViewAttributeList = function() {
 												+ "\n" + " - polygon : 다각형 모양"
 												+ "\n" + " - circle : 원형 모양"
                             }
-							, {
-                                "id": "axismin",				// [RadarChart]
-                                "edittype": "Number",
-                                "defaultvalue": "0",
-                                "description": "축 최소값"
-                            }
-							, {
-                                "id": "axismax",				// [RadarChart]
-                                "edittype": "Number",
-                                "defaultvalue": "100",
-                                "description": "축 최대값"
-                            }
+// 							, {
+//                                 "id": "axismin",				// [RadarChart]
+//                                 "edittype": "Number",
+//                                 "defaultvalue": "0",
+//                                 "description": "축 최소값"
+//                             }
+// 							, {
+//                                 "id": "axismax",				// [RadarChart]
+//                                 "edittype": "Number",
+//                                 "defaultvalue": "100",
+//                                 "description": "축 최대값"
+//                             }
 							, {									
                                 "id": "enableanimation",									
                                 "edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList									
@@ -487,9 +487,9 @@ fn_GetValueAxes = function(arrAxisYField)
 	oValueAxes = this.lfn_CloneObject(this.oBaseValueaxis);
 	oValueAxes["id"] = "valueaxis" + "y";
 	
-	// [RadarChart] 축 최대, 최소값 설정(현재 차트 버그로 최대, 최소값 입력시에만 정상적으로 출력됨)
- 	oValueAxes["tickmin"] = this.oGenerationAttr.attributes.axismin;
- 	oValueAxes["tickmax"] = this.oGenerationAttr.attributes.axismax;
+// 	// [RadarChart] 축 최대, 최소값 설정(현재 차트 버그로 최대, 최소값 입력시에만 정상적으로 출력됨)
+//  	oValueAxes["tickmin"] = this.oGenerationAttr.attributes.axismin;
+//  	oValueAxes["tickmax"] = this.oGenerationAttr.attributes.axismax;
 	
 	if (arrAxisYField.length == 0) {
 		this.lfn_Log("series가 설정되지 않았습니다.","warn");
