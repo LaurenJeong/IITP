@@ -142,7 +142,7 @@
           </Formats>
         </Grid>
         <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="249" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="286" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -278,6 +278,12 @@
             <Col id="TYPE">Enum</Col>
             <Col id="DESCPTION">Summ Band Cell에 필드 표현 시 사용할 집계 함수를 설정하는 속성</Col>
             <Col id="TYPE_VALUE">none | avg | count | max | min | sum</Col>
+          </Row>
+          <Row>
+            <Col id="ID">suppress</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">값이 동일한 셀을 하나의 셀로 표시
+(1이상 입력해야 동작하며, 숫자값이 클수록 우선순위가 낮아집니다.)</Col>
           </Row>
           <Row>
             <Col id="ID">usecomp</Col>

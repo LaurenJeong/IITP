@@ -51,7 +51,7 @@ this.CELL_CSSCLASS			= "";
 this.USE_COMP				= "true";
 
 // Grid autofittype 속성 기본값
-this.AUTOFIT_TYPE			= "col";
+this.AUTOFIT_TYPE			= "none";
 //--------------------------------------------------------------------------------------------------------
 /*============================================================================================*
 * Parameter Structure Example
@@ -555,6 +555,13 @@ fn_GetFieldUserAttributeList = function ()
 								"enumlist": ["none", "avg", "count", "max", "min", "sum", "rowcount"],
 								"defaultvalue": "none",
                                 "description": "Types of Values when expressing Summaries"
+                            },
+							{
+                                "id": "suppress",
+                                "edittype": "Number",
+								"defaultvalue": "0",
+                                "description": "값이 동일한 셀을 하나의 셀로 표시"
+												+ "\n" + "(1이상 입력해야 동작하며, 숫자값이 클수록 우선순위가 낮아집니다.)"
                             },
 							{
                                 "id": "usecomp",
@@ -1064,6 +1071,7 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 	var sCssClass = "";
 	var sCellCssClass = "";
 	var sCellId = "";
+	var sSuppress = "";
 	var oCell;
 	var oCellProp;
 	
@@ -1096,6 +1104,7 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 				sCellText = oCell.text;
 
 				sLabel = "";
+				sSuppress = 0;
 
 				//If there is Field information included in Cell
 				if(oCell.fieldlist)
@@ -1111,6 +1120,7 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 						sDisplayType = this.lfn_GetAutoCompType(oField,"displaytype");
 						sEditType = this.lfn_GetAutoCompType(oField,"edittype");
 						sCssClass = oField.cssclass;
+						sSuppress = nexacro.toNumber(oField.suppress,0);
 						sLabel = "bind:"+sFieldId;
 					}
 					//If there are more than 1 Fields
@@ -1167,6 +1177,11 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 					}
 				};
 				
+				// Suppress 설정
+				if (sSuppress > 0) {
+					oCell.attribute["suppress"] = sSuppress;
+				}
+				
 				// Cell 기본 속성 설정
 				if (!this.lfn_IsNull(oCellProp))		Object.assign(oCell.attribute, oCellProp);
 				
@@ -1201,6 +1216,7 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 				sDisplayType = this.lfn_GetAutoCompType(oField,"displaytype");
 				sEditType = this.lfn_GetAutoCompType(oField,"edittype");
 				sCssClass = oField.cssclass;
+				sSuppress = nexacro.toNumber(oField.suppress,0);
 				nCol = oBodys.length;
 				nRow = 0;
 				
@@ -1216,6 +1232,11 @@ fn_GetBodys = function(oBaseLayout, oBodyLayout)
 						"id": sCellId, "col": nCol, "row": nRow, "text": sLabel, "displaytype" : sDisplayType, "edittype" : sEditType, "cssclass":sCssClass
 					}
 				};
+				
+				// Suppress 설정
+				if (sSuppress > 0) {
+					oCell.attribute["suppress"] = sSuppress;
+				}
 				
 				// Cell 기본 속성 설정
 				if (!this.lfn_IsNull(oCellProp))		Object.assign(oCell.attribute, oCellProp);
