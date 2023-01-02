@@ -52,10 +52,13 @@ this.USE_EXPAND_BUTTON		= "none";
 this.LISTVIEW_ID			= "livList";
 
 //Label과 Comp영역 배치방식("horizontal", "vertical")
-this.FIELD_POSITION				= "horizontal";
+this.FIELD_POSITION			= "horizontal";
 
-//Band Default Width
-this.BAND_WIDTH				= "100%";
+//Body Band Default Width
+this.BODY_BAND_WIDTH		= "100%";
+
+//Detail Band Default Width
+this.DETAIL_BAND_WIDTH		= "100%";
 
 //Cell Default Width
 this.CELL_WIDTH				= "150px";
@@ -321,7 +324,19 @@ fn_GetViewAttributeList = function()
 //                                 "defaultvalue": this.EXPAND_BAR_TYPE,
 //                                 "description": "Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부"
 //                             },
-							{
+							, {
+                                "id": "bodybandwidth",
+                                "edittype": "String",
+								"defaultvalue": this.BODY_BAND_WIDTH,
+                                "description": "Body Band Width(px or %)"
+                            }
+							, {
+                                "id": "detailbandwidth",
+                                "edittype": "String",
+								"defaultvalue": this.DETAIL_BAND_WIDTH,
+                                "description": "Detail Band Width(px or %)"
+                            }
+							, {
                                 "id": "bodyformat",
                                 "edittype": "layout",
 								"defaultvalue": "",
@@ -346,8 +361,8 @@ fn_GetViewAttributeList = function()
 								},
 								"description": "Body Band Layout을 설정"
 												+ "\n" + "(Layout을 설정할 경우 band, direction 속성은 무시됩니다.)"
-                            },
-							{
+                            }
+							, {
                                 "id": "detailformat",
                                 "edittype": "layout",
 								"defaultvalue": "",
@@ -517,16 +532,23 @@ fn_GetModel = function()
 	var sExpandBarType	= this.oGenerationAttr.attributes.expandbartype;
 	var bExpandBar		= false;
 	
+	// Format 값
 	var sBodyFormat = this.oGenerationAttr.attributes.bodyformat;
 	var sDetailFormat = this.oGenerationAttr.attributes.detailformat;
 	
 	// ListView 위치
-	var nTop = this.VIEW_PADDING_TOP;
+	var nTop	= this.VIEW_PADDING_TOP;
 	var nBottom	= this.VIEW_PADDING_BOTTOM;
 	var nLeft	= this.VIEW_PADDING_LEFT;
 	var nRight	= this.VIEW_PADDING_RIGHT;
 	var nHeight	= nViewCompHeight - nTop;
 	var nWidth	= nViewCompWidth;
+	
+	// Bnad 사이즈
+	var sBodyBandWidth = this.lfn_GetSize(this.oGenerationAttr.attributes.bodybandwidth,this.BODY_BAND_WIDTH);
+	var sBodyBandHeight = nHeight;
+	var sDetailBandWidth = this.lfn_GetSize(this.oGenerationAttr.attributes.detailbandwidth,this.DETAIL_BAND_WIDTH);
+	var sDetailBandHeight = nHeight;
 	
 	// Field Array
 	var arrField = new Array();
@@ -567,11 +589,11 @@ fn_GetModel = function()
 	}
 	
 	// Body Band
-	oBandBody = fn_GetBands("body", arrFieldUse, arrFieldBody, sBodyFormat, nWidth, nHeight, bExpandBar);
+	oBandBody = fn_GetBands("body", arrFieldUse, arrFieldBody, sBodyFormat, sBodyBandWidth, sBodyBandHeight, bExpandBar);
 	if (this.lfn_IsNotNull(oBandBody))		arrFormat.push(oBandBody);
 	
 	// Detail Band
-	oBandDetail = fn_GetBands("detail", arrFieldUse, arrFieldDetail, sDetailFormat, nWidth, nHeight, false);
+	oBandDetail = fn_GetBands("detail", arrFieldUse, arrFieldDetail, sDetailFormat, sDetailBandWidth, sDetailBandHeight, false);
 	if (this.lfn_IsNotNull(oBandDetail))	arrFormat.push(oBandDetail);
 	
 	//Add Grip Component
@@ -616,25 +638,34 @@ fn_GetModel = function()
 				- sBand : Band Type(body, detail)
 				- arrFieldList : Field List added on the Cell
 				- oLayout : Layout Setting Information
-				- nViewCompWidth : View Component Real Width
-				- nViewCompHeight : View Component Real Height
+				- sBandWidth : Band Width
+				- sBandHeight : Band Height
 				- bExpandBar : ExpandBar 표시여부
 				- 
  * Return       : Band Info Object
  * Description  : Band Information Production Function
  *---------------------------------------------------------------------------------------------*/
-fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth, nViewCompHeight, bExpandBar)
+fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, sBandWidth, sBandHeight, bExpandBar)
 {
+	// ("body", arrFieldUse, arrFieldBody, sBodyFormat, sBandWidth, sBandHeight, bExpandBar);
 	var arrBandCells = new Array();
 	var oBand = {};
 	
 	var nBandHeight = 0;
+	var nBandWidth = 0;
 	var nCellBottom = 0;
 	var oCell;
 	
+	var nViewCompWidth = this.oContents.View.referenceinfo.realwidth;
+	var nViewCompHeight = this.oContents.View.referenceinfo.realgheight;
+	var sDefWidth = (sBand == "detail" ? this.DETAIL_BAND_WIDTH : this.BODY_BAND_WIDTH);
+	
+	var nBandWidthPx = this.lfn_GetRealSize(sBandWidth, 0, nViewCompWidth, sDefWidth, 0, 0);
+	var nBandHeightPx = sBandHeight;
+	
 	if (bExpandBar)
 	{
-		nViewCompWidth = nViewCompWidth - this.EXPAND_BAR_WIDTH - this.COMP_SPACE;
+		nBandWidthPx = nBandWidthPx - this.EXPAND_BAR_WIDTH - this.COMP_SPACE;
 	}
 	
 	//If format properties are set up, create components based on layout rules
@@ -642,7 +673,7 @@ fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth
 	{
 		// TODO : layout!!!!
 		//Load Layout Calculation Function
-		fn_CalcLayout(arrFieldUse, oLayout, nViewCompWidth, nViewCompHeight);
+		fn_CalcLayout(arrFieldUse, oLayout, nBandWidthPx, nBandHeightPx);
 
 		//Load Layout-based Component Production Function
 		arrBandCells = fn_GetBandCellByLayout(sBand, arrFieldUse, oLayout);
@@ -660,10 +691,10 @@ fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth
 		var sVAlign = this.VALIGN;
 
 		//Load Component Location Calculation Information
-		var arrFieldPosition = fn_CalcField(arrFieldBand, sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
+		var arrFieldPosition = fn_CalcField(arrFieldBand, sDirection, sVAlign, sHAlign, nBandWidthPx, nBandHeightPx);
 		
 		//Load Component Production Function
-		arrBandCells = fn_GetBandCell(sBand, 0, 0, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, "false");
+		arrBandCells = fn_GetBandCell(sBand, 0, 0, nBandWidthPx, nBandHeightPx, sDirection, arrFieldPosition, "false");
 	}
 	
 	// Band 객체값 셋팅
@@ -673,7 +704,7 @@ fn_GetBands = function(sBand, arrFieldUse, arrFieldBand, oLayout, nViewCompWidth
 			"tag" : "Band",
 			"attribute" : {
 				"id"		: sBand,
-				"width"		: "100%",
+				"width"		: sBandWidth,
 				"height"	: nBandHeight
 			},
 			"Band" : arrBandCells
