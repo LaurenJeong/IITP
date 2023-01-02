@@ -99,7 +99,7 @@
           </ViewTemplateInfo>
         </View>
         <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="485" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="550" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -352,6 +352,15 @@
  - accordion : Detail 밴드를 표시/숨김(현재 아이템 이외에 다른 아이템에 표시된 Detail 밴드를 자동으로 숨김)"
  - popup : Detail 밴드를 팝업으로 표시</Col>
             <Col id="TYPE_VALUE">none | expand | accordion | popup</Col>
+          </Row>
+          <Row>
+            <Col id="ID">expandbartype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">auto | autoclick | click</Col>
+            <Col id="DESCPTION">Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시종류
+- auto : 확장바 자동생성
+- autoclick : 확장바 자동생성 및 Body Band Click 시 Detail Band 표시/숨김
+- click : 확장자 표시안함. Body Band Click 시 Detail Band 표시/숨김</Col>
           </Row>
           <Row>
             <Col id="ID">bodybandwidth</Col>

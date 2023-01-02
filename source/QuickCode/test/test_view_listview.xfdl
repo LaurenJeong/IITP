@@ -10,18 +10,18 @@
         <View id="View00_00" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="40" width="590" height="210" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <ListView id="livList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="none">
+              <ListView id="livList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="none" onlbuttonup="View00_00.form.lfn_ListView_onlbuttonup">
                 <Formats>
                   <Format id="default">
                     <Band id="body" width="100%" height="118">
                       <Cell id="cellBgCompany" left="0" top="0" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelCompany" left="0" top="0" width="100" height="40" text="회사명" cssclass=""/>
+                      <Cell id="cellLabelCompany" left="0" top="0" width="100" height="40" text="회사명"/>
                       <Cell id="cellCompany" left="105" top="5" width="140" height="30" text="bind:Company" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgDepartment" left="249" top="0" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelDepartment" left="249" top="0" width="100" height="40" text="부서명" cssclass=""/>
+                      <Cell id="cellLabelDepartment" left="249" top="0" width="100" height="40" text="부서명"/>
                       <Cell id="cellDepartment" left="354" top="5" width="140" height="30" text="bind:Department" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgName" left="0" top="39" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelName" left="0" top="39" width="100" height="40" text="성명" cssclass=""/>
+                      <Cell id="cellLabelName" left="0" top="39" width="100" height="40" text="성명"/>
                       <Cell id="cellName" left="105" top="44" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgPhone" left="249" top="39" width="250" height="40" cssclass=""/>
                       <Cell id="cellLabelPhone" left="249" top="39" width="100" height="40" text="전화번호"/>
@@ -54,6 +54,7 @@
             </Dataset>
           </Objects>
           <Bind/>
+          <Script><![CDATA[this.lfn_ListView_onlbuttonup = function(obj,e){if (e.fromreferenceobject.id != 'expandbar') {if (obj.getBandExpandStatus(e.row)) {obj.hideDetailBand(e.row);} else {obj.showDetailBand(e.row);}}};]]></Script>
           <ModelInfo modelserviceid="model" serviceid="" modelid="ListViewModel001" filepath="sample\ListView.xmodel">
             <Fields>
               <Field id="Company" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
@@ -72,25 +73,30 @@
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="usefieldbox" value="true"/>
             <Attribute id="bandexpandtype" value="none"/>
+            <Attribute id="expandbartype" value="autoclick"/>
+            <Attribute id="bodybandwidth" value="100%"/>
+            <Attribute id="detailbandwidth" value="100%"/>
           </ViewTemplateInfo>
         </View>
         <View id="View00" taborder="3" text="View00" viewdataset="viewdataset" left="652" top="40" width="590" height="210" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <ListView id="livList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="none">
+              <ListView id="livList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="none" onlbuttonup="View00.form.lfn_ListView_onlbuttonup">
                 <Formats>
                   <Format id="default">
                     <Band id="body" width="100%" height="196">
-                      <Cell id="cellLabelCompany" left="0" top="0" width="100" height="40" text="회사명" cssclass=""/>
-                      <Cell id="cellCompany" left="105" top="5" width="140" height="30" text="bind:Company" displaytype="combotext" edittype="none" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
-                      <Cell id="cellLabelDepartment" left="0" top="39" width="100" height="40" text="부서명" cssclass=""/>
-                      <Cell id="cellDepartment" left="105" top="44" width="140" height="30" text="bind:Department" displaytype="combotext" edittype="none" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
-                      <Cell id="cellLabelName" left="0" top="78" width="100" height="40" text="성명" cssclass=""/>
+                      <Cell id="cellLabelCompany" left="0" top="0" width="100" height="40" text="회사명"/>
+                      <Cell id="cellCompany" left="105" top="5" width="140" height="30" text="bind:Company" displaytype="normal" edittype="none"/>
+                      <Cell id="cellLabelDepartment" left="0" top="39" width="100" height="40" text="부서명"/>
+                      <Cell id="cellDepartment" left="105" top="44" width="140" height="30" text="bind:Department" displaytype="normal" edittype="none"/>
+                      <Cell id="cellLabelName" left="0" top="78" width="100" height="40" text="성명"/>
                       <Cell id="cellName" left="105" top="83" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
                       <Cell id="cellLabelPhone" left="0" top="117" width="100" height="40" text="전화번호"/>
                       <Cell id="cellPhone" left="105" top="122" width="140" height="30" text="bind:Phone" displaytype="normal" edittype="none"/>
                       <Cell id="cellLabelEmail" left="0" top="156" width="100" height="40" text="이메일주소"/>
                       <Cell id="cellEmail" left="105" top="161" width="140" height="30" text="bind:Email" displaytype="normal" edittype="none"/>
+                      <Cell id="cellLabelPhoto" left="249" top="0" width="100" height="40" text="사진"/>
+                      <Cell id="cellPhoto" left="354" top="5" width="140" height="30" text="bind:Photo" displaytype="imagecontrol" edittype="none"/>
                     </Band>
                   </Format>
                 </Formats>
@@ -105,37 +111,26 @@
                 <Column id="Name" type="STRING" size="80" description="성명"/>
                 <Column id="Phone" type="STRING" size="80" description="전화번호"/>
                 <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+                <Column id="Photo" type="STRING" size="80" description="사진"/>
               </ColumnInfo>
               <Rows>
                 <Row/>
               </Rows>
             </Dataset>
-            <Dataset id="innerdatasetCompany">
-              <ColumnInfo>
-                <Column id="code" type="STRING" size="256"/>
-                <Column id="value" type="STRING" size="256"/>
-              </ColumnInfo>
-              <Rows/>
-            </Dataset>
-            <Dataset id="innerdatasetDepartment">
-              <ColumnInfo>
-                <Column id="code" type="STRING" size="256"/>
-                <Column id="value" type="STRING" size="256"/>
-              </ColumnInfo>
-              <Rows/>
-            </Dataset>
           </Objects>
           <Bind/>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+          <Script><![CDATA[this.lfn_ListView_onlbuttonup = function(obj,e){if (e.fromreferenceobject.id != 'expandbar') {if (obj.getBandExpandStatus(e.row)) {obj.hideDetailBand(e.row);} else {obj.showDetailBand(e.row);}}};]]></Script>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="ListViewModel001" filepath="sample\ListView.xmodel">
             <Fields>
               <Field id="Company" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Department" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Name" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Phone" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Email" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Name" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Phone" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Email" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Photo" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="livList" fields="Company,Department,Name,Phone,Email"/>
+              <Component id="livList" fields="Company,Department,Name,Phone,Email,Photo"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="Asset\ListViewViewTemplate.xviewgen">
@@ -143,24 +138,27 @@
             <Attribute id="direction" value="vertical"/>
             <Attribute id="usefieldbox" value="false"/>
             <Attribute id="bandexpandtype" value="none"/>
+            <Attribute id="expandbartype" value="autoclick"/>
+            <Attribute id="bodybandwidth" value="100%"/>
+            <Attribute id="detailbandwidth" value="100%"/>
           </ViewTemplateInfo>
         </View>
         <View id="View00_00_00" taborder="5" text="View00" viewdataset="viewdataset" left="10" top="300" width="590" height="210" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <ListView id="livList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="accordion">
+              <ListView id="livList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="accordion" onlbuttonup="View00_00_00.form.lfn_ListView_onlbuttonup">
                 <Formats>
                   <Format id="default">
                     <Band id="body" width="100%" height="30" expandbartype="true" expandbarsize="30 30"/>
                     <Band id="detail" width="100%" height="118">
                       <Cell id="cellBgCompany" left="0" top="0" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelCompany" left="0" top="0" width="100" height="40" text="회사명" cssclass=""/>
-                      <Cell id="cellCompany" left="105" top="5" width="140" height="30" text="bind:Company" displaytype="combotext" edittype="none" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cellLabelCompany" left="0" top="0" width="100" height="40" text="회사명"/>
+                      <Cell id="cellCompany" left="105" top="5" width="140" height="30" text="bind:Company" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgDepartment" left="249" top="0" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelDepartment" left="249" top="0" width="100" height="40" text="부서명" cssclass=""/>
-                      <Cell id="cellDepartment" left="354" top="5" width="140" height="30" text="bind:Department" displaytype="combotext" edittype="none" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cellLabelDepartment" left="249" top="0" width="100" height="40" text="부서명"/>
+                      <Cell id="cellDepartment" left="354" top="5" width="140" height="30" text="bind:Department" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgName" left="0" top="39" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelName" left="0" top="39" width="100" height="40" text="성명" cssclass=""/>
+                      <Cell id="cellLabelName" left="0" top="39" width="100" height="40" text="성명"/>
                       <Cell id="cellName" left="105" top="44" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgPhone" left="249" top="39" width="250" height="40" cssclass=""/>
                       <Cell id="cellLabelPhone" left="249" top="39" width="100" height="40" text="전화번호"/>
@@ -168,6 +166,9 @@
                       <Cell id="cellBgEmail" left="0" top="78" width="250" height="40" cssclass=""/>
                       <Cell id="cellLabelEmail" left="0" top="78" width="100" height="40" text="이메일주소"/>
                       <Cell id="cellEmail" left="105" top="83" width="140" height="30" text="bind:Email" displaytype="normal" edittype="none"/>
+                      <Cell id="cellBgPhoto" left="249" top="78" width="250" height="40" cssclass=""/>
+                      <Cell id="cellLabelPhoto" left="249" top="78" width="100" height="40" text="사진"/>
+                      <Cell id="cellPhoto" left="354" top="83" width="140" height="30" text="bind:Photo" displaytype="imagecontrol" edittype="none"/>
                     </Band>
                   </Format>
                 </Formats>
@@ -182,37 +183,26 @@
                 <Column id="Name" type="STRING" size="80" description="성명"/>
                 <Column id="Phone" type="STRING" size="80" description="전화번호"/>
                 <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+                <Column id="Photo" type="STRING" size="80" description="사진"/>
               </ColumnInfo>
               <Rows>
                 <Row/>
               </Rows>
             </Dataset>
-            <Dataset id="innerdatasetCompany">
-              <ColumnInfo>
-                <Column id="code" type="STRING" size="256"/>
-                <Column id="value" type="STRING" size="256"/>
-              </ColumnInfo>
-              <Rows/>
-            </Dataset>
-            <Dataset id="innerdatasetDepartment">
-              <ColumnInfo>
-                <Column id="code" type="STRING" size="256"/>
-                <Column id="value" type="STRING" size="256"/>
-              </ColumnInfo>
-              <Rows/>
-            </Dataset>
           </Objects>
           <Bind/>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+          <Script><![CDATA[this.lfn_ListView_onlbuttonup = function(obj,e){if (e.fromreferenceobject.id != 'expandbar') {if (obj.getBandExpandStatus(e.row)) {obj.hideDetailBand(e.row);} else {obj.showDetailBand(e.row);}}};]]></Script>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="ListViewModel001" filepath="sample\ListView.xmodel">
             <Fields>
               <Field id="Company" description="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Department" description="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Name" description="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Phone" description="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Email" description="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Name" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Phone" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Email" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Photo" description="" innerdatasetinfo="" band="detail" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="livList" fields="Company,Department,Name,Phone,Email"/>
+              <Component id="livList" fields="Company,Department,Name,Phone,Email,Photo"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="Asset\ListViewViewTemplate.xviewgen">
@@ -220,35 +210,38 @@
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="usefieldbox" value="true"/>
             <Attribute id="bandexpandtype" value="accordion"/>
+            <Attribute id="expandbartype" value="autoclick"/>
+            <Attribute id="bodybandwidth" value="100%"/>
+            <Attribute id="detailbandwidth" value="100%"/>
           </ViewTemplateInfo>
         </View>
         <View id="View00_00_00_00" taborder="7" viewdataset="viewdataset" left="652" top="300" width="590" height="210" cssclass="viw_bg">
           <Layouts>
             <Layout>
-              <ListView id="livList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="expand">
+              <ListView id="livList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="expand" onlbuttonup="View00_00_00_00.form.lfn_ListView_onlbuttonup">
                 <Formats>
                   <Format id="default">
                     <Band id="body" width="100%" height="118" expandbartype="true" expandbarsize="30 30">
                       <Cell id="cellViewcomp" left="0" top="0" width="50" height="60" text="라벨" displaytype="normal"/>
                       <Cell id="cellBgCompany" left="49" top="0" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelCompany" left="49" top="0" width="100" height="40" text="회사명" cssclass=""/>
-                      <Cell id="cellCompany" left="154" top="5" width="140" height="30" text="bind:Company" displaytype="combotext" edittype="none" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cellLabelCompany" left="49" top="0" width="100" height="40" text="회사명"/>
+                      <Cell id="cellCompany" left="154" top="5" width="140" height="30" text="bind:Company" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgDepartment" left="49" top="39" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelDepartment" left="49" top="39" width="100" height="40" text="부서명" cssclass=""/>
-                      <Cell id="cellDepartment" left="154" top="44" width="140" height="30" text="bind:Department" displaytype="combotext" edittype="none" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cellLabelDepartment" left="49" top="39" width="100" height="40" text="부서명"/>
+                      <Cell id="cellDepartment" left="154" top="44" width="140" height="30" text="bind:Department" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgName" left="49" top="78" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelName" left="49" top="78" width="100" height="40" text="성명" cssclass=""/>
+                      <Cell id="cellLabelName" left="49" top="78" width="100" height="40" text="성명"/>
                       <Cell id="cellName" left="154" top="83" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="detail" width="100%" height="118">
                       <Cell id="cellBgCompany_1" left="0" top="0" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelCompany_1" left="0" top="0" width="100" height="40" text="회사명" cssclass=""/>
-                      <Cell id="cellCompany_1" left="105" top="5" width="140" height="30" text="bind:Company" displaytype="combotext" edittype="none" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cellLabelCompany_1" left="0" top="0" width="100" height="40" text="회사명"/>
+                      <Cell id="cellCompany_1" left="105" top="5" width="140" height="30" text="bind:Company" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgDepartment_1" left="294" top="0" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelDepartment_1" left="294" top="0" width="100" height="40" text="부서명" cssclass=""/>
-                      <Cell id="cellDepartment_1" left="399" top="5" width="140" height="30" text="bind:Department" displaytype="combotext" edittype="none" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cellLabelDepartment_1" left="294" top="0" width="100" height="40" text="부서명"/>
+                      <Cell id="cellDepartment_1" left="399" top="5" width="140" height="30" text="bind:Department" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgName_1" left="0" top="39" width="250" height="40" cssclass=""/>
-                      <Cell id="cellLabelName_1" left="0" top="39" width="100" height="40" text="성명" cssclass=""/>
+                      <Cell id="cellLabelName_1" left="0" top="39" width="100" height="40" text="성명"/>
                       <Cell id="cellName_1" left="105" top="44" width="140" height="30" text="bind:Name" displaytype="normal" edittype="none"/>
                       <Cell id="cellBgPhone" left="294" top="39" width="250" height="40" cssclass=""/>
                       <Cell id="cellLabelPhone" left="294" top="39" width="100" height="40" text="전화번호"/>
@@ -270,37 +263,26 @@
                 <Column id="Name" type="STRING" size="80" description="성명"/>
                 <Column id="Phone" type="STRING" size="80" description="전화번호"/>
                 <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+                <Column id="Photo" type="STRING" size="80" description="사진"/>
               </ColumnInfo>
               <Rows>
                 <Row/>
               </Rows>
             </Dataset>
-            <Dataset id="innerdatasetCompany">
-              <ColumnInfo>
-                <Column id="code" type="STRING" size="256"/>
-                <Column id="value" type="STRING" size="256"/>
-              </ColumnInfo>
-              <Rows/>
-            </Dataset>
-            <Dataset id="innerdatasetDepartment">
-              <ColumnInfo>
-                <Column id="code" type="STRING" size="256"/>
-                <Column id="value" type="STRING" size="256"/>
-              </ColumnInfo>
-              <Rows/>
-            </Dataset>
           </Objects>
           <Bind/>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel001" filepath="sample\FreeForm.xmodel">
+          <Script><![CDATA[this.lfn_ListView_onlbuttonup = function(obj,e){if (e.fromreferenceobject.id != 'expandbar') {if (obj.getBandExpandStatus(e.row)) {obj.hideDetailBand(e.row);} else {obj.showDetailBand(e.row);}}};]]></Script>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="ListViewModel001" filepath="sample\ListView.xmodel">
             <Fields>
               <Field id="Company" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
               <Field id="Department" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Name" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Phone" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
-              <Field id="Email" description="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Name" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Phone" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Email" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="Photo" description="" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="150px" cellheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
             </Fields>
             <Components>
-              <Component id="livList" fields="Company,Department,Name,Phone,Email"/>
+              <Component id="livList" fields="Company,Department,Name,Phone,Email,Photo"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="Asset\ListViewViewTemplate.xviewgen">
@@ -308,23 +290,16 @@
             <Attribute id="direction" value="horizontal"/>
             <Attribute id="usefieldbox" value="true"/>
             <Attribute id="bandexpandtype" value="expand"/>
+            <Attribute id="expandbartype" value="autoclick"/>
+            <Attribute id="bodybandwidth" value="100%"/>
+            <Attribute id="detailbandwidth" value="100%"/>
             <Attribute id="bodyformat" value="{&quot;columnsize&quot;:[50,295],&quot;rowsize&quot;:[60],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;라벨&quot;,&quot;mergelabel&quot;:&quot;false&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;mergelabel&quot;:&quot;false&quot;,&quot;fieldlist&quot;:[&quot;Company&quot;,&quot;Department&quot;,&quot;Name&quot;]}]}"/>
             <Attribute id="detailformat" value="{&quot;columnsize&quot;:[295,295],&quot;rowsize&quot;:[40,40,40],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Company&quot;],&quot;mergelabel&quot;:&quot;false&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Department&quot;],&quot;mergelabel&quot;:&quot;false&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Name&quot;],&quot;mergelabel&quot;:&quot;false&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Phone&quot;],&quot;mergelabel&quot;:&quot;false&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;2&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;Email&quot;],&quot;colspan&quot;:&quot;2&quot;,&quot;mergelabel&quot;:&quot;false&quot;}]}"/>
           </ViewTemplateInfo>
         </View>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	trace(this.View00_00.form.livList.scrollbarsize);
-};
-
-this.View01_staDepartmentLabel_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
-{
-	
-};
-]]></Script>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
     <Objects>
       <Dataset id="dsEmptyData">
         <ColumnInfo>

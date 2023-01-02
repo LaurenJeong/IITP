@@ -99,7 +99,7 @@ this.BAND_EXPAND_TYPE		= "none";			// bandexpandtype : 'none' | 'expand' | 'acco
 
 //Band 오른쪽 끝에 확장바(ExpandBar)의 표시 여부를 설정. expandbartype 기본 설정 값
 // expandbartype : bandexpandtype와 detail생성여부에 따라 자동으로 설정되도록 변경
-//this.EXPAND_BAR_TYPE		= "fasle";			// expandbartype : 'true' | 'fasle'
+this.EXPAND_BAR_TYPE		= "auto";			// expandbartype : 'auto' | 'autoclick' | 'click'
 this.EXPAND_BAR_WIDTH		= 30;
 this.EXPAND_BAR_HEIGHT		= 30;
 
@@ -136,6 +136,7 @@ this.USE_COMP				= "true";
 //라벨을 첫줄만 생성할지 여부
 this.MERGE_COMP_BG			= "false";
 //--------------------------------------------------------------------------------------------------------
+
 /************************************************************************************************
  * Nexacro Studio 호출 필수 FUNCTION 영역
  ************************************************************************************************/
@@ -291,8 +292,8 @@ fn_GetViewAttributeList = function()
     var oViewAttr = {
                         "attributes": [
 							this.oAttrTitleText,					// Title Text
-							this.oAttrTitleUseTotolCount,			// 전체건수 표시여부
-                            {
+							this.oAttrTitleUseTotolCount			// 전체건수 표시여부
+                            , {
                                 "id": "direction",
                                 "edittype": "Enum",
                                 "defaultvalue": this.DIRECTION,
@@ -300,14 +301,14 @@ fn_GetViewAttributeList = function()
                                 "description": "Cell 생성 방향 지정"
 												+ "\n" + " - horizontal : 왼쪽에서 오른쪽으로 생성"
 												+ "\n" + " - vertical : 위에서 아래로 생성"
-                            },
-							{
+                            }
+							, {
                                 "id": "usefieldbox",
                                 "edittype": "Boolean",
                                 "defaultvalue": this.CELL_COMP_BG,
                                 "description": "Field영역에 배경 Box를 그릴지 여부"
-                            },
-							{
+                            }
+							, {
                                 "id": "bandexpandtype",
                                 "edittype": "Enum",
                                 "defaultvalue": this.BAND_EXPAND_TYPE,
@@ -317,13 +318,17 @@ fn_GetViewAttributeList = function()
 												+ "\n" + " - expand : Detail 밴드를 표시/숨김"
 												+ "\n" + " - accordion : Detail 밴드를 표시/숨김(현재 아이템 이외에 다른 아이템에 표시된 Detail 밴드를 자동으로 숨김)"
 												+ "\n" + " - popup : Detail 밴드를 팝업으로 표시"
-                            },
-// 							{
-//                                 "id": "expandbartype",
-//                                 "edittype": "Boolean",
-//                                 "defaultvalue": this.EXPAND_BAR_TYPE,
-//                                 "description": "Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부"
-//                             },
+                            }
+							, {
+                                "id": "expandbartype",
+                                "edittype": "Enum",
+                                "defaultvalue": this.EXPAND_BAR_TYPE,
+								"enumlist" : ["auto", "autoclick", "click"],
+                                "description": "Body 밴드 오른쪽 끝에 확장바(ExpandBar)의 표시 여부"
+												+ "\n" + " - auto : 확장바 자동생성"
+												+ "\n" + " - autoclick : 확장바 자동생성 및 Body Band Click 시 Detail Band 표시/숨김"
+												+ "\n" + " - click : 확장자 표시안함. Body Band Click 시 Detail Band 표시/숨김"
+                            }
 							, {
                                 "id": "bodybandwidth",
                                 "edittype": "String",
@@ -583,9 +588,12 @@ fn_GetModel = function()
 	var oBandDetail = {};
 	
 	// expandbartype : bandexpandtype와 detail생성여부에 따라 자동으로 설정되도록 변경
-	if ((arrFieldDetail.length > 0 || this.lfn_IsNotNull(sDetailFormat)) 
-		&& sBandExpandType != "none") {
-		bExpandBar = true;
+	if (sExpandBarType == "auto" || sExpandBarType == "autoclick")
+	{
+		if ((arrFieldDetail.length > 0 || this.lfn_IsNotNull(sDetailFormat)) 
+			&& sBandExpandType != "none") {
+			bExpandBar = true;
+		}
 	}
 	
 	// Body Band
@@ -596,37 +604,44 @@ fn_GetModel = function()
 	oBandDetail = fn_GetBands("detail", arrFieldUse, arrFieldDetail, sDetailFormat, sDetailBandWidth, sDetailBandHeight, false);
 	if (this.lfn_IsNotNull(oBandDetail))	arrFormat.push(oBandDetail);
 	
+	// ListView
+	var oListView = {
+		"tag" : "ListView",
+		"attribute" :
+		{
+			"id" : this.LISTVIEW_ID, "left" : nLeft,    "top" : nTop, "right" : nRight, "bottom" : nBottom, "binddataset" : "viewdataset"
+			, "bandexpandtype" : sBandExpandType
+		},
+		"ListView" :
+		[
+			{
+				"tag": "Formats",
+				"attribute": {},
+				"Formats":
+				[
+					{
+						"tag": "Format",
+						"attribute": { "id": "default" },
+						"Format": arrFormat
+					}
+				]
+			}
+		]
+	};
+	
+	// ExpandBar종류에 따라 이벤트 추가
+	if (sExpandBarType == "autoclick" || sExpandBarType == "click")
+	{
+		var sViewNm = this.oContents.View.attribute.id;
+		oListView.attribute["onlbuttonup"] = sViewNm + ".form." + "lfn_ListView_onlbuttonup";
+	}
+	
 	//Add Grip Component
 	var oModel = this.oContents.View.Model;
     oModel[oModel.length] = {
             "fieldid" : arrField.join(","),
-            "Components" :
-            [
-                {
-                    "tag" : "ListView",
-                    "attribute" :
-                    {
-                        "id" : this.LISTVIEW_ID, "left" : nLeft,    "top" : nTop, "right" : nRight, "bottom" : nBottom, "binddataset" : "viewdataset"
-						, "bandexpandtype" : sBandExpandType
-                    },
-                    "ListView" :
-                    [
-                        {
-                            "tag": "Formats",
-                            "attribute": {},
-                            "Formats":
-                            [
-                                {
-                                    "tag": "Format",
-                                    "attribute": { "id": "default" },
-                                    "Format": arrFormat
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
+            "Components" :[oListView]
+    };
 		
 	//Return Information of Model to be Created
     return oModel;
@@ -2016,15 +2031,49 @@ fn_GetBind = function()
 fn_GetScript = function()
 {
     var oScript = {};
+	var sScript = "";
 
-    /*
-    oScript =
-    {
-        "tag": "Script",
-        "attribute": { "type" : "xscript5.1" },
-        "value": "this.fn_Alert = function(){this.alert('MESSAGE')};"
-    }
-    */
+	var sExpandBarType	= this.oGenerationAttr.attributes.expandbartype;
+	
+	// ExpandBar종류에 따라 이벤트 추가
+	if (sExpandBarType == "autoclick" || sExpandBarType == "click")
+	{
+		/*
+		this.lfn_ListView_onlbuttonup = function(obj:nexacro.ListView,e:nexacro.ListViewMouseEventInfo)
+		{
+			if (e.fromreferenceobject.id != "expandbar") {
+				if (obj.getBandExpandStatus(e.row)) {
+					obj.hideDetailBand(e.row);
+				} else {
+					obj.showDetailBand(e.row);
+				}
+			}
+		};
+		*/
+		
+		sScript += "this.lfn_ListView_onlbuttonup = function(obj,e)";
+		sScript += "{";
+		sScript += "	if (e.fromreferenceobject.id != 'expandbar') {";
+		sScript += "		if (obj.getBandExpandStatus(e.row)) {";
+		sScript += "			obj.hideDetailBand(e.row);";
+		sScript += "		} else {";
+		sScript += "			obj.showDetailBand(e.row);";
+		sScript += "		}";
+		sScript += "	}";
+		sScript += "};";
+	}
+	
+	if (this.lfn_IsNotNull(sScript))
+	{
+		sScript = nexacro.replaceAll(sScript,"\t","");
+		
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sScript
+		}
+	};
 
     return oScript;
 };]]></Script>
