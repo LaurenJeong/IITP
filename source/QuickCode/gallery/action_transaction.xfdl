@@ -66,7 +66,15 @@
         <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="10" top="viewSearch:10" width="750" height="360">
           <Layouts>
             <Layout>
-              <Grid id="grdList" left="0" top="0" right="0" binddataset="viewdataset" bottom="0">
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="상세내역" fittocontents="width" cssclass="sta_subtitle"/>
+                    <Static id="staTotCnt" left="staTitle:5" top="0" height="30" width="50" text="(총 &lt;b v='true'&gt;&lt;fc v='#da291c'&gt;0&lt;/fc&gt;&lt;/b&gt;건)" fittocontents="width" usedecorate="true" cssclass="sta_total_count"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" autofittype="none">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -83,28 +91,28 @@
                       <Row size="30" band="summ"/>
                     </Rows>
                     <Band id="head">
-                      <Cell id="cell_company" col="0" row="0" text="Company"/>
-                      <Cell id="cell_department" col="1" row="0" text="Department"/>
-                      <Cell id="cell_name" col="2" row="0" text="Name"/>
-                      <Cell id="cell_position" col="3" row="0" text="Position"/>
-                      <Cell id="cell_phone" col="4" row="0" text="Phone"/>
-                      <Cell id="cell_address" col="5" row="0" text="Address"/>
+                      <Cell id="cell_head_0_0_company" col="0" row="0" text="Company"/>
+                      <Cell id="cell_head_1_0_department" col="1" row="0" text="Department"/>
+                      <Cell id="cell_head_2_0_name" col="2" row="0" text="Name"/>
+                      <Cell id="cell_head_3_0_position" col="3" row="0" text="Position"/>
+                      <Cell id="cell_head_4_0_phone" col="4" row="0" text="Phone"/>
+                      <Cell id="cell_head_5_0_address" col="5" row="0" text="Address"/>
                     </Band>
                     <Band id="body">
-                      <Cell id="cell_company" col="0" row="0" text="bind:company" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_department" col="1" row="0" text="bind:department" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_name" col="2" row="0" text="bind:name" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_position" col="3" row="0" text="bind:position" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_phone" col="4" row="0" text="bind:phone" displaytype="normal" edittype="none"/>
-                      <Cell id="cell_address" col="5" row="0" text="bind:address" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_0_0_company" col="0" row="0" text="bind:company" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_department" col="1" row="0" text="bind:department" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_2_0_name" col="2" row="0" text="bind:name" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_3_0_position" col="3" row="0" text="bind:position" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_4_0_phone" col="4" row="0" text="bind:phone" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_5_0_address" col="5" row="0" text="bind:address" displaytype="normal" edittype="none"/>
                     </Band>
                     <Band id="summary">
-                      <Cell id="cell_company" col="0" row="0" text=""/>
-                      <Cell id="cell_department" col="1" row="0" text=""/>
-                      <Cell id="cell_name" col="2" row="0" text=""/>
-                      <Cell id="cell_position" col="3" row="0" text=""/>
-                      <Cell id="cell_phone" col="4" row="0" text=""/>
-                      <Cell id="cell_address" col="5" row="0" text=""/>
+                      <Cell id="cell_summ_company" col="0" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_department" col="1" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_name" col="2" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_position" col="3" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_phone" col="4" row="0" text="" displaytype="normal"/>
+                      <Cell id="cell_summ_address" col="5" row="0" text="" displaytype="normal"/>
                     </Band>
                   </Format>
                 </Formats>
@@ -124,20 +132,23 @@
               <Rows/>
             </Dataset>
           </Objects>
+          <Script><![CDATA[this.lfn_TotalCount_viewdataset_onvaluechanged = function(obj,e){var sText = nexacro.replaceAll("(총 <b v='true'><fc v='#da291c'>{0}</fc></b>건)",'{0}',obj.rowcount);obj.parent.divTitle.form.staTotCnt.set_text(sText);obj.parent.divTitle.form.resetScroll();};this.viewdataset.addEventHandler('onvaluechanged', this.lfn_TotalCount_viewdataset_onvaluechanged, this);]]></Script>
           <ModelInfo modelserviceid="model" serviceid="Tran" modelid="output" filepath="sample\Tran.xmodel">
             <Fields>
-              <Field id="company" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="department" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="name" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="position" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="phone" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
-              <Field id="address" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="company" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="department" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="name" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="position" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="phone" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="address" required="false" displaytype="normal" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
             </Fields>
             <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
               <Component id="grdList" fields="company,department,name,position,phone,address"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="상세내역"/>
             <Attribute id="usetotalcount" value="true"/>
             <Attribute id="headbandsize" value="30"/>
             <Attribute id="bodybandsize" value="30"/>

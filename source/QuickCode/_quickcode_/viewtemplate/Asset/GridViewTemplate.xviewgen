@@ -1542,6 +1542,30 @@ fn_GetScript = function()
 
 	//Initialize Script Information
     var oScript = {};
+	var sScript = "";
+	
+	var sViewNm				= this.oContents.View.attribute.id;
+	var sTitleText			= this.oGenerationAttr.attributes.titletext;			// 타이틀 Text
+	var sUseExpandButton	= this.oGenerationAttr.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
+	var sUseTotalCount		= this.oGenerationAttr.attributes.usetotalcount;		// 전체건수 표시여부
+	
+	// itle 영역
+	if (this.lfn_IsNotNull(sTitleText) && sUseExpandButton != "none")
+	{
+		sScript = this.lfn_GetTitleScript(sViewNm, sUseExpandButton, sUseTotalCount);
+	}
+	
+	if (this.lfn_IsNotNull(sScript))
+	{
+		sScript = nexacro.replaceAll(sScript,"\t","");
+		
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sScript
+		}
+	};
 
 	//Return Script Information
     return oScript;
