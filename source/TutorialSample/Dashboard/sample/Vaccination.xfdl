@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Vaccination" width="1100" height="800" titletext="일일 접종 현황">
+    <Layouts>
+      <Layout height="800" mobileorientation="landscape" width="1100">
+        <Static id="Static00" taborder="0" text="시도별 일일 접종 현황" left="10" top="10" width="200" height="40" cssclass="stc_BigTitle"/>
+        <Static id="Static00_00" taborder="1" text="코로나 바이러스 감염증-19 시도별 일일 접종 현황" left="10" top="Static00:0" width="300" height="25" cssclass="stc_Description"/>
+        <View id="view_Total" taborder="2" text="view_Total" viewdataset="viewdataset" left="10" top="100" height="232" right="10" cssclass="view_tmp">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="접종실적 총괄" fittocontents="width" cssclass="stc_Title"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" autofittype="none">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="215" band="body"/>
+                      <Column size="215" band="body"/>
+                      <Column size="215" band="body"/>
+                      <Column size="215" band="body"/>
+                      <Column size="215" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="50" band="head"/>
+                      <Row size="50" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_" col="0" row="0" colspan="1" rowspan="1" text="구분"/>
+                      <Cell id="cell_head_1_0_" col="1" row="0" colspan="1" rowspan="1" text="1차접종"/>
+                      <Cell id="cell_head_2_0_" col="2" row="0" colspan="1" rowspan="1" text="2차접종"/>
+                      <Cell id="cell_head_3_0_" col="3" row="0" colspan="1" rowspan="1" text="3차접종"/>
+                      <Cell id="cell_head_4_0_" col="4" row="0" colspan="1" rowspan="1" text="4차접종"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_tpcd" col="0" row="0" colspan="1" rowspan="1" text="bind:tpcd" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_firstCnt" col="1" row="0" colspan="1" rowspan="1" text="bind:firstCnt" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_2_0_secondCnt" col="2" row="0" colspan="1" rowspan="1" text="bind:secondCnt" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_3_0_thirdCnt" col="3" row="0" colspan="1" rowspan="1" text="bind:thirdCnt" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_4_0_fourCnt" col="4" row="0" colspan="1" rowspan="1" text="bind:fourCnt" displaytype="number" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="tpcd" type="STRING" size="80" description="구분"/>
+                <Column id="firstCnt" type="INT" size="80" description="1차접종"/>
+                <Column id="secondCnt" type="INT" size="80" description="2차접종"/>
+                <Column id="thirdCnt" type="INT" size="80" description="3차접종"/>
+                <Column id="fourCnt" type="INT" size="80" description="4차접종"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="SvcCovid19Vaccination" modelid="covid19Total" filepath="demo\코로나19_질병관리청\1_SvcCovid19Vaccination.xmodel">
+            <Fields>
+              <Field id="tpcd" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="firstCnt" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="secondCnt" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="thirdCnt" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="fourCnt" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="tpcd,firstCnt,secondCnt,thirdCnt,fourCnt"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="접종실적 총괄"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="30"/>
+            <Attribute id="headformat" value="{&quot;columnsize&quot;:[215,215,215,215,215],&quot;rowsize&quot;:[50],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;구분&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;1차접종&quot;},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;2차접종&quot;},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;3차접종&quot;},{&quot;col&quot;:&quot;4&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;4차접종&quot;}]}"/>
+            <Attribute id="bodyformat" value="{&quot;columnsize&quot;:[215,215,215,215,215],&quot;rowsize&quot;:[50],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;tpcd&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;firstCnt&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;secondCnt&quot;]},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;thirdCnt&quot;]},{&quot;col&quot;:&quot;4&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;fourCnt&quot;]}]}"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="view_StateCurr" taborder="3" text="view_StateCurr" viewdataset="viewdataset" left="10" top="view_Total:15" right="10" bottom="10" cssclass="view_tmp">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="시도별 접종 현황" fittocontents="width" cssclass="stc_Title"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="119" band="body"/>
+                      <Column size="119" band="body"/>
+                      <Column size="119" band="body"/>
+                      <Column size="119" band="body"/>
+                      <Column size="119" band="body"/>
+                      <Column size="119" band="body"/>
+                      <Column size="119" band="body"/>
+                      <Column size="119" band="body"/>
+                      <Column size="119" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="35" band="head"/>
+                      <Row size="35" band="head"/>
+                      <Row size="50" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_" col="0" row="0" colspan="1" rowspan="2" text="구분"/>
+                      <Cell id="cell_head_1_0_" col="1" row="0" colspan="2" rowspan="1" text="1차접종"/>
+                      <Cell id="cell_head_3_0_" col="3" row="0" colspan="2" rowspan="1" text="2차접종"/>
+                      <Cell id="cell_head_5_0_" col="5" row="0" colspan="2" rowspan="1" text="3차접종"/>
+                      <Cell id="cell_head_7_0_" col="7" row="0" colspan="2" rowspan="1" text="4차접종"/>
+                      <Cell id="cell_head_1_1_" col="1" row="1" colspan="1" rowspan="1" text="당일실적"/>
+                      <Cell id="cell_head_2_1_" col="2" row="1" colspan="1" rowspan="1" text="당일누계"/>
+                      <Cell id="cell_head_3_1_" col="3" row="1" colspan="1" rowspan="1" text="당일실적"/>
+                      <Cell id="cell_head_4_1_" col="4" row="1" colspan="1" rowspan="1" text="당일누계"/>
+                      <Cell id="cell_head_5_1_" col="5" row="1" colspan="1" rowspan="1" text="당일실적"/>
+                      <Cell id="cell_head_6_1_" col="6" row="1" colspan="1" rowspan="1" text="당일누계"/>
+                      <Cell id="cell_head_7_1_" col="7" row="1" colspan="1" rowspan="1" text="당일실적"/>
+                      <Cell id="cell_head_8_1_" col="8" row="1" colspan="1" rowspan="1" text="당일누계"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_sidoNm" col="0" row="0" colspan="1" rowspan="1" text="bind:sidoNm" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_firstCnt" col="1" row="0" colspan="1" rowspan="1" text="bind:firstCnt" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_2_0_firstTot" col="2" row="0" colspan="1" rowspan="1" text="bind:firstTot" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_3_0_secondCnt" col="3" row="0" colspan="1" rowspan="1" text="bind:secondCnt" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_4_0_secondTot" col="4" row="0" colspan="1" rowspan="1" text="bind:secondTot" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_5_0_thirdCnt" col="5" row="0" colspan="1" rowspan="1" text="bind:thirdCnt" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_6_0_thirdTot" col="6" row="0" colspan="1" rowspan="1" text="bind:thirdTot" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_7_0_fourCnt" col="7" row="0" colspan="1" rowspan="1" text="bind:fourCnt" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_8_0_fourTot" col="8" row="0" colspan="1" rowspan="1" text="bind:fourTot" displaytype="number" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="sidoNm" type="STRING" size="80" description="시도"/>
+                <Column id="firstCnt" type="INT" size="80" description="당일실적"/>
+                <Column id="firstTot" type="INT" size="80" description="당일누계"/>
+                <Column id="secondCnt" type="INT" size="80" description="당일실적"/>
+                <Column id="secondTot" type="INT" size="80" description="당일누계"/>
+                <Column id="thirdCnt" type="INT" size="80" description="당일실적"/>
+                <Column id="thirdTot" type="INT" size="80" description="당일누계"/>
+                <Column id="fourCnt" type="INT" size="80" description="당일실적"/>
+                <Column id="fourTot" type="INT" size="80" description="당일누계"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind/>
+          <ModelInfo modelserviceid="model" serviceid="SvcCovid19Vaccination" modelid="covid19State" filepath="demo\코로나19_질병관리청\1_SvcCovid19Vaccination.xmodel">
+            <Fields>
+              <Field id="sidoNm" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="firstCnt" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="firstTot" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="secondCnt" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="secondTot" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="thirdCnt" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="thirdTot" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="fourCnt" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="fourTot" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="sidoNm,firstCnt,firstTot,secondCnt,secondTot,thirdCnt,thirdTot,fourCnt,fourTot"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="시도별 접종 현황"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="30"/>
+            <Attribute id="headformat" value="{&quot;columnsize&quot;:[119,119,119,119,119,119,119,119,119],&quot;rowsize&quot;:[35,35],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;구분&quot;,&quot;rowspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;1차접종&quot;,&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;2차접종&quot;,&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;5&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;3차접종&quot;,&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;7&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;4차접종&quot;,&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;당일실적&quot;},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;당일누계&quot;},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;당일실적&quot;},{&quot;col&quot;:&quot;4&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;당일누계&quot;},{&quot;col&quot;:&quot;5&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;당일실적&quot;},{&quot;col&quot;:&quot;6&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;당일누계&quot;},{&quot;col&quot;:&quot;7&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;당일실적&quot;},{&quot;col&quot;:&quot;8&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;당일누계&quot;}]}"/>
+            <Attribute id="bodyformat" value="{&quot;columnsize&quot;:[119,119,119,119,119,119,119,119,119],&quot;rowsize&quot;:[50],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;sidoNm&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;firstCnt&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;firstTot&quot;]},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;secondCnt&quot;]},{&quot;col&quot;:&quot;4&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;secondTot&quot;]},{&quot;col&quot;:&quot;5&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;thirdCnt&quot;]},{&quot;col&quot;:&quot;6&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;thirdTot&quot;]},{&quot;col&quot;:&quot;7&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;fourCnt&quot;]},{&quot;col&quot;:&quot;8&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;fourTot&quot;]}]}"/>
+          </ViewTemplateInfo>
+        </View>
+        <Button id="btnClose" taborder="4" text="닫기" left="1119" top="68" width="81" height="42" escapebutton="true" onclick="btnClose_onclick" visible="false"/>
+        <Button text="Excel 다운로드" cssclass="btn_cm_basic02" height="25" id="btnExcel01" top="98" taborder="5" width="100" right="10"/>
+        <Button text="Excel 다운로드" cssclass="btn_cm_basic02" height="25" id="btnExcel02" top="346" taborder="6" width="100" right="10"/>
+        <Static id="staInfo00" taborder="7" left="40" top="231" width="290" height="55" border="1px solid darkgray" background="cornsilk" text="&lt;b v='true'&gt;* QuickCode정보&lt;/b&gt;&#13;&#10;- model : covid19Total(코로나19예방접종실적총괄)&#13;&#10;- viewtemplate : GridViewTemplate" textAlign="left" verticalAlign="top" padding="5px" usedecorate="true" visible="false"/>
+        <Static id="staInfo00_00" taborder="8" left="40" top="503" width="300" height="55" border="1px solid darkgray" background="cornsilk" text="&lt;b v='true'&gt;* QuickCode정보&lt;/b&gt;&#13;&#10;- model : covid19State(코로나19예방접종시도별현황)&#13;&#10;- viewtemplate : GridViewTemplate" textAlign="left" verticalAlign="top" padding="5px" usedecorate="true" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsSidoCurr">
+        <ColumnInfo>
+          <Column id="sidoNm" type="STRING" size="256" datapath="" description="시도 명"/>
+          <Column id="firstCnt" type="STRING" size="256" datapath="" description="1차접종 당일실적"/>
+          <Column id="firstTot" type="STRING" size="256" datapath="" description="1차접종 당일누계"/>
+          <Column id="secondCnt" type="STRING" size="256" datapath="" description="2차접종 당일실적"/>
+          <Column id="secondTot" type="STRING" size="256" datapath="" description="2차접종 당일누계"/>
+          <Column id="thirdCnt" type="STRING" size="256" description="3차접종 당일실적"/>
+          <Column id="thirdTot" type="STRING" size="256" description="3차접종 당일누계"/>
+          <Column id="fourCnt" type="STRING" size="256" description="4차접종 당일실적"/>
+          <Column id="fourTot" type="STRING" size="256" description="4차접종 당일누계"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="sidoNm">서울특별시</Col>
+            <Col id="firstCnt">1</Col>
+            <Col id="firstTot">8335290</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">8257755</Col>
+            <Col id="thirdCnt">9</Col>
+            <Col id="thirdTot">6075805</Col>
+            <Col id="fourCnt">6</Col>
+            <Col id="fourTot">1266726</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">부산광역시</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">2879854</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">2851310</Col>
+            <Col id="thirdCnt">7</Col>
+            <Col id="thirdTot">2140567</Col>
+            <Col id="fourCnt">1</Col>
+            <Col id="fourTot">502012</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">대구광역시</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">2018578</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">1995756</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">1405073</Col>
+            <Col id="fourCnt">0</Col>
+            <Col id="fourTot">266871</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">인천광역시</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">2574131</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">2549979</Col>
+            <Col id="thirdCnt">4</Col>
+            <Col id="thirdTot">1915014</Col>
+            <Col id="fourCnt">4</Col>
+            <Col id="fourTot">407543</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">광주광역시</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">1261998</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">1250584</Col>
+            <Col id="thirdCnt">2</Col>
+            <Col id="thirdTot">968920</Col>
+            <Col id="fourCnt">1</Col>
+            <Col id="fourTot">240902</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">대전광역시</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">1245428</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">1233334</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">909032</Col>
+            <Col id="fourCnt">0</Col>
+            <Col id="fourTot">198044</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">울산광역시</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">968161</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">958920</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">720480</Col>
+            <Col id="fourCnt">0</Col>
+            <Col id="fourTot">136607</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">세종특별자치시</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">300552</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">296842</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">211071</Col>
+            <Col id="fourCnt">0</Col>
+            <Col id="fourTot">35712</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">경기도</Col>
+            <Col id="firstCnt">1</Col>
+            <Col id="firstTot">11837068</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">11723153</Col>
+            <Col id="thirdCnt">15</Col>
+            <Col id="thirdTot">8707047</Col>
+            <Col id="fourCnt">14</Col>
+            <Col id="fourTot">1740239</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">강원도</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">1352068</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">1340852</Col>
+            <Col id="thirdCnt">1</Col>
+            <Col id="thirdTot">1065102</Col>
+            <Col id="fourCnt">0</Col>
+            <Col id="fourTot">276385</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">충청북도</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">1430861</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">1418426</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">1108469</Col>
+            <Col id="fourCnt">0</Col>
+            <Col id="fourTot">283961</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">충청남도</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">1901909</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">1884491</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">1479621</Col>
+            <Col id="fourCnt">1</Col>
+            <Col id="fourTot">376015</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">전라북도</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">1593934</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">1581069</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">1285706</Col>
+            <Col id="fourCnt">0</Col>
+            <Col id="fourTot">377535</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">전라남도</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">1655598</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">1641318</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">1365173</Col>
+            <Col id="fourCnt">0</Col>
+            <Col id="fourTot">451710</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">경상북도</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">2293246</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">2269619</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">1727144</Col>
+            <Col id="fourCnt">0</Col>
+            <Col id="fourTot">405296</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">경상남도</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">2882879</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">2853813</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">2145589</Col>
+            <Col id="fourCnt">1</Col>
+            <Col id="fourTot">497077</Col>
+          </Row>
+          <Row>
+            <Col id="sidoNm">제주특별자치도</Col>
+            <Col id="firstCnt">0</Col>
+            <Col id="firstTot">591055</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="secondTot">585433</Col>
+            <Col id="thirdCnt">0</Col>
+            <Col id="thirdTot">439071</Col>
+            <Col id="fourCnt">0</Col>
+            <Col id="fourTot">94999</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsTotal">
+        <ColumnInfo>
+          <Column id="tpcd" type="STRING" size="80" datapath="" description="구분"/>
+          <Column id="firstCnt" type="STRING" size="80" datapath="" description="1차접종"/>
+          <Column id="secondCnt" type="STRING" size="80" datapath="" description="2차접종"/>
+          <Column id="thirdCnt" type="STRING" size="80" datapath="" description="3차접종"/>
+          <Column id="fourCnt" type="STRING" size="80" description="4차접종"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="tpcd">당일 누적(A+B)</Col>
+            <Col id="firstCnt">45122610</Col>
+            <Col id="secondCnt">44692654</Col>
+            <Col id="thirdCnt">33668884</Col>
+            <Col id="fourCnt">7557634</Col>
+          </Row>
+          <Row>
+            <Col id="order">2차접종</Col>
+            <Col id="firstCnt">2</Col>
+            <Col id="secondCnt">0</Col>
+            <Col id="thirdCnt">38</Col>
+            <Col id="tpcd">당일 실적(A)</Col>
+            <Col id="fourCnt">28</Col>
+          </Row>
+          <Row>
+            <Col id="order">3차접종</Col>
+            <Col id="firstCnt">45122608</Col>
+            <Col id="secondCnt">44692654</Col>
+            <Col id="thirdCnt">33668846</Col>
+            <Col id="tpcd">전일 누적(B)</Col>
+            <Col id="fourCnt">7557606</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="view_Total" fromview="Vaccination" fromdataset="dsTotal" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+      <DsCopyDataAction id="DsCopyDataAction01" targetview="view_StateCurr" fromview="Vaccination" fromdataset="dsSidoCurr" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+      <ExcelExportAction id="ExcelExportAction00" targetview="view_Total" sheetname="Sheet1" exporttype="excel2007" filename="접종실적총괄">
+        <Contents/>
+      </ExcelExportAction>
+      <ExcelExportAction id="ExcelExportAction01" targetview="view_StateCurr" sheetname="Sheet1" exporttype="excel2007" filename="시도별접종현황">
+        <Contents/>
+      </ExcelExportAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item2" triggertype="Form Init" triggerview="Vaccination" triggerobj="Vaccination" targetaction="DsCopyDataAction00" condition=""/>
+      <TriggerItem id="item3" triggertype="Form Init" triggerview="Vaccination" triggerobj="Vaccination" targetaction="DsCopyDataAction01" condition=""/>
+      <TriggerItem id="item0" triggertype="Click" triggerview="Vaccination" triggerobj="btnExcel01" targetaction="ExcelExportAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="Vaccination" triggerobj="btnExcel02" targetaction="ExcelExportAction01" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 닫기
+	this.close("OK");
+};
+]]></Script>
+  </Form>
+</FDL>

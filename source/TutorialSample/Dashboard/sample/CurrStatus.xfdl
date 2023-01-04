@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="CurrStatus" width="1100" height="800" titletext="국내 발생 현황">
+    <Layouts>
+      <Layout height="800" mobileorientation="landscape" width="1100">
+        <Static id="Static00" taborder="0" text="국내 발생 현황" left="10" top="10" width="300" height="40" cssclass="stc_BigTitle"/>
+        <Static id="Static00_00" taborder="1" text="코로나 바이러스 감염증-19 국내 발생현황" left="10" top="Static00:0" width="300" height="25" cssclass="stc_Description"/>
+        <View id="view_Curr" taborder="2" text="view_Curr" viewdataset="viewdataset" left="10" top="100" height="191" right="10" cssclass="view_tmp">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="국내 발생현황" fittocontents="width" cssclass="stc_Title"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="135" band="body"/>
+                      <Column size="135" band="body"/>
+                      <Column size="135" band="body"/>
+                      <Column size="135" band="body"/>
+                      <Column size="135" band="body"/>
+                      <Column size="135" band="body"/>
+                      <Column size="135" band="body"/>
+                      <Column size="135" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                      <Row size="100" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_" col="0" row="0" colspan="2" rowspan="1" text="사망"/>
+                      <Cell id="cell_head_2_0_" col="2" row="0" colspan="2" rowspan="1" text="재원 위중증"/>
+                      <Cell id="cell_head_4_0_" col="4" row="0" colspan="2" rowspan="1" text="신규입원"/>
+                      <Cell id="cell_head_6_0_" col="6" row="0" colspan="2" rowspan="1" text="확진"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_" col="0" row="0" colspan="1" rowspan="1" text="일일" displaytype="normal" edittype="none" cssclass=""/>
+                      <Cell id="cell_body_1_0_" col="1" row="0" colspan="1" rowspan="1" text="인구 10만명당" displaytype="normal" edittype="none" cssclass=""/>
+                      <Cell id="cell_body_2_0_" col="2" row="0" colspan="1" rowspan="1" text="일일" displaytype="normal" edittype="none" cssclass=""/>
+                      <Cell id="cell_body_3_0_" col="3" row="0" colspan="1" rowspan="1" text="인구 10만명당" displaytype="normal" edittype="none" cssclass=""/>
+                      <Cell id="cell_body_4_0_" col="4" row="0" colspan="1" rowspan="1" text="일일" displaytype="normal" edittype="none" cssclass=""/>
+                      <Cell id="cell_body_5_0_" col="5" row="0" colspan="1" rowspan="1" text="인구 10만명당" displaytype="normal" edittype="none" cssclass=""/>
+                      <Cell id="cell_body_6_0_" col="6" row="0" colspan="1" rowspan="1" text="일일" displaytype="normal" edittype="none" cssclass=""/>
+                      <Cell id="cell_body_7_0_" col="7" row="0" colspan="1" rowspan="1" text="인구 10만명당" displaytype="normal" edittype="none" cssclass=""/>
+                      <Cell id="cell_body_0_1_cnt_deaths" col="0" row="1" colspan="1" rowspan="1" text="bind:cnt_deaths" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_1_1_rate_deaths" col="1" row="1" colspan="1" rowspan="1" text="bind:rate_deaths" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_2_1_cnt_severe_symptoms" col="2" row="1" colspan="1" rowspan="1" text="bind:cnt_severe_symptoms" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_3_1_rate_severe_symptoms" col="3" row="1" colspan="1" rowspan="1" text="bind:rate_severe_symptoms" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_4_1_cnt_hospitalizations" col="4" row="1" colspan="1" rowspan="1" text="bind:cnt_hospitalizations" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_5_1_rate_hospitalizations" col="5" row="1" colspan="1" rowspan="1" text="bind:rate_hospitalizations" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_6_1_cnt_confirmations" col="6" row="1" colspan="1" rowspan="1" text="bind:cnt_confirmations" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_7_1_rate_confirmations" col="7" row="1" colspan="1" rowspan="1" text="bind:rate_confirmations" displaytype="number" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="cnt_deaths" type="INT" size="15" description="일일 사망"/>
+                <Column id="rate_deaths" type="BIGDECIMAL" size="15" description="인구 10만명당 사망"/>
+                <Column id="cnt_severe_symptoms" type="INT" size="15" description="일일 재원 위중증"/>
+                <Column id="rate_severe_symptoms" type="BIGDECIMAL" size="15" description="인구 10만명당 재원 위중증"/>
+                <Column id="cnt_hospitalizations" type="INT" size="15" description="일일 신규입원"/>
+                <Column id="rate_hospitalizations" type="BIGDECIMAL" size="15" description="인구 10만명당 신규입원"/>
+                <Column id="cnt_confirmations" type="INT" size="15" description="일일 확진"/>
+                <Column id="rate_confirmations" type="BIGDECIMAL" size="15" description="인구 10만명당 확진"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="SvcCovid19CurrentStatusKorea" modelid="covid19CurrentStatus" filepath="demo\코로나19_질병관리청\2_SvcCovid19CurrentStatus.xmodel">
+            <Fields>
+              <Field id="cnt_deaths" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="rate_deaths" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="cnt_severe_symptoms" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="rate_severe_symptoms" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="cnt_hospitalizations" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="rate_hospitalizations" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="cnt_confirmations" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+              <Field id="rate_confirmations" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" suppress="0" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="cnt_deaths,rate_deaths,cnt_severe_symptoms,rate_severe_symptoms,cnt_hospitalizations,rate_hospitalizations,cnt_confirmations,rate_confirmations"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="국내 발생현황"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+            <Attribute id="headformat" value="{&quot;columnsize&quot;:[135,135,135,135,135,135,135,135],&quot;rowsize&quot;:[30],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;사망&quot;,&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;재원 위중증&quot;,&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;4&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;신규입원&quot;,&quot;colspan&quot;:&quot;2&quot;},{&quot;col&quot;:&quot;6&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;확진&quot;,&quot;colspan&quot;:&quot;2&quot;}]}"/>
+            <Attribute id="bodyformat" value="{&quot;columnsize&quot;:[135,135,135,135,135,135,135,135],&quot;rowsize&quot;:[30,100],&quot;celllist&quot;:[{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;일일&quot;},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;인구 10만명당&quot;},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;일일&quot;},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;인구 10만명당&quot;},{&quot;col&quot;:&quot;4&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;일일&quot;},{&quot;col&quot;:&quot;5&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;인구 10만명당&quot;},{&quot;col&quot;:&quot;6&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;일일&quot;},{&quot;col&quot;:&quot;7&quot;,&quot;row&quot;:&quot;0&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;text&quot;:&quot;인구 10만명당&quot;},{&quot;col&quot;:&quot;0&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;cnt_deaths&quot;]},{&quot;col&quot;:&quot;1&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;rate_deaths&quot;]},{&quot;col&quot;:&quot;2&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;cnt_severe_symptoms&quot;]},{&quot;col&quot;:&quot;3&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;rate_severe_symptoms&quot;]},{&quot;col&quot;:&quot;4&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;cnt_hospitalizations&quot;]},{&quot;col&quot;:&quot;5&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;rate_hospitalizations&quot;]},{&quot;col&quot;:&quot;6&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;cnt_confirmations&quot;]},{&quot;col&quot;:&quot;7&quot;,&quot;row&quot;:&quot;1&quot;,&quot;halign&quot;:&quot;left&quot;,&quot;valign&quot;:&quot;middle&quot;,&quot;direction&quot;:&quot;horizontal&quot;,&quot;fieldlist&quot;:[&quot;rate_confirmations&quot;]}]}"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="view_Death" taborder="3" text="view_Death" viewdataset="viewdataset" left="10" top="view_Curr:40" height="175" right="10" cssclass="view_tmp">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="사망 현황" fittocontents="width" cssclass="stc_Title"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <ListView id="livList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="none">
+                <Formats>
+                  <Format id="default">
+                    <Band id="body" width="11.11%" height="143">
+                      <Cell id="cellMmdd" left="4" top="5" width="110.98799999999999" height="40" text="bind:mmdd" displaytype="normal" edittype="none"/>
+                      <Cell id="cellCnt" left="4" top="54" width="110.98799999999999" height="40" text="bind:cnt" displaytype="normal" edittype="none"/>
+                      <Cell id="cellRate" left="4" top="103" width="110.98799999999999" height="40" text="bind:rate" displaytype="normal" edittype="none"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </ListView>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="mmdd" type="STRING" size="10" description="일자"/>
+                <Column id="cnt" type="STRING" size="10" description="일일발생현황"/>
+                <Column id="rate" type="STRING" size="10" description="인구 10만명당 발생현황"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind/>
+          <ModelInfo modelserviceid="model" serviceid="SvcCovid19Deaths" modelid="covid19Deaths" filepath="demo\코로나19_질병관리청\4_SvcCovid19Deaths.xmodel">
+            <Fields>
+              <Field id="mmdd" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="100%" cellheight="50" labelsize="-1" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="cnt" datatype="STRING" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="100%" cellheight="50" labelsize="-1" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="rate" datatype="STRING" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="100%" cellheight="50" labelsize="-1" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="livList" fields="mmdd,cnt,rate"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\ListViewViewTemplate.xviewgen">
+            <Attribute id="titletext" value="사망 현황"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="usefieldbox" value="false"/>
+            <Attribute id="bandexpandtype" value="none"/>
+            <Attribute id="expandbartype" value="auto"/>
+            <Attribute id="bodycolumncount" value="9"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="view_Serious" taborder="4" text="view_Serious" viewdataset="viewdataset" left="10" top="view_Death:40" height="180" right="10" cssclass="view_tmp">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="재원 위중증 현황" fittocontents="width" cssclass="stc_Title"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <ListView id="livList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" bandexpandtype="none">
+                <Formats>
+                  <Format id="default">
+                    <Band id="body" width="11.11%" height="148">
+                      <Cell id="cellBgMmdd" left="0" top="0" width="119.98799999999999" height="50" cssclass=""/>
+                      <Cell id="cellMmdd" left="4" top="5" width="110.98799999999999" height="40" text="bind:mmdd" displaytype="normal" edittype="none"/>
+                      <Cell id="cellBgCnt" left="0" top="49" width="119.98799999999999" height="50" cssclass=""/>
+                      <Cell id="cellCnt" left="4" top="54" width="110.98799999999999" height="40" text="bind:cnt" displaytype="normal" edittype="none"/>
+                      <Cell id="cellBgRate" left="0" top="98" width="119.98799999999999" height="50" cssclass=""/>
+                      <Cell id="cellRate" left="4" top="103" width="110.98799999999999" height="40" text="bind:rate" displaytype="normal" edittype="none"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </ListView>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="mmdd" type="STRING" size="80" description="일자"/>
+                <Column id="cnt" type="INT" size="80" description="일일발생현황"/>
+                <Column id="rate" type="BIGDECIMAL" size="80" description="인구 10만명당 발생현황"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind/>
+          <ModelInfo modelserviceid="model" serviceid="SvcCovid19CurrentStatusSevereSymptoms" modelid="covid19SevereSymptoms" filepath="demo\코로나19_질병관리청\6_SvcCovid19SevereSymptoms.xmodel">
+            <Fields>
+              <Field id="mmdd" innerdatasetinfo="" band="body" displaytype="auto" edittype="none" cellwidth="100%" cellheight="50" labelsize="-1" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="cnt" innerdatasetinfo="" band="body" displaytype="normal" edittype="none" cellwidth="100%" cellheight="50" labelsize="-1" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+              <Field id="rate" innerdatasetinfo="" band="body" displaytype="normal" edittype="none" cellwidth="100%" cellheight="50" labelsize="-1" fieldposition="horizontal" cssclass="" labelcssclass="" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="livList" fields="mmdd,cnt,rate"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\ListViewViewTemplate.xviewgen">
+            <Attribute id="titletext" value="재원 위중증 현황"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="usefieldbox" value="true"/>
+            <Attribute id="bandexpandtype" value="none"/>
+            <Attribute id="expandbartype" value="auto"/>
+            <Attribute id="bodycolumncount" value="9"/>
+          </ViewTemplateInfo>
+        </View>
+        <Button id="btnClose" taborder="5" text="닫기" left="1119" top="68" width="81" height="42" escapebutton="true" onclick="btnClose_onclick" visible="false"/>
+        <Static id="staInfo00" taborder="6" left="140" top="220" width="340" height="55" border="1px solid darkgray" background="cornsilk" text="&lt;b v='true'&gt;* QuickCode정보&lt;/b&gt;&#13;&#10;- model : covid19CurrentStatus(코로나19국내발생현황조회)&#13;&#10;- viewtemplate : GridViewTemplate" textAlign="left" verticalAlign="top" padding="5px" usedecorate="true" visible="false"/>
+        <Static id="staInfo00_00" taborder="7" left="140" top="410" width="340" height="55" border="1px solid darkgray" background="cornsilk" text="&lt;b v='true'&gt;* QuickCode정보&lt;/b&gt;&#13;&#10;- model : covid19Deaths(코로나19국내발생사망현황조회)&#13;&#10;- viewtemplate : ListViewTemplate" textAlign="left" verticalAlign="top" padding="5px" usedecorate="true" visible="false"/>
+        <Static id="staInfo00_00_00" taborder="8" left="140" top="623" width="420" height="55" border="1px solid darkgray" background="cornsilk" text="&lt;b v='true'&gt;* QuickCode정보&lt;/b&gt;&#13;&#10;- model : covid19SevereSymptoms(코로나19국내발생현황재원위중증조회)&#13;&#10;- viewtemplate : ListViewTemplate" textAlign="left" verticalAlign="top" padding="5px" usedecorate="true" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsCurr">
+        <ColumnInfo>
+          <Column id="mmddhh" type="STRING" size="20" description="데이터 조회 기준 일시"/>
+          <Column id="cnt_deaths" type="STRING" size="15" datapath="@.cnt_deaths" description="일일 사망"/>
+          <Column id="rate_deaths" type="STRING" size="15" datapath="@.rate_deaths" description="인구 10만명당 사망"/>
+          <Column id="cnt_severe_symptoms" type="STRING" size="15" datapath="@.cnt_severe_symptoms" description="일일 재원 위중증"/>
+          <Column id="rate_severe_symptoms" type="STRING" size="15" datapath="@.rate_severe_symptoms" description="인구 10만명당 재원 위중증"/>
+          <Column id="cnt_hospitalizations" type="STRING" size="15" datapath="@.cnt_hospitalizations" description="일일 신규입원"/>
+          <Column id="rate_hospitalizations" type="STRING" size="15" datapath="@.rate_hospitalizations" description="인구 10만명당 신규입원"/>
+          <Column id="cnt_confirmations" type="STRING" size="15" datapath="@.cnt_confirmations" description="일일 확진"/>
+          <Column id="rate_confirmations" type="STRING" size="15" datapath="@.rate_confirmations" description="인구 10만명당 확진"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="mmddhh">11.02.00시</Col>
+            <Col id="cnt_deaths">30</Col>
+            <Col id="rate_deaths">0.06</Col>
+            <Col id="cnt_severe_symptoms">303</Col>
+            <Col id="rate_severe_symptoms">0.59</Col>
+            <Col id="cnt_hospitalizations">230</Col>
+            <Col id="rate_hospitalizations">0.45</Col>
+            <Col id="cnt_confirmations">54766</Col>
+            <Col id="rate_confirmations">106.06</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="view_Curr" fromview="CurrStatus" fromdataset="dsCurr" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+      <Dataset id="dsDeath">
+        <ColumnInfo>
+          <Column id="mmdd" type="STRING" size="10" datapath="@.mmdd" description="일자"/>
+          <Column id="cnt" type="STRING" size="10" datapath="@.cnt" description="일일발생현황"/>
+          <Column id="rate" type="STRING" size="10" datapath="@.rate" description="인구 10만명당 발생현황"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="mmdd">구분</Col>
+            <Col id="cnt">일일</Col>
+            <Col id="rate">인구 10만명 당</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">10.29</Col>
+            <Col id="cnt">31</Col>
+            <Col id="rate">0.06</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">10.30</Col>
+            <Col id="cnt">27</Col>
+            <Col id="rate">0.05</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">10.31</Col>
+            <Col id="cnt">18</Col>
+            <Col id="rate">0.03</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">11.01</Col>
+            <Col id="cnt">33</Col>
+            <Col id="rate">0.06</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">11.02</Col>
+            <Col id="cnt">30</Col>
+            <Col id="rate">0.06</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">11.03</Col>
+            <Col id="cnt">41</Col>
+            <Col id="rate">0.08</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">11.04</Col>
+            <Col id="cnt">35</Col>
+            <Col id="rate">0.07</Col>
+          </Row>
+          <Row>
+            <Col id="cnt">30</Col>
+            <Col id="mmdd">주간일평균</Col>
+            <Col id="rate">0.06</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsSerious">
+        <ColumnInfo>
+          <Column id="mmdd" type="STRING" size="10" datapath="@.mmdd" description="일자"/>
+          <Column id="cnt" type="STRING" size="10" datapath="@.cnt" description="일일발생현황"/>
+          <Column id="rate" type="STRING" size="10" datapath="@.rate" description="인구 10만명당 발생현황"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="mmdd">구분</Col>
+            <Col id="cnt">일일</Col>
+            <Col id="rate">인구 10만명 당</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">10.29</Col>
+            <Col id="cnt">270</Col>
+            <Col id="rate">0.52</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">10.30</Col>
+            <Col id="cnt">272</Col>
+            <Col id="rate">0.53</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">10.31</Col>
+            <Col id="cnt">288</Col>
+            <Col id="rate">0.56</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">11.01</Col>
+            <Col id="cnt">288</Col>
+            <Col id="rate">0.56</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">11.02</Col>
+            <Col id="cnt">303</Col>
+            <Col id="rate">0.59</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">11.03</Col>
+            <Col id="cnt">290</Col>
+            <Col id="rate">0.56</Col>
+          </Row>
+          <Row>
+            <Col id="mmdd">11.04</Col>
+            <Col id="cnt">304</Col>
+            <Col id="rate">0.59</Col>
+          </Row>
+          <Row>
+            <Col id="cnt">287</Col>
+            <Col id="mmdd">주간일평균</Col>
+            <Col id="rate">0.56</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <DsCopyDataAction id="DsCopyDataAction01" targetview="view_Death" fromview="CurrStatus" fromdataset="dsDeath" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+      <DsCopyDataAction id="DsCopyDataAction02" targetview="view_Serious" fromview="CurrStatus" fromdataset="dsSerious" copytype="replace">
+        <Contents/>
+      </DsCopyDataAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="CurrStatus" triggerobj="CurrStatus" targetaction="DsCopyDataAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Form Init" triggerview="CurrStatus" triggerobj="CurrStatus" targetaction="DsCopyDataAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Form Init" triggerview="CurrStatus" triggerobj="CurrStatus" targetaction="DsCopyDataAction02" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 닫기
+	this.close("OK");
+};
+]]></Script>
+  </Form>
+</FDL>

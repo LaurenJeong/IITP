@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppVariables version="2.0">
+  <Datasets>
+    <Dataset id="gdsMenu">
+      <ColumnInfo>
+        <Column id="MENU_CD" type="STRING" size="256" description="메뉴코드"/>
+        <Column id="UP_MENU_CD" type="STRING" size="256" description="상위메뉴코드"/>
+        <Column id="MENU_NM" type="STRING" size="256" description="메뉴명"/>
+        <Column id="MENU_LVL" type="STRING" size="256" description="메뉴레벨(0부터시작)"/>
+        <Column id="PGM_PATH" type="STRING" size="256" description="화면 Services Prefix"/>
+        <Column id="PGM_ID" type="STRING" size="256" description="화면명"/>
+        <Column id="MENU_YN" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="MENU_CD">V10000</Col>
+          <Col id="UP_MENU_CD">0</Col>
+          <Col id="MENU_NM">ViewTemplate</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="UP_MENU_CD">V10000</Col>
+          <Col id="MENU_CD">V11000</Col>
+          <Col id="MENU_NM">FreeFormViewTemplate</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">view_freeform.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="UP_MENU_CD">V10000</Col>
+          <Col id="MENU_CD">V12000</Col>
+          <Col id="MENU_NM">SearchViewTemplate</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">view_search.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="UP_MENU_CD">V10000</Col>
+          <Col id="MENU_CD">V13000</Col>
+          <Col id="MENU_NM">GridViewTemplate</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">view_grid.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="UP_MENU_CD">V10000</Col>
+          <Col id="MENU_CD">V14000</Col>
+          <Col id="MENU_NM">ListViewViewTemplate</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">view_listview.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="UP_MENU_CD">V10000</Col>
+          <Col id="MENU_CD">V21000</Col>
+          <Col id="MENU_NM">BarChartViewTemplate</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">view_barchart.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="UP_MENU_CD">V10000</Col>
+          <Col id="MENU_CD">V22000</Col>
+          <Col id="MENU_NM">CombinationChartViewTemplate</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">view_combinationchart.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="UP_MENU_CD">V10000</Col>
+          <Col id="MENU_CD">V23000</Col>
+          <Col id="MENU_NM">PieChartViewTemplate</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">view_piechart.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">A10000</Col>
+          <Col id="UP_MENU_CD">0</Col>
+          <Col id="MENU_NM">Action</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">A11000</Col>
+          <Col id="UP_MENU_CD">A10000</Col>
+          <Col id="MENU_NM">Transation</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">action_transaction.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_NM">Message</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">action_message.xfdl</Col>
+          <Col id="UP_MENU_CD">A10000</Col>
+          <Col id="MENU_CD">A12000</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">A13000</Col>
+          <Col id="UP_MENU_CD">A10000</Col>
+          <Col id="MENU_NM">Popup</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">action_popup.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_NM">PopupClose</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_ID">action_popupclose.xfdl</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="MENU_YN">Y</Col>
+          <Col id="MENU_CD">A14000</Col>
+          <Col id="UP_MENU_CD">A10000</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">A15000</Col>
+          <Col id="UP_MENU_CD">A10000</Col>
+          <Col id="MENU_NM">Excel Export</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">action_excelexport.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">A16000</Col>
+          <Col id="UP_MENU_CD">A10000</Col>
+          <Col id="MENU_NM">Excel Import</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">gallery</Col>
+          <Col id="PGM_ID">action_excelimport.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_CD">S10000</Col>
+          <Col id="UP_MENU_CD">0</Col>
+          <Col id="MENU_NM">Sample</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="PGM_PATH"/>
+          <Col id="PGM_ID"/>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="UP_MENU_CD">S10000</Col>
+          <Col id="MENU_CD">S11000</Col>
+          <Col id="MENU_NM">Dashboard</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="PGM_PATH">sample</Col>
+          <Col id="PGM_ID">Dashboard.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </Datasets>
+  <Variables/>
+  <DataObjects/>
+</AppVariables>

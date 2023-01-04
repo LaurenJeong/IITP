@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XCSS version="1.1">
+  <Predefines/>
+  <CSSData><![CDATA[/* Dashboard */
+/* Static */
+.Static.stc_Title
+{
+	color : #101010;
+	font : normal 700 11pt/normal "Segoe UI,맑은 고딕";
+}
+
+.Static.stc_BigTitle
+{
+	color : #101010;
+	font : normal 700 20pt/normal "Segoe UI,맑은 고딕";
+}
+
+.Static.stc_Description
+{
+	font : 9pt/normal "Segoe UI","맑은 고딕";
+	color : darkgray;
+}
+
+/* Grid */
+.Grid
+{
+	-nexa-border : 1px solid #a1a1a1, 0px none, 0px none, 0px none;
+}
+.Grid .head .row .cell
+{
+	-nexa-border : 0px none, 0px none, 1px solid #a1a1a1, 0px none;
+}
+.Grid .body .row .cell
+{
+	-nexa-border : 0px none, 0px none, 1px solid #c7c7c7, 0px none;
+	-nexa-text-align : center;
+}
+
+/* ListView */
+.ListView,
+.ListView[status=mouseover], .ListView[status=focused],
+.ListView[status=readonly], .ListView[status=disabled]
+{
+	-nexa-border : 1px solid #a1a1a1, 0px none, 0px none, 0px none;
+}
+.ListView .body, .ListView .detail,
+.ListView .body[status=readonly], .ListView .detail[status=readonly],
+.ListView .body[status=focused], .ListView .detail[status=focused],
+.ListView .body[status=mouseover], .ListView .detail[status=mouseover]
+{
+	-nexa-border : 0px none;
+}
+.ListView .body .cell, .ListView .detail .cell,
+.ListView .body .cell[status=disabled], .ListView .detail .cell[status=disabled],
+.ListView .body .cell[status=readonly], .ListView .detail .cell[status=readonly],
+.ListView .body .cell[status=focused], .ListView .detail .cell[status=focused],
+.ListView .body .cell[status=mouseover], .ListView .detail .cell[status=mouseover]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 4px 4px 4px 4px;
+}
+
+.ListView .body .cell.cell_Head, .ListView .detail .cell.cell_Head,
+.ListView .body .cell.cell_Head[status=disabled], .ListView .detail .cell.cell_Head[status=disabled],
+.ListView .body .cell.cell_Head[status=readonly], .ListView .detail .cell.cell_Head[status=readonly],
+.ListView .body .cell.cell_Head[status=focused], .ListView .detail .cell.cell_Head[status=focused],
+.ListView .body .cell.cell_Head[status=mouseover], .ListView .detail .cell.cell_Head[status=mouseover]
+{
+	background : linear-gradient(to top,#eff0f0,#f9fafa);
+	-nexa-border : 0px none, 0px none, 1px solid #a1a1a1, 0px none;
+	color : #2f2f2f;
+	font : normal 700 12px/normal "Malgun Gothic";
+	-nexa-vertical-align : middle;
+	-nexa-text-align : center;
+}
+
+.ListView .body .cell.cell_Label, .ListView .detail .cell.cell_Label,
+.ListView .body .cell.cell_Label[status=disabled], .ListView .detail .cell.cell_Label[status=disabled],
+.ListView .body .cell.cell_Label[status=readonly], .ListView .detail .cell.cell_Label[status=readonly],
+.ListView .body .cell.cell_Label[status=focused], .ListView .detail .cell.cell_Label[status=focused],
+.ListView .body .cell.cell_Label[status=mouseover], .ListView .detail .cell.cell_Label[status=mouseover]
+{
+	-nexa-border : 0px none;
+	color : #2f2f2f;
+	font : normal 700 12px/normal "Malgun Gothic";
+}
+
+.ListView .body .cell.cell_Emphasis, .ListView .detail .cell.cell_Emphasis,
+.ListView .body .cell.cell_Emphasis[status=disabled], .ListView .detail .cell.cell_Emphasis[status=disabled],
+.ListView .body .cell.cell_Emphasis[status=readonly], .ListView .detail .cell.cell_Emphasis[status=readonly],
+.ListView .body .cell.cell_Emphasis[status=focused], .ListView .detail .cell.cell_Emphasis[status=focused],
+.ListView .body .cell.cell_Emphasis[status=mouseover], .ListView .detail .cell.cell_Emphasis[status=mouseover]
+{
+	color : #2f2f2f;
+	-nexa-border : 0px none;
+	font : bold 25pt "Arial";
+	-nexa-vertical-align : middle;
+	-nexa-text-align : center;
+}]]></CSSData>
+</XCSS>
