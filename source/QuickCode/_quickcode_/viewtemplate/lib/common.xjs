@@ -667,11 +667,11 @@ this.lfn_GetRealSize = function(sSize, nLabelSize, nParentSize, sDefSize, nLabel
 
 	if(!sSize)sSize = sDefSize;
 
-	nSizeType = sSize.replace(/[0-9]/g, "");
+	nSizeType = sSize.replace(/[0-9.]/g, "");
 
 	if(nSizeType=="%")
 	{
-		nRealSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, ""));
+		nRealSize = nexacro.toNumber(sSize.replace(/[^0-9.]/g, ""));
 		nRealSize = (nRealSize/100) * nParentSize;
 
 		nRealSize = nRealSize - nLabelSize - nLabelPadding - nCompPadding;
@@ -698,11 +698,11 @@ this.lfn_GetSize = function(sSize, sDefSize)
 
 	if(!sSize)sSize = sDefSize;
 
-	sSizeType = sSize.replace(/[0-9]/g, "");
+	sSizeType = sSize.replace(/[0-9.]/g, "");
 
 	if(sSizeType=="%")
 	{
-		nSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, "")) + "%";
+		nSize = nexacro.toNumber(sSize.replace(/[^0-9.]/g, "")) + "%";
 	}else
 	{
 		nSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, ""));

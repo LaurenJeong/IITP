@@ -99,7 +99,7 @@
           </ViewTemplateInfo>
         </View>
         <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="550" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="527" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -363,14 +363,9 @@
 - click : 확장자 표시안함. Body Band Click 시 Detail Band 표시/숨김</Col>
           </Row>
           <Row>
-            <Col id="ID">bodybandwidth</Col>
-            <Col id="TYPE">String</Col>
-            <Col id="DESCPTION">Body 밴드 넓이 (px or %)</Col>
-          </Row>
-          <Row>
-            <Col id="ID">detailbandwidth</Col>
-            <Col id="TYPE">String</Col>
-            <Col id="DESCPTION">Detail 밴드 넓이 (px or %)</Col>
+            <Col id="ID">bodycolumncount</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">Body에 한줄에 표시될 데이터갯수(Column Count)</Col>
           </Row>
           <Row>
             <Col id="ID">bodyformat</Col>
