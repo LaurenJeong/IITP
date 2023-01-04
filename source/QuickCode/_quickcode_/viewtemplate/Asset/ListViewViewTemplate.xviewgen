@@ -54,6 +54,9 @@ this.LISTVIEW_ID			= "livList";
 //Label과 Comp영역 배치방식("horizontal", "vertical")
 this.FIELD_POSITION			= "horizontal";
 
+//Body Band Column Count
+this.BODY_BAND_COLUMN_COUNT	= 1;
+
 //Body Band Default Width
 this.BODY_BAND_WIDTH		= "100%";
 
@@ -330,17 +333,23 @@ fn_GetViewAttributeList = function()
 												+ "\n" + " - click : 확장자 표시안함. Body Band Click 시 Detail Band 표시/숨김"
                             }
 							, {
-                                "id": "bodybandwidth",
-                                "edittype": "String",
-								"defaultvalue": this.BODY_BAND_WIDTH,
-                                "description": "Body Band Width(px or %)"
+                                "id": "bodycolumncount",
+                                "edittype": "Number",
+                                "defaultvalue": this.BODY_BAND_COLUMN_COUNT,
+                                "description": "Body Band Column Count"
                             }
-							, {
-                                "id": "detailbandwidth",
-                                "edittype": "String",
-								"defaultvalue": this.DETAIL_BAND_WIDTH,
-                                "description": "Detail Band Width(px or %)"
-                            }
+// 							, {
+//                                 "id": "bodybandwidth",
+//                                 "edittype": "String",
+// 								"defaultvalue": this.BODY_BAND_WIDTH,
+//                                 "description": "Body Band Width(px or %)"
+//                             }
+// 							, {
+//                                 "id": "detailbandwidth",
+//                                 "edittype": "String",
+// 								"defaultvalue": this.DETAIL_BAND_WIDTH,
+//                                 "description": "Detail Band Width(px or %)"
+//                             }
 							, {
                                 "id": "bodyformat",
                                 "edittype": "layout",
@@ -550,7 +559,10 @@ fn_GetModel = function()
 	var nWidth	= nViewCompWidth;
 	
 	// Bnad 사이즈
-	var sBodyBandWidth = this.lfn_GetSize(this.oGenerationAttr.attributes.bodybandwidth,this.BODY_BAND_WIDTH);
+	var nBodyBnadColCount = nexacro.toNumber(this.oGenerationAttr.attributes.bodycolumncount,1);
+	var nBodyBandWidthP = nexacro.round((100/nBodyBnadColCount),2);
+	var sBodyBandWidth = this.lfn_GetSize(nBodyBandWidthP + "%",this.BODY_BAND_WIDTH);
+	//var sBodyBandWidth = this.lfn_GetSize(this.oGenerationAttr.attributes.bodybandwidth,this.BODY_BAND_WIDTH);
 	var sBodyBandHeight = nHeight;
 	var sDetailBandWidth = this.lfn_GetSize(this.oGenerationAttr.attributes.detailbandwidth,this.DETAIL_BAND_WIDTH);
 	var sDetailBandHeight = nHeight;
