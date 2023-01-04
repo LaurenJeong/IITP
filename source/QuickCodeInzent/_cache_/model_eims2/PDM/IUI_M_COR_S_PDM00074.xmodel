@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="NEXT_PAGE_EXS_YN_1_S1" label="다음페이지존재여부1_S1" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="다음페이지존재여부1_S1" scale="0"/>
+      <Field id="grid5_cnt" label="상품코드조건속성명세조회_cnt" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="상품코드조건속성명세조회_cnt" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GDS_CD" label="상품코드" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="상품코드" scale="0"/>
+      <Field id="STD_DT" label="기준일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="기준일자" scale="0"/>
+      <Field id="PAGE_NO_1_N5" label="페이지번호1_N5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지번호1_N5" scale="0"/>
+      <Field id="PAGE_MG_1_N5" label="페이지크기1_N5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지크기1_N5" scale="0"/>
+    </Model>
+    <Model id="SO_grid5" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GDS_CD" label="상품코드" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="상품코드" scale="0"/>
+      <Field id="GDS_COND_CD" label="상품조건코드" fieldtype="FreeText" datatype="STRING" datasize="5" required="false" description="상품조건코드" scale="0"/>
+      <Field id="GDAT_CD" label="상품속성코드" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="상품속성코드" scale="0"/>
+      <Field id="GDAT_VAL_BDL_SQNO" label="상품속성값묶음일련번호" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="상품속성값묶음일련번호" scale="0"/>
+      <Field id="GDAT_VAL_MGNO" label="상품속성값관리번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="상품속성값관리번호" scale="0"/>
+      <Field id="GDS_COND_NM" label="상품조건명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품조건명" scale="0"/>
+      <Field id="GDAT_KRNM" label="상품속성한글명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품속성한글명" scale="0"/>
+      <Field id="GDS_COND_SLT_RSLT_DVCD" label="상품조건선택결과구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="상품조건선택결과구분코드" scale="0"/>
+      <Field id="GDS_COND_SLT_RSLT_SQNO" label="상품조건선택결과일련번호" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="상품조건선택결과일련번호" scale="0"/>
+      <Field id="GDAT_VAL_DTL_DESC" label="상품속성값상세설명" fieldtype="FreeText" datatype="STRING" datasize="4000" required="false" description="상품속성값상세설명" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="IUI_M_COR_S_PDM00074" name="상품코드조건속성명세조회" url="http://localhost:38080/model/domain">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="CONVERTSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO_grid5</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data[0].FormData.grid5</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>

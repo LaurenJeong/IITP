@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="NEXT_PAGE_EXS_YN2" label="다음페이지존재여부2" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="다음페이지존재여부2" scale="0"/>
+      <Field id="grid2_cnt" label="선납정리내역_CNT" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="선납정리내역_CNT" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="PPY_OCCU_SQNO2" label="선납발생일련번호2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="선납발생일련번호2" scale="0"/>
+      <Field id="PAGE_NO2" label="페이지번호2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지번호2" scale="0"/>
+      <Field id="PAGE_MG2" label="페이지크기2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지크기2" scale="0"/>
+    </Model>
+    <Model id="SO_grid2" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="PPY_OCCU_SQNO" label="선납발생일련번호" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="선납발생일련번호" scale="0"/>
+      <Field id="PPY_ARNG_SQNO" label="선납정리일련번호" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="선납정리일련번호" scale="0"/>
+      <Field id="RECP_DT" label="수납일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="수납일자" scale="0"/>
+      <Field id="SETL_NTH" label="결제회차" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="9" required="false" description="결제회차" scale="0"/>
+      <Field id="PPY_ARNG_DT" label="선납정리일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="선납정리일자" scale="0"/>
+      <Field id="PPY_ARNG_AMT" label="선납정리금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="선납정리금액" scale="0"/>
+      <Field id="PPY_ARNG_CANC_YN" label="선납정리취소여부" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="선납정리취소여부" scale="0"/>
+      <Field id="PPY_ARNG_DVCD" label="선납정리구분코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="선납정리구분코드" scale="0"/>
+      <Field id="ACSLP_NO" label="회계전표번호" fieldtype="FreeText" datatype="STRING" datasize="16" required="false" description="회계전표번호" scale="0"/>
+      <Field id="PPY_ARNG_TEXT" label="선납정리내용" fieldtype="FreeText" datatype="STRING" datasize="4000" required="false" description="선납정리내용" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="IUI_M_COR_S_PYM00237" name="선납정리내역목록조회" url="http://localhost:38080/model/domain">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="17"/>
+        <Column id="BizCode" type="STRING" size="3"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">COR</Col>
+          <Col id="SvcID">ISD_IUI_M_COR_S_PYM00237</Col>
+          <Col id="IFID">IUI_M_COR_S_PYM00237</Col>
+          <Col id="UUID">20220719094125874</Col>
+          <Col id="BizCode">PYM</Col>
+          <Col id="ChlCode">IUI</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERTSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO_grid2</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data[0].FormData.grid2</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>

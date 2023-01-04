@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GRID_COUNT" label="구매정보갯수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="구매정보갯수" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="START_DATE" label="조회시작일" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="조회시작일" scale="0"/>
+      <Field id="END_DATE" label="조회종료일" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="조회종료일" scale="0"/>
+      <Field id="CHG_NM" label="요청자" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="요청자" scale="0"/>
+      <Field id="PURCHASE_NO" label="구매번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="구매번호" scale="0"/>
+    </Model>
+    <Model id="SO_PURCHASE_LIST" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="PURCHASE_NO" label="구매요청번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="구매요청번호" scale="0"/>
+      <Field id="REQ_DATE" label="발송예약시간" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="발송예약시간" scale="0"/>
+      <Field id="BUY_CD" label="구매처코드" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="구매처코드" scale="0"/>
+      <Field id="BUY_DESC" label="구매처" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="구매처" scale="0"/>
+      <Field id="PJ_CD" label="프로젝트" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="프로젝트" scale="0"/>
+      <Field id="EMPLOYEE" label="담당자" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="담당자" scale="0"/>
+      <Field id="PRICE" label="가격" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="10" required="false" description="가격" scale="0"/>
+      <Field id="STATUS" label="구매상태" fieldtype="FreeText" datatype="STRING" datasize="12" required="false" description="구매상태" scale="0"/>
+      <Field id="MEMO" label="메모" fieldtype="FreeText" datatype="STRING" datasize="300" required="false" description="메모" scale="0"/>
+      <Field id="PURCHASE_EMP" label="구매담당자" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="구매담당자" scale="0"/>
+      <Field id="PURCHASE_DATE" label="구매확정일" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="구매확정일" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="BIZ_M_GWP_S_COM00001" name="구매목록 조회1" url="http://101.79.4.40:8680/iGate/IITP">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="17"/>
+        <Column id="BizCode" type="STRING" size="4"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+        <Column id="SessionId" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">GWP</Col>
+          <Col id="SvcID">ISD_BIZ_M_GWP_S_COM00001</Col>
+          <Col id="IFID">BIZ_M_GWP_S_COM00001</Col>
+          <Col id="UUID">20221101172017416</Col>
+          <Col id="BizCode">IITP</Col>
+          <Col id="ChlCode">BIZ</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO_PURCHASE_LIST</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data[0].FormData.PURCHASE_LIST</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>

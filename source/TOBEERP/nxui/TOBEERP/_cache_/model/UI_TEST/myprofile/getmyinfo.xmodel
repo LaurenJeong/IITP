@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="dsmyinfo" name="자사정보" iotype="output" description="">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="BUSINESS_LICENSE_NUM" label="사업자등록번호" fieldtype="FreeText" datatype="STRING" datasize="80" required="true" description="사업자등록번호" innerdatasetinfo=""/>
+      <Field id="CORPORATE_NAME" label="상호명" fieldtype="FreeText" datatype="STRING" datasize="80" required="true" description="상호명" innerdatasetinfo=""/>
+      <Field id="COMPANY_NAME" label="회사명" fieldtype="FreeText" datatype="STRING" datasize="80" required="true" description="회사명" innerdatasetinfo=""/>
+      <Field id="REPRESENTATIVE_NAME" label="대표자" fieldtype="FreeText" datatype="STRING" datasize="80" required="true" description="대표자명" innerdatasetinfo=""/>
+      <Field id="REPRESENTATIVE_SOCIAL_NUM" label="주민등록번호" fieldtype="FreeText" datatype="STRING" datasize="80" required="true" description="대표자 주민등록번호" innerdatasetinfo=""/>
+      <Field id="BUSINESS_CONDITION" label="업태" fieldtype="FreeText" datatype="STRING" datasize="80" required="true" description="업태" innerdatasetinfo=""/>
+      <Field id="BUSINESS_TYPE" label="종목" fieldtype="FreeText" datatype="STRING" datasize="80" required="true" description="종목" innerdatasetinfo=""/>
+      <Field id="CORPORATE_AREA" label="지역" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="지역" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+      <Field id="CORPORATE_EMAIL" label="이메일" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="이메일" innerdatasetinfo=""/>
+      <Field id="CORPORATE_HOMEPAGE" label="홈페이지" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="홈페이지" innerdatasetinfo=""/>
+      <Field id="CORPORATE_TELNUM" label="전화번호" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="전화번호" innerdatasetinfo=""/>
+      <Field id="CORPORATE_FAXNUM" label="팩스번호" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="팩스번호" innerdatasetinfo=""/>
+      <Field id="CORPORATE_POSTAL_CODE" label="우편번호" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="우편번호" innerdatasetinfo=""/>
+      <Field id="CORPORATE_ADRESS1" label="주소" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="주소" innerdatasetinfo=""/>
+      <Field id="CORPORATE_ADRESS2" label="상세주소" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="상세주소" innerdatasetinfo=""/>
+      <Field id="MEMO" label="메모" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="메모" innerdatasetinfo=""/>
+      <Field id="OFFICAIL_SEAL_FILE" label="직인" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="직인이미지 파일명" innerdatasetinfo=""/>
+      <Field id="COMPANY_CODE" label="업체코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="업체코드" innerdatasetinfo=""/>
+      <Field id="CONDITION_VALUE" label="업태명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="업태명" innerdatasetinfo=""/>
+    </Model>
+  </Models>
+  <Service id="getmyinfo" name="자사정보" url="IP::getmyinfo.jsp">
+    <ServiceUserAttributes/>
+  </Service>
+</ModelInfo>

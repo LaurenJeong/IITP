@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="dsdeal" name="거래내역" iotype="input" description="">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="DEAL_CODE" label="거래코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래코드" innerdatasetinfo=""/>
+      <Field id="DEAL_DATE" label="거래일" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래일" innerdatasetinfo=""/>
+      <Field id="DEAL_TYPE" label="거래타입코드" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="거래타입코드" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+      <Field id="DEAL_TITLE" label="거래명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래명" innerdatasetinfo=""/>
+      <Field id="TOTAL_AMOUNT" label="매입/매출액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="매입/매출액" innerdatasetinfo=""/>
+      <Field id="CUSTOMER_CODE" label="거래처코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래처코드" innerdatasetinfo=""/>
+      <Field id="ADD_IN_TAX" label="단가액 세액포함" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="단가액 세액포함" innerdatasetinfo=""/>
+      <Field id="ACCOUNT_BILL" label="세금,계산서 수취" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="세금,계산서 수취" innerdatasetinfo=""/>
+      <Field id="SALESMAN_CODE" label="직원코드" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="직원코드" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+      <Field id="BEFORE_PRICE" label="판매가" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="판매가" innerdatasetinfo=""/>
+      <Field id="DISCOUNT_PRICE" label="할인가" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="할인가" innerdatasetinfo=""/>
+      <Field id="LAST_PRICE" label="최종확정가" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="최종확정가" innerdatasetinfo=""/>
+      <Field id="CREDIT_PRICE" label="외상" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="외상" innerdatasetinfo=""/>
+      <Field id="CASH_PRICE" label="현금지급" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="현금지급" innerdatasetinfo=""/>
+      <Field id="ACCOUNT_PRICE" label="계좌이체" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="계좌이체" innerdatasetinfo=""/>
+      <Field id="BILL_PRICE" label="어음" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="어음" innerdatasetinfo=""/>
+      <Field id="CARD_PRICE" label="카드지급" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="카드지급" innerdatasetinfo=""/>
+      <Field id="ESTIMATE_CODE" label="견적서코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="견적서코드" innerdatasetinfo=""/>
+      <Field id="ACCOUMULATE_FUND" label="적립금잔고" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="적립금잔고" innerdatasetinfo=""/>
+      <Field id="ADD_RESERVE_FUND" label="적립금추가금액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="적립금추가금액" innerdatasetinfo=""/>
+      <Field id="USE_RESERVE_FUND" label="적릭금사용금액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="적릭금사용금액" innerdatasetinfo=""/>
+      <Field id="ETC" label="참고사항" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="참고사항" innerdatasetinfo=""/>
+      <Field id="DEAL_STATUS" label="거래상태" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래상태" innerdatasetinfo=""/>
+      <Field id="DEAL_SEQ" label="거래순서" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래순서" innerdatasetinfo=""/>
+      <Field id="TAX_TYPE" label="과세유형" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="과세유형" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+      <Field id="UNIT_PRICE" label="할인전금액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="할인전금액" innerdatasetinfo=""/>
+      <Field id="TOTAL_PRICE" label="합계" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="합계" innerdatasetinfo=""/>
+      <Field id="PAYMENT_PRICE" label="지급액계" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="지급액계" innerdatasetinfo=""/>
+      <Field id="TAX_PRICE" label="세액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="세액" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dsdetail" name="거래 상세내역" iotype="input" description="">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="DEAL_CODE" label="거래코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래코드" innerdatasetinfo=""/>
+      <Field id="DEAL_NUMBER" label="거래상세순서" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래상세순서" innerdatasetinfo=""/>
+      <Field id="PRODUCT_CODE" label="품목코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="품목코드" innerdatasetinfo=""/>
+      <Field id="AMOUNT" label="수량" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="수량" innerdatasetinfo=""/>
+      <Field id="LAST_PRICE" label="금액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="금액" innerdatasetinfo=""/>
+      <Field id="UNIT_PRICE" label="단가" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="단가" innerdatasetinfo=""/>
+      <Field id="ETC" label="비고" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="비고" innerdatasetinfo=""/>
+      <Field id="SURTAX_TYPE" label="과세여부" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="과세여부" innerdatasetinfo=""/>
+      <Field id="TAX_PRICE" label="세액" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="세액" innerdatasetinfo=""/>
+      <Field id="PRODUCT_NAME" label="품목명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="품목명" innerdatasetinfo=""/>
+      <Field id="STANDARD" label="품목단가" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="품목단가" innerdatasetinfo=""/>
+      <Field id="UNIT" label="단위" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="단위" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+      <Field id="TOTAL_PRICE" label="금액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="금액" innerdatasetinfo=""/>
+      <Field id="DISCOUNT_PRICE" label="할인" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="할인" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dsdealcustomer" name="거래처" iotype="input" description="">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="CUSTOMER_CODE" label="거래처코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래처코드" innerdatasetinfo=""/>
+      <Field id="PURCHASE_TOTAL_PRICE" label="구매총액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="구매총액" innerdatasetinfo=""/>
+      <Field id="SALES_TOTAL_PRICE" label="판매총액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="판매총액" innerdatasetinfo=""/>
+      <Field id="PURCHASE_PAYMENT_PRICE" label="구매지급총액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="구매지급총액" innerdatasetinfo=""/>
+      <Field id="SALES_PAYMENT_PRICE" label="판매수납총액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="판매수납총액" innerdatasetinfo=""/>
+      <Field id="PURCHASE_DISCOUNT" label="구매할인총액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="구매할인총액" innerdatasetinfo=""/>
+      <Field id="SALES_DISCOUNT" label="판매할인총액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="판매할인총액" innerdatasetinfo=""/>
+      <Field id="PAYMENT_DATE" label="지불날짜" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="지불날짜" innerdatasetinfo=""/>
+      <Field id="ACCOUMULATE_FUND" label="적립금" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="적립금" innerdatasetinfo=""/>
+      <Field id="CUSTOMER_NAME" label="거래처명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래처명" innerdatasetinfo=""/>
+      <Field id="CUSTOMER_TELNUM" label="거래처 전화번호" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래처 전화번호" innerdatasetinfo=""/>
+      <Field id="CUSTOMER_CONDITION" label="업태" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="업태" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+      <Field id="STAFF_NAME" label="담당자" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="담당자" innerdatasetinfo=""/>
+      <Field id="STAFF_TELNUM" label="담당자 연락처" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="담당자 연락처" innerdatasetinfo=""/>
+      <Field id="SALESMAN_CODE" label="직원코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="직원코드" innerdatasetinfo=""/>
+      <Field id="BUSINESS_CODE" label="사업자등록번호" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="사업자등록번호" innerdatasetinfo=""/>
+      <Field id="REPRESENT_NAME" label="대표자" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="대표자" innerdatasetinfo=""/>
+      <Field id="CORPORATE_TYPE" label="업체타입(업체구분)" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="업체타입(업체구분)" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}]}"/>
+      <Field id="NON_PURCHASE_PAYMENT" label="미지급계" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="미지급계" innerdatasetinfo=""/>
+      <Field id="NON_SALES_PAYMENT" label="미수금계" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="미수금계" innerdatasetinfo=""/>
+      <Field id="NON_TOTAL_PAYMENT" label="지급할금액" fieldtype="FreeText" datatype="INT" datasize="80" required="false" description="지급할금액" innerdatasetinfo=""/>
+    </Model>
+  </Models>
+  <Service id="setdeallist" name="거래내역 저장" url="IP::setdeallist.jsp">
+    <ServiceUserAttributes/>
+  </Service>
+</ModelInfo>

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="NEXT_PAGE_EXS_YN5" label="다음페이지존재여부5" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="다음페이지존재여부5" scale="0"/>
+      <Field id="grid5_cnt" label="grid5_cnt" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="grid5_cnt" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="MNG_CHRG_EMPNO" label="관리담당사원번호" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="관리담당사원번호" scale="0"/>
+      <Field id="LOAN_NO" label="대출번호" fieldtype="FreeText" datatype="STRING" datasize="14" required="false" description="대출번호" scale="0"/>
+      <Field id="PAGE_MG5" label="페이지크기5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지크기5" scale="0"/>
+      <Field id="PAGE_NO5" label="페이지번호5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지번호5" scale="0"/>
+    </Model>
+    <Model id="SO_grid5" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="LOAN_NO" label="대출번호" fieldtype="FreeText" datatype="STRING" datasize="14" required="false" description="대출번호" scale="0"/>
+      <Field id="CUST_NM" label="고객명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="고객명" scale="0"/>
+      <Field id="BNK_CD" label="은행코드" fieldtype="FreeText" datatype="STRING" datasize="3" required="false" description="은행코드" scale="0"/>
+      <Field id="TRX_DT" label="거래일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="거래일자" scale="0"/>
+      <Field id="TRX_AMT" label="거래금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="거래금액" scale="0"/>
+      <Field id="MNRC_ACC_DEPR_NM" label="입금계좌예금주명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="입금계좌예금주명" scale="0"/>
+      <Field id="GDS_NM" label="상품명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품명" scale="0"/>
+      <Field id="RMK" label="비고" fieldtype="FreeText" datatype="STRING" datasize="4000" required="false" description="비고" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="IUI_M_COR_S_RCV00567" name="법비용환급대출번호기준목록조회 " url="svc::test.do">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="17"/>
+        <Column id="BizCode" type="STRING" size="3"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">COR</Col>
+          <Col id="SvcID">ISD_IUI_M_COR_S_RCV00567</Col>
+          <Col id="IFID">IUI_M_COR_S_RCV00567</Col>
+          <Col id="UUID">20220809150429105</Col>
+          <Col id="BizCode">RCV</Col>
+          <Col id="ChlCode">IUI</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO_grid5</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data[0].FormData.grid5</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>

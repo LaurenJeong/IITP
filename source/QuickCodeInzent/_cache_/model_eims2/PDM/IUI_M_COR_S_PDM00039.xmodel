@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="NEXT_PAGE_EXS_YN_1_S1" label="다음페이지존재여부1_S1" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="다음페이지존재여부1_S1" scale="0"/>
+      <Field id="grid2_cnt" label="상품조건그룹기본목록조회_cnt" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="상품조건그룹기본목록조회_cnt" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GDS_COND_GPCD_1_S2" label="상품조건그룹코드1_S2" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="상품조건그룹코드1_S2" scale="0"/>
+      <Field id="GDS_COND_GRP_NM_1_S200" label="상품조건그룹명1_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품조건그룹명1_S200" scale="0"/>
+      <Field id="GDSAP_STCD_1_S1" label="상품적용상태코드1_S1" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="상품적용상태코드1_S1" scale="0"/>
+      <Field id="PAGE_NO_1_N5" label="페이지번호1_N5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지번호1_N5" scale="0"/>
+      <Field id="PAGE_MG_1_N5" label="페이지크기1_N5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지크기1_N5" scale="0"/>
+    </Model>
+    <Model id="SO_grid2" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GDS_COND_GPCD" label="상품조건그룹코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="상품조건그룹코드" scale="0"/>
+      <Field id="GDS_COND_GRP_NM" label="상품조건그룹명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품조건그룹명" scale="0"/>
+      <Field id="GDSAP_STCD" label="상품적용상태코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="상품적용상태코드" scale="0"/>
+      <Field id="GDS_COND_GRP_DESC" label="상품조건그룹설명" fieldtype="FreeText" datatype="STRING" datasize="4000" required="false" description="상품조건그룹설명" scale="0"/>
+      <Field id="CRUD_DVCD" label="CRUD구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="CRUD구분코드" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="IUI_M_COR_S_PDM00039" name="상품조건그룹기본목록조회" url="http://localhost:38080/model/domain">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="17"/>
+        <Column id="BizCode" type="STRING" size="3"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">COR</Col>
+          <Col id="SvcID">ISD_IUI_M_COR_S_PDM00039</Col>
+          <Col id="IFID">IUI_M_COR_S_PDM00039</Col>
+          <Col id="UUID">20220719095852921</Col>
+          <Col id="BizCode">PDM</Col>
+          <Col id="ChlCode">IUI</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERTSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO_grid2</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data[0].FormData.grid2</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>

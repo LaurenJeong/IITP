@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="RESULT" label="처리결과" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="처리결과" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="PURCHASE_NO" label="구매요청번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="구매요청번호" scale="0"/>
+      <Field id="FINANCE_EMP" label="재무담당자" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="재무담당자" scale="0"/>
+      <Field id="FINANCE_OPINION" label="재무담당자의견" fieldtype="FreeText" datatype="STRING" datasize="300" required="false" description="재무담당자의견" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="BIZ_M_FMS_S_COM00003" name="IITP 구매내역정산 인터페이스" url="http://101.79.4.40:8680/iGate/IITP">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="17"/>
+        <Column id="BizCode" type="STRING" size="4"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+        <Column id="SessionId" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">FMS</Col>
+          <Col id="SvcID">ISD_BIZ_M_FMS_S_COM00003</Col>
+          <Col id="IFID">BIZ_M_FMS_S_COM00003</Col>
+          <Col id="UUID">20221101172309836</Col>
+          <Col id="BizCode">IITP</Col>
+          <Col id="ChlCode">BIZ</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>

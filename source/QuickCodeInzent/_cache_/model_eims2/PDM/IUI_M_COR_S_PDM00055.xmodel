@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="NEXT_PAGE_EXS_YN_3_S1" label="다음페이지존재여부3_S1" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="다음페이지존재여부3_S1" scale="0"/>
+      <Field id="grid4_cnt" label="상품속성기본목록조회_cnt" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="상품속성기본목록조회_cnt" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GDAT_CD_1_S4" label="상품속성코드1_S4" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="상품속성코드1_S4" scale="0"/>
+      <Field id="GDSAP_STCD_5_S1" label="상품적용상태코드5_S1" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="상품적용상태코드5_S1" scale="0"/>
+      <Field id="GDAT_KRNM_1_S200" label="상품속성한글명1_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품속성한글명1_S200" scale="0"/>
+      <Field id="PAGE_NO_3_N5" label="페이지번호3_N5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지번호3_N5" scale="0"/>
+      <Field id="PAGE_MG_3_N5" label="페이지크기3_N5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지크기3_N5" scale="0"/>
+    </Model>
+    <Model id="SO_grid4" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GDAT_CD" label="상품속성코드" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="상품속성코드" scale="0"/>
+      <Field id="GDSAP_STCD" label="상품적용상태코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="상품적용상태코드" scale="0"/>
+      <Field id="GDAT_KRNM" label="상품속성한글명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품속성한글명" scale="0"/>
+      <Field id="GDAT_ENNM" label="상품속성영문명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품속성영문명" scale="0"/>
+      <Field id="GDAT_DESC" label="상품속성설명" fieldtype="FreeText" datatype="STRING" datasize="4000" required="false" description="상품속성설명" scale="0"/>
+      <Field id="GDAT_BZWK_CLCD" label="상품속성업무분류코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="상품속성업무분류코드" scale="0"/>
+      <Field id="GDAT_VALD_VAL_MNG_DVCD" label="상품속성유효값관리구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="상품속성유효값관리구분코드" scale="0"/>
+      <Field id="GDAT_CD_DMN_NM" label="상품속성코드도메인명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품속성코드도메인명" scale="0"/>
+      <Field id="LST_CD_TBL_ID" label="목록코드테이블ID" fieldtype="FreeText" datatype="STRING" datasize="30" required="false" description="목록코드테이블ID" scale="0"/>
+      <Field id="GDAT_DATA_DVCD" label="상품속성데이터구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="상품속성데이터구분코드" scale="0"/>
+      <Field id="GDAT_FXNM_FGR_CNT" label="상품속성정수자리수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="상품속성정수자리수" scale="0"/>
+      <Field id="GDAT_DCM_FGR_CNT" label="상품속성소수자리수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="상품속성소수자리수" scale="0"/>
+      <Field id="GDAT_VAL_EXPS_DVCD" label="상품속성값표현구분코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="상품속성값표현구분코드" scale="0"/>
+      <Field id="DEL_YN" label="삭제여부" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="삭제여부" scale="0"/>
+      <Field id="CRUD_DVCD" label="CRUD구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="CRUD구분코드" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="IUI_M_COR_S_PDM00055" name="상품속성기본목록조회" url="http://localhost:38080/model/domain">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="17"/>
+        <Column id="BizCode" type="STRING" size="3"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">COR</Col>
+          <Col id="SvcID">ISD_IUI_M_COR_S_PDM00055</Col>
+          <Col id="IFID">IUI_M_COR_S_PDM00055</Col>
+          <Col id="UUID">20220719095842638</Col>
+          <Col id="BizCode">PDM</Col>
+          <Col id="ChlCode">IUI</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERTSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO_grid4</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data[0].FormData.grid4</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>

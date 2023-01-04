@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="dsdeal" name="거래원장" iotype="output" description="거래 원장(최근 5건)">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="DEAL_CODE" label="거래코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래코드" innerdatasetinfo=""/>
+      <Field id="DEAL_TYPE" label="거래타입명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래타입명" innerdatasetinfo=""/>
+      <Field id="DEAL_DATE" label="거래일" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래일" innerdatasetinfo=""/>
+      <Field id="ADD_IN_TAX" label="단가액 세액포함" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="단가액 세액포함" innerdatasetinfo=""/>
+      <Field id="CUSTOMER_NAME" label="상호명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="상호명" innerdatasetinfo=""/>
+      <Field id="TOTAL_PRICE" label="합계" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="합계" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dsestimate" name="최근견적사항" iotype="output" description="최근 견적사항">
+      <FieldUserAttributes>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="ESTIMATE_DATE" label="견적일" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="견적일" innerdatasetinfo=""/>
+      <Field id="ESTIMATE_STATUS" label="견적처리상태" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="견적처리상태" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;00&quot;,&quot;value&quot;:&quot;작성&quot;},{&quot;code&quot;:&quot;01&quot;,&quot;value&quot;:&quot;요청&quot;},{&quot;code&quot;:&quot;02&quot;,&quot;value&quot;:&quot;승인&quot;},{&quot;code&quot;:&quot;03&quot;,&quot;value&quot;:&quot;반려&quot;},{&quot;code&quot;:&quot;04&quot;,&quot;value&quot;:&quot;취소&quot;},{&quot;code&quot;:&quot;05&quot;,&quot;value&quot;:&quot;완료&quot;}]}"/>
+      <Field id="SALESMAN_CODE" label="직원코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="직원코드" innerdatasetinfo=""/>
+      <Field id="CUSTOMER_CODE" label="거래처코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래처코드" innerdatasetinfo=""/>
+      <Field id="CORPORATE_NAME" label="거래처명" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="거래처명" innerdatasetinfo=""/>
+      <Field id="ESTIMATE_TYPE" label="거래타입" fieldtype="SelectOne" datatype="STRING" datasize="80" required="false" description="거래타입" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;lS&quot;,&quot;value&quot;:&quot;매출&quot;},{&quot;code&quot;:&quot;pS&quot;,&quot;value&quot;:&quot;매입&quot;}]}"/>
+      <Field id="ESTIMATE_TITLE" label="견적제목" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="견적제목" innerdatasetinfo=""/>
+      <Field id="EXPIRY_TERM" label="유효기간코드" fieldtype="FreeText" datatype="STRING" datasize="80" required="false" description="유효기간코드" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dssales" name="매출매입 현황" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" description=""/>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="DT_YYYYMM" label="년월" fieldtype="FreeText" datatype="STRING" datasize="256" required="false" description="년월" scale="" innerdatasetinfo=""/>
+      <Field id="SALES_AMOUNT" label="매출액" fieldtype="FreeText" datatype="INT" datasize="256" required="false" description="매출액" scale="" innerdatasetinfo=""/>
+      <Field id="RECEIPT_AMOUNT" label="수금액" fieldtype="FreeText" datatype="INT" datasize="256" required="false" description="수금액" scale="" innerdatasetinfo=""/>
+      <Field id="PURCHASE_AMOUNT" label="매입액" fieldtype="FreeText" datatype="INT" datasize="256" required="false" description="매입액" scale="" innerdatasetinfo=""/>
+    </Model>
+    <Model id="dssalescustomer" name="거래처별 판매현황" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" description=""/>
+        <Attribute name="innerdatasetinfo" edittype="String" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="CUSTOMER" label="거래처명" fieldtype="FreeText" datatype="STRING" datasize="256" required="false" description="거래처명" scale="" innerdatasetinfo=""/>
+      <Field id="TOTAL_PRICE" label="판매금액" fieldtype="FreeText" datatype="INT" datasize="256" required="false" description="판매금액" scale="" innerdatasetinfo=""/>
+    </Model>
+  </Models>
+  <Service id="getmainlist" name="메인에 사용할 데이터 조회 (거래원장, 견적서)" url="IP::getmainlist.jsp">
+    <ServiceUserAttributes/>
+  </Service>
+</ModelInfo>

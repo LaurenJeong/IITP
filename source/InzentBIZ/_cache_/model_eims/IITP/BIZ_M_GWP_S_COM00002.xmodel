@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GRID_COUNT" label="상세정보갯수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="상세정보갯수" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="PURCHASE_NO" label="구매요청번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="구매요청번호" scale="0"/>
+    </Model>
+    <Model id="SO_PURCHASE_DETAIL_LIST" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="PRODUCT_NO" label="제품번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="제품번호" scale="0"/>
+      <Field id="PRODUCT_NM" label="상품명" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="상품명" scale="0"/>
+      <Field id="COUNT" label="수량" fieldtype="FreeText" datatype="STRING" datasize="5" required="false" description="수량" scale="0"/>
+      <Field id="UNIT" label="단위" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="단위" scale="0"/>
+      <Field id="UNIT_PRICE" label="단가" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="10" required="false" description="단가" scale="0"/>
+      <Field id="PURCHASE_PRICE" label="구입가" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="10" required="false" description="구입가" scale="0"/>
+      <Field id="SUM_PRICE" label="소계" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="10" required="false" description="소계" scale="0"/>
+      <Field id="REQ_DATE" label="구매요청일" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="구매요청일" scale="0"/>
+      <Field id="DELIVERY_ADDRESS" label="배송지" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="배송지" scale="0"/>
+      <Field id="TEMP" label="비고" fieldtype="FreeText" datatype="STRING" datasize="300" required="false" description="비고" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="BIZ_M_GWP_S_COM00002" name="IITP 그룹웨어 구매목록 상세조회" url="http://101.79.4.40:8680/iGate/IITP">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="17"/>
+        <Column id="BizCode" type="STRING" size="4"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+        <Column id="SessionId" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">GWP</Col>
+          <Col id="SvcID">ISD_BIZ_M_GWP_S_COM00002</Col>
+          <Col id="IFID">BIZ_M_GWP_S_COM00002</Col>
+          <Col id="UUID">20221101172142112</Col>
+          <Col id="BizCode">IITP</Col>
+          <Col id="ChlCode">BIZ</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO_PURCHASE_DETAIL_LIST</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data[0].FormData.PURCHASE_DETAIL_LIST</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>

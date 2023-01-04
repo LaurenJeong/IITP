@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="NEXT_PAGE_EXS_YN_1_S1" label="다음페이지존재여부1_S1" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="다음페이지존재여부1_S1" scale="0"/>
+      <Field id="grid2_cnt" label="그리드카운트" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="그리드카운트" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="PAGE_NO_1_N5" label="페이지번호1_N5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지번호1_N5" scale="0"/>
+      <Field id="PAGE_MG_1_N5" label="페이지크기1_N5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="페이지크기1_N5" scale="0"/>
+      <Field id="MNG_CHRG_EMPNO" label="관리담당사원번호" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="관리담당사원번호" scale="0"/>
+      <Field id="CUSTNO" label="고객번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="고객번호" scale="0"/>
+      <Field id="LOAN_NO" label="대출번호" fieldtype="FreeText" datatype="STRING" datasize="14" required="false" description="대출번호" scale="0"/>
+      <Field id="DPLR_EXPC_DT" label="기한이익상실예정일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="기한이익상실예정일자" scale="0"/>
+      <Field id="DPLR_EXPC_END_DT_S8" label="기한이익상실예정종료일자_S8" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="기한이익상실예정종료일자_S8" scale="0"/>
+      <Field id="DPLR_DT" label="기한이익상실일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="기한이익상실일자" scale="0"/>
+      <Field id="DPLR_END_DT_S8" label="기한이익상실종료일자_S8" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="기한이익상실종료일자_S8" scale="0"/>
+      <Field id="STD_DT" label="기준일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="기준일자" scale="0"/>
+    </Model>
+    <Model id="SO_grid2" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GDS_LCL_NM" label="상품대분류명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품대분류명" scale="0"/>
+      <Field id="GDS_NM" label="상품명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품명" scale="0"/>
+      <Field id="LOAN_NO" label="대출번호" fieldtype="FreeText" datatype="STRING" datasize="14" required="false" description="대출번호" scale="0"/>
+      <Field id="CUST_NM" label="고객명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="고객명" scale="0"/>
+      <Field id="SENDSTATUS" label="상태" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="22" required="false" description="상태" scale="0"/>
+      <Field id="OVRD_MCNT" label="연체개월수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="연체개월수" scale="0"/>
+      <Field id="OVRD_DCNT" label="연체일수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="연체일수" scale="0"/>
+      <Field id="SETL_DD" label="결제일" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="결제일" scale="0"/>
+      <Field id="OVRD_PIAM_AMT" label="연체원리금금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="연체원리금금액" scale="0"/>
+      <Field id="DLAY_INT_AMT" label="지연이자금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="지연이자금액" scale="0"/>
+      <Field id="COST_TAMT" label="비용총액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="비용총액" scale="0"/>
+      <Field id="THMM_BILL_AMT" label="당월청구금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="당월청구금액" scale="0"/>
+      <Field id="BILL_AMT" label="청구금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="청구금액" scale="0"/>
+      <Field id="DPLR_EXPC_DT" label="기한이익상실예정일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="기한이익상실예정일자" scale="0"/>
+      <Field id="DPLR_DT" label="기한이익상실일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="기한이익상실일자" scale="0"/>
+      <Field id="DPLR_TYPE_NM_S10" label="기한이익상실유형명_S10" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="기한이익상실유형명_S10" scale="0"/>
+      <Field id="MNG_CHGR_NM" label="관리담당자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="관리담당자명" scale="0"/>
+      <Field id="FLPY_NTH" label="완납회차" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="9" required="false" description="완납회차" scale="0"/>
+      <Field id="DBT_DIV_S10" label="채무구분_S10" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="채무구분_S10" scale="0"/>
+      <Field id="AGRE_INT_RT" label="약정이자율" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="13" required="false" description="약정이자율" scale="5"/>
+      <Field id="BNK_NM" label="은행명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="은행명" scale="0"/>
+      <Field id="ACNO" label="계좌번호" fieldtype="FreeText" datatype="STRING" datasize="30" required="false" description="계좌번호" scale="0"/>
+      <Field id="DEPR_NM" label="예금주명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="예금주명" scale="0"/>
+      <Field id="THNG_NM" label="물건명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="물건명" scale="0"/>
+      <Field id="VHRNO" label="차량번호" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="차량번호" scale="0"/>
+      <Field id="MNG_DPT_NM" label="관리부서명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="관리부서명" scale="0"/>
+      <Field id="CPNO" label="휴대전화번호" fieldtype="FreeText" datatype="STRING" datasize="30" required="false" description="휴대전화번호" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="IUI_M_COR_S_RCV00713" name="DM개별발송대상자목록조회 " url="svc::test.do">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="17"/>
+        <Column id="BizCode" type="STRING" size="3"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">COR</Col>
+          <Col id="SvcID">ISD_IUI_M_COR_S_RCV00713</Col>
+          <Col id="IFID">IUI_M_COR_S_RCV00713</Col>
+          <Col id="UUID">20220808152037274</Col>
+          <Col id="BizCode">RCV</Col>
+          <Col id="ChlCode">IUI</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO_grid2</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data[0].FormData.grid2</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>

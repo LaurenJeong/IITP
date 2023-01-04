@@ -1,0 +1,816 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="LSHR_INFO_HIST_GRID_ICNT" label="임대인정보내역건수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="임대인정보내역건수" scale="0"/>
+      <Field id="FXCL_INFO_HIST_GRID_ICNT" label="근저당정보내역건수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="근저당정보내역건수" scale="0"/>
+      <Field id="PROR_SET_HIST_GRID_ICNT" label="선순위설정내역건수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="선순위설정내역건수" scale="0"/>
+      <Field id="RGHT_IFRG_HIST_GRID_ICNT" label="권리침해내역건수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="권리침해내역건수" scale="0"/>
+      <Field id="THNG_EVL_HIST_GRID_ICNT" label="물건평가내역건수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="물건평가내역건수" scale="0"/>
+      <Field id="USHR_LOAN_HIST_GRID_ICNT" label="습용대출내역건수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="습용대출내역건수" scale="0"/>
+    </Model>
+    <Model id="SI_MRTG_BSIC" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="CONT_NO" label="계약번호" fieldtype="FreeText" datatype="STRING" datasize="11" required="false" description="계약번호" scale="0"/>
+      <Field id="LOAN_NO" label="대출번호" fieldtype="FreeText" datatype="STRING" datasize="14" required="false" description="대출번호" scale="0"/>
+      <Field id="PTNR_NO" label="파트너번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="파트너번호" scale="0"/>
+      <Field id="THNG_LCL_CD" label="물건대분류코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="물건대분류코드" scale="0"/>
+      <Field id="THNG_MCL_CD" label="물건중분류코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="물건중분류코드" scale="0"/>
+      <Field id="THNG_SCL_CD" label="물건소분류코드" fieldtype="FreeText" datatype="STRING" datasize="3" required="false" description="물건소분류코드" scale="0"/>
+      <Field id="MRTG_OFFR_CUSTNO" label="담보제공고객번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="담보제공고객번호" scale="0"/>
+      <Field id="MNCTR_RLCD" label="주계약자관계코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="주계약자관계코드" scale="0"/>
+      <Field id="THNG_SQNO" label="물건일련번호" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="물건일련번호" scale="0"/>
+      <Field id="MNG_DPT_CD" label="관리부서코드" fieldtype="FreeText" datatype="STRING" datasize="5" required="false" description="관리부서코드" scale="0"/>
+      <Field id="PTNR_AT_MRTG_GDS_DVCD" label="파트너오토담보상품구분코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="파트너오토담보상품구분코드" scale="0"/>
+    </Model>
+    <Model id="SI_MRTG_REF" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GDS_CLCD" label="상품분류코드" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="상품분류코드" scale="0"/>
+      <Field id="FILE_MGNO" label="파일관리번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="파일관리번호" scale="0"/>
+      <Field id="CUSTNO" label="고객번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="고객번호" scale="0"/>
+    </Model>
+    <Model id="SI_RLES_BSIC_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="RLES_BLDG_LND_MRTG_UNQ_NO" label="부동산건물토지담보고유번호" fieldtype="FreeText" datatype="STRING" datasize="30" required="false" description="부동산건물토지담보고유번호" scale="0"/>
+      <Field id="HIRE_ICNT" label="임차건수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="임차건수" scale="0"/>
+      <Field id="SMAM_HIRE_STD_DVCD" label="소액임차기준구분코드" fieldtype="FreeText" datatype="STRING" datasize="3" required="false" description="소액임차기준구분코드" scale="0"/>
+      <Field id="SPLT_AREA_DVCD" label="투기지역구분코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="투기지역구분코드" scale="0"/>
+      <Field id="ALL_FLR_CNT" label="전체층수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="전체층수" scale="0"/>
+      <Field id="RLVN_FLR_CNT" label="해당층수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="해당층수" scale="0"/>
+      <Field id="RES_OWN_MHOD_CD" label="주거소유방식코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="주거소유방식코드" scale="0"/>
+      <Field id="OWNTRF_DT" label="소유권이전일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="소유권이전일자" scale="0"/>
+      <Field id="LTNO_ZPCD" label="지번우편번호" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="지번우편번호" scale="0"/>
+      <Field id="LTNO_ZPCD_SQN" label="지번우편번호순번" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="7" required="false" description="지번우편번호순번" scale="0"/>
+      <Field id="LTNO_BSADR" label="지번기본주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="지번기본주소" scale="0"/>
+      <Field id="LTNO_DTADR" label="지번상세주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="지번상세주소" scale="0"/>
+      <Field id="RDNM_ZPCD" label="도로명우편번호" fieldtype="FreeText" datatype="STRING" datasize="5" required="false" description="도로명우편번호" scale="0"/>
+      <Field id="RDNM_ZPCD_SQN" label="도로명우편번호순번" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="7" required="false" description="도로명우편번호순번" scale="0"/>
+      <Field id="RDNM_BSADR" label="도로명기본주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="도로명기본주소" scale="0"/>
+      <Field id="RDNM_DTADR" label="도로명상세주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="도로명상세주소" scale="0"/>
+      <Field id="DIRC_INPT_ADR" label="직접입력주소" fieldtype="FreeText" datatype="STRING" datasize="400" required="false" description="직접입력주소" scale="0"/>
+      <Field id="RLES_ARE" label="부동산면적" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="19" required="false" description="부동산면적" scale="5"/>
+      <Field id="APAS_APLY_KNCD" label="감정평가적용종류코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="감정평가적용종류코드" scale="0"/>
+      <Field id="ROOMCNT" label="방개수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="3" required="false" description="방개수" scale="0"/>
+    </Model>
+    <Model id="SI_RLES_VLU_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="ESTT_DT" label="감정일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="감정일자" scale="0"/>
+      <Field id="AORG_CD" label="감정평가기관코드" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="감정평가기관코드" scale="0"/>
+      <Field id="APAS_HMAB_DVCD" label="감정평가내외구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="감정평가내외구분코드" scale="0"/>
+      <Field id="ESDC_NO" label="감정서번호" fieldtype="FreeText" datatype="STRING" datasize="50" required="false" description="감정서번호" scale="0"/>
+      <Field id="MRTG_ACKN_VAMT" label="담보인정가액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="담보인정가액" scale="0"/>
+      <Field id="CUPR_ESTI_AMT" label="시가추정금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="시가추정금액" scale="0"/>
+      <Field id="DEAL_DVCD" label="매매구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="매매구분코드" scale="0"/>
+      <Field id="HIRE_GUAR_AMT" label="임차보증금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="임차보증금액" scale="0"/>
+      <Field id="NACF_LOAN_AMT" label="농협중앙회대출금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="농협중앙회대출금액" scale="0"/>
+      <Field id="ONCM_PLN_AMT" label="당사기대출금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="당사기대출금액" scale="0"/>
+      <Field id="RL_DEAL_AMT" label="실제매매금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="실제매매금액" scale="0"/>
+      <Field id="APLY_LTV_RT" label="적용LTV율" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="13" required="false" description="적용LTV율" scale="5"/>
+      <Field id="RLES_LWLM_AVG_AMT" label="부동산하한평균금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="부동산하한평균금액" scale="0"/>
+      <Field id="RLES_GNRL_AVG_AMT" label="부동산일반평균금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="부동산일반평균금액" scale="0"/>
+      <Field id="RLES_ULIMT_AVG_AMT" label="부동산상한평균금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="부동산상한평균금액" scale="0"/>
+      <Field id="MRTG_CPT_KNCD" label="담보자금종류코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="담보자금종류코드" scale="0"/>
+      <Field id="HOUS_PBNF_PRC" label="주택공시가격" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="주택공시가격" scale="0"/>
+      <Field id="SMAM_HIRE_DED_AMT" label="소액임차공제금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="소액임차공제금액" scale="0"/>
+      <Field id="MAX_PSB_AMT" label="최대가능금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="최대가능금액" scale="0"/>
+      <Field id="PROR_SET_AMT" label="선순위설정금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="선순위설정금액" scale="0"/>
+      <Field id="RMK_S200" label="비고_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고_S200" scale="0"/>
+    </Model>
+    <Model id="SI_VHCL_BSIC_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="THNG_NM" label="물건명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="물건명" scale="0"/>
+      <Field id="VHRNO" label="차량번호" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="차량번호" scale="0"/>
+      <Field id="VHCL_RGCR_CARTP_CD" label="차량등록증차종코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="차량등록증차종코드" scale="0"/>
+      <Field id="VHCL_PPCD" label="차량용도코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="차량용도코드" scale="0"/>
+      <Field id="VHIDNO" label="차대번호" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="차대번호" scale="0"/>
+      <Field id="VHCL_FRMT_TEXT_S100" label="차량형식내용_S100" fieldtype="FreeText" datatype="STRING" datasize="100" required="false" description="차량형식내용_S100" scale="0"/>
+      <Field id="VHCL_MDYR" label="차량연식" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="차량연식" scale="0"/>
+      <Field id="DSVL" label="배기량" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="19" required="false" description="배기량" scale="5"/>
+      <Field id="PM_FRMT_TEXT_S100" label="원동기형식내용_S100" fieldtype="FreeText" datatype="STRING" datasize="100" required="false" description="원동기형식내용_S100" scale="0"/>
+      <Field id="VHCL_RGS_DT" label="차량등록일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="차량등록일자" scale="0"/>
+      <Field id="LEAS_RNT_NMNL_DVCD" label="리스렌트명의구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="리스렌트명의구분코드" scale="0"/>
+      <Field id="CARBS_DVCD" label="차량본거지구분코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="차량본거지구분코드" scale="0"/>
+      <Field id="SET_CNTL_GOOF_CD" label="설정관할관청코드" fieldtype="FreeText" datatype="STRING" datasize="3" required="false" description="설정관할관청코드" scale="0"/>
+      <Field id="LAST_CHG_USER_ID" label="최종변경사용자ID" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="최종변경사용자ID" scale="0"/>
+      <Field id="BZOP_DPT_CD" label="영업부서코드" fieldtype="FreeText" datatype="STRING" datasize="5" required="false" description="영업부서코드" scale="0"/>
+      <Field id="EXMN_VALD_STDT" label="검사유효시작일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="검사유효시작일자" scale="0"/>
+      <Field id="EXMN_VALD_ENDT" label="검사유효종료일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="검사유효종료일자" scale="0"/>
+      <Field id="OWNR_NM" label="소유자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="소유자명" scale="0"/>
+      <Field id="OWNR_ADR_DVCD" label="소유자주소구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="소유자주소구분코드" scale="0"/>
+      <Field id="OWNR_ZPCD" label="소유자우편번호" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="소유자우편번호" scale="0"/>
+      <Field id="OWNR_BSADR" label="소유자기본주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="소유자기본주소" scale="0"/>
+      <Field id="OWNR_DTADR" label="소유자상세주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="소유자상세주소" scale="0"/>
+      <Field id="RMK_2_S200" label="비고2_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고2_S200" scale="0"/>
+    </Model>
+    <Model id="SI_VHCL_ETC_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="SET_TMT_THNG_DVCD" label="설정해지물건구분코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="설정해지물건구분코드" scale="0"/>
+      <Field id="VHRNO2" label="차량번호2" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="차량번호2" scale="0"/>
+      <Field id="VHIDNO2" label="차대번호2" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="차대번호2" scale="0"/>
+      <Field id="VHCL_MDYR2" label="차량연식2" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="차량연식2" scale="0"/>
+      <Field id="CARTP_NM" label="차종명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="차종명" scale="0"/>
+      <Field id="CLDG_VHCL_NM" label="자동차원부차량명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="자동차원부차량명" scale="0"/>
+      <Field id="PM_FRMT_TEXT_2_S100" label="원동기형식내용2_S100" fieldtype="FreeText" datatype="STRING" datasize="100" required="false" description="원동기형식내용2_S100" scale="0"/>
+      <Field id="EXMN_VALD_STDT2" label="검사유효시작일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="검사유효시작일자2" scale="0"/>
+      <Field id="EXMN_VALD_ENDT2" label="검사유효종료일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="검사유효종료일자2" scale="0"/>
+      <Field id="OWNR_NM2" label="소유자명2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="소유자명2" scale="0"/>
+      <Field id="RPRS_OWNR_NM" label="대표소유자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="대표소유자명" scale="0"/>
+      <Field id="OWNR_ZPCD2" label="소유자우편번호2" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="소유자우편번호2" scale="0"/>
+      <Field id="OWNR_BSADR2" label="소유자기본주소2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="소유자기본주소2" scale="0"/>
+      <Field id="OWNR_DTADR2" label="소유자상세주소2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="소유자상세주소2" scale="0"/>
+      <Field id="OWNR_ADR_DVCD2" label="소유자주소구분코드2" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="소유자주소구분코드2" scale="0"/>
+      <Field id="INSL_PLC_ZPCD" label="설치장소우편번호" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="설치장소우편번호" scale="0"/>
+      <Field id="INSL_PLC_ZPCD_SQN" label="설치장소우편번호순번" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="7" required="false" description="설치장소우편번호순번" scale="0"/>
+      <Field id="INSL_PLC_BSADR" label="설치장소기본주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="설치장소기본주소" scale="0"/>
+      <Field id="INSL_PLC_DTADR" label="설치장소상세주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="설치장소상세주소" scale="0"/>
+      <Field id="RMK_3_S200" label="비고3_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고3_S200" scale="0"/>
+    </Model>
+    <Model id="SI_MCHN_EQPM_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="FSS_THNG_KNCD" label="금융감독원물건종류코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="금융감독원물건종류코드" scale="0"/>
+      <Field id="NC_YN" label="신차여부" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="신차여부" scale="0"/>
+      <Field id="LEAS_RNT_NMNL_DVCD2" label="리스렌트명의구분코드2" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="리스렌트명의구분코드2" scale="0"/>
+      <Field id="THNG_NM2" label="물건명2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="물건명2" scale="0"/>
+      <Field id="THNG_PRC" label="물건가격" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="물건가격" scale="0"/>
+      <Field id="OPT_PRC" label="옵션가격" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="옵션가격" scale="0"/>
+      <Field id="INCDL_COST" label="부대비용" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="부대비용" scale="0"/>
+      <Field id="MNFC_YM" label="제조년월" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="제조년월" scale="0"/>
+      <Field id="SPLY_VAMT" label="공급가액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="공급가액" scale="0"/>
+      <Field id="QTY" label="수량" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="수량" scale="0"/>
+      <Field id="PRTHG_HSCST_AMT" label="물건별취득원가금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="물건별취득원가금액" scale="0"/>
+      <Field id="THNG_MNFC_NAT_CD" label="물건제조국가코드" fieldtype="FreeText" datatype="STRING" datasize="3" required="false" description="물건제조국가코드" scale="0"/>
+      <Field id="DMPR_FRMP_DVCD" label="국산외산구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="국산외산구분코드" scale="0"/>
+      <Field id="GNRL_LEAS_THNG_MNFR_NM" label="일반리스물건제조사명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="일반리스물건제조사명" scale="0"/>
+      <Field id="THNG_SELLR_NM" label="물건매도자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="물건매도자명" scale="0"/>
+      <Field id="THNG_SELL_NAT_CD" label="물건매도국가코드" fieldtype="FreeText" datatype="STRING" datasize="3" required="false" description="물건매도국가코드" scale="0"/>
+      <Field id="DRYR" label="내용년수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="5" required="false" description="내용년수" scale="1"/>
+      <Field id="THNG_CHCK_DVCD" label="물건점검구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="물건점검구분코드" scale="0"/>
+      <Field id="THNG_INSL_PLC_CD" label="물건설치장소코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="물건설치장소코드" scale="0"/>
+      <Field id="INSL_PLC_ZPCD2" label="설치장소우편번호2" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="설치장소우편번호2" scale="0"/>
+      <Field id="INSL_PLC_BSADR2" label="설치장소기본주소2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="설치장소기본주소2" scale="0"/>
+      <Field id="INSL_PLC_DTADR2" label="설치장소상세주소2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="설치장소상세주소2" scale="0"/>
+      <Field id="THNG_LOTNO" label="물건LOT번호" fieldtype="FreeText" datatype="STRING" datasize="30" required="false" description="물건LOT번호" scale="0"/>
+      <Field id="SPLR_PTNR_NO" label="공급자파트너번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="공급자파트너번호" scale="0"/>
+      <Field id="RMK_4_S200" label="비고4_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고4_S200" scale="0"/>
+    </Model>
+    <Model id="SI_AGPR_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="ESTT_DT2" label="감정일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="감정일자2" scale="0"/>
+      <Field id="AORG_CD2" label="감정평가기관코드2" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="감정평가기관코드2" scale="0"/>
+      <Field id="APAS_HMAB_DVCD2" label="감정평가내외구분코드2" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="감정평가내외구분코드2" scale="0"/>
+      <Field id="ESDC_NO2" label="감정서번호2" fieldtype="FreeText" datatype="STRING" datasize="50" required="false" description="감정서번호2" scale="0"/>
+      <Field id="LTNO_ZPCD2" label="지번우편번호2" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="지번우편번호2" scale="0"/>
+      <Field id="LTNO_ZPCD_SQN2" label="지번우편번호순번2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="7" required="false" description="지번우편번호순번2" scale="0"/>
+      <Field id="LTNO_BSADR2" label="지번기본주소2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="지번기본주소2" scale="0"/>
+      <Field id="LTNO_DTADR2" label="지번상세주소2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="지번상세주소2" scale="0"/>
+      <Field id="RDNM_ZPCD2" label="도로명우편번호2" fieldtype="FreeText" datatype="STRING" datasize="5" required="false" description="도로명우편번호2" scale="0"/>
+      <Field id="RDNM_ZPCD_SQN2" label="도로명우편번호순번2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="7" required="false" description="도로명우편번호순번2" scale="0"/>
+      <Field id="RDNM_BSADR2" label="도로명기본주소2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="도로명기본주소2" scale="0"/>
+      <Field id="RDNM_DTADR2" label="도로명상세주소2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="도로명상세주소2" scale="0"/>
+      <Field id="DIRC_INPT_ADR2" label="직접입력주소2" fieldtype="FreeText" datatype="STRING" datasize="400" required="false" description="직접입력주소2" scale="0"/>
+      <Field id="CUPR_ESTI_AMT2" label="시가추정금액2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="시가추정금액2" scale="0"/>
+      <Field id="MRTG_ACKN_VAMT2" label="담보인정가액2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="담보인정가액2" scale="0"/>
+      <Field id="RMK_5_S200" label="비고5_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고5_S200" scale="0"/>
+    </Model>
+    <Model id="SI_ETC_CMO_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="NC_YN2" label="신차여부2" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="신차여부2" scale="0"/>
+      <Field id="VHCL_MDYR4" label="차량연식4" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="차량연식4" scale="0"/>
+      <Field id="FSS_THNG_KNCD2" label="금융감독원물건종류코드2" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="금융감독원물건종류코드2" scale="0"/>
+      <Field id="SPLR_PTNR_NO2" label="공급자파트너번호2" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="공급자파트너번호2" scale="0"/>
+      <Field id="SLCM_PTNR_NO" label="판매사파트너번호" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="판매사파트너번호" scale="0"/>
+      <Field id="THNG_NM3" label="물건명3" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="물건명3" scale="0"/>
+      <Field id="QTY2" label="수량2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="수량2" scale="0"/>
+      <Field id="THNG_PRC2" label="물건가격2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="물건가격2" scale="0"/>
+      <Field id="PRCV_AMT" label="선수금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="선수금액" scale="0"/>
+      <Field id="OPT_PRC2" label="옵션가격2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="옵션가격2" scale="0"/>
+      <Field id="INCDL_COST2" label="부대비용2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="부대비용2" scale="0"/>
+      <Field id="RMK_6_S200" label="비고6_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고6_S200" scale="0"/>
+    </Model>
+    <Model id="SI_HIRE_GRMNY_RSRN_BOND_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="RLES_BLDG_LND_MRTG_UNQ_NO2" label="부동산건물토지담보고유번호2" fieldtype="FreeText" datatype="STRING" datasize="30" required="false" description="부동산건물토지담보고유번호2" scale="0"/>
+      <Field id="RLES_ARE2" label="부동산면적2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="19" required="false" description="부동산면적2" scale="5"/>
+      <Field id="CUPR_ESTI_AMT3" label="시가추정금액3" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="시가추정금액3" scale="0"/>
+      <Field id="PROR_SET_AMT2" label="선순위설정금액2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="선순위설정금액2" scale="0"/>
+      <Field id="ESTT_DT3" label="감정일자3" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="감정일자3" scale="0"/>
+      <Field id="APAS_HMAB_DVCD3" label="감정평가내외구분코드3" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="감정평가내외구분코드3" scale="0"/>
+      <Field id="AORG_CD3" label="감정평가기관코드3" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="감정평가기관코드3" scale="0"/>
+      <Field id="ESDC_NO3" label="감정서번호3" fieldtype="FreeText" datatype="STRING" datasize="50" required="false" description="감정서번호3" scale="0"/>
+      <Field id="LTNO_ZPCD3" label="지번우편번호3" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="지번우편번호3" scale="0"/>
+      <Field id="LTNO_ZPCD_SQN3" label="지번우편번호순번3" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="7" required="false" description="지번우편번호순번3" scale="0"/>
+      <Field id="LTNO_BSADR3" label="지번기본주소3" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="지번기본주소3" scale="0"/>
+      <Field id="LTNO_DTADR3" label="지번상세주소3" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="지번상세주소3" scale="0"/>
+      <Field id="RDNM_ZPCD3" label="도로명우편번호3" fieldtype="FreeText" datatype="STRING" datasize="5" required="false" description="도로명우편번호3" scale="0"/>
+      <Field id="RDNM_ZPCD_SQN3" label="도로명우편번호순번3" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="7" required="false" description="도로명우편번호순번3" scale="0"/>
+      <Field id="RDNM_BSADR3" label="도로명기본주소3" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="도로명기본주소3" scale="0"/>
+      <Field id="RDNM_DTADR3" label="도로명상세주소3" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="도로명상세주소3" scale="0"/>
+      <Field id="LODB_RL_AMT" label="전세실제금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="전세실제금액" scale="0"/>
+      <Field id="LODB_ESTI_AMT" label="전세추정금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="전세추정금액" scale="0"/>
+      <Field id="LODB_ACKN_AMT" label="전세인정금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="전세인정금액" scale="0"/>
+      <Field id="LNRN_CONT_DT" label="임대차계약일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="임대차계약일자" scale="0"/>
+      <Field id="LNRN_STDT" label="임대차시작일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="임대차시작일자" scale="0"/>
+      <Field id="LNRN_ENDT" label="임대차종료일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="임대차종료일자" scale="0"/>
+      <Field id="CNFM_DT" label="확정일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="확정일자" scale="0"/>
+      <Field id="MVIN_DT" label="전입일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="전입일자" scale="0"/>
+      <Field id="ONCM_PLN_AMT2" label="당사기대출금액2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="당사기대출금액2" scale="0"/>
+      <Field id="CNSN_SIGT_CFMR_DVCD" label="승낙서명확인자구분코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="승낙서명확인자구분코드" scale="0"/>
+      <Field id="RMK_7_S200" label="비고7_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고7_S200" scale="0"/>
+    </Model>
+    <Model id="SI_LSHR_INFO_HIST_GRID" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="LSHR_NM" label="임대인명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="임대인명" scale="0"/>
+      <Field id="LSHR_RESNO" label="임대인주민등록번호" fieldtype="FreeText" datatype="STRING" datasize="13" required="false" description="임대인주민등록번호" scale="0"/>
+      <Field id="LSHR_CPLNO" label="임대인휴대전화지역번호" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="임대인휴대전화지역번호" scale="0"/>
+      <Field id="LSHR_CPTNO" label="임대인휴대전화국번호" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="임대인휴대전화국번호" scale="0"/>
+      <Field id="LSHR_CPENO" label="임대인휴대전화끝번호" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="임대인휴대전화끝번호" scale="0"/>
+      <Field id="LSHR_HOME_TELLNO" label="임대인자택전화지역번호" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="임대인자택전화지역번호" scale="0"/>
+      <Field id="LSHR_HOME_TELTNO" label="임대인자택전화국번호" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="임대인자택전화국번호" scale="0"/>
+      <Field id="LSHR_HOME_TELENO" label="임대인자택전화끝번호" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="임대인자택전화끝번호" scale="0"/>
+      <Field id="LSHR_WKPLC_TELLNO" label="임대인직장전화지역번호" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="임대인직장전화지역번호" scale="0"/>
+      <Field id="LSHR_WKPLC_TELTNO" label="임대인직장전화국번호" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="임대인직장전화국번호" scale="0"/>
+      <Field id="LSHR_WKPLC_TELENO" label="임대인직장전화끝번호" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="임대인직장전화끝번호" scale="0"/>
+      <Field id="LSHR_PSML_RCP_PADR_DVCD" label="임대인우편물수령주소지구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="임대인우편물수령주소지구분코드" scale="0"/>
+      <Field id="LSHR_ZPCD" label="임대인우편번호" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="임대인우편번호" scale="0"/>
+      <Field id="LSHR_ZPCD_SQN" label="임대인우편번호순번" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="7" required="false" description="임대인우편번호순번" scale="0"/>
+      <Field id="LSHR_BSADR" label="임대인기본주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="임대인기본주소" scale="0"/>
+      <Field id="LSHR_DTADR" label="임대인상세주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="임대인상세주소" scale="0"/>
+      <Field id="NTSH_RCPP_ZPCD" label="통지서수령지우편번호" fieldtype="FreeText" datatype="STRING" datasize="6" required="false" description="통지서수령지우편번호" scale="0"/>
+      <Field id="NTSH_RCPP_ZPCD_SQN" label="통지서수령지우편번호순번" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="7" required="false" description="통지서수령지우편번호순번" scale="0"/>
+      <Field id="NTSH_RCPP_BSADR" label="통지서수령지기본주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="통지서수령지기본주소" scale="0"/>
+      <Field id="NTSH_RCPP_DTADR" label="통지서수령지상세주소" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="통지서수령지상세주소" scale="0"/>
+    </Model>
+    <Model id="SI_SID_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="SID_DVCD" label="예적금구분코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="예적금구분코드" scale="0"/>
+      <Field id="SID_GRMG_ISOG_CD" label="예적금보증담보발행기관코드" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="예적금보증담보발행기관코드" scale="0"/>
+      <Field id="ACNO" label="계좌번호" fieldtype="FreeText" datatype="STRING" datasize="30" required="false" description="계좌번호" scale="0"/>
+      <Field id="MNDP_AMT" label="예금금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="예금금액" scale="0"/>
+      <Field id="ACML_INDP_AMT" label="누적적금금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="누적적금금액" scale="0"/>
+      <Field id="MM_INDP_AMT" label="월적금금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="월적금금액" scale="0"/>
+      <Field id="EXPR_AGRE_AMT" label="만기약정금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="만기약정금액" scale="0"/>
+      <Field id="OPG_DT" label="개설일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="개설일자" scale="0"/>
+      <Field id="EXPR_DT" label="만기일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="만기일자" scale="0"/>
+      <Field id="RMK_8_S200" label="비고8_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고8_S200" scale="0"/>
+    </Model>
+    <Model id="SI_RORT_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="TRSR_NM" label="위탁자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="위탁자명" scale="0"/>
+      <Field id="CSNE_NM" label="수탁자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="수탁자명" scale="0"/>
+      <Field id="BNFC_NM" label="수익자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="수익자명" scale="0"/>
+      <Field id="TRST_RGT_DT" label="신탁등기일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="신탁등기일자" scale="0"/>
+      <Field id="TRST_TRM_TEXT_S50" label="신탁기간내용_S50" fieldtype="FreeText" datatype="STRING" datasize="50" required="false" description="신탁기간내용_S50" scale="0"/>
+      <Field id="FXCL_KNCD" label="근저당종류코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="근저당종류코드" scale="0"/>
+      <Field id="RORT_SET_RANK_CD" label="수익권설정순위코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="수익권설정순위코드" scale="0"/>
+      <Field id="PRFT_AMT" label="수익금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="수익금액" scale="0"/>
+      <Field id="PROR_RGPL_YN" label="선순위질권여부" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="선순위질권여부" scale="0"/>
+      <Field id="RMK_9_S200" label="비고9_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고9_S200" scale="0"/>
+    </Model>
+    <Model id="SI_INSR_CLAM_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="INSCM_NM" label="보험사명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="보험사명" scale="0"/>
+      <Field id="IPSR_NM" label="피보험자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="피보험자명" scale="0"/>
+      <Field id="INSR_CONT_DT" label="보험계약일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="보험계약일자" scale="0"/>
+      <Field id="INSR_CONT_EXPRA_DT" label="보험계약만료일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="보험계약만료일자" scale="0"/>
+      <Field id="INSR_AMT" label="보험금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="보험금액" scale="0"/>
+      <Field id="RMK_10_S200" label="비고10_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고10_S200" scale="0"/>
+    </Model>
+    <Model id="SI_ETC_BOND_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="CRDR_NM" label="채권자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="채권자명" scale="0"/>
+      <Field id="DBTR_NM" label="채무자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="채무자명" scale="0"/>
+      <Field id="BOND_VAMT" label="채권가액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="채권가액" scale="0"/>
+      <Field id="BOND_MRTG_NM" label="채권담보명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="채권담보명" scale="0"/>
+      <Field id="RMK_11_S200" label="비고11_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고11_S200" scale="0"/>
+    </Model>
+    <Model id="SI_BOND_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="ISUR_NM" label="발행인명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="발행인명" scale="0"/>
+      <Field id="ISSU_DT" label="발행일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="발행일자" scale="0"/>
+      <Field id="REPY_DT" label="상환일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="상환일자" scale="0"/>
+      <Field id="FCVL_AMT2" label="액면금액2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="액면금액2" scale="0"/>
+      <Field id="QTY3" label="수량3" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="수량3" scale="0"/>
+      <Field id="AGRE_INT_RT" label="약정이자율" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="13" required="false" description="약정이자율" scale="5"/>
+      <Field id="INT_PY_CYC_MCNT" label="이자지급주기개월수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="이자지급주기개월수" scale="0"/>
+      <Field id="RMK_12_S200" label="비고12_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고12_S200" scale="0"/>
+    </Model>
+    <Model id="SI_BNK_ISSU_CVBL_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GRMG_ISOG_CD" label="보증담보발행기관코드" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="보증담보발행기관코드" scale="0"/>
+      <Field id="ISUR_NM2" label="발행인명2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="발행인명2" scale="0"/>
+      <Field id="ISSU_DT2" label="발행일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="발행일자2" scale="0"/>
+      <Field id="PY_DT" label="지급일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="지급일자" scale="0"/>
+      <Field id="DRAF_AMT" label="어음금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="어음금액" scale="0"/>
+      <Field id="RMK_13_S200" label="비고13_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고13_S200" scale="0"/>
+    </Model>
+    <Model id="SI_STCK_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="SCRTS_ITMS_NM" label="증권종목명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="증권종목명" scale="0"/>
+      <Field id="STCK_LIST_DVCD" label="주식상장구분코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="주식상장구분코드" scale="0"/>
+      <Field id="ISSU_DT3" label="발행일자3" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="발행일자3" scale="0"/>
+      <Field id="OWNR_NM3" label="소유자명3" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="소유자명3" scale="0"/>
+      <Field id="FCVL_AMT3" label="액면금액3" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="액면금액3" scale="0"/>
+      <Field id="QTY4" label="수량4" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="수량4" scale="0"/>
+      <Field id="MRTG_EVL_AMT" label="담보평가금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="담보평가금액" scale="0"/>
+      <Field id="RMK_14_S200" label="비고14_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고14_S200" scale="0"/>
+    </Model>
+    <Model id="SI_OPT_BOND_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="ISUR_NM3" label="발행인명3" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="발행인명3" scale="0"/>
+      <Field id="ISSU_DT4" label="발행일자4" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="발행일자4" scale="0"/>
+      <Field id="REPY_DT2" label="상환일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="상환일자2" scale="0"/>
+      <Field id="FCVL_AMT4" label="액면금액4" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="액면금액4" scale="0"/>
+      <Field id="QTY5" label="수량5" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="수량5" scale="0"/>
+      <Field id="INT_PY_CYC_MCNT2" label="이자지급주기개월수2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="이자지급주기개월수2" scale="0"/>
+      <Field id="AGRE_INT_RT2" label="약정이자율2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="13" required="false" description="약정이자율2" scale="5"/>
+      <Field id="BOND_CONV_MMNT_TEXT_S200" label="채권전환시기내용_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="채권전환시기내용_S200" scale="0"/>
+      <Field id="BOND_CONV_TKOV_PRC" label="채권전환인수가격" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="채권전환인수가격" scale="0"/>
+      <Field id="RMK_15_S200" label="비고15_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고15_S200" scale="0"/>
+    </Model>
+    <Model id="SI_GRINS_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="GRMG_ISOG_CD2" label="보증담보발행기관코드2" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="보증담보발행기관코드2" scale="0"/>
+      <Field id="CNTR_NM" label="계약자명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="계약자명" scale="0"/>
+      <Field id="BOND_HSTAMT_AMT" label="채권최고액금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="채권최고액금액" scale="0"/>
+      <Field id="CONT_DT" label="계약일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="계약일자" scale="0"/>
+      <Field id="CONT_ENDT" label="계약종료일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="계약종료일자" scale="0"/>
+      <Field id="GRSHT_NO" label="보증서번호" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="보증서번호" scale="0"/>
+      <Field id="GUAR_TEXT_S200" label="보증내용_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="보증내용_S200" scale="0"/>
+      <Field id="TMT_DT" label="해지일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="해지일자" scale="0"/>
+      <Field id="TMT_RSN_TEXT_S200" label="해지사유내용_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="해지사유내용_S200" scale="0"/>
+      <Field id="RMK_16_S200" label="비고16_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고16_S200" scale="0"/>
+    </Model>
+    <Model id="SI_ETC_GUAR_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="CNTR_NM2" label="계약자명2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="계약자명2" scale="0"/>
+      <Field id="TMT_DT2" label="해지일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="해지일자2" scale="0"/>
+      <Field id="CONT_DT2" label="계약일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="계약일자2" scale="0"/>
+      <Field id="CONT_ENDT2" label="계약종료일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="계약종료일자2" scale="0"/>
+      <Field id="CONT_TEXT_S200" label="계약내용_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="계약내용_S200" scale="0"/>
+      <Field id="TMT_RSN_TEXT_2_S200" label="해지사유내용2_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="해지사유내용2_S200" scale="0"/>
+      <Field id="RMK_17_S200" label="비고17_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고17_S200" scale="0"/>
+    </Model>
+    <Model id="SI_FXCL_INFO_HIST_GRID" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="RGS_SQNO" label="등록일련번호" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="등록일련번호" scale="0"/>
+      <Field id="MRTG_SET_DT" label="담보설정일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="담보설정일자" scale="0"/>
+      <Field id="FXCL_SET_ACPT_NO" label="근저당설정접수번호" fieldtype="FreeText" datatype="STRING" datasize="50" required="false" description="근저당설정접수번호" scale="0"/>
+      <Field id="BOND_HSTAMT_AMT" label="채권최고액금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="채권최고액금액" scale="0"/>
+      <Field id="FXCL_SET_RANK_CD" label="근저당설정순위코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="근저당설정순위코드" scale="0"/>
+      <Field id="FXCL_KNCD" label="근저당종류코드" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="근저당종류코드" scale="0"/>
+      <Field id="FXCL_USHR_YN" label="근저당습용여부" fieldtype="FreeText" datatype="STRING" datasize="1" required="false" description="근저당습용여부" scale="0"/>
+      <Field id="PROR_ERSR_AMT" label="선순위말소금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="선순위말소금액" scale="0"/>
+      <Field id="TMT_DT" label="해지일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="해지일자" scale="0"/>
+      <Field id="TMT_RSN_TEXT_S200" label="해지사유내용_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="해지사유내용_S200" scale="0"/>
+      <Field id="RMK_S200" label="비고_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고_S200" scale="0"/>
+      <Field id="MRTG_ENDT" label="담보종료일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="담보종료일자" scale="0"/>
+    </Model>
+    <Model id="SI_SPFC_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="SPFC_PRPS_TEXT_S200" label="지상권목적내용_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="지상권목적내용_S200" scale="0"/>
+      <Field id="SPFC_RNG_TEXT_S200" label="지상권범위내용_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="지상권범위내용_S200" scale="0"/>
+      <Field id="SPFC_ASNDNT_TRM_TEXT_S200" label="지상권존속기간내용_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="지상권존속기간내용_S200" scale="0"/>
+      <Field id="SPFC_ACPT_NO" label="지상권접수번호" fieldtype="FreeText" datatype="STRING" datasize="50" required="false" description="지상권접수번호" scale="0"/>
+      <Field id="GRRNT_AMT" label="지대금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="지대금액" scale="0"/>
+      <Field id="MRTG_SET_DT" label="담보설정일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="담보설정일자" scale="0"/>
+      <Field id="SUC_BRDN_DVCD" label="설정비부담구분코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="설정비부담구분코드" scale="0"/>
+      <Field id="TMT_DT4" label="해지일자4" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="해지일자4" scale="0"/>
+      <Field id="TMT_RSN_TEXT_4_S200" label="해지사유내용4_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="해지사유내용4_S200" scale="0"/>
+      <Field id="RMK_19_S200" label="비고19_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고19_S200" scale="0"/>
+    </Model>
+    <Model id="SI_MRTG_TRST_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="TRSR_NM2" label="위탁자명2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="위탁자명2" scale="0"/>
+      <Field id="CSNE_NM2" label="수탁자명2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="수탁자명2" scale="0"/>
+      <Field id="BNFC_NM2" label="수익자명2" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="수익자명2" scale="0"/>
+      <Field id="TRST_RGT_DT2" label="신탁등기일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="신탁등기일자2" scale="0"/>
+      <Field id="TRST_TRM_TEXT_2_S50" label="신탁기간내용2_S50" fieldtype="FreeText" datatype="STRING" datasize="50" required="false" description="신탁기간내용2_S50" scale="0"/>
+      <Field id="RORT_SET_RANK_CD2" label="수익권설정순위코드2" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="수익권설정순위코드2" scale="0"/>
+      <Field id="TRST_AMT" label="신탁금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="신탁금액" scale="0"/>
+      <Field id="TMT_DT5" label="해지일자5" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="해지일자5" scale="0"/>
+      <Field id="TMT_RSN_TEXT_5_S200" label="해지사유내용5_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="해지사유내용5_S200" scale="0"/>
+      <Field id="RMK_20_S200" label="비고20_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고20_S200" scale="0"/>
+    </Model>
+    <Model id="SI_TRNF_MRTG_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="THNG_QTY" label="물건수량" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="물건수량" scale="0"/>
+      <Field id="MNF_UNQ_NO" label="제작고유번호" fieldtype="FreeText" datatype="STRING" datasize="100" required="false" description="제작고유번호" scale="0"/>
+      <Field id="CONT_DT3" label="계약일자3" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="계약일자3" scale="0"/>
+      <Field id="THNG_NM4" label="물건명4" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="물건명4" scale="0"/>
+      <Field id="CNFM_DT2" label="확정일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="확정일자2" scale="0"/>
+      <Field id="TMT_DT6" label="해지일자6" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="해지일자6" scale="0"/>
+      <Field id="TMT_RSN_TEXT_6_S200" label="해지사유내용6_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="해지사유내용6_S200" scale="0"/>
+      <Field id="RMK_21_S200" label="비고21_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고21_S200" scale="0"/>
+    </Model>
+    <Model id="SI_REBY_AGRE_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="CNTR_NM3" label="계약자명3" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="계약자명3" scale="0"/>
+      <Field id="CONT_DT4" label="계약일자4" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="계약일자4" scale="0"/>
+      <Field id="CONT_ENDT3" label="계약종료일자3" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="계약종료일자3" scale="0"/>
+      <Field id="CONT_TEXT_2_S200" label="계약내용2_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="계약내용2_S200" scale="0"/>
+      <Field id="TMT_DT7" label="해지일자7" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="해지일자7" scale="0"/>
+      <Field id="TMT_RSN_TEXT_7_S200" label="해지사유내용7_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="해지사유내용7_S200" scale="0"/>
+      <Field id="RMK_22_S200" label="비고22_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고22_S200" scale="0"/>
+    </Model>
+    <Model id="SI_RGPL_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="RGPL_SET_RANK_CD" label="질권설정순위코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="질권설정순위코드" scale="0"/>
+      <Field id="MRTG_SET_DT2" label="담보설정일자2" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="담보설정일자2" scale="0"/>
+      <Field id="BOND_HSTAMT_AMT2" label="채권최고액금액2" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="채권최고액금액2" scale="0"/>
+      <Field id="MRTG_CFM_MTCD" label="담보확인방법코드" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="담보확인방법코드" scale="0"/>
+      <Field id="CNFM_DT3" label="확정일자3" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="확정일자3" scale="0"/>
+      <Field id="MRTG_ENDT" label="담보종료일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="담보종료일자" scale="0"/>
+      <Field id="TMT_DT8" label="해지일자8" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="해지일자8" scale="0"/>
+      <Field id="TMT_RSN_TEXT_8_S200" label="해지사유내용8_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="해지사유내용8_S200" scale="0"/>
+      <Field id="RMK_23_S200" label="비고23_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고23_S200" scale="0"/>
+    </Model>
+    <Model id="SI_BOND_TRNF_INFO" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="CONT_DT5" label="계약일자5" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="계약일자5" scale="0"/>
+      <Field id="MRTG_CFM_MTCD2" label="담보확인방법코드2" fieldtype="FreeText" datatype="STRING" datasize="2" required="false" description="담보확인방법코드2" scale="0"/>
+      <Field id="CNFM_DT4" label="확정일자4" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="확정일자4" scale="0"/>
+      <Field id="TMT_DT9" label="해지일자9" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="해지일자9" scale="0"/>
+      <Field id="TMT_RSN_TEXT_9_S200" label="해지사유내용9_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="해지사유내용9_S200" scale="0"/>
+      <Field id="RMK_24_S200" label="비고24_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="비고24_S200" scale="0"/>
+    </Model>
+    <Model id="SI_PROR_SET_HIST_GRID" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="HIST_SQNO" label="내역일련번호" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="내역일련번호" scale="0"/>
+      <Field id="PROR_LOAN_AMT" label="선순위대출금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="선순위대출금액" scale="0"/>
+      <Field id="PROR_SET_AMT" label="선순위설정금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="선순위설정금액" scale="0"/>
+      <Field id="PROR_GRMG_ISOG_CD" label="선순위보증담보발행기관코드" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="선순위보증담보발행기관코드" scale="0"/>
+      <Field id="PROR_SET_DT" label="선순위설정일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="선순위설정일자" scale="0"/>
+      <Field id="PROR_RELS_DT" label="선순위해제일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="선순위해제일자" scale="0"/>
+    </Model>
+    <Model id="SI_RGHT_IFRG_HIST_GRID" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="RGS_SQNO" label="등록일련번호" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="등록일련번호" scale="0"/>
+      <Field id="RGS_RSN_TEXT_S200" label="등록사유내용_S200" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="등록사유내용_S200" scale="0"/>
+      <Field id="RGS_ORG_NM" label="등록기관명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="등록기관명" scale="0"/>
+      <Field id="RGS_AMT" label="등록금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="등록금액" scale="0"/>
+      <Field id="MRTG_SET_DT" label="담보설정일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="담보설정일자" scale="0"/>
+      <Field id="MRTG_ENDT" label="담보종료일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="담보종료일자" scale="0"/>
+    </Model>
+    <Model id="SI_THNG_EVL_HIST_GRID" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="HIST_SQNO" label="내역일련번호" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="내역일련번호" scale="0"/>
+      <Field id="ESTT_DT" label="감정일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="감정일자" scale="0"/>
+      <Field id="AORG_CD" label="감정평가기관코드" fieldtype="FreeText" datatype="STRING" datasize="4" required="false" description="감정평가기관코드" scale="0"/>
+      <Field id="CUPR_ESTI_AMT" label="시가추정금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="시가추정금액" scale="0"/>
+      <Field id="FCVL_AMT" label="액면금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="액면금액" scale="0"/>
+      <Field id="MRTG_EVL_AMT" label="담보평가금액" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="담보평가금액" scale="0"/>
+      <Field id="QTY" label="수량" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="18" required="false" description="수량" scale="0"/>
+      <Field id="SHRS_RT" label="지분율" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="13" required="false" description="지분율" scale="5"/>
+    </Model>
+    <Model id="SI_USHR_LOAN_HIST_GRID" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="String" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="RGS_SQNO" label="등록일련번호" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="17" required="false" description="등록일련번호" scale="0"/>
+      <Field id="USHR_MRTG_MGNO" label="습용담보관리번호" fieldtype="FreeText" datatype="STRING" datasize="15" required="false" description="습용담보관리번호" scale="0"/>
+      <Field id="LOAN_DT" label="대출일자" fieldtype="FreeText" datatype="STRING" datasize="8" required="false" description="대출일자" scale="0"/>
+      <Field id="LOAN_NO" label="대출번호" fieldtype="FreeText" datatype="STRING" datasize="14" required="false" description="대출번호" scale="0"/>
+      <Field id="GDS_NM" label="상품명" fieldtype="FreeText" datatype="STRING" datasize="200" required="false" description="상품명" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="IUI_M_COR_S_MTN00184" name="통합담보등록" url="http://localhost:38080/model/domain">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="17"/>
+        <Column id="BizCode" type="STRING" size="3"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">COR</Col>
+          <Col id="SvcID">ISD_IUI_M_COR_S_MTN00184</Col>
+          <Col id="IFID">IUI_M_COR_S_MTN00184</Col>
+          <Col id="UUID">20220719100042700</Col>
+          <Col id="BizCode">MTN</Col>
+          <Col id="ChlCode">IUI</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERTSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_MRTG_BSIC</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.MRTG_BSIC</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_MRTG_REF</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.MRTG_REF</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_RLES_BSIC_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.RLES_BSIC_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_RLES_VLU_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.RLES_VLU_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_VHCL_BSIC_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.VHCL_BSIC_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_VHCL_ETC_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.VHCL_ETC_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_MCHN_EQPM_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.MCHN_EQPM_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_AGPR_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.AGPR_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_ETC_CMO_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.ETC_CMO_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_HIRE_GRMNY_RSRN_BOND_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.HIRE_GRMNY_RSRN_BOND_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_LSHR_INFO_HIST_GRID</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.LSHR_INFO_HIST_GRID</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_SID_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.SID_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_RORT_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.RORT_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_INSR_CLAM_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.INSR_CLAM_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_ETC_BOND_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.ETC_BOND_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_BOND_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.BOND_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_BNK_ISSU_CVBL_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.BNK_ISSU_CVBL_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_STCK_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.STCK_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_OPT_BOND_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.OPT_BOND_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_GRINS_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.GRINS_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_ETC_GUAR_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.ETC_GUAR_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_FXCL_INFO_HIST_GRID</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.FXCL_INFO_HIST_GRID</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_SPFC_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.SPFC_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_MRTG_TRST_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.MRTG_TRST_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_TRNF_MRTG_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.TRNF_MRTG_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_REBY_AGRE_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.REBY_AGRE_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_RGPL_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.RGPL_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_BOND_TRNF_INFO</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.BOND_TRNF_INFO</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_PROR_SET_HIST_GRID</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.PROR_SET_HIST_GRID</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_RGHT_IFRG_HIST_GRID</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.RGHT_IFRG_HIST_GRID</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_THNG_EVL_HIST_GRID</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.THNG_EVL_HIST_GRID</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_USHR_LOAN_HIST_GRID</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.USHR_LOAN_HIST_GRID</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>
