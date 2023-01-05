@@ -3,7 +3,7 @@
   <Form id="action_dscopyrowdata" width="1080" height="1000" titletext="DsCopyRowDataAction" onload="form_onload">
     <Layouts>
       <Layout height="1000" width="1080">
-        <TextArea id="txaInfo" taborder="3" left="0" top="95" height="52" right="10" value="- targetdataset에 현재 데이터에 fromdataset의 데이터를 복사하는 Action입니다.&#10;- targetrow, fromrow를 지정하지 않은 경우, 현재 선택된 데이터로 동작됩니다" readonly="true"/>
+        <TextArea id="txaInfo" taborder="3" left="0" top="95" height="85" right="10" value="- targetdataset에 현재 데이터에 fromdataset의 데이터를 복사하는 Action입니다.&#10;- targetrow, fromrow를 지정하지 않은 경우, 현재 선택된 데이터로 동작됩니다&#10;- Model Argument를 설정한 경우, value값에 fromdataset Field ID를 입력하면 설정된 Model Argument에 대해서만 데이터 복사가 처리됩니다. &#10;  (일부 Field만 복사하거나 fromdataset의 Field ID와 targetdataset의 Field ID가 다를때 사용)" readonly="true"/>
         <Static id="Static00_00_00" taborder="4" text="Action 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
         <Static id="staSampleBg" taborder="5" left="0" top="Static00_00_00:0" height="290" right="10" cssclass="sta_cm_box02C"/>
         <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
@@ -408,7 +408,7 @@
           <Row>
             <Col id="ID">fromdataset</Col>
             <Col id="TYPE">DatasetID</Col>
-            <Col id="TYPE_VALUE"></Col>
+            <Col id="TYPE_VALUE"/>
             <Col id="DESCPTION">복사할 데이터가 있는 Dataset 오브젝트를 설정</Col>
           </Row>
           <Row>
