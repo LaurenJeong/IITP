@@ -175,11 +175,6 @@ if (!nexacro.APITransactionAction)
 			sArgs = sAddArg + " " + sArgs;
 		}
 		
-		// TODO : Service URL 전환
-		if (this.gfnIsNull(sService) == false) {
-			sService = nexacro.replaceAll(sService,this._API_SVC_URL,this._API_SVC_PREFIX);
-		}
-		
 		// API용 Dataset 생성 및 InputDataset 정보 반환
 		var sAddInDs = this.gfnSetAPIDataset(objForm);
 		if (this.gfnIsNull(sAddInDs) == false) {
@@ -199,15 +194,6 @@ if (!nexacro.APITransactionAction)
 		  , startTime	: sStartTime
 		};
 		
-		// Transaction 처리전 공통전처리 함수(프로젝트마다 다른값 처리위해 사용)
-		var oParam = {};
-		var bRet = this.gfnBeforeTransaction(oParam);
-		if (!bRet)
-		{
-			this.gfnLog("gfnBeforeTransaction() 오류가 발생했습니다.","info");
-			return false;
-		}
-		
 		//Action Scope에 있는 CallBack 함수가 호출되도록 설정
 		objForm.fnTranActionCallback = this.fnTranActionCallback;
 		
@@ -215,8 +201,8 @@ if (!nexacro.APITransactionAction)
 		if (this.gfnIsNull(objForm.targetTranAction))		objForm.targetTranAction = {};
 		objForm.targetTranAction[sSvcId] = this;
 		
-		//Transaction 호출
-		objForm.transaction(JSON.stringify(objSvcId), sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
+		//Transaction 호출(프로젝트마다 다른값 처리위해 사용)
+		this.gfnCallTransaction(objForm, objSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
 	};
 	
 	// Transaction Callback
@@ -370,6 +356,7 @@ if (!nexacro.APITransactionAction)
 		
 		var oDataset;
 		var sDatasetId;
+		var sActionDatasetId;
 		var sDatasetXML;
 		var bRet;
 		
@@ -395,21 +382,23 @@ if (!nexacro.APITransactionAction)
 				sDatasetXML = objXml.serializeToString(childNode);
 				oDataset = null;
 				
+				sActionDatasetId = this.name + "_" + sDatasetId;
+				
 				// Input Dataset용 Array
-				aAPIDs.push(sDatasetId+"="+sDatasetId);
+				aAPIDs.push(sDatasetId+"="+sActionDatasetId);
 				
 				// Form에 Dataset있는지 체크
-				bRet = objForm.isValidObject(sDatasetId);
+				bRet = objForm.isValidObject(sActionDatasetId);
 				
 				// Form에 Dataset이 있는 경우 oDataset에 셋팅, 없는 경우 생성 후 셋팅
 				if (bRet)
 				{
-					oDataset = objForm.all[sDatasetId];
+					oDataset = objForm.all[sActionDatasetId];
 				}
 				else
 				{
 					oDataset = new Dataset();
-					objForm.addChild(sDatasetId, oDataset);
+					objForm.addChild(sActionDatasetId, oDataset);
 				}
 				
 				// Dataset에 XML Load

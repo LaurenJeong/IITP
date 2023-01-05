@@ -27,18 +27,28 @@ pAction._API_SVC_URL	= "http://127.0.0.1:8087/";		// Service URL
 //===============================================================
 // nexacro.Action : 공통함수(프로젝트마다 변경)
 //===============================================================
-// Transaction 처리전 공통처리 함수
-pAction.gfnBeforeTransaction = function(oParam)
+//===============================================================
+// nexacro.Action : 공통함수(프로젝트마다 변경)
+//===============================================================
+// Transaction 함수
+pAction.gfnCallTransaction = function(objForm, objSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync)
 {
 	// TODO : 프로젝트마다 필요시 구현필요
 	
-	return true;
+	// 1) Service URL 전환
+	if (this.gfnIsNull(sService) == false) {
+		sService = nexacro.replaceAll(sService,this._API_SVC_URL,this._API_SVC_PREFIX);
+	}
+	
+	// transaction 호출
+	objForm.transaction(JSON.stringify(objSvcId), sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
 };
 
 // Transaction 처리후 공통처리 함수
 pAction.gfnAfterTransaction = function(oParam)
 {
 	// TODO : 프로젝트마다 필요시 구현필요
+	var bRet = true;
 	
-	return true;
+	return bRet;
 };
