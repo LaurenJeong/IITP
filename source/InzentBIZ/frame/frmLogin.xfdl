@@ -7,42 +7,40 @@
         <View id="viewLogin" taborder="0" text="viewLogin" viewdataset="viewdataset" left="staCenter:-156" top="staCenter:-141" cssclass="viw_box" width="310" height="340">
           <Layouts>
             <Layout>
-              <Button id="btnLogin" left="20" height="60" right="20" bottom="20" cssclass="btn_login" text="Login" onclick="viewLogin_btnLogin_onclick"/>
-              <Edit id="edtUserId" left="19" top="20" height="60" password="false" displaynulltext="ID" right="20"/>
-              <Edit id="edtUserPw" left="19" top="90" height="60" password="true" displaynulltext="Password" right="20"/>
-              <CheckBox id="chkSaveId" left="19" top="160" height="60" right="0" text="Save User ID" cssclass="chk_login"/>
+              <Button id="btnLogin" left="20" height="60" right="20" bottom="20" cssclass="btn_login" text="Login"/>
+              <Edit id="edtUserId" left="24" top="20" height="40" width="264" password="false" displaynulltext="ID"/>
+              <Edit id="edtPassWd" left="24" top="65" height="40" width="264" password="true" displaynulltext="Password"/>
+              <CheckBox id="chkSaveId" left="24" top="110" height="30" right="0" text="Save User ID" cssclass="chk_login"/>
             </Layout>
           </Layouts>
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
                 <Column id="USER_ID" type="STRING" size="80" description="ID"/>
-                <Column id="USER_PW" type="STRING" size="80" description="비밀번호"/>
+                <Column id="PASS_WD" type="STRING" size="50" description="패스워드"/>
               </ColumnInfo>
               <Rows>
-                <Row>
-                  <Col id="USER_ID">user1</Col>
-                  <Col id="USER_PW">1234</Col>
-                </Row>
+                <Row/>
               </Rows>
             </Dataset>
           </Objects>
           <Bind>
             <BindItem id="bind_edtUserId" compid="edtUserId" propid="value" datasetid="viewdataset" columnid="USER_ID"/>
-            <BindItem id="bind_edtUserPw" compid="edtUserPw" propid="value" datasetid="viewdataset" columnid="USER_PW"/>
+            <BindItem id="bind_edtPassWd" compid="edtPassWd" propid="value" datasetid="viewdataset" columnid="PASS_WD"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="getlogin" modelid="dsinput" filepath="login\getlogin.xmodel">
+          <ModelInfo modelserviceid="model" serviceid="BIZ_M_IGT_S_COM00001" modelid="SI" filepath="IITP\BIZ_M_IGT_S_COM00001.xmodel">
             <Fields>
-              <Field id="USER_ID" description="" comptype="auto" password="false" compwidth="100%" compheight="60px" cssclass="" displaynulltext="ID" labelwidth="-1" labelcssclass="sta_login_label"/>
-              <Field id="USER_PW" description="" comptype="auto" password="true" compwidth="100%" compheight="60px" cssclass="" displaynulltext="Password" labelwidth="-1" labelcssclass="sta_login_label"/>
+              <Field id="USER_ID" innerdatasetinfo="" comptype="auto" password="false" compwidth="100%" compheight="40" labelsize="-1" fieldposition="horizontal" displaynulltext="ID" cssclass="" labelcssclass="sta_login_label"/>
+              <Field id="PASS_WD" innerdatasetinfo="" comptype="auto" password="true" compwidth="100%" compheight="40" labelsize="-1" fieldposition="horizontal" displaynulltext="Password" cssclass="" labelcssclass="sta_login_label"/>
             </Fields>
             <Components>
               <Component id="btnLogin" fields="_viewcomp"/>
               <Component id="edtUserId" fields="USER_ID"/>
-              <Component id="edtUserPw" fields="USER_PW"/>
+              <Component id="edtPassWd" fields="PASS_WD"/>
+              <Component id="chkSaveId" fields="_viewcomp"/>
             </Components>
           </ModelInfo>
-          <ViewTemplateInfo filepath="Asset\LoginViewTemplateM.xviewgen">
+          <ViewTemplateInfo filepath="Asset\LoginViewTemplate.xviewgen">
             <Attribute id="loginbuttontype" value="bottom"/>
             <Attribute id="loginbuttontext" value="Login"/>
             <Attribute id="loginbuttoncssclass" value="btn_login"/>
@@ -52,7 +50,35 @@
             <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
-        <Combo id="cboTempUser" taborder="1" text="구매요청자" left="staCenter:-156" width="310" innerdataset="dsTempUser" codecolumn="USER_ID" datacolumn="USER_NAME" index="0" value="10" bottom="viewLogin:10" height="50"/>
+        <Combo id="cboTempUser" taborder="1" text="" left="staCenter:-156" width="310" innerdataset="dsTempUser" codecolumn="USER_ID" datacolumn="USER_NAME" bottom="viewLogin:10" height="50" visible="false" displaynulltext="테스트용 유저" onitemchanged="cboTempUser_onitemchanged"/>
+        <View id="viewUser" taborder="3" text="viewUser" viewdataset="viewdataset" left="108" top="468" width="317" height="41" visible="false">
+          <Layouts/>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="result" type="STRING" size="10" description="처리결과"/>
+                <Column id="userName" type="STRING" description="사용자 이름"/>
+                <Column id="userDept" type="STRING" description="사용자 소속부서"/>
+                <Column id="userEmail" type="STRING" description="사용자 Email"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="BIZ_M_IGT_S_COM00001" modelid="SO" filepath="IITP\BIZ_M_IGT_S_COM00001.xmodel">
+            <Fields>
+              <Field id="result" innerdatasetinfo=""/>
+              <Field id="userName" datasize="" innerdatasetinfo=""/>
+              <Field id="userDept" datasize="" innerdatasetinfo=""/>
+              <Field id="userEmail" datasize="" innerdatasetinfo=""/>
+            </Fields>
+            <Components/>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\DatasetOnlyViewTemplate.xviewgen">
+            <Attribute id="viewvisible" value="false"/>
+          </ViewTemplateInfo>
+        </View>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[/**
@@ -79,7 +105,10 @@ this.objApp = nexacro.getApplication();
  */
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	
+	if (system.navigatorname == "nexacro") 
+	{
+		this.cboTempUser.set_visible(true);
+	}
 };
 
 /**************************************************************************
@@ -109,9 +138,25 @@ this.fnSetLogin = function()
 /**************************************************************************
 * 각 COMPONENT 별 EVENT 영역
 **************************************************************************/
-this.viewLogin_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+this.cboTempUser_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
 {
-	this.fnSetLogin();
+	var nIdx = e.postindex;
+	
+	this.viewLogin.form.viewdataset.setColumn(0,"USER_ID",this.dsTempUser.getColumn(nIdx,"USER_ID"));
+	this.viewLogin.form.viewdataset.setColumn(0,"PASS_WD",this.dsTempUser.getColumn(nIdx,"PASS_WD"));
+};
+
+this.APITransactionAction00_canrun = function(obj:nexacro.APITransactionAction, e:nexacro.ActionRunEventInfo)
+{
+	// Login전 Header에 데이터 추가
+	this.objApp.gdsHeader.setColumn(0,"UserID",this.viewLogin.form.viewdataset.getColumn(0,"USER_ID"));
+	
+	return true;
+};
+
+this.APITransactionAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
+{
+	this.gfnLog(this.viewUser.form.viewdataset.saveXML());
 };
 ]]></Script>
     <Objects>
@@ -119,23 +164,27 @@ this.viewLogin_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
         <ColumnInfo>
           <Column id="USER_ID" type="STRING" size="256"/>
           <Column id="USER_NAME" type="STRING" size="256"/>
+          <Column id="PASS_WD" type="STRING" size="256"/>
           <Column id="AUTH_CD" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="USER_ID">GWP</Col>
-            <Col id="USER_NAME">구매요청자</Col>
+            <Col id="USER_ID">gwp01</Col>
+            <Col id="USER_NAME">그룹웨어 사용자 01</Col>
             <Col id="AUTH_CD">10</Col>
+            <Col id="PASS_WD">gwp12#$</Col>
           </Row>
           <Row>
-            <Col id="USER_ID">ERP</Col>
-            <Col id="USER_NAME">구매담당자</Col>
+            <Col id="USER_ID">erp01</Col>
+            <Col id="USER_NAME">구매 사용자 01</Col>
             <Col id="AUTH_CD">20</Col>
+            <Col id="PASS_WD">erp12#$</Col>
           </Row>
           <Row>
-            <Col id="USER_ID">FMS</Col>
-            <Col id="USER_NAME">재무담당자</Col>
+            <Col id="USER_ID">fms01</Col>
+            <Col id="USER_NAME">회계 사용자 01</Col>
             <Col id="AUTH_CD">30</Col>
+            <Col id="PASS_WD">fms12#$</Col>
           </Row>
           <Row>
             <Col id="USER_ID">ADMIN</Col>
@@ -144,9 +193,15 @@ this.viewLogin_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
           </Row>
         </Rows>
       </Dataset>
+      <APITransactionAction id="APITransactionAction00" servicemodel="BIZ_M_IGT_S_COM00001" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewLogin.form.viewdataset" outputdatasets="viewUser.form.viewdataset=SO " canrun="APITransactionAction00_canrun" onsuccess="APITransactionAction00_onsuccess">
+        <Contents><![CDATA[{
+"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='4'/><Column id='ChlCode' type='STRING' size='3'/><Column id='SessionId' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='SysCode'>IGT</Col><Col id='SvcID'>ISD_BIZ_M_IGT_S_COM00001</Col><Col id='IFID'>BIZ_M_IGT_S_COM00001</Col><Col id='BizCode'>IITP</Col><Col id='ChlCode'>CMM</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row></Rows></Dataset>"
+}]]></Contents>
+      </APITransactionAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="frmLogin" triggerobj="btnJoin" targetaction="PopupAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="viewLogin" triggerobj="btnLogin" targetaction="APITransactionAction00" condition=""/>
     </Trigger>
   </Form>
 </FDL>

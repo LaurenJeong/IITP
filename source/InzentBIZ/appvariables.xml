@@ -96,6 +96,87 @@
         </Row>
       </Rows>
     </Dataset>
+    <Dataset id="gdsHeader">
+      <ColumnInfo>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="SessionId" type="STRING" size="256"/>
+        <Column id="UUID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="256"/>
+        <Column id="SvcID" type="STRING" size="256"/>
+        <Column id="ChlCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="256"/>
+        <Column id="BizCode" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="UUID">LOGIN00001</Col>
+          <Col id="IFID">BIZ_M_IGT_S_COM00001</Col>
+          <Col id="SvcID">MCI</Col>
+          <Col id="ChlCode">BIZ</Col>
+          <Col id="SysCode">MCI</Col>
+          <Col id="BizCode">BIZ</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsHeaderCode">
+      <ColumnInfo>
+        <Column id="CODE" type="STRING" size="256"/>
+        <Column id="MSG" type="STRING" size="256"/>
+        <Column id="ERR_YN" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="CODE">N000</Col>
+          <Col id="MSG">정상</Col>
+          <Col id="ERR_YN">N</Col>
+        </Row>
+        <Row>
+          <Col id="CODE">E001</Col>
+          <Col id="MSG">정의되지 않은 인터페이스</Col>
+          <Col id="ERR_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CODE">E002</Col>
+          <Col id="MSG">업무 시스템으로 송신 실패</Col>
+          <Col id="ERR_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CODE">E003</Col>
+          <Col id="MSG">시스템 오류</Col>
+          <Col id="ERR_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CODE">EL00</Col>
+          <Col id="MSG">입력한 사용자 ID가 사용자 목록에 존재하지 않습니다.</Col>
+          <Col id="ERR_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CODE">EL01</Col>
+          <Col id="MSG">로그인 되지 않은 세션 입니다.</Col>
+          <Col id="ERR_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CODE">EL02</Col>
+          <Col id="MSG">세션정보를 확인 할 수 없습니다.</Col>
+          <Col id="ERR_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CODE">EL03</Col>
+          <Col id="MSG">세션정보 검증에 실패하였습니다.</Col>
+          <Col id="ERR_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CODE">EL08</Col>
+          <Col id="MSG">사용자 ID 검증에 실패하였습니다.</Col>
+          <Col id="ERR_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="CODE">EL09</Col>
+          <Col id="MSG">비밀번호 검증에 실패하였습니다.</Col>
+          <Col id="ERR_YN">Y</Col>
+        </Row>
+      </Rows>
+    </Dataset>
   </Datasets>
   <Variables/>
   <DataObjects/>

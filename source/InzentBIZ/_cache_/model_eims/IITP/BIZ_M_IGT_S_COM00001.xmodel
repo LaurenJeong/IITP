@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="result" label="처리결과" fieldtype="FreeText" datatype="STRING" datasize="10" required="false" description="처리결과" scale="0"/>
+      <Field id="userName" label="사용자 이름" fieldtype="FreeText" datatype="STRING" datasize="0" required="false" description="사용자 이름" scale="0"/>
+      <Field id="userDept" label="사용자 소속부서" fieldtype="FreeText" datatype="STRING" datasize="0" required="false" description="사용자 소속부서" scale="0"/>
+      <Field id="userEmail" label="사용자 Email" fieldtype="FreeText" datatype="STRING" datasize="0" required="false" description="사용자 Email" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="PASS_WD" label="패스워드" fieldtype="FreeText" datatype="STRING" datasize="50" required="false" description="패스워드" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="BIZ_M_IGT_S_COM00001" name="MCI LOGIN 거래" url="http://101.79.4.40:8680/iGate/IITP">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="17"/>
+        <Column id="BizCode" type="STRING" size="4"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+        <Column id="SessionId" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">IGT</Col>
+          <Col id="SvcID">ISD_BIZ_M_IGT_S_COM00001</Col>
+          <Col id="IFID">BIZ_M_IGT_S_COM00001</Col>
+          <Col id="BizCode">IITP</Col>
+          <Col id="ChlCode">CMM</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>
