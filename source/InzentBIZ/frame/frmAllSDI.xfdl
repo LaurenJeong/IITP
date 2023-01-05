@@ -331,6 +331,15 @@ this.divTop_staUserName_onclick = function(obj:nexacro.Static,e:nexacro.ClickEve
 };
 
 /**
+ * @description  로그아웃 클릭
+ */
+this.divTop_btnLogout_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	// Logout 하시겠습니까?
+	this.MessageAction00.run();
+};
+
+/**
  * @description  로그아웃 처리
  */
 this.APITransactionAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
@@ -338,10 +347,7 @@ this.APITransactionAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.T
 	this.fnGoLogin(false);
 };
 
-this.divTop_btnLogout_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
-{
-	this.MessageAction00.run();
-};]]></Script>
+]]></Script>
     <Trigger>
       <TriggerItem id="item0" triggertype="Click" triggerview="frmAllSDI" triggerobj="divTop.form.btnLogout" targetaction="MessageAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Action Success" triggerview="frmAllSDI" triggerobj="MessageAction00" targetaction="APITransactionAction00" condition=""/>
