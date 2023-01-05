@@ -29,7 +29,7 @@
           <Col id="MENU_LVL">0</Col>
           <Col id="PGM_PATH"/>
           <Col id="PGM_ID"/>
-          <Col id="AUTH_CD">10</Col>
+          <Col id="AUTH_CD">GWP</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">10001</Col>
@@ -37,7 +37,7 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="MENU_NM">구매목록</Col>
           <Col id="PGM_PATH">gwp</Col>
-          <Col id="AUTH_CD">10</Col>
+          <Col id="AUTH_CD">GWP</Col>
           <Col id="PGM_ID">gwppurchaselist.xfdl</Col>
           <Col id="BTN_YN_1">Y</Col>
           <Col id="BTN_TEXT_1">구매요청</Col>
@@ -49,7 +49,7 @@
           <Col id="MENU_LVL">0</Col>
           <Col id="PGM_PATH"/>
           <Col id="PGM_ID"/>
-          <Col id="AUTH_CD">20</Col>
+          <Col id="AUTH_CD">ERP</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">20001</Col>
@@ -57,7 +57,7 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="MENU_NM">구매요청목록</Col>
           <Col id="PGM_PATH">erp</Col>
-          <Col id="AUTH_CD">20</Col>
+          <Col id="AUTH_CD">ERP</Col>
           <Col id="PGM_ID">erppurchaselist.xfdl</Col>
           <Col id="BTN_YN_1">Y</Col>
           <Col id="BTN_TEXT_1">구매승인</Col>
@@ -69,7 +69,7 @@
           <Col id="MENU_LVL">0</Col>
           <Col id="PGM_PATH"/>
           <Col id="PGM_ID"/>
-          <Col id="AUTH_CD">30</Col>
+          <Col id="AUTH_CD">FMS</Col>
         </Row>
         <Row>
           <Col id="MENU_CD">30001</Col>
@@ -77,7 +77,7 @@
           <Col id="MENU_LVL">1</Col>
           <Col id="MENU_NM">구매확정목록</Col>
           <Col id="PGM_PATH">fms</Col>
-          <Col id="AUTH_CD">30</Col>
+          <Col id="AUTH_CD">FMS</Col>
           <Col id="PGM_ID">fmspurchaselist.xfdl</Col>
           <Col id="BTN_YN_1">Y</Col>
           <Col id="BTN_TEXT_1">정산</Col>
@@ -86,9 +86,11 @@
     </Dataset>
     <Dataset id="gdsUserInfo">
       <ColumnInfo>
-        <Column id="USER_ID" type="STRING" size="256"/>
-        <Column id="USER_NAME" type="STRING" size="256"/>
+        <Column id="USER_ID" type="STRING" size="256" description="사용자ID"/>
+        <Column id="USER_NAME" type="STRING" size="256" description="사용자명"/>
         <Column id="AUTH_CD" type="STRING" size="256"/>
+        <Column id="USER_DEPT" type="STRING" size="256" description="부서"/>
+        <Column id="USER_EMAIL" type="STRING" size="256" description="E-mail"/>
       </ColumnInfo>
       <Rows>
         <Row>
@@ -100,22 +102,9 @@
       <ColumnInfo>
         <Column id="UserID" type="STRING" size="256"/>
         <Column id="SessionId" type="STRING" size="256"/>
-        <Column id="UUID" type="STRING" size="256"/>
-        <Column id="IFID" type="STRING" size="256"/>
-        <Column id="SvcID" type="STRING" size="256"/>
-        <Column id="ChlCode" type="STRING" size="256"/>
-        <Column id="SysCode" type="STRING" size="256"/>
-        <Column id="BizCode" type="STRING" size="256"/>
       </ColumnInfo>
       <Rows>
-        <Row>
-          <Col id="UUID">LOGIN00001</Col>
-          <Col id="IFID">BIZ_M_IGT_S_COM00001</Col>
-          <Col id="SvcID">MCI</Col>
-          <Col id="ChlCode">BIZ</Col>
-          <Col id="SysCode">MCI</Col>
-          <Col id="BizCode">BIZ</Col>
-        </Row>
+        <Row/>
       </Rows>
     </Dataset>
     <Dataset id="gdsHeaderCode">

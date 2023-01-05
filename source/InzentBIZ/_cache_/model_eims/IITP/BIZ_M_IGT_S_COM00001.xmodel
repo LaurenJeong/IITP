@@ -16,6 +16,7 @@
         <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
       </FieldUserAttributes>
       <ModelUserAttributes/>
+      <Field id="USER_ID" label="사용자ID" fieldtype="FreeText" datatype="STRING" datasize="50" required="false" description="사용자ID" scale="0"/>
       <Field id="PASS_WD" label="패스워드" fieldtype="FreeText" datatype="STRING" datasize="50" required="false" description="패스워드" scale="0"/>
     </Model>
   </Models>
@@ -31,18 +32,18 @@
         <Column id="SvcID" type="STRING" size="24"/>
         <Column id="UserID" type="STRING" size="256"/>
         <Column id="IFID" type="STRING" size="20"/>
-        <Column id="UUID" type="STRING" size="17"/>
-        <Column id="BizCode" type="STRING" size="4"/>
-        <Column id="ChlCode" type="STRING" size="3"/>
+        <Column id="UUID" type="STRING" size="256"/>
         <Column id="SessionId" type="STRING" size="256"/>
+        <Column id="BizCode" type="STRING" size="3"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
       </ColumnInfo>
       <Rows>
         <Row>
           <Col id="SysCode">IGT</Col>
           <Col id="SvcID">ISD_BIZ_M_IGT_S_COM00001</Col>
           <Col id="IFID">BIZ_M_IGT_S_COM00001</Col>
-          <Col id="BizCode">IITP</Col>
-          <Col id="ChlCode">CMM</Col>
+          <Col id="BizCode">CMM</Col>
+          <Col id="ChlCode">BIZ</Col>
         </Row>
       </Rows>
     </Dataset>

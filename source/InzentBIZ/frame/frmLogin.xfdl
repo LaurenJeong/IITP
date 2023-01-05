@@ -16,7 +16,7 @@
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="USER_ID" type="STRING" size="80" description="ID"/>
+                <Column id="USER_ID" type="STRING" size="50" description="사용자ID"/>
                 <Column id="PASS_WD" type="STRING" size="50" description="패스워드"/>
               </ColumnInfo>
               <Rows>
@@ -28,7 +28,7 @@
             <BindItem id="bind_edtUserId" compid="edtUserId" propid="value" datasetid="viewdataset" columnid="USER_ID"/>
             <BindItem id="bind_edtPassWd" compid="edtPassWd" propid="value" datasetid="viewdataset" columnid="PASS_WD"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="BIZ_M_IGT_S_COM00001" modelid="SI" filepath="IITP\BIZ_M_IGT_S_COM00001.xmodel">
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_IGT_S_COM00001" modelid="SI" filepath="IITP\BIZ_M_IGT_S_COM00001.xmodel">
             <Fields>
               <Field id="USER_ID" innerdatasetinfo="" comptype="auto" password="false" compwidth="100%" compheight="40" labelsize="-1" fieldposition="horizontal" displaynulltext="ID" cssclass="" labelcssclass="sta_login_label"/>
               <Field id="PASS_WD" innerdatasetinfo="" comptype="auto" password="true" compwidth="100%" compheight="40" labelsize="-1" fieldposition="horizontal" displaynulltext="Password" cssclass="" labelcssclass="sta_login_label"/>
@@ -66,7 +66,7 @@
               </Rows>
             </Dataset>
           </Objects>
-          <ModelInfo modelserviceid="model" serviceid="BIZ_M_IGT_S_COM00001" modelid="SO" filepath="IITP\BIZ_M_IGT_S_COM00001.xmodel">
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_IGT_S_COM00001" modelid="SO" filepath="IITP\BIZ_M_IGT_S_COM00001.xmodel">
             <Fields>
               <Field id="result" innerdatasetinfo=""/>
               <Field id="userName" datasize="" innerdatasetinfo=""/>
@@ -128,9 +128,11 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 this.fnSetLogin = function()
 {
 	// 사용자 임시설정
-	this.objApp.gdsUserInfo.setColumn(0,"USER_ID",this.cboTempUser.value);
-	this.objApp.gdsUserInfo.setColumn(0,"USER_NAME",this.cboTempUser.text);
-	this.objApp.gdsUserInfo.setColumn(0,"AUTH_CD",this.dsTempUser.getColumn(this.cboTempUser.index,"AUTH_CD"));
+	this.objApp.gdsUserInfo.setColumn(0,"USER_ID",this.viewLogin.form.viewdataset.getColumn(0,"USER_ID"));
+	this.objApp.gdsUserInfo.setColumn(0,"USER_NAME",this.viewUser.form.viewdataset.getColumn(0,"userName"));
+	this.objApp.gdsUserInfo.setColumn(0,"AUTH_CD",this.viewUser.form.viewdataset.getColumn(0,"userDept"));
+	this.objApp.gdsUserInfo.setColumn(0,"USER_DEPT",this.viewUser.form.viewdataset.getColumn(0,"userDept"));
+	this.objApp.gdsUserInfo.setColumn(0,"USER_EMAIL",this.viewUser.form.viewdataset.getColumn(0,"userEmail"));
 	
 	// 메인화면으로 전환
 	this.objApp.gvAllFrame.fnGoLogin(true);
@@ -138,6 +140,7 @@ this.fnSetLogin = function()
 /**************************************************************************
 * 각 COMPONENT 별 EVENT 영역
 **************************************************************************/
+// 테스트용 유저 설정
 this.cboTempUser_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
 {
 	var nIdx = e.postindex;
@@ -148,7 +151,7 @@ this.cboTempUser_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChange
 
 this.APITransactionAction00_canrun = function(obj:nexacro.APITransactionAction, e:nexacro.ActionRunEventInfo)
 {
-	// Login전 Header에 데이터 추가
+	// Login전 Header에 UserID 데이터 추가
 	this.objApp.gdsHeader.setColumn(0,"UserID",this.viewLogin.form.viewdataset.getColumn(0,"USER_ID"));
 	
 	return true;
@@ -156,7 +159,9 @@ this.APITransactionAction00_canrun = function(obj:nexacro.APITransactionAction, 
 
 this.APITransactionAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
-	this.gfnLog(this.viewUser.form.viewdataset.saveXML());
+	//this.gfnLog(this.viewUser.form.viewdataset.saveXML());
+	// 로그인처리
+	this.fnSetLogin(obj);
 };
 ]]></Script>
     <Objects>
@@ -165,37 +170,28 @@ this.APITransactionAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.T
           <Column id="USER_ID" type="STRING" size="256"/>
           <Column id="USER_NAME" type="STRING" size="256"/>
           <Column id="PASS_WD" type="STRING" size="256"/>
-          <Column id="AUTH_CD" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
             <Col id="USER_ID">gwp01</Col>
             <Col id="USER_NAME">그룹웨어 사용자 01</Col>
-            <Col id="AUTH_CD">10</Col>
             <Col id="PASS_WD">gwp12#$</Col>
           </Row>
           <Row>
             <Col id="USER_ID">erp01</Col>
             <Col id="USER_NAME">구매 사용자 01</Col>
-            <Col id="AUTH_CD">20</Col>
             <Col id="PASS_WD">erp12#$</Col>
           </Row>
           <Row>
             <Col id="USER_ID">fms01</Col>
             <Col id="USER_NAME">회계 사용자 01</Col>
-            <Col id="AUTH_CD">30</Col>
             <Col id="PASS_WD">fms12#$</Col>
-          </Row>
-          <Row>
-            <Col id="USER_ID">ADMIN</Col>
-            <Col id="USER_NAME">시스템관리자</Col>
-            <Col id="AUTH_CD">99</Col>
           </Row>
         </Rows>
       </Dataset>
       <APITransactionAction id="APITransactionAction00" servicemodel="BIZ_M_IGT_S_COM00001" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewLogin.form.viewdataset" outputdatasets="viewUser.form.viewdataset=SO " canrun="APITransactionAction00_canrun" onsuccess="APITransactionAction00_onsuccess">
         <Contents><![CDATA[{
-"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='4'/><Column id='ChlCode' type='STRING' size='3'/><Column id='SessionId' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='SysCode'>IGT</Col><Col id='SvcID'>ISD_BIZ_M_IGT_S_COM00001</Col><Col id='IFID'>BIZ_M_IGT_S_COM00001</Col><Col id='BizCode'>IITP</Col><Col id='ChlCode'>CMM</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row></Rows></Dataset>"
+"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='256'/><Column id='SessionId' type='STRING' size='256'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>IGT</Col><Col id='SvcID'>ISD_BIZ_M_IGT_S_COM00001</Col><Col id='IFID'>BIZ_M_IGT_S_COM00001</Col><Col id='BizCode'>CMM</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row></Rows></Dataset>"
 }]]></Contents>
       </APITransactionAction>
     </Objects>

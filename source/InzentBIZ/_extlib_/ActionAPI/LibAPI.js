@@ -27,20 +27,33 @@ pAction._API_SVC_URL	= "http://127.0.0.1:8087/";		// Service URL
 //===============================================================
 // nexacro.Action : 공통함수(프로젝트마다 변경)
 //===============================================================
-// Transaction 처리전 공통처리 함수
-pAction.gfnBeforeTransaction = function(oParam)
+// Transaction 함수
+pAction.gfnCallTransaction = function(objForm, objSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync)
 {
 	// TODO : 프로젝트마다 필요시 구현필요
 	var objApp = nexacro.getApplication();
-	var objForm = this.parent;
+	
+	var sDsHeaderId = "Header";
+	var sActionDsHeaderId = this.name + "_" + sDsHeaderId;
 	var oDsHeader;
 	var oGdsHeader;
 	
-	// 1) InZent 통신시 Hearder 설정
-	var sDsHeaderId = "Header";
-	if (objForm.isValidObject(sDsHeaderId))
+	// 1) Service URL 전환
+	if (this.gfnIsNull(sService) == false) {
+		sService = nexacro.replaceAll(sService,this._API_SVC_URL,this._API_SVC_PREFIX);
+	}
+	
+	// 2) sOutDs에 Header 추가
+	var sAddOutDs = "";
+	sAddOutDs += this.name + "_" + sDsHeaderId + "=" + sDsHeaderId;
+	
+	if (this.gfnIsNull(sOutDs))		sOutDs = "";
+	sOutDs = sAddOutDs + " " + sOutDs;
+	
+	// 3) [InzentBIZ] InZent 통신시 Hearder 설정
+	if (objForm.isValidObject(sActionDsHeaderId))
 	{
-		oDsHeader = objForm.all[sDsHeaderId];
+		oDsHeader = objForm.all[sActionDsHeaderId];
 		
 		oGdsHeader = objApp.gdsHeader;
 		
@@ -49,17 +62,42 @@ pAction.gfnBeforeTransaction = function(oParam)
 			oDsHeader.copyRow(0,oGdsHeader,0);
 		}
 		
-		trace(oDsHeader.saveXML());
+		//trace(oDsHeader.saveXML());
 	}
-	return true;
+	
+	// transaction 호출
+	objForm.transaction(JSON.stringify(objSvcId), sService, sInDs, sOutDs, sArgs, sCallback, bAsync);
 };
 
 // Transaction 처리후 공통처리 함수
 pAction.gfnAfterTransaction = function(oParam)
 {
 	// TODO : 프로젝트마다 필요시 구현필요
+	var bRet = true;
+	var objForm = this.gfnGetForm();
+	var objApp = nexacro.getApplication();
 	
-	// 1) Header값 코드 처리
+	// 1) [InzentBIZ] Header값 Session 정보처리, 코드 처리
+	var sDsHeaderId = "Header";
+	var sActionDsHeaderId = this.name + "_" + sDsHeaderId;
+	var oDsHeader;
+	var oGdsHeader;
+	var sMsgCode = "";
+	var sMsg = "";
 	
-	return true;
+	if (objForm.isValidObject(sActionDsHeaderId))
+	{
+		oDsHeader = objForm.all[sActionDsHeaderId];
+		oGdsHeader = objApp.gdsHeader;
+		
+		// Session 정보처리
+		if (oDsHeader)
+		{
+			oGdsHeader.copyRow(0,oDsHeader,0);
+			
+			//trace(oGdsHeader.saveXML());
+		}
+	}
+	
+	return bRet;
 };

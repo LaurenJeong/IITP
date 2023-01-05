@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewTemplateInfo version="1.0">
-  <ViewTemplate id="SearchViewTemplate" viewtype="Asset" description=""/>
+  <ViewTemplate id="SearchViewTemplate" viewtype="IITP" description=""/>
   <Script version="1.0" type="xscript5.1"><![CDATA[/**
 *  Search View Template
 *  @FileName 	SearchViewTemplate.xviewgen
@@ -26,86 +26,86 @@ include "quickcode::viewtemplate/lib/common.xjs";
 // View 관련 상수
 //--------------------------------------------------------------------------------------------------------
 // View 여백
-this.VIEW_PADDING				= "10";
+this.VIEW_PADDING			= "10";
 // 컴포넌트 생성 방향("horizontal", "vertical")
-this.DIRECTION					= "horizontal";
+this.DIRECTION				= "horizontal";
 // 컴포넌트 생성 수평 정렬방식
-this.HALIGN						= "left";
+this.HALIGN					= "left";
 // 컴포넌트 생성 수직 정렬방식
-this.VALIGN						= "top";
+this.VALIGN					= "top";
+// Abstract 컴포넌트 사용여부
+this.USE_ABSTRACT_COMP	= true;
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
 // 조회 버튼 객체 관련 상수
 //--------------------------------------------------------------------------------------------------------
 //Lookup Button Default Width
-this.SEARCH_BUTTON_WIDTH			= 80;
+this.SEARCH_BUTTON_WIDTH			= 100;
 
 //Lookup Button Default Height
 this.SEARCH_BUTTON_HEIGHT			= 30;
 
 // 조회버튼과 컴포넌트와의 가로 간격
-this.SEARCH_BUTTON_H_SPACE			= 20;
+this.SEARCH_BUTTON_H_SPACE			= 10;
 
 //Lookup Button Default Text
-this.SEARCH_BUTTON_TEXT				= "검색";
+this.SEARCH_BUTTON_TEXT				= "Search";
 
 //Lookup Button Default Form
-this.SEARCH_BUTTON_TYPE			= "bottom";
+this.SEARCH_BUTTON_TYPE				= "bottom";
 
 //Lookup Button Css Class
-this.SEARCH_BUTTON_CSSCLASS		= "btn_search";
+this.SEARCH_BUTTON_CSSCLASS			= "btn_search";
 //--------------------------------------------------------------------------------------------------------
-//Label과 Comp영역 배치방식("horizontal", "vertical")
-this.FIELD_POSITION				= "horizontal";
 
 //Component Default Width
-this.COMP_WIDTH					= "120px";
+this.COMP_WIDTH				= "100px";
 
 //Component Default Height
-this.COMP_HEIGHT				= "30px";
+this.COMP_HEIGHT			= "30px";
 
 //Label Default Size
-this.LABEL_SIZE					= 100;
+this.LABEL_SIZE				= 100;
 
 //Component Default Type
-this.COMP_TYPE					= "auto";
+this.COMP_TYPE				= "auto";
 
 //Label Default Type
-this.LABEL_TYPE					= "static";
+this.LABEL_TYPE				= "static";
 
 //fieldposition이 "horizontal"일때(라벨과 컴포넌트가 좌우배치) Component Padding
-this.H_COMP_PADDING_LEFT		= 5;
-this.H_COMP_PADDING_TOP			= 0;
-this.H_COMP_PADDING_RIGHT		= 0;
-this.H_COMP_PADDING_BOTTOM		= 0;
+this.H_COMP_PADDING_LEFT	= 5;
+this.H_COMP_PADDING_TOP		= 0;
+this.H_COMP_PADDING_RIGHT	= 0;
+this.H_COMP_PADDING_BOTTOM	= 0;
 
 //fieldposition이 "vertical"일때(라벨과 컴포넌트가 상하배치) Component Padding
-this.V_COMP_PADDING_LEFT		= 0;
-this.V_COMP_PADDING_TOP			= 5;
-this.V_COMP_PADDING_RIGHT		= 0;
-this.V_COMP_PADDING_BOTTOM		= 0;
+this.V_COMP_PADDING_LEFT	= 0;
+this.V_COMP_PADDING_TOP		= 5;
+this.V_COMP_PADDING_RIGHT	= 0;
+this.V_COMP_PADDING_BOTTOM	= 0;
 
 //Gap Between Components (Left and Right)
-this.COMP_SPACE					= 5;
+this.COMP_SPACE				= 5;
 
 //Gap Between Components (Top and Bottom)
-this.LINE_SPACE					= 5;
+this.LINE_SPACE				= 5;
 
 // Layout에서 mergelabel옵션 기본값
-this.MERGE_LABEL				= "false";
+this.MERGE_LABEL			= "false";
 
 //mergelabeldl "true"일때 (라벨1개 고정일때) Gap Between Components (Left and Right)
-this.MERGE_LABEL_COMP_SPACE		= 5;
+this.MERGE_LABEL_COMP_SPACE	= 5;
 
 //mergelabeldl "true"일때 (라벨1개 고정일때) Gap Between Components (Top and Bottom)
-this.MERGE_LABEL_LINE_SPACE		= 5;
+this.MERGE_LABEL_LINE_SPACE	= 5;
 
 //Component Default CSS Class
-this.COMP_CSSCLASS				= "";
+this.COMP_CSSCLASS			= "";
 
 //Label Default CSS Class
-this.LABEL_CSSCLASS				= "sta_label";
+this.LABEL_CSSCLASS			= "sta_label";
 
 //Required Label Default CSS Class
 this.LABEL_REQUIRED_CSSCLASS	= "sta_label_essential";
@@ -114,13 +114,13 @@ this.LABEL_REQUIRED_CSSCLASS	= "sta_label_essential";
 this.SEARCH_BG_CSSCLASS			= "sta_searchbox";
 
 //Component Use Type
-this.USE_COMP					= "true";
+this.USE_COMP				= "true";
 
 //Component Readonly
-this.COMP_READONLY				= "false";
+this.COMP_READONLY			= "false";
 
 //Component Readonly시 Static형식으로 표시(border없고, 투명배경, 추가버튼안보이게)
-this.COMP_READONLY_LABEL_STYLE	= "false";
+this.COMP_READONLY_LABEL_STYLE	= "true";
 
 //Component Readonly시 Static형식 CSS Class
 this.COMP_READONLY_CSSCLASS		= "com_View";
@@ -605,9 +605,9 @@ fn_GetFieldUserAttributeList = function ()
 							{
                                 "id": "fieldposition",
                                 "edittype":  "Enum",
-								"defaultvalue": this.FIELD_POSITION,
+								"defaultvalue": "horizontal",
 								"enumlist" : ["horizontal", "vertical"],
-                                "description": "Label과 Comp영역 위치"
+                                "description": "Labal과 Field영역 위치"
 												+ "\n" + " - horizontal : 좌우배치"
 												+ "\n" + " - vertical : 상하배치"
                             },
@@ -1996,6 +1996,12 @@ fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection,
 		{
 			oComp.attribute.text = oField.label;
 		}
+		// [AbstractSelectAny] AbstractSelectAny일때 multi value값이 bind되지 않아 View Script로 제공
+		else if(sCompClassId=="AbstractSelectAny")
+		{
+			var sViewNm = this.oContents.View.attribute.id;
+			oComp.attribute.onitemchanged = sViewNm + ".form." + "lfn_AbstractSelectAny_onitemchanged";
+		}
 		
 		// Readonly 처리
 		if(oField.compreadonly == "true")
@@ -2089,14 +2095,55 @@ fn_GetScript = function()
     var oScript = {};
 	var sScript = "";
 	
-	/*
-	oScript =
+	// [AbstractSelectAny] 1) AbstractSelectAny일때 multi value값이 bind되지 않아 View Script로 제공
+	sScript += "this.lfn_AbstractSelectAny_onitemchanged = function(obj,e)";
+	sScript += "{";
+	sScript += "	var oSelectAny = obj.parent;";
+	sScript += "	var sMultiValue = '';";
+	sScript += "	var aMultiValue = new Array();";
+	sScript += "	var aSelectIdx = obj.getSelectedItems();";
+	sScript += "	var oInnerDs = obj.getInnerDataset();";
+		
+	sScript += "	for(var i=0; i < aSelectIdx.length; i++)";
+	sScript += "	{";
+	sScript += "		aMultiValue.push(oInnerDs.getColumn(aSelectIdx[i],obj.codecolumn));";
+	sScript += "	}";
+		
+	// multivalue 속성에 값 설정
+	sScript += "	sMultiValue = aMultiValue.join(',');";
+	sScript += "	oSelectAny.multivalue = sMultiValue;";
+		
+	// Bind정보로 dataset에 업데이트
+	sScript += "	var oForm = oSelectAny.parent;";
+	sScript += "	var aBindList = oForm.binds;";
+	sScript += "	var oBindInfo;";
+		
+	sScript += "	for(var i=0;i<aBindList.length;i++)";
+	sScript += "	{";
+	sScript += "		if (aBindList[i]['compid'] == obj.parent.id)";
+	sScript += "		{";
+	sScript += "			oBindInfo = aBindList[i];";
+	sScript += "			break;";
+	sScript += "		}";
+	sScript += "	}";
+		
+	sScript += "	if (oBindInfo) {";
+	sScript += "		var oBindDs = oForm.all[oBindInfo['datasetid']];";
+	sScript += "		oBindDs.setColumn(oBindDs.rowposition,oBindInfo['columnid'],sMultiValue);";
+	sScript += "	}";
+	sScript += "};";
+	
+	 if (this.lfn_IsNotNull(sScript))
 	{
-		"tag": "Script",
-		"attribute": { "type" : "xscript5.1" },
-		"value": "this.fn_Alert = function(){this.alert('MESSAGE')};"
-	}
-	*/
+		sScript = nexacro.replaceAll(sScript,"\t","");
+		
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sScript
+		}
+	};
 
     return oScript;
 };]]></Script>

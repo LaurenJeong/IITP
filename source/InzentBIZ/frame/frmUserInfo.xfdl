@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmUserInfo" width="320" height="168" titletext="사용자정보">
+    <Layouts>
+      <Layout height="168" width="320">
+        <View id="viewUserInfo" taborder="0" text="viewUserInfo" viewdataset="viewdataset" left="10" top="10" right="10" bottom="10">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="내정보" fittocontents="width" cssclass="sta_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="staUsernameBg" left="0" top="30" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staUsernameLabel" left="0" top="30" width="100" height="40" text="사용자 이름" cssclass="sta_labelbox"/>
+              <Edit id="edtUsername" left="105" top="35" width="190" height="30" cssclass="com_View" readonly="true"/>
+              <Static id="staUserdeptBg" left="0" top="69" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staUserdeptLabel" left="0" top="69" width="100" height="40" text="사용자 소속부서" cssclass="sta_labelbox"/>
+              <Edit id="edtUserdept" left="105" top="74" width="190" height="30" cssclass="com_View" readonly="true"/>
+              <Static id="staUseremailBg" left="0" top="108" right="0" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staUseremailLabel" left="0" top="108" width="100" height="40" text="사용자 Email" cssclass="sta_labelbox"/>
+              <Edit id="edtUseremail" left="105" top="113" width="190" height="30" cssclass="com_View" readonly="true"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="userName" type="STRING" description="사용자 이름"/>
+                <Column id="userDept" type="STRING" description="사용자 소속부서"/>
+                <Column id="userEmail" type="STRING" description="사용자 Email"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtUsername" compid="edtUsername" propid="value" datasetid="viewdataset" columnid="userName"/>
+            <BindItem id="bind_edtUserdept" compid="edtUserdept" propid="value" datasetid="viewdataset" columnid="userDept"/>
+            <BindItem id="bind_edtUseremail" compid="edtUseremail" propid="value" datasetid="viewdataset" columnid="userEmail"/>
+          </Bind>
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_IGT_S_COM00001" modelid="SO" filepath="IITP\BIZ_M_IGT_S_COM00001.xmodel">
+            <Fields>
+              <Field id="userName" datasize="" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="userDept" datasize="" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="userEmail" datasize="" innerdatasetinfo="" comptype="auto" compwidth="100%" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="staUsernameBg" fields="userName"/>
+              <Component id="staUsernameLabel" fields="userName"/>
+              <Component id="edtUsername" fields="userName"/>
+              <Component id="staUserdeptBg" fields="userDept"/>
+              <Component id="staUserdeptLabel" fields="userDept"/>
+              <Component id="edtUserdept" fields="userDept"/>
+              <Component id="staUseremailBg" fields="userEmail"/>
+              <Component id="staUseremailLabel" fields="userEmail"/>
+              <Component id="edtUseremail" fields="userEmail"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="titletext" value="내정보"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <DsCopyRowDataAction id="DsCopyRowDataAction00" targetview="viewUserInfo" fromview="frmUserInfo" fromdataset="gdsUserInfo">
+        <Contents><![CDATA[{
+    "model":[
+        {
+            "viewid":"viewUserInfo",
+            "modelid":"SO",
+            "iotype":"output",
+            "fieldlist":[
+                {
+                    "name":"viewUserInfo:userName",
+                    "fieldid":"userName",
+                    "value":"USER_NAME"
+                },
+                {
+                    "name":"viewUserInfo:userDept",
+                    "fieldid":"userDept",
+                    "value":"USER_DEPT"
+                },
+                {
+                    "name":"viewUserInfo:userEmail",
+                    "fieldid":"userEmail",
+                    "value":"USER_EMAIL"
+                }
+            ]
+        }
+    ]
+}]]></Contents>
+      </DsCopyRowDataAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Form Init" triggerview="frmUserInfo" triggerobj="frmUserInfo" targetaction="DsCopyRowDataAction00" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
+  </Form>
+</FDL>

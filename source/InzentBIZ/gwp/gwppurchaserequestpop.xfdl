@@ -42,19 +42,6 @@
                 <Column id="MEMO" type="STRING" size="300" description="메모"/>
                 <Column id="GRID_COUNT" type="BIGDECIMAL" size="5" description="상세정보갯수"/>
               </ColumnInfo>
-              <Rows>
-                <Row>
-                  <Col id="PURCHASE_NO">I000000001</Col>
-                  <Col id="REQ_DATE">20221108</Col>
-                  <Col id="BUY_CD">1234</Col>
-                  <Col id="BUY_DESC">INZENT</Col>
-                  <Col id="PJ_CD">IGATE</Col>
-                  <Col id="EMPLOYEE">MANAGER</Col>
-                  <Col id="PRICE">999999</Col>
-                  <Col id="MEMO">구매테스트</Col>
-                  <Col id="GRID_COUNT">2</Col>
-                </Row>
-              </Rows>
             </Dataset>
           </Objects>
           <Bind>
@@ -196,32 +183,6 @@
                 <Column id="DELIVERY_ADDRESS" type="STRING" size="10" description="배송지"/>
                 <Column id="TEMP" type="STRING" size="300" description="비고"/>
               </ColumnInfo>
-              <Rows>
-                <Row>
-                  <Col id="PRODUCT_NO">INZENT0001</Col>
-                  <Col id="PRODUCT_NM">IGATE</Col>
-                  <Col id="COUNT">1</Col>
-                  <Col id="UNIT">1</Col>
-                  <Col id="UNIT_PRICE">999999</Col>
-                  <Col id="PURCHASE_PRICE">999999</Col>
-                  <Col id="SUM_PRICE">999999</Col>
-                  <Col id="REQ_DATE">20221108</Col>
-                  <Col id="DELIVERY_ADDRESS">Seoul</Col>
-                  <Col id="TEMP"/>
-                </Row>
-                <Row>
-                  <Col id="PRODUCT_NO">INZENT0002</Col>
-                  <Col id="PRODUCT_NM">YELLOWPAGE</Col>
-                  <Col id="COUNT">1</Col>
-                  <Col id="UNIT">1</Col>
-                  <Col id="UNIT_PRICE">8888888</Col>
-                  <Col id="PURCHASE_PRICE">8888888</Col>
-                  <Col id="SUM_PRICE">1</Col>
-                  <Col id="DELIVERY_ADDRESS">Hongkang</Col>
-                  <Col id="REQ_DATE">20221108</Col>
-                  <Col id="TEMP"/>
-                </Row>
-              </Rows>
             </Dataset>
           </Objects>
           <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_GWP_S_COM00003" modelid="SI_PURCHASE_DETAIL_LIST" filepath="IITP\BIZ_M_GWP_S_COM00003.xmodel">
@@ -325,7 +286,7 @@
       </DsDeleteDataAction>
       <APITransactionAction id="APITransactionAction00" servicemodel="BIZ_M_GWP_S_COM00003" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewMaster.form.viewdataset SI_PURCHASE_DETAIL_LIST=viewList.form.viewdataset" canrun="APITransactionAction00_canrun">
         <Contents><![CDATA[{
-"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='4'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>GWP</Col><Col id='SvcID'>ISD_BIZ_M_GWP_S_COM00003</Col><Col id='IFID'>BIZ_M_GWP_S_COM00003</Col><Col id='UUID'>20221101172153405</Col><Col id='BizCode'>IITP</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SI_PURCHASE_DETAIL_LIST</Col><Col id='iotype'>input</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data.PURCHASE_DETAIL_LIST</Col></Row></Rows></Dataset>"
+"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='17'/><Column id='BizCode' type='STRING' size='4'/><Column id='ChlCode' type='STRING' size='3'/><Column id='SessionId' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='SysCode'>GWP</Col><Col id='SvcID'>ISD_BIZ_M_GWP_S_COM00003</Col><Col id='IFID'>BIZ_M_GWP_S_COM00003</Col><Col id='UUID'>20221101172153405</Col><Col id='BizCode'>IITP</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SI_PURCHASE_DETAIL_LIST</Col><Col id='iotype'>input</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data.PURCHASE_DETAIL_LIST</Col></Row></Rows></Dataset>"
 }]]></Contents>
       </APITransactionAction>
       <MessageAction id="MessageAction00" message="서버 오류입니다. 관리자에게 문의하세요." messagetype="alert">
