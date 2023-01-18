@@ -80,11 +80,6 @@ pForm.gfnCallMenu = function(sMenuId, objArg)
  	objNewWin.arguments["oArgs"	] = oArgs;
 	
 	objNewWin.set_url("frame::frmWorkSDI.xfdl");
-	
-	if (system.navigatorname != "nexacro") 
-	{
-		MyHistory.setLocationHash("MENU:"+sMenuId, oArgs);	
-	}
 };
 
 //화면간 파라미터 반환 함수

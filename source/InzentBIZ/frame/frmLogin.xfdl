@@ -4,7 +4,7 @@
     <Layouts>
       <Layout height="520" width="530">
         <Static id="staCenter" taborder="2" left="50%" top="50%" width="1" height="1"/>
-        <View id="viewLogin" taborder="0" text="viewLogin" viewdataset="viewdataset" left="staCenter:-156" top="staCenter:-141" cssclass="viw_box" width="310" height="340">
+        <View id="viewLogin" taborder="0" text="viewLogin" viewdataset="viewdataset" left="staCenter:-156" top="staCenter:-136" cssclass="viw_box" width="310" height="270">
           <Layouts>
             <Layout>
               <Button id="btnLogin" left="20" height="60" right="20" bottom="20" cssclass="btn_login" text="Login"/>
@@ -50,7 +50,7 @@
             <Attribute id="viewpadding" value="20"/>
           </ViewTemplateInfo>
         </View>
-        <Combo id="cboTempUser" taborder="1" text="" left="staCenter:-156" width="310" innerdataset="dsTempUser" codecolumn="USER_ID" datacolumn="USER_NAME" bottom="viewLogin:10" height="50" visible="false" displaynulltext="테스트용 유저" onitemchanged="cboTempUser_onitemchanged"/>
+        <Combo id="cboTempUser" taborder="1" text="" left="staCenter:-156" width="310" innerdataset="dsTempUser" codecolumn="USER_ID" datacolumn="USER_NAME" height="40" visible="false" displaynulltext="테스트용 유저" onitemchanged="cboTempUser_onitemchanged" top="viewLogin:10"/>
         <View id="viewUser" taborder="3" text="viewUser" viewdataset="viewdataset" left="108" top="468" width="317" height="41" visible="false">
           <Layouts/>
           <Objects>
@@ -79,6 +79,7 @@
             <Attribute id="viewvisible" value="false"/>
           </ViewTemplateInfo>
         </View>
+        <Static id="staLogo" taborder="4" left="staCenter:-156" width="310" height="50" cssclass="sta_top_logo" bottom="viewLogin:30"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[/**
@@ -109,6 +110,18 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	{
 		this.cboTempUser.set_visible(true);
 	}
+	
+	// 저장된 ID 셋팅
+	if(nexacro.getPrivateProfile("saveID")){
+		this.viewLogin.form.chkSaveId.set_value(true);
+		this.viewLogin.form.edtUserId.set_value(nexacro.getPrivateProfile("userId"));
+		this.viewLogin.form.edtPassWd.setFocus() ;
+		
+	}else{
+		this.viewLogin.form.chkSaveId.set_value(false);			
+		nexacro.setPrivateProfile("userId", "");
+		this.viewLogin.form.edtUserId.setFocus() ;
+	}
 };
 
 /**************************************************************************
@@ -127,6 +140,14 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
  */
 this.fnSetLogin = function()
 {
+	// 캐시 ID 저장 처리
+	nexacro.setPrivateProfile("saveID", "");
+	nexacro.setPrivateProfile("userId", "");
+	if(this.viewLogin.form.chkSaveId.value){
+		nexacro.setPrivateProfile("saveID", this.viewLogin.form.chkSaveId.value);
+		nexacro.setPrivateProfile("userId", this.viewLogin.form.edtUserId.value);
+	}
+	
 	// 사용자 임시설정
 	this.objApp.gdsUserInfo.setColumn(0,"USER_ID",this.viewLogin.form.viewdataset.getColumn(0,"USER_ID"));
 	this.objApp.gdsUserInfo.setColumn(0,"USER_NAME",this.viewUser.form.viewdataset.getColumn(0,"userName"));
@@ -162,8 +183,7 @@ this.APITransactionAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.T
 	//this.gfnLog(this.viewUser.form.viewdataset.saveXML());
 	// 로그인처리
 	this.fnSetLogin(obj);
-};
-]]></Script>
+};]]></Script>
     <Objects>
       <Dataset id="dsTempUser">
         <ColumnInfo>

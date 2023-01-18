@@ -117,55 +117,6 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	var oTopFrm 			= this.objApp.gvTopFrame.form ;
 	var oLftFrm 			= this.objApp.gvLeftFrame.form;
-	
-	if (system.navigatorname != "nexacro")
-	{
-		var hash = MyHistory.getLocationHash();	
-		
-		if (hash)
-			data = MyHistory.getData(hash);
-			
-		if (hash=="login")
-		{
-			// History	
-			this.fnOpenHome();
-		}
-		else
-		{
-			this.onChangeHistory(hash, data);
-		}
-	}
-};
-
-/**
- * @description  history처리
- */
-this.onChangeHistory = function(hash, data)
-{
-	// Hash Id 를 확인하여 필요한 처리를 진행한다.
-	var temp = hash.split(":");
-	var type = temp[0];
-	
-	if (type == "menu")
-	{
-		var sMenuId	= temp[1];
-		var oArg	= data.objArg
-		
-		if (this.gfnIsNull(sMenuId)) return;
-		if (this.gfnIsNull(oArg	  )) oArg = [];
-
-		var oObj = 
-		{
-			sMenuId : temp[1]
-		,	oArgs 	: oArg       		
-		};
-		
-		this.gfnCallSDI(oObj);
-	}
-	else if (type == "main")
-	{
-		this.fnOpenHome();
-	}
 };
 
 /************************************************************************************************
@@ -197,11 +148,6 @@ this.fnOpenHome = function()
 	{
 		this.divWork.set_url("");
 		this.divWork.set_url(this.FV_MAIN_URL);
-		
-		if (system.navigatorname != "nexacro")
-		{
-			MyHistory.setLocationHash("main", {});
-		}
 	}	
 };
 
@@ -242,66 +188,6 @@ this.fnGoLogin = function(bLogin)
 		this.objApp.gvLoginFrame.set_formurl("frame::frmLogin.xfdl");
 	}
 };
-
-// /**
-//  * @description  메뉴화면 오픈
-//  */
-// this.fnOpenMenu = function(sMenuId, objArg)
-// {
-// 	if (this.gfnIsNull(sMenuId)) return;	
-// 	
-// 	var nFRow;
-// 	var sPGMPATH;
-// 	var sPGMID;
-// 	
-// 	var sWinId;
-// 	var sMenuNm;
-// 	var sMenuNavi;
-// 	var sMenuUrl;
-// 	
-// 	var objMenuDs = this.objApp.gdsMenu;
-// 	
-// 	nFRow 		= objMenuDs.findRow("MENU_CD", sMenuId);
-// 	sPGMPATH 	= objMenuDs.getColumn(nFRow, "PGM_PATH");
-// 	sPGMID 		= objMenuDs.getColumn(nFRow, "PGM_ID")
-// 	sMenuNm 	= objMenuDs.getColumn(nFRow, "MENU_NM");
-// 	
-// 	if (nFRow==-1)
-// 	{
-// 		alert("Menu가 존재하지 않습니다.");
-// 		return;
-// 		
-// 	}
-// 	else if(this.gfnIsNull(sPGMPATH)==true)
-// 	{
-// 		return;
-// 	}
-// 	
-// 	var oArgs 	= this.gfnIsNull(objArg) ? "" : objArg;   //넘어온 arguments
-// 	
-// 	sWinId = sMenuId + "_" + this.dsOpenMenu.rowcount+ "_" + parseInt(Math.random() * 100);
-// 	sMenuUrl = sPGMPATH+"::"+sPGMID;
-// 	sMenuNavi = this.divLeft.form.grdLeft.getTreePath(nFRow, true);
-// 
-// 	var objNewWin = this.objApp.gvWorkFrame;
-// 		objNewWin.set_url("");
-// 	
-// 	// Div Arguments Setting
-// 	objNewWin._menuid = sMenuId;
-// 	objNewWin._menunm = sMenuNm;
-// 	objNewWin._menuurl = sMenuUrl;
-// 	objNewWin._menunavi = sMenuNavi;
-// 	
-//  	objNewWin.arguments = [];
-//  	objNewWin.arguments["oArgs"	] = oArgs;
-// 	
-// 	objNewWin.set_url("frame::frmWorkSDI.xfdl");
-// 	
-// 	if (system.navigatorname != "nexacro") 
-// 	{
-// 		MyHistory.setLocationHash("MENU:"+sMenuId, oArgs);	
-// 	}
-// };
 
 /************************************************************************************************
  * 각 COMPONENT 별 EVENT 영역
