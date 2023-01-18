@@ -437,7 +437,8 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	// 조회조건 기본값 처리
 	var sToday = this.gfnGetDate();		// 로컬시간
-	this.viewSearch.form.viewdataset.setColumn(0,"START_DATE",sToday.substr(0,6) + "01");
+	//this.viewSearch.form.viewdataset.setColumn(0,"START_DATE",sToday.substr(0,6) + "01");
+	this.viewSearch.form.viewdataset.setColumn(0,"START_DATE","20220101");
 	this.viewSearch.form.viewdataset.setColumn(0,"END_DATE",sToday);
 };
 

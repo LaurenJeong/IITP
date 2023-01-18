@@ -181,9 +181,16 @@ this.APITransactionAction00_canrun = function(obj:nexacro.APITransactionAction, 
 this.APITransactionAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.TranActionSuccessEventInfo)
 {
 	//this.gfnLog(this.viewUser.form.viewdataset.saveXML());
+	
 	// 로그인처리
 	this.fnSetLogin(obj);
-};]]></Script>
+};
+
+this.APITransactionAction00_onerror = function(obj:nexacro.Action, e:nexacro.TranActionErrorEventInfo)
+{
+	// 로그인 에러 처리
+};
+]]></Script>
     <Objects>
       <Dataset id="dsTempUser">
         <ColumnInfo>
@@ -209,7 +216,7 @@ this.APITransactionAction00_onsuccess = function(obj:nexacro.Action, e:nexacro.T
           </Row>
         </Rows>
       </Dataset>
-      <APITransactionAction id="APITransactionAction00" servicemodel="BIZ_M_IGT_S_COM00001" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewLogin.form.viewdataset" outputdatasets="viewUser.form.viewdataset=SO " canrun="APITransactionAction00_canrun" onsuccess="APITransactionAction00_onsuccess">
+      <APITransactionAction id="APITransactionAction00" servicemodel="BIZ_M_IGT_S_COM00001" serviceurl="http://101.79.4.40:8680/iGate/IITP" inputdatasets="SI=viewLogin.form.viewdataset" outputdatasets="viewUser.form.viewdataset=SO " canrun="APITransactionAction00_canrun" onsuccess="APITransactionAction00_onsuccess" onerror="APITransactionAction00_onerror">
         <Contents><![CDATA[{
 "reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='256'/><Column id='SessionId' type='STRING' size='256'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>IGT</Col><Col id='SvcID'>ISD_BIZ_M_IGT_S_COM00001</Col><Col id='IFID'>BIZ_M_IGT_S_COM00001</Col><Col id='BizCode'>CMM</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row></Rows></Dataset>"
 }]]></Contents>

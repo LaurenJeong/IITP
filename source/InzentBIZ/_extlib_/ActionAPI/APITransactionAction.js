@@ -289,7 +289,7 @@ if (!nexacro.APITransactionAction)
 						oField = oFieldList[j];
 						
 						// Field의 value값 반환
-						sFieldValue = this.gfnGetFieldValue(oField, oView, oViewDataset);
+						sFieldValue = this.gfnGetFieldValue(oField, oView, oViewDataset, false);
 						
 						// 데이터 셋팅
 						oViewDataset.setColumn(nRow, oField["fieldid"], sFieldValue);
