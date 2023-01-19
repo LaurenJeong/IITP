@@ -183,7 +183,7 @@ pAction.gfnGetExprText = function(sExprText, sViewNm, bEval, bQuote)
 {
 	if (this.gfnIsNull(sExprText))			return sExprText;
 	if (this.gfnIsNull(bEval))				bEval = true;
-	if (this.gfnIsNull(bQuote))				bQuote = true;
+	if (this.gfnIsNull(bQuote))				bQuote = false;
 	
 	var sRetText = sExprText;
 	

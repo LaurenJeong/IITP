@@ -802,7 +802,7 @@ this.lfn_GetDataset = function(sDatasetId, objFieldArr, nRowCnt, arrRows)
 {
 	var oDatasetInfo = {
             "tag": "Dataset",
-            "attribute": { "id": sDatasetId },
+            "attribute": { "id": sDatasetId },			
             "Dataset": [
             {
                 "tag": "ColumnInfo",
@@ -817,7 +817,12 @@ this.lfn_GetDataset = function(sDatasetId, objFieldArr, nRowCnt, arrRows)
                 "Rows": this.lfn_GetDsRows(nRowCnt, arrRows)
             }]
         };
-
+	
+	// [InZent] 데이터 없는 경우 컬럼정보가 없는 빈 데이터셋이 넘어와서 예외처리함(useclientlayout='true')
+	oDatasetInfo["attribute"]["useclientlayout"] = "true";
+	
+	this.lfn_Log(oDatasetInfo);
+	
 	return oDatasetInfo;
 };
 

@@ -18,7 +18,7 @@
             </Layout>
           </Layouts>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" useclientlayout="true">
               <ColumnInfo>
                 <Column id="START_DATE" type="STRING" size="8" description="요청일자"/>
                 <Column id="END_DATE" type="STRING" size="8" description="조회종료일"/>
@@ -120,7 +120,7 @@
             </Layout>
           </Layouts>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" useclientlayout="true">
               <ColumnInfo>
                 <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
                 <Column id="REQ_DATE" type="STRING" size="8" description="요청날짜"/>
@@ -242,7 +242,7 @@
             </Layout>
           </Layouts>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" useclientlayout="true">
               <ColumnInfo>
                 <Column id="PRODUCT_NO" type="STRING" size="10" description="제품번호"/>
                 <Column id="PRODUCT_NM" type="STRING" size="10" description="상품명"/>
@@ -287,7 +287,7 @@
         <View id="viewSearchDetail" taborder="3" text="viewSearchDetail" viewdataset="viewdataset" left="6" top="291" width="289" height="38" visible="false">
           <Layouts/>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" useclientlayout="true">
               <ColumnInfo>
                 <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
               </ColumnInfo>
@@ -332,7 +332,7 @@
             </Layout>
           </Layouts>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" useclientlayout="true">
               <ColumnInfo>
                 <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
                 <Column id="PAYMENT_TERMS" type="STRING" size="10" description="결재조건"/>
@@ -394,7 +394,7 @@
         <View id="viewFinance" taborder="5" text="viewFinance" viewdataset="viewdataset" left="370" top="607" width="313" height="44" visible="false">
           <Layouts/>
           <Objects>
-            <Dataset id="viewdataset">
+            <Dataset id="viewdataset" useclientlayout="true">
               <ColumnInfo>
                 <Column id="PURCHASE_NO" type="STRING" size="10" description="구매요청번호"/>
                 <Column id="FINANCE_EMP" type="STRING" size="20" description="재무담당자"/>
@@ -521,8 +521,16 @@ this.fnComBtn = function(sBtnId)
       <MessageAction id="MessageAction01" message="정산되었습니다." messagetype="alert">
         <Contents/>
       </MessageAction>
+      <DsDeleteAllDataAction id="DsDeleteAllDataAction00" targetview="viewList" deletetype="clear">
+        <Contents/>
+      </DsDeleteAllDataAction>
+      <DsDeleteAllDataAction id="DsDeleteAllDataAction01" targetview="viewDetail" deletetype="clear">
+        <Contents/>
+      </DsDeleteAllDataAction>
     </Objects>
     <Trigger>
+      <TriggerItem id="item6" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="DsDeleteAllDataAction00" condition=""/>
+      <TriggerItem id="item7" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="DsDeleteAllDataAction01" condition=""/>
       <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="APITransactionAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Row Change" triggerview="viewList" triggerobj="viewdataset" targetaction="APITransactionAction01" condition=""/>
       <TriggerItem id="item2" triggertype="Action Fail" triggerview="fmspurchaselist" triggerobj="APITransactionAction00" targetaction="MessageAction00" condition=""/>

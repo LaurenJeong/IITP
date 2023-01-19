@@ -289,7 +289,7 @@ if (!nexacro.APITransactionAction)
 						oField = oFieldList[j];
 						
 						// Field의 value값 반환
-						sFieldValue = this.gfnGetFieldValue(oField, oView, oViewDataset, false);
+						sFieldValue = this.gfnGetFieldValue(oField, oView);
 						
 						// 데이터 셋팅
 						oViewDataset.setColumn(nRow, oField["fieldid"], sFieldValue);
@@ -327,7 +327,7 @@ if (!nexacro.APITransactionAction)
 			sExtraValue = this.gfnGetFieldValue(oExtra);
 			
 			// transaction argument 형식으로 셋팅
-			sReturnValue += " " + sExtraName + "=" + nexacro.wrapQuote(sExtraValue);
+			sReturnValue += " " + sExtraName + "=" + sExtraValue;
 		}
 		
 		sReturnValue = sReturnValue.substr(1);
