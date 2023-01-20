@@ -394,8 +394,6 @@ this.fnGetQuickCodeInfo = function()
 	this.fnGetActionList();
 };
 
-
-
 this.fnGetViewList = function() 
 {
 	var arrView, oView;
@@ -498,10 +496,22 @@ this.fnGetActionList = function()
 						this.dsAction.setColumn(nARow,"ACTION_INFO",JSON.stringify(oActionJson));
 						
 						if (oObject.hasChildNodes()) {
-							if (oObject.children[0].tagName == "Contents")
+							if (system.navigatorname == "nexacro")
 							{
-								if (oObject.children[0].childNodes[0]) {
-									this.dsAction.setColumn(nARow,"ACTION_CONTENTS",JSON.stringify(oObject.children[0].childNodes[0].data));
+								if (oObject.firstChild.tagName == "Contents")
+								{
+									if (oObject.firstChild.firstChild) {
+										this.dsAction.setColumn(nARow,"ACTION_CONTENTS",JSON.stringify(oObject.firstChild.firstChild.data));
+									}
+								}
+							}
+							else
+							{
+								if (oObject.children[0].tagName == "Contents")
+								{
+									if (oObject.children[0].childNodes[0]) {
+										this.dsAction.setColumn(nARow,"ACTION_CONTENTS",JSON.stringify(oObject.children[0].childNodes[0].data));
+									}
 								}
 							}
 						}
