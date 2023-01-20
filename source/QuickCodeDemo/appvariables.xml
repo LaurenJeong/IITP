@@ -1076,6 +1076,411 @@
         </Row>
       </Rows>
     </Dataset>
+    <Dataset id="gdsModel">
+      <ColumnInfo>
+        <Column id="MODEL_SEQ" type="INT" size="256"/>
+        <Column id="MODEL_ID" type="STRING" size="256"/>
+        <Column id="FILE_PATH" type="STRING" size="256"/>
+        <Column id="MODEL_NM" type="STRING" size="256"/>
+        <Column id="MODEL_SVC_ID" type="STRING" size="256"/>
+        <Column id="SVC_ID" type="STRING" size="256"/>
+        <Column id="MODEL_IO_TYPE" type="STRING" size="256"/>
+        <Column id="MODEL_IO_TYPE_NM" type="STRING" size="256"/>
+        <Column id="MODEL_DESC" type="STRING" size="256"/>
+        <Column id="MODEL_KWRD" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="MODEL_SEQ">1</Col>
+          <Col id="MODEL_ID">FreeFormModel001</Col>
+          <Col id="FILE_PATH">sample\FreeForm.xmodel</Col>
+          <Col id="MODEL_NM">FreeFormModel001</Col>
+          <Col id="MODEL_SVC_ID">model</Col>
+          <Col id="SVC_ID">FreeForm</Col>
+          <Col id="MODEL_IO_TYPE">O</Col>
+          <Col id="MODEL_IO_TYPE_NM">output</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">2</Col>
+          <Col id="MODEL_ID">FreeFormModel002</Col>
+          <Col id="FILE_PATH">sample\FreeForm.xmodel</Col>
+          <Col id="MODEL_NM">FreeFormModel002</Col>
+          <Col id="MODEL_SVC_ID">model</Col>
+          <Col id="SVC_ID">FreeForm</Col>
+          <Col id="MODEL_IO_TYPE">O</Col>
+          <Col id="MODEL_IO_TYPE_NM">output</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">3</Col>
+          <Col id="MODEL_ID">input</Col>
+          <Col id="FILE_PATH">sample\Tran.xmodel</Col>
+          <Col id="MODEL_NM">input</Col>
+          <Col id="MODEL_SVC_ID">model</Col>
+          <Col id="SVC_ID">Tran</Col>
+          <Col id="MODEL_IO_TYPE">I</Col>
+          <Col id="MODEL_IO_TYPE_NM">input</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">4</Col>
+          <Col id="MODEL_ID">output</Col>
+          <Col id="FILE_PATH">sample\Tran.xmodel</Col>
+          <Col id="MODEL_NM">output</Col>
+          <Col id="MODEL_SVC_ID">model</Col>
+          <Col id="SVC_ID">Tran</Col>
+          <Col id="MODEL_IO_TYPE">O</Col>
+          <Col id="MODEL_IO_TYPE_NM">output</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">5</Col>
+          <Col id="MODEL_ID">SearchModel001</Col>
+          <Col id="FILE_PATH">sample\Search.xmodel</Col>
+          <Col id="MODEL_NM">SearchModel001</Col>
+          <Col id="MODEL_SVC_ID">model</Col>
+          <Col id="SVC_ID">Search</Col>
+          <Col id="MODEL_IO_TYPE">I</Col>
+          <Col id="MODEL_IO_TYPE_NM">input</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">6</Col>
+          <Col id="MODEL_ID">ListViewModel001</Col>
+          <Col id="FILE_PATH">sample\ListView.xmodel</Col>
+          <Col id="MODEL_NM">ListViewModel001</Col>
+          <Col id="MODEL_SVC_ID">model</Col>
+          <Col id="SVC_ID">ListView</Col>
+          <Col id="MODEL_IO_TYPE">O</Col>
+          <Col id="MODEL_IO_TYPE_NM">output</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">7</Col>
+          <Col id="MODEL_ID">ExcelModel001</Col>
+          <Col id="FILE_PATH">sample\Excel.xmodel</Col>
+          <Col id="MODEL_NM">ExcelModel001</Col>
+          <Col id="MODEL_SVC_ID">model</Col>
+          <Col id="SVC_ID">Excel</Col>
+          <Col id="MODEL_IO_TYPE">O</Col>
+          <Col id="MODEL_IO_TYPE_NM">output</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsModelFld"/>
+    <Dataset id="gdsVt">
+      <ColumnInfo>
+        <Column id="VT_SEQ" type="INT" size="256"/>
+        <Column id="VT_ID" type="STRING" size="256"/>
+        <Column id="VT_PATH" type="STRING" size="256"/>
+        <Column id="VT_NM" type="STRING" size="256"/>
+        <Column id="VT_INFO" type="STRING" size="256"/>
+        <Column id="VT_DESC" type="STRING" size="256"/>
+        <Column id="VT_KWRD" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="VT_ID">FreeformViewTemplate</Col>
+          <Col id="VT_PATH">Asset\FreeformViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">FreeformViewTemplate</Col>
+          <Col id="VT_INFO">단건 데이터를 표시하기 위한 Freeform 영역을 구성하기 위한 ViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">2</Col>
+          <Col id="VT_ID">SearchViewTemplate</Col>
+          <Col id="VT_PATH">Asset\SearchViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">SearchViewTemplate</Col>
+          <Col id="VT_INFO">조회 영역을 구성하기 위한 View Template</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">3</Col>
+          <Col id="VT_ID">GridViewTemplate</Col>
+          <Col id="VT_PATH">Asset\GridViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">GridViewTemplate</Col>
+          <Col id="VT_INFO">표 형태로 다건 데이터를 표시하기 위한 Grid를 생성하는 View Template</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">4</Col>
+          <Col id="VT_ID">ButtonViewTemplate</Col>
+          <Col id="VT_PATH">Asset\ButtonViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">ButtonViewTemplate</Col>
+          <Col id="VT_INFO">버튼영역을 구성하기 위한 ViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">5</Col>
+          <Col id="VT_ID">ButtonLayoutViewTemplate</Col>
+          <Col id="VT_PATH">Asset\ButtonLayoutViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">ButtonLayoutViewTemplate</Col>
+          <Col id="VT_INFO">FluidLayout이 적용된 버튼영역을 구성하기 위한 ViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">6</Col>
+          <Col id="VT_ID">TreeViewTemplate</Col>
+          <Col id="VT_PATH">Asset\TreeViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">TreeViewTemplate</Col>
+          <Col id="VT_INFO">트리구조(tree structure) 데이터를 표시하기 위한 Grid를 생성하는 View Template. </Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">7</Col>
+          <Col id="VT_ID">ListViewViewTemplate</Col>
+          <Col id="VT_PATH">Asset\ListViewViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">ListViewViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">8</Col>
+          <Col id="VT_ID">DatasetOnlyViewTemplate</Col>
+          <Col id="VT_PATH">Asset\DatasetOnlyViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">DatasetOnlyViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">9</Col>
+          <Col id="VT_ID">LoginViewViewTemplate</Col>
+          <Col id="VT_PATH">Asset\LoginViewViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">LoginViewViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">10</Col>
+          <Col id="VT_ID">BarChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\BarChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">BarChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">11</Col>
+          <Col id="VT_ID">LineChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\LineChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">LineChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">12</Col>
+          <Col id="VT_ID">AreaChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\AreaChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">AreaChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">13</Col>
+          <Col id="VT_ID">CombinationChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\CombinationChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">CombinationChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">14</Col>
+          <Col id="VT_ID">PieChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\PieChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">PieChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">15</Col>
+          <Col id="VT_ID">PyramidChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\PyramidChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">PyramidChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">16</Col>
+          <Col id="VT_ID">BubbleChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\BubbleChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">BubbleChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">17</Col>
+          <Col id="VT_ID">GaugeChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\GaugeChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">GaugeChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">18</Col>
+          <Col id="VT_ID">BarGaugeChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\BarGaugeChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">BarGaugeChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">19</Col>
+          <Col id="VT_ID">RadarChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\RadarChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">RadarChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">20</Col>
+          <Col id="VT_ID">RoseChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\RoseChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">RoseChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">21</Col>
+          <Col id="VT_ID">FloatChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\FloatChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">FloatChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">22</Col>
+          <Col id="VT_ID">WaterfallViewTemplate</Col>
+          <Col id="VT_PATH">Chart\WaterfallViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">WaterfallViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">23</Col>
+          <Col id="VT_ID">TimeLineChartViewTemplate</Col>
+          <Col id="VT_PATH">Chart\TimeLineChartViewTemplate.xviewgen</Col>
+          <Col id="VT_NM">TimeLineChartViewTemplate</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">24</Col>
+          <Col id="VT_ID">FreeFormLayoutViewTemplateM</Col>
+          <Col id="VT_PATH">Mobile\FreeFormLayoutViewTemplateM.xviewgen</Col>
+          <Col id="VT_NM">FreeFormLayoutViewTemplateM</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">25</Col>
+          <Col id="VT_ID">SearchViewTemplateM</Col>
+          <Col id="VT_PATH">Mobile\SearchViewTemplateM.xviewgen</Col>
+          <Col id="VT_NM">SearchViewTemplateM</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsVtAtr"/>
+    <Dataset id="gdsAction">
+      <ColumnInfo>
+        <Column id="ACTION_SEQ" type="INT" size="256"/>
+        <Column id="ACTION_ID" type="STRING" size="256"/>
+        <Column id="ACTION_NM" type="STRING" size="256"/>
+        <Column id="ACTION_INFO" type="STRING" size="256"/>
+        <Column id="ACTION_DESC" type="STRING" size="256"/>
+        <Column id="MODEL_ARG_DESC" type="STRING" size="256"/>
+        <Column id="USER_ARG_DESC" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="ACTION_ID">TransactionAction</Col>
+          <Col id="ACTION_NM">TransactionAction</Col>
+          <Col id="ACTION_INFO">DB 데이터 조회, 저장하는 Transaction Action</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">2</Col>
+          <Col id="ACTION_ID">MessageAction</Col>
+          <Col id="ACTION_NM">MessageAction</Col>
+          <Col id="ACTION_INFO">알림창, 확인창을 호출하는 Action </Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">3</Col>
+          <Col id="ACTION_ID">PopupAction</Col>
+          <Col id="ACTION_NM">PopupAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">4</Col>
+          <Col id="ACTION_ID">PopupCloseAction</Col>
+          <Col id="ACTION_NM">PopupCloseAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">5</Col>
+          <Col id="ACTION_ID">ExcelExportAction</Col>
+          <Col id="ACTION_NM">ExcelExportAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">6</Col>
+          <Col id="ACTION_ID">ExcelImportAction</Col>
+          <Col id="ACTION_NM">ExcelImportAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">7</Col>
+          <Col id="ACTION_ID">DsAddDataAction</Col>
+          <Col id="ACTION_NM">DsAddDataAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">8</Col>
+          <Col id="ACTION_ID">DSInsertDataAction</Col>
+          <Col id="ACTION_NM">DSInsertDataAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">9</Col>
+          <Col id="ACTION_ID">DsDeleteDataAction</Col>
+          <Col id="ACTION_NM">DsDeleteDataAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">10</Col>
+          <Col id="ACTION_ID">DsDeleteAllDataAction</Col>
+          <Col id="ACTION_NM">DsDeleteAllDataAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">11</Col>
+          <Col id="ACTION_ID">DsDeleteSelectDataAction</Col>
+          <Col id="ACTION_NM">DsDeleteSelectDataAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">12</Col>
+          <Col id="ACTION_ID">DsDeleteCheckedDataAction</Col>
+          <Col id="ACTION_NM">DsDeleteCheckedDataAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">13</Col>
+          <Col id="ACTION_ID">DsResetDataAction</Col>
+          <Col id="ACTION_NM">DsResetDataAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">14</Col>
+          <Col id="ACTION_ID">DsCopyDataAction</Col>
+          <Col id="ACTION_NM">DsCopyDataAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">15</Col>
+          <Col id="ACTION_ID">DsCopyRowDataAction</Col>
+          <Col id="ACTION_NM">DsCopyRowDataAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">16</Col>
+          <Col id="ACTION_ID">DsFilterDataAction</Col>
+          <Col id="ACTION_NM">DsFilterDataAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">17</Col>
+          <Col id="ACTION_ID">DsIsUpdatedAction</Col>
+          <Col id="ACTION_NM">DsIsUpdatedAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">18</Col>
+          <Col id="ACTION_ID">DsSetFirstCdAction</Col>
+          <Col id="ACTION_NM">DsSetFirstCdAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">19</Col>
+          <Col id="ACTION_ID">OpenBrowserAction</Col>
+          <Col id="ACTION_NM">OpenBrowserAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">20</Col>
+          <Col id="ACTION_ID">APITransactionAction</Col>
+          <Col id="ACTION_NM">APITransactionAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">21</Col>
+          <Col id="ACTION_ID">RestAPIAction</Col>
+          <Col id="ACTION_NM">RestAPIAction</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">22</Col>
+          <Col id="ACTION_ID">DeviceAPIMakeCallActionM</Col>
+          <Col id="ACTION_NM">DeviceAPIMakeCallActionM</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">23</Col>
+          <Col id="ACTION_ID">DeviceAPISendMessageActionM</Col>
+          <Col id="ACTION_NM">DeviceAPISendMessageActionM</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">24</Col>
+          <Col id="ACTION_ID">DeviceAPICameraActionM</Col>
+          <Col id="ACTION_NM">DeviceAPICameraActionM</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">25</Col>
+          <Col id="ACTION_ID">DeviceAPIImagePickerActionM</Col>
+          <Col id="ACTION_NM">DeviceAPIImagePickerActionM</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">26</Col>
+          <Col id="ACTION_ID">DeviceAPISearchContactsActionM</Col>
+          <Col id="ACTION_NM">DeviceAPISearchContactsActionM</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsActionPrp"/>
+    <Dataset id="gdsActionMtd"/>
+    <Dataset id="gdsActionEvt"/>
   </Datasets>
   <Variables>
     <Variable id="gvUserId"/>
