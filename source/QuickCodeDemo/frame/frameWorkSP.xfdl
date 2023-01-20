@@ -1,0 +1,700 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frameWorkSP" left="0" top="0" width="1050" height="872" onclose="form_onclose" onsize="form_onsize" onactivate="form_onactivate" onload="form_onload" onkeydown="form_onkeydown" titletext="frameWork(활용)" background="#ffffff">
+    <Layouts>
+      <Layout width="1050" height="872">
+        <Static id="Static03" taborder="0" text="h16" visible="false" left="1063" top="-1" width="33" height="22"/>
+        <Div id="divWork" taborder="1" left="0" top="32" right="10" border="1px none , 1px none , 1px none, 1px none" text="" height="30">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="divTitle" taborder="2" left="0" top="0" right="0" url="frame::frameWorkTitle.xfdl" width="" height="32" bottom="" border="1px none , 1px none , 1px solid gainsboro" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
+        <Static id="staLodingTime" taborder="3" top="7" width="425" height="17" font="normal bold 14px/normal &quot;Gulim&quot;,&quot;Arial&quot;" usedecorate="true" color="orangered" right="10" textAlign="right" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
+        <Tab id="tabInfo" taborder="4" tabindex="0" left="0" top="divWork:20" right="10" bottom="10">
+          <Tabpages>
+            <Tabpage id="Tabpage1" text="View Info">
+              <Layouts>
+                <Layout>
+                  <Grid id="Grid00" taborder="0" left="13" top="14" width="452" height="165" binddataset="dsModel">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                        </Columns>
+                        <Rows>
+                          <Row band="head" size="24"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell text="VIEW_ID"/>
+                          <Cell col="1" text="MODEL_ID"/>
+                          <Cell col="2" text="FILE_PATH"/>
+                          <Cell col="3" text="MODEL_SEQ"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:VIEW_ID"/>
+                          <Cell col="1" text="bind:MODEL_ID"/>
+                          <Cell col="2" text="bind:FILE_PATH"/>
+                          <Cell col="3" text="bind:MODEL_SEQ"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Grid id="Grid00_00" taborder="1" left="480" top="15" width="455" height="148" binddataset="dsViewTemplate">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell text="VIEW_ID"/>
+                          <Cell col="1" text="FILE_PATH"/>
+                          <Cell col="2" text="VT_ATTR"/>
+                          <Cell col="3" text="VT_FIELD"/>
+                          <Cell col="4" text="VT_SEQ"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:VIEW_ID"/>
+                          <Cell col="1" text="bind:FILE_PATH"/>
+                          <Cell col="2" text="bind:VT_ATTR" edittype="normal"/>
+                          <Cell col="3" text="bind:VT_FIELD" edittype="normal"/>
+                          <Cell col="4" text="bind:VT_SEQ"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Grid id="Grid00_01" taborder="2" left="13" top="194" width="760" height="173" binddataset="dsAction">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                          <Column size="80"/>
+                        </Columns>
+                        <Rows>
+                          <Row band="head" size="24"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell text="ACTION_CLASS_ID"/>
+                          <Cell col="1" text="ACTION_ID"/>
+                          <Cell col="2" text="ACTION_SEQ"/>
+                          <Cell col="3" text="ACTION_INFO"/>
+                          <Cell col="4" text="ACTION_CONTENTS"/>
+                          <Cell col="5" text="TRIGGER_INFO"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:ACTION_CLASS_ID"/>
+                          <Cell col="1" text="bind:ACTION_ID"/>
+                          <Cell col="2" text="bind:ACTION_SEQ"/>
+                          <Cell col="3" text="bind:ACTION_INFO"/>
+                          <Cell col="4" text="bind:ACTION_CONTENTS"/>
+                          <Cell col="5" text="bind:TRIGGER_INFO"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="Tabpage2" text="Action"/>
+          </Tabpages>
+        </Tab>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsContents"/>
+      <Dataset id="dsInfo">
+        <ColumnInfo>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="VIEW_ID" type="STRING" size="256"/>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="DESC" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsModel">
+        <ColumnInfo>
+          <Column id="VIEW_ID" type="STRING" size="256"/>
+          <Column id="MODEL_ID" type="STRING" size="256"/>
+          <Column id="FILE_PATH" type="STRING" size="256"/>
+          <Column id="MODEL_SEQ" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsViewTemplate">
+        <ColumnInfo>
+          <Column id="VIEW_ID" type="STRING" size="256"/>
+          <Column id="FILE_PATH" type="STRING" size="256"/>
+          <Column id="VT_ATTR" type="STRING" size="256"/>
+          <Column id="VT_FIELD" type="STRING" size="256"/>
+          <Column id="VT_SEQ" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsAction">
+        <ColumnInfo>
+          <Column id="ACTION_CLASS_ID" type="STRING" size="256"/>
+          <Column id="ACTION_ID" type="STRING" size="256"/>
+          <Column id="ACTION_SEQ" type="STRING" size="256"/>
+          <Column id="ACTION_INFO" type="STRING" size="256"/>
+          <Column id="ACTION_CONTENTS" type="STRING" size="256"/>
+          <Column id="TRIGGER_INFO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    frameSDI > frameWork
+*  @FileName 	frameWork.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2018.02.22
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2018.02.22     		consulting	 	        최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = this.gfnGetApplication();
+
+// 화면읽기용 변수
+this.fv_formContents = "";
+this.fv_formJson;
+this.fv_formNode;
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+/**
+ * form onload 함수
+ * @return 
+ * @example
+ * @memberOf 
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//넘어온 아규먼트 셋팅
+	this.fnSetOwnFrameArgu(this);
+	
+	var sUrl = this.gfnGetArgument("pageUrl");
+	
+	// 파일정보 읽기
+	this.gfnGetReadFile(sUrl, "dsContents", "getSource");
+	
+	// form로딩시 화면에 표시할 page URL 설정
+	this.divWork.set_url(sUrl);
+	this.form_onsize();		
+		
+	this.divTitle.form.set_scrollbartype("none");
+};
+
+/**
+ * form onactivate event
+ * @return 
+ * @example
+ *
+ * @memberOf 
+ */
+this.form_onactivate = function(obj:nexacro.Form,e:nexacro.ActivateEventInfo)
+{
+};
+
+/**
+ * workFrame_onclose event
+ * @return 
+ * @example
+ *
+ * @memberOf 
+ */
+this.form_onclose = function(obj:Form, e:nexacro.CloseEventInfo)
+{   
+	try
+	{
+		//trace("workFrame_onclose : " + e.fromobject.name);
+		if (e.fromobject == "[object Form]")
+		{ 
+			var winId = this.getOwnerFrame().name;
+			//trace("winId : " + winId);
+			if (this.objApp.gvMdiFrame.form.bClose) 
+			{
+				this.objApp.gvMdiFrame.form.bClose = false;
+				this.objApp.gvMdiFrame.form.fnTabOnClose(winId);
+			}
+		}
+	}
+	catch(e)
+	{
+
+	}
+}
+
+/**
+ * onsize event
+ * @return 
+ * @example
+ *
+ * @memberOf this
+ */
+this.form_onsize = function(obj:Form, e:nexacro.SizeEventInfo)
+{	
+	this.resetScroll();
+}
+
+/**
+ * @description 각 화면에서 디버그창을 호출할 수 있도록 단축키 지정
+*/
+this.form_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	// 공통 키다운 이벤트 호출
+	this.gfnOnkeydown(obj, e);
+};
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수(선택)
+*/
+this.fnCallback = function(svcID,errorCode,errorMsg)
+{
+	// 에러 시 화면 처리 내역
+	if(errorCode != 0)
+	{
+		return;
+	}
+	
+	switch(svcID)
+	{
+		case "getSource":
+			var sContents = this.dsContents.getColumn(0,"contents");
+			
+			//this.gfnLog("sContents : " + sContents);
+			
+			// 컨텐츠값 Json 객체로 변경
+//			this.fv_formContents = sContents;
+// 			this.fv_formJson = this.gfnGetFormContents(sContents);
+// 			
+// 			//this.gfnLog("this.fv_formJson : " + this.fv_formJson);
+// 			
+// 			if (this.fv_formJson)
+// 			{
+// 				// 화면 사이즈 조절
+// 				this.divWork.set_minheight(this.fv_formJson["attributes"]["height"]);
+// 				this.divWork.set_minwidth(this.fv_formJson["attributes"]["width"]);
+// 				this.resetScroll();	
+// 				
+// 				// QuickCode Info
+// 				this.fnGetQuickCodeInfo();
+// 			}
+
+			this.fv_formNode = this.gfnGetFormContents(sContents);
+			
+			if (this.fv_formNode)
+			{
+				// 화면 사이즈 조절
+				this.divWork.set_minheight(this.fv_formNode.getAttribute("height"));
+				this.divWork.set_minwidth(this.fv_formNode.getAttribute("width"));
+				this.resetScroll();	
+				
+				// QuickCode Info
+				this.fnGetQuickCodeInfo();
+			}
+			break;
+	}
+};
+
+/**
+ * @description 메세지 콜백
+*/
+this.fnMsgCallback = function (strId, strVal)
+{
+	//trace("strId >> " + strId + "   strVal >> " + strVal);
+	if(strId == "confirm.before.movepage"){
+		if(strVal == true)
+		{
+			this.close();
+		}
+	}
+};
+
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/**
+ *  넘어온 아규먼트 처리 설정
+ * @param  {XaComp} this(현재form)
+ * @return
+ * @example
+ * fnSetOwnFrameArgu(this);
+ * @memberOf 
+ */
+this.fnSetOwnFrameArgu = function(o)
+{	
+	var menuId = this.gfnGetArgument("menuId")		
+	
+	var sTitle = this.gfnGetArgument("menuNm");
+	this.divTitle.form.staTitle.set_text(sTitle);		
+}
+
+/**
+ * gdsMenu에서 버튼권한 가져오기
+ * @param {string} menuId: 메뉴Id
+ * @param {string} colId: 컬럼(권한별) Id
+ * @return 
+ * @example
+ *
+ * @memberOf 
+ */
+this.fnGetAuth = function(menuId, colId)
+{   
+	var sValue = this.objApp.gdsMenu.lookupAs(this.FRAME_MENUCOLUMNS.menuId, menuId, colId);		
+	if(this.gfnIsNull(sValue))
+	{
+		sValue = "YNNNNN";
+	}
+	return sValue;	
+}
+
+/**
+ * @description workFrame close 시 처리
+*/
+this.fnWorkFrameClose = function()
+{
+	if (this.gfnIsNull(this.divWork.form.lookup("fnClose")))
+	{
+		trace("해당화면에 fnClose 함수가 없습니다. fnClose 함수가 없으면 데이타 변경여부 체크를 하지 않습니다.");
+	}
+	else
+	{
+		if (this.divWork.form.fnClose() == false)
+		{
+			var sMsgId 		 = "confirm.before.movepage";					//메세지ID
+			var arrArg 		 = "";											//메세지취환될값 배열[생략가능]
+			var sPopId 		 = sMsgId;										//메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "fnMsgCallback";								//메세지콜백[생략가능] 		* confirm성 메시지를 사용 시 반드시 필요
+			
+			// 변경된 데이터가 있습니다. 현재 화면을 닫겠습니까?
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);	
+			return false;
+		}
+	}	
+	this.close();
+};
+
+this.fnGetQuickCodeInfo = function() 
+{
+	// View정보(model, viewtemplate)
+	this.fnGetViewList();
+	
+	// Acion정보
+	this.fnGetActionList();
+};
+
+
+
+this.fnGetViewList = function() 
+{
+	var arrView, oView;
+	var nARow;
+	var oModelInfo, oViewTemplateInfo;
+	var oModelInfoJson, oViewTemplateInfoJson;
+	
+	// ViewList 얻기
+	var arrView = this.fv_formNode.getElementsByTagName("View");
+	
+	for(var i=0; i< arrView.length; i++)
+	{
+		oView = arrView[i];
+		
+		// ModelInfo
+		oModelInfo = oView.getElementsByTagName("ModelInfo");
+		
+		if (oModelInfo)
+		{
+			nARow = this.dsModel.addRow();
+			this.dsModel.setColumn(nARow,"VIEW_ID",oView.getAttribute("id"));
+			this.dsModel.setColumn(nARow,"MODEL_ID",oModelInfo[0].getAttribute("modelid"));
+			this.dsModel.setColumn(nARow,"FILE_PATH",oModelInfo[0].getAttribute("filepath"));
+		}
+		
+		// ViewTemplateInfo
+		oViewTemplateInfo = oView.getElementsByTagName("ViewTemplateInfo");
+		if (oViewTemplateInfo)
+		{
+			nARow = this.dsViewTemplate.addRow();
+			this.dsViewTemplate.setColumn(nARow,"VIEW_ID",oView.getAttribute("id"));
+			this.dsViewTemplate.setColumn(nARow,"FILE_PATH",oViewTemplateInfo[0].getAttribute("filepath"));
+			
+			oViewTemplateInfoJson = this.gfnXmlToJson(oViewTemplateInfo[0]);
+			this.dsViewTemplate.setColumn(nARow,"VT_ATTR",JSON.stringify(oViewTemplateInfoJson["Attribute"]));
+			
+			if (oModelInfo)
+			{
+				oModelInfoJson = this.gfnXmlToJson(oModelInfo[0]);
+				this.dsViewTemplate.setColumn(nARow,"VT_FIELD",JSON.stringify(oModelInfoJson["Fields"]["Field"]));
+			}
+		}
+	}
+};
+
+this.fnGetActionList = function() 
+{
+	var arrObject, oObject;
+	var nARow;
+	var oActionInfo, oActionJson, oContents;
+	
+	var oJson;
+	var oTrigger, oTriggerJson;
+	var sAcionID;
+	var nFRow;
+	
+	// Object 얻기
+// 	var arrObject = this.gfnGetChildContents(this.fv_formNode,"Objects");
+// 	
+// 	for(var i=0; i< arrObject.length; i++)
+// 	{
+// 		oObject = arrObject[i];
+// 		
+// 		oJson = this.gfnXmlToJson(oObject);
+// 		this.gfnLog(oJson);
+// 	}
+
+	var arrChildNodes = this.fv_formNode.childNodes;
+	
+	for (var i = 0; i < arrChildNodes.length; i++)
+	{
+		oChildren = arrChildNodes[i];
+		
+		if (oChildren.tagName == "Objects")
+		{
+			//this.fv_formObjects = oChildren;
+			if (oChildren.hasChildNodes())
+			{
+				arrObject = oChildren.childNodes;
+				for (var j = 0; j < arrObject.length; j++)
+				{
+					oObject = arrObject[j];
+					
+					// TODO : Ation을 어떻게 구분할지 체크필요
+					if (oObject.tagName.indexOf("Action")>=0)
+					{
+						nARow = this.dsAction.addRow();
+						this.dsAction.setColumn(nARow,"ACTION_CLASS_ID",oObject.tagName);
+						this.dsAction.setColumn(nARow,"ACTION_ID",oObject.getAttribute("id"));
+						
+						oActionJson = this.gfnXmlToJson(oObject);
+						this.dsAction.setColumn(nARow,"ACTION_INFO",JSON.stringify(oActionJson));
+						
+						if (oObject.hasChildNodes()) {
+							if (oObject.firstChild.tagName == "Contents")
+							{
+								if (oObject.firstChild.firstChild) {
+									this.dsAction.setColumn(nARow,"ACTION_CONTENTS",JSON.stringify(oObject.firstChild.firstChild.data));
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else if (oChildren.tagName == "Trigger")
+		{
+			//this.fv_formTrigger = oChildren;
+			if (oChildren.hasChildNodes())
+			{
+				arrObject = oChildren.childNodes;
+				for (var j = 0; j < arrObject.length; j++)
+				{
+					oTrigger = arrObject[j];
+					
+					sAcionID = oTrigger.getAttribute("targetaction");
+					nFRow = this.dsAction.findRow("ACTION_ID",sAcionID);
+					
+					if (nFRow>=0)
+					{
+						oTriggerJson = this.gfnXmlToJson(oTrigger);
+						this.dsAction.setColumn(nFRow,"TRIGGER_INFO",JSON.stringify(oTriggerJson));
+					}
+				}
+			}
+		}
+	}
+};
+
+/*
+this.fnGetViewList = function() 
+{
+	var arrView, oView;
+	var nARow;
+	var oModelInfo, oViewTemplateInfo;
+	
+	// ViewList 얻기
+	var arrView = this.fv_formJson["Layouts"]["Layout"]["View"];
+	
+	if (!Array.isArray(arrView)) 		arrView = [arrView];
+	
+	for(var i=0; i< arrView.length; i++)
+	{
+		oView = arrView[i];
+		
+		// ModelInfo
+		oModelInfo = oView["ModelInfo"];
+		
+		if (oModelInfo)
+		{
+			nARow = this.dsModel.addRow();
+			this.dsModel.setColumn(nARow,"VIEW_ID",oView["attributes"]["id"]);
+			this.dsModel.setColumn(nARow,"MODEL_ID",oModelInfo["attributes"]["modelid"]);
+			this.dsModel.setColumn(nARow,"FILE_PATH",oModelInfo["attributes"]["filepath"]);
+		}
+		
+		// ViewTemplateInfo
+		oViewTemplateInfo = oView["ViewTemplateInfo"];
+		if (oViewTemplateInfo)
+		{
+			nARow = this.dsViewTemplate.addRow();
+			this.dsViewTemplate.setColumn(nARow,"VIEW_ID",oView["attributes"]["id"]);
+			this.dsViewTemplate.setColumn(nARow,"FILE_PATH",oViewTemplateInfo["attributes"]["filepath"]);
+			this.dsViewTemplate.setColumn(nARow,"VT_ATTR",JSON.stringify(oViewTemplateInfo["Attribute"]));
+			
+			if (oModelInfo)
+			{
+				this.dsViewTemplate.setColumn(nARow,"VT_FIELD",JSON.stringify(oModelInfo["Fields"]["Field"]));
+			}
+		}
+	}
+};
+
+this.fnGetActionList = function() 
+{
+	// Object 얻기
+	var arrObject = this.fv_formJson["Objects"];
+	
+	if (!Array.isArray(arrView)) 		arrView = [arrView];
+	
+	
+};
+*/
+/*
+this.fv_formNode;
+this.fv_formLayouts;
+this.fv_formObjects;
+this.fv_formTrigger;
+this.fv_formScript;
+
+this.fnGetFormContents = function(oFormNode) 
+{
+	var formChildNodes, oChildren;
+	
+	if(!oFormNode)		return;
+	
+	this.fv_formLayouts = null;
+	this.fv_formObjects = null;
+	this.fv_formTrigger = null;
+	this.fv_formScript = null;
+		
+	formChildNodes = oFormNode.childNodes;
+		
+	for (var i = 0; i < formChildNodes.length; i++)
+	{
+		oChildren = formChildNodes[i];
+		//this.fnLogXml(oChildren);
+		
+		if (oChildren.tagName == "Layouts")
+		{
+			this.fv_formLayouts = oChildren;
+		}
+		else if (oChildren.tagName == "Objects")
+		{
+			this.fv_formObjects = oChildren;
+		}
+		else if (oChildren.tagName == "Trigger")
+		{
+			this.fv_formTrigger = oChildren;
+		}
+		else if (oChildren.tagName == "Script")
+		{
+			this.fv_formScript = oChildren;
+		}
+		//trace(oChildren.tagName);
+	}
+	
+	// View정보(model, viewtemplate)
+	this.fnGetViewList();
+	
+	// Action정보
+};
+
+this.fnGetViewList = function() 
+{
+	var arrView, oView;
+	var nARow;
+	var arrModelInfo, oModelInfo;
+	var arrViewTemplateInfo, oViewTemplateInfo;
+	
+	var objXml = new nexacro.XmlSerializer();
+	
+	var objInfo;
+	
+	arrView = this.gfnGetChildContents(this.fv_formLayouts.firstChild, "View");
+	
+	for(var i=0; i< arrView.length; i++)
+	{
+		oView = arrView[i];
+		
+		// ModelInfo
+		arrModelInfo = this.gfnGetChildContents(oView, "ModelInfo");
+		if (arrModelInfo.length > 0)
+		{
+			oModelInfo = arrModelInfo[0];
+			
+			nARow = this.dsModel.addRow();
+			this.dsModel.setColumn(nARow,"VIEW_ID",oView.getAttribute("id"));
+			this.dsModel.setColumn(nARow,"MODEL_ID",oModelInfo.getAttribute("modelid"));
+			this.dsModel.setColumn(nARow,"FILE_PATH",oModelInfo.getAttribute("filepath"));
+		}
+		
+		// ViewTemplateInfo
+		arrViewTemplateInfo = this.gfnGetChildContents(oView, "ViewTemplateInfo");
+		if (arrViewTemplateInfo.length > 0)
+		{
+			oViewTemplateInfo = arrViewTemplateInfo[0];
+			
+			nARow = this.dsViewTemplate.addRow();
+			this.dsViewTemplate.setColumn(nARow,"VIEW_ID",oView.getAttribute("id"));
+			this.dsViewTemplate.setColumn(nARow,"FILE_PATH",oViewTemplateInfo.getAttribute("filepath"));
+			//this.dsViewTemplate.setColumn(nARow,"VT_ATTR",oViewTemplateInfo.getAttribute("modelid"));
+			
+			if (oModelInfo)
+			{
+				//this.dsViewTemplate.setColumn(nARow,"VT_FIELD",objXml.serializeToString(oModelInfo.));
+			}
+		}
+	}
+};
+*/
+
+
+]]></Script>
+  </Form>
+</FDL>

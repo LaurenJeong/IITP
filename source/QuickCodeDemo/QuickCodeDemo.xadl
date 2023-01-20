@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ADL version="2.0">
+  <Application id="QuickCodeDemo" screenid="ScreenDeskTop" onload="Application_onload" onerror="Application_onerror">
+    <Layout>
+      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="false" width="1280" height="720" titletext="QuickCodeDemo" showtitleicon="false" showcascadetitletext="false">
+        <VFrameSet id="VFrameSet" separatesize="*,0" showtitlebar="false" showtitleicon="false">
+          <Frames>
+            <ChildFrame id="frameLogin" showtitlebar="false" showstatusbar="false" showtitleicon="false" titletext="QuickCodeDemo" dragmovetype="none" formurl=""/>
+            <ChildFrame id="frameMain" showtitlebar="false" showstatusbar="false" showtitleicon="false" dragmovetype="none"/>
+          </Frames>
+        </VFrameSet>
+      </MainFrame>
+    </Layout>
+    <Style url="xcssrc::asset.xcss"/>
+  </Application>
+  <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    
+*  @FileName 	
+*  @Creator 	consulting
+*  @CreateDate 	2018.02.22
+*  @Desction    스크립트 표준 및 주석 표준 정의
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2018.02.22     	consulting	 		        최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * application 변수 선언 영역
+************************************************************************************************/
+this.gvVFrameSet   	  = "";
+this.gvLoginFrame  	  = "";
+this.gvMainFrame   	  = "";
+this.gvTopFrame    	  = "";
+this.gvMdiFrame	   	  = "";
+this.gvLeftFrame   	  = "";
+this.gvWorkFrame   	  = "";
+
+this.gvExtCommonPath  = "";
+this.gvIsComBtnUse 	  = false;	//공통 버튼 사용유무
+
+this.gvMenuColumns 	  = 
+{
+	menuId 	  : "menuId"    // MENU ID
+,	menuNm 	  : "menuNm"
+,	pageUrl   : "menuUrl"
+,	pageId 	  : "pageId"    // PROGRAM_ID
+,	winId 	  : "winId"     // 윈도우(프레임)아이디(열린 메뉴의 윈도우 아이디)
+,	title 	  : "title"
+,	menuUrl   : "menuUrl"
+,	groupId   : "groupId"
+,	menuArgs  : "menuArgs"  // 메뉴파라메터
+,	menuLevel : "level"     // 메뉴레벨	
+};
+
+this.gvMax        = 15;     // 열린 메뉴 최대 갯수
+this.gvRealTrace = trace;
+this.gvLocale;				// 다국어Lang(현재)
+this.gvLocalePost;			// 다국어Lang(바뀔)
+
+/***********************************************************************************************
+* Application EVENT 영역(onload, onbeforeclose)
+/***********************************************************************************************/
+
+/**
+ * @description Applicaton onload시 처리내역
+*/
+this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
+{
+	// QuikView 여부 설정
+	nexacro.setEnvironmentVariable("evQuikView", "N");
+	
+	//다국어 Lang설정 default KO;
+	this.gvLocale 	  = "KO";
+	this.gvLocalePost = "KO";
+
+	var objApp = nexacro.getApplication();
+	var objEnv = nexacro.getEnvironment();
+	var sPrjPath = nexacro.getProjectPath();
+
+	// Frame 변수 저장
+ 	this.gvVFrameSet	= objApp.mainframe.VFrameSet;                                			// VFrameSet	
+ 	this.gvLoginFrame	= objApp.mainframe.VFrameSet.frameLogin;			 				   	// LoginFrame
+	this.gvMainFrame    = objApp.mainframe.VFrameSet.frameMain;  								// Main Frame
+	
+	// 접속경로 확인 및 설정
+	trace("===== 접속경로 : " + sPrjPath);	
+    var nRunMode = "S"; // S : Studio, L : local, D : 개발, R : 운영
+	
+	// service URL 설정
+	var objSrv = objEnv.services["svc"];
+	var sSvcUrl = objSrv.url;
+	
+	//로컬(파일)
+	if (system.navigatorname == "nexacro") 
+	{
+	    nRunMode = "S";
+		objApp.mainframe.set_titletext("로컬(파일) - " + objApp.mainframe.titletext);
+	}
+	// 웹 접속
+	else 
+	{
+		var urlPath = window.location.protocol + "//" + window.location.host;
+		
+		//로컬(웹)
+	    if (sPrjPath.indexOf("localhost") > -1 || sPrjPath.indexOf("127.0.0.1") > -1 ) 
+		{
+			nRunMode = "L";
+			objApp.mainframe.set_titletext("로컬(웹)  - " + objApp.mainframe.titletext);
+		}
+		//개발
+		else if (sPrjPath.indexOf("172.10.12.77") > -1 ) 
+		{
+		    nRunMode = "D";
+			
+			sSvcUrl = urlPath + "/quickcodeDemo/service/";
+		}
+		//운영
+		else 
+		{
+		    nRunMode = "R";
+			
+			sSvcUrl = sPrjPath;
+			
+			// trace 정지 설정
+			this.afnSetTraceMode(false);
+		}
+	}	
+	nexacro.setEnvironmentVariable("evRunMode", nRunMode);
+	
+	// service URL 설정
+	objSrv.set_url(sSvcUrl);
+	trace("===== 서비스URL : " + sSvcUrl);	
+	
+	// 서버와 SSO 체크로직을 위해 Cookies에 값 설정 예제
+//	nexacro.setCookieVariable("jsessionidTest","AAAAA");
+	
+	// Grid 개인화 정보 load
+	var sGdsGridXML = nexacro.getPrivateProfile("gdsGridPersonal");
+	var objGds 		= objApp.gdsGridPersonal;	
+	objGds.loadXML(sGdsGridXML);
+		
+	// 로그인 화면 open (Login 창 영역만 사용한다)
+	this.gvLoginFrame.set_formurl("frame::frameLogin.xfdl");
+	
+	if (system.navigatorname != "nexacro")
+	{
+		MyHistory.init(this.onChangeHistory, this);
+		
+		// 새로고침을 위한 처리 ( application 실행 시 한번만 체크)
+		// 새로고침되더라도 hash 값을 그대로 남아있기에
+		// hash id 에 해당하는 처리를 하도록 한다.
+		var hash = MyHistory.getLocationHash();
+		
+		if (hash)
+		{
+			// 데이터가 필수가 아니면 체크할 일이 없겠네요
+			var data = MyHistory.getData(hash);
+			if (data)
+				this.onChangeHistory(hash, data);
+		}
+	}
+};
+
+this.onChangeHistory = function(hash, data)
+{
+	if (this.gfnIsNull(hash) || hash == "login")
+	{
+		// 로그인 화면 open (Login 창 영역만 사용한다)
+		this.gvVFrameSet.set_separatesize("*,0");
+		this.gvLoginFrame.set_formurl("frame::frameLogin.xfdl");
+	}
+	else
+	{
+		this.gvVFrameSet.set_separatesize("0,*");
+		
+ 		if (!this.gfnIsNull(this.gvMainFrame.formurl))
+ 			this.gvMainFrame.form.onChangeHistory(hash, data);
+ 		else
+ 		{
+			// History 존재시에는 Main으로 바로 이동한다.			
+			this.gdsUserInfo.loadXML(nexacro.getPrivateProfile("gdsUserInfo"));
+			this.gdsMenu.loadXML(nexacro.getPrivateProfile("gdsMenu")); 		
+			
+			this.gvMainFrame.set_formurl("frame::frameAll.xfdl");
+ 		}
+	}
+}
+
+this.gfnIsNull = function(sValue)
+{
+    if (new String(sValue).valueOf() == "undefined") return true;
+    if (sValue == null) return true;
+    
+    var ChkStr = new String(sValue);
+
+    if (ChkStr == null) return true;
+    if (ChkStr.toString().length == 0 ) return true;
+    return false;
+};
+
+/**
+ * @description trace 재정의하여 trace로그 생성 방지
+*/
+this.afnSetTraceMode = function(bTrace)
+{
+	trace("★★ 운영접속시에는 trace 로그를 남기지 않도록 설정되었습니다.");
+	
+    nexacro.setEnvironmentVariable("evTraceMode", bTrace);
+    
+	if (bTrace)
+    {
+		trace = this.gvRealTrace;
+    }
+    else 
+	{
+        trace = function trace(){};
+    }
+}
+
+/**
+ * @description ESC 통신중단 방지(10월 16일 버전에서는 작동하지 않음)
+*/
+this.Application_onerror = function(obj:nexacro.Application,e:nexacro.ErrorEventInfo)
+{
+	trace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Application_onerror!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	trace("e.statuscode : " + e.statuscode);
+	trace("e.errormsg   : " + e.errormsg  );
+	
+	// 사용자가 ESC키를 눌렀을 경우 ESC통신 중단 방지처리
+	if (e.errorcode == -2147418039) 
+	{
+		return true;
+	}
+};]]></Script>
+</ADL>

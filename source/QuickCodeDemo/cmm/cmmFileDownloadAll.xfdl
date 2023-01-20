@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <TypeDefinition url="..\default_typedef.xml"/>
+  <Form id="cmmFileDownloadAll" left="0" top="0" width="458" height="248" titletext="FileDownload 공통화면" onsize="cmmRmateChartDiv_onsize" onload="form_onload">
+    <Layouts>
+      <Layout>
+        <Static id="sta00" taborder="0" left="0" top="0" cssclass="sta_WF_FileupdownBg" right="0" bottom="0"/>
+        <Static id="sta02" taborder="1" left="0" top="0" width="458" height="248" cssclass="sta_WF_FileupdownBg"/>
+        <FileDownload id="fdl00" taborder="2" text="fdl00" left="3" top="249" width="68" height="20" onsuccess="fdl00_onsuccess" onerror="fdl00_onerror" visible="false"/>
+        <Grid id="grdDownload" taborder="3" left="6" top="5" width="446" height="237" binddataset="dsDownload" autofittype="col" oncelldblclick="grdDownload_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="292"/>
+              </Columns>
+              <Rows>
+                <Row size="34"/>
+                <Row size="34"/>
+              </Rows>
+              <Band id="body">
+                <Cell rowspan="2" text="bind:fileimg" displaytype="imagecontrol"/>
+                <Cell col="1" text="bind:filename"/>
+                <Cell row="1" col="1" text="expr:(prog &lt; 100)?((prog &lt; 0)?'Error!':prog + '%'):'완료'" displaytype="expr:(prog &lt; 100)?((prog &lt; 0)?'normal':'progressbarcontrol'):'normal'"/>
+              </Band>
+            </Format>
+            <Format id="runtime">
+              <Columns>
+                <Column size="48"/>
+                <Column size="362"/>
+              </Columns>
+              <Rows>
+                <Row size="48"/>
+              </Rows>
+              <Band id="body">
+                <Cell displaytype="imagecontrol" text="bind:fileimg"/>
+                <Cell col="1" text="bind:filename"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    cmm > cmmFileDownloadAll
+*  @FileName 	cmmFileDownloadAll.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2018.10.24
+*  @Desction    rmate chart 공통 화면 (모든 브라우져 지원)
+************** 소스 수정 이력 ***********************************************
+*  date          	Modifier            Description
+*******************************************************************************
+*  2018.10.24     	consulting 	        최초 생성 
+*******************************************************************************
+*/
+
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.dsDownload;		// download용 Dataset
+this.fvHtml5 = true;	// html5 여부
+this.extDown;			// extFileDownload
+this.fvSuccessCallBack = "fnFileDownloadSuccess"; 	// 업무화면의 File Download Success CallBack 함수
+this.fvErrorCallBack   = "fnFileDownloadError"; 	// 업무화면의 File Download Error   CallBack 함수
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 파일 다운로드 초기화
+	this.fnInitFile();
+	
+	// file upload Dataset 설정
+	this.dsDownload = this.grdDownload.getBindDataset();
+};
+
+/**
+ * @class chart 설정 <br>
+ * @param {Sring} id - DIV chart ID
+ * @param {Sring} argLayoutStr - DIV chart Layout
+ * @param {Sring} argChartData - DIV chart Data
+ * @return N/A
+ */
+this.fnSetDownload = function(id, argLayoutStr, argChartData)
+{
+	// html5
+	if (this.fvHtml5) {
+
+	}
+	// runtime
+	else {
+
+	}
+}
+
+/**
+ * @description 파일 다운로드 관련 초기화
+*/
+this.fnInitFile = function ()
+{	
+	if (system.navigatorname == "nexacro") {
+		this.fvHtml5 = false;
+		this.grdDownload.setFormat("runtime");
+	}
+	else {
+		//==============================================
+		//	파일 다운로드 컴포넌트 생성 및 설정
+		//==============================================		
+		var name = this.gfnGetUniqueId("extDownload_");
+		var extDown = new nexacro.ExtFileDownload(name, this);
+		this.addChild(extDown.name, extDown);
+		this.extDown = extDown;
+
+		// == Event 설정 ==
+		//통신 성공시에 발생하는 이벤트입니다
+		this.extDown.addEventHandler("onsuccess", this.extDownload_onsuccess, this);
+		//통신 오류 시 발생하는 이벤트입니다.
+		this.extDown.addEventHandler("onerror", this.extDownload_onerror, this);
+		//HTML5 Only : XMLHttpRequest가 데이터를 보내거나 받는 동안 서버에서 정의된 간격으로 발생합니다.
+		this.extDown.addEventHandler("onprogress", this.extDownload_onprogress, this);
+		this.extDown.show();
+	}
+};
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+/**
+ * @description 다운로드[그리드더블클릭시 다운로드]
+*/
+this.grdDownload_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var nRow = e.row;
+	if (nRow < 0) return;
+	
+	// html5
+	if (this.fvHtml5) {
+		this.downloadFile(nRow);
+	}
+	// runtime
+	else {			
+		var sFilename = this.dsDownload.getColumn(nRow, "filename");
+			sFilename = this.gfnTrim(sFilename);
+			
+		var sPath = system.convertRealPath("%DOCUMENT%");
+		var encodeFileName = encodeURIComponent(sFilename);
+		
+		var surl = this.gfnGetServerUrl() + this.fileConfig.downloadUrl + encodeFileName;
+		//trace("surl :: " + surl);
+		this.fdl00.set_downloadurl(surl);		
+		this.fdl00.set_downloadfilename(sFilename);
+		
+		this.fdl00.download();
+	}
+};
+
+//=======================================================================================================================================
+//              File Upload Event 
+//=======================================================================================================================================
+/**
+ * @description 다운로드 성공
+*/
+this.fdl00_onsuccess = function(obj:nexacro.FileDownload,e:nexacro.FileDownloadEventInfo)
+{
+	//trace("file download success");
+	
+	// 업무화면의 callBack 함수 실행
+	if(!this.gfnIsNull(this.fvSuccessCallBack)) {
+		// form에 callback 함수가 있을때
+		if (this.parent.parent[this.fvSuccessCallBack]) this.parent.parent.lookupFunc(this.fvSuccessCallBack).call(e);
+	}	
+};
+
+/**
+ * @description 다운로드 에러
+*/
+this.fdl00_onerror = function(obj:nexacro.FileDownload,e:nexacro.FileDownloadErrorEventInfo)
+{
+	//trace("file download fail");
+	
+	// 업무화면의 callBack 함수 실행
+	if(!this.gfnIsNull(this.fvErrorCallBack)) {
+		// form에 callback 함수가 있을때
+		if (this.parent.parent[this.fvErrorCallBack]) this.parent.parent.lookupFunc(this.fvErrorCallBack).call(e);
+	}	
+};
+
+//=======================================================================================================================================
+//              ExtFileUpload Event 
+//=======================================================================================================================================
+/**
+ * @description 파일 다운로드 수행
+*/ 
+this.downloadFile = function (row)
+{	
+	var dsDownload = this.dsDownload;
+	var	fileId,
+		fileName,
+		fileSize = 0,
+		fileInfo,
+		downloadUrl;
+		
+	var tranFiles = this.tranFiles;
+	tranFiles.downloaded = [];
+	
+	//progressbar 초기화
+	dsDownload.setColumn(row, "prog", 0);
+	
+	fileId = dsDownload.getColumn(row, "fileid");
+	fileName = dsDownload.getColumn(row, "filename");
+	fileSize = dsDownload.getColumn(row, "filesize");
+	fileInfo = {"id": fileId, "name": fileName, "size": fileSize, "row": row};
+	
+	tranFiles.downloaded.push(fileInfo);
+		
+	var downloadUrl = this.gfnGetServerUrl() + this.fileConfig.downloadUrl;
+	
+	var encodeFileName = escape(encodeURIComponent(fileName));
+	//download file
+	//@param {=string} url 다운로드 fullPath url
+	//@param {string} filename 파일저장시 적용할 file name.(지원가능한 브라우저만 적용됨. 런타임 미지원)
+	//@return {boolean} 다운로드 성공여부
+	this.extDown.download(downloadUrl + encodeFileName, fileName);	
+};
+
+/**
+ * @description 다운로드 성공시에 발생하는 이벤트입니다
+*/  
+this.extDownload_onsuccess = function(obj, e)
+{
+	//trace("	 ★ extFileDownload_onsuccess url=" + e.url);
+	
+	this.resetTranFilesInfo();
+	
+	if(!this.gfnIsNull(e.url))
+	{
+		// 업무화면의 callBack 함수 실행
+		if(!this.gfnIsNull(this.fvSuccessCallBack)) {
+			// form에 callback 함수가 있을때
+			if (this.parent.parent[this.fvSuccessCallBack]) this.parent.parent.lookupFunc(this.fvSuccessCallBack).call(e);
+		}
+	}
+	else
+	{
+		// 업무화면의 callBack 함수 실행
+		if(!this.gfnIsNull(this.fvErrorCallBack)) {
+			// form에 callback 함수가 있을때
+			if (this.parent.parent[this.fvErrorCallBack]) this.parent.parent.lookupFunc(this.fvErrorCallBack).call(e);
+		}
+	}
+	
+};
+
+/**
+ * @description 통신 오류 시 발생하는 이벤트입니다
+*/ 
+this.extDownload_onerror = function(obj, e)
+{
+	//런타임에서 e.errortype; <-- 원하는 type이 아닌 error object 가 전송됨.
+	//trace("An error occurred: extDownload_onerror index=" + e.index  + ", errortype=" + e.errortype   + "\n, statuscode=" + e.statuscode + ", requesturi=" + e.requesturi);
+	this.resetTranFilesInfo();
+	
+	// 업무화면의 callBack 함수 실행
+	if(!this.gfnIsNull(this.fvErrorCallBack)) {
+		// form에 callback 함수가 있을때
+		if (this.parent.parent[this.fvErrorCallBack]) this.parent.parent.lookupFunc(this.fvErrorCallBack).call(e);
+	}	
+};
+
+/**
+ * @description [HTML5 Only] XMLHttpRequest가 데이터를 보내거나 받는 동안 서버에서 정의된 간격으로 발생합니다.
+ * file upload & download 진행시 progress bar 처리용
+ * @param {ExtFileUpload} obj ExtFileUpload
+ * @param {ExtFileProgress} e ExtFileProgress
+*/   
+this.extDownload_onprogress = function(obj,e)
+{
+	if (e.lengthComputable)
+	{
+		var status,									 // 파일 전송 진행율
+			currentFileSize,						 // 파일 크기
+			transferCurrentFileSize,				 // 파일 전송 사이즈
+			downFiles = this.tranFiles.downloaded,	 // 다운로드 대상 파일 목록
+			currentRow = -1,
+			dsDownload = this.dsDownload;
+			
+		status = Math.floor((e.loaded / e.total) * 100);
+		
+		currentFileSize = downFiles[0].size;
+		currentRow = downFiles[0].row;
+		
+		transferCurrentFileSize = Math.floor(currentFileSize * (status / 100));
+		dsDownload.setColumn(currentRow, "prog", status);
+		dsDownload.setColumn(currentRow, "filesize", currentFileSize);
+		dsDownload.setColumn(currentRow, "tranfilesize", transferCurrentFileSize);
+	}
+};
+
+/**
+ * @description 트랜스 파일 정보 초기화
+*/  
+this.resetTranFilesInfo = function()
+{
+	var downFiles = this.tranFiles.downloaded;
+	
+	this.gfnRemoveAt(downFiles, 0);		// 다운 파일 삭제
+	this.tranFiles.downloaded = [];	
+};
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

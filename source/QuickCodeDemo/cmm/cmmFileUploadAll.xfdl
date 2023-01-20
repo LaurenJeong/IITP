@@ -1,0 +1,789 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <TypeDefinition url="..\default_typedef.xml"/>
+  <Form id="cmmFileUploadAll" left="0" top="0" width="458" height="248" titletext="FileUpload 공통화면" onsize="cmmRmateChartDiv_onsize" onload="form_onload">
+    <Layouts>
+      <Layout>
+        <Static id="sta00" taborder="6" left="0" top="0" cssclass="sta_WF_FileupdownBg" right="0" bottom="0"/>
+        <Grid id="grdUpload" taborder="0" left="6" top="36" binddataset="dsUpload" autofittype="col" oncellclick="grdUpload_oncellclick" right="6" bottom="6" ondrop="grdUpload_ondrop">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="292"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="34"/>
+                <Row size="34"/>
+              </Rows>
+              <Band id="body">
+                <Cell rowspan="2" text="bind:fileimg" displaytype="imagecontrol"/>
+                <Cell col="1" text="bind:filename"/>
+                <Cell col="2" rowspan="2" text="bind:rmimg" displaytype="imagecontrol"/>
+                <Cell row="1" col="1" text="expr:(prog &lt; 100)?((prog &lt; 0)?'Error!':prog + '%'):'완료'" displaytype="expr:(prog &lt; 100)?((prog &lt; 0)?'normal':'progressbarcontrol'):'normal'"/>
+              </Band>
+            </Format>
+            <Format id="format00">
+              <Columns>
+                <Column size="48"/>
+                <Column size="362"/>
+                <Column size="48"/>
+              </Columns>
+              <Rows>
+                <Row size="48"/>
+              </Rows>
+              <Band id="body">
+                <Cell displaytype="imagecontrol" text="bind:fileimg"/>
+                <Cell col="1" text="expr:comp.parent.parent.getFileNameWithSize(dataset, currow)"/>
+                <Cell col="2" text="bind:rmimg" displaytype="imagecontrol"/>
+              </Band>
+            </Format>
+            <Format id="runtime">
+              <Columns>
+                <Column size="80"/>
+                <Column size="290"/>
+                <Column size="75"/>
+              </Columns>
+              <Rows>
+                <Row size="34"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:fileimg" displaytype="imagecontrol"/>
+                <Cell col="1" text="bind:filename"/>
+                <Cell col="2" text="bind:rmimg" displaytype="imagecontrol"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnAdd" taborder="1" top="6" height="25" text="Add Files" cssclass="btn_WF_AddFile" right="164" width="89" onclick="btnAdd_onclick"/>
+        <Button id="btnDel" taborder="2" top="6" height="25" text="Delete All" onclick="btnDel_onclick" cssclass="btn_WF_DelAll" right="73" width="88"/>
+        <Button id="btnSave" taborder="3" top="6" height="25" text="Save" onclick="btnSave_onclick" cssclass="btn_WF_Save" right="6" width="64"/>
+        <Static id="staHelpMessage" taborder="4" left="12" top="42" text="마우스로 파일을 끌어오세요" cssclass="sta_WF_Fileupload" right="12" bottom="12"/>
+        <ImageViewer id="imgLoading" taborder="5" left="30%" top="40%" width="200" height="60" background="URL(&quot;theme://loading.gif&quot;)" visible="false"/>
+        <FileUpload id="ful00" taborder="7" top="6" width="89" height="25" multiselect="true" itemheight="25" buttonsize="90" buttontext="Add Files" onerror="ful00_onerror" onitemchanged="ful00_onitemchanged" onsuccess="ful00_onsuccess" visible="false" right="164"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    cmm > cmmFileUploadAll
+*  @FileName 	cmmFileUploadAll.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2018.10.24
+*  @Desction    rmate chart 공통 화면 (모든 브라우져 지원)
+************** 소스 수정 이력 ***********************************************
+*  date          	Modifier            Description
+*******************************************************************************
+*  2018.10.24     	consulting 	        최초 생성 
+*******************************************************************************
+*/
+
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.dsUpload;			// upload용 Dataset	
+this.fvHtml5 = true;	// html5 여부
+this.extUp;			    // extFileUpload
+this.fvSuccessCallBack = "fnFileUploadSuccess"; // 업무화면의 File Upload Success CallBack 함수
+this.fvErrorCallBack   = "fnFileUploadError"; 	// 업무화면의 File Upload Error   CallBack 함수
+
+this.fvAllowTypes   = this.fileConfig.allowTypes;
+this.fvMaxCount     = this.fileConfig.maxCount;
+this.fvMaxSize      = this.fileConfig.maxSize;
+this.fvMaxTotalSize = this.fileConfig.maxTotalSize;
+		
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 파일 업로드 초기화
+	this.fnInitFile();
+	
+	// file upload Dataset 설정
+	this.dsUpload = this.grdUpload.getBindDataset();
+};
+
+/**
+ * @class 업로드 설정 <br>
+ * @param {Array} allowTypes - 업로드 허용 확장자
+ * @param {Integer} maxCount - 업로드 건수
+ * @param {Sring} maxSize - 파일 사이즈 허용치("20MB")
+ * @param {Sring} maxTotalSize - 전체 파일 사이즈 허용치("200MB")
+ * @return N/A
+ */
+this.fnSetUpload = function(allowTypes, maxCount, maxSize, maxTotalSize)
+{
+	if (!this.gfnIsNull(allowTypes))   this.fvAllowTypes   = allowTypes;
+	if (!this.gfnIsNull(maxCount))     this.fvMaxCount     = maxCount;
+	if (!this.gfnIsNull(maxSize))      this.fvMaxSize      = maxSize;
+	if (!this.gfnIsNull(maxTotalSize)) this.fvMaxTotalSize = maxTotalSize;	
+}
+
+/**
+ * @description 파일 업로드 관련 초기화
+*/
+this.fnInitFile = function ()
+{
+	// 확장자별 파일아이콘 설정
+	this.gfnInitExtToIcon();
+	
+	if (system.navigatorname == "nexacro") {
+		this.fvHtml5 = false;
+		
+		this.ful00.set_visible(true);
+		this.btnAdd.set_visible(false);
+		this.staHelpMessage.set_visible(false);
+		
+		this.grdUpload.setFormat("runtime");
+	}
+	else {
+		this.ful00.set_visible(false);
+		
+		//==============================================
+		//	파일 업로드 컴포넌트 생성 및 설정
+		//==============================================
+		var name = this.gfnGetUniqueId("extUpload_");
+		var extUp = new nexacro.ExtFileUpload(name, this);
+		this.addChild(extUp.name, extUp);
+		this.extUp = extUp;
+		
+		this.extUp.set_multiselect(true);
+		this.extUp.setResponseZone(this, this.staHelpMessage, this.grdUpload);
+		
+		// == Event 설정 ==
+		//	파일 다이얼로그를 통해 파일을 선택했을 때 발생하는 이벤트입니다
+		this.extUp.addEventHandler("onchange", this.extUpload_onchange, this);
+		//통신 성공시에 발생하는 이벤트입니다
+		this.extUp.addEventHandler("onsuccess", this.extUpload_onsuccess, this);
+		//통신 오류 시 발생하는 이벤트입니다.
+		this.extUp.addEventHandler("onerror", this.extUpload_onerror, this);
+		//HTML5 Only : XMLHttpRequest가 데이터를 보내거나 받는 동안 서버에서 정의된 간격으로 발생합니다.
+		this.extUp.addEventHandler("onprogress", this.extUpload_onprogress, this);
+		//HTML5 Only : XMLHttpRequest 통신시 readystate 속성 변경 event
+		this.extUp.addEventHandler("onreadystatechange", this.extUpload_onreadystatechange, this);
+		this.extUp.show();
+		
+		//XHR2와 FileAPI 지원하지 않을 경우 그리드 format 변경. ex) file 전송량 표시용 progress bar
+		if (!this.extUp.support.XHR2)
+		{
+			this.grdUpload.setFormat("format1");
+		}
+		
+		//Multiple File Selection.
+		if (!this.extUp.support.MultipleInput)
+		{
+			this.staSupportMulti.set_color("red");
+			this.staSupportMulti.set_text("• File 다중선택 미지원");
+		}		
+	}
+};
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+/**
+ * @description 파일추가(html5)
+*/ 
+this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.extUp.addFiles();
+	
+	if(this.staHelpMessage.visible)	this.staHelpMessage.set_visible(false);	
+};
+
+/**
+ * @description 전체삭제
+*/
+this.btnDel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.grdUpload.set_enableredraw(false);
+	
+	// 전체 삭제
+	// html5
+	if (this.fvHtml5) {
+		this.extUp.removeAll();
+	}	
+	this.dsUpload.deleteAll();
+	
+	this.grdUpload.set_enableredraw(true);	
+};
+
+/**
+ * @description 저장
+*/
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 변경사항 체크
+	if (this.gfnDsIsUpdated(this.dsUpload) == false) {
+		// 변경된 내역이 없습니다.
+		this.gfnAlert("msg.save.nochange");
+		return;
+	}
+
+	// html5
+	if (this.fvHtml5) {
+		this.fnUploadFilesHtml5();
+	}
+	// runtime
+	else {
+		this.imgLoading.set_visible(true);
+		
+		// fileupload 전체삭제
+		this.ful00.set_enableevent(false);
+		for (var i = this.ful00.itemcount-1; i >= 0; i--) 
+		{
+			this.ful00.deleteItem(i);
+		}
+		this.ful00.set_enableevent(true);
+		
+		// fileupload에 Dataset 기준으로 다시 넣기
+		this.ful00.set_enableevent(false);
+		this.ful00.appendItem(e.index);		
+		var arrFile = new Array();
+		for (var i = 0 ; i < this.dsUpload.getRowCount() ; i ++)
+		{
+			arrFile.push(this.dsUpload.getColumn(i, "filepath"));
+		}
+		this.ful00.changeItem(0, arrFile);
+		this.ful00.set_enableevent(true);
+		
+		//save
+		var sUploadUrl = this.gfnGetServerUrl() + this.fileConfig.uploadUrl;
+		this.ful00.upload(sUploadUrl);	
+	}
+};
+
+/**
+ * @description 개별삭제 이벤트
+*/ 
+this.grdUpload_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{	
+	if (e.col == 2)
+	{
+		this.grdUpload.set_enableredraw(false);
+		
+		// html5
+		if (this.fvHtml5) {
+			this.fnRemoveFile(e.row);
+		}
+		// runtime
+		else {			
+			if (e.row < 0) return;
+
+			this.dsUpload.deleteRow(e.row);
+		}	
+		this.grdUpload.set_enableredraw(true);
+	}
+};
+
+//=======================================================================================================================================
+//              File Upload Event 
+//=======================================================================================================================================
+this.fvDrop = false;
+this.fvFileList = [];
+
+/**
+ * @description 업로드[아이템선택시 데이터셋에 저장]
+*/
+this.ful00_onitemchanged = function(obj:nexacro.FileUpload,e:nexacro.FileUploadItemChangeEventInfo)
+{
+	// fileupload에 목록 추가는 안됨
+	//this.dsUpload.clearData();
+	
+	var sFileName;
+	var sFilePath;
+	
+	if (this.fvDrop == false) {
+		var sFullData = obj.value;
+		var aFilePath = sFullData.split(",");
+	}
+	else {
+		var aFilePath = this.fvFileList;
+	}
+	//trace("============ aFilePath : " + aFilePath);
+	
+	for(var i=0; i<aFilePath.length; i++)
+	{
+		sFilePath = aFilePath[i];
+		var dirExpt = sFilePath.lastIndexOf("\\")+1;
+		sFileName = sFilePath.substr(dirExpt);
+		//trace("sFilePath : " + sFilePath + " / sFileName : " + sFileName);
+		var dirExptType = sFileName.lastIndexOf(".")+1;
+		var sFileType = sFileName.substr(dirExptType);
+		var sIconImage = this.gfnGetFileIcon(sFileName);
+
+		// 확장자 체크
+		if(!this.gfnContains(this.fvAllowTypes, sFileType))
+		{
+			// {0}는 허용되지 않는 확장자입니다.
+			this.gfnAlert("msg.file.allowtype", [sFileType, sFileName]);
+			break;
+		}
+		
+		var nRow = this.dsUpload.addRow();		
+		this.dsUpload.setColumn(nRow, "fileimg", sIconImage);
+		this.dsUpload.setColumn(nRow, "filename", this.gfnTrim(sFileName));
+		this.dsUpload.setColumn(nRow, "fileid", i+1);
+		this.dsUpload.setColumn(nRow, "filetype", sFileType);
+		this.dsUpload.setColumn(nRow, "rmimg", this.fileConfig.delImage);
+		this.dsUpload.setColumn(nRow, "filepath", sFilePath);
+	}
+
+	// drop시 사용하는 form 변수 초기화
+	this.fvDrop = false;
+	this.fvFileList = [];
+};
+
+/**
+ * @description drop시 선택한 파일 목록을 업로드 대상 dataset에 insert
+*/
+this.grdUpload_ondrop = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+{
+	this.fvDrop = true;
+	this.fvFileList = e.dragdata.getData(DragDataFormats.FILEDROP);
+	//trace("this.fvFileList : " + this.fvFileList);
+	this.ful00.changeItem(0, this.fvFileList);
+};
+
+/**
+ * @description 업로드 성공
+*/
+this.ful00_onsuccess = function(obj:nexacro.FileUpload,e:nexacro.FileUploadEventInfo)
+{
+	trace("file upload success");
+	this.imgLoading.set_visible(false);	
+	
+	// 업무화면의 callBack 함수 실행
+	if(!this.gfnIsNull(this.fvSuccessCallBack)) {
+		// form에 callback 함수가 있을때
+		if (this.parent.parent[this.fvSuccessCallBack]) this.parent.parent.lookupFunc(this.fvSuccessCallBack).call(e);
+	}
+};
+
+/**
+ * @description 업로드 실패
+*/
+this.ful00_onerror = function(obj:nexacro.FileUpload,e:nexacro.FileUploadErrorEventInfo)
+{
+	trace("file upload error" + e.errormsg);
+	this.imgLoading.set_visible(false);	
+	
+	// 업무화면의 callBack 함수 실행
+	if(!this.gfnIsNull(this.fvErrorCallBack)) {
+		// form에 callback 함수가 있을때
+		if (this.parent.parent[this.fvErrorCallBack]) this.parent.parent.lookupFunc(this.fvErrorCallBack).call(e);
+	}	
+};
+
+//=======================================================================================================================================
+//              ExtFileUpload Event 
+//=======================================================================================================================================
+/**
+ * @description 파일업로드수행
+*/ 
+this.fnUploadFilesHtml5 = function ()
+{
+	var i, len, rowtype, 
+		type, fileid, addFileLen,
+		ds_files = this.dsUpload;
+		
+	var extUp = this.extUp;	
+	addFileLen = extUp.getAddedFileLength() || 0;
+	
+	if (addFileLen > 0)
+	{
+		if (!extUp.support.XHR2 || !extUp.support.FileAPI)
+		{
+			if (!this.imgLoading.visible)
+			{
+				var topform = this.gfnGetTopLevelForm(this);
+				var l = Math.round((topform.getOffsetWidth() - this.imgLoading.getOffsetWidth())/2);
+				var t = Math.round((topform.getOffsetHeight() - this.imgLoading.getOffsetHeight())/2);
+				
+				this.imgLoading.move(l, t, this.imgLoading.getOffsetWidth(), this.imgLoading.getOffsetHeight());
+				this.imgLoading.set_visible(true);
+			}
+		}
+		
+		this.fnInitProgressbar("upload");
+		
+		var url = this.gfnGetServerUrl() + this.fileConfig.uploadUrl;
+		
+		/*		
+		HTML5는 아래 내용 참고
+			//  upload files
+			//  @param {=string} path upload url 정보. default는 상단의 extUp.set_uploadurl()에서 설정한 정보.
+			//  @param {string} inDatasetsParam input dataset 정보
+			//  @param {string} outDatasetsParam output dataset 정보
+			//  @param {string} transferType 전송유형.(all: 대상파일을 한번에 전송(defalut), each: 개별 전송)
+			//  @param {number} datatype data 전송방식. 0:XML, 1:Binary(Runtime only), 2:SSV		
+			
+			ds_download에 output dataset 결과는 extUpload_onsuccess 이벤트의 e.datasets에서 수신한다.
+		*/		
+		
+		//[전체전송]
+		var rtn = this.extUp.upload(url, "ds_input=dsUpload ds_temp=ds_temp","ds_output=ds_output", this.transferType, 0);
+		
+		//[개별전송]
+		//this.transferType = "each";
+		//this.extUp.upload(url, "ds_input=ds_input","", this.transferType, 0);
+	}
+};
+
+/**
+ * @description 파일 유효성검증
+*/
+this.fnValidateFile = function (cond)
+{
+	var rtn = 1;
+	this.gfnEach(cond, function(prop, val, object) {
+		var result = "";
+		if (prop == "name")
+		{
+			var fileExt = val.slice(val.lastIndexOf(".")+1).toLowerCase();
+			if(!this.gfnContains(this.fvAllowTypes, fileExt))
+			{
+				// {0}는 허용되지 않는 확장자입니다.
+				this.gfnAlert("msg.file.allowtype", [fileExt, val]);
+				rtn = 0;
+				return false;
+			}
+		}
+		else if (prop == "length")
+		{
+			if (val >= this.fvMaxCount)
+			{
+				// 첨부 파일은 {0}개 이상 등록 할 수 없습니다.
+				this.gfnAlert("msg.file.itemcount", [this.fvMaxCount]);
+				rtn = -1;
+				return false;
+			}	
+		}
+		else if (prop == "size")
+		{	
+			if (!isNaN(val) && (val >= this.gfnSizeToByte(this.fvMaxSize)))
+			{
+				// 첨부 파일의 용량은 최고 {0}MB까지 입니다.
+				this.gfnAlert("msg.file.filesize", [this.fvMaxSize]);
+				rtn = 0;
+				return false;
+			}
+		}
+		else if (prop == "totalSize")
+		{
+			if (!isNaN(val) && (val >= this.gfnSizeToByte(this.fvMaxTotalSize)))
+			{
+				// 첨부 파일의 전체 용량은 최고 {0}MB까지 입니다.
+				this.gfnAlert("msg.file.filetotalsize", [this.fvMaxTotalSize]);
+				rtn = -1;
+				return false;
+			}
+		}
+	}, this);
+	
+	return rtn;
+};
+
+/**
+ * @description 진행바 초기화
+*/  
+this.fnInitProgressbar = function(type)
+{	
+	if (type == "upload")
+	{
+		this.tranFiles.preFileSizeSum = 0;
+		this.tranFiles.transferFileIndex = 0;
+	}
+};
+
+/**
+ * @description 파일업로드 컴포넌트 체인지 이벤트
+*/
+this.extUpload_onchange = function(obj, e)
+{
+	var ds = this.dsUpload;
+	var index = e.index;
+ 	var fileList = e.files;
+ 	var fileCount = fileList.length;
+ 	var fileSupport = (this.extUp.support.XHR2 && this.extUp.support.FileAPI);
+	
+	for(var i=0; i<fileCount; i++)
+	{
+		var file = fileList[i];
+		var fileId   = file.id;
+		var fileName = file.name;
+        var fileSize = file.size;
+        var fileType = file.type;
+        var fileFullpath = file.fullpath; 	// RUMTIME만 제공됨(HTML5는 빈문자열 반환). 2016.02.02
+
+		var dsCount = ds.getRowCount();
+		var cond;
+		if (fileSupport)
+		{
+			var totalSize = ds.getSum("filesize") + fileSize;
+			cond = {"name" : fileName, "length" : dsCount, "size" : fileSize, "totalSize" : totalSize};
+		}
+		else
+		{
+			cond = {"name" : fileName, "length" : dsCount};
+		}
+		
+		var valid = this.fnValidateFile(cond);
+		
+		//파일 유형 에러
+		if (valid == 0)
+		{
+			this.extUp.removeFile(fileId);
+			return;
+		}
+		else if (valid == -1) //최대 파일첨부가능 건수 또는 size 에러.
+		{
+			this.extUp.removeFile(fileId);
+			return;
+		}
+		
+		var findRow = ds.findRow("filename", fileName);
+
+		if(findRow > -1) {
+			// {0}는 중복된 파일이 존재합니다.
+			this.gfnAlert("msg.file.exist", [fileName]);
+			this.extUp.removeFile(fileId);
+			return;			
+		}
+		
+		// 업로드 파일 정보 데이타 구성
+		var addidx = ds.addRow();
+		var downImage = this.gfnGetFileIcon(fileName); 
+		ds.setColumn(addidx, "fileimg", downImage);
+		ds.setColumn(addidx, "fileid", fileId);
+		ds.setColumn(addidx, "filename", fileName);
+		
+		if(fileSize > 0)
+		{
+			ds.setColumn(addidx, "filesize", fileSize);
+		}
+		
+		ds.setColumn(addidx, "filetype", fileType);
+		ds.setColumn(addidx, "prog", 0);
+		ds.setColumn(addidx, "rmimg", this.fileConfig.delImage);		
+	}
+};
+
+
+/**
+ * @descriptio 파일 삭제
+ * @param {number} row 삭제대상 row
+*/
+this.fnRemoveFile = function(row)
+{
+	this.grdUpload.set_enableredraw(false);
+	if (this.gfnIsNull(row) || row < 0)
+	{
+		return;
+	}
+
+	var dsFiles = this.dsUpload;
+	
+	//해당 row의 rowtype이 normal이면 서버에서 삭제로직 추가.
+	//업로드가 성공한 후에는 ExtFileUpload에 존재하는 파일 정보가 사라진 상태.
+	if(dsFiles.getRowType(row) == 2) //수정된 상태
+	{
+		var fileId = dsFiles.getColumn(row, "fileid");
+		
+		//ExtFileUpDownload에서 내부적으로 가지고 있는 file정보 삭제.
+		this.extUp.removeFile(fileId);		
+		dsFiles.deleteRow(row);
+	}
+	else
+	{
+		dsFiles.deleteRow(row);
+		// 이후 업로드된 파일은 서버에서 삭제하기 위한 별도처리 필요.
+		alert("반드시 업로드된 파일을 서버에서 삭제하기 위한 처리를 추가해야 합니다.");
+	}
+	
+	this.grdUpload.set_enableredraw(true); 
+};
+
+/**
+ * @description [HTML5 Only] XMLHttpRequest 통신시 readystate 속성 변경 event
+ * @param {ExtFileUpload} obj ExtFileUpload
+ * @param {ExtFileReadystateChangEventInfo} e ExtFileReadystateChangEventInfo 
+*/ 
+this.extUpload_onreadystatechange = function(obj, e)
+{
+	if(e.readyState == 4 ){
+		if(e.status != 200) {
+			trace("extUpload_onreadystatechange > Fail request!!");
+			//TODO
+			//에러 발생에 따른 UI 처리
+			
+			var ds = this.dsUpload;
+			var count = ds.rowcount;
+			for(var i=0; i<count; i++)
+			{
+				ds.setColumn(i, "prog", -1);
+			}
+			
+		} else if(e.status == 200) {
+			
+		}
+	}
+};
+
+/**
+ * @description [HTML5 Only] XMLHttpRequest가 데이터를 보내거나 받는 동안 서버에서 정의된 간격으로 발생합니다.
+ * file upload & download 진행시 progress bar 처리용
+ * @param {ExtFileUpload} obj ExtFileUpload
+ * @param {ExtFileProgress} e ExtFileProgress 
+*/ 
+this.extUpload_onprogress = function(obj,e)
+{
+	var addedFile = obj.getAddedFile(),
+		addedFileLength = addedFile.length || 0;
+	
+	if (e.lengthComputable && (addedFileLength > 0))
+	{
+		//개별파일 전송시. "each"
+		var fileId = e.fileId;
+		if(fileId){
+			var currentFileSize = e.loaded; // 현재까지 전송된 전체 사이즈
+			var totalFileSize = e.total;   // 전체 사이즈
+					
+			var ds = this.dsUpload;
+			var row = ds.findRow("filename", fileId);
+			var transferFileRate = Math.floor((currentFileSize / totalFileSize) * 100);
+
+			ds.setColumn(row, "prog", transferFileRate);
+			ds.setColumn(row, "filesize", totalFileSize);
+			ds.setColumn(row, "tranfilesize", currentFileSize);					
+		
+			return;
+		}	
+		
+		var transferFileSize,			// 파일 전송 사이즈
+			transferFileRate,			// 파일 전송 진행율
+			transferFile,				// 파일
+			currentFileId,				// 파일 ID
+			currentFileSize,			// 파일 크기
+			currentFileName,			// 파일명
+			ds_files = this.dsUpload,
+			dsRow = -1;
+
+		var tranFiles = this.tranFiles;
+		// 현재까지 전송된 전체 사이즈
+		tranFiles.transferFileSize = e.loaded;
+		
+		// 현재까지 전송된 크기가 이전파일 크기 합계보다 크면 진행바 상태 표시를 반복 수행
+		while ((tranFiles.transferFileSize > tranFiles.preFileSizeSum) && (tranFiles.transferFileIndex < addedFileLength))
+		{
+			currentFileId = addedFile[tranFiles.transferFileIndex].id;
+			dsRow = ds_files.findRow("fileid", currentFileId);
+			
+			transferFile = addedFile[tranFiles.transferFileIndex].file;
+			currentFileSize = transferFile.size;
+			currentFileName = transferFile.name;
+			
+			ds_files.setColumn(dsRow, "filesize", currentFileSize);
+		
+			transferFileSize = tranFiles.transferFileSize - tranFiles.preFileSizeSum;
+			transferFileRate = Math.floor((transferFileSize / currentFileSize) * 100);
+			
+			// 현재 파일 전송이 완료되지 않은 경우는 다음 onStatus 이벤트 호출 대기
+			if (transferFileRate < 100)
+			{	
+				ds_files.setColumn(dsRow, "prog", transferFileRate);
+				ds_files.setColumn(dsRow, "tranfilesize", transferFileSize);
+				
+				break;
+			}
+			
+			// 현재 파일 전송 완료 또는 초과하는 경우는 현재 전송파일 완료 진행 처리후 while 반복문 로직 수행
+			if (transferFileRate >= 100)
+			{
+				transferFileSize = currentFileSize;	// 현재 파일 전송 사이즈
+				transferFileRate = 100;	// 현재 파일 전송 진행율
+				
+				ds_files.setColumn(dsRow, "prog", transferFileRate);
+				ds_files.setColumn(dsRow, "filesize", currentFileSize);
+				ds_files.setColumn(dsRow, "tranfilesize", transferFileSize);
+				
+				// 다음 전송 파일 정보 설정
+				tranFiles.preFileSizeSum += currentFileSize;	// 이전 파일 사이즈 합계
+				tranFiles.transferFileIndex++;
+				
+				if (tranFiles.transferFileIndex >= addedFileLength)
+				{
+					break;
+				}
+			}
+		}
+	}
+};
+
+/**
+ * @description 파일업로드 성공!
+*/
+this.extUpload_onsuccess = function(obj, e)
+{
+	trace(">>>>>>>>>>>>>> extUpload_onsuccess : " + e.errorcode ) ;
+	trace(">>>>>>>>>>>>>> extUpload_onsuccess : " + e.errormsg ) ;
+
+	//e.fildId는 개별전송("each")시 수신.	
+	if (this.imgLoading.visible)
+	{
+		this.imgLoading.set_visible(false);
+	}
+	
+	this.dsUpload.applyChange();
+
+	if(e.datasets)
+	{	
+		var outputDatasets = e.datasets;
+		if(outputDatasets.length == 0) {
+			// 업무화면의 callBack 함수 실행
+			if(!this.gfnIsNull(this.fvSuccessCallBack)) {
+				// form에 callback 함수가 있을때
+				if (this.parent.parent[this.fvSuccessCallBack]) this.parent.parent.lookupFunc(this.fvSuccessCallBack).call(e);
+			}
+		}
+		else {
+			var outDs = outputDatasets[0];
+			
+			// 업무화면의 callBack 함수 실행
+			if(!this.gfnIsNull(this.fvSuccessCallBack)) {
+				// form에 callback 함수가 있을때
+				if (this.parent.parent[this.fvSuccessCallBack]) this.parent.parent.lookupFunc(this.fvSuccessCallBack).call(e, outDs);
+			}
+		}
+	}
+};
+
+/**
+ * @description 파일업로드 실패
+*/
+this.extUpload_onerror = function(obj, e)
+{
+	trace(">>>>>>>>>>>>>> extUpload_onerror errorcode : " + e.errorcode ) ;
+	trace(">>>>>>>>>>>>>> extUpload_onerror errormsg : " + e.errormsg ) ;
+	trace(">>>>>>>>>>>>>> extUpload_onerror fileId : " + e.fileId ) ;
+	
+	// 업무화면의 callBack 함수 실행
+	if(!this.gfnIsNull(this.fvErrorCallBack)) {
+		// form에 callback 함수가 있을때
+		if (this.parent.parent[this.fvErrorCallBack]) this.parent.parent.lookupFunc(this.fvErrorCallBack).call(e);
+	}	
+};
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

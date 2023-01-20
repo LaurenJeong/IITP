@@ -1,56 +1,19 @@
 //==============================================================================
 //
-//  TOBESOFT Co., Ltd.
-//  Copyright 2017 TOBESOFT Co., Ltd.
+//  Copyright 2021 TOBESOFT Co., Ltd.
 //  All Rights Reserved.
 //
 //  NOTICE: TOBESOFT permits you to use, modify, and distribute this file 
 //          in accordance with the terms of the license agreement accompanying it.
 //
-//  Readme URL: http://www.nexacro.co.kr/legal/nexacro17-public-license-readme-1.1.html	
+//  Readme URL: http://www.nexacro.com/legal/license/tobesoft/ko/NexacroN-public-license-readme-1.1.html
 //
 //==============================================================================
-if (nexacro.Spin)
-{
-    var _pSpin = nexacro.Spin.prototype;
 
-    //==============================================================================
-    // nexacro.Spin 
-    //==============================================================================
-
-
-    //===============================================================
-    // nexacro.Spin : Create & Destroy & Update
-    //===============================================================
-
-
-    //===============================================================
-    // nexacro.Spin : Override
-    //===============================================================
-
-
-    //===============================================================
-    // nexacro.Spin : Properties
-    //===============================================================
-
-
-    //===============================================================
-    // nexacro.Spin : Methods
-    //===============================================================
-
-
-    //===============================================================
-    // nexacro.Spin : Events
-    //===============================================================
-
-
-    //===============================================================
-    // nexacro.Spin : Logical Part
-    //===============================================================
-    _pSpin.createCssDesignContents = function ()
-    {
-        this.set_value("123");
-    };
-
-    delete _pSpin;
+if (nexacro.Spin) {
+	var _pSpin = nexacro.Spin.prototype;
+	_pSpin.createCssDesignContents = function () {
+		this.set_value("123");
+	};
+	delete _pSpin;
 }

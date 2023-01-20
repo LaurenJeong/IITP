@@ -1,173 +1,1084 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AppVariables version="2.0">
   <Datasets>
-    <Dataset id="gdsMenu">
+    <Dataset id="gdsUserInfo">
       <ColumnInfo>
-        <Column id="MENU_CD" type="STRING" size="256" description="메뉴코드"/>
-        <Column id="UP_MENU_CD" type="STRING" size="256" description="상위메뉴코드"/>
-        <Column id="MENU_NM" type="STRING" size="256" description="메뉴명"/>
-        <Column id="MENU_LVL" type="STRING" size="256" description="메뉴레벨(0부터시작)"/>
-        <Column id="PGM_PATH" type="STRING" size="256" description="화면 Services Prefix"/>
-        <Column id="PGM_ID" type="STRING" size="256" description="화면명"/>
-        <Column id="MENU_YN" type="STRING" size="256"/>
+        <Column id="userId" type="STRING" size="256"/>
+        <Column id="userName" type="STRING" size="256"/>
+        <Column id="userNameEN" type="STRING" size="256"/>
       </ColumnInfo>
       <Rows>
         <Row>
-          <Col id="MENU_CD">V10000</Col>
+          <Col id="userId">admin</Col>
+          <Col id="userName">관리자</Col>
+          <Col id="userNameEN">administrator</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsMenu">
+      <ColumnInfo>
+        <Column id="MENU_GRP_CD" type="STRING" size="256"/>
+        <Column id="MENU_CD" type="STRING" size="256"/>
+        <Column id="UP_MENU_CD" type="STRING" size="256"/>
+        <Column id="MENU_NM" type="STRING" size="256"/>
+        <Column id="MENU_TYPE" type="STRING" size="256"/>
+        <Column id="WORK_URL" type="STRING" size="256"/>
+        <Column id="MENU_LVL" type="INT" size="256"/>
+        <Column id="PGM_ID" type="STRING" size="256"/>
+        <Column id="PGM_URL" type="STRING" size="256"/>
+        <Column id="MENU_YN" type="STRING" size="256"/>
+        <Column id="MENU_DESC" type="STRING" size="256"/>
+        <Column id="MENU_KWRD" type="STRING" size="256"/>
+        <Column id="MENU_PARAM" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="MENU_GRP_CD">WB</Col>
+          <Col id="MENU_CD">WB</Col>
           <Col id="UP_MENU_CD">0</Col>
+          <Col id="MENU_NM">활용</Col>
+          <Col id="MENU_LVL">0</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_GRP_CD">WB</Col>
+          <Col id="MENU_CD">WB10000000</Col>
+          <Col id="UP_MENU_CD">WB</Col>
           <Col id="MENU_NM">ViewTemplate</Col>
-          <Col id="MENU_LVL">0</Col>
-          <Col id="PGM_PATH"/>
-          <Col id="PGM_ID"/>
-          <Col id="MENU_YN">Y</Col>
-        </Row>
-        <Row>
-          <Col id="UP_MENU_CD">V10000</Col>
-          <Col id="MENU_CD">V11000</Col>
-          <Col id="MENU_NM">FreeFormViewTemplate</Col>
           <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">view_freeform.xfdl</Col>
           <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
-          <Col id="UP_MENU_CD">V10000</Col>
-          <Col id="MENU_CD">V12000</Col>
-          <Col id="MENU_NM">SearchViewTemplate</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">view_search.xfdl</Col>
+          <Col id="MENU_GRP_CD">WB</Col>
+          <Col id="MENU_CD">WB10010010</Col>
+          <Col id="UP_MENU_CD">WB10000000</Col>
+          <Col id="MENU_NM">Freeform 일반</Col>
+          <Col id="MENU_TYPE">30</Col>
+          <Col id="MENU_LVL">2</Col>
+          <Col id="PGM_URL">manual::view_freeform.xfdl</Col>
           <Col id="MENU_YN">Y</Col>
+          <Col id="MENU_KWRD">FreeformViewTemplate|Freeform|단건|기본</Col>
+          <Col id="WORK_URL">frame::frameWorkSP.xfdl</Col>
         </Row>
         <Row>
-          <Col id="UP_MENU_CD">V10000</Col>
-          <Col id="MENU_CD">V13000</Col>
-          <Col id="MENU_NM">GridViewTemplate</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">view_grid.xfdl</Col>
-          <Col id="MENU_YN">Y</Col>
-        </Row>
-        <Row>
-          <Col id="UP_MENU_CD">V10000</Col>
-          <Col id="MENU_CD">V14000</Col>
-          <Col id="MENU_NM">ListViewViewTemplate</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">view_listview.xfdl</Col>
-          <Col id="MENU_YN">Y</Col>
-        </Row>
-        <Row>
-          <Col id="UP_MENU_CD">V10000</Col>
-          <Col id="MENU_CD">V21000</Col>
-          <Col id="MENU_NM">BarChartViewTemplate</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">view_barchart.xfdl</Col>
-          <Col id="MENU_YN">Y</Col>
-        </Row>
-        <Row>
-          <Col id="UP_MENU_CD">V10000</Col>
-          <Col id="MENU_CD">V22000</Col>
-          <Col id="MENU_NM">CombinationChartViewTemplate</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">view_combinationchart.xfdl</Col>
-          <Col id="MENU_YN">Y</Col>
-        </Row>
-        <Row>
-          <Col id="UP_MENU_CD">V10000</Col>
-          <Col id="MENU_CD">V23000</Col>
-          <Col id="MENU_NM">PieChartViewTemplate</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">view_piechart.xfdl</Col>
-          <Col id="MENU_YN">Y</Col>
-        </Row>
-        <Row>
-          <Col id="MENU_CD">A10000</Col>
-          <Col id="UP_MENU_CD">0</Col>
+          <Col id="MENU_GRP_CD">WB</Col>
+          <Col id="MENU_CD">WB20000000</Col>
+          <Col id="UP_MENU_CD">WB</Col>
           <Col id="MENU_NM">Action</Col>
-          <Col id="MENU_LVL">0</Col>
-          <Col id="PGM_PATH"/>
-          <Col id="PGM_ID"/>
-          <Col id="MENU_YN">Y</Col>
-        </Row>
-        <Row>
-          <Col id="MENU_CD">A11000</Col>
-          <Col id="UP_MENU_CD">A10000</Col>
-          <Col id="MENU_NM">Transation</Col>
           <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">action_transaction.xfdl</Col>
           <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
-          <Col id="MENU_NM">Message</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">action_message.xfdl</Col>
-          <Col id="UP_MENU_CD">A10000</Col>
-          <Col id="MENU_CD">A12000</Col>
+          <Col id="MENU_GRP_CD">WB</Col>
+          <Col id="MENU_CD">WB20010010</Col>
+          <Col id="UP_MENU_CD">WB20000000</Col>
+          <Col id="MENU_NM">Transaction 일반</Col>
+          <Col id="MENU_TYPE">30</Col>
+          <Col id="MENU_LVL">2</Col>
+          <Col id="PGM_URL">manual::action_transaction.xfdl</Col>
           <Col id="MENU_YN">Y</Col>
+          <Col id="MENU_KWRD">TransactionAction|Transaction|조회|저장|DB</Col>
+          <Col id="WORK_URL">frame::frameWorkSP.xfdl</Col>
         </Row>
         <Row>
-          <Col id="MENU_CD">A13000</Col>
-          <Col id="UP_MENU_CD">A10000</Col>
-          <Col id="MENU_NM">Popup</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">action_popup.xfdl</Col>
-          <Col id="MENU_YN">Y</Col>
-        </Row>
-        <Row>
-          <Col id="MENU_NM">PopupClose</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_ID">action_popupclose.xfdl</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="MENU_YN">Y</Col>
-          <Col id="MENU_CD">A14000</Col>
-          <Col id="UP_MENU_CD">A10000</Col>
-        </Row>
-        <Row>
-          <Col id="MENU_CD">A15000</Col>
-          <Col id="UP_MENU_CD">A10000</Col>
-          <Col id="MENU_NM">Excel Export</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">action_excelexport.xfdl</Col>
-          <Col id="MENU_YN">Y</Col>
-        </Row>
-        <Row>
-          <Col id="MENU_CD">A16000</Col>
-          <Col id="UP_MENU_CD">A10000</Col>
-          <Col id="MENU_NM">Excel Import</Col>
-          <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">gallery</Col>
-          <Col id="PGM_ID">action_excelimport.xfdl</Col>
-          <Col id="MENU_YN">Y</Col>
-        </Row>
-        <Row>
-          <Col id="MENU_CD">S10000</Col>
+          <Col id="MENU_GRP_CD">MU</Col>
+          <Col id="MENU_CD">MU</Col>
           <Col id="UP_MENU_CD">0</Col>
-          <Col id="MENU_NM">Sample</Col>
+          <Col id="MENU_NM">매뉴얼</Col>
           <Col id="MENU_LVL">0</Col>
-          <Col id="PGM_PATH"/>
-          <Col id="PGM_ID"/>
           <Col id="MENU_YN">Y</Col>
         </Row>
         <Row>
-          <Col id="UP_MENU_CD">S10000</Col>
-          <Col id="MENU_CD">S11000</Col>
-          <Col id="MENU_NM">Dashboard</Col>
+          <Col id="MENU_GRP_CD">MU</Col>
+          <Col id="MENU_CD">MU10000000</Col>
+          <Col id="UP_MENU_CD">MU</Col>
+          <Col id="MENU_NM">ViewTemplate</Col>
           <Col id="MENU_LVL">1</Col>
-          <Col id="PGM_PATH">sample</Col>
-          <Col id="PGM_ID">Dashboard.xfdl</Col>
           <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_GRP_CD">MU</Col>
+          <Col id="MENU_CD">MU10010010</Col>
+          <Col id="UP_MENU_CD">MU10000000</Col>
+          <Col id="MENU_NM">Freeform 일반</Col>
+          <Col id="MENU_TYPE">20</Col>
+          <Col id="MENU_LVL">2</Col>
+          <Col id="PGM_URL">manual::view_freeform.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+          <Col id="MENU_KWRD">FreeformViewTemplate|Freeform|단건|기본</Col>
+          <Col id="WORK_URL">frame::frameWork.xfdl</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_GRP_CD">MU</Col>
+          <Col id="MENU_CD">MU20000000</Col>
+          <Col id="UP_MENU_CD">MU</Col>
+          <Col id="MENU_NM">Action</Col>
+          <Col id="MENU_LVL">1</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_GRP_CD">MU</Col>
+          <Col id="MENU_CD">MU20010010</Col>
+          <Col id="UP_MENU_CD">MU20000000</Col>
+          <Col id="MENU_NM">Transaction 일반</Col>
+          <Col id="MENU_TYPE">21</Col>
+          <Col id="MENU_LVL">2</Col>
+          <Col id="PGM_URL">manual::action_transaction.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+          <Col id="MENU_KWRD">TransactionAction|Transaction|조회|저장|DB</Col>
+          <Col id="WORK_URL">frame::frameWork.xfdl</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsOpenMenu">
+      <ColumnInfo>
+        <Column id="WIN_ID" type="STRING" size="32"/>
+        <Column id="MENU_CD" type="STRING" size="32"/>
+        <Column id="MENU_NM" type="STRING" size="32"/>
+        <Column id="PGM_URL" type="STRING" size="256"/>
+        <Column id="MENU_GRP_CD" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gdsMessage">
+      <ColumnInfo>
+        <Column id="msgId" type="STRING" size="256"/>
+        <Column id="msgText" type="STRING" size="256"/>
+        <Column id="msgTextEN" type="STRING" size="256"/>
+        <Column id="msgType" type="STRING" size="2"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="msgId">msg.server.error</Col>
+          <Col id="msgText">서버 오류입니다.\n관리자에게 문의하세요.</Col>
+          <Col id="msgTextEN">Server error. Please contact your administrator.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.server.error.msg</Col>
+          <Col id="msgText">서버에서 다음과 같은 에러메시지를 받았습니다.\n{0}</Col>
+          <Col id="msgTextEN">The server received the following error message.s\n{0}</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.session.timeout</Col>
+          <Col id="msgText">세션이 종료되었습니다. 다시 로그인해주세요.</Col>
+          <Col id="msgTextEN">Your session has expired, please login again.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.login.url.error</Col>
+          <Col id="msgText">정상적인 경로로 접속하시기 바랍니다.</Col>
+          <Col id="msgTextEN">invalid access! please, login first at www.tobesoft.com</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.login.error</Col>
+          <Col id="msgText">해당하는 사용자 정보가 없습니다.</Col>
+          <Col id="msgTextEN">No user found.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.call.nofile</Col>
+          <Col id="msgText">해당하는 메뉴에 Program File이 등록되지 않았습니다.</Col>
+          <Col id="msgTextEN">the requested menu does not exist!</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.nomenu</Col>
+          <Col id="msgText">해당 Menu가 존재하지 않습니다.</Col>
+          <Col id="msgTextEN">The specified menu doesn't exist.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">confirm.logout</Col>
+          <Col id="msgText">로그아웃 하시겠습니까?</Col>
+          <Col id="msgTextEN">Are you sure you want to log out?</Col>
+          <Col id="msgType">C</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">confirm.before.movepage</Col>
+          <Col id="msgText">변경된 데이터가 있습니다. 현재 화면을 닫겠습니까?</Col>
+          <Col id="msgTextEN">There are unsaved data. Would you like to leave now?</Col>
+          <Col id="msgType">C</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">confirm.before.search</Col>
+          <Col id="msgText">검색을 진행하면 변경된 데이터가 사라집니다. \n계속 진행 하시겠습니까?</Col>
+          <Col id="msgTextEN">Any unsaved data will be discarded. \nWould you like to continue?</Col>
+          <Col id="msgType">C</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">confirm.before.moveropos</Col>
+          <Col id="msgText">해당 row의 위치를 이동하면 변경된 데이터가 사라집니다. \n계속 진행 하시겠습니까?</Col>
+          <Col id="msgTextEN">If you move the selected row, your changes will be discarded. \nWould you like to continue?</Col>
+          <Col id="msgType">C</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">confirm.before.delete</Col>
+          <Col id="msgText">선택된 자료를 삭제 하시겠습니까?</Col>
+          <Col id="msgTextEN">Are you sure you want to delete?</Col>
+          <Col id="msgType">C</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">confirm.before.deletesave</Col>
+          <Col id="msgText">선택된 자료를 삭제 후 저장하시겠습니까?</Col>
+          <Col id="msgTextEN">Are you sure you want to delete and save?</Col>
+          <Col id="msgType">C</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">confirm.before.save</Col>
+          <Col id="msgText">변경된 내역을 저장 하시겠습니까?</Col>
+          <Col id="msgTextEN">Would you like to save your changes?</Col>
+          <Col id="msgType">C</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.noselect</Col>
+          <Col id="msgText">{0} 을(를) 선택해 주십시요.</Col>
+          <Col id="msgTextEN">Please, select {0}</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.search.nodata</Col>
+          <Col id="msgText">지정된 조건에 해당하는 항목을 찾을 수 없습니다.</Col>
+          <Col id="msgTextEN">No data found.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.save.nodata</Col>
+          <Col id="msgText">저장할 데이터가 없습니다.</Col>
+          <Col id="msgTextEN">No data to save.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.save.nochange</Col>
+          <Col id="msgText">변경된 내역이 없습니다.</Col>
+          <Col id="msgTextEN">No changes found.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.save.success</Col>
+          <Col id="msgText">저장 되었습니다.</Col>
+          <Col id="msgTextEN">Successfully saved!</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.update.success</Col>
+          <Col id="msgText">수정 되었습니다.</Col>
+          <Col id="msgTextEN">Successfully updated!</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.delete.success</Col>
+          <Col id="msgText">삭제 되었습니다.</Col>
+          <Col id="msgTextEN">Successfully deleted!</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.action.success</Col>
+          <Col id="msgText">처리 되었습니다.</Col>
+          <Col id="msgTextEN">Successfully processed!</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.action.fail</Col>
+          <Col id="msgText">프로세스가 실패하였습니다.</Col>
+          <Col id="msgTextEN">Failed process!</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.updateafter</Col>
+          <Col id="msgText">변경된 내역을 저장 후 작업하세요.</Col>
+          <Col id="msgTextEN">Please, save your changes first!</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.delete.child</Col>
+          <Col id="msgText">하위 자료가 있어 삭제할 수 없습니다.</Col>
+          <Col id="msgTextEN">the requested deletion could not be performed because dependent data found!</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.grid.noselect</Col>
+          <Col id="msgText">선택된 항목이 없습니다.</Col>
+          <Col id="msgTextEN">No item has been selected!</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.before.delete</Col>
+          <Col id="msgText">정말로 삭제 하시겠습니까?</Col>
+          <Col id="msgTextEN">Are you sure you want to delete?</Col>
+          <Col id="msgType">C</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator</Col>
+          <Col id="msgText">{0}</Col>
+          <Col id="msgTextEN">{0}</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.required</Col>
+          <Col id="msgText">{0} 은(는) 필수 입력 항목입니다.</Col>
+          <Col id="msgTextEN">{0} is a required field.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.length</Col>
+          <Col id="msgText">{0} 의 입력값은 {1} 자리이어야 합니다.</Col>
+          <Col id="msgTextEN">The length of {0} must be equal to {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.rangelength</Col>
+          <Col id="msgText">{0} 은(는) {1} 와(과) {2} 사이의 자리이어야 합니다.</Col>
+          <Col id="msgTextEN">The length of {0} is between {1} and {2}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.maxlength</Col>
+          <Col id="msgText">{0} 의 입력값의 길이는 {1} 이하이어야 합니다.</Col>
+          <Col id="msgTextEN">The length of {0} must be less than or equal to {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.minlength</Col>
+          <Col id="msgText">{0} 의 입력값의 길이는 {1} 이상이어야 합니다.</Col>
+          <Col id="msgTextEN">The length of {0} must be greater than or equal to {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.maxlengthB</Col>
+          <Col id="msgText">{0} 의 입력값의 길이는 {1} 이하이어야 합니다.</Col>
+          <Col id="msgTextEN">The length of {0} must be less than or equal to {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.minlengthB</Col>
+          <Col id="msgText">{0} 의 입력값의 길이는 {1} 이상이어야 합니다.</Col>
+          <Col id="msgTextEN">The length of {0} must be greater than or equal to {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.digits</Col>
+          <Col id="msgText">{0} 은(는) 숫자만 입력 가능합니다.</Col>
+          <Col id="msgTextEN">{0} must be a numeric value.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.min</Col>
+          <Col id="msgText">{0} 은(는) {1} 이상의 숫자만 입력 가능합니다.</Col>
+          <Col id="msgTextEN">{0} must be a numeric value greater than or equal to {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.max</Col>
+          <Col id="msgText">{0} 은(는) {1} 이하의 숫자만 입력 가능합니다.</Col>
+          <Col id="msgTextEN">{0} must be a numeric value less than or equal to {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.date</Col>
+          <Col id="msgText">{0} 은(는) 유효하지 않은 날짜 형식입니다.</Col>
+          <Col id="msgTextEN">{0} is in invalid date format.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.dateym</Col>
+          <Col id="msgText">{0} 은(는) 유효하지 않은 년월 형식입니다.</Col>
+          <Col id="msgTextEN">{0} is in invalid year/month format.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.fromto</Col>
+          <Col id="msgText">{0} 의 날짜가 {1} 의 날짜보다 작습니다.</Col>
+          <Col id="msgTextEN">{0} is less than {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.comparebig</Col>
+          <Col id="msgText">{0} 이(가) {1} 보다 작습니다.</Col>
+          <Col id="msgTextEN">{0} is less than {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.comparesmall</Col>
+          <Col id="msgText">{0} 이(가) {1} 보다 큽니다.</Col>
+          <Col id="msgTextEN">{0} is greater than {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.equalto</Col>
+          <Col id="msgText">{0} 이(가) {1} 와(과) 일치하지 않습니다.</Col>
+          <Col id="msgTextEN">{0} is not equal to {1}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.range</Col>
+          <Col id="msgText">{0} 은(는) {1} 와(과) {2} 사이의 값입니다.</Col>
+          <Col id="msgTextEN">The value of {0} is between {1} and {2}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.declimit</Col>
+          <Col id="msgText">{0} 은(는) 소숫점 {1} 자리로 구성되어야 합니다.</Col>
+          <Col id="msgTextEN">The fractional part of {0} must consiste of {1} digits.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.code</Col>
+          <Col id="msgText">{0} 은(는) {1} 중 하나의 값이어야 합니다.</Col>
+          <Col id="msgTextEN">{0} must be the value of {1}</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.ssn</Col>
+          <Col id="msgText">{0} 은(는) 올바른 주민번호가 아닙니다.</Col>
+          <Col id="msgTextEN">The entered Social Security Number is invalid.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.email</Col>
+          <Col id="msgText">e-mail이 잘못된 형태로 입력 되었습니다.</Col>
+          <Col id="msgTextEN">The entered email address is invalid.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.url</Col>
+          <Col id="msgText">웹사이트 주소가 잘못 입력 되었습니다.</Col>
+          <Col id="msgTextEN">The entered website address is invalid.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.phone</Col>
+          <Col id="msgText">전화번호가 잘못된 형태로 입력 되었습니다.</Col>
+          <Col id="msgTextEN">The entered phone number is invalid.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.zipcode</Col>
+          <Col id="msgText">우편번호가 잘못된 형태로 입력 되었습니다.</Col>
+          <Col id="msgTextEN">The entered ZIP code is invalid.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.multicombo.maxcnt</Col>
+          <Col id="msgText">{0}개 이상 선택 할 수 없습니다.</Col>
+          <Col id="msgTextEN">You can't select more than {0}</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.maxdate</Col>
+          <Col id="msgText">날짜의 입력 가능 범위를 벗어났습니다.</Col>
+          <Col id="msgTextEN">Invalid date.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.err.validator.date.great</Col>
+          <Col id="msgText">종료일이 시작일보다 빠릅니다.</Col>
+          <Col id="msgTextEN">Invalid date range.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.file.exist</Col>
+          <Col id="msgText">{0} 은(는) 중복된 파일이 존재합니다.</Col>
+          <Col id="msgTextEN">{0} duplicate files exist.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.file.filesize</Col>
+          <Col id="msgText">첨부 파일의 용량은 최고 {0}MB까지 입니다.</Col>
+          <Col id="msgTextEN">Maximum allowed attachment size is {0} MB.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.file.filetotalsize</Col>
+          <Col id="msgText">첨부 파일의 전체 용량은 최고 {0}MB까지 입니다.</Col>
+          <Col id="msgTextEN">Maximum allowed attachment total size is {0} MB.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.file.allowtype</Col>
+          <Col id="msgText">{0} 은(는) 허용되지 않는 확장자입니다.[{1}]</Col>
+          <Col id="msgTextEN">{0} is an unacceptable extension.[{1}]</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.file.itemcount</Col>
+          <Col id="msgText">첨부 파일은 {0}개 이상 등록 할 수 없습니다.</Col>
+          <Col id="msgTextEN">Attachments can not be registered in more than {0}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.file.uploadfail</Col>
+          <Col id="msgText">{0}로(으로) 파일업로드가 실패하였습니다.</Col>
+          <Col id="msgTextEN">the file upload is failed because {0}.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+        <Row>
+          <Col id="msgId">msg.exist.code</Col>
+          <Col id="msgText">입력하는 Code ({0})값이 이미 등록되어 있습니다.</Col>
+          <Col id="msgTextEN">Code already exsits!</Col>
+          <Col id="msgType">A</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsMyMenu">
+      <ColumnInfo>
+        <Column id="MENU_GRP_CD" type="STRING" size="256"/>
+        <Column id="MENU_CD" type="STRING" size="256"/>
+        <Column id="UP_MENU_CD" type="STRING" size="256"/>
+        <Column id="MENU_NM" type="STRING" size="256"/>
+        <Column id="MENU_TYPE" type="STRING" size="256"/>
+        <Column id="MENU_LVL" type="INT" size="256"/>
+        <Column id="PGM_ID" type="STRING" size="256"/>
+        <Column id="PGM_URL" type="STRING" size="256"/>
+        <Column id="MENU_YN" type="STRING" size="256"/>
+        <Column id="MENU_DESC" type="STRING" size="256"/>
+        <Column id="MENU_KWRD" type="STRING" size="256"/>
+        <Column id="MENU_PARAM" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gdsWord">
+      <ColumnInfo>
+        <Column id="word" type="STRING" size="256"/>
+        <Column id="KO" type="STRING" size="256"/>
+        <Column id="EN" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gdsGridPopupMenu">
+      <ColumnInfo>
+        <Column id="id" type="STRING" size="256"/>
+        <Column id="level" type="STRING" size="256"/>
+        <Column id="caption" type="STRING" size="256"/>
+        <Column id="captionEN" type="STRING" size="256"/>
+        <Column id="enable" type="STRING" size="256"/>
+        <Column id="userData" type="STRING" size="256"/>
+        <Column id="upmenu" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="id">shapefix</Col>
+          <Col id="level">0</Col>
+          <Col id="caption">틀고정</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">shape fix</Col>
+        </Row>
+        <Row>
+          <Col id="id">colfix</Col>
+          <Col id="level">1</Col>
+          <Col id="caption">열고정</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="upmenu">shapefix</Col>
+          <Col id="captionEN">column fix</Col>
+        </Row>
+        <Row>
+          <Col id="id">colfixfree</Col>
+          <Col id="level">1</Col>
+          <Col id="caption">열고정해제</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="upmenu">shapefix</Col>
+          <Col id="captionEN">column fix free</Col>
+        </Row>
+        <Row>
+          <Col id="id">rowfix</Col>
+          <Col id="level">1</Col>
+          <Col id="caption">행고정</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="upmenu">shapefix</Col>
+          <Col id="captionEN">row fix</Col>
+        </Row>
+        <Row>
+          <Col id="id">rowfixfree</Col>
+          <Col id="level">1</Col>
+          <Col id="caption">행고정해제</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="upmenu">shapefix</Col>
+          <Col id="captionEN">row fix free</Col>
+        </Row>
+        <Row>
+          <Col id="caption">-</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="level">0</Col>
+          <Col id="captionEN">-</Col>
+        </Row>
+        <Row>
+          <Col id="id">filter</Col>
+          <Col id="level">0</Col>
+          <Col id="caption">그리드필터</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">grid filter</Col>
+        </Row>
+        <Row>
+          <Col id="id">filterfree</Col>
+          <Col id="level">0</Col>
+          <Col id="caption">그리드필터 해제</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">grid filter free</Col>
+        </Row>
+        <Row>
+          <Col id="level">0</Col>
+          <Col id="caption">-</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">-</Col>
+        </Row>
+        <Row>
+          <Col id="id">replace</Col>
+          <Col id="level">0</Col>
+          <Col id="caption">찾기/바꾸기</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">find/replace</Col>
+        </Row>
+        <Row>
+          <Col id="id">colhide</Col>
+          <Col id="level">0</Col>
+          <Col id="caption">컬럼 숨기기/보이기</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">column show/hide</Col>
+        </Row>
+        <Row>
+          <Col id="level">0</Col>
+          <Col id="caption">-</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">-</Col>
+        </Row>
+        <Row>
+          <Col id="id">excel</Col>
+          <Col id="level">0</Col>
+          <Col id="caption">엑셀</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">excel</Col>
+        </Row>
+        <Row>
+          <Col id="id">export</Col>
+          <Col id="level">1</Col>
+          <Col id="caption">내보내기</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="upmenu">excel</Col>
+          <Col id="captionEN">export</Col>
+        </Row>
+        <Row>
+          <Col id="id">import</Col>
+          <Col id="level">1</Col>
+          <Col id="caption">가져오기</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="upmenu">excel</Col>
+          <Col id="captionEN">import</Col>
+        </Row>
+        <Row>
+          <Col id="level">0</Col>
+          <Col id="caption">-</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">-</Col>
+        </Row>
+        <Row>
+          <Col id="id">personal</Col>
+          <Col id="level">0</Col>
+          <Col id="caption">현재포맷저장</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">saving current format</Col>
+        </Row>
+        <Row>
+          <Col id="id">initial</Col>
+          <Col id="level">0</Col>
+          <Col id="caption">초기상태로</Col>
+          <Col id="enable">false</Col>
+          <Col id="userData">0</Col>
+          <Col id="captionEN">initialization</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsGridPersonal">
+      <ColumnInfo>
+        <Column id="sFormatId" type="STRING" size="256"/>
+        <Column id="sFormat" type="STRING" size="2147483647"/>
+        <Column id="sOrgFormat" type="STRING" size="2147483647"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gdsCommCode">
+      <ColumnInfo>
+        <Column id="GRP_COMM_CD" type="STRING" size="32"/>
+        <Column id="GRP_COMM_NM" type="STRING" size="32"/>
+        <Column id="COMM_CD" type="STRING" size="16"/>
+        <Column id="COMM_NM" type="STRING" size="32"/>
+        <Column id="REFE_1" type="STRING" size="256"/>
+        <Column id="REFE_2" type="STRING" size="256"/>
+        <Column id="SORT_NO" type="BIGDECIMAL" size="32"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="GRP_COMM_CD">CM0003</Col>
+          <Col id="GRP_COMM_NM">메뉴그룹</Col>
+          <Col id="COMM_CD">WB</Col>
+          <Col id="COMM_NM">활용</Col>
+          <Col id="REFE_1">workbook</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">CM0003</Col>
+          <Col id="GRP_COMM_NM">메뉴그룹</Col>
+          <Col id="COMM_CD">MU</Col>
+          <Col id="COMM_NM">매뉴얼</Col>
+          <Col id="REFE_1">manual</Col>
+          <Col id="SORT_NO">2</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">CM0004</Col>
+          <Col id="GRP_COMM_NM">메뉴유형</Col>
+          <Col id="COMM_CD">10</Col>
+          <Col id="COMM_NM">일반</Col>
+          <Col id="REFE_1">frame::frmWork.xfdl</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">CM0004</Col>
+          <Col id="GRP_COMM_NM">메뉴유형</Col>
+          <Col id="COMM_CD">20</Col>
+          <Col id="COMM_NM">메뉴얼ViwTemplate</Col>
+          <Col id="REFE_1">frame::frmWorkMU1.xfdl</Col>
+          <Col id="SORT_NO">2</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">CM0004</Col>
+          <Col id="GRP_COMM_NM">메뉴유형</Col>
+          <Col id="COMM_CD">21</Col>
+          <Col id="COMM_NM">메뉴얼Action</Col>
+          <Col id="REFE_1">frame::frmWorkMU2.xfdl</Col>
+          <Col id="SORT_NO">3</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">CM0004</Col>
+          <Col id="GRP_COMM_NM">메뉴유형</Col>
+          <Col id="COMM_CD">30</Col>
+          <Col id="COMM_NM">활용</Col>
+          <Col id="REFE_1">frame::frmWorkSP.xfdl</Col>
+          <Col id="SORT_NO">4</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0001</Col>
+          <Col id="GRP_COMM_NM">모델 IO 타입</Col>
+          <Col id="COMM_CD">I</Col>
+          <Col id="COMM_NM">input</Col>
+          <Col id="REFE_1">input</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0001</Col>
+          <Col id="GRP_COMM_NM">모델 IO 타입</Col>
+          <Col id="COMM_CD">O</Col>
+          <Col id="COMM_NM">output</Col>
+          <Col id="REFE_1">output</Col>
+          <Col id="SORT_NO">2</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0002</Col>
+          <Col id="GRP_COMM_NM">필드 유형</Col>
+          <Col id="COMM_CD">10</Col>
+          <Col id="COMM_NM">FreeText</Col>
+          <Col id="REFE_1">FreeText</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0002</Col>
+          <Col id="GRP_COMM_NM">필드 유형</Col>
+          <Col id="COMM_CD">20</Col>
+          <Col id="COMM_NM">SelectOne</Col>
+          <Col id="REFE_1">SelectOne</Col>
+          <Col id="SORT_NO">2</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0002</Col>
+          <Col id="GRP_COMM_NM">필드 유형</Col>
+          <Col id="COMM_CD">30</Col>
+          <Col id="COMM_NM">SelectAny</Col>
+          <Col id="REFE_1">SelectAny</Col>
+          <Col id="SORT_NO">3</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0002</Col>
+          <Col id="GRP_COMM_NM">필드 유형</Col>
+          <Col id="COMM_CD">40</Col>
+          <Col id="COMM_NM">MultiMedia</Col>
+          <Col id="REFE_1">MultiMedia</Col>
+          <Col id="SORT_NO">4</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0003</Col>
+          <Col id="GRP_COMM_NM">데이터 유형</Col>
+          <Col id="COMM_CD">10</Col>
+          <Col id="COMM_NM">STRING</Col>
+          <Col id="REFE_1">STRING</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0003</Col>
+          <Col id="GRP_COMM_NM">데이터 유형</Col>
+          <Col id="COMM_CD">20</Col>
+          <Col id="COMM_NM">INT</Col>
+          <Col id="REFE_1">INT</Col>
+          <Col id="SORT_NO">2</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0003</Col>
+          <Col id="GRP_COMM_NM">데이터 유형</Col>
+          <Col id="COMM_CD">21</Col>
+          <Col id="COMM_NM">FLOAT</Col>
+          <Col id="REFE_1">FLOAT</Col>
+          <Col id="SORT_NO">3</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0003</Col>
+          <Col id="GRP_COMM_NM">데이터 유형</Col>
+          <Col id="COMM_CD">22</Col>
+          <Col id="COMM_NM">BIGDECIMAL</Col>
+          <Col id="REFE_1">BIGDECIMAL</Col>
+          <Col id="SORT_NO">4</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0003</Col>
+          <Col id="GRP_COMM_NM">데이터 유형</Col>
+          <Col id="COMM_CD">30</Col>
+          <Col id="COMM_NM">DATE</Col>
+          <Col id="REFE_1">DATE</Col>
+          <Col id="SORT_NO">5</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0003</Col>
+          <Col id="GRP_COMM_NM">데이터 유형</Col>
+          <Col id="COMM_CD">31</Col>
+          <Col id="COMM_NM">TIME</Col>
+          <Col id="REFE_1">TIME</Col>
+          <Col id="SORT_NO">6</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0003</Col>
+          <Col id="GRP_COMM_NM">데이터 유형</Col>
+          <Col id="COMM_CD">32</Col>
+          <Col id="COMM_NM">DATETIME</Col>
+          <Col id="REFE_1">DATETIME</Col>
+          <Col id="SORT_NO">7</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0003</Col>
+          <Col id="GRP_COMM_NM">데이터 유형</Col>
+          <Col id="COMM_CD">40</Col>
+          <Col id="COMM_NM">BLOB</Col>
+          <Col id="REFE_1">BLOB</Col>
+          <Col id="SORT_NO">8</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0004</Col>
+          <Col id="GRP_COMM_NM">뷰템플릿 속성 타입</Col>
+          <Col id="COMM_CD">10</Col>
+          <Col id="COMM_NM">ViewAttribute</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0004</Col>
+          <Col id="GRP_COMM_NM">뷰템플릿 속성 타입</Col>
+          <Col id="COMM_CD">20</Col>
+          <Col id="COMM_NM">FieldUserAttribute</Col>
+          <Col id="SORT_NO">2</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0005</Col>
+          <Col id="GRP_COMM_NM">뷰템플릿 속성 입력유형</Col>
+          <Col id="COMM_CD">10</Col>
+          <Col id="COMM_NM">String</Col>
+          <Col id="REFE_1">String</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0005</Col>
+          <Col id="GRP_COMM_NM">뷰템플릿 속성 입력유형</Col>
+          <Col id="COMM_CD">11</Col>
+          <Col id="COMM_NM">Number</Col>
+          <Col id="REFE_1">Number</Col>
+          <Col id="SORT_NO">2</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0005</Col>
+          <Col id="GRP_COMM_NM">뷰템플릿 속성 입력유형</Col>
+          <Col id="COMM_CD">12</Col>
+          <Col id="COMM_NM">Boolean</Col>
+          <Col id="REFE_1">Boolean</Col>
+          <Col id="SORT_NO">3</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0005</Col>
+          <Col id="GRP_COMM_NM">뷰템플릿 속성 입력유형</Col>
+          <Col id="COMM_CD">20</Col>
+          <Col id="COMM_NM">Enum</Col>
+          <Col id="REFE_1">Enum</Col>
+          <Col id="SORT_NO">4</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0005</Col>
+          <Col id="GRP_COMM_NM">뷰템플릿 속성 입력유형</Col>
+          <Col id="COMM_CD">30</Col>
+          <Col id="COMM_NM">ViewObjList</Col>
+          <Col id="REFE_1">ViewObjList</Col>
+          <Col id="SORT_NO">5</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0005</Col>
+          <Col id="GRP_COMM_NM">뷰템플릿 속성 입력유형</Col>
+          <Col id="COMM_CD">70</Col>
+          <Col id="COMM_NM">Layout</Col>
+          <Col id="REFE_1">Layout</Col>
+          <Col id="SORT_NO">6</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0006</Col>
+          <Col id="GRP_COMM_NM">Enum 유형</Col>
+          <Col id="COMM_CD">V</Col>
+          <Col id="COMM_NM">ViewTemplate</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0006</Col>
+          <Col id="GRP_COMM_NM">Enum 유형</Col>
+          <Col id="COMM_CD">A</Col>
+          <Col id="COMM_NM">Action</Col>
+          <Col id="SORT_NO">2</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">10</Col>
+          <Col id="COMM_NM">String</Col>
+          <Col id="REFE_1">String</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">11</Col>
+          <Col id="COMM_NM">Number</Col>
+          <Col id="REFE_1">Number</Col>
+          <Col id="SORT_NO">2</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">12</Col>
+          <Col id="COMM_NM">Boolean</Col>
+          <Col id="REFE_1">Boolean</Col>
+          <Col id="SORT_NO">3</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">20</Col>
+          <Col id="COMM_NM">Enum</Col>
+          <Col id="REFE_1">Enum</Col>
+          <Col id="SORT_NO">4</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">30</Col>
+          <Col id="COMM_NM">ViewObjList</Col>
+          <Col id="REFE_1">ViewObjList</Col>
+          <Col id="SORT_NO">5</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">31</Col>
+          <Col id="COMM_NM">ViewChildObjList</Col>
+          <Col id="REFE_1">ViewChildObjList</Col>
+          <Col id="SORT_NO">6</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">40</Col>
+          <Col id="COMM_NM">DatasetID</Col>
+          <Col id="REFE_1">DatasetID</Col>
+          <Col id="SORT_NO">7</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">41</Col>
+          <Col id="COMM_NM">DataObjectID</Col>
+          <Col id="REFE_1">DataObjectID</Col>
+          <Col id="SORT_NO">8</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">42</Col>
+          <Col id="COMM_NM">ColumnID</Col>
+          <Col id="REFE_1">ColumnID</Col>
+          <Col id="SORT_NO">9</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">50</Col>
+          <Col id="COMM_NM">ModelServiceID</Col>
+          <Col id="REFE_1">ModelServiceID</Col>
+          <Col id="SORT_NO">10</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">51</Col>
+          <Col id="COMM_NM">ModelServiceURL</Col>
+          <Col id="REFE_1">ModelServiceURL</Col>
+          <Col id="SORT_NO">11</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0007</Col>
+          <Col id="GRP_COMM_NM">액션 Property 입력유형</Col>
+          <Col id="COMM_CD">60</Col>
+          <Col id="COMM_NM">URL</Col>
+          <Col id="REFE_1">URL</Col>
+          <Col id="SORT_NO">12</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0008</Col>
+          <Col id="GRP_COMM_NM">액션 Method 반환유형</Col>
+          <Col id="COMM_CD">00</Col>
+          <Col id="COMM_NM">N/A</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0009</Col>
+          <Col id="GRP_COMM_NM">액션 Event 반환유형</Col>
+          <Col id="COMM_CD">00</Col>
+          <Col id="COMM_NM">N/A</Col>
+          <Col id="SORT_NO">1</Col>
+        </Row>
+        <Row>
+          <Col id="GRP_COMM_CD">QC0009</Col>
+          <Col id="GRP_COMM_NM">액션 Event 반환유형</Col>
+          <Col id="COMM_CD">12</Col>
+          <Col id="COMM_NM">Boolean</Col>
+          <Col id="SORT_NO">2</Col>
         </Row>
       </Rows>
     </Dataset>
   </Datasets>
-  <Variables/>
+  <Variables>
+    <Variable id="gvUserId"/>
+  </Variables>
   <DataObjects/>
 </AppVariables>

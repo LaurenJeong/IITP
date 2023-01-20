@@ -1,11 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ENV version="2.1">
-  <Environment themeid="theme::blue" datatyperule="2.0" filesecurelevel="all" networksecurelevel="all">
+  <Environment themeid="theme::QuickCodeDemo" key="QuickCodeDemo" httpretry="0" filesecurelevel="all" networksecurelevel="all" onerror="Environment_onerror" tracemode="append" usecontextmenu="none" usehttpkeepalive="true" initvaluefileid="initvalue::initComp.xiv">
     <ScreenDefinition>
-      <Screen id="Desktop_screen" type="desktop"/>
+      <Screen id="ScreenDeskTop" type="desktop" userzoom="false" initvaluefileid="initvalue::initComp.xiv"/>
     </ScreenDefinition>
-    <Variables/>
-    <Cookies/>
+    <Variables>
+      <Variable id="evRunMode" initval="S"/>
+      <Variable id="evUserId"/>
+      <Variable id="evUserNm"/>
+      <Variable id="evTraceMode" initval="true"/>
+      <Variable id="evMessagePopup" initval="true"/>
+      <Variable id="evLanguage" initval="KO"/>
+      <Variable id="evLanguageChange" initval="KO"/>
+      <Variable id="evQuikView" initval="Y"/>
+    </Variables>
+    <Cookies>
+      <Cookie id="jsessionidTest"/>
+    </Cookies>
     <httpheader/>
   </Environment>
+  <Script type="xscript5.1"><![CDATA[/**
+ * @description 통신오류 알림
+*/
+this.Environment_onerror = function(obj:nexacro.Environment,e:nexacro.ErrorEventInfo)
+{
+	trace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Environment_onerror!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	trace("e.statuscode : " + e.statuscode);
+	trace("e.errormsg : " + e.errormsg);
+	
+	// 사용자가 ESC키를 눌렀을 경우 ESC통신 중단 방지처리
+	if (e.statuscode == 10401) {
+		trace("사용자가 ESC키를 눌렀을 경우 ESC통신 중단 방지처리!!!!!");
+		return true;
+	}
+	
+// 	// 스크립트 에러
+// 	if (e.statuscode == 0) {
+// 		//alert(e.statuscode + "\n"+e.errormsg);
+// 	} 
+// 	else if (e.statuscode == 404) {
+// 		alert(e.statuscode+"\n"+"Page Not Found"+"\n"+e.errormsg);
+// 	} 
+// 	else if (e.statuscode == 408) {
+// 		alert(e.statuscode+"\n"+"Request Timeout" + "\n"+e.errormsg);
+// 	} 
+// 	else if (e.statuscode == 500) {
+// 		alert(e.statuscode+"\n"+"Internal Server Error" + "\n"+e.errormsg);
+// 	} 
+// 	else if (e.statuscode == 503) {
+// 		alert(e.statuscode+"\n"+"The service is unavailable" + "\n"+e.errormsg);
+// 	} 
+// 	else if (e.statuscode == 12029) {
+// 		alert(e.statuscode+"\n"+"A connection with the server could not be established" + "\n"+e.errormsg);
+// 	} 
+// 	// 미등록 오류 발생
+// 	else {
+// 		alert(e.statuscode + "\n" + e.errormsg);
+// 	}
+};
+]]></Script>
 </ENV>

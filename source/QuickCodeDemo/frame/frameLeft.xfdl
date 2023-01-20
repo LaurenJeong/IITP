@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="LeftFrame" left="0" top="0" width="225" height="638" onsize="Form_onsize" onload="form_onload" titletext="frameLeft">
+    <Layouts>
+      <Layout width="225" height="638">
+        <Static id="Static00" taborder="3" left="0" top="0" right="0" bottom="0"/>
+        <Div id="divLeft" taborder="0" left="0" top="35" bottom="0" width="225">
+          <Layouts>
+            <Layout width="230" height="958">
+              <Grid id="grdTree" treeinitstatus="collapse,null" cssclass="grd_LF_Menu" left="0" top="0" autofittype="col" treeusecheckbox="false" cellsizingtype="col" bottom="0" oncellclick="divLeft_grd_tree_oncellclick" binddataset="dsMenu" right="0">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="247"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="35"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell edittype="tree" text="bind:MENU_NM" cssclass="expr:MENU_LVL=='1'? &quot;lev0&quot;:level=='2'? &quot;lev1&quot;:&quot;&quot;" treestartlevel="1" treelevel="bind:MENU_LVL" tooltiptext="bind:MENU_NM" textAlign="left" displaytype="treeitemcontrol"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Grid id="grdMyMenu" taborder="1" cssclass="grd_LF_MyMenu" binddataset="gdsMyMenu" treeuseline="false" treeusecheckbox="false" visible="false" left="0" top="0" right="0" bottom="0" autofittype="col" background="" oncellclick="divLeft_grdMyMenu_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="231"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="35"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:MENU_NM"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="sta00" taborder="5" left="0" top="0" height="35" right="0" cssclass="sta_LF_MenuBg"/>
+        <Button id="btnMenu" taborder="2" cssclass="btn_LF_MenuS" left="0" top="0" width="110" height="35" text="Menu" onclick="btnMenu_onclick" uWord="frame.menu"/>
+        <Button id="btnMyMenu" taborder="4" cssclass="btn_LF_Menu" left="114" top="0" width="110" height="35" text="MyMenu" onclick="btnMyMenu_onclick" uWord="frame.favorites" enable="true"/>
+        <Static id="sta03" taborder="6" left="542" top="-5" width="240" height="47" cssclass="sta_LF_SearchBg" visible="false"/>
+        <Button id="btnMenuSearch" taborder="1" left="1033" top="4" width="27" height="27" onclick="btnMenuSearch_onclick" uWord="frame.searchMenu.button" cssclass="btn_LF_Search" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsMenu" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="MENU_GRP_CD" type="STRING" size="256"/>
+          <Column id="MENU_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_CD" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_TYPE" type="STRING" size="256"/>
+          <Column id="MENU_LVL" type="INT" size="256"/>
+          <Column id="PGM_ID" type="STRING" size="256"/>
+          <Column id="PGM_URL" type="STRING" size="256"/>
+          <Column id="MENU_YN" type="STRING" size="256"/>
+          <Column id="MENU_DESC" type="STRING" size="256"/>
+          <Column id="MENU_KWRD" type="STRING" size="256"/>
+          <Column id="MENU_PARAM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_mnu">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="lev" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">2 Depth Menu01</Col>
+            <Col id="lev">0</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">0</Col>
+            <Col id="Column0">2 Depth Menu02</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">0</Col>
+            <Col id="Column0">2 Depth Menu03</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">0</Col>
+            <Col id="Column0">2 Depth Menu04</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">0</Col>
+            <Col id="Column0">2 Depth Menu05</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">0</Col>
+            <Col id="Column0">2 Depth Menu06</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">0</Col>
+            <Col id="Column0">2 Depth Menu07</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">0</Col>
+            <Col id="Column0">2 Depth Menu08</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">0</Col>
+            <Col id="Column0">2 Depth Menu09</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="Column0">Template Title</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_mmnu">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">My Menu 01</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">My Menu 02</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">My Menu 03</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">My Menu 04</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">My Menu 05</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">My Menu 06</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">My Menu 07</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">My Menu 08</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">My Menu 09</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">My Menu 10</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsPdivMenu">
+        <ColumnInfo>
+          <Column id="level" type="STRING" size="256"/>
+          <Column id="groupId" type="STRING" size="256"/>
+          <Column id="menuId" type="STRING" size="256"/>
+          <Column id="menuNm" type="STRING" size="256"/>
+          <Column id="menuUrl" type="STRING" size="256"/>
+          <Column id="sortNo" type="STRING" size="256"/>
+          <Column id="upMenuId" type="STRING" size="256"/>
+          <Column id="useYn" type="STRING" size="256"/>
+          <Column id="auth" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    frame > frameLeft
+*  @FileName 	frameLeft.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2017.03.09
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2017.03.09     	consulting 	                최초 생성 
+*  2017.10.17     	consulting       	        주석 정비
+*  2018.01.16		consulting					gfnGetApplication 공통함수 변경
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = this.gfnGetApplication();
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.divLeft.form.set_scrollbartype("none")
+
+	this.divLeft.form.grdTree.set_top(0);
+	this.divLeft.form.grdTree.set_bottom(0);
+	
+	var sGdsMyMenuXML = nexacro.getPrivateProfile("gdsMyMenu");
+	if( !this.gfnIsNull(sGdsMyMenuXML)) {
+		this.objApp.gdsMyMenu.loadXML(sGdsMyMenuXML);
+	}
+};
+
+/**
+ * @description 다국어 처리
+*/
+this.fnChangeLang = function()
+{
+	// 다국어 처리
+	var sNowLang = nexacro.getEnvironmentVariable("evLanguage");
+	if (sNowLang != "KO") {
+		this.divLeft.form.grdTree.setCellProperty("Body", 0, "text", "bind:" + this.FRAME_MENUCOLUMNS.menuNm + sNowLang);
+		this.divLeft.form.grdTree.setCellProperty("Body", 0, "tooltiptext", "bind:menuNm" + this.FRAME_MENUCOLUMNS.menuNm + sNowLang);
+		
+		this.divLeft.form.grdMyMenu.setCellProperty("Body", 0, "text", "bind:menuNm" + this.FRAME_MENUCOLUMNS.menuNm + sNowLang);
+	}
+};
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+ 
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/**
+ * @description 상단 top메뉴 변경시 left메뉴 변경 처리
+*/
+this.fnChangeMenu = function (topMenuId)
+{
+	var filterExpr = this.FRAME_MENUCOLUMNS.groupId + "==" + nexacro.wrapQuote(topMenuId) + "&&" + this.FRAME_MENUCOLUMNS.menuLevel + "!=0";
+	this.objApp.gdsMenu.set_enableevent(false);
+	this.dsMenu.set_enableevent(false);
+	this.objApp.gdsMenu.filter(filterExpr);
+	this.dsMenu.copyData(this.objApp.gdsMenu, true);
+	this.objApp.gdsMenu.filter("");
+	this.objApp.gdsMenu.set_enableevent(true);
+	this.dsMenu.set_enableevent(true);
+};
+
+ /**
+ * @description FORM오픈 [공통함수호출]
+*/
+this.fnFormOpen = function (objDs,nTargetRow,objArg)
+{
+	if( this.gfnIsNull(objDs) ) return;
+	if( this.gfnIsNull(nTargetRow) ) return;
+
+	var oObj = {
+		ds    : objDs,  			// 메뉴 dataset
+		nRow  : nTargetRow,      	// 선택된
+		oArgs : objArg       		// 넘길 argument
+	};
+	this.gfnCallSDI(oObj);
+};
+
+/**
+ * @description 글로벌 데이터셋 메뉴 카피
+*/
+this.fnGlobalMenuCopy = function ()
+{
+	this.dsPdivMenu.copyData(this.objApp.gdsMenu);
+};
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+/**
+ * @description 트리클릭이벤트
+*/
+this.divLeft_grd_tree_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//trace("grd_menu_oncellclick : " + e.row + " / " + e.clickitem);	
+	
+	// Tree 이미지 클릭시 리턴
+	if(e.clickitem == "treeitembutton") return;
+	
+	var nRow = obj.getTreeRow(e.row);
+	// true 는 false 로 false 는 true 로 변경
+	var nStat = obj.getTreeStatus(nRow)^1;
+	
+	// 자식이 없으면
+	if(nStat != 2) obj.setTreeStatus(nRow ,nStat);
+	
+	// 해당 Tree만 펼치고 나머지는 닫는다.
+	this.exceptSelfCollapse(obj, e.row);		
+	
+	// Click시 해당 메뉴 호출
+	var sMenuId = this.dsMenu.getColumn(this.dsMenu.rowposition, this.FRAME_MENUCOLUMNS.menuId);
+	if(this.gfnIsNull(sMenuId) == false)
+	{			
+		// 메뉴 화면 호출
+		this.fnFormOpen(this.dsMenu, e.row);
+	}
+};
+
+/**
+ * @description 마이메뉴클릭이벤트
+*/
+this.divLeft_grdMyMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fnFormOpen(this.objApp.gdsMyMenu, e.row);
+};
+
+/**
+ * @description  메뉴/마이메뉴 버튼 중 메뉴버튼 클릭
+*/
+this.btnMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divLeft.form.grdTree.set_visible(true);
+	this.divLeft.form.grdMyMenu.set_visible(false);
+
+	this.divLeft.form.grdTree.bringToFront();
+	this.divLeft.form.grdMyMenu.sendToBack();
+	
+	this.btnMenu.set_cssclass("btn_LF_MenuS");
+	this.btnMyMenu.set_cssclass("btn_LF_Menu");
+};
+
+/**
+ * @description  메뉴/마이메뉴 버튼 중 마이메뉴버튼 클릭
+*/
+this.btnMyMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divLeft.form.grdMyMenu.bringToFront() ;
+	this.divLeft.form.grdTree.sendToBack() ;
+
+	this.divLeft.form.grdTree.set_visible(false);
+	this.divLeft.form.grdMyMenu.set_visible(true);
+	this.divLeft.form.grdMyMenu.set_top(0);
+	this.divLeft.form.grdMyMenu.set_bottom(0);
+	
+	this.btnMenu.set_cssclass("btn_LF_Menu");
+	this.btnMyMenu.set_cssclass("btn_LF_MenuS");
+};
+
+/**
+ * @description  tree 메뉴에서 선택한 Row의 Root를 제외한 collapse 처리
+*/ 
+this.exceptSelfCollapse = function(obj, erow)
+{
+	obj.set_enableredraw(false);
+	obj.set_enableevent(false);
+	
+	var strTreePath = obj.getTreePath(erow);
+ 
+	var bRet;
+	//선택한 행 하단 startlevel collapse 처리
+	for (var i = erow+1; i < obj.getBindDataset().rowcount; i++) {
+		bRet = obj.isTreeLeafRow(i);
+		//자식이 있다면
+		if (!bRet) {
+			if (obj.getTreePath(i).indexOf(strTreePath) > -1) {
+				obj.setTreeStatus(obj.getTreeRow(i), true);
+				strTreePath = obj.getTreePath(i);
+			}
+			else {			
+				obj.setTreeStatus(obj.getTreeRow(i), false);
+			}
+		}
+	}
+	
+	//선택한 행 상단 startlevel collapse 처리
+	for (var i = erow; i >= 0; --i) {
+		bRet = obj.isTreeLeafRow(i);
+		//자식이 있다면
+		if (!bRet) {
+			if (strTreePath.indexOf(obj.getTreePath(i)) > -1 ){
+				// Do nothing..
+			}
+			else {
+				obj.setTreeStatus(obj.getTreeRow(i) ,false);
+			}
+		}
+	}
+	
+	obj.set_enableevent(true);
+	obj.set_enableredraw(true);	
+}]]></Script>
+  </Form>
+</FDL>

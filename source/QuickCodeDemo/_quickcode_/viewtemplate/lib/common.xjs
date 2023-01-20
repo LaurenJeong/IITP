@@ -101,13 +101,15 @@ this.TOT_COUNT_ID						= "staTotCnt";
 // TotalCount 높이
 this.TOT_COUNT_HEIGHT					= 30;
 // TotalCount 기본Text
-this.TOT_COUNT_TEXT						= "(총 <b v='true'><fc v='#da291c'>0</fc></b>건)";
+this.TOT_COUNT_TEXT						= "(총 <b v='true'><fc v='#da291c'>{0}</fc></b>건)";
 // TotalCount fittocontents
 this.TOT_COUNT_FITTOCONTENTS 			= "width";
 // TotalCount usedecorate
 this.TOT_COUNT_USEDECORATE				= "true";
 // TotalCount Default CSS Class
 this.TOT_COUNT_CSSCLASS					= "sta_total_count";
+// TotalCount 표시 타입(rowcount : viewdataset rowcount, loadcount : load시 rowcount, none : 동작안함)
+this.TOT_COUNT_TYPE						= "rowcount";
 
 // expand 버튼 객체 사용여부 (ViewTemplate에서 this.USE_EXPAND_BUTTON 설정하지 않을때 기본값)
 this.USE_EXPAND_BUTTON_BASE				= "none";
@@ -665,11 +667,11 @@ this.lfn_GetRealSize = function(sSize, nLabelSize, nParentSize, sDefSize, nLabel
 
 	if(!sSize)sSize = sDefSize;
 
-	nSizeType = sSize.replace(/[0-9]/g, "");
+	nSizeType = sSize.replace(/[0-9.]/g, "");
 
 	if(nSizeType=="%")
 	{
-		nRealSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, ""));
+		nRealSize = nexacro.toNumber(sSize.replace(/[^0-9.]/g, ""));
 		nRealSize = (nRealSize/100) * nParentSize;
 
 		nRealSize = nRealSize - nLabelSize - nLabelPadding - nCompPadding;
@@ -681,6 +683,33 @@ this.lfn_GetRealSize = function(sSize, nLabelSize, nParentSize, sDefSize, nLabel
 	return nRealSize;
 };
 
+/*---------------------------------------------------------------------------------------------*
+ * Function     : lfn_GetSize
+ * Parameter    :
+				- sSize : Size Information(% or px)
+				- sDefSize : Default Size Information
+ * Return       : 사이즈 값
+ * Description  : 입력된 값에서 숫자 이외의값이 입력되었을때 제외 후 사이즈값 반환
+ *---------------------------------------------------------------------------------------------*/
+this.lfn_GetSize = function(sSize, sDefSize)
+{
+	var nSize;
+	var sSizeType;
+
+	if(!sSize)sSize = sDefSize;
+
+	sSizeType = sSize.replace(/[0-9.]/g, "");
+
+	if(sSizeType=="%")
+	{
+		nSize = nexacro.toNumber(sSize.replace(/[^0-9.]/g, "")) + "%";
+	}else
+	{
+		nSize = nexacro.toNumber(sSize.replace(/[^0-9]/g, ""));
+	}
+
+	return nSize;
+};
 /*---------------------------------------------------------------------------------------------*
  * Function     : lfn_GetCellSize
  * Parameter    :
@@ -1318,7 +1347,7 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton, 
 	// 3) TotalCount 객체 생성
 	if (sUseTotalCount == "true") {
 		sCompId		= this.TOT_COUNT_ID;
-		sText		= this.TOT_COUNT_TEXT;
+		sText		= nexacro.replaceAll(this.TOT_COUNT_TEXT,"{0}","0");
 		sCssClass	= this.TOT_COUNT_CSSCLASS;
 		
 		nCompWidth	= 50;
@@ -1372,7 +1401,7 @@ this.lfn_MakeTitleArea = function(sTitleText, sUseTotalCount, sUseExpandButton, 
  * Return       : Script 문자열
  * Description  : 타이틀 Expand버튼 동작 스크립트
  *---------------------------------------------------------------------------------------------*/
-this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
+this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton, sUseTotalCount)
 {
 	var sScript = "";
 	
@@ -1429,6 +1458,64 @@ this.lfn_GetTitleScript = function(sViewNm, sUseExpandButton)
 
 		//View onload시 호출 
 		sScript += "this.lfn_Title_SetViewInit(this,'" + sUseExpandButton + "');";
+	}
+	
+	// TotalCount 스크립트
+	if (sUseTotalCount == "true")
+	{
+		// this.TOT_COUNT_TYPE (rowcount : viewdataset rowcount, loadcount : load시 rowcount, none : 동작안함)
+		if (this.TOT_COUNT_TYPE == "rowcount")
+		{
+			/*
+			this.lfn_TotalCount_viewdataset_onvaluechanged = function(obj,e)
+			{
+				var sText = nexacro.replaceAll(this.TOT_COUNT_TEXT,'{0}',obj.rowcount);
+				obj.parent.divTitle.form.staTotCnt.set_text(sText);
+				obj.parent.divTitle.form.resetScroll();
+			};
+			
+			this.viewdataset.addEventHandler('onvaluechanged', this.lfn_TotalCount_viewdataset_onvaluechanged, this);
+			*/
+			
+			sScript += "this.lfn_TotalCount_viewdataset_onvaluechanged = function(obj,e)";
+			sScript += "{";
+			sScript += "	var sText = nexacro.replaceAll(\"" + this.TOT_COUNT_TEXT + "\",'{0}',obj.rowcount);";
+			sScript += "	obj.parent." + this.DIV_TITLE_ID + ".form." + this.TOT_COUNT_ID + ".set_text(sText);";
+			sScript += "	obj.parent." + this.DIV_TITLE_ID + ".form.resetScroll();";
+			sScript += "};";
+			
+			sScript += "this.viewdataset.addEventHandler('onvaluechanged', this.lfn_TotalCount_viewdataset_onvaluechanged, this);";
+		
+		}
+		else if (this.TOT_COUNT_TYPE == "loadcount")
+		{
+			/*
+			this.lfn_TotalCount_viewdataset_onload = function(obj:nexacro.NormalDataset,e:nexacro.DSLoadEventInfo)
+			{
+				if (e.reason == Dataset.REASON_LOAD)
+				{
+					var sText = nexacro.replaceAll(this.TOT_COUNT_TEXT,'{0}',obj.rowcount);
+					obj.parent.divTitle.form.staTotCnt.set_text(sText);
+					obj.parent.divTitle.form.resetScroll();
+				}
+			};
+			
+			this.viewdataset.addEventHandler('onload', this.lfn_TotalCount_viewdataset_onload, this);
+			*/
+			
+			sScript += "this.lfn_TotalCount_viewdataset_onload = function(obj:nexacro.NormalDataset,e:nexacro.DSLoadEventInfo)";
+			sScript += "{";
+			sScript += "	if (e.reason == Dataset.REASON_LOAD)";
+			sScript += "	{";
+			sScript += "		var sText = nexacro.replaceAll(\"" + this.TOT_COUNT_TEXT + "\",'{0}',obj.rowcount);";
+			sScript += "		obj.parent." + this.DIV_TITLE_ID + ".form." + this.TOT_COUNT_ID + ".set_text(sText);";
+			sScript += "		obj.parent." + this.DIV_TITLE_ID + ".form.resetScroll();";
+			sScript += "	}";
+			sScript += "};";
+
+			sScript += "this.viewdataset.addEventHandler('onload', this.lfn_TotalCount_viewdataset_onload, this);";
+		
+		}
 	}
 	
 	return sScript;

@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frameLogin" width="590" height="280" titletext="frameLogin" background="" onload="form_onload" onsize="form_onsize">
+    <Layouts>
+      <Layout height="280" width="590">
+        <Div id="divLogin" taborder="3" text="" left="40" top="2" width="500" height="225" background="" cssclass="div_LOGIN_Bg" visible="false">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="1" text="     ID" left="79" top="47" width="50" height="31" cssclass="sta_MF_Legend2"/>
+              <Edit id="edId" taborder="3" left="163" top="47" width="150" height="31" value="test1" cssclass="edt_LOGIN_ID"/>
+              <Static id="Static01" taborder="0" text="Password" left="79" top="89" width="80" height="31" cssclass="sta_MF_Legend2"/>
+              <Edit id="edPw" taborder="2" left="163" top="89" width="150" height="31" value="test1" cssclass="edt_LOGIN_ID"/>
+              <Button id="btnLogin" taborder="4" left="328" top="47" width="110" height="120" onclick="divLogin_btnLogin_onclick" cssclass="btn_LOGIN_Login2" text=""/>
+              <Combo id="cboLang" taborder="5" text="한글" left="163" top="136" width="150" height="31" codecolumn="codecolumn" datacolumn="datacolumn" index="0" value="KO" innerdataset="innerdataset" cssclass="cmb_LOGIN_Language">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">KO</Col>
+                      <Col id="datacolumn">한글</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">EN</Col>
+                      <Col id="datacolumn">English</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Static id="Static02" taborder="6" text="Language" left="79" top="136" width="76" height="31" setLanguage="true" cssclass="sta_MF_Legend2"/>
+              <Combo id="cboSite" taborder="7" text="" left="232" top="194" width="259" height="21" codecolumn="url" datacolumn="name" index="-1" innerdataset="@dsSite" value="0" onitemchanged="divLogin_cboSite_onitemchanged"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+      <Layout name="ScreenDeskTopForSDI" width="1280" height="884" screenid="ScreenDeskTopForSDI"/>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    frame > frameLoginForSDI
+*  @FileName 	frameLoginForSDI.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2018.02.22
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2018.02.2     		consulting		 	   	최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp 	  = this.gfnGetApplication();
+this.objMainframe = this.objApp.mainframe;
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{			
+	// TODO : 현재 로그인 처리 없음.
+	// Sample 화면 메뉴에 추가		
+// 	for (var i=0; i< this.dsSample.rowcount; i++)
+// 	{
+// 		var nRow = this.objApp.gdsMenu.addRow();
+// 		this.objApp.gdsMenu.copyRow(nRow, this.dsSample, i);
+// 	}
+	
+	// 프레임 변경
+	nexacro.setPrivateProfile("gdsMenu"    ,this.objApp.gdsMenu.saveXML()); 	
+	nexacro.setPrivateProfile("gdsUserInfo",this.objApp.gdsUserInfo.saveXML());	
+	
+	this.fnSetSeprateFrame();
+	return;
+	
+	this.form_onsize();
+		
+	if (system.navigatorname != "nexacro")
+	{
+		// 새로고침을 위한 처리 ( application 실행 시 한번만 체크)
+		// 새로고침되더라도 hash 값을 그대로 남아있기에
+		// hash id 에 해당하는 처리를 하도록 한다.
+		var hash = MyHistory.getLocationHash();
+		
+		if (this.gfnIsNull(hash))
+		{
+			// History	
+			var sHash 	= "login";
+			var oData	= {};
+			
+			MyHistory.setLocationHash(sHash, oData);
+		}
+	}
+};
+
+/**
+* form onsize 변경시
+* @return 
+* @example
+* @memberOf public
+*/ 
+this.form_onsize = function()
+{		
+	var nLeft = (this.objMainframe.width  / 2) - Math.round((this.divLogin.form.getOffsetWidth())  / 2);
+	var nTop  = (this.objMainframe.height / 2) - Math.round((this.divLogin.form.getOffsetHeight()) / 2);
+	
+	if (nLeft <= 0)
+	{
+		this.divLogin.form.setOffsetLeft(0);
+	}
+	else
+	{
+		this.divLogin.setOffsetLeft(nLeft);
+		this.divLogin.setOffsetTop(nTop);
+	}
+};
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+this.fnCallback = function(svcID, errorCode, errorMsg)
+{
+	switch (svcID)
+	{
+		case "login":
+		
+			if (this.dsList.rowcount == 1) 
+			{
+				var sResult = this.dsList.getColumn(0, "LOGIN_RESULT");
+				if (sResult == "LOGIN_SUCCESS") 
+				{
+					//sample화면 메뉴에 추가		
+					for (var i=0; i< this.dsSample.rowcount; i++)
+					{
+						var nRow = this.objApp.gdsMenu.addRow();
+						this.objApp.gdsMenu.copyRow(nRow, this.dsSample, i);
+					}
+
+					// 사용자 정보 글로벌데이타셋에 저장
+					var dsUser = this.objApp.gdsUserInfo;
+						dsUser.setColumn(0,"userId"		, this.dsList.getColumn(0, "USER_ID"  ));	
+						dsUser.setColumn(0,"userName"	, this.dsList.getColumn(0, "USER_NAME"));					
+						dsUser.setColumn(0,"userNameEN"	, this.dsList.getColumn(0, "USER_ENAM"));
+					
+					// 프레임 변경
+					this.fnSetSeprateFrame();
+					return;
+				}
+			}
+			
+			this.alert("로그인에 실패하였습니다.");
+			break;
+	}
+};
+
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/**
+ * 로그인 transaction
+ * @param {string} reLoginYn 
+ * @return 
+ * @example
+ *
+ * @memberOf 
+ */
+this.fnLogin = function() 
+{	
+	var strSvcId    = "login";
+	var strSvcUrl   = "login.do";
+	var inData      = "dsSearch=dsSearch";
+	var outData     = "dsList=dsList";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	
+	this.gfnTransaction(  strSvcId  	// transaction을 구분하기 위한 svc id값
+						, strSvcUrl 	// trabsaction을 요청할 주소
+						, inData 		// 입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+						, outData 		// 처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+						, strArg 		// 입력갑스로 보낼 arguments, strFormData="20120607"
+						, callBackFnc); // 통신방법 정의 [생략가능]
+};	
+
+/**
+* 로그인 성공시 처리 프레임 변경 등...
+* @return 
+* @example
+* @memberOf 
+*/
+this.fnSetSeprateFrame = function()
+{
+ 	this.objApp.gvVFrameSet.set_separatesize("0,*");
+	this.objApp.gvMainFrame.set_formurl("frame::frameAll.xfdl");
+	
+	// Global Variable  셋팅					
+ 	nexacro.setEnvironmentVariable("evUserId", this.objApp.gdsUserInfo.getColumn(0,"userId"	 ));
+ 	nexacro.setEnvironmentVariable("evUserNm", this.objApp.gdsUserInfo.getColumn(0,"userName"));
+	
+	// 다국어 관리 정보 셋팅
+	var sLang = this.divLogin.form.cboLang.value;
+	nexacro.setEnvironmentVariable("evLanguage"		 , sLang);
+	nexacro.setEnvironmentVariable("evLanguageChange", sLang);
+};
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+this.divLogin_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	// 로컬환경에서 global dataset으로 화면열기
+	if (nexacro.getEnvironmentVariable("evRunMode") == "S" || nexacro.getEnvironmentVariable("evRunMode") == "L") 
+	{	
+		// Sample 화면 메뉴에 추가		
+		for (var i=0; i< this.dsSample.rowcount; i++)
+		{
+			var nRow = this.objApp.gdsMenu.addRow();
+			this.objApp.gdsMenu.copyRow(nRow, this.dsSample, i);
+		}
+		
+		nexacro.setPrivateProfile("gdsMenu"    ,this.objApp.gdsMenu.saveXML()); 	
+		nexacro.setPrivateProfile("gdsUserInfo",this.objApp.gdsUserInfo.saveXML());	
+		
+		this.fnSetSeprateFrame();
+	}
+	else 
+	{
+		this.fnLogin();	// 서버와통신
+	}
+};
+
+/**
+ * @description Family Site 연결 추가
+*/
+this.divLogin_cboSite_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	if (e.postvalue != "0")
+	{
+		var sUrl = this.gfnGetServerUrl() + e.postvalue;
+		system.execBrowser(sUrl);
+	}
+};]]></Script>
+    <Objects>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="USER_PASSWORD" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="USER_ID">test1</Col>
+            <Col id="USER_PASSWORD">test1</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsList"/>
+      <Dataset id="dsSite">
+        <ColumnInfo>
+          <Column id="name" type="STRING" size="256"/>
+          <Column id="url" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="name">Family Site</Col>
+            <Col id="url">0</Col>
+          </Row>
+          <Row>
+            <Col id="name">nexacro17 MDI</Col>
+            <Col id="url">nexacro17MDI/index.html</Col>
+          </Row>
+          <Row>
+            <Col id="name">nexacro14 MDI</Col>
+            <Col id="url">nexacro14MDI/index.html</Col>
+          </Row>
+          <Row>
+            <Col id="name">nexacro14 DivMDI</Col>
+            <Col id="url">nexacro14DivMDI/index.html</Col>
+          </Row>
+          <Row>
+            <Col id="name">nexacro14 SDI</Col>
+            <Col id="url">nexacro14SDI/index.html</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsSample">
+        <ColumnInfo>
+          <Column id="MENU_GRP_CD" type="STRING" size="256"/>
+          <Column id="MENU_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_CD" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_TYPE" type="STRING" size="256"/>
+          <Column id="MENU_LVL" type="INT" size="256"/>
+          <Column id="PGM_ID" type="STRING" size="256"/>
+          <Column id="PGM_PATH" type="STRING" size="256"/>
+          <Column id="PGM_URL" type="STRING" size="256"/>
+          <Column id="MENU_YN" type="STRING" size="256"/>
+          <Column id="MENU_DESC" type="STRING" size="256"/>
+          <Column id="MENU_KWRD" type="STRING" size="256"/>
+          <Column id="MENU_PARAM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSample00">
+        <ColumnInfo>
+          <Column id="level" type="STRING" size="256"/>
+          <Column id="groupId" type="STRING" size="256"/>
+          <Column id="menuId" type="STRING" size="256"/>
+          <Column id="menuNm" type="STRING" size="256"/>
+          <Column id="menuNmEN" type="STRING" size="256"/>
+          <Column id="menuUrl" type="STRING" size="256"/>
+          <Column id="sortNo" type="STRING" size="256"/>
+          <Column id="upMenuId" type="STRING" size="256"/>
+          <Column id="useYn" type="STRING" size="256"/>
+          <Column id="auth" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="level">0</Col>
+            <Col id="groupId">WB</Col>
+            <Col id="menuId">WB</Col>
+            <Col id="menuNm">활용</Col>
+            <Col id="menuUrl"/>
+            <Col id="sortNo">6</Col>
+            <Col id="upMenuId">0</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="menuNmEN">활용</Col>
+            <Col id="auth"/>
+          </Row>
+          <Row>
+            <Col id="level">1</Col>
+            <Col id="groupId">WB</Col>
+            <Col id="menuId">WB10000000</Col>
+            <Col id="menuNm">ViewTemplate</Col>
+            <Col id="menuNmEN">ViewTemplate</Col>
+            <Col id="menuUrl"/>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">WB</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth"/>
+          </Row>
+          <Row>
+            <Col id="level">2</Col>
+            <Col id="groupId">WB</Col>
+            <Col id="menuId">WB10010010</Col>
+            <Col id="menuNm">Freeform 일반</Col>
+            <Col id="menuUrl">manual::view_freeform.xfdl</Col>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">WB10000000</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth">30</Col>
+            <Col id="menuNmEN">Freeform 일반</Col>
+          </Row>
+          <Row>
+            <Col id="level">1</Col>
+            <Col id="groupId">WB</Col>
+            <Col id="menuId">WB20000000</Col>
+            <Col id="menuNm">Action</Col>
+            <Col id="menuUrl"/>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">WB</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth"/>
+            <Col id="menuNmEN">Action</Col>
+          </Row>
+          <Row>
+            <Col id="level">2</Col>
+            <Col id="groupId">WB</Col>
+            <Col id="menuId">WB20010010</Col>
+            <Col id="menuNm">Transaction 일반</Col>
+            <Col id="menuNmEN">Transaction 일반</Col>
+            <Col id="menuUrl">manual::action_transaction.xfdl</Col>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">WB20000000</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth">30</Col>
+          </Row>
+          <Row>
+            <Col id="level">0</Col>
+            <Col id="groupId">MU</Col>
+            <Col id="menuId">MU</Col>
+            <Col id="menuNm">매뉴얼</Col>
+            <Col id="menuUrl"/>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">0</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth"/>
+            <Col id="menuNmEN">매뉴얼</Col>
+          </Row>
+          <Row>
+            <Col id="level">1</Col>
+            <Col id="groupId">MU</Col>
+            <Col id="menuId">MU10000000</Col>
+            <Col id="menuNm">ViewTemplate</Col>
+            <Col id="menuUrl"/>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">MU</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth"/>
+            <Col id="menuNmEN">ViewTemplate</Col>
+          </Row>
+          <Row>
+            <Col id="level">2</Col>
+            <Col id="groupId">MU</Col>
+            <Col id="menuId">MU10010010</Col>
+            <Col id="menuNm">Freeform 일반</Col>
+            <Col id="menuUrl">manual::view_freeform.xfdl</Col>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">MU10000000</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth">20</Col>
+            <Col id="menuNmEN">Freeform 일반</Col>
+          </Row>
+          <Row>
+            <Col id="level">1</Col>
+            <Col id="groupId">MU</Col>
+            <Col id="menuId">MU20000000</Col>
+            <Col id="menuNm">Action</Col>
+            <Col id="menuUrl"/>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">MU</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth"/>
+            <Col id="menuNmEN">Action</Col>
+          </Row>
+          <Row>
+            <Col id="level">2</Col>
+            <Col id="groupId">MU</Col>
+            <Col id="menuId">MU20010010</Col>
+            <Col id="menuNm">Transaction 일반</Col>
+            <Col id="menuNmEN">Transaction 일반</Col>
+            <Col id="menuUrl">manual::action_transaction.xfdl</Col>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">MU20000000</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth">21</Col>
+          </Row>
+          <Row>
+            <Col id="level">0</Col>
+            <Col id="groupId">SA</Col>
+            <Col id="menuId">SA</Col>
+            <Col id="menuNm">개발자</Col>
+            <Col id="menuNmEN">개발자</Col>
+            <Col id="menuUrl"/>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">0</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth"/>
+          </Row>
+          <Row>
+            <Col id="level">1</Col>
+            <Col id="groupId">SA</Col>
+            <Col id="menuId">SA10000000</Col>
+            <Col id="menuNm">Sample</Col>
+            <Col id="menuNmEN">Sample</Col>
+            <Col id="menuUrl"/>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">SA</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth"/>
+          </Row>
+          <Row>
+            <Col id="level">2</Col>
+            <Col id="groupId">SA</Col>
+            <Col id="menuId">SA00000010</Col>
+            <Col id="menuNm">script 표준</Col>
+            <Col id="menuNmEN">script 표준</Col>
+            <Col id="menuUrl">sample::sampleScript.xfdl</Col>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">SA10000000</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth">10</Col>
+          </Row>
+          <Row>
+            <Col id="level">2</Col>
+            <Col id="groupId">SA</Col>
+            <Col id="menuId">SA00000020</Col>
+            <Col id="menuNm">화면표준 및 transaction</Col>
+            <Col id="menuNmEN">화면표준 및 transaction</Col>
+            <Col id="menuUrl">sample::sampleTransaction.xfdl</Col>
+            <Col id="sortNo">1</Col>
+            <Col id="upMenuId">SA10000000</Col>
+            <Col id="useYn">Y</Col>
+            <Col id="auth">10</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="divLogin.form.edId" propid="value" datasetid="dsSearch" columnid="USER_ID"/>
+      <BindItem id="item1" compid="divLogin.form.edPw" propid="value" datasetid="dsSearch" columnid="USER_PASSWORD"/>
+    </Bind>
+  </Form>
+</FDL>

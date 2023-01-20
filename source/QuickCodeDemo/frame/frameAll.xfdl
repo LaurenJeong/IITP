@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frameAll" width="1280" height="984" titletext="frameAll" onload="form_onload" onkeydown="frameMainForSDI_onkeydown">
+    <Layouts>
+      <Layout height="984" mobileorientation="landscape" width="1280">
+        <Div id="divFrameTop" taborder="0" left="0" top="0" height="75" right="0" url="frame::frameTop.xfdl"/>
+        <Div id="divFrameBottom" taborder="3" left="240" bottom="0" height="20" right="0"/>
+        <Div id="divFrameLeft" taborder="1" left="0" top="75" bottom="0" width="225" url="frame::frameLeft.xfdl"/>
+        <Div id="divFrameNavi" taborder="2" left="240" top="952" height="32" right="0" url="frame::frameSDI.xfdl" visible="false"/>
+        <Div id="divFrameWork" taborder="4" left="divFrameLeft:10" top="75" right="0" bottom="0" url="frame::frameMain.xfdl" text=""/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    frame > frameMainForSDI
+*  @FileName 	frameMainForSDI.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2018.02.22
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2018.02.22     		consulting		 	  	최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp 	  = this.gfnGetApplication();
+this.objMainframe = this.objApp.mainframe;
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.objApp.gvTopFrame  = this.divFrameTop ; 								// Top Frame
+	this.objApp.gvLeftFrame = this.divFrameLeft;     							// LeftFrame
+	this.objApp.gvWorkFrame = this.divFrameWork;     							// WorkFrame
+	
+	var oTopFrm 			= this.objApp.gvTopFrame.form;
+	var oLftFrm 			= this.objApp.gvLeftFrame.form;
+	
+	// 다국어 처리 START
+	this.gfnInitLang(oLftFrm);
+	this.gfnInitLang(oTopFrm);
+	
+	oTopFrm.fnChangeLang();
+	oLftFrm.fnChangeLang();
+	// 다국어 처리 END
+	
+	// Top Frame Argument Setting	
+	oTopFrm.fnLoad();
+	oTopFrm.fnSetName();
+	
+	// Left Frmae 메뉴 검색용 Dataset
+	//oLftFrm.fnGlobalMenuCopy();
+	oTopFrm.fnGlobalMenuCopy();
+	
+	// 첫번째 대 메뉴 선택   mkn:2020.02.20 오류수정
+    var oFirstMenu = oTopFrm.divTopBtn.form[oTopFrm.fvFirstMenu];
+	if(oFirstMenu) oFirstMenu.click();	
+    //oTopFrm.divTopBtn.form.TOP_SN00000001.click();
+    
+	
+// 	if (system.navigatorname != "nexacro")
+// 	{
+// 		var hash = MyHistory.getLocationHash();		
+// 		if (hash=="login")
+// 		{
+// 			// History	
+// 			var sHash 	= "intro";
+// 			var oData	= {};
+// 			
+// 			MyHistory.setLocationHash(sHash, oData);
+// 		}
+// 	}
+// 	
+
+
+// 	if (system.navigatorname != "nexacro")
+// 	{
+// 		var hash = MyHistory.getLocationHash();		
+// 		var data ;
+// 		
+// 		if (hash)
+// 			data = MyHistory.getData(hash);
+// 		
+// 		this.onChangeHistory(hash, data);
+// 	}
+};
+
+this.onChangeHistory = function(hash, data)
+{
+	// Hash Id 를 확인하여 필요한 처리를 진행한다.
+	var temp = hash.split(":");
+	var type = temp[0];
+	
+	trace(">> onChangeHistory : " + hash + " " + data);
+	
+	if (type == "menu")
+	{
+		var sMenuId	= temp[1];
+		var oArg	= data.objArg
+		
+		if (this.gfnIsNull(sMenuId)) return;
+		if (this.gfnIsNull(oArg	  )) oArg = [];
+
+		var oObj = 
+		{
+			sMenuId : temp[1]
+		,	oArgs 	: oArg       		
+		};
+		
+		this.gfnCallSDI(oObj);
+	}
+	else if (type == "intro")
+	{
+		this.divFrameWork.set_url("frame::frameMain.xfdl");
+	}
+}
+
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

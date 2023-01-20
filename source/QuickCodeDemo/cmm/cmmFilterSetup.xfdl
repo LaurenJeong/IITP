@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="cmmFilterSetup" width="300" height="400" titletext="그리드 데이터필터설정" onload="form_onload">
+    <Layouts>
+      <Layout height="400" width="300">
+        <Static id="Static00" taborder="0" text="데이터 필터 설정" left="5" top="10" width="" height="21" right="5" bottom="" uWord="popup.datafiltersetting"/>
+        <Grid id="grdList" taborder="1" left="5" top="36" width="" height="316" right="5" bottom="" binddataset="dsFilter" autofittype="col" griduserproperty="!sort,!rowfix,!colfix,!filter,!initial,checkbox">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="데이터 선택" expandchar="popup.dataselect"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:columnText"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnOK" taborder="2" text="확인" left="101" top="362" width="45" height="28" right="" bottom="" tabstop="true" onclick="btnOK_onclick" uWord="popup.ok"/>
+        <Button id="Button01" taborder="2" text="취소" left="149" top="362" width="45" height="28" right="" bottom="" onclick="Button01_onclick" uWord="popup.cancel"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsFilter">
+        <ColumnInfo>
+          <Column id="columnText" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCopy"/>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    cmm > cmmFilterSetup (공통 그리드필터)
+*  @FileName 	cmmFilterSetup.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2017.03.09
+*  @Desction    그리드 필터
+************** 소스 수정 이력 ***************************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2017.03.09     	consulting 	                최초 생성 
+*  2017.10.17     	consulting       	        주석 정비
+*  2017.10.26     	consulting 	                주석 정비
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.sColumnName;
+
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this); //초기화[필수]
+	
+	//초기값 설정
+	var objBindDs = this.parent.pvBindDs;
+	var objFilterDs = this.parent.pvFilterDs;
+	this.sColumnName = this.parent.pvColumnName;
+			
+	this.dsFilter.copyData(objFilterDs);
+
+	this.grdList.setCellProperty("Head", 0, "text", "1");	//처음 전체선택
+	this.grdList.setCellProperty("Body", 1, "text", "bind:"+this.sColumnName);
+};
+/************************************************************************************************
+* TRANSACTION 서비스 호출 처리
+************************************************************************************************/
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분
+ ************************************************************************************************/
+
+ /************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/**
+* @description 필터설정
+*/
+this.fnSetColumn = function()
+{	
+	//체크값 확인
+	this.dsFilter.filter("selectCheck==1");
+	this.dsCopy.copyData(this.dsFilter, true);
+	
+	var objFilter = this.dsCopy;
+	var sFilterStr="";
+	for (var i=0; i<objFilter.rowcount; i++)
+	{
+		if (objFilter.getColumn(i, "selectCheck") == "1")
+		{
+			sFilterStr += this.sColumnName+" == '"+ objFilter.getColumn(i, this.sColumnName) + "' ||";
+		}
+	}
+	sFilterStr = sFilterStr.substr(0, sFilterStr.length-3);	
+	//리턴값설정
+	var rtnArr = {pvBindDs:this.parent.pvBindDs, pvFilterDs:this.parent.pvFilterDs, pvFilterStr:sFilterStr};
+	//array, object인자값 전달을 위해 부모창에 함수 호출
+	this.opener.gfnPopupClose(rtnArr, this);
+};
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+************************************************************************************************/
+/**
+* @description  확인버튼클릭
+*/
+this.btnOK_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fnSetColumn();
+};
+
+/**
+* @description  취소버튼클릭
+*/
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+
+]]></Script>
+  </Form>
+</FDL>
