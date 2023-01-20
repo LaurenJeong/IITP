@@ -181,7 +181,7 @@ if (!nexacro.DsFilterDataAction)
 		{
 			var sViewNm = objView ? objView.name : "";
 			
-			sFilterStr = this.gfnGetFieldValue(sFilter,sViewNm);
+			sFilterStr = this.gfnGetFieldValue(sFilter,sViewNm,true,true);
 		}
 		
 		// Model Argument로 Filter문자열 생성
@@ -240,7 +240,7 @@ if (!nexacro.DsFilterDataAction)
 					oField = oFieldList[j];
 					
 					// Field의 value값 반환
-					sFieldValue = this.gfnGetFieldValue(oField, oParent);
+					sFieldValue = this.gfnGetFieldValue(oField, oParent,true,true);
 					
 					// Filter 값 셋팅
 					arrFilter.push(oField["fieldid"] + "==" + sFieldValue);

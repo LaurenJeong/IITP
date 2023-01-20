@@ -43,7 +43,7 @@ if (!nexacro.OpenBrowserAction)
 			}
 			
 			// expr 처리
-			var sExprText = this.gfnGetFieldValue(sUrl,"",true,false);
+			var sExprText = this.gfnGetFieldValue(sUrl);
 			
 			//this.gfnLog(this.gfnCheckUrl(sExprText));
 			

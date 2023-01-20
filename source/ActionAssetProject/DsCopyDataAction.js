@@ -236,7 +236,7 @@ if (!nexacro.DsCopyDataAction)
 		
 		if (!this.gfnIsNull(sFilter))
 		{
-			sFilterStr = this.gfnGetFieldValue(sFilter,"");
+			sFilterStr = this.gfnGetFieldValue(sFilter,this.targetview,true,true);
 			
 			objFormDs.filter("");
 			objFormDs.filter(sFilterStr);
