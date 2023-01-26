@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<FDL version="2.0">
+<FDL version="2.1">
   <Form id="cmmFindReplace" width="310" height="280" titletext="그리드 찾기/바꾸기" onload="form_onload" border="0px none">
     <Layouts>
       <Layout height="280" mobileorientation="landscape" width="310">
@@ -62,11 +62,11 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.rdo01.set_datacolumn(sDataString);
 	this.rdo02.set_datacolumn(sDataString);
 	
-	this.fvGrid 	  = this.getOwnerFrame().pvGrid;	
+	this.fvGrid 	  = this.gfnGetMenuParam("pvGrid");	
 	this.fvDs 		  = this.fvGrid.getBindDataset();
-	this.fvSelectRow  = this.getOwnerFrame().pvStrartRow; 
-	this.fvSelectType = this.getOwnerFrame().pvSelectType;
-	this.fvCellindex  = this.getOwnerFrame().pvSelectCell;
+	this.fvSelectRow  = this.gfnGetMenuParam("pvStrartRow");
+	this.fvSelectType = this.gfnGetMenuParam("pvSelectType");
+	this.fvCellindex  = this.gfnGetMenuParam("pvSelectCell");
 	
 	this.fvGrid.set_selecttype("cell"); 
 	

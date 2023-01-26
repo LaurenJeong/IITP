@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="comPopup" width="400" height="233" titletext="팝업 공통" onload="form_onload" onclose="form_onclose">
+    <Layouts>
+      <Layout height="233" width="400">
+        <Static id="staBodyBg" taborder="1" left="0" top="40" right="0" bottom="0" cssclass="sta_POP_WorkBg"/>
+        <Div id="divWorkPop" taborder="0" left="10" top="50" bottom="10" right="10"/>
+        <Div id="divTitle" taborder="2" left="0" top="0" height="40" right="0" formscrolltype="none" formscrollbartype="none" cssclass="div_POP_TitleBg">
+          <Layouts>
+            <Layout>
+              <Static id="staTitle" taborder="0" left="0" top="0" height="40" width="85" cssclass="sta_POP_Title" visible="false" text="팝업타이틀"/>
+              <Button id="btnPopClose" taborder="1" top="12" width="16" height="16" cssclass="btn_POP_Close" right="12" onclick="btnPopClose_onclick" escapebutton="true"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/************************************************************************************************
+ * 샘플 > CRUD 표준 템플릿
+ * 추가 설명
+ *
+ *  작성자 : TOBESOFT
+ ************************************************************************************************/
+/************************************************************************************************
+ * Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvPopupTitle;
+this.fvPopupUrl;
+
+// if (system.navigatorname != "nexacro") {
+// 	DEXT5.rootPath = '/resources/modules/dext5Editor/';
+// }
+
+this.fvDivWork = this.divWorkPop;
+/************************************************************************************************
+ * Form 관련 스크립트 영역
+ ************************************************************************************************/
+/**
+ * 화면 Load 시 Event
+ */
+this.form_onload = function(obj:nexacro.Form, e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+	
+    this.fvPopupTitle	= this.gfnGetArgument("popupTitle");
+	this.fvPopupUrl		= this.gfnGetArgument("popupUrl");	
+	
+	this.getOwnerFrame().set_titlebarheight(this.titlebarheight); 
+	
+	//타이틀세팅
+	if( !this.gfnIsNull(this.fvPopupTitle)){
+		this.divTitle.form.staTitle.set_text(this.fvPopupTitle);
+		this.divTitle.form.staTitle.set_fittocontents("width");
+		
+		if(system.navigatorname != "nexacro"){
+			var agent = navigator.userAgent.toLowerCase();            		
+			//ie인경우에만 크기를 170를 더 더해준다.
+			if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+				this.divTitle.form.staTitle.set_fittocontents("none");
+				this.divTitle.form.staTitle.set_width(Number(this.divTitle.form.staTitle.width) + 170);
+			};
+		}
+		this.divTitle.form.staTitle.set_visible(true);
+	}
+	
+	//div_workPop url 세팅
+	if( !this.gfnIsNull(this.fvPopupUrl)){
+		this.fvDivWork.set_url(this.fvPopupUrl);
+	}
+};
+
+this.form_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	this.fvDivWork.set_url("");
+};
+/************************************************************************************************
+ * Transaction 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * 공통버튼 Function 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * 사용자 Function 영역
+ ************************************************************************************************/
+this.fnCheckClose = function(bCheck)
+{
+	if (this.gfnIsNull(bCheck)) 	bCheck	= this.gfnGetApplication().gvClosecheck;
+	
+	if (bCheck == false)		return true;
+	
+	//this.gfnFormClose();
+	if (this.gfnIsNull(this.fvDivWork.form.lookup("fnCheckClose"))) 
+	{
+		//로컬환경에서 fnClose 함수 없음 알림
+		if (this.gfnGetProfile() == "loc") {
+			trace("해당화면에 fnClose 함수가 없습니다. fnCheckClose 함수가 없으면 데이타 변경여부 체크를 하지 않습니다.");
+		}
+	}
+	else {
+		if(!this.gfnIsNull(this.fvDivWork.form.fnCheckClose)) {
+			if (this.fvDivWork.form.fnCheckClose(this.fvDivWork.form) == false) 
+			{
+				return false;
+			}
+		}
+	}
+	
+	return true;
+};
+
+this.fnSetPopupTitle = function(sTitle)
+{
+	if(!this.gfnIsNull(sTitle)){
+		this.divTitle.form.staTitle.set_text(sTitle);
+	}
+};
+/************************************************************************************************
+ * Component Event 영역
+ ************************************************************************************************/
+/**
+ * @description popup close
+*/
+this.btnPopClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sParam = this.gfnGetMenuParam("CLOSE_PARAM");
+	if(!this.gfnIsNull(sParam)) {
+		if(sParam instanceof Object) {
+			this.gfnClosePopup(JSON.stringify(sParam));
+		} else {
+			this.gfnClosePopup(sParam);
+		}
+	} else {
+		this.gfnClosePopup();
+	}
+	//this.gfnClosePopup();
+};
+]]></Script>
+  </Form>
+</FDL>

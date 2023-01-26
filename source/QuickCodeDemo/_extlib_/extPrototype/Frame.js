@@ -200,7 +200,7 @@ pForm.gfnOnkeydown = function(obj, e)
 		//if (nexacro.getEnvironmentVariable("evRunMode") == "R") return;
 		
 		var oArg = {};
-		var oOption = {popuptype:"modeless", title:"디 버 그",width:"1080",height:"703"};
+		var oOption = {popuptype:"modeless", titlebar : "true", title:"디 버 그",width:"1080",height:"703"};
 		this.gfnOpenPopup("debugging","cmm::cmmDebug.xfdl",oArg,"",oOption);	
 	}
 };
@@ -404,7 +404,7 @@ pForm.gfnNewSdi = function(sMenuId, oArgs)
 	
 	// 파라미터 설정
 	if(this.gfnIsNull(oArgs))		oArgs = {};
-	oArgs["menuparam"] = sMenuArgs;
+	oArgs["menuParam"] = sMenuArgs;
 	
 	var objNewWin = objApp.gvWorkFrame;
 		objNewWin.set_url("");
@@ -447,9 +447,14 @@ pForm.gfnSetOpenMenuDs = function(winid, menuid, strTitle, spageUrl, sGroupId)
 pForm.gfnGetArgument = function(sName)
 {
 	var ret;
+	var oOwner = this.getOwnerFrame();
 	
 	try {
-		ret = pForm.gfnGetApplication().gvWorkFrame.arguments[sName];
+		if (oOwner.id == "frameMain") {
+			ret = pForm.gfnGetApplication().gvWorkFrame.arguments[sName];
+		} else {
+			ret = oOwner.arguments[sName];
+		}
 	} catch(e){}
 	
 	return ret;

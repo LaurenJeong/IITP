@@ -519,6 +519,12 @@
           <Col id="msgTextEN">Code already exsits!</Col>
           <Col id="msgType">A</Col>
         </Row>
+        <Row>
+          <Col id="msgId">msg.popup.nodata</Col>
+          <Col id="msgText">해당하는 정보가 없어 팝업을 종료합니다.</Col>
+          <Col id="msgTextEN">Close the pop-up because there is no information.</Col>
+          <Col id="msgType">A</Col>
+        </Row>
       </Rows>
     </Dataset>
     <Dataset id="gdsMyMenu">
@@ -1094,7 +1100,7 @@
           <Col id="MODEL_SEQ">1</Col>
           <Col id="MODEL_ID">FreeFormModel001</Col>
           <Col id="FILE_PATH">sample\FreeForm.xmodel</Col>
-          <Col id="MODEL_NM">FreeFormModel001</Col>
+          <Col id="MODEL_NM">직원정보</Col>
           <Col id="MODEL_SVC_ID">model</Col>
           <Col id="SVC_ID">FreeForm</Col>
           <Col id="MODEL_IO_TYPE">O</Col>
@@ -1104,7 +1110,7 @@
           <Col id="MODEL_SEQ">2</Col>
           <Col id="MODEL_ID">FreeFormModel002</Col>
           <Col id="FILE_PATH">sample\FreeForm.xmodel</Col>
-          <Col id="MODEL_NM">FreeFormModel002</Col>
+          <Col id="MODEL_NM">데이터유형별 Model</Col>
           <Col id="MODEL_SVC_ID">model</Col>
           <Col id="SVC_ID">FreeForm</Col>
           <Col id="MODEL_IO_TYPE">O</Col>
@@ -1114,7 +1120,7 @@
           <Col id="MODEL_SEQ">3</Col>
           <Col id="MODEL_ID">input</Col>
           <Col id="FILE_PATH">sample\Tran.xmodel</Col>
-          <Col id="MODEL_NM">input</Col>
+          <Col id="MODEL_NM">직원 조회조건</Col>
           <Col id="MODEL_SVC_ID">model</Col>
           <Col id="SVC_ID">Tran</Col>
           <Col id="MODEL_IO_TYPE">I</Col>
@@ -1124,7 +1130,7 @@
           <Col id="MODEL_SEQ">4</Col>
           <Col id="MODEL_ID">output</Col>
           <Col id="FILE_PATH">sample\Tran.xmodel</Col>
-          <Col id="MODEL_NM">output</Col>
+          <Col id="MODEL_NM">직원 리스트</Col>
           <Col id="MODEL_SVC_ID">model</Col>
           <Col id="SVC_ID">Tran</Col>
           <Col id="MODEL_IO_TYPE">O</Col>
@@ -1134,7 +1140,7 @@
           <Col id="MODEL_SEQ">5</Col>
           <Col id="MODEL_ID">SearchModel001</Col>
           <Col id="FILE_PATH">sample\Search.xmodel</Col>
-          <Col id="MODEL_NM">SearchModel001</Col>
+          <Col id="MODEL_NM">조회조건 Model</Col>
           <Col id="MODEL_SVC_ID">model</Col>
           <Col id="SVC_ID">Search</Col>
           <Col id="MODEL_IO_TYPE">I</Col>
@@ -1144,7 +1150,7 @@
           <Col id="MODEL_SEQ">6</Col>
           <Col id="MODEL_ID">ListViewModel001</Col>
           <Col id="FILE_PATH">sample\ListView.xmodel</Col>
-          <Col id="MODEL_NM">ListViewModel001</Col>
+          <Col id="MODEL_NM">ListView용 직원 리스트</Col>
           <Col id="MODEL_SVC_ID">model</Col>
           <Col id="SVC_ID">ListView</Col>
           <Col id="MODEL_IO_TYPE">O</Col>
@@ -1154,7 +1160,7 @@
           <Col id="MODEL_SEQ">7</Col>
           <Col id="MODEL_ID">ExcelModel001</Col>
           <Col id="FILE_PATH">sample\Excel.xmodel</Col>
-          <Col id="MODEL_NM">ExcelModel001</Col>
+          <Col id="MODEL_NM">Excel용 데이터유형별 Model</Col>
           <Col id="MODEL_SVC_ID">model</Col>
           <Col id="SVC_ID">Excel</Col>
           <Col id="MODEL_IO_TYPE">O</Col>
@@ -1162,14 +1168,207 @@
         </Row>
       </Rows>
     </Dataset>
-    <Dataset id="gdsModelFld"/>
+    <Dataset id="gdsModelFld">
+      <ColumnInfo>
+        <Column id="MODEL_SEQ" type="INT" size="256"/>
+        <Column id="FIELD_ID" type="STRING" size="256"/>
+        <Column id="REQU_YN" type="STRING" size="256"/>
+        <Column id="FIELD_LABEL" type="STRING" size="256"/>
+        <Column id="FIELD_TYPE" type="STRING" size="256"/>
+        <Column id="FIELD_TYPE_NM" type="STRING" size="256"/>
+        <Column id="DATA_TYPE" type="STRING" size="256"/>
+        <Column id="DATA_TYPE_NM" type="STRING" size="256"/>
+        <Column id="DATA_SIZE" type="INT" size="256"/>
+        <Column id="FIELD_DESC" type="STRING" size="256"/>
+        <Column id="INDS_INFO" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="MODEL_SEQ">1</Col>
+          <Col id="FIELD_ID">Company</Col>
+          <Col id="REQU_YN">1</Col>
+          <Col id="FIELD_LABEL">회사명</Col>
+          <Col id="FIELD_TYPE">20</Col>
+          <Col id="FIELD_TYPE_NM">SelectOne</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+          <Col id="INDS_INFO">{"columns":[{"id":"code","datatype":"STRING","innertype":"code"},{"id":"value","datatype":"STRING","innertype":"data"}]}</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">1</Col>
+          <Col id="FIELD_ID">Department</Col>
+          <Col id="REQU_YN">1</Col>
+          <Col id="FIELD_LABEL">부서명</Col>
+          <Col id="FIELD_TYPE">20</Col>
+          <Col id="FIELD_TYPE_NM">SelectOne</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+          <Col id="INDS_INFO">{"columns":[{"id":"code","datatype":"STRING","innertype":"code"},{"id":"value","datatype":"STRING","innertype":"data"}]}</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">1</Col>
+          <Col id="FIELD_ID">Name</Col>
+          <Col id="REQU_YN">1</Col>
+          <Col id="FIELD_LABEL">성명</Col>
+          <Col id="FIELD_TYPE">10</Col>
+          <Col id="FIELD_TYPE_NM">FreeText</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">1</Col>
+          <Col id="FIELD_ID">Phone</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">전화번호</Col>
+          <Col id="FIELD_TYPE">10</Col>
+          <Col id="FIELD_TYPE_NM">FreeText</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">1</Col>
+          <Col id="FIELD_ID">Email</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">이메일주소</Col>
+          <Col id="FIELD_TYPE">10</Col>
+          <Col id="FIELD_TYPE_NM">FreeText</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">1</Col>
+          <Col id="FIELD_ID">Check</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">선택</Col>
+          <Col id="FIELD_TYPE">10</Col>
+          <Col id="FIELD_TYPE_NM">FreeText</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">3</Col>
+          <Col id="FIELD_ID">company</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">Company</Col>
+          <Col id="FIELD_TYPE">20</Col>
+          <Col id="FIELD_TYPE_NM">SelectOne</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+          <Col id="FIELD_DESC">company name</Col>
+          <Col id="INDS_INFO">{"columns":[{"id":"code","datatype":"STRING","innertype":"code"},{"id":"value","datatype":"STRING","innertype":"data"}]}</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">3</Col>
+          <Col id="FIELD_ID">department</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">Department</Col>
+          <Col id="FIELD_TYPE">20</Col>
+          <Col id="FIELD_TYPE_NM">SelectOne</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+          <Col id="FIELD_DESC">department name</Col>
+          <Col id="INDS_INFO">{"columns":[{"id":"code","datatype":"STRING","innertype":"code"},{"id":"value","datatype":"STRING","innertype":"data"}]}</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">3</Col>
+          <Col id="FIELD_ID">name</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">Name</Col>
+          <Col id="FIELD_TYPE">10</Col>
+          <Col id="FIELD_TYPE_NM">FreeText</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+          <Col id="FIELD_DESC">employee name</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">4</Col>
+          <Col id="FIELD_ID">company</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">Company</Col>
+          <Col id="FIELD_TYPE">20</Col>
+          <Col id="FIELD_TYPE_NM">SelectOne</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+          <Col id="FIELD_DESC">company name</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">4</Col>
+          <Col id="FIELD_ID">department</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">Department</Col>
+          <Col id="FIELD_TYPE">20</Col>
+          <Col id="FIELD_TYPE_NM">SelectOne</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+          <Col id="FIELD_DESC">department name</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">4</Col>
+          <Col id="FIELD_ID">name</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">Name</Col>
+          <Col id="FIELD_TYPE">10</Col>
+          <Col id="FIELD_TYPE_NM">FreeText</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+          <Col id="FIELD_DESC">employee name</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">4</Col>
+          <Col id="FIELD_ID">position</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">Position</Col>
+          <Col id="FIELD_TYPE">20</Col>
+          <Col id="FIELD_TYPE_NM">SelectOne</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+          <Col id="FIELD_DESC">name of position</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">4</Col>
+          <Col id="FIELD_ID">phone</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">Phone</Col>
+          <Col id="FIELD_TYPE">10</Col>
+          <Col id="FIELD_TYPE_NM">FreeText</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">80</Col>
+          <Col id="FIELD_DESC">cell phone number</Col>
+        </Row>
+        <Row>
+          <Col id="MODEL_SEQ">4</Col>
+          <Col id="FIELD_ID">address</Col>
+          <Col id="REQU_YN">0</Col>
+          <Col id="FIELD_LABEL">Address</Col>
+          <Col id="FIELD_TYPE">10</Col>
+          <Col id="FIELD_TYPE_NM">FreeText</Col>
+          <Col id="DATA_TYPE">10</Col>
+          <Col id="DATA_TYPE_NM">STRING</Col>
+          <Col id="DATA_SIZE">256</Col>
+          <Col id="FIELD_DESC">home address</Col>
+        </Row>
+      </Rows>
+    </Dataset>
     <Dataset id="gdsVt">
       <ColumnInfo>
         <Column id="VT_SEQ" type="INT" size="256"/>
         <Column id="VT_ID" type="STRING" size="256"/>
         <Column id="VT_PATH" type="STRING" size="256"/>
         <Column id="VT_NM" type="STRING" size="256"/>
-        <Column id="VT_INFO" type="STRING" size="256"/>
         <Column id="VT_DESC" type="STRING" size="256"/>
         <Column id="VT_KWRD" type="STRING" size="256"/>
       </ColumnInfo>
@@ -1178,43 +1377,37 @@
           <Col id="VT_SEQ">1</Col>
           <Col id="VT_ID">FreeformViewTemplate</Col>
           <Col id="VT_PATH">Asset\FreeformViewTemplate.xviewgen</Col>
-          <Col id="VT_NM">FreeformViewTemplate</Col>
-          <Col id="VT_INFO">단건 데이터를 표시하기 위한 Freeform 영역을 구성하기 위한 ViewTemplate</Col>
+          <Col id="VT_NM">단건 데이터를 표시하기 위한 Freeform 영역을 구성하기 위한 ViewTemplate</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">2</Col>
           <Col id="VT_ID">SearchViewTemplate</Col>
           <Col id="VT_PATH">Asset\SearchViewTemplate.xviewgen</Col>
-          <Col id="VT_NM">SearchViewTemplate</Col>
-          <Col id="VT_INFO">조회 영역을 구성하기 위한 View Template</Col>
+          <Col id="VT_NM">조회 영역을 구성하기 위한 View Template</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">3</Col>
           <Col id="VT_ID">GridViewTemplate</Col>
           <Col id="VT_PATH">Asset\GridViewTemplate.xviewgen</Col>
-          <Col id="VT_NM">GridViewTemplate</Col>
-          <Col id="VT_INFO">표 형태로 다건 데이터를 표시하기 위한 Grid를 생성하는 View Template</Col>
+          <Col id="VT_NM">표 형태로 다건 데이터를 표시하기 위한 Grid를 생성하는 View Template</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">4</Col>
           <Col id="VT_ID">ButtonViewTemplate</Col>
           <Col id="VT_PATH">Asset\ButtonViewTemplate.xviewgen</Col>
-          <Col id="VT_NM">ButtonViewTemplate</Col>
-          <Col id="VT_INFO">버튼영역을 구성하기 위한 ViewTemplate</Col>
+          <Col id="VT_NM">버튼영역을 구성하기 위한 ViewTemplate</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">5</Col>
           <Col id="VT_ID">ButtonLayoutViewTemplate</Col>
           <Col id="VT_PATH">Asset\ButtonLayoutViewTemplate.xviewgen</Col>
-          <Col id="VT_NM">ButtonLayoutViewTemplate</Col>
-          <Col id="VT_INFO">FluidLayout이 적용된 버튼영역을 구성하기 위한 ViewTemplate</Col>
+          <Col id="VT_NM">FluidLayout이 적용된 버튼영역을 구성하기 위한 ViewTemplate</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">6</Col>
           <Col id="VT_ID">TreeViewTemplate</Col>
           <Col id="VT_PATH">Asset\TreeViewTemplate.xviewgen</Col>
-          <Col id="VT_NM">TreeViewTemplate</Col>
-          <Col id="VT_INFO">트리구조(tree structure) 데이터를 표시하기 위한 Grid를 생성하는 View Template. </Col>
+          <Col id="VT_NM">트리구조(tree structure) 데이터를 표시하기 위한 Grid를 생성하는 View Template. </Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">7</Col>
@@ -1332,13 +1525,207 @@
         </Row>
       </Rows>
     </Dataset>
-    <Dataset id="gdsVtAtr"/>
+    <Dataset id="gdsVtAtr">
+      <ColumnInfo>
+        <Column id="VT_SEQ" type="INT" size="256"/>
+        <Column id="ATTRB_TYPE" type="STRING" size="256"/>
+        <Column id="ATTRB_TYPE_NM" type="STRING" size="256"/>
+        <Column id="ATTRB_ID" type="STRING" size="256"/>
+        <Column id="UP_ATTRB_ID" type="STRING" size="256"/>
+        <Column id="ATTRB_LVL" type="INT" size="256"/>
+        <Column id="EDIT_TYPE" type="STRING" size="256"/>
+        <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
+        <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
+        <Column id="EDIT_TYPE_VALUE" type="STRING" size="256"/>
+        <Column id="ENUM_CD" type="STRING" size="256"/>
+        <Column id="DFLT_VALUE" type="STRING" size="256"/>
+        <Column id="ATTRB_DESC" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">10</Col>
+          <Col id="ATTRB_TYPE_NM">ViewAttribute</Col>
+          <Col id="ATTRB_ID">direction</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">20</Col>
+          <Col id="EDIT_TYPE_NM">Enum</Col>
+          <Col id="ENUM_CD">V0001</Col>
+          <Col id="ATTRB_DESC">컴포넌트 생성 방향 지정하는 속성</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">10</Col>
+          <Col id="ATTRB_TYPE_NM">ViewAttribute</Col>
+          <Col id="ATTRB_ID">halign</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">20</Col>
+          <Col id="EDIT_TYPE_NM">Enum</Col>
+          <Col id="ENUM_CD">V0002</Col>
+          <Col id="ATTRB_DESC">컴포넌트 생성 시 수평 정렬 방식을 설정하는 속성</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">10</Col>
+          <Col id="ATTRB_TYPE_NM">ViewAttribute</Col>
+          <Col id="ATTRB_ID">valign</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">20</Col>
+          <Col id="EDIT_TYPE_NM">Enum</Col>
+          <Col id="ENUM_CD">V0003</Col>
+          <Col id="ATTRB_DESC">컴포넌트 생성 시 수직 정렬 방식을 설정하는 속성</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">10</Col>
+          <Col id="ATTRB_TYPE_NM">ViewAttribute</Col>
+          <Col id="ATTRB_ID">titletext</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">10</Col>
+          <Col id="EDIT_TYPE_NM">String</Col>
+          <Col id="ATTRB_DESC">Title Text</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">10</Col>
+          <Col id="ATTRB_TYPE_NM">ViewAttribute</Col>
+          <Col id="ATTRB_ID">useexpandbutton</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">20</Col>
+          <Col id="EDIT_TYPE_NM">Enum</Col>
+          <Col id="ENUM_CD">V0005</Col>
+          <Col id="ATTRB_DESC">Title영역에서 접기/펼치기 버튼 표시여부</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">10</Col>
+          <Col id="ATTRB_TYPE_NM">ViewAttribute</Col>
+          <Col id="ATTRB_ID">usefieldbox</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">12</Col>
+          <Col id="EDIT_TYPE_NM">Boolean</Col>
+          <Col id="ATTRB_DESC">Field영역에 배경 Box를 그릴지 여부</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">10</Col>
+          <Col id="ATTRB_TYPE_NM">ViewAttribute</Col>
+          <Col id="ATTRB_ID">format</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">70</Col>
+          <Col id="EDIT_TYPE_NM">Layout</Col>
+          <Col id="ATTRB_DESC">Layout을 설정하기 위한 속성</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">10</Col>
+          <Col id="ATTRB_TYPE_NM">ViewAttribute</Col>
+          <Col id="ATTRB_ID">mergelabel</Col>
+          <Col id="UP_ATTRB_ID">format</Col>
+          <Col id="ATTRB_LVL">1</Col>
+          <Col id="EDIT_TYPE">12</Col>
+          <Col id="EDIT_TYPE_NM">Boolean</Col>
+          <Col id="ATTRB_DESC">다중 field 설정 시 label 통합표시 여부</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">20</Col>
+          <Col id="ATTRB_TYPE_NM">FieldUserAttribute</Col>
+          <Col id="ATTRB_ID">comptype</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">20</Col>
+          <Col id="EDIT_TYPE_NM">Enum</Col>
+          <Col id="ATTRB_DESC">필드에 표현 할 컴포넌트 타입</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">20</Col>
+          <Col id="ATTRB_TYPE_NM">FieldUserAttribute</Col>
+          <Col id="ATTRB_ID">compwidth</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">10</Col>
+          <Col id="EDIT_TYPE_NM">String</Col>
+          <Col id="EDIT_TYPE_DESC">px or %</Col>
+          <Col id="ATTRB_DESC">컴포넌트의 넓이</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">20</Col>
+          <Col id="ATTRB_TYPE_NM">FieldUserAttribute</Col>
+          <Col id="ATTRB_ID">compheight</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">10</Col>
+          <Col id="EDIT_TYPE_NM">String</Col>
+          <Col id="EDIT_TYPE_DESC">px or %</Col>
+          <Col id="ATTRB_DESC">컴포넌트의 높이</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">20</Col>
+          <Col id="ATTRB_TYPE_NM">FieldUserAttribute</Col>
+          <Col id="ATTRB_ID">labelsize</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">11</Col>
+          <Col id="EDIT_TYPE_NM">Number</Col>
+          <Col id="ATTRB_DESC">레이블 영역의 크기</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">20</Col>
+          <Col id="ATTRB_TYPE_NM">FieldUserAttribute</Col>
+          <Col id="ATTRB_ID">fieldposition</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">20</Col>
+          <Col id="EDIT_TYPE_NM">Enum</Col>
+          <Col id="ATTRB_DESC">레이블과 컴포넌트 위치</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">20</Col>
+          <Col id="ATTRB_TYPE_NM">FieldUserAttribute</Col>
+          <Col id="ATTRB_ID">cssclass</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">10</Col>
+          <Col id="EDIT_TYPE_NM">String</Col>
+          <Col id="ATTRB_DESC">컴포넌트 생성시 사용할 CSS Class Id</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">20</Col>
+          <Col id="ATTRB_TYPE_NM">FieldUserAttribute</Col>
+          <Col id="ATTRB_ID">labelcssclass</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">10</Col>
+          <Col id="EDIT_TYPE_NM">String</Col>
+          <Col id="ATTRB_DESC">레이블 생성시 사용할 CSS Class Id</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">20</Col>
+          <Col id="ATTRB_TYPE_NM">FieldUserAttribute</Col>
+          <Col id="ATTRB_ID">compreadonly</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">12</Col>
+          <Col id="EDIT_TYPE_NM">Boolean</Col>
+          <Col id="ATTRB_DESC">컴포넌트 읽기전용 설정 여부</Col>
+        </Row>
+        <Row>
+          <Col id="VT_SEQ">1</Col>
+          <Col id="ATTRB_TYPE">20</Col>
+          <Col id="ATTRB_TYPE_NM">FieldUserAttribute</Col>
+          <Col id="ATTRB_ID">usecomp</Col>
+          <Col id="ATTRB_LVL">0</Col>
+          <Col id="EDIT_TYPE">12</Col>
+          <Col id="EDIT_TYPE_NM">Boolean</Col>
+          <Col id="ATTRB_DESC">컴포넌트 생성 여부</Col>
+        </Row>
+      </Rows>
+    </Dataset>
     <Dataset id="gdsAction">
       <ColumnInfo>
         <Column id="ACTION_SEQ" type="INT" size="256"/>
         <Column id="ACTION_ID" type="STRING" size="256"/>
         <Column id="ACTION_NM" type="STRING" size="256"/>
-        <Column id="ACTION_INFO" type="STRING" size="256"/>
         <Column id="ACTION_DESC" type="STRING" size="256"/>
         <Column id="MODEL_ARG_DESC" type="STRING" size="256"/>
         <Column id="USER_ARG_DESC" type="STRING" size="256"/>
@@ -1347,14 +1734,12 @@
         <Row>
           <Col id="ACTION_SEQ">1</Col>
           <Col id="ACTION_ID">TransactionAction</Col>
-          <Col id="ACTION_NM">TransactionAction</Col>
-          <Col id="ACTION_INFO">DB 데이터 조회, 저장하는 Transaction Action</Col>
+          <Col id="ACTION_NM">DB 데이터 조회, 저장하는 Transaction Action</Col>
         </Row>
         <Row>
           <Col id="ACTION_SEQ">2</Col>
           <Col id="ACTION_ID">MessageAction</Col>
-          <Col id="ACTION_NM">MessageAction</Col>
-          <Col id="ACTION_INFO">알림창, 확인창을 호출하는 Action </Col>
+          <Col id="ACTION_NM">알림창, 확인창을 호출하는 Action </Col>
         </Row>
         <Row>
           <Col id="ACTION_SEQ">3</Col>

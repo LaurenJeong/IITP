@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmViewTemplateInfo" width="1050" height="710" titletext="ViewTemplate 정보" onload="form_onload">
+    <Layouts>
+      <Layout height="710" width="1050" type="default" flexwrap="wrap" verticalgap="5" horizontalgap="5" spacing="0px 10px 10px">
+        <Static id="staInfo" taborder="0" text="Model Info" left="0" top="0" height="30" cssclass="sta_WF_title02" width="100%"/>
+        <View id="viwModelInfo" taborder="1" text="viwModelInfo" left="0" top="40" height="40" width="100.00%" background="#e1e1e1"/>
+        <Static id="staInfo00_00" taborder="2" text="Field Data" left="0" top="89" height="30" cssclass="sta_WF_title02" width="100.00%"/>
+        <Grid id="grdFildAttr" taborder="3" left="0" top="125" width="100.00%" height="270" binddataset="dsVtFieldAtrList">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="55"/>
+                <Column size="100"/>
+                <Column size="120"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="required"/>
+                <Cell col="1" text="id"/>
+                <Cell col="2" text="label"/>
+                <Cell col="3" text="fieldtype"/>
+                <Cell col="4" text="datatype"/>
+                <Cell col="5" text="datasize"/>
+                <Cell col="6" text="description"/>
+                <Cell col="7" text="innerdatasetinfo"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:required" displaytype="checkboxcontrol"/>
+                <Cell col="1" text="bind:id"/>
+                <Cell col="2" text="bind:label"/>
+                <Cell col="3" text="bind:fieldtype"/>
+                <Cell col="4" text="bind:datatype"/>
+                <Cell col="5" text="bind:datasize"/>
+                <Cell col="6" text="bind:description"/>
+                <Cell col="7" text="bind:innerdatasetinfo"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staInfo00" taborder="4" text="View Generration Attribute" left="0" top="425" height="30" cssclass="sta_WF_title02" width="100.00%"/>
+        <Grid id="grdViewAttr" taborder="5" left="0" top="465" width="100.00%" height="270" autofittype="col" binddataset="dsVtAtrList">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+              </Columns>
+              <Rows>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="ID"/>
+                <Cell col="1" text="Value"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ATTRB_ID"/>
+                <Cell col="1" text="bind:ATTRB_VALUE"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsViewInfo">
+        <ColumnInfo>
+          <Column id="VIEW_ID" type="STRING" size="256"/>
+          <Column id="MODEL_ID" type="STRING" size="256"/>
+          <Column id="MODEL_FILE_PATH" type="STRING" size="256"/>
+          <Column id="MODEL_SEQ" type="INT" size="256"/>
+          <Column id="MODEL_NM" type="STRING" size="256"/>
+          <Column id="VT_ID" type="STRING" size="256"/>
+          <Column id="VT_FILE_PATH" type="STRING" size="256"/>
+          <Column id="VT_ATTR" type="STRING" size="256"/>
+          <Column id="VT_FIELD" type="STRING" size="256"/>
+          <Column id="VT_SEQ" type="INT" size="256"/>
+          <Column id="VT_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsModel">
+        <ColumnInfo>
+          <Column id="MODEL_SEQ" type="INT" size="256"/>
+          <Column id="MODEL_ID" type="STRING" size="256"/>
+          <Column id="FILE_PATH" type="STRING" size="256"/>
+          <Column id="MODEL_NM" type="STRING" size="256"/>
+          <Column id="MODEL_SVC_ID" type="STRING" size="256"/>
+          <Column id="SVC_ID" type="STRING" size="256"/>
+          <Column id="MODEL_IO_TYPE" type="STRING" size="256"/>
+          <Column id="MODEL_IO_TYPE_NM" type="STRING" size="256"/>
+          <Column id="MODEL_DESC" type="STRING" size="256"/>
+          <Column id="MODEL_KWRD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsModelFld" onrowposchanged="dsModelFld_onrowposchanged">
+        <ColumnInfo>
+          <Column id="MODEL_SEQ" type="INT" size="256"/>
+          <Column id="FIELD_ID" type="STRING" size="256"/>
+          <Column id="REQU_YN" type="STRING" size="256"/>
+          <Column id="FIELD_LABEL" type="STRING" size="256"/>
+          <Column id="FIELD_TYPE" type="STRING" size="256"/>
+          <Column id="FIELD_TYPE_NM" type="STRING" size="256"/>
+          <Column id="DATA_TYPE" type="STRING" size="256"/>
+          <Column id="DATA_TYPE_NM" type="STRING" size="256"/>
+          <Column id="DATA_SIZE" type="INT" size="256"/>
+          <Column id="FIELD_DESC" type="STRING" size="256"/>
+          <Column id="INDS_INFO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsVtAtr">
+        <ColumnInfo>
+          <Column id="VT_SEQ" type="INT" size="256"/>
+          <Column id="ATTRB_TYPE" type="STRING" size="256"/>
+          <Column id="ATTRB_TYPE_NM" type="STRING" size="256"/>
+          <Column id="ATTRB_ID" type="STRING" size="256"/>
+          <Column id="UP_ATTRB_ID" type="STRING" size="256"/>
+          <Column id="ATTRB_LVL" type="INT" size="256"/>
+          <Column id="EDIT_TYPE" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="ENUM_CD" type="STRING" size="256"/>
+          <Column id="DFLT_VALUE" type="STRING" size="256"/>
+          <Column id="ATTRB_DESC" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsVtAtrList">
+        <ColumnInfo>
+          <Column id="VT_SEQ" type="STRING" size="256"/>
+          <Column id="ATTRB_ID" type="STRING" size="256"/>
+          <Column id="ATTRB_VALUE" type="STRING" size="256"/>
+          <Column id="ATTRB_LVL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsVtFieldAtrList">
+        <ColumnInfo>
+          <Column id="required" type="STRING" size="256"/>
+          <Column id="id" type="STRING" size="256"/>
+          <Column id="label" type="STRING" size="256"/>
+          <Column id="fieldtype" type="STRING" size="256"/>
+          <Column id="datatype" type="STRING" size="256"/>
+          <Column id="datasize" type="INT" size="256"/>
+          <Column id="description" type="STRING" size="256"/>
+          <Column id="innerdatasetinfo" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    공통 > ViewTemplate 정보 팝업
+*  @FileName 	cmmModelInfo.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2023.01.25
+*  @Desction    모델정보 팝업
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2023.01.25     	consulting 	                최초 생성
+*******************************************************************************
+*/
+/************************************************************************************************
+ * include 영역(업무화면에서 꼭 필요한 경우에만 사용하세요)
+ ************************************************************************************************/
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = this.gfnGetApplication();
+this.fvGridFormat;
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+	
+	var vtSeq		= this.gfnGetMenuParam("vtSeq");
+	var modelSeq	= this.gfnGetMenuParam("modelSeq");
+	
+	if (!this.gfnIsNull(vtSeq)) {
+		// 기본포멧 저장
+		this.fvGridFormat = this.grdFildAttr.getFormatString();
+	
+		// 넘어온 Dataset정보 Load
+		this.dsViewInfo.loadXML(this.gfnGetMenuParam("dataset"));
+		
+		// Model 정보 복사
+		this.objApp.gdsModel.filter("");
+		this.objApp.gdsModel.filter("MODEL_SEQ==" + modelSeq);
+		this.dsModel.copyData(this.objApp.gdsModel, true);
+		this.objApp.gdsModel.filter("");
+		
+		// Model Field 정보 복사
+		this.objApp.gdsModelFld.filter("");
+		this.objApp.gdsModelFld.filter("MODEL_SEQ==" + modelSeq);
+		this.dsModelFld.copyData(this.objApp.gdsModelFld, true);
+		this.objApp.gdsModelFld.filter("");
+		
+		// ViewTemplate Attr 정보 복사
+		this.objApp.gdsVtAtr.filter("");
+		this.objApp.gdsVtAtr.filter("VT_SEQ==" + vtSeq);
+		this.dsVtAtr.copyData(this.objApp.gdsVtAtr, true);
+		this.objApp.gdsVtAtr.filter("");
+		
+		// ViewTemplate 정보 생성
+		this.fnMakeViewTemplateInfo();
+	} else {
+		//해당하는 정보가 없어 팝업을 종료합니다.
+		//this.gfnAlert("msg.popup.nodata");	
+	}
+};
+
+/**
+ * @description 화면 닫힐때 변경사항 체크(입력 화면에서 변경되는 Dataset 체크 필요, 선택)
+ * @return {boolean} true(화면 닫음) / false(화면 닫지 않음)
+*/
+this.fnClose = function()
+{
+    return true;	
+};
+
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description 메세지 콜백
+ */
+this.fnMsgCallback = function (strId, strVal)
+{
+	if(strId == "msg.popup.nodata"){		// 해당하는 정보가 없어 팝업을 종료합니다.
+		this.gfnClosePopup("");
+	}
+};
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/**
+ * @description ViewTemplate 정보 생성
+*/
+this.fnMakeViewTemplateInfo = function()
+{
+	// Field Attribute 그리드 동적생성
+	this.fnSetFieldAttribute();
+	
+	// ViewAttribute 그리드 동적생성
+	this.fnSetViewAttribute();
+};
+
+/**
+ * @description Field Attribute 그리드 동적생성
+*/
+this.fnSetFieldAttribute = function()
+{
+	var sViewAttr;
+	var sFieldId, sAttrId, sAttrValue;
+	var nARow, nFRow, nACol, nFCol;
+	var oViewAttr, oAttrInfo;
+	
+	// 초기화
+	this.dsVtFieldAtrList.clearData();
+	this.grdFildAttr.set_formats(this.fvGridFormat);
+	
+	this.grdFildAttr.set_enableevent(false);
+	
+	// Model Field Attr 정보 생성(Row)
+	var sCopyCol =  "required=REQU_YN,id=FIELD_ID,label=FIELD_LABEL,fieldtype=FIELD_TYPE_NM";
+		sCopyCol += ",datatype=DATA_TYPE_NM,datasize=DATA_SIZE,description=FIELD_DESC,innerdatasetinfo=INDS_INFO";
+	for(var i=0; i < this.dsModelFld.rowcount; i++)
+	{
+		nARow = this.dsVtFieldAtrList.addRow();
+		this.dsVtFieldAtrList.copyRow(nARow, this.dsModelFld, i, sCopyCol);
+	}
+	
+	// ViewTemplate Attr 정보 생성(Col)
+	this.dsVtAtr.filter("");
+	this.dsVtAtr.filter("ATTRB_TYPE=='20' && ATTRB_LVL==0");
+	for(var i=0; i < this.dsVtAtr.rowcount; i++)
+	{
+		// 데이터셋 컬럼 추가
+		this.dsVtFieldAtrList.addColumn(this.dsVtAtr.getColumn(i,"ATTRB_ID"), this.dsVtAtr.getColumn(i,"DATA_TYPE_NM"));
+		
+		// 그리드셀 추가
+		nACol = this.grdFildAttr.appendContentsCol("body");		
+		this.grdFildAttr.setFormatColProperty(nACol, "size", "80");
+		this.grdFildAttr.setCellProperty("head", nACol, "text", this.dsVtAtr.getColumn(i,"ATTRB_ID"));
+		this.grdFildAttr.setCellProperty("body", nACol, "displaytype", "normal");
+		this.grdFildAttr.setCellProperty("body", nACol, "text", "bind:" + this.dsVtAtr.getColumn(i,"ATTRB_ID"));
+	}
+	this.dsVtAtr.filter("");
+	
+	// Field Attribute 값 설정
+	sViewAttr = this.dsViewInfo.getColumn(0,"VT_FIELD");
+	if (!this.gfnIsNull(sViewAttr))
+	{
+		oViewAttr = JSON.parse(sViewAttr);
+		
+		for(var i=0; i < oViewAttr.length; i++)
+		{
+			oAttrInfo = oViewAttr[i]["@attributes"];
+			sFieldId = oAttrInfo["id"];
+			
+			for (var oAttr in oAttrInfo)
+			{
+				sAttrId = oAttr;
+				sAttrValue = oAttrInfo[oAttr];
+				
+				if (sAttrId == "id")	continue;
+				
+				// 컬럼정보 없는 경우 컬럼 추가
+				nFCol = this.dsVtFieldAtrList.getColIndex(sAttrId);
+				if (nFCol== -1) {
+					nFCol = this.dsVtFieldAtrList.addColumn(sAttrId, "string");
+					
+					// 그리드셀 추가
+					nACol = this.grdFildAttr.appendContentsCol("body");		
+					this.grdFildAttr.setFormatColProperty(nACol, "size", "80");
+					this.grdFildAttr.setCellProperty("head", nACol, "text", sAttrId);
+					this.grdFildAttr.setCellProperty("body", nACol, "displaytype", "normal");
+					this.grdFildAttr.setCellProperty("body", nACol, "text", "bind:" + sAttrId);
+				}
+				
+				// 로우정보 없는 경우 로우 추가
+				nFRow = this.dsVtFieldAtrList.findRow("id",sFieldId);
+				if (nFRow < 0) {
+					nFRow = this.dsVtFieldAtrList.addRow();
+					this.dsVtFieldAtrList.setColumn(nFRow,"id",sFieldId);
+				}
+			
+				this.dsVtFieldAtrList.setColumn(nFRow,nFCol,sAttrValue);
+			}
+		}
+		this.dsVtFieldAtrList.set_rowposition(0);
+	}
+	this.grdFildAttr.set_enableevent(true);
+};
+
+/**
+ * @description ViewAttribute 그리드 동적생성
+*/
+this.fnSetViewAttribute = function()
+{
+	var sViewAttr;
+	var nARow, nFRow;
+	var sAttrId, sAttrValue;
+	
+	this.dsVtAtrList.clearData();
+	
+	// ViewTemplate Attr 정보 복사
+	this.dsVtAtr.filter("");
+	this.dsVtAtr.filter("ATTRB_TYPE=='10' && ATTRB_LVL==0");
+	for(var i=0; i < this.dsVtAtr.rowcount; i++)
+	{
+		nARow = this.dsVtAtrList.addRow();
+		this.dsVtAtrList.copyRow(nARow, this.dsVtAtr, i);
+	}
+	this.dsVtAtr.filter("");
+	
+	// ViewTemplate Attr 값 설정
+	sViewAttr = this.dsViewInfo.getColumn(0,"VT_ATTR");
+	if (!this.gfnIsNull(sViewAttr))
+	{
+		var oViewAttr = JSON.parse(sViewAttr);
+		
+		for(var i=0; i < oViewAttr.length; i++)
+		{
+			sAttrId = oViewAttr[i]["@attributes"]["id"];
+			sAttrValue = oViewAttr[i]["@attributes"]["value"];
+			
+			nFRow = this.dsVtAtrList.findRow("ATTRB_ID",sAttrId);
+			
+			if (nFRow < 0) {
+				nFRow = this.dsVtAtrList.addRow();
+				this.dsVtAtrList.setColumn(nFRow,"ATTRB_ID",sAttrId);
+			}
+			
+			this.dsVtAtrList.setColumn(nFRow,"ATTRB_VALUE",sAttrValue);
+		}
+		
+		this.dsVtAtrList.set_rowposition(0);
+	}
+	
+};
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/]]></Script>
+  </Form>
+</FDL>

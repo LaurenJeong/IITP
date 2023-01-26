@@ -16,95 +16,33 @@
             <Tabpage id="Tabpage1" text="View Info">
               <Layouts>
                 <Layout>
-                  <Grid id="Grid00" taborder="0" left="13" top="14" width="452" height="165" binddataset="dsModel" cellsizingtype="col">
-                    <Formats>
-                      <Format id="default">
-                        <Columns>
-                          <Column size="80"/>
-                          <Column size="120"/>
-                          <Column size="150"/>
-                          <Column size="80"/>
-                        </Columns>
-                        <Rows>
-                          <Row size="24" band="head"/>
-                          <Row size="24"/>
-                        </Rows>
-                        <Band id="head">
-                          <Cell text="VIEW_ID"/>
-                          <Cell col="1" text="MODEL_ID"/>
-                          <Cell col="2" text="FILE_PATH"/>
-                          <Cell col="3" text="MODEL_SEQ"/>
-                        </Band>
-                        <Band id="body">
-                          <Cell text="bind:VIEW_ID" edittype="normal"/>
-                          <Cell col="1" text="bind:MODEL_ID" edittype="normal"/>
-                          <Cell col="2" text="bind:FILE_PATH" edittype="normal"/>
-                          <Cell col="3" text="bind:MODEL_SEQ" edittype="normal"/>
-                        </Band>
-                      </Format>
-                    </Formats>
-                  </Grid>
-                  <Grid id="Grid00_00" taborder="1" left="480" top="15" width="540" height="162" binddataset="dsViewTemplate" cellsizingtype="col">
+                  <Grid id="grdList" taborder="0" left="0" top="10" right="0" bottom="0" binddataset="dsViewInfo" autofittype="col" oncellclick="tabInfo_Tabpage1_grdList_oncellclick" onexpandup="tabInfo_Tabpage1_grdList_onexpandup">
                     <Formats>
                       <Format id="default">
                         <Columns>
                           <Column size="80"/>
                           <Column size="180"/>
-                          <Column size="80"/>
-                          <Column size="80"/>
-                          <Column size="80"/>
+                          <Column size="300"/>
+                          <Column size="180"/>
+                          <Column size="300"/>
                         </Columns>
                         <Rows>
-                          <Row size="24" band="head"/>
-                          <Row size="24"/>
+                          <Row size="28" band="head"/>
+                          <Row size="28"/>
                         </Rows>
                         <Band id="head">
-                          <Cell text="VIEW_ID"/>
-                          <Cell col="1" text="FILE_PATH"/>
-                          <Cell col="2" text="VT_ATTR"/>
-                          <Cell col="3" text="VT_FIELD"/>
-                          <Cell col="4" text="VT_SEQ"/>
+                          <Cell text="View ID"/>
+                          <Cell col="1" text="View Template ID"/>
+                          <Cell col="2" text="View Template Name"/>
+                          <Cell col="3" text="Model ID"/>
+                          <Cell col="4" text="MODEL Name"/>
                         </Band>
                         <Band id="body">
-                          <Cell text="bind:VIEW_ID" edittype="normal"/>
-                          <Cell col="1" text="bind:FILE_PATH" edittype="normal"/>
-                          <Cell col="2" text="bind:VT_ATTR" edittype="normal"/>
-                          <Cell col="3" text="bind:VT_FIELD" edittype="normal"/>
-                          <Cell col="4" text="bind:VT_SEQ" edittype="normal"/>
-                        </Band>
-                      </Format>
-                    </Formats>
-                  </Grid>
-                  <Grid id="Grid00_01" taborder="2" left="13" top="194" width="1007" height="173" binddataset="dsAction" cellsizingtype="col">
-                    <Formats>
-                      <Format id="default">
-                        <Columns>
-                          <Column size="150"/>
-                          <Column size="150"/>
-                          <Column size="80"/>
-                          <Column size="200"/>
-                          <Column size="80"/>
-                          <Column size="80"/>
-                        </Columns>
-                        <Rows>
-                          <Row size="24" band="head"/>
-                          <Row size="24"/>
-                        </Rows>
-                        <Band id="head">
-                          <Cell text="ACTION_CLASS_ID"/>
-                          <Cell col="1" text="ACTION_ID"/>
-                          <Cell col="2" text="ACTION_SEQ"/>
-                          <Cell col="3" text="ACTION_INFO"/>
-                          <Cell col="4" text="ACTION_CONTENTS"/>
-                          <Cell col="5" text="TRIGGER_INFO"/>
-                        </Band>
-                        <Band id="body">
-                          <Cell text="bind:ACTION_CLASS_ID" edittype="normal"/>
-                          <Cell col="1" text="bind:ACTION_ID" edittype="normal"/>
-                          <Cell col="2" text="bind:ACTION_SEQ" edittype="normal"/>
-                          <Cell col="3" text="bind:ACTION_INFO" edittype="normal"/>
-                          <Cell col="4" text="bind:ACTION_CONTENTS" edittype="normal"/>
-                          <Cell col="5" text="bind:TRIGGER_INFO" edittype="normal"/>
+                          <Cell text="bind:VIEW_ID"/>
+                          <Cell col="1" text="bind:VT_ID" expandshow="expr:VT_SEQ!=null?'show':'hide'" cssclass="cell_WF_Link"/>
+                          <Cell col="2" text="bind:VT_NM"/>
+                          <Cell col="3" text="bind:MODEL_ID" expandshow="expr:MODEL_SEQ!=null?'show':'hide'"/>
+                          <Cell col="4" text="bind:MODEL_NM"/>
                         </Band>
                       </Format>
                     </Formats>
@@ -112,19 +50,59 @@
                 </Layout>
               </Layouts>
             </Tabpage>
-            <Tabpage id="Tabpage2" text="Action"/>
+            <Tabpage id="Tabpage2" text="Action">
+              <Layouts>
+                <Layout>
+                  <Grid id="grdList" taborder="0" left="0" top="10" right="0" bottom="0" binddataset="dsAction" autofittype="col" oncellclick="tabInfo_Tabpage2_grdList_oncellclick" onexpandup="tabInfo_Tabpage2_grdList_onexpandup">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="180"/>
+                          <Column size="160"/>
+                          <Column size="250"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="28" band="head"/>
+                          <Row size="28"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell text="Action CLASS ID"/>
+                          <Cell col="1" text="Action ID"/>
+                          <Cell col="2" text="Action Name"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:ACTION_CLASS_ID" expandshow="expr:ACTION_SEQ!=null?'show':'hide'" cssclass="cell_WF_Link"/>
+                          <Cell col="1" text="bind:ACTION_ID"/>
+                          <Cell col="2" text="bind:ACTION_NM"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
           </Tabpages>
         </Tab>
+        <Button id="Button02" taborder="7" text="동영상보기" top="divWork:15" width="100" height="30" right="10"/>
+        <Button id="Button00" taborder="5" text="다운로드" top="divWork:15" height="30" right="Button02:5" width="100"/>
+        <Button id="Button01" taborder="6" text="Button01" left="322" top="-34" width="100" height="30"/>
       </Layout>
     </Layouts>
     <Objects>
       <Dataset id="dsContents"/>
-      <Dataset id="dsInfo">
+      <Dataset id="dsViewInfo">
         <ColumnInfo>
-          <Column id="TYPE" type="STRING" size="256"/>
           <Column id="VIEW_ID" type="STRING" size="256"/>
-          <Column id="ID" type="STRING" size="256"/>
-          <Column id="DESC" type="STRING" size="256"/>
+          <Column id="MODEL_ID" type="STRING" size="256"/>
+          <Column id="MODEL_FILE_PATH" type="STRING" size="256"/>
+          <Column id="MODEL_SEQ" type="INT" size="256"/>
+          <Column id="MODEL_NM" type="STRING" size="256"/>
+          <Column id="VT_ID" type="STRING" size="256"/>
+          <Column id="VT_FILE_PATH" type="STRING" size="256"/>
+          <Column id="VT_ATTR" type="STRING" size="256"/>
+          <Column id="VT_FIELD" type="STRING" size="256"/>
+          <Column id="VT_SEQ" type="INT" size="256"/>
+          <Column id="VT_NM" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dsModel">
@@ -148,8 +126,9 @@
         <ColumnInfo>
           <Column id="ACTION_CLASS_ID" type="STRING" size="256"/>
           <Column id="ACTION_ID" type="STRING" size="256"/>
-          <Column id="ACTION_SEQ" type="STRING" size="256"/>
-          <Column id="ACTION_INFO" type="STRING" size="256"/>
+          <Column id="ACTION_SEQ" type="INT" size="256"/>
+          <Column id="ACTION_NM" type="STRING" size="256"/>
+          <Column id="ACTION_PRP" type="STRING" size="256"/>
           <Column id="ACTION_CONTENTS" type="STRING" size="256"/>
           <Column id="TRIGGER_INFO" type="STRING" size="256"/>
         </ColumnInfo>
@@ -385,6 +364,12 @@ this.fnWorkFrameClose = function()
 	this.close();
 };
 
+/************************************************************************************************
+ * 사용자 FUNCTION 영역(QuickCode Info)
+ ************************************************************************************************/
+/**
+ * @description QuickCode 정보 추출(ViewTemplate, Model)
+ */
 this.fnGetQuickCodeInfo = function() 
 {
 	// View정보(model, viewtemplate)
@@ -392,8 +377,28 @@ this.fnGetQuickCodeInfo = function()
 	
 	// Acion정보
 	this.fnGetActionList();
+	
+	
+	// Tab 설정
+	var sTabText = "View Info";
+	if (this.dsViewInfo.rowcount > 0)		sTabText += "(" + this.dsViewInfo.rowcount + ")";
+	this.tabInfo.Tabpage1.set_text(sTabText);
+	
+	sTabText = "Action Info";
+	if (this.dsAction.rowcount == 0)
+	{
+		this.tabInfo.Tabpage2.set_enable(false);
+	}
+	else
+	{
+		sTabText += "(" + this.dsAction.rowcount + ")";
+	}
+	this.tabInfo.Tabpage2.set_text(sTabText);
 };
 
+/**
+ * @description View 정보 리스트 추출(ViewTemplate, Model)
+ */
 this.fnGetViewList = function() 
 {
 	var arrView, oView;
@@ -409,52 +414,92 @@ this.fnGetViewList = function()
 	{
 		oView = arrView[i];
 		
+		// View 정보 추가
+		nARow = this.dsViewInfo.addRow();
+		this.dsViewInfo.setColumn(nARow,"VIEW_ID",oView.getAttribute("id"));
+		
 		// ModelInfo
 		oModelInfo = oView.getElementsByTagName("ModelInfo");
 		
 		if (oModelInfo)
 		{
-			nARow = this.dsModel.addRow();
-			this.dsModel.setColumn(nARow,"VIEW_ID",oView.getAttribute("id"));
-			this.dsModel.setColumn(nARow,"MODEL_ID",oModelInfo[0].getAttribute("modelid"));
-			this.dsModel.setColumn(nARow,"FILE_PATH",oModelInfo[0].getAttribute("filepath"));
+// 			// Model 정보 추가
+// 			nARow = this.dsModel.addRow();
+// 			this.dsModel.setColumn(nARow,"VIEW_ID",oView.getAttribute("id"));
+// 			this.dsModel.setColumn(nARow,"MODEL_ID",oModelInfo[0].getAttribute("modelid"));
+// 			this.dsModel.setColumn(nARow,"FILE_PATH",oModelInfo[0].getAttribute("filepath"));
+// 			
+// 			// Model SEQ
+// 			sFindStr = "MODEL_ID=='" + this.dsModel.getColumn(nARow,"MODEL_ID") + "'";
+// 			sFindStr += " && FILE_PATH=='" + this.dsModel.getColumn(nARow,"FILE_PATH").toString().replace("\\","\\\\") + "'";
+// 			
+// 			nFRow = this.objApp.gdsModel.findRowExpr(sFindStr);
+// 			if (nFRow >=0) {
+// 				this.dsModel.setColumn(nARow,"MODEL_SEQ",this.objApp.gdsModel.getColumn(nFRow,"MODEL_SEQ"));
+// 			}
+			
+			// Model 정보 설정
+			this.dsViewInfo.setColumn(nARow,"MODEL_ID",oModelInfo[0].getAttribute("modelid"));
+			this.dsViewInfo.setColumn(nARow,"MODEL_FILE_PATH",oModelInfo[0].getAttribute("filepath"));
+			
+			oModelInfoJson = this.gfnXmlToJson(oModelInfo[0]);
+			this.dsViewInfo.setColumn(nARow,"VT_FIELD",JSON.stringify(oModelInfoJson["Fields"]["Field"]));
 			
 			// Model SEQ
-			sFindStr = "MODEL_ID=='" + this.dsModel.getColumn(nARow,"MODEL_ID") + "'";
-			sFindStr += " && FILE_PATH=='" + this.dsModel.getColumn(nARow,"FILE_PATH").toString().replace("\\","\\\\") + "'";
+			sFindStr = "MODEL_ID=='" + this.dsViewInfo.getColumn(nARow,"MODEL_ID") + "'";
+			sFindStr += " && FILE_PATH=='" + this.dsViewInfo.getColumn(nARow,"MODEL_FILE_PATH").toString().replace("\\","\\\\") + "'";
 			
 			nFRow = this.objApp.gdsModel.findRowExpr(sFindStr);
 			if (nFRow >=0) {
-				this.dsModel.setColumn(nARow,"MODEL_SEQ",this.objApp.gdsModel.getColumn(nFRow,"MODEL_SEQ"));
+				this.dsViewInfo.setColumn(nARow,"MODEL_SEQ",this.objApp.gdsModel.getColumn(nFRow,"MODEL_SEQ"));
+				this.dsViewInfo.setColumn(nARow,"MODEL_NM",this.objApp.gdsModel.getColumn(nFRow,"MODEL_NM"));
 			}
+			
 		}
 		
 		// ViewTemplateInfo
 		oViewTemplateInfo = oView.getElementsByTagName("ViewTemplateInfo");
 		if (oViewTemplateInfo)
 		{
-			nARow = this.dsViewTemplate.addRow();
-			this.dsViewTemplate.setColumn(nARow,"VIEW_ID",oView.getAttribute("id"));
-			this.dsViewTemplate.setColumn(nARow,"FILE_PATH",oViewTemplateInfo[0].getAttribute("filepath"));
-			
-			oViewTemplateInfoJson = this.gfnXmlToJson(oViewTemplateInfo[0]);
-			this.dsViewTemplate.setColumn(nARow,"VT_ATTR",JSON.stringify(oViewTemplateInfoJson["Attribute"]));
-			
-			if (oModelInfo)
-			{
-				oModelInfoJson = this.gfnXmlToJson(oModelInfo[0]);
-				this.dsViewTemplate.setColumn(nARow,"VT_FIELD",JSON.stringify(oModelInfoJson["Fields"]["Field"]));
-			}
-			
+// 			// ViewTemplate 정보추가
+// 			nARow = this.dsViewTemplate.addRow();
+// 			this.dsViewTemplate.setColumn(nARow,"VIEW_ID",oView.getAttribute("id"));
+// 			this.dsViewTemplate.setColumn(nARow,"FILE_PATH",oViewTemplateInfo[0].getAttribute("filepath"));
+// 			
+// 			oViewTemplateInfoJson = this.gfnXmlToJson(oViewTemplateInfo[0]);
+// 			this.dsViewTemplate.setColumn(nARow,"VT_ATTR",JSON.stringify(oViewTemplateInfoJson["Attribute"]));
+// 			
+// 			if (oModelInfo)
+// 			{
+// 				oModelInfoJson = this.gfnXmlToJson(oModelInfo[0]);
+// 				this.dsViewTemplate.setColumn(nARow,"VT_FIELD",JSON.stringify(oModelInfoJson["Fields"]["Field"]));
+// 			}
+// 			
+// 			// ViewTemplate SEQ
+// 			nFRow = this.objApp.gdsVt.findRow("VT_PATH",this.dsViewTemplate.getColumn(nARow,"FILE_PATH"));
+// 			if (nFRow >=0) {
+// 				this.dsViewTemplate.setColumn(nARow,"VT_SEQ",this.objApp.gdsVt.getColumn(nFRow,"VT_SEQ"));
+// 			}
+
 			// ViewTemplate SEQ
-			nFRow = this.objApp.gdsVt.findRow("VT_PATH",this.dsViewTemplate.getColumn(nARow,"FILE_PATH"));
+			nFRow = this.objApp.gdsVt.findRow("VT_PATH",oViewTemplateInfo[0].getAttribute("filepath"));
 			if (nFRow >=0) {
-				this.dsViewTemplate.setColumn(nARow,"VT_SEQ",this.objApp.gdsVt.getColumn(nFRow,"VT_SEQ"));
+				// ViewTemplate 정보추가
+				this.dsViewInfo.setColumn(nARow,"VT_FILE_PATH",oViewTemplateInfo[0].getAttribute("filepath"));
+				this.dsViewInfo.setColumn(nARow,"VT_SEQ",this.objApp.gdsVt.getColumn(nFRow,"VT_SEQ"));
+				this.dsViewInfo.setColumn(nARow,"VT_ID",this.objApp.gdsVt.getColumn(nFRow,"VT_ID"));
+				this.dsViewInfo.setColumn(nARow,"VT_NM",this.objApp.gdsVt.getColumn(nFRow,"VT_NM"));
+				
+				oViewTemplateInfoJson = this.gfnXmlToJson(oViewTemplateInfo[0]);
+				this.dsViewInfo.setColumn(nARow,"VT_ATTR",JSON.stringify(oViewTemplateInfoJson["Attribute"]));
 			}
 		}
 	}
 };
 
+/**
+ * @description Action 리스트 추출(Action, Trigger)
+ */
 this.fnGetActionList = function() 
 {
 	var oChildren;
@@ -489,11 +534,12 @@ this.fnGetActionList = function()
 					if (nFRow >=0) {
 						nARow = this.dsAction.addRow();
 						this.dsAction.setColumn(nARow,"ACTION_SEQ",this.objApp.gdsAction.getColumn(nFRow,"ACTION_SEQ"));
+						this.dsAction.setColumn(nARow,"ACTION_NM",this.objApp.gdsAction.getColumn(nFRow,"ACTION_NM"));
 						this.dsAction.setColumn(nARow,"ACTION_CLASS_ID",oObject.tagName);
 						this.dsAction.setColumn(nARow,"ACTION_ID",oObject.getAttribute("id"));
 						
 						oActionJson = this.gfnXmlToJson(oObject);
-						this.dsAction.setColumn(nARow,"ACTION_INFO",JSON.stringify(oActionJson));
+						this.dsAction.setColumn(nARow,"ACTION_PRP",JSON.stringify(oActionJson));
 						
 						if (oObject.hasChildNodes()) {
 							if (system.navigatorname == "nexacro")
@@ -537,6 +583,87 @@ this.fnGetActionList = function()
 			oTriggerJson = this.gfnXmlToJson(oTrigger);
 			this.dsAction.setColumn(nFRow,"TRIGGER_INFO",JSON.stringify(oTriggerJson));
 		}
+	}
+};
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역(QuickCode Info)
+ ************************************************************************************************/
+/**
+ * @description View List 그리드 셀 클릭(매뉴얼 팝업)
+ */
+this.tabInfo_Tabpage1_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.clickitem != "expandbutton")
+	{
+		if (obj.getBindCellIndex("body","VT_ID") == e.cell)
+		{
+			alert("ViewTemplate 메뉴얼");
+		}
+	}
+};
+/**
+ * @description View List 그리드 expand 버튼 클릭(QuickCode Info 팝업)
+ */
+this.tabInfo_Tabpage1_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+{
+	var oDsBind = obj.getBindDataset();
+	var nRow = e.row;
+	
+	if (obj.getBindCellIndex("body","MODEL_ID") == e.cell)			// Model Info 팝업 호출
+	{
+		var sPopupId	= "cmmModelInfo";
+		var sUrl		= "cmm::cmmModelInfo.xfdl";
+		var oParam		= {modelSeq : oDsBind.getColumn(nRow,"MODEL_SEQ")};
+		var sCallBack	= "fnPopupCallback";
+		var oOption		= {title:"Model - " + oDsBind.getColumn(nRow,"MODEL_ID"), width:1050, height:280};
+		
+		this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
+	}
+	else if (obj.getBindCellIndex("body","VT_ID") == e.cell)		// ViewTemplate Info 팝업 호출
+	{
+		// 현재 선택된 Row 데이터를 팝업으로 넘김
+		var oDsViewInfo = oDsBind.createDataset("dsViewInfoCur", this.gfnGetDatasetCols(oDsBind),"currow==" + nRow);
+		var sXML = "";
+		
+		if (!this.gfnIsNull(oDsViewInfo))		sXML = oDsViewInfo.saveXML();
+		
+		var sPopupId	= "cmmViewTemplateInfo";
+		var sUrl		= "cmm::cmmViewTemplateInfo.xfdl";
+		var sCallBack	= "fnPopupCallback";
+		var oOption		= {title:"ViewTemplate - " + oDsBind.getColumn(nRow,"MODEL_ID"), width:1050, height:600};
+		
+		var oParam		= {
+			  modelSeq	: oDsBind.getColumn(nRow,"MODEL_SEQ")
+			, vtSeq		: oDsBind.getColumn(nRow,"VT_SEQ")
+			, dataset	: sXML
+		};
+		
+		this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
+	}
+};
+/**
+ * @description Action List 그리드 셀 클릭(매뉴얼 팝업)
+ */
+this.tabInfo_Tabpage2_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.clickitem != "expandbutton")
+	{
+		if (obj.getBindCellIndex("body","ACTION_CLASS_ID") == e.cell)
+		{
+			alert("Action 메뉴얼");
+		}
+	}
+};
+
+/**
+ * @description Action List 그리드 expand 버튼 클릭(QuickCode Info 팝업)
+ */
+this.tabInfo_Tabpage2_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+{
+	if (obj.getBindCellIndex("body","ACTION_CLASS_ID") == e.cell)
+	{
+		alert("Action 정보");
 	}
 };]]></Script>
   </Form>

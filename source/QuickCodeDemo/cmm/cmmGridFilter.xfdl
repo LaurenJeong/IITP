@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<FDL version="2.0">
+<FDL version="2.1">
   <Form id="cmmGridFilter" width="470" height="270" titletext="그리드 필터" onload="form_onload">
     <Layouts>
       <Layout height="270" mobileorientation="landscape" width="470">
@@ -127,7 +127,7 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 // 	var sTitle = this.getOwnerFrame().paramTitle;
 // 	this.set_titletext(sTitle);
 	
-	this.fvTargetGrid = this.getOwnerFrame().pvGrid;
+	this.fvTargetGrid = this.gfnGetMenuParam("pvGrid");
 	this.fvTargetDataset = this.fvTargetGrid.getBindDataset();
 	
 	var bUserHeader = this._gfnGridUserHeaderFlg(this.fvTargetGrid);

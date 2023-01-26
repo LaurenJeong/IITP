@@ -736,3 +736,23 @@ pForm.gfnSetFirstCd = function(objComp, sFirstNm, sFirstCd, sFirstNmCol, sFirstC
 		objCbo.set_index(0);
 	}
 };
+
+/**
+ * dataset의 Column명을 배열로 반환
+ * @param {dataset} 대상 Dataset
+ * @return {Array} 컬럼명 배열
+ */
+pForm.gfnGetDatasetCols = function(ds)
+{
+	var arrCol = new Array();
+	var name;
+	
+	for(i = 0, len = ds.getColCount(); i < len; i++)
+	{
+		name = ds.getColID(i);
+		
+		arrCol.push(name);
+	}
+	
+	return arrCol;
+};

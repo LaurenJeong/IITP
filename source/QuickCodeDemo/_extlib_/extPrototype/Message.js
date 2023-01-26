@@ -29,6 +29,8 @@ pForm.gfnAlert = function (sMsgId, arrArg, sPopId, sCallback)
 {
     var objApp = pForm.gfnGetApplication();
 	if(objApp.gdsMessage.findRow("msgId", sMsgId) < 0) return false;
+	
+	if( this.gfnIsNull(sCallback) ) sCallback = "fnMsgCallback";
 
 	// 다국어 처리
 	var sNowLang = nexacro.getEnvironmentVariable("evLanguage");
@@ -38,7 +40,7 @@ pForm.gfnAlert = function (sMsgId, arrArg, sPopId, sCallback)
 	}
 	
 	var sMsg = objApp.gdsMessage.lookup("msgId", sMsgId, sColumn);
-
+	
 	if( this.gfnIsNull(sMsg) ) sMsg = "확인";
 	// 줄바꿈 변경
 	sMsg = sMsg.replace(/\\n/g, String.fromCharCode(10));
