@@ -1863,7 +1863,50 @@
         </Row>
       </Rows>
     </Dataset>
-    <Dataset id="gdsActionPrp"/>
+    <Dataset id="gdsActionPrp">
+      <ColumnInfo>
+        <Column id="ACTION_SEQ" type="STRING" size="256"/>
+        <Column id="PROP_ID" type="STRING" size="256"/>
+        <Column id="EDIT_TYPE" type="STRING" size="256"/>
+        <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
+        <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
+        <Column id="ENUM_CD" type="STRING" size="256"/>
+        <Column id="DFLT_VALUE" type="STRING" size="256"/>
+        <Column id="ATTRB_DESC" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="PROP_ID">servicemodel</Col>
+          <Col id="EDIT_TYPE">50</Col>
+          <Col id="EDIT_TYPE_NM">ModelServiceID</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="PROP_ID">serviceurl</Col>
+          <Col id="EDIT_TYPE">51</Col>
+          <Col id="EDIT_TYPE_NM">ModelServiceURL</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="PROP_ID">inputdatasets</Col>
+          <Col id="EDIT_TYPE">10</Col>
+          <Col id="EDIT_TYPE_NM">String</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="PROP_ID">outputdatasets</Col>
+          <Col id="EDIT_TYPE">10</Col>
+          <Col id="EDIT_TYPE_NM">String</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="PROP_ID">args</Col>
+          <Col id="EDIT_TYPE">10</Col>
+          <Col id="EDIT_TYPE_NM">String</Col>
+        </Row>
+      </Rows>
+    </Dataset>
     <Dataset id="gdsActionMtd"/>
     <Dataset id="gdsActionEvt"/>
   </Datasets>

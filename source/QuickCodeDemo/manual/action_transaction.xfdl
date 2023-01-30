@@ -159,39 +159,46 @@
     <Objects>
       <TransactionAction id="TransactionAction00" servicemodel="Tran" serviceurl="svc::TransactionActionService01.jsp" inputdatasets="input=viewSearch.form.viewdataset " outputdatasets="viewList.form.viewdataset=output" onerror="CommonTran_onerror" onsuccess="CommonTran_onsuccess">
         <Contents><![CDATA[{
-    "model":{
-        "modelinfo":[
+    "model":[
+        {
+            "viewid":"viewSearch",
+            "modelid":"input",
+            "iotype":"input",
+            "fieldlist":[
                 {
-                "viewid":"viewSearch",
-                "modelid":"input",
-                "iotype":"input"
+                    "name":"viewSearch:company",
+                    "fieldid":"company",
+                    "value":"TOBEOSFT"
+                },
+                {
+                    "name":"viewSearch:department",
+                    "fieldid":"department",
+                    "value":""
+                },
+                {
+                    "name":"viewSearch:name",
+                    "fieldid":"name",
+                    "value":""
                 }
-        ],
-        "input":[
-            {
-                "name":"viewSearch:company",
-                "viewid":"viewSearch",
-                "fieldid":"company",
-                "value":"TOBESOFT"
-            },
-            {
-                "name":"viewSearch:department",
-                "viewid":"viewSearch",
-                "fieldid":"department",
-                "value":""
-            },
-            {
-                "name":"viewSearch:name",
-                "viewid":"viewSearch",
-                "fieldid":"name",
-                "value":""
-            }
-        ]
-    },
+            ]
+        },
+        {
+            "viewid":"viewList",
+            "modelid":"output",
+            "iotype":"output",
+            "fieldlist":[
+                {
+                    "name":"viewList:department",
+                    "fieldid":"department",
+                    "value":"DEPT"
+                }
+            ]
+        }
+    ],
     "extra":
     [
         {
-            "name":"TYPE",
+            "name":"NAME",
             "value":"TEST"
         }
     ]

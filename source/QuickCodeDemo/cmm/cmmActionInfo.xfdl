@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmActionInfo" width="1050" height="600" titletext="Action 정보" onload="form_onload">
+    <Layouts>
+      <Layout height="600" width="1050" type="default" flexwrap="wrap" verticalgap="5" horizontalgap="5" spacing="0px 10px 10px">
+        <Static id="staTriggerInfo" taborder="0" text="Trigger Info" left="0" top="0" height="30" cssclass="sta_WF_title02" width="100%"/>
+        <View id="viwTriggerInfo" taborder="1" text="viwModelInfo" top="staTriggerInfo:5" height="40" width="100%" left="0" viewdataset="viewdataset">
+          <Layouts>
+            <Layout>
+              <Static id="staTriggerobjBg" left="0" top="0" width="300" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staTriggerobjLabel" left="0" top="0" width="100" height="40" text="Trigger 객체" cssclass="sta_labelbox"/>
+              <Edit id="edtTriggerobj" left="105" top="5" width="190" height="30" cssclass="com_View" readonly="true"/>
+              <Static id="staTriggertypeBg" left="299" top="0" width="300" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staTriggertypeLabel" left="299" top="0" width="100" height="40" text="Trigger 유형" cssclass="sta_labelbox"/>
+              <Edit id="edtTriggertype" left="404" top="5" width="190" height="30" cssclass="com_View" readonly="true"/>
+              <Static id="staConditionBg" left="598" top="0" height="40" cssclass="sta_fieldbox" right="0"/>
+              <Static id="staConditionLabel" left="598" top="0" width="120" height="40" text="Trigger 조건" cssclass="sta_labelbox"/>
+              <Edit id="edtCondition" left="723" top="5" height="30" cssclass="com_View" readonly="true" right="5"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="triggerobj" type="STRING" size="80" description="Trigger 객체"/>
+                <Column id="triggertype" type="STRING" size="80" description="Trigger 유형"/>
+                <Column id="condition" type="STRING" size="80" description="Trigger 조건"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtTriggerobj" compid="edtTriggerobj" propid="value" datasetid="viewdataset" columnid="triggerobj"/>
+            <BindItem id="bind_edtTriggertype" compid="edtTriggertype" propid="value" datasetid="viewdataset" columnid="triggertype"/>
+            <BindItem id="bind_edtCondition" compid="edtCondition" propid="value" datasetid="viewdataset" columnid="condition"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="TriggerInfo" filepath="demo\QuickCodeDemo\Comm.xmodel">
+            <Fields>
+              <Field id="triggerobj" description="" innerdatasetinfo="" comptype="auto" compwidth="200" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="triggertype" description="" innerdatasetinfo="" comptype="auto" compwidth="200" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="condition" description="" innerdatasetinfo="" comptype="auto" compwidth="250" compheight="40px" labelsize="120" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staTriggerobjBg" fields="triggerobj"/>
+              <Component id="staTriggerobjLabel" fields="triggerobj"/>
+              <Component id="edtTriggerobj" fields="triggerobj"/>
+              <Component id="staTriggertypeBg" fields="triggertype"/>
+              <Component id="staTriggertypeLabel" fields="triggertype"/>
+              <Component id="edtTriggertype" fields="triggertype"/>
+              <Component id="staConditionBg" fields="condition"/>
+              <Component id="staConditionLabel" fields="condition"/>
+              <Component id="edtCondition" fields="condition"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="staProperty" taborder="2" text="Property" left="0" top="viwTriggerInfo:10" height="30" cssclass="sta_WF_title02" width="100%"/>
+        <Grid id="grdProperty" taborder="3" top="staProperty:5" height="198" binddataset="dsActionPrp" width="100%" left="0" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="300"/>
+              </Columns>
+              <Rows>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="ID"/>
+                <Cell col="1" text="Value"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:PROP_ID"/>
+                <Cell col="1" text="bind:PROP_VALUE" autosizerow="limitmin"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staModelArgument" taborder="4" text="Model Argument" left="0" top="grdProperty:10" height="30" cssclass="sta_WF_title02" width="100%"/>
+        <Grid id="grdModelArgument" taborder="5" top="staModelArgument:5" height="226" autofittype="col" binddataset="dsModelArg" width="100%" left="0" treeinitstatus="expand,all" treeusecheckbox="false">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="250"/>
+              </Columns>
+              <Rows>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="ID"/>
+                <Cell col="1" text="Value"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:NAME" displaytype="treeitemcontrol" treelevel="bind:LVL"/>
+                <Cell col="1" text="bind:VALUE"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staUserArgument" taborder="6" text="User Defined(Extra) Argument" left="0" top="grdModelArgument:10" height="30" cssclass="sta_WF_title02" width="100.00%"/>
+        <Grid id="grdUserArgument" taborder="7" top="staUserArgument:5" height="198" binddataset="dsUserArg" width="100.00%" left="0" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="300"/>
+              </Columns>
+              <Rows>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="ID"/>
+                <Cell col="1" text="Value"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:NAME"/>
+                <Cell col="1" text="bind:VALUE"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsActionInfo">
+        <ColumnInfo>
+          <Column id="ACTION_CLASS_ID" type="STRING" size="256"/>
+          <Column id="ACTION_ID" type="STRING" size="256"/>
+          <Column id="ACTION_SEQ" type="INT" size="256"/>
+          <Column id="ACTION_NM" type="STRING" size="256"/>
+          <Column id="ACTION_PRP" type="STRING" size="256"/>
+          <Column id="ACTION_CONTENTS" type="STRING" size="256"/>
+          <Column id="TRIGGER_INFO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsTriggerInfo">
+        <ColumnInfo>
+          <Column id="triggertype" type="STRING" size="256"/>
+          <Column id="triggerview" type="STRING" size="256"/>
+          <Column id="triggerobj" type="STRING" size="256"/>
+          <Column id="targetaction" type="STRING" size="256"/>
+          <Column id="condition" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsAction">
+        <ColumnInfo>
+          <Column id="ACTION_SEQ" type="INT" size="256"/>
+          <Column id="ACTION_ID" type="STRING" size="256"/>
+          <Column id="ACTION_NM" type="STRING" size="256"/>
+          <Column id="ACTION_DESC" type="STRING" size="256"/>
+          <Column id="MODEL_ARG_DESC" type="STRING" size="256"/>
+          <Column id="USER_ARG_DESC" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsActionPrp">
+        <ColumnInfo>
+          <Column id="ACTION_SEQ" type="STRING" size="256"/>
+          <Column id="PROP_ID" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
+          <Column id="ENUM_CD" type="STRING" size="256"/>
+          <Column id="DFLT_VALUE" type="STRING" size="256"/>
+          <Column id="ATTRB_DESC" type="STRING" size="256"/>
+          <Column id="PROP_VALUE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsModelArg">
+        <ColumnInfo>
+          <Column id="NAME" type="STRING" size="256"/>
+          <Column id="VALUE" type="STRING" size="256"/>
+          <Column id="LVL" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsUserArg">
+        <ColumnInfo>
+          <Column id="NAME" type="STRING" size="256"/>
+          <Column id="VALUE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    공통 > Action 정보 팝업
+*  @FileName 	cmmActionInfo.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2023.01.27
+*  @Desction    Action 정보 팝업
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2023.01.27     	consulting 	                최초 생성
+*******************************************************************************
+*/
+/************************************************************************************************
+ * include 영역(업무화면에서 꼭 필요한 경우에만 사용하세요)
+ ************************************************************************************************/
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = this.gfnGetApplication();
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+	
+	var actionSeq		= this.gfnGetMenuParam("actionSeq");
+	
+	if (!this.gfnIsNull(actionSeq)) {
+	
+		// 넘어온 Dataset정보 Load
+		this.dsActionInfo.loadXML(this.gfnGetMenuParam("dataset"));
+		
+		// Action 정보 복사
+		this.objApp.gdsAction.filter("");
+		this.objApp.gdsAction.filter("ACTION_SEQ==" + actionSeq);
+		this.dsAction.copyData(this.objApp.gdsAction, true);
+		this.objApp.gdsAction.filter("");
+		
+		// Action Property 정보 복사
+		this.objApp.gdsActionPrp.filter("");
+		this.objApp.gdsActionPrp.filter("ACTION_SEQ==" + actionSeq);
+		this.dsActionPrp.copyData(this.objApp.gdsActionPrp, true);
+		this.objApp.gdsActionPrp.filter("");
+		
+		// Action 정보 생성
+		this.fnMakeActionInfo();
+	} else {
+		//해당하는 정보가 없어 팝업을 종료합니다.
+		this.gfnAlert("msg.popup.nodata");	
+	}
+};
+
+/**
+ * @description 화면 닫힐때 변경사항 체크(입력 화면에서 변경되는 Dataset 체크 필요, 선택)
+ * @return {boolean} true(화면 닫음) / false(화면 닫지 않음)
+*/
+this.fnClose = function()
+{
+    return true;	
+};
+
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description 메세지 콜백
+ */
+this.fnMsgCallback = function (strId, strVal)
+{
+	if(strId == "msg.popup.nodata"){		// 해당하는 정보가 없어 팝업을 종료합니다.
+		this.gfnClosePopup("");
+	}
+};
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/**
+ * @description ViewTemplate 정보 생성
+*/
+this.fnMakeActionInfo = function()
+{
+	// Trigger Info 생성
+	this.fnSetTriggerInfo();
+	
+	// Action Property Info 생성
+	this.fnSetActionPropInfo();
+	
+	//
+	this.fnSetActionContentsInfo();
+	
+	this.resetScroll();
+};
+
+/**
+ * @description Trigger Info 생성
+*/
+this.fnSetTriggerInfo = function()
+{
+	var sTriggerInfo;
+	var oTriggerInfo, oAttrInfo, oAttr;
+	var nARow, nFRow, nACol, nFCol;
+	
+	sTriggerInfo = this.dsActionInfo.getColumn(0,"TRIGGER_INFO");
+	if (!this.gfnIsNull(sTriggerInfo))
+	{
+		oTriggerInfo = JSON.parse(sTriggerInfo);
+		oAttrInfo = oTriggerInfo["@attributes"];
+		
+		nARow = this.dsTriggerInfo.addRow();
+		
+		for (var oAttr in oAttrInfo)
+		{
+			sAttrId = oAttr;
+			sAttrValue = oAttrInfo[oAttr];
+			
+			if (sAttrId == "id")	continue;
+			
+			// 컬럼정보 없는 경우 컬럼 추가
+			nFCol = this.dsTriggerInfo.getColIndex(sAttrId);
+			if (nFCol== -1) {
+				nFCol = this.dsTriggerInfo.addColumn(sAttrId, "string");
+			}
+			
+			this.dsTriggerInfo.setColumn(nARow,nFCol,sAttrValue);
+		}
+		this.viwTriggerInfo.form.viewdataset.copyRow(0, this.dsTriggerInfo, 0);
+	}
+	else
+	{
+		//this.staTriggerInfo.set_visible(false);
+		//this.viwTriggerInfo.set_visible(false);
+	}
+};
+
+/**
+ * @description Action Property Info 생성
+*/
+this.fnSetActionPropInfo = function()
+{
+	var sActionPrpInfo;
+	var oActionPrpInfo, oAttrInfo, oAttr;
+	var nARow, nFRow, nACol, nFCol;
+	var sAttrId, sAttrValue;
+	
+	// Prop Value 컬럼 추가
+	nFCol = this.dsActionPrp.getColIndex("PROP_VALUE");
+	if (nFCol== -1)		this.dsActionPrp.addColumn("PROP_VALUE", "string");
+	
+	sActionPrpInfo = this.dsActionInfo.getColumn(0,"ACTION_PRP");
+	if (!this.gfnIsNull(sActionPrpInfo))
+	{
+		oActionPrpInfo = JSON.parse(sActionPrpInfo);
+		oAttrInfo = oActionPrpInfo["@attributes"];
+		
+		for (var oAttr in oAttrInfo)
+		{
+			sAttrId = oAttr;
+			sAttrValue = oAttrInfo[oAttr];
+			
+			if (sAttrId == "id")	continue;
+			
+			// Property Row 찾기
+			nFRow = this.dsActionPrp.findRow("PROP_ID",sAttrId);
+			if (nFRow < 0)		continue;
+		
+			this.dsActionPrp.setColumn(nFRow,"PROP_VALUE",sAttrValue);
+		}
+	}
+	
+	// 그리드 사이즈 조정
+	if (this.dsActionPrp.rowcount == 0) {
+		this.staProperty.set_visible(false);
+		this.grdProperty.set_visible(false);
+	} else {
+		this.staProperty.set_visible(true);
+		this.grdProperty.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdProperty);
+		this.grdProperty.set_height(nGrdHeight);
+	}
+};
+
+/**
+ * @description Action Property Info 생성
+*/
+this.fnSetActionContentsInfo = function()
+{
+	var sActionContentsInfo;
+	var oActionContentsInfo;
+	var oModelArg, oExtraArg;
+	var oAttrInfo, oAttr;
+	var nARow, nFRow, nACol, nFCol;
+	var sAttrId, sAttrValue;
+	var sViewId, sIOType, oFieldList, oField;
+	
+	sActionContentsInfo = this.dsActionInfo.getColumn(0,"ACTION_CONTENTS");
+	if (!this.gfnIsNull(sActionContentsInfo))
+	{
+		oActionContentsInfo = JSON.parse(sActionContentsInfo);
+		
+		oModelArg = oActionContentsInfo["model"];
+		oExtraArg = oActionContentsInfo["extra"];
+		
+		// Model Argument
+		for (var i = 0; i < oModelArg.length; i++)
+        {
+			oModel		= oModelArg[i];
+			
+			sViewId		= oModel["viewid"];
+			sModelId	= oModel["modelid"];
+			sIOType		= oModel["iotype"];
+			oFieldList	= oModel["fieldlist"];
+			
+			// View 정보 추가
+			nARow = this.dsModelArg.addRow();
+			this.dsModelArg.setColumn(nARow,"NAME",sViewId);
+			this.dsModelArg.setColumn(nARow,"LVL",0);
+			
+			for (var j = 0; j < oFieldList.length; j++)
+			{
+				oField = oFieldList[j];
+				
+				nARow = this.dsModelArg.addRow();
+				this.dsModelArg.setColumn(nARow,"NAME",oField["fieldid"]);
+				this.dsModelArg.setColumn(nARow,"VALUE",oField["value"]);
+				this.dsModelArg.setColumn(nARow,"LVL",1);
+				
+			}
+		}
+		
+		// User Argument
+		if (!this.gfnIsNull(oExtraArg))
+		{
+			// Model Argument
+			for (var i = 0; i < oExtraArg.length; i++)
+			{
+				oField = oExtraArg[i];
+				
+				nARow = this.dsUserArg.addRow();
+				this.dsUserArg.setColumn(nARow,"NAME",oField["name"]);
+				this.dsUserArg.setColumn(nARow,"VALUE",oField["value"]);
+			}
+		}
+
+	}
+	
+	// 그리드 사이즈 조정
+	if (this.dsModelArg.rowcount == 0) {
+		this.staModelArgument.set_visible(false);
+		this.grdModelArgument.set_visible(false);
+	} else {
+		this.staModelArgument.set_visible(true);
+		this.grdModelArgument.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdModelArgument);
+		this.grdModelArgument.set_height(nGrdHeight);
+	}
+	
+	if (this.dsUserArg.rowcount == 0) {
+		this.staUserArgument.set_visible(false);
+		this.grdUserArgument.set_visible(false);
+	} else {
+		this.staUserArgument.set_visible(true);
+		this.grdUserArgument.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdUserArgument);
+		this.grdUserArgument.set_height(nGrdHeight);
+	}
+};
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/]]></Script>
+  </Form>
+</FDL>

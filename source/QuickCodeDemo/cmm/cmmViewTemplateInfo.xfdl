@@ -1,12 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="cmmViewTemplateInfo" width="1050" height="710" titletext="ViewTemplate 정보" onload="form_onload">
+  <Form id="cmmViewTemplateInfo" width="1050" height="600" titletext="ViewTemplate 정보" onload="form_onload">
     <Layouts>
-      <Layout height="710" width="1050" type="default" flexwrap="wrap" verticalgap="5" horizontalgap="5" spacing="0px 10px 10px">
-        <Static id="staInfo" taborder="0" text="Model Info" left="0" top="0" height="30" cssclass="sta_WF_title02" width="100%"/>
-        <View id="viwModelInfo" taborder="1" text="viwModelInfo" left="0" top="40" height="40" width="100.00%" background="#e1e1e1"/>
-        <Static id="staInfo00_00" taborder="2" text="Field Data" left="0" top="89" height="30" cssclass="sta_WF_title02" width="100.00%"/>
-        <Grid id="grdFildAttr" taborder="3" left="0" top="125" width="100.00%" height="270" binddataset="dsVtFieldAtrList">
+      <Layout height="600" width="1050" type="default" flexwrap="wrap" verticalgap="5" horizontalgap="5" spacing="0px 10px 10px">
+        <Static id="staModelInfo" taborder="0" text="Model Info" left="0" top="0" height="30" cssclass="sta_WF_title02" width="100%"/>
+        <View id="viwModelInfo" taborder="1" text="viwModelInfo" top="staModelInfo:5" height="40" width="100%" left="0" viewdataset="viewdataset">
+          <Layouts>
+            <Layout>
+              <Static id="staModelIdBg" left="0" top="0" width="300" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staModelIdLabel" left="0" top="0" width="100" height="40" text="모델 ID" cssclass="sta_labelbox"/>
+              <Edit id="edtModelId" left="105" top="5" width="190" height="30" cssclass="com_View" readonly="true"/>
+              <Static id="staModelNmBg" left="299" top="0" width="300" height="40" cssclass="sta_fieldbox"/>
+              <Static id="staModelNmLabel" left="299" top="0" width="100" height="40" text="모델명" cssclass="sta_labelbox"/>
+              <Edit id="edtModelNm" left="404" top="5" width="190" height="30" cssclass="com_View" readonly="true"/>
+              <Static id="staFilePathBg" left="598" top="0" height="40" cssclass="sta_fieldbox" right="0"/>
+              <Static id="staFilePathLabel" left="598" top="0" width="100" height="40" text="파일 Path" cssclass="sta_labelbox"/>
+              <Edit id="edtFilePath" left="703" top="5" height="30" cssclass="com_View" readonly="true" right="5"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="MODEL_ID" type="STRING" size="80" description="모델 ID"/>
+                <Column id="MODEL_NM" type="STRING" size="80" description="모델명"/>
+                <Column id="FILE_PATH" type="STRING" size="80" description="파일 Path"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtModelId" compid="edtModelId" propid="value" datasetid="viewdataset" columnid="MODEL_ID"/>
+            <BindItem id="bind_edtModelNm" compid="edtModelNm" propid="value" datasetid="viewdataset" columnid="MODEL_NM"/>
+            <BindItem id="bind_edtFilePath" compid="edtFilePath" propid="value" datasetid="viewdataset" columnid="FILE_PATH"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="ModelInfo" filepath="demo\QuickCodeDemo\Comm.xmodel">
+            <Fields>
+              <Field id="MODEL_ID" description="" innerdatasetinfo="" comptype="auto" compwidth="200" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="MODEL_NM" description="" innerdatasetinfo="" comptype="auto" compwidth="200" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+              <Field id="FILE_PATH" description="" innerdatasetinfo="" comptype="auto" compwidth="250" compheight="40px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_labelbox" compreadonly="true" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="staModelIdBg" fields="MODEL_ID"/>
+              <Component id="staModelIdLabel" fields="MODEL_ID"/>
+              <Component id="edtModelId" fields="MODEL_ID"/>
+              <Component id="staModelNmBg" fields="MODEL_NM"/>
+              <Component id="staModelNmLabel" fields="MODEL_NM"/>
+              <Component id="edtModelNm" fields="MODEL_NM"/>
+              <Component id="staFilePathBg" fields="FILE_PATH"/>
+              <Component id="staFilePathLabel" fields="FILE_PATH"/>
+              <Component id="edtFilePath" fields="FILE_PATH"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\FreeformViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="useexpandbutton" value="none"/>
+            <Attribute id="usefieldbox" value="true"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="staFildAttr" taborder="2" text="Field Data" left="0" top="viwModelInfo:10" height="30" cssclass="sta_WF_title02" width="100%"/>
+        <Grid id="grdFildAttr" taborder="3" top="staFildAttr:5" height="198" binddataset="dsVtFieldAtrList" width="100%" left="0">
           <Formats>
             <Format id="default">
               <Columns>
@@ -46,8 +102,8 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="staInfo00" taborder="4" text="View Generration Attribute" left="0" top="425" height="30" cssclass="sta_WF_title02" width="100.00%"/>
-        <Grid id="grdViewAttr" taborder="5" left="0" top="465" width="100.00%" height="270" autofittype="col" binddataset="dsVtAtrList">
+        <Static id="staViewAttr" taborder="4" text="View Generration Attribute" left="0" top="grdFildAttr:10" height="30" cssclass="sta_WF_title02" width="100%"/>
+        <Grid id="grdViewAttr" taborder="5" top="staViewAttr:5" height="226" autofittype="col" binddataset="dsVtAtrList" width="100%" left="0">
           <Formats>
             <Format id="default">
               <Columns>
@@ -200,6 +256,7 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		this.objApp.gdsModel.filter("MODEL_SEQ==" + modelSeq);
 		this.dsModel.copyData(this.objApp.gdsModel, true);
 		this.objApp.gdsModel.filter("");
+		this.viwModelInfo.form.viewdataset.copyRow(0, this.dsModel, 0);
 		
 		// Model Field 정보 복사
 		this.objApp.gdsModelFld.filter("");
@@ -217,7 +274,7 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		this.fnMakeViewTemplateInfo();
 	} else {
 		//해당하는 정보가 없어 팝업을 종료합니다.
-		//this.gfnAlert("msg.popup.nodata");	
+		this.gfnAlert("msg.popup.nodata");	
 	}
 };
 
@@ -259,6 +316,8 @@ this.fnMakeViewTemplateInfo = function()
 	
 	// ViewAttribute 그리드 동적생성
 	this.fnSetViewAttribute();
+	
+	this.resetScroll();
 };
 
 /**
@@ -270,6 +329,7 @@ this.fnSetFieldAttribute = function()
 	var sFieldId, sAttrId, sAttrValue;
 	var nARow, nFRow, nACol, nFCol;
 	var oViewAttr, oAttrInfo;
+	var nGrdHeight = 0;
 	
 	// 초기화
 	this.dsVtFieldAtrList.clearData();
@@ -346,7 +406,20 @@ this.fnSetFieldAttribute = function()
 		}
 		this.dsVtFieldAtrList.set_rowposition(0);
 	}
+	
 	this.grdFildAttr.set_enableevent(true);
+	
+	// 그리드 사이즈 조정
+	if (this.dsVtFieldAtrList.rowcount == 0) {
+		this.staFildAttr.set_visible(false);
+		this.grdFildAttr.set_visible(false);
+	} else {
+		this.staFildAttr.set_visible(true);
+		this.grdFildAttr.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdFildAttr);
+		this.grdFildAttr.set_height(nGrdHeight);
+	}
 };
 
 /**
@@ -392,6 +465,18 @@ this.fnSetViewAttribute = function()
 		}
 		
 		this.dsVtAtrList.set_rowposition(0);
+	}
+	
+	// 그리드 사이즈 조정
+	if (this.dsVtAtrList.rowcount == 0) {
+		this.staViewAttr.set_visible(false);
+		this.grdViewAttr.set_visible(false);
+	} else {
+		this.staViewAttr.set_visible(true);
+		this.grdViewAttr.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdViewAttr);
+		this.grdViewAttr.set_height(nGrdHeight);
 	}
 	
 };

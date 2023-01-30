@@ -30,6 +30,9 @@ pForm.MARKER_TYPE = "text"; // 정렬 표시자 구분 (text or image)
 pForm.MARKER = ["▲", "▼"];// [오름차순표시, 내림차순표시]
 //cell copy and paste 시 chorme용 textarea 저장 object
 pForm.tragetGrid = "";
+
+pForm.HEAD_ROW_SIZE = 28;
+pForm.BODY_ROW_SIZE = 28;
 /**
  * @class Grid에 기능 추가
  * @param {Object} obj	- 대상그리드
@@ -2824,4 +2827,17 @@ pForm.gfnResetGridAppend = function(targetgrid, dataset)
 
 	// 페이징 정보 초기화
     targetgrid.appendDataset.setColumn(0, this.G_GRID_STARTROW, 0);
+};
+
+pForm.gfnGetGridRealRowFullSize = function(obj)
+{
+	var nSize = 0;
+	
+	nSize = obj.getRealRowFullSize();
+	
+	if (obj.hscrollbar && obj.hscrollbar.visible) {
+		nSize += obj.hscrollbar.trackbar.getOffsetHeight() + 3;
+	}
+	
+	return nSize;
 };

@@ -35,7 +35,7 @@
                           <Cell col="1" text="View Template ID"/>
                           <Cell col="2" text="View Template Name"/>
                           <Cell col="3" text="Model ID"/>
-                          <Cell col="4" text="MODEL Name"/>
+                          <Cell col="4" text="Model Name"/>
                         </Band>
                         <Band id="body">
                           <Cell text="bind:VIEW_ID"/>
@@ -547,7 +547,7 @@ this.fnGetActionList = function()
 								if (oObject.firstChild.tagName == "Contents")
 								{
 									if (oObject.firstChild.firstChild) {
-										this.dsAction.setColumn(nARow,"ACTION_CONTENTS",JSON.stringify(oObject.firstChild.firstChild.data));
+										this.dsAction.setColumn(nARow,"ACTION_CONTENTS",oObject.firstChild.firstChild.data);
 									}
 								}
 							}
@@ -556,7 +556,7 @@ this.fnGetActionList = function()
 								if (oObject.children[0].tagName == "Contents")
 								{
 									if (oObject.children[0].childNodes[0]) {
-										this.dsAction.setColumn(nARow,"ACTION_CONTENTS",JSON.stringify(oObject.children[0].childNodes[0].data));
+										this.dsAction.setColumn(nARow,"ACTION_CONTENTS",oObject.children[0].childNodes[0].data);
 									}
 								}
 							}
@@ -631,7 +631,7 @@ this.tabInfo_Tabpage1_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.G
 		var sPopupId	= "cmmViewTemplateInfo";
 		var sUrl		= "cmm::cmmViewTemplateInfo.xfdl";
 		var sCallBack	= "fnPopupCallback";
-		var oOption		= {title:"ViewTemplate - " + oDsBind.getColumn(nRow,"MODEL_ID"), width:1050, height:600};
+		var oOption		= {title:"ViewTemplate - " + oDsBind.getColumn(nRow,"VT_ID"), width:1050, height:600};
 		
 		var oParam		= {
 			  modelSeq	: oDsBind.getColumn(nRow,"MODEL_SEQ")
@@ -661,9 +661,33 @@ this.tabInfo_Tabpage2_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.
  */
 this.tabInfo_Tabpage2_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
 {
+	var oDsBind = obj.getBindDataset();
+	var nRow = e.row;
+	
 	if (obj.getBindCellIndex("body","ACTION_CLASS_ID") == e.cell)
 	{
-		alert("Action 정보");
+		// 현재 선택된 Row 데이터를 팝업으로 넘김
+		var oDsActionInfo = oDsBind.createDataset("dsActionInfoCur", this.gfnGetDatasetCols(oDsBind),"currow==" + nRow);
+		var sXML = "";
+		var sTitle = "";
+		
+		if (!this.gfnIsNull(oDsActionInfo))		sXML = oDsActionInfo.saveXML();
+		
+		sTitle	= "Action";
+		sTitle	+= " - " + oDsBind.getColumn(nRow,"ACTION_CLASS_ID");
+		sTitle	+= " (" + oDsBind.getColumn(nRow,"ACTION_ID") + ")";
+		
+		var sPopupId	= "cmmActionInfo";
+		var sUrl		= "cmm::cmmActionInfo.xfdl";
+		var sCallBack	= "fnPopupCallback";
+		var oOption		= {title:sTitle, width:1050, height:600};
+		
+		var oParam		= {
+			  actionSeq	: oDsBind.getColumn(nRow,"ACTION_SEQ")
+			, dataset	: sXML
+		};
+		
+		this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
 	}
 };]]></Script>
   </Form>
