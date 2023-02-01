@@ -2,7 +2,7 @@
 <FDL version="2.1">
   <Form id="cmmViewTemplateInfo" width="1050" height="600" titletext="ViewTemplate 정보" onload="form_onload">
     <Layouts>
-      <Layout height="600" width="1050" type="default" flexwrap="wrap" verticalgap="5" horizontalgap="5" spacing="0px 10px 10px">
+      <Layout height="600" width="1050" flexwrap="wrap" verticalgap="5" horizontalgap="5" spacing="0px 10px 10px">
         <Static id="staModelInfo" taborder="0" text="Model Info" left="0" top="0" height="30" cssclass="sta_WF_title02" width="100%"/>
         <View id="viwModelInfo" taborder="1" text="viwModelInfo" top="staModelInfo:5" height="40" width="100%" left="0" viewdataset="viewdataset">
           <Layouts>
@@ -413,6 +413,7 @@ this.fnSetFieldAttribute = function()
 	if (this.dsVtFieldAtrList.rowcount == 0) {
 		this.staFildAttr.set_visible(false);
 		this.grdFildAttr.set_visible(false);
+		
 	} else {
 		this.staFildAttr.set_visible(true);
 		this.grdFildAttr.set_visible(true);

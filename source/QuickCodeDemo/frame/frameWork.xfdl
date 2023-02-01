@@ -4,12 +4,12 @@
     <Layouts>
       <Layout width="1050" height="872">
         <Static id="Static03" taborder="0" text="h16" visible="false" left="1063" top="-1" width="33" height="22"/>
-        <Div id="divWork" taborder="1" left="0" top="32" right="10" bottom="10" border="1px none , 1px none , 1px none, 1px none" text="">
+        <Div id="divWork" taborder="1" left="10" top="35" right="0" bottom="10" border="1px none , 1px none , 1px none, 1px none" text="">
           <Layouts>
             <Layout/>
           </Layouts>
         </Div>
-        <Div id="divTitle" taborder="2" left="0" top="0" right="0" url="frame::frameWorkTitle.xfdl" width="" height="32" bottom="" border="1px none , 1px none , 1px solid gainsboro" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
+        <Div id="divTitle" taborder="2" left="0" top="0" right="0" url="frame::frameWorkTitle.xfdl" height="35" border="1px none , 1px none , 1px solid gainsboro" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
         <Static id="staLodingTime" taborder="3" top="7" width="425" height="17" font="normal bold 14px/normal &quot;Gulim&quot;,&quot;Arial&quot;" usedecorate="true" color="orangered" right="10" textAlign="right" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
       </Layout>
     </Layouts>
@@ -48,7 +48,23 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.fnSetOwnFrameArgu(this);
 	
 	// form로딩시 화면에 표시할 page URL 설정
-	this.divWork.set_url(this.gfnGetArgument("pageUrl"));
+	var sDivUrl = "";
+	var sMenuType = this.gfnGetArgument("menuType");
+	
+	if (sMenuType == "20")			// ViewTemplate
+	{
+		sDivUrl = "cmm::cmmViewTemplateManual.xfdl";
+	}
+	else if (sMenuType == "21")		// Action
+	{
+		sDivUrl = "cmm::cmmActionManual.xfdl";
+	}
+	else
+	{
+		sDivUrl = this.gfnGetArgument("pageUrl");
+	}
+		
+	this.divWork.set_url(sDivUrl);
 	this.form_onsize();		
 		
 	this.divTitle.form.set_scrollbartype("none")

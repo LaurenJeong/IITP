@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmActionManual" left="0" top="0" width="1040" height="800" onclose="form_onclose" onsize="form_onsize" onactivate="form_onactivate" onload="form_onload" onkeydown="form_onkeydown" titletext="Action Manual">
+    <Layouts>
+      <Layout width="1040" height="800">
+        <Static id="Static03" taborder="0" text="h16" visible="false" left="1063" top="-41" height="22" right="10"/>
+        <TextArea id="txaVtInfo" taborder="5" left="0" top="55" height="100" right="10" readonly="true"/>
+        <Static id="staTitle2" taborder="6" text="Action 사용예" left="0" top="txaVtInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Div id="divSample" taborder="1" left="0" top="staTitle2:5" right="10" border="1px none , 1px none , 1px none, 1px none" text="divSample" height="30">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Button id="Button01" taborder="2" text="Button01" left="322" top="-74" height="30" right="10"/>
+        <Static id="staTitle1" taborder="3" text="기능정의" left="0" top="0" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="staVtNm" taborder="4" left="0" top="30" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staActionProperty" taborder="7" text="Action Property" left="0" top="divSample:20" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionProperty" taborder="8" left="0" top="staActionProperty:5" height="101" right="10" binddataset="dsProperty" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="200"/>
+                <Column size="550"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staActionMethod" taborder="9" text="Action Method" left="0" top="grdActionProperty:20" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionMethod" taborder="10" left="0" top="staActionMethod:5" height="50" right="10" binddataset="dsMethod" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="250"/>
+                <Column size="250"/>
+                <Column size="400"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="함수명"/>
+                <Cell col="1" text="파라미터"/>
+                <Cell col="2" text="리턴값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:PARAM"/>
+                <Cell col="2" text="bind:RETURN"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staActionEvent" taborder="11" text="Action Event" left="0" top="grdActionMethod:20" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdActionEvent" taborder="12" left="0" top="staActionEvent:5" height="138" right="10" binddataset="dsEvent" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="200"/>
+                <Column size="150"/>
+                <Column size="550"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Event 명"/>
+                <Cell col="1" text="EventInfo"/>
+                <Cell col="2" text="EventInfo 상세"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID" suppress="1"/>
+                <Cell col="1" text="bind:TYPE" suppress="2"/>
+                <Cell col="2" text="bind:PROP"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsContents"/>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    frame > frameWorkMU_V
+*  @FileName 	frameWorkMU_V.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2018.02.22
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2018.02.22     		consulting	 	        최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = this.gfnGetApplication();
+
+this.fv_sampleUrl = "";
+this.fv_formContents = "";
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+/**
+ * form onload 함수
+ * @return 
+ * @example
+ * @memberOf 
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 파일정보 읽기
+	this.fv_sampleUrl = this.gfnGetArgument("pageUrl");
+	this.gfnGetReadFile(this.fv_sampleUrl, "dsContents", "getSource");
+};
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수(선택)
+*/
+this.fnCallback = function(svcID,errorCode,errorMsg)
+{
+	// 에러 시 화면 처리 내역
+	if(errorCode != 0)
+	{
+		return;
+	}
+	
+	switch(svcID)
+	{
+		case "getSource":
+			var sContents = this.dsContents.getColumn(0,"contents");
+			
+			//this.gfnLog("sContents : " + sContents);
+			
+			// Contents값을 기준으로 form Node 생성
+			this.fv_formNode = this.gfnGetFormContents(sContents);
+			
+			if (this.fv_formNode)
+			{
+				this.divSample.set_url(this.fv_sampleUrl);
+				
+				// 화면 사이즈 조절
+				this.divSample.set_minheight(this.fv_formNode.getAttribute("height"));
+				this.divSample.set_minwidth(this.fv_formNode.getAttribute("width"));
+				this.resetScroll();	
+				
+				// ViewTemplate 정보 표시
+				this.fnSetViewTemplateInfo();
+			}
+			break;
+	}
+};
+
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역(QuickCode Info)
+ ************************************************************************************************/
+/**
+ * @description ViewTemplate 정보 표시
+ */
+this.fnSetViewTemplateInfo = function() 
+{
+	
+};]]></Script>
+  </Form>
+</FDL>

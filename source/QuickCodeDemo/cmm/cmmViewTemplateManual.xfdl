@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmViewTemplateManual" left="0" top="0" width="1040" height="800" onclose="form_onclose" onsize="form_onsize" onactivate="form_onactivate" onload="form_onload" onkeydown="form_onkeydown" titletext="ViewTemplate Manual">
+    <Layouts>
+      <Layout width="1040" height="800">
+        <Static id="Static03" taborder="0" text="h16" visible="false" left="1063" top="-41" height="22" right="10"/>
+        <TextArea id="txaVtInfo" taborder="5" left="0" top="55" height="100" right="10" readonly="true"/>
+        <Static id="staTitle2" taborder="10" text="ViewTemplate 사용예" left="0" top="txaVtInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Div id="divSample" taborder="1" left="0" top="staTitle2:5" right="10" border="1px none , 1px none , 1px none, 1px none" text="divSample" height="30">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Button id="Button01" taborder="2" text="Button01" left="322" top="-74" height="30" right="10"/>
+        <Static id="staTitle1" taborder="3" text="기능정의" left="0" top="0" height="30" cssclass="sta_WF_title01" right="10"/>
+        <Static id="staVtNm" taborder="4" left="0" top="30" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staFieldUserAttribute" taborder="8" text="Field User Attribute" left="0" top="divSample:20" height="30" cssclass="sta_WF_title01" right="10"/>
+        <Grid id="grdFieldUserAttribute" taborder="9" left="0" top="staFieldUserAttribute:5" height="204" right="10" binddataset="dsVtAtrField" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ATTRB_ID"/>
+                <Cell col="1" text="bind:EDIT_TYPE_NM"/>
+                <Cell col="2" text="bind:EDIT_TYPE_VALUE"/>
+                <Cell col="3" text="bind:ATTRB_DESC" wordWrap="english"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staViewAttribute" taborder="6" text="View Attribute" left="0" top="grdFieldUserAttribute:20" height="30" cssclass="sta_WF_title01" right="10"/>
+        <Grid id="grdViewAttribute" taborder="7" left="0" top="staViewAttribute:5" height="208" right="10" binddataset="dsVtAtrView" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ATTRB_ID"/>
+                <Cell col="1" text="bind:EDIT_TYPE_NM"/>
+                <Cell col="2" text="bind:EDIT_TYPE_VALUE"/>
+                <Cell col="3" text="bind:ATTRB_DESC" wordWrap="english"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsContents"/>
+      <Dataset id="dsVt">
+        <ColumnInfo>
+          <Column id="VT_SEQ" type="INT" size="256"/>
+          <Column id="VT_ID" type="STRING" size="256"/>
+          <Column id="VT_PATH" type="STRING" size="256"/>
+          <Column id="VT_NM" type="STRING" size="256"/>
+          <Column id="VT_INFO" type="STRING" size="256"/>
+          <Column id="VT_DESC" type="STRING" size="256"/>
+          <Column id="VT_KWRD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsVtAtrField">
+        <ColumnInfo>
+          <Column id="VT_SEQ" type="INT" size="256"/>
+          <Column id="ATTRB_TYPE" type="STRING" size="256"/>
+          <Column id="ATTRB_TYPE_NM" type="STRING" size="256"/>
+          <Column id="ATTRB_ID" type="STRING" size="256"/>
+          <Column id="UP_ATTRB_ID" type="STRING" size="256"/>
+          <Column id="ATTRB_LVL" type="INT" size="256"/>
+          <Column id="EDIT_TYPE" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="ENUM_CD" type="STRING" size="256"/>
+          <Column id="DFLT_VALUE" type="STRING" size="256"/>
+          <Column id="ATTRB_DESC" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsVtAtrView">
+        <ColumnInfo>
+          <Column id="VT_SEQ" type="INT" size="256"/>
+          <Column id="ATTRB_TYPE" type="STRING" size="256"/>
+          <Column id="ATTRB_TYPE_NM" type="STRING" size="256"/>
+          <Column id="ATTRB_ID" type="STRING" size="256"/>
+          <Column id="UP_ATTRB_ID" type="STRING" size="256"/>
+          <Column id="ATTRB_LVL" type="INT" size="256"/>
+          <Column id="EDIT_TYPE" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="ENUM_CD" type="STRING" size="256"/>
+          <Column id="DFLT_VALUE" type="STRING" size="256"/>
+          <Column id="ATTRB_DESC" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    frame > frameWorkMU_V
+*  @FileName 	frameWorkMU_V.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2018.02.22
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2018.02.22     		consulting	 	        최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = this.gfnGetApplication();
+
+this.fv_vtSeq;
+this.fv_sampleUrl = "";
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+/**
+ * form onload 함수
+ * @return 
+ * @example
+ * @memberOf 
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var sMenuParam	= this.gfnGetMenuParam("menuParam");
+	
+	if (this.gfnIsNull(sMenuParam)) {						// 팝업으로 메뉴얼 클릭
+		this.fv_vtSeq		= this.gfnGetMenuParam("vtSeq");
+		this.fv_sampleUrl	= this.gfnGetMenuParam("sampleUrl");
+	} else {												// 메뉴에서 메뉴얼 클릭
+		var oMenuParam	= JSON.parse(sMenuParam);
+		this.fv_vtSeq		= oMenuParam["vtSeq"];
+		this.fv_sampleUrl	= this.gfnGetArgument("pageUrl");
+	}
+	
+	// 샘플 파일정보 읽기
+	if (!this.gfnIsNull(this.fv_sampleUrl)) {
+		this.gfnGetReadFile(this.fv_sampleUrl, "dsContents", "getSource");
+	} else {
+		//this.staTitle2.set_visible(false);
+		//this.divSample.set_visible(false);
+		this.staTitle2.set_height(0);
+		this.divSample.set_height(0);
+	}
+	
+	// 메뉴얼 정보셋팅
+	this.fnSetViewTemplateInfo();
+};
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수(선택)
+*/
+this.fnCallback = function(svcID,errorCode,errorMsg)
+{
+	// 에러 시 화면 처리 내역
+	if(errorCode != 0)
+	{
+		return;
+	}
+	
+	switch(svcID)
+	{
+		case "getSource":
+			var sContents = this.dsContents.getColumn(0,"contents");
+			
+			//this.gfnLog("sContents : " + sContents);
+			
+			// Contents값을 기준으로 form Node 생성
+			this.fv_formNode = this.gfnGetFormContents(sContents);
+			
+			if (this.fv_formNode)
+			{
+				this.divSample.set_url(this.fv_sampleUrl);
+				
+				// 화면 사이즈 조절
+				this.divSample.set_minheight(this.fv_formNode.getAttribute("height"));
+				this.divSample.set_minwidth(this.fv_formNode.getAttribute("width"));
+				this.resetScroll();	
+			}
+			break;
+	}
+};
+
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역(QuickCode Info)
+ ************************************************************************************************/
+/**
+ * @description ViewTemplate 정보 표시
+ */
+this.fnSetViewTemplateInfo = function() 
+{
+	var nGrdHeight;
+	
+	// ViewTemplate 정보
+	this.objApp.gdsVt.filter("");
+	this.objApp.gdsVt.filter("VT_SEQ==" + this.fv_vtSeq);
+	this.dsVt.copyData(this.objApp.gdsVt, true);
+	this.objApp.gdsVt.filter("");
+	
+	// ViewTemplate Attr 정보 복사
+	this.objApp.gdsVtAtr.filter("");
+	this.objApp.gdsVtAtr.filter("VT_SEQ==" + this.fv_vtSeq + " && ATTRB_TYPE=='20'");
+	this.dsVtAtrField.copyData(this.objApp.gdsVtAtr, true);
+	this.objApp.gdsVtAtr.filter("");
+	
+	// ViewTemplate Attr 정보 복사
+	this.objApp.gdsVtAtr.filter("");
+	this.objApp.gdsVtAtr.filter("VT_SEQ==" + this.fv_vtSeq + " && ATTRB_TYPE=='10'");
+	this.dsVtAtrView.copyData(this.objApp.gdsVtAtr, true);
+	this.objApp.gdsVtAtr.filter("");
+	
+	// 그리드 사이즈 조정
+	if (this.dsVtAtrField.rowcount == 0) {
+		this.staFieldUserAttribute.set_visible(false);
+		this.grdFieldUserAttribute.set_visible(false);
+		
+	} else {
+		this.staFieldUserAttribute.set_visible(true);
+		this.grdFieldUserAttribute.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdFieldUserAttribute);
+		this.grdFieldUserAttribute.set_height(nGrdHeight);
+	}
+	
+	if (this.dsVtAtrView.rowcount == 0) {
+		this.staViewAttribute.set_visible(false);
+		this.grdViewAttribute.set_visible(false);
+		
+	} else {
+		this.staViewAttribute.set_visible(true);
+		this.grdViewAttribute.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdViewAttribute);
+		this.grdViewAttribute.set_height(nGrdHeight);
+	}
+	
+	this.resetScroll();
+};]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="staVtNm" propid="text" datasetid="dsVt" columnid="VT_NM"/>
+      <BindItem id="item1" compid="txaVtInfo" propid="value" datasetid="dsVt" columnid="VT_INFO"/>
+    </Bind>
+  </Form>
+</FDL>

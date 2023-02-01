@@ -107,6 +107,7 @@
           <Col id="MENU_YN">Y</Col>
           <Col id="MENU_KWRD">FreeformViewTemplate|Freeform|단건|기본</Col>
           <Col id="WORK_URL">frame::frameWork.xfdl</Col>
+          <Col id="MENU_PARAM">{"vtSeq": 1}</Col>
         </Row>
         <Row>
           <Col id="MENU_GRP_CD">MU</Col>
@@ -1369,6 +1370,7 @@
         <Column id="VT_ID" type="STRING" size="256"/>
         <Column id="VT_PATH" type="STRING" size="256"/>
         <Column id="VT_NM" type="STRING" size="256"/>
+        <Column id="VT_INFO" type="STRING" size="256"/>
         <Column id="VT_DESC" type="STRING" size="256"/>
         <Column id="VT_KWRD" type="STRING" size="256"/>
       </ColumnInfo>
@@ -1378,6 +1380,11 @@
           <Col id="VT_ID">FreeformViewTemplate</Col>
           <Col id="VT_PATH">Asset\FreeformViewTemplate.xviewgen</Col>
           <Col id="VT_NM">단건 데이터를 표시하기 위한 Freeform 영역을 구성하기 위한 ViewTemplate</Col>
+          <Col id="VT_INFO">- 하나의 필드는 레이블(Static) + 컴포넌트로 구성
+- direction, halign, valign 속성에 설정된 값으로 Field가 순서대로 배치되어 생성됨.
+- titletext 값을 입력하여 Title영역을 생성할 수 있으며, useexpandbutton 속성값을 설정하여 View를 접기/펼치기 기능 제공
+- format 속성을 활용하여 여러 개의 필드를 하나의 영역에 표현할 경우(ex. 주소 : 우편번호, 주소, 상세주소), 
+  mergelabel 속성을 “true”로 설정하여, 1:N으로 레이블(Static) + 컴포넌트로 표현 할 수 있습니다. (레이블은 첫 번째 필드의 레이블정보로 표현)</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">2</Col>

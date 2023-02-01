@@ -363,8 +363,6 @@ pForm.gfnNewSdi = function(sMenuId, oArgs)
 	var gdsMenu  = objApp.gdsMenu;
 	
 	var nFRow    = gdsMenu.findRow(this.FRAME_MENUCOLUMNS.menuId, sMenuId);
-	var sPageUrl = gdsMenu.lookupAs(this.FRAME_MENUCOLUMNS.menuId, sMenuId, this.FRAME_MENUCOLUMNS.pageUrl);
-	var sGroupId = gdsMenu.lookupAs(this.FRAME_MENUCOLUMNS.menuId, sMenuId, this.FRAME_MENUCOLUMNS.groupId);
 	
 	if (nFRow < 0) 
 	{
@@ -372,6 +370,9 @@ pForm.gfnNewSdi = function(sMenuId, oArgs)
 		this.gfnAlert("msg.nomenu");
 		return false;
 	}
+	
+	var sPageUrl = gdsMenu.getColumn(nFRow, this.FRAME_MENUCOLUMNS.pageUrl);
+	var sGroupId = gdsMenu.getColumn(nFRow, this.FRAME_MENUCOLUMNS.groupId);
 	
 	//pageURl 이 없으면 return
 	if(this.gfnIsNull(sPageUrl)) return;
@@ -395,9 +396,9 @@ pForm.gfnNewSdi = function(sMenuId, oArgs)
 	if (sNowLang != "KO") 
 		sColumn = sColumn+sNowLang;
 	
-	var sMenuNm		= objApp.gdsMenu.getColumn(nFRow, sColumn);
-	var sMenuType	= objApp.gdsMenu.getColumn(nFRow, this.FRAME_MENUCOLUMNS.menuType);
-	var sMenuArgs	= objApp.gdsMenu.getColumn(nFRow, this.FRAME_MENUCOLUMNS.menuArgs);
+	var sMenuNm		= gdsMenu.getColumn(nFRow, sColumn);
+	var sMenuType	= gdsMenu.getColumn(nFRow, this.FRAME_MENUCOLUMNS.menuType);
+	var sMenuArgs	= gdsMenu.getColumn(nFRow, this.FRAME_MENUCOLUMNS.menuArgs);
 	
 	// 메뉴에 따라 frameWork 다르게 적용
 	var sWorkUrl	= this.gfnNvl(objApp.gdsMenu.getColumn(nFRow, this.FRAME_MENUCOLUMNS.workUrl),"frame::frameWork.xfdl");
@@ -415,6 +416,7 @@ pForm.gfnNewSdi = function(sMenuId, oArgs)
  	objNewWin.arguments["menuId" ] = sMenuId;
  	objNewWin.arguments["menuNm" ] = sMenuNm;
  	objNewWin.arguments["pageUrl"] = sPageUrl;
+	objNewWin.arguments["menuType"] = sMenuType;
  	objNewWin.arguments["oArgs"	 ] = oArgs;
 	
 	objNewWin.set_url(sWorkUrl);	

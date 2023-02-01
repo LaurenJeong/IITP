@@ -2,7 +2,7 @@
 <FDL version="2.1">
   <Form id="cmmActionInfo" width="1050" height="600" titletext="Action 정보" onload="form_onload">
     <Layouts>
-      <Layout height="600" width="1050" type="default" flexwrap="wrap" verticalgap="5" horizontalgap="5" spacing="0px 10px 10px">
+      <Layout height="600" width="1050" flexwrap="wrap" verticalgap="5" horizontalgap="5" spacing="0px 10px 10px">
         <Static id="staTriggerInfo" taborder="0" text="Trigger Info" left="0" top="0" height="30" cssclass="sta_WF_title02" width="100%"/>
         <View id="viwTriggerInfo" taborder="1" text="viwModelInfo" top="staTriggerInfo:5" height="40" width="100%" left="0" viewdataset="viewdataset">
           <Layouts>
@@ -328,8 +328,8 @@ this.fnSetTriggerInfo = function()
 	}
 	else
 	{
-		//this.staTriggerInfo.set_visible(false);
-		//this.viwTriggerInfo.set_visible(false);
+		this.staTriggerInfo.set_visible(false);
+		this.viwTriggerInfo.set_visible(false);
 	}
 };
 

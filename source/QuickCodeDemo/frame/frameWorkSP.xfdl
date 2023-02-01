@@ -4,14 +4,14 @@
     <Layouts>
       <Layout width="1050" height="872">
         <Static id="Static03" taborder="0" text="h16" visible="false" left="1063" top="-1" width="33" height="22"/>
-        <Div id="divWork" taborder="1" left="0" top="32" right="10" border="1px none , 1px none , 1px none, 1px none" text="" height="30">
+        <Div id="divWork" taborder="1" left="10" top="35" right="10" border="1px none , 1px none , 1px none, 1px none" text="divWork" height="30">
           <Layouts>
             <Layout/>
           </Layouts>
         </Div>
-        <Div id="divTitle" taborder="2" left="0" top="0" right="0" url="frame::frameWorkTitle.xfdl" width="" height="32" bottom="" border="1px none , 1px none , 1px solid gainsboro" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
+        <Div id="divTitle" taborder="2" left="0" top="0" right="0" url="frame::frameWorkTitle.xfdl" height="35" border="1px none , 1px none , 1px solid gainsboro" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
         <Static id="staLodingTime" taborder="3" top="7" width="425" height="17" font="normal bold 14px/normal &quot;Gulim&quot;,&quot;Arial&quot;" usedecorate="true" color="orangered" right="10" textAlign="right" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
-        <Tab id="tabInfo" taborder="4" tabindex="0" left="0" top="divWork:20" right="10" bottom="10">
+        <Tab id="tabInfo" taborder="4" tabindex="0" left="10" top="divWork:20" right="10" bottom="10">
           <Tabpages>
             <Tabpage id="Tabpage1" text="View Info">
               <Layouts>
@@ -594,11 +594,28 @@ this.fnGetActionList = function()
  */
 this.tabInfo_Tabpage1_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
+	var oDsBind = obj.getBindDataset();
+	var nRow = e.row;
+	
 	if (e.clickitem != "expandbutton")
 	{
 		if (obj.getBindCellIndex("body","VT_ID") == e.cell)
 		{
-			alert("ViewTemplate 메뉴얼");
+			var sVtSeq		= oDsBind.getColumn(nRow,"VT_SEQ");
+			var sSampleUrl	= this.objApp.gdsMenu.lookup(this.FRAME_MENUCOLUMNS.menuArgs,'{"vtSeq": '+ sVtSeq +'}', this.FRAME_MENUCOLUMNS.pageUrl);
+			
+			
+			var sPopupId	= "cmmViewTemplateManual";
+			var sUrl		= "cmm::cmmViewTemplateManual.xfdl";
+			var sCallBack	= "fnPopupCallback";
+			var oOption		= {title:"Manual - " + oDsBind.getColumn(nRow,"VT_ID"), width:1050, height:600};
+			
+			var oParam		= {
+				  vtSeq		: sVtSeq
+				, sampleUrl	: sSampleUrl
+			};
+			
+			this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
 		}
 	}
 };
