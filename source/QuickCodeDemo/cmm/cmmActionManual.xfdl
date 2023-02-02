@@ -4,18 +4,18 @@
     <Layouts>
       <Layout width="1040" height="800">
         <Static id="Static03" taborder="0" text="h16" visible="false" left="1063" top="-41" height="22" right="10"/>
-        <TextArea id="txaVtInfo" taborder="5" left="0" top="55" height="100" right="10" readonly="true"/>
-        <Static id="staTitle2" taborder="6" text="Action 사용예" left="0" top="txaVtInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <TextArea id="txaActionInfo" taborder="5" left="0" top="55" height="100" right="10" readonly="true"/>
+        <Static id="staTitle2" taborder="6" text="Action 사용예" left="0" top="txaActionInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
         <Div id="divSample" taborder="1" left="0" top="staTitle2:5" right="10" border="1px none , 1px none , 1px none, 1px none" text="divSample" height="30">
           <Layouts>
             <Layout/>
           </Layouts>
         </Div>
         <Button id="Button01" taborder="2" text="Button01" left="322" top="-74" height="30" right="10"/>
-        <Static id="staTitle1" taborder="3" text="기능정의" left="0" top="0" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Static id="staVtNm" taborder="4" left="0" top="30" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <Static id="staActionProperty" taborder="7" text="Action Property" left="0" top="divSample:20" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdActionProperty" taborder="8" left="0" top="staActionProperty:5" height="101" right="10" binddataset="dsProperty" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Static id="staTitle1" taborder="3" text="기능정의" left="0" top="0" height="30" cssclass="sta_WF_title01" right="10"/>
+        <Static id="staActionNm" taborder="4" left="0" top="30" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <Static id="staActionProperty" taborder="7" text="Action Property" left="0" top="divSample:20" height="30" cssclass="sta_WF_title01" right="10"/>
+        <Grid id="grdActionProperty" taborder="8" left="0" top="staActionProperty:5" height="101" right="10" binddataset="dsActionPrp" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -25,8 +25,8 @@
                 <Column size="550"/>
               </Columns>
               <Rows>
-                <Row size="24" band="head"/>
-                <Row size="24"/>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
               </Rows>
               <Band id="head">
                 <Cell text="Property 명"/>
@@ -35,16 +35,20 @@
                 <Cell col="3" text="설명"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:ID"/>
-                <Cell col="1" text="bind:TYPE"/>
+                <Cell text="bind:PROP_ID"/>
+                <Cell col="1" text="bind:EDIT_TYPE_NM"/>
                 <Cell col="2" text="bind:TYPE_VALUE"/>
-                <Cell col="3" text="bind:DESCPTION"/>
+                <Cell col="3" text="bind:ATTRB_DESC"/>
               </Band>
             </Format>
           </Formats>
         </Grid>
-        <Static id="staActionMethod" taborder="9" text="Action Method" left="0" top="grdActionProperty:20" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdActionMethod" taborder="10" left="0" top="staActionMethod:5" height="50" right="10" binddataset="dsMethod" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Static id="staModelArugment" taborder="9" text="Model Arugment 정보" left="0" top="grdActionProperty:20" height="30" cssclass="sta_WF_title01" right="10"/>
+        <TextArea id="txaModelArugment" taborder="10" left="0" top="staModelArugment:5" height="60" right="10"/>
+        <Static id="staUserArgument" taborder="11" text="User Defined(Extra) Argument 정보" left="0" top="txaModelArugment:20" height="30" cssclass="sta_WF_title01" right="10"/>
+        <TextArea id="txaUserArgument" taborder="12" left="0" top="staUserArgument:5" height="60" right="10"/>
+        <Static id="staActionMethod" taborder="13" text="Action Method" left="0" top="txaUserArgument:20" height="30" cssclass="sta_WF_title01" right="10"/>
+        <Grid id="grdActionMethod" taborder="14" left="0" top="staActionMethod:5" height="58" right="10" binddataset="dsActionMtd" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -54,8 +58,8 @@
                 <Column size="400"/>
               </Columns>
               <Rows>
-                <Row size="24" band="head"/>
-                <Row size="24"/>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
               </Rows>
               <Band id="head">
                 <Cell text="함수명"/>
@@ -64,16 +68,16 @@
                 <Cell col="3" text="설명"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:ID"/>
-                <Cell col="1" text="bind:PARAM"/>
-                <Cell col="2" text="bind:RETURN"/>
-                <Cell col="3" text="bind:DESCPTION"/>
+                <Cell text="bind:METHOD_ID"/>
+                <Cell col="1" text="bind:PARM_ID"/>
+                <Cell col="2" text="bind:RETURN_TYPE_NM"/>
+                <Cell col="3" text="bind:METHOD_DESC"/>
               </Band>
             </Format>
           </Formats>
         </Grid>
-        <Static id="staActionEvent" taborder="11" text="Action Event" left="0" top="grdActionMethod:20" height="30" cssclass="sta_WF_title02" right="10"/>
-        <Grid id="grdActionEvent" taborder="12" left="0" top="staActionEvent:5" height="138" right="10" binddataset="dsEvent" autofittype="col" autosizingtype="row" extendsizetype="row">
+        <Static id="staActionEvent" taborder="15" text="Action Event" left="0" top="grdActionMethod:20" height="30" cssclass="sta_WF_title01" right="10"/>
+        <Grid id="grdActionEvent" taborder="16" left="0" top="staActionEvent:5" height="138" right="10" binddataset="dsActionEvt" autofittype="col" autosizingtype="row" extendsizetype="row">
           <Formats>
             <Format id="default">
               <Columns>
@@ -83,8 +87,8 @@
                 <Column size="550"/>
               </Columns>
               <Rows>
-                <Row size="24" band="head"/>
-                <Row size="24"/>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
               </Rows>
               <Band id="head">
                 <Cell text="Event 명"/>
@@ -93,10 +97,10 @@
                 <Cell col="3" text="설명"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:ID" suppress="1"/>
-                <Cell col="1" text="bind:TYPE" suppress="2"/>
-                <Cell col="2" text="bind:PROP"/>
-                <Cell col="3" text="bind:DESCPTION"/>
+                <Cell text="bind:EVENT_ID" suppress="1"/>
+                <Cell col="1" text="bind:EVTINFO_ID" suppress="2"/>
+                <Cell col="2" text="bind:PARM_ID"/>
+                <Cell col="3" text="bind:EVENT_DESC"/>
               </Band>
             </Format>
           </Formats>
@@ -105,6 +109,53 @@
     </Layouts>
     <Objects>
       <Dataset id="dsContents"/>
+      <Dataset id="dsAction">
+        <ColumnInfo>
+          <Column id="ACTION_SEQ" type="INT" size="256"/>
+          <Column id="ACTION_ID" type="STRING" size="256"/>
+          <Column id="ACTION_NM" type="STRING" size="256"/>
+          <Column id="ACTION_INFO" type="STRING" size="256"/>
+          <Column id="ACTION_DESC" type="STRING" size="256"/>
+          <Column id="MODEL_ARG_DESC" type="STRING" size="256"/>
+          <Column id="USER_ARG_DESC" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsActionPrp">
+        <ColumnInfo>
+          <Column id="ACTION_SEQ" type="STRING" size="256"/>
+          <Column id="PROP_ID" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
+          <Column id="PROP_VALUE" type="STRING" size="256"/>
+          <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
+          <Column id="ENUM_CD" type="STRING" size="256"/>
+          <Column id="DFLT_VALUE" type="STRING" size="256"/>
+          <Column id="PROP_DESC" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsActionMtd">
+        <ColumnInfo>
+          <Column id="ACTION_SEQ" type="STRING" size="256"/>
+          <Column id="METHOD_ID" type="STRING" size="256"/>
+          <Column id="PARM_ID" type="STRING" size="256"/>
+          <Column id="RETURN_TYPE" type="STRING" size="256"/>
+          <Column id="RETURN_TYPE_NM" type="STRING" size="256"/>
+          <Column id="METHOD_DESC" type="STRING" size="256"/>
+          <Column id="METHOD_LVL" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsActionEvt">
+        <ColumnInfo>
+          <Column id="ACTION_SEQ" type="STRING" size="256"/>
+          <Column id="EVENT_ID" type="STRING" size="256"/>
+          <Column id="EVTINFO_ID" type="STRING" size="256"/>
+          <Column id="PARM_ID" type="STRING" size="256"/>
+          <Column id="RETURN_TYPE" type="STRING" size="256"/>
+          <Column id="RETURN_TYPE_NM" type="STRING" size="256"/>
+          <Column id="EVENT_DESC" type="STRING" size="256"/>
+          <Column id="EVENT_LVL" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[/**
 *  컨설팅 표준화 작업
@@ -125,8 +176,8 @@
  ************************************************************************************************/
 this.objApp = this.gfnGetApplication();
 
+this.fv_actionSeq;
 this.fv_sampleUrl = "";
-this.fv_formContents = "";
 /***********************************************************************************************
 * FORM EVENT 영역(onload)
 /***********************************************************************************************/
@@ -138,9 +189,31 @@ this.fv_formContents = "";
  */
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	// 파일정보 읽기
-	this.fv_sampleUrl = this.gfnGetArgument("pageUrl");
-	this.gfnGetReadFile(this.fv_sampleUrl, "dsContents", "getSource");
+	var sMenuParam	= this.gfnGetMenuParam("menuParam");
+	
+	if (this.gfnIsNull(sMenuParam)) {						// 팝업으로 메뉴얼 클릭
+		this.fv_actionSeq	= this.gfnGetMenuParam("actionSeq");
+		this.fv_sampleUrl	= this.gfnGetMenuParam("sampleUrl");
+	} else {												// 메뉴에서 메뉴얼 클릭
+		var oMenuParam	= JSON.parse(sMenuParam);
+		this.fv_actionSeq	= oMenuParam["actionSeq"];
+		this.fv_sampleUrl	= this.gfnGetArgument("pageUrl");
+	}
+	
+	// 샘플 파일정보 읽기
+	if (!this.gfnIsNull(this.fv_sampleUrl)) {
+		this.gfnGetReadFile(this.fv_sampleUrl, "dsContents", "getSource");
+	} else {
+		//this.staTitle2.set_visible(false);
+		//this.divSample.set_visible(false);
+		this.staTitle2.set_height(0);
+		this.divSample.set_height(0);
+	}
+	
+	this.gfnLog("fv_actionSeq : " + this.fv_actionSeq + " / fv_sampleUrl : " + this.fv_sampleUrl);
+	
+	// 메뉴얼 정보셋팅
+	this.fnSetActionInfo();
 };
 
 /************************************************************************************************
@@ -175,9 +248,6 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 				this.divSample.set_minheight(this.fv_formNode.getAttribute("height"));
 				this.divSample.set_minwidth(this.fv_formNode.getAttribute("width"));
 				this.resetScroll();	
-				
-				// ViewTemplate 정보 표시
-				this.fnSetViewTemplateInfo();
 			}
 			break;
 	}
@@ -190,16 +260,91 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 /************************************************************************************************
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
-
+/**
+ * @description	데이터 기준 그리드 사이즈
+*/
+this.fnSetGridSize = function(objGrid, objTitle)
+{
+	var objBindDs = objGrid.getBindDataset();
+	
+	if (objBindDs.rowcount == 0) {
+		if (!this.gfnIsNull(objTitle))	objTitle.set_visible(false);
+		objGrid.set_visible(false);
+		
+	} else {
+		if (!this.gfnIsNull(objTitle))	objTitle.set_visible(true);
+		objGrid.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(objGrid);
+		objGrid.set_height(nGrdHeight);
+	}
+};
 /************************************************************************************************
  * 사용자 FUNCTION 영역(QuickCode Info)
  ************************************************************************************************/
 /**
- * @description ViewTemplate 정보 표시
+ * @description Action 정보 표시
  */
-this.fnSetViewTemplateInfo = function() 
+this.fnSetActionInfo = function() 
 {
+	var nGrdHeight;
 	
-};]]></Script>
+	// Action 정보
+	this.objApp.gdsAction.filter("");
+	this.objApp.gdsAction.filter("ACTION_SEQ==" + this.fv_actionSeq);
+	this.dsAction.copyData(this.objApp.gdsAction, true);
+	this.objApp.gdsAction.filter("");
+	
+	// Action Property 정보 복사
+	this.objApp.gdsActionPrp.filter("");
+	this.objApp.gdsActionPrp.filter("ACTION_SEQ==" + this.fv_actionSeq);
+	this.dsActionPrp.copyData(this.objApp.gdsActionPrp, true);
+	this.objApp.gdsActionPrp.filter("");
+	
+	// Model Arugment 정보
+	if (this.gfnIsNull(this.dsAction.getColumn(0,"MODEL_ARG_DESC"))) {
+		//this.staModelArugment.set_visible(false);
+		//this.txaModelArugment.set_visible(false);
+		this.staModelArugment.set_height(0);
+		this.txaModelArugment.set_height(0);
+	}
+	
+	// User Defined(Extra) Argument 정보
+	if (this.gfnIsNull(this.dsAction.getColumn(0,"USER_ARG_DESC"))) {
+		//this.staUserArgument.set_visible(false);
+		//this.txaUserArgument.set_visible(false);
+		this.staUserArgument.set_height(0);
+		this.txaUserArgument.set_height(0);
+	}
+	
+	// Action Method 정보 복사
+	this.objApp.gdsActionMtd.filter("");
+	this.objApp.gdsActionMtd.filter("ACTION_SEQ==" + this.fv_actionSeq);
+	this.dsActionMtd.copyData(this.objApp.gdsActionMtd, true);
+	this.objApp.gdsActionMtd.filter("");
+	
+	// Action Event 정보 복사
+	this.objApp.gdsActionEvt.filter("");
+	this.objApp.gdsActionEvt.filter("ACTION_SEQ==" + this.fv_actionSeq);
+	this.dsActionEvt.copyData(this.objApp.gdsActionEvt, true);
+	this.objApp.gdsActionEvt.filter("");
+	
+	// 그리드 사이즈 조정
+	this.fnSetGridSize(this.grdActionProperty, this.staActionProperty);
+	this.fnSetGridSize(this.grdActionMethod, this.staActionMethod);
+	this.fnSetGridSize(this.grdActionEvent, this.staActionEvent);
+	
+	this.resetScroll();	
+};
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="staActionNm" propid="text" datasetid="dsAction" columnid="ACTION_NM"/>
+      <BindItem id="item1" compid="txaActionInfo" propid="value" datasetid="dsAction" columnid="ACTION_INFO"/>
+      <BindItem id="item2" compid="txaModelArugment" propid="value" datasetid="dsAction" columnid="MODEL_ARG_DESC"/>
+      <BindItem id="item3" compid="txaUserArgument" propid="value" datasetid="dsAction" columnid="USER_ARG_DESC"/>
+    </Bind>
   </Form>
 </FDL>

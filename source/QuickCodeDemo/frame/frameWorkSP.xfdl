@@ -608,7 +608,7 @@ this.tabInfo_Tabpage1_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.
 			var sPopupId	= "cmmViewTemplateManual";
 			var sUrl		= "cmm::cmmViewTemplateManual.xfdl";
 			var sCallBack	= "fnPopupCallback";
-			var oOption		= {title:"Manual - " + oDsBind.getColumn(nRow,"VT_ID"), width:1050, height:600};
+			var oOption		= {title:"Manual - " + oDsBind.getColumn(nRow,"VT_ID"), width:1100, height:600};
 			
 			var oParam		= {
 				  vtSeq		: sVtSeq
@@ -664,11 +664,28 @@ this.tabInfo_Tabpage1_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.G
  */
 this.tabInfo_Tabpage2_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
+	var oDsBind = obj.getBindDataset();
+	var nRow = e.row;
+	
 	if (e.clickitem != "expandbutton")
 	{
 		if (obj.getBindCellIndex("body","ACTION_CLASS_ID") == e.cell)
 		{
-			alert("Action 메뉴얼");
+			var sActionSeq	= oDsBind.getColumn(nRow,"ACTION_SEQ");
+			var sSampleUrl	= this.objApp.gdsMenu.lookup(this.FRAME_MENUCOLUMNS.menuArgs,'{"actionSeq": '+ sActionSeq +'}', this.FRAME_MENUCOLUMNS.pageUrl);
+			
+			
+			var sPopupId	= "cmmActionManual";
+			var sUrl		= "cmm::cmmActionManual.xfdl";
+			var sCallBack	= "fnPopupCallback";
+			var oOption		= {title:"Manual - " + oDsBind.getColumn(nRow,"ACTION_ID"), width:1100, height:600};
+			
+			var oParam		= {
+				  actionSeq	: sActionSeq
+				, sampleUrl	: sSampleUrl
+			};
+			
+			this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
 		}
 	}
 };

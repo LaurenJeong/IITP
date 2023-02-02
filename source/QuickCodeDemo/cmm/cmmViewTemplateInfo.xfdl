@@ -307,6 +307,29 @@ this.fnMsgCallback = function (strId, strVal)
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
 /**
+ * @description	데이터 기준 그리드 사이즈
+*/
+this.fnSetGridSize = function(objGrid, objTitle)
+{
+	var objBindDs = objGrid.getBindDataset();
+	
+	if (objBindDs.rowcount == 0) {
+		if (!this.gfnIsNull(objTitle))	objTitle.set_visible(false);
+		objGrid.set_visible(false);
+		
+	} else {
+		if (!this.gfnIsNull(objTitle))	objTitle.set_visible(true);
+		objGrid.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(objGrid);
+		objGrid.set_height(nGrdHeight);
+	}
+};
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역(QuickCode Info)
+ ************************************************************************************************/
+/**
  * @description ViewTemplate 정보 생성
 */
 this.fnMakeViewTemplateInfo = function()
@@ -410,17 +433,7 @@ this.fnSetFieldAttribute = function()
 	this.grdFildAttr.set_enableevent(true);
 	
 	// 그리드 사이즈 조정
-	if (this.dsVtFieldAtrList.rowcount == 0) {
-		this.staFildAttr.set_visible(false);
-		this.grdFildAttr.set_visible(false);
-		
-	} else {
-		this.staFildAttr.set_visible(true);
-		this.grdFildAttr.set_visible(true);
-		
-		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdFildAttr);
-		this.grdFildAttr.set_height(nGrdHeight);
-	}
+	this.fnSetGridSize(this.grdFildAttr, this.staFildAttr);
 };
 
 /**

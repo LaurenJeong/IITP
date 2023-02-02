@@ -128,6 +128,7 @@
           <Col id="MENU_YN">Y</Col>
           <Col id="MENU_KWRD">TransactionAction|Transaction|조회|저장|DB</Col>
           <Col id="WORK_URL">frame::frameWork.xfdl</Col>
+          <Col id="MENU_PARAM">{"actionSeq": 1}</Col>
         </Row>
       </Rows>
     </Dataset>
@@ -1543,7 +1544,7 @@
         <Column id="EDIT_TYPE" type="STRING" size="256"/>
         <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
         <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
-        <Column id="EDIT_TYPE_VALUE" type="STRING" size="256"/>
+        <Column id="ATTRB_VALUE" type="STRING" size="256"/>
         <Column id="ENUM_CD" type="STRING" size="256"/>
         <Column id="DFLT_VALUE" type="STRING" size="256"/>
         <Column id="ATTRB_DESC" type="STRING" size="256"/>
@@ -1559,6 +1560,7 @@
           <Col id="EDIT_TYPE_NM">Enum</Col>
           <Col id="ENUM_CD">V0001</Col>
           <Col id="ATTRB_DESC">컴포넌트 생성 방향 지정하는 속성</Col>
+          <Col id="ATTRB_VALUE">horizontal | vertical</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">1</Col>
@@ -1570,6 +1572,7 @@
           <Col id="EDIT_TYPE_NM">Enum</Col>
           <Col id="ENUM_CD">V0002</Col>
           <Col id="ATTRB_DESC">컴포넌트 생성 시 수평 정렬 방식을 설정하는 속성</Col>
+          <Col id="ATTRB_VALUE">left | center | right</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">1</Col>
@@ -1581,6 +1584,7 @@
           <Col id="EDIT_TYPE_NM">Enum</Col>
           <Col id="ENUM_CD">V0003</Col>
           <Col id="ATTRB_DESC">컴포넌트 생성 시 수직 정렬 방식을 설정하는 속성</Col>
+          <Col id="ATTRB_VALUE">top | middle | bottom</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">1</Col>
@@ -1600,8 +1604,9 @@
           <Col id="ATTRB_LVL">0</Col>
           <Col id="EDIT_TYPE">20</Col>
           <Col id="EDIT_TYPE_NM">Enum</Col>
-          <Col id="ENUM_CD">V0005</Col>
+          <Col id="ENUM_CD">V0004</Col>
           <Col id="ATTRB_DESC">Title영역에서 접기/펼치기 버튼 표시여부</Col>
+          <Col id="ATTRB_VALUE">none | open | close</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">1</Col>
@@ -1643,6 +1648,8 @@
           <Col id="EDIT_TYPE">20</Col>
           <Col id="EDIT_TYPE_NM">Enum</Col>
           <Col id="ATTRB_DESC">필드에 표현 할 컴포넌트 타입</Col>
+          <Col id="ATTRB_VALUE">auto | button | combo | edit | maskedit…</Col>
+          <Col id="ENUM_CD">V0005</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">1</Col>
@@ -1654,6 +1661,7 @@
           <Col id="EDIT_TYPE_NM">String</Col>
           <Col id="EDIT_TYPE_DESC">px or %</Col>
           <Col id="ATTRB_DESC">컴포넌트의 넓이</Col>
+          <Col id="ATTRB_VALUE">px or %</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">1</Col>
@@ -1665,6 +1673,7 @@
           <Col id="EDIT_TYPE_NM">String</Col>
           <Col id="EDIT_TYPE_DESC">px or %</Col>
           <Col id="ATTRB_DESC">컴포넌트의 높이</Col>
+          <Col id="ATTRB_VALUE">px or %</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">1</Col>
@@ -1685,6 +1694,7 @@
           <Col id="EDIT_TYPE">20</Col>
           <Col id="EDIT_TYPE_NM">Enum</Col>
           <Col id="ATTRB_DESC">레이블과 컴포넌트 위치</Col>
+          <Col id="ATTRB_VALUE">horizontal | vertical</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">1</Col>
@@ -1733,6 +1743,7 @@
         <Column id="ACTION_SEQ" type="INT" size="256"/>
         <Column id="ACTION_ID" type="STRING" size="256"/>
         <Column id="ACTION_NM" type="STRING" size="256"/>
+        <Column id="ACTION_INFO" type="STRING" size="256"/>
         <Column id="ACTION_DESC" type="STRING" size="256"/>
         <Column id="MODEL_ARG_DESC" type="STRING" size="256"/>
         <Column id="USER_ARG_DESC" type="STRING" size="256"/>
@@ -1742,6 +1753,31 @@
           <Col id="ACTION_SEQ">1</Col>
           <Col id="ACTION_ID">TransactionAction</Col>
           <Col id="ACTION_NM">DB 데이터 조회, 저장하는 Transaction Action</Col>
+          <Col id="MODEL_ARG_DESC">Model Argument에서 Model Field에 값 입력 시dataset에 해당값으로 값을 설정하여 Transaction을 실행할 수 있습니다. input으로 설정된 Model에 대해서만 설정이 됩니다.
+value값에 'expr:' 태그 사용 후 '[Filed태그]'형식으로 입력시 해당 Field값 가져와서 설정 가능합니다.
+-	[field] 형식 : 설정된 Model의 'viewid'의 viewdataset에서 'field' 필드값을 반환
+-	[view:field] 형식 : 'view'의 viewdataset에서 'field' 필드값을 반환
+-	[view:datasetid:field] 형식 : 'view'의 'datasetid'인 Dataset에서 'field' 필드값을 반환
+-	[view:datasetid:row:field] 형식 : 'view'의 'datasetid'인 Dataset에서 'row'번째 Row의 'field' 필드값을 반환
+ex) expr 예제 - 다음 페이징번호 셋팅
+      expr:nexacro.toNumber([viewPage:PAGE_NO],0) + 1
+      -&gt; viewPage에 있는 viewdataset의 'PAGE_NO' 값을 숫자형으로 변환 후 1을 더한 값을 설정된 ModelField값에 설정함.
+</Col>
+          <Col id="USER_ARG_DESC">User Argument 등록 시 transaction Argument로 추가되며, args와 동일하게 동작됩니다.
+사용자에게 좀 더 편한 입력을 제공하기 위해 기능이 사용되었습니다.
+value값에 'expr:' 태그를 사용한 경우 form기준으로 expr이 동작됩니다.
+</Col>
+          <Col id="ACTION_INFO">- servicemodel시 화면 기준으로 serviceurl, input, ouput 정보 자동설정.
+- Model Argument에서 Model Field에 값 입력시dataset에 해당값으로 값 설정.
+- User Argument 등록 시 transaction Argument로 추가.
+- Model Argument와 User Argument에서 value값에 'expr:' 태그 사용 후 '[Filed태그]'형식으로 입력시 해당 Field값 가져와서 설정 가능.(User Argument 사용불가)
+  .[field] 형식 : 설정된 Model의 'viewid'의 viewdataset에서 'field' 필드값을 반환
+  .[view:field] 형식 : 'view'의 viewdataset에서 'field' 필드값을 반환
+  .[view:datasetid:field] 형식 : 'view'의 'datasetid'인 Dataset에서 'field' 필드값을 반환
+  .[view:datasetid:row:field] 형식 : 'view'의 'datasetid'인 Dataset에서 'row'번째 Row의 'field' 필드값을 반환
+  ex) expr 예제) 다음 페이징번호 셋팅
+      expr:nexacro.toNumber([viewPage:PAGE_NO],0) + 1
+      -&gt; viewPage에 있는 viewdataset의 'PAGE_NO' 값을 숫자형으로 변환 후 1을 더한 값을 설정된 ModelField값에 설정</Col>
         </Row>
         <Row>
           <Col id="ACTION_SEQ">2</Col>
@@ -1877,6 +1913,7 @@
         <Column id="EDIT_TYPE" type="STRING" size="256"/>
         <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
         <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
+        <Column id="PROP_VALUE" type="STRING" size="256"/>
         <Column id="ENUM_CD" type="STRING" size="256"/>
         <Column id="DFLT_VALUE" type="STRING" size="256"/>
         <Column id="ATTRB_DESC" type="STRING" size="256"/>
@@ -1914,8 +1951,97 @@
         </Row>
       </Rows>
     </Dataset>
-    <Dataset id="gdsActionMtd"/>
-    <Dataset id="gdsActionEvt"/>
+    <Dataset id="gdsActionMtd">
+      <ColumnInfo>
+        <Column id="ACTION_SEQ" type="STRING" size="256"/>
+        <Column id="METHOD_ID" type="STRING" size="256"/>
+        <Column id="PARM_ID" type="STRING" size="256"/>
+        <Column id="RETURN_TYPE" type="STRING" size="256"/>
+        <Column id="RETURN_TYPE_NM" type="STRING" size="256"/>
+        <Column id="METHOD_DESC" type="STRING" size="256"/>
+        <Column id="METHOD_LVL" type="INT" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="METHOD_ID">run</Col>
+          <Col id="METHOD_DESC">Action을 실행시키는 함수</Col>
+          <Col id="METHOD_LVL">0</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsActionEvt">
+      <ColumnInfo>
+        <Column id="ACTION_SEQ" type="STRING" size="256"/>
+        <Column id="EVENT_ID" type="STRING" size="256"/>
+        <Column id="EVTINFO_ID" type="STRING" size="256"/>
+        <Column id="PARM_ID" type="STRING" size="256"/>
+        <Column id="RETURN_TYPE" type="STRING" size="256"/>
+        <Column id="RETURN_TYPE_NM" type="STRING" size="256"/>
+        <Column id="EVENT_DESC" type="STRING" size="256"/>
+        <Column id="EVENT_LVL" type="INT" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="EVENT_ID">canrun</Col>
+          <Col id="EVTINFO_ID">ActionRunEventInfo</Col>
+          <Col id="RETURN_TYPE">12</Col>
+          <Col id="EVENT_DESC">Action이 실행될 때 발생하는 이벤트.
+ - 이벤트에서 리턴값을 "true"로 반환하면 Action이 실행됩니다.
+ - 이벤트에서 리턴값을 "false"로 반환하면 Action이 실행되지 않습니다.
+ - 이벤트에서 리턴값을 생략하면 "true"로 적용됩니다.</Col>
+          <Col id="EVENT_LVL">0</Col>
+          <Col id="RETURN_TYPE_NM">Boolean</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="EVENT_ID">onsuccess</Col>
+          <Col id="EVTINFO_ID">TranActionSuccessEventInfo</Col>
+          <Col id="EVENT_LVL">0</Col>
+          <Col id="EVENT_DESC">Transaction Action이 성공할때 발생하는 이벤트</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="EVENT_ID">onsuccess</Col>
+          <Col id="EVTINFO_ID">TranActionSuccessEventInfo</Col>
+          <Col id="PARM_ID">errorcode</Col>
+          <Col id="EVENT_LVL">1</Col>
+          <Col id="EVENT_DESC">서버에서 보내온 성공코드값</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="EVENT_ID">onsuccess</Col>
+          <Col id="EVTINFO_ID">TranActionSuccessEventInfo</Col>
+          <Col id="PARM_ID">errormsg</Col>
+          <Col id="EVENT_LVL">1</Col>
+          <Col id="EVENT_DESC">서버에서 보내온 성공메시지</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="EVENT_ID">onerror</Col>
+          <Col id="EVTINFO_ID">TranActionErrorEventInfo</Col>
+          <Col id="EVENT_LVL">0</Col>
+          <Col id="EVENT_DESC">Transaction Action이 실패할때 발생하는 이벤트</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="EVENT_ID">onerror</Col>
+          <Col id="EVTINFO_ID">TranActionErrorEventInfo</Col>
+          <Col id="PARM_ID">errorcode</Col>
+          <Col id="EVENT_LVL">1</Col>
+          <Col id="EVENT_DESC">서버에서 보내온 실패코드값</Col>
+        </Row>
+        <Row>
+          <Col id="ACTION_SEQ">1</Col>
+          <Col id="EVENT_ID">onerror</Col>
+          <Col id="EVTINFO_ID">TranActionErrorEventInfo</Col>
+          <Col id="PARM_ID">errormsg</Col>
+          <Col id="EVENT_LVL">1</Col>
+          <Col id="EVENT_DESC">서버에서 보내온 실패메시지</Col>
+        </Row>
+      </Rows>
+    </Dataset>
   </Datasets>
   <Variables>
     <Variable id="gvUserId"/>

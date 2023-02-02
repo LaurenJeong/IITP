@@ -37,7 +37,7 @@
               <Band id="body">
                 <Cell text="bind:ATTRB_ID"/>
                 <Cell col="1" text="bind:EDIT_TYPE_NM"/>
-                <Cell col="2" text="bind:EDIT_TYPE_VALUE"/>
+                <Cell col="2" text="bind:ATTRB_VALUE"/>
                 <Cell col="3" text="bind:ATTRB_DESC" wordWrap="english"/>
               </Band>
             </Format>
@@ -66,7 +66,7 @@
               <Band id="body">
                 <Cell text="bind:ATTRB_ID"/>
                 <Cell col="1" text="bind:EDIT_TYPE_NM"/>
-                <Cell col="2" text="bind:EDIT_TYPE_VALUE"/>
+                <Cell col="2" text="bind:ATTRB_VALUE"/>
                 <Cell col="3" text="bind:ATTRB_DESC" wordWrap="english"/>
               </Band>
             </Format>
@@ -98,7 +98,7 @@
           <Column id="EDIT_TYPE" type="STRING" size="256"/>
           <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
           <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
-          <Column id="EDIT_TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="ATTRB_VALUE" type="STRING" size="256"/>
           <Column id="ENUM_CD" type="STRING" size="256"/>
           <Column id="DFLT_VALUE" type="STRING" size="256"/>
           <Column id="ATTRB_DESC" type="STRING" size="256"/>
@@ -115,7 +115,7 @@
           <Column id="EDIT_TYPE" type="STRING" size="256"/>
           <Column id="EDIT_TYPE_NM" type="STRING" size="256"/>
           <Column id="EDIT_TYPE_DESC" type="STRING" size="256"/>
-          <Column id="EDIT_TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="ATTRB_VALUE" type="STRING" size="256"/>
           <Column id="ENUM_CD" type="STRING" size="256"/>
           <Column id="DFLT_VALUE" type="STRING" size="256"/>
           <Column id="ATTRB_DESC" type="STRING" size="256"/>
@@ -223,7 +223,25 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 /************************************************************************************************
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
-
+/**
+ * @description	데이터 기준 그리드 사이즈
+*/
+this.fnSetGridSize = function(objGrid, objTitle)
+{
+	var objBindDs = objGrid.getBindDataset();
+	
+	if (objBindDs.rowcount == 0) {
+		if (!this.gfnIsNull(objTitle))	objTitle.set_visible(false);
+		objGrid.set_visible(false);
+		
+	} else {
+		if (!this.gfnIsNull(objTitle))	objTitle.set_visible(true);
+		objGrid.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(objGrid);
+		objGrid.set_height(nGrdHeight);
+	}
+};
 /************************************************************************************************
  * 사용자 FUNCTION 영역(QuickCode Info)
  ************************************************************************************************/
@@ -253,32 +271,15 @@ this.fnSetViewTemplateInfo = function()
 	this.objApp.gdsVtAtr.filter("");
 	
 	// 그리드 사이즈 조정
-	if (this.dsVtAtrField.rowcount == 0) {
-		this.staFieldUserAttribute.set_visible(false);
-		this.grdFieldUserAttribute.set_visible(false);
-		
-	} else {
-		this.staFieldUserAttribute.set_visible(true);
-		this.grdFieldUserAttribute.set_visible(true);
-		
-		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdFieldUserAttribute);
-		this.grdFieldUserAttribute.set_height(nGrdHeight);
-	}
-	
-	if (this.dsVtAtrView.rowcount == 0) {
-		this.staViewAttribute.set_visible(false);
-		this.grdViewAttribute.set_visible(false);
-		
-	} else {
-		this.staViewAttribute.set_visible(true);
-		this.grdViewAttribute.set_visible(true);
-		
-		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdViewAttribute);
-		this.grdViewAttribute.set_height(nGrdHeight);
-	}
+	this.fnSetGridSize(this.grdFieldUserAttribute, this.staFieldUserAttribute);
+	this.fnSetGridSize(this.grdViewAttribute, this.staViewAttribute);
 	
 	this.resetScroll();
-};]]></Script>
+};
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/]]></Script>
     <Bind>
       <BindItem id="item0" compid="staVtNm" propid="text" datasetid="dsVt" columnid="VT_NM"/>
       <BindItem id="item1" compid="txaVtInfo" propid="value" datasetid="dsVt" columnid="VT_INFO"/>

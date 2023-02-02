@@ -276,6 +276,28 @@ this.fnMsgCallback = function (strId, strVal)
  * 사용자 FUNCTION 영역
  ************************************************************************************************/
 /**
+ * @description	데이터 기준 그리드 사이즈
+*/
+this.fnSetGridSize = function(objGrid, objTitle)
+{
+	var objBindDs = objGrid.getBindDataset();
+	
+	if (objBindDs.rowcount == 0) {
+		if (!this.gfnIsNull(objTitle))	objTitle.set_visible(false);
+		objGrid.set_visible(false);
+		
+	} else {
+		if (!this.gfnIsNull(objTitle))	objTitle.set_visible(true);
+		objGrid.set_visible(true);
+		
+		nGrdHeight = this.gfnGetGridRealRowFullSize(objGrid);
+		objGrid.set_height(nGrdHeight);
+	}
+};
+/************************************************************************************************
+ * 사용자 FUNCTION 영역(QuickCode Info)
+ ************************************************************************************************/
+/**
  * @description ViewTemplate 정보 생성
 */
 this.fnMakeActionInfo = function()
@@ -286,7 +308,7 @@ this.fnMakeActionInfo = function()
 	// Action Property Info 생성
 	this.fnSetActionPropInfo();
 	
-	//
+	// Action Contents 생성
 	this.fnSetActionContentsInfo();
 	
 	this.resetScroll();
@@ -369,16 +391,7 @@ this.fnSetActionPropInfo = function()
 	}
 	
 	// 그리드 사이즈 조정
-	if (this.dsActionPrp.rowcount == 0) {
-		this.staProperty.set_visible(false);
-		this.grdProperty.set_visible(false);
-	} else {
-		this.staProperty.set_visible(true);
-		this.grdProperty.set_visible(true);
-		
-		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdProperty);
-		this.grdProperty.set_height(nGrdHeight);
-	}
+	this.fnSetGridSize(this.grdProperty,this.staProperty);
 };
 
 /**
@@ -446,27 +459,8 @@ this.fnSetActionContentsInfo = function()
 	}
 	
 	// 그리드 사이즈 조정
-	if (this.dsModelArg.rowcount == 0) {
-		this.staModelArgument.set_visible(false);
-		this.grdModelArgument.set_visible(false);
-	} else {
-		this.staModelArgument.set_visible(true);
-		this.grdModelArgument.set_visible(true);
-		
-		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdModelArgument);
-		this.grdModelArgument.set_height(nGrdHeight);
-	}
-	
-	if (this.dsUserArg.rowcount == 0) {
-		this.staUserArgument.set_visible(false);
-		this.grdUserArgument.set_visible(false);
-	} else {
-		this.staUserArgument.set_visible(true);
-		this.grdUserArgument.set_visible(true);
-		
-		nGrdHeight = this.gfnGetGridRealRowFullSize(this.grdUserArgument);
-		this.grdUserArgument.set_height(nGrdHeight);
-	}
+	this.fnSetGridSize(this.grdModelArgument,this.staModelArgument);
+	this.fnSetGridSize(this.grdUserArgument,this.staUserArgument);
 };
 /************************************************************************************************
  * 각 COMPONENT 별 EVENT 영역
