@@ -189,6 +189,8 @@ this.fv_sampleUrl = "";
  */
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	this.gfnFormOnLoad(this);
+	
 	var sMenuParam	= this.gfnGetMenuParam("menuParam");
 	
 	if (this.gfnIsNull(sMenuParam)) {						// 팝업으로 메뉴얼 클릭

@@ -488,21 +488,31 @@ pForm.gfnGetMenuParam = function(sParamNm)
 };
 
 /**
- * @class 해당화면 데이터셋에 추가 <br>
- * @param {String} 	sName : winKey, menuId, menuNm, pageUrl, oArgs
- * @return String
+ * @class 서버 root URL반환하는 메소드
+ * @param  N/A
+ * @return {string} 서버 URL
+ * @example	
+	this.gfnGetServerUrl();
  */
 pForm.gfnGetServerUrl = function()
 {
 	var urlPath = "";
-    if (system.navigatorname == "nexacro") 
-	{
-	    var objEnv = nexacro.getEnvironment();
+	
+    var objEnv = nexacro.getEnvironment();
 		urlPath = objEnv.services["svc"].url;
-	}else{
-		urlPath = window.location.protocol + "//" + window.location.host;
-		urlPath+="/nexacro/";
-	}
+		
+	
+	// TODO : 임시
+	urlPath = urlPath.replace("service/","");
+		
+//     if (system.navigatorname == "nexacro") 
+// 	{
+// 	    var objEnv = nexacro.getEnvironment();
+// 		urlPath = objEnv.services["svc"].url;
+// 	}else{
+// 		urlPath = window.location.protocol + "//" + window.location.host;
+// 		urlPath+="/nexacro/";
+// 	}
 	//trace("urlPath : " + urlPath);
 	return urlPath;
 };

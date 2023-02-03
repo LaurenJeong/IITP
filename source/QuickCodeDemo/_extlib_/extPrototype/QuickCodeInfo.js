@@ -14,6 +14,30 @@
 var pForm = nexacro.Form.prototype;
 
 /**
+ * @class 파일의 URL 정보를 반환
+ * @param {String} sFilePath - 파일 URL
+ * @return N/A
+ */
+pForm.gfnGetSourceUrl = function (sFilePath)
+{
+	var sSourceUrl = sFilePath;
+	
+	// URL전환
+	if (sSourceUrl.indexOf("::") >= 0)
+	{
+		var arrPrefix = sSourceUrl.split("::");
+		var sPrefix = arrPrefix[0];
+		
+		sSourceUrl = nexacro.getEnvironment().services[sPrefix].url + arrPrefix[1];
+		
+		if (sSourceUrl.substr(0,2) == "./")		sSourceUrl = sSourceUrl.substring(2);
+		//this.gfnLog("sFilePath : " + sFilePath);
+	}
+	
+	return sSourceUrl;
+};
+
+/**
  * @class 파일의 내용을 읽는 함수
  * @param {Object} obj - 콤포넌트
  * @return N/A
@@ -25,14 +49,7 @@ pForm.gfnGetReadFile = function (sFilePath, oDsOutputNm, sSvcId)
 		return;
 	}
 	
-	// URL전환
-	if (sFilePath.indexOf("::") >= 0)
-	{
-		var arrPrefix = sFilePath.split("::");
-		var sPrefix = arrPrefix[0];
-		
-		sFilePath = nexacro.getEnvironment().services[sPrefix].url + arrPrefix[1];
-	}
+	sFilePath = this.gfnGetSourceUrl(sFilePath);
 	
 	// 파일읽기
 	var strSvcId    = this.gfnNvl(sSvcId,"gfnGetReadFile");
@@ -42,7 +59,7 @@ pForm.gfnGetReadFile = function (sFilePath, oDsOutputNm, sSvcId)
 	var callBackFnc = "fnCallbackReadFile";
 	var isAsync   	= true;
 	
-	var strArg	 = "ProjectId=" + "QuickCodeDemo";
+	var strArg	 = "ProjectId=" + this.gfnGetApplication().id;
 		strArg	+= " FilePath=" + nexacro.wrapQuote(sFilePath);
 	
 	this.gfnTransaction(strSvcId , 		// transaction을 구분하기 위한 svc id값

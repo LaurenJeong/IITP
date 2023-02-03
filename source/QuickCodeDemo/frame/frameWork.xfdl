@@ -104,7 +104,9 @@ this.form_onactivate = function(obj:nexacro.Form,e:nexacro.ActivateEventInfo)
  * @memberOf 
  */
 this.form_onclose = function(obj:Form, e:nexacro.CloseEventInfo)
-{   
+{  
+	trace("form_onclose");
+	
 	try
 	{
 		//trace("workFrame_onclose : " + e.fromobject.name);

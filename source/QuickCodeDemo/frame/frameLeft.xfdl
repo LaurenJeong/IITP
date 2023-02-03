@@ -298,7 +298,11 @@ this.fnChangeLang = function()
 */
 this.fnChangeMenu = function (topMenuId)
 {
-	var filterExpr = this.FRAME_MENUCOLUMNS.groupId + "==" + nexacro.wrapQuote(topMenuId) + "&&" + this.FRAME_MENUCOLUMNS.menuLevel + "!=0";
+	var filterExpr = this.FRAME_MENUCOLUMNS.groupId + "==" + nexacro.wrapQuote(topMenuId);
+		filterExpr += "&&" + this.FRAME_MENUCOLUMNS.menuLevel + "!=0";
+		filterExpr += "&&" + this.FRAME_MENUCOLUMNS.useYn + "=='Y'";
+	
+	
 	this.objApp.gdsMenu.set_enableevent(false);
 	this.dsMenu.set_enableevent(false);
 	this.objApp.gdsMenu.filter(filterExpr);
@@ -306,6 +310,14 @@ this.fnChangeMenu = function (topMenuId)
 	this.objApp.gdsMenu.filter("");
 	this.objApp.gdsMenu.set_enableevent(true);
 	this.dsMenu.set_enableevent(true);
+	
+	// 대메뉴 클릭시 첫번째 메뉴 열기
+	if (this.dsMenu.rowcount > 0) {
+		var nTreeStatus = this.divLeft.form.grdTree.getTreeStatus(0);
+		if (nTreeStatus == false) {
+			this.divLeft.form.grdTree.setTreeStatus(0,true);
+		}
+	}
 };
 
  /**

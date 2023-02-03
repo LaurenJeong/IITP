@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="action_message" width="1080" height="300" titletext="MessageAction" onload="form_onload">
+    <Layouts>
+      <Layout height="300" width="1080">
+        <Button id="btnAlert" taborder="0" text="Alert" left="0" top="0" width="100" height="30"/>
+        <Button id="btnConfirm" taborder="1" text="Confirm" left="106" top="0" height="30" width="100"/>
+        <TextArea id="txtOutput" taborder="2" left="0" top="40" right="0" bottom="0"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <MessageAction id="MessageAction00" message="알림" targetview="action_message" messagetype="alert" onerror="Common_onerror" onsuccess="Common_onsuccess">
+        <Contents/>
+      </MessageAction>
+      <MessageAction id="MessageAction01" message="확인?" targetview="action_message" messagetype="confirm" onerror="Common_onerror" onsuccess="Common_onsuccess">
+        <Contents/>
+      </MessageAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="action_message" triggerobj="btnAlert" targetaction="MessageAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="action_message" triggerobj="btnConfirm" targetaction="MessageAction01" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[this.Common_onerror = function(obj, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onerror : " + e.userdata);
+};
+
+this.Common_onsuccess = function(obj, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : " + e.userdata);
+};]]></Script>
+  </Form>
+</FDL>

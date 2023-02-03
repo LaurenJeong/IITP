@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="action_popup" width="1080" height="300" titletext="PopupAction" onload="form_onload">
+    <Layouts>
+      <Layout height="300" width="1080">
+        <Button id="btnPopup" taborder="0" text="Modal" left="0" top="0" width="114" height="30"/>
+        <TextArea id="txaOutput" taborder="1" left="610" top="btnPopup:10" wordWrap="english" right="0" bottom="0"/>
+        <Button id="btnPopup2" taborder="2" text="Modeless" left="124" top="0" width="114" height="30" onclick="btnPopup2_onclick"/>
+        <View id="View00" taborder="3" text="View00" viewdataset="viewdataset" left="0" top="btnPopup:10" width="599" bottom="0">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="팝업결과 데이터" fittocontents="width" cssclass="sta_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdList" left="0" top="30" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_company" col="0" row="0" text="Company"/>
+                      <Cell id="cell_head_1_0_department" col="1" row="0" text="Department"/>
+                      <Cell id="cell_head_2_0_name" col="2" row="0" text="Name"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_company" col="0" row="0" text="bind:company" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_department" col="1" row="0" text="bind:department" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_2_0_name" col="2" row="0" text="bind:name" displaytype="normal" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="company" type="STRING" size="80" description="Company"/>
+                <Column id="department" type="STRING" size="80" description="Department"/>
+                <Column id="name" type="STRING" size="80" description="Name"/>
+                <Column id="position" type="STRING" size="80" description="Position"/>
+                <Column id="phone" type="STRING" size="80" description="Phone"/>
+                <Column id="address" type="STRING" size="256" description="Address"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="Tran" modelid="output" filepath="sample\Tran.xmodel">
+            <Fields>
+              <Field id="address" required="false" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="phone" required="false" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="position" required="false" fieldtype="FreeText" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="company" required="false" fieldtype="FreeText" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="department" required="false" fieldtype="FreeText" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="name" required="false" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="grdList" fields="company,department,name"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
+            <Attribute id="titletext" value="팝업결과 데이터"/>
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <PopupAction id="PopupAction00" formurl="manual::action_popupclose.xfdl" popupstyle="modal" popupid="popup" title="선택데이터" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}" targetview="View00" popupdatatype="replace">
+        <Contents/>
+      </PopupAction>
+      <PopupAction id="PopupAction01" formurl="manual::action_popupclose.xfdl" popupstyle="modeless" popupid="popup" title="전체데이터" popupleft="-1" popuptop="-1" popupwidth="450" popupheight="500" onsuccess="PopupAction00_onsuccess" onerror="PopupAction00_onerror" args="{&quot;returntype&quot; : &quot;currow&quot;}" targetview="View00" popupdatatype="replace">
+        <Contents/>
+      </PopupAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="action_popup" triggerobj="btnPopup" targetaction="PopupAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="action_popup" triggerobj="btnPopup2" targetaction="PopupAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="action_popup" triggerobj="btnPopup3" targetaction="PopupAction02" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[this.PopupAction00_onerror = function(obj:nexacro.PopupAction, e:nexacro.ActionErrorEventInfo)
+{
+	//trace("PopupAction00_onerror" + e.userdata);
+	this.txaOutput.insertText("\n" + "PopupAction00_onerror");
+	this.txaOutput.insertText("\n - userdata : " + e.userdata);
+};
+
+this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.ActionSuccessEventInfo)
+{
+	//trace("PopupAction00_onsuccess" + e.userdata);
+	this.txaOutput.insertText("\n" + "PopupAction00_onsuccess");
+	this.txaOutput.insertText("\n - userdata : " + e.userdata);
+};]]></Script>
+  </Form>
+</FDL>

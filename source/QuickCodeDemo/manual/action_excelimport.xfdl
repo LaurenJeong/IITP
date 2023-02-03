@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="action_excelimport" width="1080" height="300" titletext="ExcelImportAction" onload="form_onload">
+    <Layouts>
+      <Layout height="300" width="1080">
+        <View id="viwExcelImport" taborder="0" viewdataset="viewdataset" left="0" top="40" right="0" bottom="0">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_TEXT" col="0" row="0" text="TEXT"/>
+                      <Cell id="cell_head_1_0_TEXTAREA" col="1" row="0" text="TEXTAREA"/>
+                      <Cell id="cell_head_2_0_CHECK" col="2" row="0" text="CHECK"/>
+                      <Cell id="cell_head_3_0_COMBO" col="3" row="0" text="COMBO"/>
+                      <Cell id="cell_head_4_0_DATE" col="4" row="0" text="DATE"/>
+                      <Cell id="cell_head_5_0_DECOTEXT" col="5" row="0" text="DECOTEXT"/>
+                      <Cell id="cell_head_6_0_NUMBER" col="6" row="0" text="NUMBER"/>
+                      <Cell id="cell_head_7_0_CURRENCY" col="7" row="0" text="CURRENCY"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_TEXT" col="0" row="0" text="bind:TEXT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_1_0_TEXTAREA" col="1" row="0" text="bind:TEXTAREA" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_2_0_CHECK" col="2" row="0" text="bind:CHECK" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_3_0_COMBO" col="3" row="0" text="bind:COMBO" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_4_0_DATE" col="4" row="0" text="bind:DATE" displaytype="date" edittype="none"/>
+                      <Cell id="cell_body_5_0_DECOTEXT" col="5" row="0" text="bind:DECOTEXT" displaytype="normal" edittype="none"/>
+                      <Cell id="cell_body_6_0_NUMBER" col="6" row="0" text="bind:NUMBER" displaytype="number" edittype="none"/>
+                      <Cell id="cell_body_7_0_CURRENCY" col="7" row="0" text="bind:CURRENCY" displaytype="number" edittype="none"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="TEXT" type="STRING" size="80" description="TEXT"/>
+                <Column id="TEXTAREA" type="STRING" size="80" description="TEXTAREA"/>
+                <Column id="CHECK" type="STRING" size="80" description="CHECK"/>
+                <Column id="COMBO" type="STRING" size="80" description="COMBO"/>
+                <Column id="DATE" type="DATE" size="80" description="DATE"/>
+                <Column id="DECOTEXT" type="STRING" size="80" description="DECOTEXT"/>
+                <Column id="NUMBER" type="BIGDECIMAL" size="80" description="NUMBER"/>
+                <Column id="CURRENCY" type="BIGDECIMAL" size="80" description="CURRENCY"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="ExcelModel001" filepath="sample\Excel.xmodel">
+            <Fields>
+              <Field id="TEXT" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="TEXTAREA" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="CHECK" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="COMBO" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DATE" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="DECOTEXT" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="NUMBER" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="CURRENCY" description="" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="TEXT,TEXTAREA,CHECK,COMBO,DATE,DECOTEXT,NUMBER,CURRENCY"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <Button id="btnExcelImport" taborder="1" text="ExcelImport" left="0" top="0" width="103" height="30"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsCombo">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">01</Col>
+            <Col id="data">서울특별시</Col>
+          </Row>
+          <Row>
+            <Col id="code">02</Col>
+            <Col id="data">인천광역시</Col>
+          </Row>
+          <Row>
+            <Col id="code">03</Col>
+            <Col id="data">대전광역시</Col>
+          </Row>
+          <Row>
+            <Col id="code">04</Col>
+            <Col id="data">대구광역시</Col>
+          </Row>
+          <Row>
+            <Col id="code">05</Col>
+            <Col id="data">울산광역시</Col>
+          </Row>
+          <Row>
+            <Col id="data">부산광역시</Col>
+            <Col id="code">06</Col>
+          </Row>
+          <Row>
+            <Col id="data">광주광역시</Col>
+            <Col id="code">07</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <ExcelImportAction id="ExcelImportAction00" targetview="viwExcelImport" sheetname="Sheet1" startcell="A2" importtype="excel" onerror="ExcelImportAction00_onerror" onsuccess="ExcelImportAction00_onsuccess">
+        <Contents/>
+      </ExcelImportAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="action_excelimport" triggerobj="btnExcelImport" targetaction="ExcelImportAction00" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[this.PopupAction00_onerror = function(obj:nexacro.PopupAction, e:nexacro.ActionErrorEventInfo)
+{
+	//trace("PopupAction00_onerror" + e.userdata);
+	this.txaOutput.insertText("\n" + "PopupAction00_onerror");
+	this.txaOutput.insertText("\n - userdata : " + e.userdata);
+};
+
+this.PopupAction00_onsuccess = function(obj:nexacro.PopupAction, e:nexacro.ActionSuccessEventInfo)
+{
+	//trace("PopupAction00_onsuccess" + e.userdata);
+	this.txaOutput.insertText("\n" + "PopupAction00_onsuccess");
+	this.txaOutput.insertText("\n - userdata : " + e.userdata);
+};]]></Script>
+  </Form>
+</FDL>

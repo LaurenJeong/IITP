@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="action_popupclose" width="450" height="500" titletext="PopupCloseAction" onload="test_action_popupsub_onload">
+    <Layouts>
+      <Layout height="500" mobileorientation="landscape" width="450">
+        <View id="viwSearch" taborder="0" viewdataset="viewdataset" left="20" top="60" height="50" right="20">
+          <Layouts>
+            <Layout>
+              <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
+              <Button id="btnSearch" width="100" height="30" right="10" bottom="10" cssclass="btn_search" text="Search"/>
+              <Static id="staNameLabel" left="10" top="10" width="100" height="30" text="Name" cssclass="sta_label"/>
+              <Edit id="edtName" left="115" top="10" width="95" height="30"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="company" type="STRING" size="80" description="Company"/>
+                <Column id="department" type="STRING" size="80" description="Department"/>
+                <Column id="name" type="STRING" size="80" description="Name"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="name"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="Tran" modelid="input" filepath="sample\Tran.xmodel">
+            <Fields>
+              <Field id="department" required="false" innerdatasetinfo="" comptype="auto" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="false"/>
+              <Field id="company" innerdatasetinfo="" comptype="auto" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="false"/>
+              <Field id="name" required="false" innerdatasetinfo="" comptype="auto" compwidth="100px" compheight="30px" labelsize="100" fieldposition="horizontal" cssclass="" labelcssclass="sta_label" compreadonly="false" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="stBg" fields="_viewcomp"/>
+              <Component id="btnSearch" fields="_viewcomp"/>
+              <Component id="staNameLabel" fields="name"/>
+              <Component id="edtName" fields="name"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\SearchViewTemplate.xviewgen">
+            <Attribute id="direction" value="horizontal"/>
+            <Attribute id="halign" value="left"/>
+            <Attribute id="valign" value="top"/>
+            <Attribute id="searchbuttontype" value="bottom"/>
+            <Attribute id="searchbuttontext" value="Search"/>
+            <Attribute id="searchbuttoncssclass" value="btn_search"/>
+            <Attribute id="searchbgcssclass" value="sta_searchbox"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="Static00" taborder="1" text="팝업타이틀" left="20" top="20" height="30" cssclass="sta_WF_title01" right="20"/>
+        <View id="viwPopBtn" taborder="3" viewdataset="viewdataset" left="20" height="30" bottom="20" right="20">
+          <Layouts>
+            <Layout type="horizontal" flexmainaxisalign="center" flexcrossaxisalign="center" horizontalgap="10">
+              <Button id="btnOk" taborder="2" text="확인(선택데이터)" left="112" top="0" width="106" height="30" cssclass="btn_cm_basic02"/>
+              <Button id="btnOk2" taborder="0" text="확인(전체데이터)" left="112" top="0" width="106" height="30" cssclass="btn_cm_basic02"/>
+              <Button id="btnOk3" taborder="3" text="확인(변경데이터)" left="112" top="0" width="106" height="30" cssclass="btn_cm_basic02"/>
+              <Button id="btnCancel" taborder="1" text="취소" left="110" top="9" width="80" height="30" cssclass="btn_cm_basic01"/>
+            </Layout>
+          </Layouts>
+        </View>
+        <View id="viwList" taborder="2" viewdataset="viewdataset" left="20" top="viwSearch:10" right="20" bottom="viwPopBtn:10">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_company" col="0" row="0" text="Company"/>
+                      <Cell id="cell_head_1_0_department" col="1" row="0" text="Department"/>
+                      <Cell id="cell_head_2_0_name" col="2" row="0" text="Name"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_company" col="0" row="0" text="bind:company" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_body_1_0_department" col="1" row="0" text="bind:department" displaytype="normal" edittype="normal"/>
+                      <Cell id="cell_body_2_0_name" col="2" row="0" text="bind:name" displaytype="normal" edittype="normal"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="company" type="STRING" size="80" description="Company"/>
+                <Column id="department" type="STRING" size="80" description="Department"/>
+                <Column id="name" type="STRING" size="80" description="Name"/>
+                <Column id="position" type="STRING" size="80" description="Position"/>
+                <Column id="phone" type="STRING" size="80" description="Phone"/>
+                <Column id="address" type="STRING" size="256" description="Address"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="Tran" modelid="output" filepath="sample\Tran.xmodel">
+            <Fields>
+              <Field id="address" required="false" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="phone" required="false" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="position" required="false" fieldtype="FreeText" innerdatasetinfo="" displaytype="auto" edittype="none" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="company" required="false" fieldtype="FreeText" innerdatasetinfo="" displaytype="auto" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="department" required="false" fieldtype="FreeText" innerdatasetinfo="" displaytype="auto" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="name" required="false" innerdatasetinfo="" displaytype="auto" edittype="normal" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="company,department,name"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="false"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="company" type="STRING" size="80"/>
+          <Column id="department" type="STRING" size="80"/>
+          <Column id="name" type="STRING" size="80"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="name">직원1</Col>
+            <Col id="company">TOBESOFT</Col>
+            <Col id="department">부서1</Col>
+          </Row>
+          <Row>
+            <Col id="company">TOBESOFT</Col>
+            <Col id="department">부서1</Col>
+            <Col id="name">직원2</Col>
+          </Row>
+          <Row>
+            <Col id="company">TOBESOFT</Col>
+            <Col id="department">부서1</Col>
+            <Col id="name">직원3</Col>
+          </Row>
+          <Row>
+            <Col id="company">TOBESOFT</Col>
+            <Col id="department">부서2</Col>
+            <Col id="name">직원4</Col>
+          </Row>
+          <Row>
+            <Col id="company">TOBESOFT</Col>
+            <Col id="department">부서2</Col>
+            <Col id="name">직원5</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <PopupCloseAction id="PopupCloseAction00" returntype="none">
+        <Contents/>
+      </PopupCloseAction>
+      <PopupCloseAction id="PopupCloseAction01" targetview="viwList" returntype="currow">
+        <Contents/>
+      </PopupCloseAction>
+      <PopupCloseAction id="PopupCloseAction02" targetview="viwList" returntype="alldata">
+        <Contents/>
+      </PopupCloseAction>
+      <PopupCloseAction id="PopupCloseAction03" targetview="viwList" returntype="changedata">
+        <Contents/>
+      </PopupCloseAction>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.test_action_popupsub_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.viwList.form.viewdataset.copyData(this.dsData);
+};
+
+this.viwSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.viwList.form.viewdataset.copyData(this.dsData);
+};]]></Script>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="viwPopBtn" triggerobj="btnCancel" targetaction="PopupCloseAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="viwPopBtn" triggerobj="btnOk" targetaction="PopupCloseAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="viwPopBtn" triggerobj="btnOk2" targetaction="PopupCloseAction02" condition=""/>
+      <TriggerItem id="item3" triggertype="Click" triggerview="viwPopBtn" triggerobj="btnOk3" targetaction="PopupCloseAction03" condition=""/>
+    </Trigger>
+  </Form>
+</FDL>

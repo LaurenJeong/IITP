@@ -17,8 +17,31 @@
 */
 var pForm = nexacro.Form.prototype;
 
+
 //grid propertiy
-pForm.defaultmenulis = "sort,colfix,rowfix,filter,initial";														// 기본 메뉴
+/*
+grid propertiy
+	checkbox : 체크박스
+	no : 순번
+	page : 페이징순번
+	status : 상태
+	sort : 정렬(그리드헤더더블클릭)
+	
+	colfix : 틀고정 (열)
+	rowfix : 틀고정 (행)
+	filter : 그리드 필터
+	find : 찾기
+	colhide : 컬럼숨기기/보이기
+	personal : 그리드포맷 저장
+	initial : 초기상태로
+	
+	cellcopy	: 클립보드 복사
+	cellpaste	: 붙여넣기
+	cellmove	: 컬럼이동
+	cellsize 	: 컬럼사이즈조정
+	autoenter	: autoenter
+*/
+pForm.defaultmenulis = "cellmove,cellsize,autoenter,sort,colfix,rowfix,filter,initial";														// 기본 메뉴
 pForm.selectmenulist = "no,status,checkbox,replace,colhide,export,import,personal,cellcopypaste,userheader";	// 선택(옵션) 메뉴 - griduserproperty 설정시에만 작동
 pForm.popupmenulist  = "colfix,rowfix,filter,replace,colhide,export,import,personal,initial";					// 팝업 메뉴 전체 목록
 
@@ -133,6 +156,19 @@ pForm._gfnGridAddProp = function (objGrid)
 				break;
 			case "sort":
 				objGrid.sort = "true";
+				break;
+			case "cellmove":
+				objGrid.set_cellmovingtype("col");
+				break;
+			case "cellsize":
+				objGrid.set_cellsizingtype("col");
+				objGrid.set_cellsizebandtype("allband");
+				break;
+			case "autoenter":
+				objGrid.set_autoenter("select");
+				break;
+			case "selecttype":
+				objGrid.set_selecttype("area");
 				break;
 			default: break;
 		}
@@ -1061,7 +1097,7 @@ pForm._gfnMakeGridPopupMenu = function (objGrid, arrProp)
  */
 pForm._getGridUserProperty = function (objGrid)
 {
-	var sProp = objGrid.griduserproperty;
+	var sProp = objGrid.commSet;
 	
 	var arrdefault = this.defaultmenulis.split(",");
 	var arrprop = [];

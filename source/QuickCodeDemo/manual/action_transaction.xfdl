@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="action_transaction" width="1080" height="440" titletext="TransactionAction" onload="form_onload">
+  <Form id="action_transaction" width="1080" height="420" titletext="TransactionAction" onload="form_onload">
     <Layouts>
-      <Layout height="440" width="1080">
-        <Static id="staSampleBg" taborder="3" left="0" top="0" height="440" right="10" cssclass="sta_cm_box02C"/>
-        <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="10" top="10" height="50" width="750">
+      <Layout height="420" width="1080">
+        <View id="viewSearch" taborder="0" text="viewSearch" viewdataset="viewdataset" left="0" top="0" height="50" width="750">
           <Layouts>
             <Layout>
               <Static id="stBg" left="0" top="0" right="0" bottom="0" cssclass="sta_searchbox"/>
@@ -61,7 +60,7 @@
             <Attribute id="searchbgcssclass" value="sta_searchbox"/>
           </ViewTemplateInfo>
         </View>
-        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="10" top="viewSearch:10" width="750" height="360">
+        <View id="viewList" taborder="1" text="viewList" viewdataset="viewdataset" left="0" top="viewSearch:10" width="750" bottom="0">
           <Layouts>
             <Layout>
               <Div id="divTitle" left="0" top="0" height="30" right="0">
@@ -153,7 +152,7 @@
             <Attribute id="summbandsize" value="30"/>
           </ViewTemplateInfo>
         </View>
-        <TextArea id="txtOutput" taborder="2" top="10" right="20" left="770" height="420"/>
+        <TextArea id="txtOutput" taborder="2" top="0" right="0" left="760" bottom="0"/>
       </Layout>
     </Layouts>
     <Objects>

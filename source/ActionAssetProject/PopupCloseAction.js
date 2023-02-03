@@ -110,7 +110,10 @@ if (!nexacro.PopupCloseAction)
 			}
 			
 			// 팝업창 닫기
-			objChildForm.close(sRet);
+			if (!this.gfnIsNull(objChildForm.opener))
+			{
+				objChildForm.close(sRet);
+			}
 		}		
 	};
 	

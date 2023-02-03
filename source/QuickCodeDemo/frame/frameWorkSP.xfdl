@@ -4,7 +4,7 @@
     <Layouts>
       <Layout width="1050" height="872">
         <Static id="Static03" taborder="0" text="h16" visible="false" left="1063" top="-1" width="33" height="22"/>
-        <Div id="divWork" taborder="1" left="10" top="35" right="10" border="1px none , 1px none , 1px none, 1px none" text="divWork" height="30">
+        <Div id="divWork" taborder="1" left="10" top="40" right="10" border="1px none , 1px none , 1px none, 1px none" text="divWork" height="30">
           <Layouts>
             <Layout/>
           </Layouts>
@@ -83,8 +83,8 @@
             </Tabpage>
           </Tabpages>
         </Tab>
-        <Button id="Button02" taborder="7" text="동영상보기" top="divWork:15" width="100" height="30" right="10"/>
-        <Button id="Button00" taborder="5" text="다운로드" top="divWork:15" height="30" right="Button02:5" width="100"/>
+        <Button id="Button02" taborder="7" text="동영상보기" top="divWork:15" width="100" height="30" right="10" enable="false"/>
+        <Button id="btnDown" taborder="5" text="다운로드" top="divWork:15" height="30" right="Button02:5" width="100" onclick="btnDown_onclick"/>
         <Button id="Button01" taborder="6" text="Button01" left="322" top="-34" width="100" height="30"/>
       </Layout>
     </Layouts>
@@ -133,6 +133,7 @@
           <Column id="TRIGGER_INFO" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
+      <FileDownTransfer id="fdtSample"/>
     </Objects>
     <Script type="xscript5.1"><![CDATA[/**
 *  컨설팅 표준화 작업
@@ -168,6 +169,8 @@ this.fv_formNode;
  */
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	this.gfnFormOnLoad(this);
+	
 	//넘어온 아규먼트 셋팅
 	this.fnSetOwnFrameArgu(this);
 	
@@ -723,6 +726,23 @@ this.tabInfo_Tabpage2_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.G
 		
 		this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
 	}
-};]]></Script>
+};
+
+/**
+ * @description TODO : 샘플파일 다운로드
+ */
+this.btnDown_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sUrl		= this.gfnGetArgument("pageUrl");
+	var sSourceUrl	= this.objApp.id + "/" + this.gfnGetSourceUrl(sUrl);
+	var sServerUrl	= this.gfnGetServerUrl() + "fileDownload.do?name=";
+	
+	var sDownUrl	= sServerUrl + sSourceUrl;
+	var sFileUrl	= sSourceUrl.substring(sSourceUrl.lastIndexOf("/") + 1);
+	
+	this.fdtSample.set_downloadfilename(sFileUrl);
+	this.fdtSample.download(sDownUrl);
+};
+]]></Script>
   </Form>
 </FDL>
