@@ -62,23 +62,8 @@ this.objMainframe = this.objApp.mainframe;
  ************************************************************************************************/
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {			
-	// TODO : 현재 로그인 처리 없음.
-	// Sample 화면 메뉴에 추가		
-// 	for (var i=0; i< this.dsSample.rowcount; i++)
-// 	{
-// 		var nRow = this.objApp.gdsMenu.addRow();
-// 		this.objApp.gdsMenu.copyRow(nRow, this.dsSample, i);
-// 	}
-	
-	// 프레임 변경
-	nexacro.setPrivateProfile("gdsMenu"    ,this.objApp.gdsMenu.saveXML()); 	
-	nexacro.setPrivateProfile("gdsUserInfo",this.objApp.gdsUserInfo.saveXML());	
-	
-	this.fnSetSeprateFrame();
-	return;
-	
 	this.form_onsize();
-		
+	
 	if (system.navigatorname != "nexacro")
 	{
 		// 새로고침을 위한 처리 ( application 실행 시 한번만 체크)
@@ -95,6 +80,20 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 			MyHistory.setLocationHash(sHash, oData);
 		}
 	}
+	
+	// TODO : 현재 로그인 처리 없음.
+	// Sample 화면 메뉴에 추가		
+// 	for (var i=0; i< this.dsSample.rowcount; i++)
+// 	{
+// 		var nRow = this.objApp.gdsMenu.addRow();
+// 		this.objApp.gdsMenu.copyRow(nRow, this.dsSample, i);
+// 	}
+	
+	// 프레임 변경
+	this.objApp.gvMainFrame.set_formurl("");
+	nexacro.setPrivateProfile("gdsMenu"    ,this.objApp.gdsMenu.saveXML()); 	
+	nexacro.setPrivateProfile("gdsUserInfo",this.objApp.gdsUserInfo.saveXML());	
+	this.fnSetSeprateFrame();
 };
 
 /**

@@ -4,10 +4,8 @@
     <Layouts>
       <Layout height="984" mobileorientation="landscape" width="1280">
         <Div id="divFrameTop" taborder="0" left="0" top="0" height="75" right="0" url="frame::frameTop.xfdl"/>
-        <Div id="divFrameBottom" taborder="3" left="240" bottom="0" height="20" right="0"/>
         <Div id="divFrameLeft" taborder="1" left="0" top="75" bottom="0" width="225" url="frame::frameLeft.xfdl"/>
-        <Div id="divFrameNavi" taborder="2" left="240" top="952" height="32" right="0" url="frame::frameSDI.xfdl" visible="false"/>
-        <Div id="divFrameWork" taborder="4" left="divFrameLeft:0" top="75" right="0" bottom="0" url="frame::frameMain.xfdl" text=""/>
+        <Div id="divFrameWork" taborder="2" left="divFrameLeft:0" top="75" right="0" bottom="0" text=""/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[/**
@@ -35,6 +33,7 @@ this.objMainframe = this.objApp.mainframe;
  ************************************************************************************************/
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	this.objApp.gvMainForm	= this;
 	this.objApp.gvTopFrame  = this.divFrameTop ; 								// Top Frame
 	this.objApp.gvLeftFrame = this.divFrameLeft;     							// LeftFrame
 	this.objApp.gvWorkFrame = this.divFrameWork;     							// WorkFrame
@@ -62,62 +61,123 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
     var oFirstMenu = oTopFrm.divTopBtn.form[oTopFrm.fvFirstMenu];
 	if(oFirstMenu) oFirstMenu.click();	
     //oTopFrm.divTopBtn.form.TOP_SN00000001.click();
-    
 	
-// 	if (system.navigatorname != "nexacro")
-// 	{
-// 		var hash = MyHistory.getLocationHash();		
-// 		if (hash=="login")
-// 		{
-// 			// History	
-// 			var sHash 	= "intro";
-// 			var oData	= {};
-// 			
-// 			MyHistory.setLocationHash(sHash, oData);
-// 		}
-// 	}
-// 	
-
-
-// 	if (system.navigatorname != "nexacro")
-// 	{
-// 		var hash = MyHistory.getLocationHash();		
-// 		var data ;
-// 		
-// 		if (hash)
-// 			data = MyHistory.getData(hash);
-// 		
-// 		this.onChangeHistory(hash, data);
-// 	}
+	this.divFrameWork.set_url("frame::frameMain.xfdl");
+	
+	//히스토리 초기화
+	if (system.navigatorname != "nexacro")
+	{
+		MyHistory.init(this.onChangeHistory, this);
+	}
+	
+	this.initPage();
 };
 
+/**
+* @description 	   : 브라우저의 뒤로가기, 앞으로가기 호출 함수
+* @param sHash 	   : 브라우저에 기록된 현재 Hash 정보
+* @param sData 	   : 브라우저에 기록된 현재 Data 정보
+* @return          : 없음
+*/
 this.onChangeHistory = function(hash, data)
 {
-	// Hash Id 를 확인하여 필요한 처리를 진행한다.
-	var temp = hash.split(":");
-	var type = temp[0];
+	//this.gfnLog(">> onChangeHistory : " + hash + " " + data);
 	
-	trace(">> onChangeHistory : " + hash + " " + data);
+	var urlParams = {};
 	
-	if (type == "menu")
+	//hash값으로 파라미터 정보 가져오기
+	(function () {
+		var match,
+		pl     = /\+/g,
+		search = /([^&=]+)=?([^&]*)/g,
+		decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+		query  = hash;
+		while (match = search.exec(query)) { urlParams[decode(match[1])] = decode(match[2]); }
+		})();
+	
+	var sMenuId	= urlParams["menu"];
+	
+	if (this.gfnIsNull(hash) || this.gfnIsNull(sMenuId))
 	{
-		var sMenuId	= temp[1];
-		var oArg	= data.objArg
+		// Home 화면
+		this.fnGoHome();
+	}
+	else if(sMenuId == "home")
+	{
+		// Home 화면
+		this.fnGoHome();
+	}
+	else
+	{
+		if (this.gfnIsNull(data	  )) data = {objArg : null};
 		
+		var oArg	= data["objArg"];
+	
 		if (this.gfnIsNull(sMenuId)) return;
 		if (this.gfnIsNull(oArg	  )) oArg = [];
 
 		var oObj = 
 		{
-			sMenuId : temp[1]
+			sMenuId : sMenuId
 		,	oArgs 	: oArg       		
 		};
 		
 		this.gfnCallSDI(oObj);
 	}
-	else if (type == "intro")
+}
+
+/**
+* @description      : 최초 접속 시 페이지 이동 처리 함수
+* @param         : 없음
+* @return          : 없음
+*/
+this.initPage = function()
+{
+	if (system.navigatorname != "nexacro")
 	{
-		this.divFrameWork.set_url("frame::frameMain.xfdl");
+		var urlParams = nexacro.urlParams;
+		
+		//this.gfnLog("initPage : " + urlParams["menu"]);
+		
+		//링크타고 들어올 경우
+		if(urlParams && this.gfnIsNull(urlParams["menu"])==false )
+		{
+			this.onChangeHistory("menu="+urlParams["menu"],null);
+		}
+		//새로고침 시
+		else
+		{
+			var sHash = MyHistory.getLocationHash();    
+			
+			//히스토리 기록이 있을 경우
+			if ( !this.gfnIsNull(sHash) )
+			{
+				var sData = MyHistory.getData(sHash);
+				this.onChangeHistory(sHash, sData);
+			}
+			//히스토리 기록이 없을 경우
+			else
+			{
+				this.fnGoHome();
+			}
+		}
+	}
+	//전용브라우저로 실행 시
+	else{
+		this.fnGoHome();
+	}
+};
+
+/**
+ * @description  홈화면으로 이동
+*/
+this.fnGoHome = function(oArgs)
+{
+	this.divFrameWork.set_url("frame::frameMain.xfdl");
+	
+	if (system.navigatorname != "nexacro")
+	{
+		MyHistory.setLocationHash("menu=home", {}, "./");
 	}
 }
 

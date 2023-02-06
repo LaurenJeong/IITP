@@ -7,7 +7,8 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.URL" %>
 <%
-	PlatformData o_xpData = new PlatformData();
+
+PlatformData o_xpData = new PlatformData();
 HttpPlatformRequest platformRequest = new HttpPlatformRequest(request);
 
 platformRequest.receiveData();
@@ -29,43 +30,36 @@ String strFilePath = inVariableList.getString("FilePath");
 int nErrorCode = 0;
 String strErrorMsg = "START";
 String Contents = "";
+BufferedReader reader = null;
 
+String contextRealPath = request.getServletContext().getRealPath("/WEB-INF/files");
 
-String strURLPath = request.getRequestURL().substring(0,request.getRequestURL().lastIndexOf("/"));
-String resourcePath = strURLPath + "/" + "source" + "/" + strProjectId + "/" + strFilePath;
-
-//String resourcePath = "http://support.tobesoft.co.kr:8080/Next_JSP/nexacro_source"  + strFilePath ;
-
-//System.out.println(">>>>>>>>>>>>>>> resourcePath : " + resourcePath);	
+String resourcePath = contextRealPath + "/" + strProjectId + "/" + strFilePath;
 
 try
 {
-
-	BufferedReader br = null;
-	char[] buff = new char[512];
-	int len = -1;
-
-	URL url = new URL(resourcePath);
- 
-	br = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8")); //url.openStream()은 new InputStreamReader()랑 같은 기능을 함. 바이트->문자
-	while ((len = br.read(buff)) != -1) {
-		Contents += new String(buff, 0, len);
-	}
-
-	DataSet ds = new DataSet("output");
+	
+	StringBuffer sb = new StringBuffer();
+	reader = new BufferedReader(new FileReader(resourcePath));
+    while(true){
+    	String str = reader.readLine();
+    	if(str == null) break;
+    	sb.append(str);
+    	sb.append("\n");
+    }
+    
+ 	DataSet ds = new DataSet("output");
 
 	ds.addColumn("contents", DataTypes.STRING, 5000);
 
 	int row = ds.newRow();
-	ds.set(row, "contents", Contents);
+	ds.set(row, "contents", sb.toString());
 
 	o_xpData.addDataSet(ds);
 
 	nErrorCode = 0;
 	strErrorMsg = "SUCC";
-
-	if (br != null)
-		br.close();
+ 
 } catch (Exception e) {
 	nErrorCode = -1;
 	strErrorMsg = e.getMessage();
@@ -81,6 +75,8 @@ HttpPlatformResponse pRes = new HttpPlatformResponse(response, PlatformType.CONT
 //HttpPlatformResponse pRes = new HttpPlatformResponse(response, PlatformType.CONTENT_TYPE_BINARY, "UTF-8");
 pRes.setData(o_xpData);
 
+
+reader.close();
 out.clear();
 pRes.sendData();
 %>

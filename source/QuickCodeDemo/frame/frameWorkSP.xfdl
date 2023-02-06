@@ -10,7 +10,7 @@
           </Layouts>
         </Div>
         <Div id="divTitle" taborder="2" left="0" top="0" right="0" url="frame::frameWorkTitle.xfdl" height="35" border="1px none , 1px none , 1px solid gainsboro" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
-        <Static id="staLodingTime" taborder="3" top="7" width="425" height="17" font="normal bold 14px/normal &quot;Gulim&quot;,&quot;Arial&quot;" usedecorate="true" color="orangered" right="10" textAlign="right" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
+        <Static id="staLodingTime" taborder="3" top="7" width="425" height="17" font="normal bold 14px/normal &quot;Gulim&quot;,&quot;Arial&quot;" usedecorate="true" color="orangered" right="130" textAlign="right" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
         <Tab id="tabInfo" taborder="4" tabindex="0" left="10" top="divWork:20" right="10" bottom="10">
           <Tabpages>
             <Tabpage id="Tabpage1" text="View Info">
@@ -39,9 +39,9 @@
                         </Band>
                         <Band id="body">
                           <Cell text="bind:VIEW_ID"/>
-                          <Cell col="1" text="bind:VT_ID" expandshow="expr:VT_SEQ!=null?'show':'hide'" cssclass="cell_WF_Link"/>
+                          <Cell col="1" text="bind:VT_ID" expandshow="expr:VT_SEQ!=null?'show':'hide'" cssclass="expr:VT_SEQ!=null?'cell_WF_Link':''"/>
                           <Cell col="2" text="bind:VT_NM"/>
-                          <Cell col="3" text="bind:MODEL_ID" expandshow="expr:MODEL_SEQ!=null?'show':'hide'"/>
+                          <Cell col="3" text="bind:MODEL_ID" cssclass="expr:MODEL_SEQ!=null?'cell_WF_Link':''"/>
                           <Cell col="4" text="bind:MODEL_NM"/>
                         </Band>
                       </Format>
@@ -71,7 +71,7 @@
                           <Cell col="2" text="Action Name"/>
                         </Band>
                         <Band id="body">
-                          <Cell text="bind:ACTION_CLASS_ID" expandshow="expr:ACTION_SEQ!=null?'show':'hide'" cssclass="cell_WF_Link"/>
+                          <Cell text="bind:ACTION_CLASS_ID" expandshow="expr:ACTION_SEQ!=null?'show':'hide'" cssclass="expr:ACTION_SEQ!=null?'cell_WF_Link':''"/>
                           <Cell col="1" text="bind:ACTION_ID"/>
                           <Cell col="2" text="bind:ACTION_NM"/>
                         </Band>
@@ -602,20 +602,36 @@ this.tabInfo_Tabpage1_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.
 	
 	if (e.clickitem != "expandbutton")
 	{
-		if (obj.getBindCellIndex("body","VT_ID") == e.cell)
+		if (obj.getBindCellIndex("body","MODEL_ID") == e.cell)			// Model Info 팝업 호출
 		{
-			var sVtSeq		= oDsBind.getColumn(nRow,"VT_SEQ");
-			var sSampleUrl	= this.objApp.gdsMenu.lookup(this.FRAME_MENUCOLUMNS.menuArgs,'{"vtSeq": '+ sVtSeq +'}', this.FRAME_MENUCOLUMNS.pageUrl);
+			var sModelSeq	= oDsBind.getColumn(nRow,"MODEL_SEQ");
+			if (this.gfnIsNull(sModelSeq))		return;
 			
-			
-			var sPopupId	= "cmmViewTemplateManual";
-			var sUrl		= "cmm::cmmViewTemplateManual.xfdl";
+			var sPopupId	= "cmmModelInfo";
+			var sUrl		= "cmm::cmmModelInfo.xfdl";
+			var oParam		= {modelSeq : oDsBind.getColumn(nRow,"MODEL_SEQ")};
 			var sCallBack	= "fnPopupCallback";
-			var oOption		= {title:"Manual - " + oDsBind.getColumn(nRow,"VT_ID"), width:1100, height:600};
+			var oOption		= {title:"Model - " + oDsBind.getColumn(nRow,"MODEL_ID"), width:1050, height:280};
+			
+			this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
+		}
+		else if (obj.getBindCellIndex("body","VT_ID") == e.cell)		// ViewTemplate Info 팝업 호출
+		{
+			// 현재 선택된 Row 데이터를 팝업으로 넘김
+			var oDsViewInfo = oDsBind.createDataset("dsViewInfoCur", this.gfnGetDatasetCols(oDsBind),"currow==" + nRow);
+			var sXML = "";
+			
+			if (!this.gfnIsNull(oDsViewInfo))		sXML = oDsViewInfo.saveXML();
+			
+			var sPopupId	= "cmmViewTemplateInfo";
+			var sUrl		= "cmm::cmmViewTemplateInfo.xfdl";
+			var sCallBack	= "fnPopupCallback";
+			var oOption		= {title:"ViewTemplate - " + oDsBind.getColumn(nRow,"VT_ID"), width:1050, height:600};
 			
 			var oParam		= {
-				  vtSeq		: sVtSeq
-				, sampleUrl	: sSampleUrl
+				  modelSeq	: oDsBind.getColumn(nRow,"MODEL_SEQ")
+				, vtSeq		: oDsBind.getColumn(nRow,"VT_SEQ")
+				, dataset	: sXML
 			};
 			
 			this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
@@ -630,33 +646,21 @@ this.tabInfo_Tabpage1_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.G
 	var oDsBind = obj.getBindDataset();
 	var nRow = e.row;
 	
-	if (obj.getBindCellIndex("body","MODEL_ID") == e.cell)			// Model Info 팝업 호출
+	if (obj.getBindCellIndex("body","VT_ID") == e.cell)		// ViewTemplate Manual 팝업 호출
 	{
-		var sPopupId	= "cmmModelInfo";
-		var sUrl		= "cmm::cmmModelInfo.xfdl";
-		var oParam		= {modelSeq : oDsBind.getColumn(nRow,"MODEL_SEQ")};
+		var sVtSeq		= oDsBind.getColumn(nRow,"VT_SEQ");
+		if (this.gfnIsNull(sVtSeq))		return;
+		
+		var sSampleUrl	= this.objApp.gdsMenu.lookup(this.FRAME_MENUCOLUMNS.menuArgs,'{"vtSeq": '+ sVtSeq +'}', this.FRAME_MENUCOLUMNS.pageUrl);
+		
+		var sPopupId	= "cmmViewTemplateManual";
+		var sUrl		= "cmm::cmmViewTemplateManual.xfdl";
 		var sCallBack	= "fnPopupCallback";
-		var oOption		= {title:"Model - " + oDsBind.getColumn(nRow,"MODEL_ID"), width:1050, height:280};
-		
-		this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
-	}
-	else if (obj.getBindCellIndex("body","VT_ID") == e.cell)		// ViewTemplate Info 팝업 호출
-	{
-		// 현재 선택된 Row 데이터를 팝업으로 넘김
-		var oDsViewInfo = oDsBind.createDataset("dsViewInfoCur", this.gfnGetDatasetCols(oDsBind),"currow==" + nRow);
-		var sXML = "";
-		
-		if (!this.gfnIsNull(oDsViewInfo))		sXML = oDsViewInfo.saveXML();
-		
-		var sPopupId	= "cmmViewTemplateInfo";
-		var sUrl		= "cmm::cmmViewTemplateInfo.xfdl";
-		var sCallBack	= "fnPopupCallback";
-		var oOption		= {title:"ViewTemplate - " + oDsBind.getColumn(nRow,"VT_ID"), width:1050, height:600};
+		var oOption		= {title:"Manual - " + oDsBind.getColumn(nRow,"VT_ID"), width:1100, height:600};
 		
 		var oParam		= {
-			  modelSeq	: oDsBind.getColumn(nRow,"MODEL_SEQ")
-			, vtSeq		: oDsBind.getColumn(nRow,"VT_SEQ")
-			, dataset	: sXML
+			  vtSeq		: sVtSeq
+			, sampleUrl	: sSampleUrl
 		};
 		
 		this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
@@ -672,20 +676,30 @@ this.tabInfo_Tabpage2_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.
 	
 	if (e.clickitem != "expandbutton")
 	{
-		if (obj.getBindCellIndex("body","ACTION_CLASS_ID") == e.cell)
+		if (obj.getBindCellIndex("body","ACTION_CLASS_ID") == e.cell)		// Action Info 팝업 호출
 		{
 			var sActionSeq	= oDsBind.getColumn(nRow,"ACTION_SEQ");
-			var sSampleUrl	= this.objApp.gdsMenu.lookup(this.FRAME_MENUCOLUMNS.menuArgs,'{"actionSeq": '+ sActionSeq +'}', this.FRAME_MENUCOLUMNS.pageUrl);
+			if (this.gfnIsNull(sActionSeq))		return;
+		
+			// 현재 선택된 Row 데이터를 팝업으로 넘김
+			var oDsActionInfo = oDsBind.createDataset("dsActionInfoCur", this.gfnGetDatasetCols(oDsBind),"currow==" + nRow);
+			var sXML = "";
+			var sTitle = "";
 			
+			if (!this.gfnIsNull(oDsActionInfo))		sXML = oDsActionInfo.saveXML();
 			
-			var sPopupId	= "cmmActionManual";
-			var sUrl		= "cmm::cmmActionManual.xfdl";
+			sTitle	= "Action";
+			sTitle	+= " - " + oDsBind.getColumn(nRow,"ACTION_CLASS_ID");
+			sTitle	+= " (" + oDsBind.getColumn(nRow,"ACTION_ID") + ")";
+			
+			var sPopupId	= "cmmActionInfo";
+			var sUrl		= "cmm::cmmActionInfo.xfdl";
 			var sCallBack	= "fnPopupCallback";
-			var oOption		= {title:"Manual - " + oDsBind.getColumn(nRow,"ACTION_ID"), width:1100, height:600};
+			var oOption		= {title:sTitle, width:1050, height:600};
 			
 			var oParam		= {
-				  actionSeq	: sActionSeq
-				, sampleUrl	: sSampleUrl
+				  actionSeq	: oDsBind.getColumn(nRow,"ACTION_SEQ")
+				, dataset	: sXML
 			};
 			
 			this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
@@ -701,27 +715,21 @@ this.tabInfo_Tabpage2_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.G
 	var oDsBind = obj.getBindDataset();
 	var nRow = e.row;
 	
-	if (obj.getBindCellIndex("body","ACTION_CLASS_ID") == e.cell)
+	if (obj.getBindCellIndex("body","ACTION_CLASS_ID") == e.cell)	// Action Manual 팝업 호출
 	{
-		// 현재 선택된 Row 데이터를 팝업으로 넘김
-		var oDsActionInfo = oDsBind.createDataset("dsActionInfoCur", this.gfnGetDatasetCols(oDsBind),"currow==" + nRow);
-		var sXML = "";
-		var sTitle = "";
+		var sActionSeq	= oDsBind.getColumn(nRow,"ACTION_SEQ");
+		if (this.gfnIsNull(sActionSeq))		return;
 		
-		if (!this.gfnIsNull(oDsActionInfo))		sXML = oDsActionInfo.saveXML();
+		var sSampleUrl	= this.objApp.gdsMenu.lookup(this.FRAME_MENUCOLUMNS.menuArgs,'{"actionSeq": '+ sActionSeq +'}', this.FRAME_MENUCOLUMNS.pageUrl);
 		
-		sTitle	= "Action";
-		sTitle	+= " - " + oDsBind.getColumn(nRow,"ACTION_CLASS_ID");
-		sTitle	+= " (" + oDsBind.getColumn(nRow,"ACTION_ID") + ")";
-		
-		var sPopupId	= "cmmActionInfo";
-		var sUrl		= "cmm::cmmActionInfo.xfdl";
+		var sPopupId	= "cmmActionManual";
+		var sUrl		= "cmm::cmmActionManual.xfdl";
 		var sCallBack	= "fnPopupCallback";
-		var oOption		= {title:sTitle, width:1050, height:600};
+		var oOption		= {title:"Manual - " + oDsBind.getColumn(nRow,"ACTION_ID"), width:1100, height:600};
 		
 		var oParam		= {
-			  actionSeq	: oDsBind.getColumn(nRow,"ACTION_SEQ")
-			, dataset	: sXML
+			  actionSeq	: sActionSeq
+			, sampleUrl	: sSampleUrl
 		};
 		
 		this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);

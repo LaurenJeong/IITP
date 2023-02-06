@@ -344,7 +344,9 @@ this.fnSetTopMenu = function ()
 		var strID = this.dsMenu.getColumn(i, this.FRAME_MENUCOLUMNS.menuId);
 		
 		// 첫번째 메뉴
-		if (i == 0) this.fvFirstMenu = this.fvTopBtnPrefix + strID;
+		if (i == 0) {
+			this.fvFirstMenu = this.fvTopBtnPrefix + strID;
+		}
 		
 		// 다국어 처리
 		var sMenuNameColumn = this.FRAME_MENUCOLUMNS.menuNm;
@@ -383,11 +385,11 @@ this.fnSetActiveBtn = function (menuId)
 		MenuObj = this.fnFindObj(this.fvTopBtnPrefix + this.dsMenu.getColumn(i, this.FRAME_MENUCOLUMNS.menuId));
 		if (menuId == this.dsMenu.getColumn(i, this.FRAME_MENUCOLUMNS.menuId)) 
 		{
-			//MenuObj.set_cssclass("btn_menu_select");
+			MenuObj.set_cssclass("btn_TF_MenuS");
 		}
 		else 
 		{
-			//MenuObj.set_cssclass("btn_menu");
+			MenuObj.set_cssclass("btn_TF_Menu");
 		}
 	}
 };
@@ -404,12 +406,6 @@ this.fnFindObj = function (strId)
 this.Menu00_onmenuclick = function(obj:nexacro.Menu,e:nexacro.MenuClickEventInfo)
 {
 	this.objApp.gvLeftFrame.form.getMenu(e.id);
-};
-
-this.staLogo_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
-{
-	// Main 페이지
-    this.objApp.gvVFrameSet1.set_separatesize("35,*,0");
 };
 
 this.btnLogOut_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -589,7 +585,7 @@ this.btnLeftMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.btnHome_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.objApp.gvWorkFrame.set_url("frame::frameMain.xfdl");
+	this.objApp.gvMainFrame.form.fnGoHome();
 };
 ]]></Script>
   </Form>

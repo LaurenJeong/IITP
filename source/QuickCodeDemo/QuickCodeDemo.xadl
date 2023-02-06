@@ -3,12 +3,7 @@
   <Application id="QuickCodeDemo" screenid="ScreenDeskTop" onload="Application_onload" onerror="Application_onerror" licenseurl="./NexacroN_client_license.xml">
     <Layout>
       <MainFrame id="mainframe" showtitlebar="true" showstatusbar="false" width="1280" height="720" titletext="QuickCodeDemo" showtitleicon="false" showcascadetitletext="false">
-        <VFrameSet id="VFrameSet" separatesize="*,0" showtitlebar="false" showtitleicon="false">
-          <Frames>
-            <ChildFrame id="frameLogin" showtitlebar="false" showstatusbar="false" showtitleicon="false" titletext="QuickCodeDemo" dragmovetype="none" formurl=""/>
-            <ChildFrame id="frameMain" showtitlebar="false" showstatusbar="false" showtitleicon="false" dragmovetype="none"/>
-          </Frames>
-        </VFrameSet>
+        <ChildFrame id="frameMain" showtitlebar="false" showstatusbar="false" showtitleicon="false" dragmovetype="none" formurl="frame::frameAll.xfdl"/>
       </MainFrame>
     </Layout>
     <Style url="xcssrc::asset.xcss"/>
@@ -30,8 +25,6 @@
 /************************************************************************************************
  * application 변수 선언 영역
 ************************************************************************************************/
-this.gvVFrameSet   	  = "";
-this.gvLoginFrame  	  = "";
 this.gvMainFrame   	  = "";
 this.gvTopFrame    	  = "";
 this.gvMdiFrame	   	  = "";
@@ -81,9 +74,7 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 	var sPrjPath = nexacro.getProjectPath();
 
 	// Frame 변수 저장
- 	this.gvVFrameSet	= objApp.mainframe.VFrameSet;                                			// VFrameSet	
- 	this.gvLoginFrame	= objApp.mainframe.VFrameSet.frameLogin;			 				   	// LoginFrame
-	this.gvMainFrame    = objApp.mainframe.VFrameSet.frameMain;  								// Main Frame
+	this.gvMainFrame    = objApp.mainframe.frameMain;  								// Main Frame
 	
 	// 접속경로 확인 및 설정
 	trace("===== 접속경로 : " + sPrjPath);	
@@ -134,6 +125,9 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 	objSrv.set_url(sSvcUrl);
 	trace("===== 서비스URL : " + sSvcUrl);	
 	
+	// 메인화면연결
+	this.gvMainFrame.set_formurl("frame::frameAll.xfdl");
+	
 	// 서버와 SSO 체크로직을 위해 Cookies에 값 설정 예제
 //	nexacro.setCookieVariable("jsessionidTest","AAAAA");
 	
@@ -141,53 +135,7 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 	var sGdsGridXML = nexacro.getPrivateProfile("gdsGridPersonal");
 	var objGds 		= objApp.gdsGridPersonal;	
 	objGds.loadXML(sGdsGridXML);
-		
-	// 로그인 화면 open (Login 창 영역만 사용한다)
-	this.gvLoginFrame.set_formurl("frame::frameLogin.xfdl");
-	
-	if (system.navigatorname != "nexacro")
-	{
-		MyHistory.init(this.onChangeHistory, this);
-		
-		// 새로고침을 위한 처리 ( application 실행 시 한번만 체크)
-		// 새로고침되더라도 hash 값을 그대로 남아있기에
-		// hash id 에 해당하는 처리를 하도록 한다.
-		var hash = MyHistory.getLocationHash();
-		
-		if (hash)
-		{
-			// 데이터가 필수가 아니면 체크할 일이 없겠네요
-			var data = MyHistory.getData(hash);
-			if (data)
-				this.onChangeHistory(hash, data);
-		}
-	}
 };
-
-this.onChangeHistory = function(hash, data)
-{
-	if (this.gfnIsNull(hash) || hash == "login")
-	{
-		// 로그인 화면 open (Login 창 영역만 사용한다)
-		this.gvVFrameSet.set_separatesize("*,0");
-		this.gvLoginFrame.set_formurl("frame::frameLogin.xfdl");
-	}
-	else
-	{
-		this.gvVFrameSet.set_separatesize("0,*");
-		
- 		if (!this.gfnIsNull(this.gvMainFrame.formurl))
- 			this.gvMainFrame.form.onChangeHistory(hash, data);
- 		else
- 		{
-			// History 존재시에는 Main으로 바로 이동한다.			
-			this.gdsUserInfo.loadXML(nexacro.getPrivateProfile("gdsUserInfo"));
-			this.gdsMenu.loadXML(nexacro.getPrivateProfile("gdsMenu")); 		
-			
-			this.gvMainFrame.set_formurl("frame::frameAll.xfdl");
- 		}
-	}
-}
 
 this.gfnIsNull = function(sValue)
 {

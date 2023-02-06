@@ -271,15 +271,6 @@ pForm.gfnCallSDI = function(oObj)
 	else
 		sMenuId = ds.getColumn(nRow, this.FRAME_MENUCOLUMNS.menuId);
 	
-	if (system.navigatorname != "nexacro")
-	{
-		// History	
-		var sHash 	= "menu:" + sMenuId;
-		var oData	= {oArg : oObj.oArg};
-		
-		MyHistory.setLocationHash(sHash, oData);
-	}
-	
 	this.gfnNewSdi(sMenuId, oArgs);
 };
 
@@ -419,7 +410,18 @@ pForm.gfnNewSdi = function(sMenuId, oArgs)
 	objNewWin.arguments["menuType"] = sMenuType;
  	objNewWin.arguments["oArgs"	 ] = oArgs;
 	
-	objNewWin.set_url(sWorkUrl);	
+	objNewWin.set_url(sWorkUrl);
+	
+	// History 추가
+	if (system.navigatorname != "nexacro")
+	{
+		// History	
+		var sHash 	= "menu="+sMenuId;
+		var oData	= {oArg : oArgs};
+		var sUrl = ".?"+sHash;
+		
+		MyHistory.setLocationHash(sHash, oData, sUrl);
+	}
 };
 
 /**
