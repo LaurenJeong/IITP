@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="view_tree" width="1080" height="1190" titletext="TreeViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
+    <Layouts>
+      <Layout height="1190" mobileorientation="landscape" width="1080">
+        <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="7" text="트리구조(tree structure) 데이터를 표시하기 위한 Grid를 생성하는 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="70" right="10" value="- 트리에 표시할 데이터 Field,  데이터의 상/하위 관계(depth)를 표시할 데이터 Field 2가지 Field가 필수로 필요합니다.&#10;- Body Band만 생성됩니다.&#10;- treestatusbutton 설정값에 따라 트리 데이터 전체를 Expand/Collapse 기능이 지원되는 버튼이 생성됩니다." readonly="true"/>
+        <Static id="Static00_00_00" taborder="8" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="225" right="10">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="상세내역" fittocontents="width" cssclass="sta_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_tree_collapse" onclick="viewSample.form.lfn_TreeView_btnTreecollapse_onclick" top="0" right="35"/>
+              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_tree_expand" onclick="viewSample.form.lfn_TreeView_btnTreeexpand_onclick" top="0" right="0"/>
+              <Grid id="grdList" left="0" top="35" right="0" bottom="0" binddataset="viewdataset" autofittype="col" treeinitstatus="expand,all" treeusebutton="use" treeuseimage="true" treeuseline="true" treeusecheckbox="true">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="200"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell displaytype="treeitemcontrol" edittype="tree" treelevel="bind:TREE_LVL" treestartlevel="0" text="bind:TREE_TXT" treecheck="bind:TREE_CHK"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="TREE_LVL" type="STRING" size="80" description="트리 LEVEL"/>
+                <Column id="TREE_TXT" type="STRING" size="80" description="트리명"/>
+                <Column id="TREE_CHK" type="STRING" size="1" description="트리체크"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <Script><![CDATA[this.lfn_TreeView_btnTreecollapse_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){var objForm = obj.parent;var objGrid = objForm.components['grdList'];objGrid.set_treeinitstatus('collapse,all');};this.lfn_TreeView_btnTreeexpand_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){var objForm = obj.parent;var objGrid = objForm.components['grdList'];objGrid.set_treeinitstatus('expand,all');};]]></Script>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="TreeModel001" filepath="sample\Tree.xmodel">
+            <Fields>
+              <Field id="TREE_LVL" description="" treetype="treelevel"/>
+              <Field id="TREE_TXT" description="" treetype="treetext"/>
+              <Field id="TREE_CHK" description="" treetype="treecheck"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="btnTreecollapse" fields="_viewcomp"/>
+              <Component id="btnTreeexpand" fields="_viewcomp"/>
+              <Component id="grdList" fields="TREE_LVL,TREE_TXT,TREE_CHK"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\TreeViewTemplate.xviewgen">
+            <Attribute id="titletext" value="상세내역"/>
+            <Attribute id="treeinitstatus" value="expand"/>
+            <Attribute id="treeusebutton" value="use"/>
+            <Attribute id="treeuseimage" value="true"/>
+            <Attribute id="treeuseline" value="true"/>
+            <Attribute id="treestartlevel" value="0"/>
+            <Attribute id="treestatusbutton" value="righttop"/>
+            <Attribute id="bodybandsize" value="30"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="355" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="106" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION" wordWrap="english"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsViewAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">titletext</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">Title Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">treeinitstatus</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">최초 로드 시 표시되는 트리의 상태를 설정
+ - collapse: 모두 접기
+ - expand : 모두 펼치기</Col>
+            <Col id="TYPE_VALUE">collapse | expand</Col>
+          </Row>
+          <Row>
+            <Col id="ID">treeusebutton</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">트리에서 Collapse/Expand 버튼을 사용할지 여부 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">treeuseimage</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">트리 상태를 나타내는 이미지를 사용할 지 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">treeuseline</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">하위트리와 연결되는 선을 표시할지 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">treestartlevel</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">트리 Level 최소값</Col>
+          </Row>
+          <Row>
+            <Col id="ID">treestatusbutton</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">Expand/Collapse 추가 버튼 사용여부 및 위치설정
+ - none : 사용안함
+ - lefttop : Title 영역 밑 좌측 상단 생성
+ - righttop: 트리 그리드 우측 상단 생성
+ - leftbottom : 트리 그리드 왼쪽 하단 생성
+ - rightbottom : 트리 그리드 우측 하단 생성</Col>
+            <Col id="TYPE_VALUE">none | lefttop | righttop | leftbottom | rightbottom</Col>
+          </Row>
+          <Row>
+            <Col id="ID">bodybandsize</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">Body Band의 기본 높이</Col>
+          </Row>
+          <Row>
+            <Col id="ID">treecssclass</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">트리 CSS Class Id</Col>
+          </Row>
+          <Row>
+            <Col id="ID">cellcssclass</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">Cell CSS Class Id</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsFieldUserAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">treetype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">none | treelevel | treetext | treecheck</Col>
+            <Col id="DESCPTION">Tree Cell에서 어떤 데이터로 사용될지 설정. 
+ - none : 사용안함
+ - treelevel : 트리에서 level값(상하관계)으로 사용
+ - treetext : 트리 Text
+ - treecheck : 트리 CheckBox</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsTree">
+        <ColumnInfo>
+          <Column id="TREE_TXT" type="STRING" size="256"/>
+          <Column id="TREE_LVL" type="STRING" size="256"/>
+          <Column id="TREE_CHK" type="STRING" size="1"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="TREE_TXT">depth 1</Col>
+            <Col id="TREE_LVL">0</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">1</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 1</Col>
+            <Col id="TREE_LVL">0</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 1</Col>
+            <Col id="TREE_LVL">0</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 1</Col>
+            <Col id="TREE_LVL">0</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdViewAttribute);
+	this.fnSetGridHeight(this.grdFieldUserAttribute);
+	this.resetScroll();
+	
+	// Tree데이터
+	this.viewSample.form.viewdataset.copyData(this.dsTree);
+};
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
+	
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
+};]]></Script>
+  </Form>
+</FDL>

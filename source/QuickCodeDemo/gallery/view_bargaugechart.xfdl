@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="view_bargaugechart" width="1080" height="1220" titletext="BarGaugeChartViewTemplate" onload="form_onload">
+    <Layouts>
+      <Layout height="1220" mobileorientation="landscape" width="1080">
+        <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="7" text="막대 게이지 차트(BarGaugeChart)를 그려주는 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="120" right="10" readonly="true" value="- 단건 데이터를 표현할 수 있으며, 최소값과 최대값이 필수로 입력되어야 한다.&#10;- charttype에 따라 가로, 세로 게이지차트가 표시됩니다.&#10;- Field User Attribute의 displaytype에 설정된 값에 따라 Chart가 생성된다.&#10;  ex)&#10;  .명칭에 해당하는 필드를 category로 설정(1개의 필드만 선택가능)&#10;  .데이터에 해당하는 필드를 series로 설정(1개의 필드만 선택가능, 데이터형식은 숫자형만 가능)"/>
+        <Static id="Static00_00_00" taborder="8" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="315" cssclass="viw_box" width="50.00%">
+          <Layouts>
+            <Layout>
+              <GaugeChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" gaugetype="vertical" enableanimation="true" categorycolumn="bind:ID_1">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : true,
+										"text" : "vertical",
+										"align" : "topcenter"
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "bottomcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"indicator" : {
+										"id" : "indicator",
+										"visible" : "true",
+										"indicatorimage" : "",
+										"indicatorsize" : "",
+										"indicatorindent" : "",
+										"indicatorfillstyle" : "white",
+										"indicatorlinestyle" : "1px solid black",
+										"indicatoropacity" : "1",
+										"linestyle" : "1px solid black",
+										"fillstyle" : "white",
+										"opacity" : "1"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxis",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"tickmin" : 0,
+											"tickmax" : 100,
+											"tickinterval" : "10",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "seriesValue1",
+											"itemtextfont" : "bold 12pt 'Malgun Gothic'",
+											"radius" : "100",
+											"userrangeradius" : "100",
+											"opacity" : "0.5",
+											"barsize" : "100",
+											"baropacity" : "1",
+											"titletext" : "male value",
+											"valuecolumn" : "bind:VALUE_1",
+											"barfillstyle" : "#1f77b4",
+											"barlinestyle" : "1px solid #1f77b4",
+											"fillstyle" : "#1f77b4",
+											"linestyle" : "1px solid #1f77b4",
+											"itemtextvisible" : true,
+											"itemtextmask" : "",
+											"itemtexttype" : "number",
+											"itemtextposition" : "middle"
+										}
+									]
+								}]]></Contents>
+              </GaugeChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ID_1" type="STRING" size="80" description="male"/>
+                <Column id="VALUE_1" type="BIGDECIMAL" size="80" description="male value"/>
+                <Column id="ID_2" type="STRING" size="80" description="female"/>
+                <Column id="VALUE_2" type="BIGDECIMAL" size="80" description="female value"/>
+                <Column id="ID_TOT" type="STRING" size="80" description="totoal"/>
+                <Column id="VALUE_TOT" type="BIGDECIMAL" size="80" description="totoal value"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="gaugemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="ID_1" description="" displaytype="category"/>
+              <Field id="VALUE_1" description="" displaytype="series"/>
+              <Field id="ID_2" description="" displaytype="none"/>
+              <Field id="VALUE_2" description="" displaytype="none"/>
+              <Field id="ID_TOT" description="" displaytype="none"/>
+              <Field id="VALUE_TOT" description="" displaytype="none"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="ID_1,VALUE_1,ID_2,VALUE_2,ID_TOT,VALUE_TOT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Chart\BarGaugeChartViewTemplate.xviewgen">
+            <Attribute id="charttype" value="vertical"/>
+            <Attribute id="gaugemin" value="0"/>
+            <Attribute id="gaugemax" value="100"/>
+            <Attribute id="chartcolorset" value="#1f77b4"/>
+            <Attribute id="visibleindicator" value="true"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titletext" value="vertical"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="bottomcenter"/>
+            <Attribute id="itemtextposition" value="middle"/>
+            <Attribute id="viewpadding" value="20"/>
+          </ViewTemplateInfo>
+        </View>
+        <View id="viewSample2" taborder="10" text="viewSample2" viewdataset="viewdataset" left="viewSample:10" top="Static00_00_00:0" height="315" cssclass="viw_box" right="10">
+          <Layouts>
+            <Layout>
+              <GaugeChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" gaugetype="horizontal" enableanimation="true" categorycolumn="bind:ID_1">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : true,
+										"text" : "horizontal",
+										"align" : "topcenter"
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "bottomcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"indicator" : {
+										"id" : "indicator",
+										"visible" : "true",
+										"indicatorimage" : "",
+										"indicatorsize" : "",
+										"indicatorindent" : "",
+										"indicatorfillstyle" : "white",
+										"indicatorlinestyle" : "1px solid black",
+										"indicatoropacity" : "1",
+										"linestyle" : "1px solid black",
+										"fillstyle" : "white",
+										"opacity" : "1"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxis",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"tickmin" : 0,
+											"tickmax" : 100,
+											"tickinterval" : "10",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"id" : "seriesValue1",
+											"itemtextfont" : "bold 12pt 'Malgun Gothic'",
+											"radius" : "100",
+											"userrangeradius" : "100",
+											"opacity" : "0.5",
+											"barsize" : "100",
+											"baropacity" : "1",
+											"titletext" : "male value",
+											"valuecolumn" : "bind:VALUE_1",
+											"barfillstyle" : "#1f77b4",
+											"barlinestyle" : "1px solid #1f77b4",
+											"fillstyle" : "#1f77b4",
+											"linestyle" : "1px solid #1f77b4",
+											"itemtextvisible" : true,
+											"itemtextmask" : "",
+											"itemtexttype" : "number",
+											"itemtextposition" : "middle"
+										}
+									]
+								}]]></Contents>
+              </GaugeChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ID_1" type="STRING" size="80" description="male"/>
+                <Column id="VALUE_1" type="BIGDECIMAL" size="80" description="male value"/>
+                <Column id="ID_2" type="STRING" size="80" description="female"/>
+                <Column id="VALUE_2" type="BIGDECIMAL" size="80" description="female value"/>
+                <Column id="ID_TOT" type="STRING" size="80" description="totoal"/>
+                <Column id="VALUE_TOT" type="BIGDECIMAL" size="80" description="totoal value"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="gaugemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="ID_1" description="" displaytype="category"/>
+              <Field id="VALUE_1" description="" displaytype="series"/>
+              <Field id="ID_2" description="" displaytype="none"/>
+              <Field id="VALUE_2" description="" displaytype="none"/>
+              <Field id="ID_TOT" description="" displaytype="none"/>
+              <Field id="VALUE_TOT" description="" displaytype="none"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="ID_1,VALUE_1,ID_2,VALUE_2,ID_TOT,VALUE_TOT"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Chart\BarGaugeChartViewTemplate.xviewgen">
+            <Attribute id="charttype" value="horizontal"/>
+            <Attribute id="gaugemin" value="0"/>
+            <Attribute id="gaugemax" value="100"/>
+            <Attribute id="chartcolorset" value="#1f77b4"/>
+            <Attribute id="visibleindicator" value="true"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titletext" value="horizontal"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="bottomcenter"/>
+            <Attribute id="itemtextposition" value="middle"/>
+            <Attribute id="viewpadding" value="20"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample2:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="438" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="92" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsViewAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">chartdisplay</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">막대 게이지차트 종류
+- vertical : 세로 게이지차트
+- horizontal : 가로 게이지차트</Col>
+            <Col id="TYPE_VALUE">vertical | horizontal</Col>
+          </Row>
+          <Row>
+            <Col id="ID">gaugemin</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">게이지 최소값</Col>
+          </Row>
+          <Row>
+            <Col id="ID">gaugemax</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">게이지 최대값</Col>
+          </Row>
+          <Row>
+            <Col id="ID">chartcolorset</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">input | ...</Col>
+            <Col id="DESCPTION">게이지 색상 선택</Col>
+          </Row>
+          <Row>
+            <Col id="ID">chartcolor</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">게이지 색상(16진 색상코드) 입력
+(chartcolorset 값이 ‘input'인 경우에만 동작.)</Col>
+          </Row>
+          <Row>
+            <Col id="ID">visibleindicator</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">게이지 지표선 보일지 여부</Col>
+          </Row>
+          <Row>
+            <Col id="ID">enableanimation</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">Series 에 애니메이션 효과를 적용 시킬지 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">titletext</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">타이틀 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">subtitletext</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">서브타이틀 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">titlealign</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">타이틀 표시 위치</Col>
+            <Col id="TYPE_VALUE">topleft | topcenter | topright ...</Col>
+          </Row>
+          <Row>
+            <Col id="ID">legendposition</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">범례 표시 위치</Col>
+            <Col id="TYPE_VALUE">none | topleft | topcenter | topright ...</Col>
+          </Row>
+          <Row>
+            <Col id="ID">itemtextposition</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">none | start | middle | end</Col>
+            <Col id="DESCPTION">값 표시 위치</Col>
+          </Row>
+          <Row>
+            <Col id="ID">viewpadding</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">View 여백 설정(px)
+(숫자만 입력 가능하며, 빈칸으로 구분하여 설정가능합니다.)
+ - 1회 입력 : [1번째값] top/right/bottom/left 에 모두 적용
+ - 2회 입력 : [1번째값] top/bottom, [2번째값] right/left 에 적용
+ - 3회 입력 : [1번째값] top, [2번째값] right/left, [3번째값] bottom 에 적용
+ - 4회 입력 : [1번째값] top, [2번째값] right, [3번째값] bottom, [4번째값] left 에 적용</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsFieldUserAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">displaytype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">none | category | series</Col>
+            <Col id="DESCPTION">데이터 표현방식
+- none : 사용안함
+- category : 데이터명 Field(1개)
+- series : 데이터값 Field(1개)</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="ID_1" type="STRING" size="256"/>
+          <Column id="VALUE_1" type="BIGDECIMAL" size="256"/>
+          <Column id="ID_2" type="STRING" size="256"/>
+          <Column id="VALUE_2" type="BIGDECIMAL" size="256"/>
+          <Column id="ID_TOT" type="STRING" size="256"/>
+          <Column id="VALUE_TOT" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="VALUE_1">81</Col>
+            <Col id="ID_1">male</Col>
+            <Col id="VALUE_2">93</Col>
+            <Col id="ID_2">female</Col>
+            <Col id="ID_TOT">totoal</Col>
+            <Col id="VALUE_TOT">87</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 차트용 데이터 셋팅
+	this.viewSample.form.viewdataset.copyData(this.dsData);
+	this.viewSample2.form.viewdataset.copyData(this.dsData);
+	this.viewSample3.form.viewdataset.copyData(this.dsData);
+	this.viewSample4.form.viewdataset.copyData(this.dsData);
+	
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdViewAttribute);
+	this.fnSetGridHeight(this.grdFieldUserAttribute);
+	this.resetScroll();
+};
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
+	
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
+};]]></Script>
+  </Form>
+</FDL>

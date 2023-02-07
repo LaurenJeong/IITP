@@ -1,0 +1,578 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="view_radarchart" width="1080" height="1220" titletext="RadarChartViewTemplate" onload="form_onload">
+    <Layouts>
+      <Layout height="1220" mobileorientation="landscape" width="1080">
+        <Div id="divTitle" taborder="0" text="divTitle" left="0" top="0" height="34" url="frame::frmTitle.xfdl" right="0"/>
+        <Static id="staInfo" taborder="1" text="기능정의" left="0" top="40" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Static id="Static00_00" taborder="7" text="방사형 그래프(RadarChart)를 그려주는 View Template" left="0" top="70" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <TextArea id="txaInfo" taborder="2" left="0" top="Static00_00:0" height="100" right="10" readonly="true" value="- seriestype 속성으로 시리즈 유형을 radartype 속성으로 레이더 모양을 설정합니다&#10;- Field User Attribute의 displaytype에 설정된 값에 따라 Chart가 생성된다.&#10;  ex)&#10;  .명칭에 해당하는 필드를 category로 설정(1개의 필드만 선택가능)&#10;  .데이터에 해당하는 필드를 series로 설정(데이터형식은 숫자형만 가능)"/>
+        <Static id="Static00_00_00" taborder="8" text="ViewTemplate 사용예" left="0" top="txaInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
+        <View id="viewSample" taborder="9" text="View00" viewdataset="viewdataset" left="0" top="Static00_00_00:0" height="315" cssclass="viw_box" width="50.00%">
+          <Layouts>
+            <Layout>
+              <RadarChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" radartype="polygon" enableanimation="true" categorycolumn="bind:catName">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : true,
+										"text" : "linepoint - polygon",
+										"align" : "topcenter"
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 8pt 'Malgun Gothic'",
+										"titletextalign" : "high",
+										"titlegap" : "5",
+										"labeltextcolor" : "#6f6f6f",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"tickmin" : "0",
+											"tickmax" : "200",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2020",
+											"titletext" : "2020",
+											"valuecolumn" : "bind:year2020",
+											"linestyle" : "1px solid #1f77b4",
+											"pointlinestyle" : "1px solid #1f77b4",
+											"lineareafillstyle" : "#1f77b4",
+											"pointfillstyle" : "#1f77b4",
+											"pointvisible" : true,
+											"itemtextvisible" : false
+										},
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2021",
+											"titletext" : "2021",
+											"valuecolumn" : "bind:year2021",
+											"linestyle" : "1px solid #ff7f0e",
+											"pointlinestyle" : "1px solid #ff7f0e",
+											"lineareafillstyle" : "#ff7f0e",
+											"pointfillstyle" : "#ff7f0e",
+											"pointvisible" : true,
+											"itemtextvisible" : false
+										},
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2022",
+											"titletext" : "2022",
+											"valuecolumn" : "bind:year2022",
+											"linestyle" : "1px solid #2ca02c",
+											"pointlinestyle" : "1px solid #2ca02c",
+											"lineareafillstyle" : "#2ca02c",
+											"pointfillstyle" : "#2ca02c",
+											"pointvisible" : true,
+											"itemtextvisible" : false
+										}
+									]
+								}]]></Contents>
+              </RadarChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="catName" type="STRING" size="80" description="category"/>
+                <Column id="year2020" type="INT" size="80" description="2020"/>
+                <Column id="year2021" type="INT" size="80" description="2021"/>
+                <Column id="year2022" type="INT" size="80" description="2022"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="radarmodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="catName" description="" displaytype="category"/>
+              <Field id="year2020" description="" displaytype="series"/>
+              <Field id="year2021" description="" displaytype="series"/>
+              <Field id="year2022" description="" displaytype="series"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="catName,year2020,year2021,year2022"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Chart\RadarChartViewTemplate.xviewgen">
+            <Attribute id="seriestype" value="linepoint"/>
+            <Attribute id="radartype" value="polygon"/>
+            <Attribute id="axismin" value="0"/>
+            <Attribute id="axismax" value="200"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titletext" value="linepoint - polygon"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="itemtextposition" value="none"/>
+            <Attribute id="viewpadding" value="20"/>
+          </ViewTemplateInfo>
+        </View>
+        <Static id="staViewAttribute" taborder="3" text="View Attribute" left="0" top="viewSample:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdViewAttribute" taborder="4" left="0" top="staViewAttribute:0" height="388" right="10" binddataset="dsViewAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="staFieldUserAttribute" taborder="5" text="Field User Attribute" left="0" top="grdViewAttribute:10" height="30" cssclass="sta_WF_title02" right="10"/>
+        <Grid id="grdFieldUserAttribute" taborder="6" left="0" top="staFieldUserAttribute:0" height="92" right="10" binddataset="dsFieldUserAttribute" autofittype="col" autosizingtype="row" extendsizetype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="300"/>
+                <Column size="450"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Property 명"/>
+                <Cell col="1" text="유형"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ID"/>
+                <Cell col="1" text="bind:TYPE"/>
+                <Cell col="2" text="bind:TYPE_VALUE"/>
+                <Cell col="3" text="bind:DESCPTION"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <View id="viewSample2" taborder="10" text="viewSample2" viewdataset="viewdataset" left="viewSample:10" top="Static00_00_00:0" height="315" cssclass="viw_box" right="10">
+          <Layouts>
+            <Layout>
+              <RadarChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" radartype="circle" enableanimation="true" categorycolumn="bind:catName">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : true,
+										"text" : "area - circle",
+										"align" : "topcenter"
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"categoryaxis" : {
+										"id" : "categoryaxis",
+										"titletextcolor" : "#4c4c4c",
+										"titletextfont" : "bold 8pt 'Malgun Gothic'",
+										"titletextalign" : "high",
+										"titlegap" : "5",
+										"labeltextcolor" : "#6f6f6f",
+										"labeltextfont" : "9pt 'Malgun Gothic'",
+										"axislinestyle" : "1px solid #525252",
+										"ticklinestyle" : "1px solid #525252",
+										"boardlinestyle" : "1px solid #d0d0d0",
+										"ticksize" : "5",
+										"labelgap" : "5",
+										"labelmask" : "",
+										"labeltype" : "normal"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"tickmin" : "0",
+											"tickmax" : "200",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2020",
+											"titletext" : "2020",
+											"valuecolumn" : "bind:year2020",
+											"linestyle" : "1px solid #1f77b4",
+											"pointlinestyle" : "1px solid #1f77b4",
+											"lineareafillstyle" : "#1f77b4",
+											"pointfillstyle" : "#1f77b4",
+											"lineareavisible" : true,
+											"itemtextvisible" : false
+										},
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2021",
+											"titletext" : "2021",
+											"valuecolumn" : "bind:year2021",
+											"linestyle" : "1px solid #ff7f0e",
+											"pointlinestyle" : "1px solid #ff7f0e",
+											"lineareafillstyle" : "#ff7f0e",
+											"pointfillstyle" : "#ff7f0e",
+											"lineareavisible" : true,
+											"itemtextvisible" : false
+										},
+										{
+											"linevisible" : true,
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"lineareaopacity" : "0.5",
+											"pointsize" : "7",
+											"id" : "seriesYear2022",
+											"titletext" : "2022",
+											"valuecolumn" : "bind:year2022",
+											"linestyle" : "1px solid #2ca02c",
+											"pointlinestyle" : "1px solid #2ca02c",
+											"lineareafillstyle" : "#2ca02c",
+											"pointfillstyle" : "#2ca02c",
+											"lineareavisible" : true,
+											"itemtextvisible" : false
+										}
+									]
+								}]]></Contents>
+              </RadarChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="catName" type="STRING" size="80" description="category"/>
+                <Column id="year2020" type="INT" size="80" description="2020"/>
+                <Column id="year2021" type="INT" size="80" description="2021"/>
+                <Column id="year2022" type="INT" size="80" description="2022"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="radarmodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="catName" description="" displaytype="category"/>
+              <Field id="year2020" description="" displaytype="series"/>
+              <Field id="year2021" description="" displaytype="series"/>
+              <Field id="year2022" description="" displaytype="series"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="catName,year2020,year2021,year2022"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Chart\RadarChartViewTemplate.xviewgen">
+            <Attribute id="seriestype" value="area"/>
+            <Attribute id="radartype" value="circle"/>
+            <Attribute id="axismin" value="0"/>
+            <Attribute id="axismax" value="200"/>
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titletext" value="area - circle"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="itemtextposition" value="none"/>
+            <Attribute id="viewpadding" value="20"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsViewAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">chartdisplay</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">시리즈의 표시 유형을 설정
+- line : 선 표시
+- linepoint : 선+점 표시
+- area : 영역 표시
+- areapoint : 영역+점 표시</Col>
+            <Col id="TYPE_VALUE">line | linepoint | area | areapoint</Col>
+          </Row>
+          <Row>
+            <Col id="ID">radartype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">레이더 모양 설정
+- polygon : 다각형 모양
+- circle : 원형 모양</Col>
+            <Col id="TYPE_VALUE">polygon | circle</Col>
+          </Row>
+          <Row>
+            <Col id="ID">enableanimation</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">Series 에 애니메이션 효과를 적용 시킬지 설정</Col>
+          </Row>
+          <Row>
+            <Col id="ID">titletext</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">타이틀 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">subtitletext</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">서브타이틀 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">titlealign</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">타이틀 표시 위치</Col>
+            <Col id="TYPE_VALUE">topleft | topcenter | topright ...</Col>
+          </Row>
+          <Row>
+            <Col id="ID">legendposition</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="DESCPTION">범례 표시 위치</Col>
+            <Col id="TYPE_VALUE">none | topleft | topcenter | topright ...</Col>
+          </Row>
+          <Row>
+            <Col id="ID">itemtextposition</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">none | lefttop | centertop | righttop | ...</Col>
+            <Col id="DESCPTION">값 표시 위치</Col>
+          </Row>
+          <Row>
+            <Col id="ID">viewpadding</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">View 여백 설정(px)
+(숫자만 입력 가능하며, 빈칸으로 구분하여 설정가능합니다.)
+ - 1회 입력 : [1번째값] top/right/bottom/left 에 모두 적용
+ - 2회 입력 : [1번째값] top/bottom, [2번째값] right/left 에 적용
+ - 3회 입력 : [1번째값] top, [2번째값] right/left, [3번째값] bottom 에 적용
+ - 4회 입력 : [1번째값] top, [2번째값] right, [3번째값] bottom, [4번째값] left 에 적용</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsFieldUserAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">displaytype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">none | category | series</Col>
+            <Col id="DESCPTION">데이터 표현방식
+- none : 사용안함
+- category : 데이터명 Field(1개)
+- series : 데이터값 Field(n개)</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="catName" type="STRING" size="256"/>
+          <Column id="year2020" type="BIGDECIMAL" size="256"/>
+          <Column id="year2021" type="BIGDECIMAL" size="256"/>
+          <Column id="year2022" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="catName">A</Col>
+            <Col id="year2020">140</Col>
+            <Col id="year2021">70</Col>
+            <Col id="year2022">130</Col>
+          </Row>
+          <Row>
+            <Col id="catName">B</Col>
+            <Col id="year2020">90</Col>
+            <Col id="year2021">170</Col>
+            <Col id="year2022">150</Col>
+          </Row>
+          <Row>
+            <Col id="catName">C</Col>
+            <Col id="year2020">80</Col>
+            <Col id="year2021">80</Col>
+            <Col id="year2022">180</Col>
+          </Row>
+          <Row>
+            <Col id="catName">D</Col>
+            <Col id="year2020">100</Col>
+            <Col id="year2021">130</Col>
+            <Col id="year2022">200</Col>
+          </Row>
+          <Row>
+            <Col id="catName">E</Col>
+            <Col id="year2020">80</Col>
+            <Col id="year2021">50</Col>
+            <Col id="year2022">100</Col>
+          </Row>
+          <Row>
+            <Col id="catName">F</Col>
+            <Col id="year2020">110</Col>
+            <Col id="year2021">50</Col>
+            <Col id="year2022">140</Col>
+          </Row>
+          <Row>
+            <Col id="catName">G</Col>
+            <Col id="year2020">160</Col>
+            <Col id="year2021">120</Col>
+            <Col id="year2022">130</Col>
+          </Row>
+          <Row>
+            <Col id="catName">H</Col>
+            <Col id="year2020">80</Col>
+            <Col id="year2021">70</Col>
+            <Col id="year2022">165</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 차트용 데이터 셋팅
+	this.viewSample.form.viewdataset.copyData(this.dsData);
+	this.viewSample2.form.viewdataset.copyData(this.dsData);
+	
+	// 설명용 Grid 사이즈 조절
+	this.fnSetGridHeight(this.grdViewAttribute);
+	this.fnSetGridHeight(this.grdFieldUserAttribute);
+	this.resetScroll();
+};
+
+// 설명용 Grid 사이즈 조절
+this.fnSetGridHeight = function(obj)
+{
+	var nGridMinHeight = obj.getOffsetHeight();
+	var nGridRealRowHeight = obj.getRealRowFullSize() + 3;
+	
+	var nGridHeight = Math.max(nGridMinHeight,nGridRealRowHeight);
+	obj.set_height(nGridHeight);
+};]]></Script>
+  </Form>
+</FDL>
