@@ -2,37 +2,37 @@
 //	Define the Action.
 //==============================================================================
 //==============================================================================		
-// Object : nexacro.APITransactionAction		
+// Object : nexacro.APILogAction		
 // Group : Action		
 //==============================================================================		
-if (!nexacro.APITransactionAction)		
+if (!nexacro.APILogAction)		
 {
-    nexacro.APITransactionAction = function(id, parent)		
+    nexacro.APILogAction = function(id, parent)		
     {		
         nexacro.Action.call(this, id, parent);
 		this.addEvent("canrun");
     };		
         		
-    nexacro.APITransactionAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.APITransactionAction);		
-    nexacro.APITransactionAction.prototype._type_name = "APITransactionAction";	
+    nexacro.APILogAction.prototype = nexacro._createPrototype(nexacro.Action, nexacro.APILogAction);		
+    nexacro.APILogAction.prototype._type_name = "APILogAction";	
 	
 	//===============================================================
-    // nexacro.APITransactionAction : 변수선언 부분
+    // nexacro.APILogAction : 변수선언 부분
     //===============================================================
-	 nexacro.APITransactionAction.prototype._arrInDs = new Array();
+	nexacro.APILogAction.prototype._arrInDs = new Array();
 	 
 	//===============================================================		
-    // nexacro.APITransactionAction : Create & Destroy		
+    // nexacro.APILogAction : Create & Destroy		
     //===============================================================		
-    nexacro.APITransactionAction.prototype.destroy = function()		
+    nexacro.APILogAction.prototype.destroy = function()		
 	{	
 		nexacro.Action.prototype.destroy.call(this);
 	};	
 		
     //===============================================================		
-    // nexacro.APITransactionAction : Method		
+    // nexacro.APILogAction : Method		
     //===============================================================		
-    nexacro.APITransactionAction.prototype.run = function()		
+    nexacro.APILogAction.prototype.run = function()		
 	{	
         //canrun 이벤트의 리턴값이 false가 아닐경우
 		if(this.on_fire_canrun("userdata")!=false)
@@ -40,16 +40,13 @@ if (!nexacro.APITransactionAction)
 			//Transaction에서 사용할 Param정보 가져오기
 			var sSvcId = this.id;
 			var sService = this.serviceurl;
-			var sInDs = this.inputdatasets;
-			var sOutDs = this.outputdatasets;
-			var sArgs = this.args;
 			var sCallback = this._TRAN_CALLBACK_NM;
 			
-			this.gfnTransaction(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback);
+			this.gfnTransaction(sSvcId, sService, sCallback);
 		}
 	};
 	
-	nexacro.APITransactionAction.prototype.set_servicemodel = function (v)
+	nexacro.APILogAction.prototype.set_servicemodel = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -58,8 +55,8 @@ if (!nexacro.APITransactionAction)
 		}
 	};
 	
-	nexacro.APITransactionAction.prototype.serviceurl = "";
-	nexacro.APITransactionAction.prototype.set_serviceurl = function (v)
+	nexacro.APILogAction.prototype.serviceurl = "";
+	nexacro.APILogAction.prototype.set_serviceurl = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
@@ -68,51 +65,18 @@ if (!nexacro.APITransactionAction)
 		}
 	};
 	
-	nexacro.APITransactionAction.prototype.inputdatasets = "";
-	nexacro.APITransactionAction.prototype.set_inputdatasets = function (v)
-	{
-		// TODO : enter your code here.
-		v = nexacro._toString(v);
-		if (this.inputdatasets != v) {
-			this.inputdatasets = v;
-		}
-	};
-	
-	nexacro.APITransactionAction.prototype.outputdatasets = "";
-	nexacro.APITransactionAction.prototype.set_outputdatasets = function (v)
-	{
-		// TODO : enter your code here.
-		v = nexacro._toString(v);
-		if (this.outputdatasets != v) {
-			this.outputdatasets = v;
-		}
-	};
-	
-	nexacro.APITransactionAction.prototype.args = "";
-	nexacro.APITransactionAction.prototype.set_args = function (v)
+	nexacro.APILogAction.prototype.message = "";
+	nexacro.APILogAction.prototype.set_message = function (v)
 	{
 		// TODO : enter your code here.
 		v = nexacro._toString(v);
 		
-		if (this.args != v) {
-			this.args = v;
+		if (this.message != v) {
+			this.message = v;
 		}
 	};
-// 	
-// 	nexacro.APITransactionAction.prototype.async = "";
-// 	nexacro.APITransactionAction.prototype.set_async = function (v)
-// 	{
-// 		// TODO : enter your code here.
-// 		v = nexacro._toBoolean(v);
-// 		
-// 		if(this.async != v)
-// 		{
-// 			this.async = v;
-// 		}
-// 	};
 	
-	
-	nexacro.APITransactionAction.prototype.on_fire_canrun = function (userdata)
+	nexacro.APILogAction.prototype.on_fire_canrun = function (userdata)
 	{
 		var event = this.canrun;
 		if (event && event._has_handlers)
@@ -123,7 +87,7 @@ if (!nexacro.APITransactionAction)
 		return true;	
 	};
 	
-	nexacro.APITransactionAction.prototype.on_fire_onsuccess = function (sSvcId, nErrorCd, sErrorMsg)
+	nexacro.APILogAction.prototype.on_fire_onsuccess = function (sSvcId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onsuccess;
 		if (event && event._has_handlers)
@@ -133,7 +97,7 @@ if (!nexacro.APITransactionAction)
 		}
 	};
 	
-	nexacro.APITransactionAction.prototype.on_fire_onerror = function (sSvcId, nErrorCd, sErrorMsg)
+	nexacro.APILogAction.prototype.on_fire_onerror = function (sSvcId, nErrorCd, sErrorMsg)
 	{
 		var event = this.onerror;
 		if (event && event._has_handlers)
@@ -147,7 +111,7 @@ if (!nexacro.APITransactionAction)
     // nexacro.DsCopyRowDataAction : 공통함수 전환부분
     //===============================================================
 	// Transaction
-	nexacro.APITransactionAction.prototype.gfnTransaction = function(sSvcId, sService, sInDs, sOutDs, sArgs, sCallback, bAsync)
+	nexacro.APILogAction.prototype.gfnTransaction = function(sSvcId, sService, sCallback, bAsync)
 	{	
 		if (this.gfnIsNull(sSvcId) || this.gfnIsNull(sService))
 		{
@@ -167,14 +131,9 @@ if (!nexacro.APITransactionAction)
 		
 		var objForm = this.gfnGetForm();
 		
-		// Model Argument 처리 : 해당 데이터셋에 value값 설정
-		this.gfnSetModelArgument(objForm);
-		
-		// User Argument 처리 : transaction Argument로 추가
-		var sAddArg = this.gfnSetUserArgument(objForm);
-		if (this.gfnIsNull(sAddArg) == false) {
-			sArgs = sAddArg + " " + sArgs;
-		}
+		var sInDs = "";
+		var sOutDs = "";
+		var sArgs = "";
 		
 		// API용 Dataset 생성 및 InputDataset 정보 반환
 		var sAddInDs = this.gfnSetAPIDataset(objForm);
@@ -207,7 +166,7 @@ if (!nexacro.APITransactionAction)
 	};
 	
 	// Transaction Callback
-	nexacro.APITransactionAction.prototype.fnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
+	nexacro.APILogAction.prototype.fnTranActionCallback = function(svcId, nErrorCd, sErrorMsg)
 	{
 		var objSvcId = JSON.parse(svcId);
 		var sSvcId = objSvcId.svcId;
@@ -242,104 +201,10 @@ if (!nexacro.APITransactionAction)
 		}
 	};
 	
-	// Model Argument 처리 : 해당 데이터셋에 value값 설정
-	nexacro.APITransactionAction.prototype.gfnSetModelArgument = function(objForm)
-	{
-		var oModelList = this.getContents("model");		// Action 내 model 정보 
-		
-		//this.gfnLog("model >>> ");
-		//this.gfnLog(oModelList);
-		
-		if (!oModelList)
-            return;
-		
-		var sViewId;
-		var sModelId;
-		var sIOType;
-		var oFieldList;
-		
-		var oModel;
-		var oView;
-		var oViewDataset;
-		var oField;
-		
-		var nRow;
-		var sFieldValue;
-		
-		for (var i = 0; i < oModelList.length; i++)
-        {
-			oModel		= oModelList[i];
-			
-			sViewId		= oModel["viewid"];
-			sModelId	= oModel["modelid"];
-			sIOType		= oModel["iotype"];
-			oFieldList	= oModel["fieldlist"];
-			
-			// Model이 사용된 View 객체
-			oView		= objForm._findComponentForArrange(sViewId);
-			
-			if (oView)
-			{
-				oViewDataset = oView.getViewDataset();								// viewdataset
-				nRow = oViewDataset.rowposition ? oViewDataset.rowposition : 0;		// rowposition
-				
-				if (oViewDataset && oViewDataset._type_name == "Dataset")
-				{
-					for (var j = 0; j < oFieldList.length; j++)
-					{
-						oField = oFieldList[j];
-						
-						// Field의 value값 반환
-						sFieldValue = this.gfnGetFieldValue(oField, oView);
-						
-						// 데이터 셋팅
-						oViewDataset.setColumn(nRow, oField["fieldid"], sFieldValue);
-					}
-				}
-			}
-		}
-	};
-	
-	// User Argument 처리 : transaction Argument로 추가
-	nexacro.APITransactionAction.prototype.gfnSetUserArgument = function(objForm)
-	{
-		var sReturnValue = "";
-		
-		var oExtraList = this.getContents("extra");		// Action 내 extra 정보 
-		
-		//this.gfnLog("extra >>> ");
-		//this.gfnLog(oExtraList);
-		
-		if (!oExtraList)
-            return;
-		
-		var oExtra;
-		var sExtraName;
-		var sExtraValue;
-		
-		// oExtraList객체값을 transaction argument 형식으로 변환
-		//oExtraList.forEach(oExtra => sReturnValue += " " + oExtra["name"] + "=" + nexacro.wrapQuote(oExtra["value"]));
-		for (var i = 0; i < oExtraList.length; i++)
-		{
-			oExtra = oExtraList[i];
-			sExtraName = oExtra["name"];
-			
-			// Field의 value값 반환
-			sExtraValue = this.gfnGetFieldValue(oExtra);
-			
-			// transaction argument 형식으로 셋팅
-			sReturnValue += " " + sExtraName + "=" + sExtraValue;
-		}
-		
-		sReturnValue = sReturnValue.substr(1);
-		//this.gfnLog(sReturnValue);
-		
-		return sReturnValue;
-	};
-	
 	// API 통신용 Dataset 생성 및 InputDataset 정보 반환
-	nexacro.APITransactionAction.prototype.gfnSetAPIDataset = function(objForm)
+	nexacro.APILogAction.prototype.gfnSetAPIDataset = function(objForm)
 	{
+		// 1) reference 정보로 API 데이터셋 생성
 		var sReference = this.getContents("reference");		// Action 내 reference 정보 
 		
 		//this.gfnLog("reference >>> ");
@@ -358,8 +223,11 @@ if (!nexacro.APITransactionAction)
 		var oDataset;
 		var sDatasetId;
 		var sActionDatasetId;
+		var arrColNm;
 		var sDatasetXML;
 		var bRet;
+		var oMessage = {};
+		var sMessage = "";
 		
 		// API 연동용 input dataset Array
 		var aAPIDs = new Array();
@@ -403,7 +271,103 @@ if (!nexacro.APITransactionAction)
 			childNode = childNode.nextSibling;
 		}
 		
+		// 2) TODO : 로그용 데이터셋 생성(하드코딩)
+		oMessage = {
+			"Header" : {
+				"UUID" : "b202211011020COM00001",
+				"IFID" : "BIZ_M_ERP_S_COM00001",
+				"SvcID" : "ISD_ERP_S_COM00001 ",
+				"ChlCode" : "BIZ",
+				"SysCode" : "ERP",
+				"BizCode" : "COM",
+				"UserID" : "T000000001",
+				"SessionId" : "",
+				"MsgCode" : "",
+				"Msg" : ""
+			},
+			"Data" : {
+				"START_DATE" : "20221001",
+				"END_DATE" : "20221230",
+				"CHG_NM" : "MANAGER",
+				"PURCHASE_NO" : "I000000001",
+				"TRAN_TIME" : this.gfnGetDate("milli")
+			}
+		};
+		
+		this.gfnLog(oMessage);
+		
+		// Message base64Encode
+		sMessage = JSON.stringify(oMessage);
+		if (!this.gfnIsNull(sMessage))			sMessage = nexacro.base64Encode(sMessage);
+		
+		// 2-1) SI
+		arrColNm = ["LOGDATA_CNT"];
+		sDatasetId = "SI";
+		sActionDatasetId = this.name + "_" + sDatasetId;
+		oDataset = this.gfnCheckDataset(sActionDatasetId, objForm, arrColNm);
+		aAPIDs.push(sDatasetId+"="+sActionDatasetId);
+		this._arrInDs.push(oDataset);
+		oDataset.clearData();
+		nRow = oDataset.addRow();
+		oDataset.setColumn(nRow, "LOGDATA_CNT",1);
+		
+		//this.gfnLog(oDataset.saveXML());
+
+		// 2-1) SI_LOGDATA
+		arrColNm = ["TRANSACTION_ID","LOG_CODE","SYSTEM_CODE","REQUEST_TIMESTAMP","RESPONSE_TIMESTAMP","MESSAGE"];
+		sDatasetId = "SI_LOGDATA";
+		sActionDatasetId = this.name + "_" + sDatasetId;
+		oDataset = this.gfnCheckDataset(sActionDatasetId, objForm, arrColNm);
+		aAPIDs.push(sDatasetId+"="+sActionDatasetId);
+		this._arrInDs.push(oDataset);
+		oDataset.clearData();
+		nRow = oDataset.addRow();
+		oDataset.setColumn(nRow, "TRANSACTION_ID",this.id);
+		oDataset.setColumn(nRow, "LOG_CODE","TNI");
+		oDataset.setColumn(nRow, "SYSTEM_CODE","BIZ");
+		oDataset.setColumn(nRow, "REQUEST_TIMESTAMP",this.gfnGetDate("milli"));
+		oDataset.setColumn(nRow, "RESPONSE_TIMESTAMP","");
+		oDataset.setColumn(nRow, "MESSAGE",sMessage);
+		//this.gfnLog(oDataset.saveXML());
+		
 		// Return Input Ds
 		return aAPIDs.join(" ");
+	};
+	
+	/**
+	 * @class 현재일자를 구한다. <br>
+	 * @param {String} [sGubn] - date/null : 일자, time : 일자+시간, milli : Milliseconds
+	 * @return {String} 8자리 날짜(YYYYMMMDD)문자열
+	 */
+	nexacro.APILogAction.prototype.gfnGetDate = function(sGubn) 
+	{
+		if(this.gfnIsNull(sGubn)) sGubn = "date";
+		var d = new Date();
+		
+		var s;
+		
+		if (sGubn == "date") {
+			s = d.getFullYear()
+				  + ((d.getMonth() + 1) + "").padLeft(2, '0')
+				  + (d.getDate() + "").padLeft(2, '0');
+		}
+		else if (sGubn == "time") {
+			s = d.getFullYear()
+			  + ((d.getMonth() + 1) + "").padLeft(2, '0')
+			  + (d.getDate() + "").padLeft(2, '0')
+			  + (d.getHours() + "").padLeft(2, '0')
+			  + (d.getMinutes() + "").padLeft(2, '0')
+			  + (d.getSeconds() + "").padLeft(2, '0');
+		}
+		else if (sGubn == "milli") {
+			s = d.getFullYear()
+			  + ((d.getMonth() + 1) + "").padLeft(2, '0')
+			  + (d.getDate() + "").padLeft(2, '0')
+			  + (d.getHours() + "").padLeft(2, '0')
+			  + (d.getMinutes() + "").padLeft(2, '0')
+			  + (d.getSeconds() + "").padLeft(2, '0')
+			  + (d.getMilliseconds() + "").padLeft(3, '0');
+		}
+		return (s);
 	};
 }

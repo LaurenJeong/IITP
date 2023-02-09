@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Models>
+    <Model id="SO" name="" iotype="output">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="RESULT_MESSAGE" label="처리메시지" fieldtype="FreeText" datatype="STRING" datasize="2000" required="false" description="처리메시지" scale="0"/>
+      <Field id="SUCCESS_CNT" label="성공건수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="22" required="false" description="성공건수" scale="0"/>
+      <Field id="SUCCESS_MESSAGE" label="성공메시지" fieldtype="FreeText" datatype="STRING" datasize="2000" required="false" description="성공메시지" scale="0"/>
+      <Field id="FAIL_CNT" label="실패건수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="22" required="false" description="실패건수" scale="0"/>
+      <Field id="FAIL_MESSAGE" label="실패메시지" fieldtype="FreeText" datatype="STRING" datasize="2000" required="false" description="실패메시지" scale="0"/>
+    </Model>
+    <Model id="SI" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="LOGDATA_CNT" label="로그데이터건수" fieldtype="FreeText" datatype="BIGDECIMAL" datasize="2" required="false" description="로그데이터건수" scale="0"/>
+    </Model>
+    <Model id="SI_LOGDATA" name="" iotype="input">
+      <FieldUserAttributes>
+        <Attribute name="scale" edittype="Number" defaultvalue="0" delimiter="" enuminfo="" description=""/>
+      </FieldUserAttributes>
+      <ModelUserAttributes/>
+      <Field id="TRANSACTION_ID" label="거래ID" fieldtype="FreeText" datatype="STRING" datasize="36" required="false" description="거래ID" scale="0"/>
+      <Field id="LOG_CODE" label="로그분류" fieldtype="FreeText" datatype="STRING" datasize="3" required="false" description="로그분류" scale="0"/>
+      <Field id="SYSTEM_CODE" label="시스템코드" fieldtype="FreeText" datatype="STRING" datasize="3" required="false" description="시스템코드" scale="0"/>
+      <Field id="IFID" label="인터페이스 ID" fieldtype="FreeText" datatype="STRING" datasize="20" required="false" description="인터페이스 ID" scale="0"/>
+      <Field id="REQUESTTIME" label="요청시간" fieldtype="FreeText" datatype="STRING" datasize="14" required="false" description="요청시간" scale="0"/>
+      <Field id="RESPONSE_TIMESTAMP" label="응답시간" fieldtype="FreeText" datatype="STRING" datasize="17" required="false" description="응답시간" scale="0"/>
+      <Field id="MESSAGE" label="메시지전문" fieldtype="FreeText" datatype="STRING" datasize="0" required="false" description="메시지전문" scale="0"/>
+    </Model>
+  </Models>
+  <Service id="BIZ_M_IGT_S_COM00099" name="로그 저장 거래" url="http://101.79.4.40:8680/iGate/IITP">
+    <ServiceUserAttributes/>
+  </Service>
+  <ReferenceInfo>
+    <Dataset id="Header">
+      <ColumnInfo>
+        <Column id="Msg" type="STRING" size="256"/>
+        <Column id="MsgCode" type="STRING" size="256"/>
+        <Column id="SysCode" type="STRING" size="3"/>
+        <Column id="SvcID" type="STRING" size="24"/>
+        <Column id="UserID" type="STRING" size="256"/>
+        <Column id="IFID" type="STRING" size="20"/>
+        <Column id="UUID" type="STRING" size="256"/>
+        <Column id="SessionId" type="STRING" size="256"/>
+        <Column id="BizCode" type="STRING" size="3"/>
+        <Column id="ChlCode" type="STRING" size="3"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="SysCode">IGT</Col>
+          <Col id="SvcID">ISD_BIZ_M_IGT_S_COM00099</Col>
+          <Col id="IFID">BIZ_M_IGT_S_COM00099</Col>
+          <Col id="BizCode">CMM</Col>
+          <Col id="ChlCode">BIZ</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="CONVERSION_RULE">
+      <ColumnInfo>
+        <Column id="datasetid" type="STRING" size="256"/>
+        <Column id="iotype" type="STRING" size="256"/>
+        <Column id="objecttype" type="STRING" size="256"/>
+        <Column id="objectpath" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Header</Col>
+          <Col id="datasetid">Header</Col>
+          <Col id="iotype">inoutput</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SO</Col>
+          <Col id="iotype">output</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data[0].FormData</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">primitive</Col>
+          <Col id="objectpath">$.Data</Col>
+        </Row>
+        <Row>
+          <Col id="datasetid">SI_LOGDATA</Col>
+          <Col id="iotype">input</Col>
+          <Col id="objecttype">array</Col>
+          <Col id="objectpath">$.Data.LOGDATA</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+  </ReferenceInfo>
+</ModelInfo>

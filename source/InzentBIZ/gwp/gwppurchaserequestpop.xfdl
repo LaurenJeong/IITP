@@ -337,6 +337,9 @@
 */
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	// 화면 초기화
+	this.gfnFormOnLoad(this);
+	
 	// 기본값 처리
 	this.viewMaster.form.viewdataset.setColumn(0,"REQ_DATE",this.gfnGetDate());					// 로컬날짜
 	this.viewMaster.form.viewdataset.setColumn(0,"EMPLOYEE",this.gfnGetUserInfo("USER_ID"));	// 로그인유저

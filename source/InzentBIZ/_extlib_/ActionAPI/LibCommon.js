@@ -115,6 +115,8 @@ pAction.gfnGetDataset = function (objView, sDatasetId)
 	if(objView)objForm = objView.form;		
 	else objForm = this.parent;
 	
+	trace(sDatasetId);
+	
 	// Dataset 객체 찾기
 	if (sDatasetId instanceof nexacro.NormalDataset) {				// targetgrid 설정시 해당 그리드
 		objDs = sDatasetId;

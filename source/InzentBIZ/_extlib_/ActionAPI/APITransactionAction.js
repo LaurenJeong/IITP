@@ -19,7 +19,8 @@ if (!nexacro.APITransactionAction)
 	//===============================================================
     // nexacro.APITransactionAction : 변수선언 부분
     //===============================================================
-	
+	 nexacro.APITransactionAction.prototype._arrInDs = new Array();
+	 
 	//===============================================================		
     // nexacro.APITransactionAction : Create & Destroy		
     //===============================================================		
@@ -384,27 +385,17 @@ if (!nexacro.APITransactionAction)
 				
 				sActionDatasetId = this.name + "_" + sDatasetId;
 				
-				// Input Dataset용 Array
-				aAPIDs.push(sDatasetId+"="+sActionDatasetId);
-				
-				// Form에 Dataset있는지 체크
-				bRet = objForm.isValidObject(sActionDatasetId);
-				
-				// Form에 Dataset이 있는 경우 oDataset에 셋팅, 없는 경우 생성 후 셋팅
-				if (bRet)
-				{
-					oDataset = objForm.all[sActionDatasetId];
-				}
-				else
-				{
-					oDataset = new Dataset();
-					objForm.addChild(sActionDatasetId, oDataset);
-				}
+				// 데이터셋 가져오기
+				oDataset = this.gfnCheckDataset(sActionDatasetId, objForm);
 				
 				// Dataset에 XML Load
 				if (oDataset)
 				{
 					oDataset.loadXML(sDatasetXML);
+					
+					// Input Dataset용 Array
+					aAPIDs.push(sDatasetId+"="+sActionDatasetId);
+					this._arrInDs.push(oDataset);
 				}
 			}
 			

@@ -299,6 +299,20 @@
             <Attribute id="viewvisible" value="false"/>
           </ViewTemplateInfo>
         </View>
+        <Button id="Button00" taborder="4" text="APILogAction" left="830" top="30" width="100" height="30"/>
+        <View id="View00" taborder="5" text="View00" viewdataset="viewdataset" left="137" top="694" width="149" height="31" visible="false">
+          <Layouts/>
+          <Objects/>
+          <ModelInfo modelserviceid="model_eims" serviceid="BIZ_M_IGT_S_COM00099" modelid="SI" filepath="IITP\BIZ_M_IGT_S_COM00099.xmodel">
+            <Fields>
+              <Field id="LOGDATA_CNT" innerdatasetinfo=""/>
+            </Fields>
+            <Components/>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\DatasetOnlyViewTemplate.xviewgen">
+            <Attribute id="viewvisible" value="false"/>
+          </ViewTemplateInfo>
+        </View>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[/**
@@ -328,6 +342,9 @@
 */
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	// 화면 초기화
+	this.gfnFormOnLoad(this);
+	
 	// 조회조건 기본값 처리
 	var sToday = this.gfnGetDate();		// 로컬시간
 	//this.viewSearch.form.viewdataset.setColumn(0,"START_DATE",sToday.substr(0,6) + "01");
@@ -402,6 +419,11 @@ this.APITransactionAction01_canrun = function(obj:nexacro.APITransactionAction, 
       <DsDeleteAllDataAction id="DsDeleteAllDataAction01" targetview="viewDetail" deletetype="clear">
         <Contents/>
       </DsDeleteAllDataAction>
+      <APILogAction id="APILogAction00" servicemodel="BIZ_M_IGT_S_COM00099" serviceurl="http://101.79.4.40:8680/iGate/IITP">
+        <Contents><![CDATA[{
+"reference":"<Dataset id='Header'><ColumnInfo><Column id='Msg' type='STRING' size='256'/><Column id='MsgCode' type='STRING' size='256'/><Column id='SysCode' type='STRING' size='3'/><Column id='SvcID' type='STRING' size='24'/><Column id='UserID' type='STRING' size='256'/><Column id='IFID' type='STRING' size='20'/><Column id='UUID' type='STRING' size='256'/><Column id='SessionId' type='STRING' size='256'/><Column id='BizCode' type='STRING' size='3'/><Column id='ChlCode' type='STRING' size='3'/></ColumnInfo><Rows><Row><Col id='SysCode'>IGT</Col><Col id='SvcID'>ISD_BIZ_M_IGT_S_COM00099</Col><Col id='IFID'>BIZ_M_IGT_S_COM00099</Col><Col id='BizCode'>CMM</Col><Col id='ChlCode'>BIZ</Col></Row></Rows></Dataset><Dataset id='CONVERSION_RULE'><ColumnInfo><Column id='datasetid' type='STRING' size='256'/><Column id='iotype' type='STRING' size='256'/><Column id='objecttype' type='STRING' size='256'/><Column id='objectpath' type='STRING' size='256'/></ColumnInfo><Rows><Row><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Header</Col><Col id='datasetid'>Header</Col><Col id='iotype'>inoutput</Col></Row><Row><Col id='datasetid'>SO</Col><Col id='iotype'>output</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data[0].FormData</Col></Row><Row><Col id='datasetid'>SI</Col><Col id='iotype'>input</Col><Col id='objecttype'>primitive</Col><Col id='objectpath'>$.Data</Col></Row><Row><Col id='datasetid'>SI_LOGDATA</Col><Col id='iotype'>input</Col><Col id='objecttype'>array</Col><Col id='objectpath'>$.Data.LOGDATA</Col></Row></Rows></Dataset>"
+}]]></Contents>
+      </APILogAction>
     </Objects>
     <Trigger>
       <TriggerItem id="item4" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="DsDeleteAllDataAction00" condition=""/>
@@ -409,6 +431,7 @@ this.APITransactionAction01_canrun = function(obj:nexacro.APITransactionAction, 
       <TriggerItem id="item0" triggertype="Click" triggerview="viewSearch" triggerobj="btnSearch" targetaction="APITransactionAction00" condition=""/>
       <TriggerItem id="item1" triggertype="Row Change" triggerview="viewList" triggerobj="viewdataset" targetaction="APITransactionAction01" condition=""/>
       <TriggerItem id="item2" triggertype="Action Fail" triggerview="gwppurchaselist" triggerobj="APITransactionAction00" targetaction="MessageAction00" condition=""/>
+      <TriggerItem id="item5" triggertype="Click" triggerview="gwppurchaselist" triggerobj="Button00" targetaction="APILogAction00" condition=""/>
     </Trigger>
   </Form>
 </FDL>

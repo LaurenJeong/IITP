@@ -28,6 +28,72 @@ pForm.gfnGetApplication = function()
 	return objApp;
 };
 
+/**
+* @class form open 시 초기 처리 <br>
+* @param {Object} obj - 화면
+* @return N/A
+* @example 
+* this.gfnFormOnLoad(this);
+*/
+pForm.gfnFormOnLoad = function(objForm)
+{
+	//trace("================ gfnFormOnLoad objForm : " + objForm.name);
+		
+	// 부모가 divWork일때(화면일때) keyDown 이벤트 추가 및 화면 loading 시간 측정
+	if (objForm.parent.name == "divWork")
+	{
+		// 키다운 이벤트 추가
+		objForm.addEventHandler("onkeydown", this.gfnOnkeydown, this);	
+	}
+	
+	// 팝업 일때 처리
+	if (objForm.opener)
+	{
+		if (objForm.parent instanceof nexacro.ChildFrame)
+		{
+			// 키다운 이벤트 추가
+			objForm.addEventHandler("onkeydown", this.gfnOnkeydown, this);
+		}
+		
+	}
+};
+
+/**
+ * @description 각 화면에서 단축키 지정
+*/
+pForm.gfnOnkeydown = function(obj, e)
+{
+	//trace("e.ctrlkey : " + e.ctrlkey + " / e.keycode : " + e.keycode);
+	
+	// 디버그 창 : Ctrl + Q
+	if (e.ctrlkey && e.keycode == 81)
+	{
+		// 운영환경에서는 실행 방지
+		//if (nexacro.getEnvironmentVariable("evRunMode") == "R") return;
+		
+		//var oArg = {};
+		//var oOption = {popuptype:"modeless", titlebar : "true", title:"디 버 그",width:"1080",height:"703"};
+		//this.gfnOpenPopup("debugging","frame::frmDebug.xfdl",oArg,"",oOption);
+		
+		if (obj.oDebugAction == null)
+		{
+			// <PopupAction id="PopupAction00" formurl="gwp::gwppurchaserequestpop.xfdl" popupstyle="modal" popupid="popup" popupdatatype="none" popupleft="-1" popuptop="-1" popupwidth="-1" popupheight="-1" title="구매요청" targetview="gwppurchaselist">
+			var oPopupAction = new nexacro.PopupAction("ActionPopupDebug", this);
+			oPopupAction.set_formurl("frame::frmDebug.xfdl");
+			oPopupAction.set_popupstyle("modeless");
+			oPopupAction.set_popupid("debugging");
+			oPopupAction.set_popupdatatype("none");
+			//oPopupAction.set_popupleft(-1);
+			//oPopupAction.set_popuptop(-1);
+			oPopupAction.set_popupwidth(1080);
+			oPopupAction.set_popupheight(703);
+			
+			obj.oDebugAction = oPopupAction;
+		}
+		obj.oDebugAction.run();
+	}
+};
+
 pForm.gfnCallMenu = function(sMenuId, objArg)
 {
 	var objApp  = nexacro.getApplication();

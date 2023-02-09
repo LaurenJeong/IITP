@@ -450,6 +450,9 @@
 */
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	// 화면 초기화
+	this.gfnFormOnLoad(this);
+	
 	// 조회조건 기본값 처리
 	var sToday = this.gfnGetDate();		// 로컬시간
 	//this.viewSearch.form.viewdataset.setColumn(0,"START_DATE",sToday.substr(0,6) + "01");
