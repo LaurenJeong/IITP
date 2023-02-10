@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="sampleScript" width="1050" height="818" titletext="script 표준" onload="form_onload">
+    <Layouts>
+      <Layout height="818" mobileorientation="landscape" width="1050">
+        <Static id="sta02" taborder="0" text="Script 표준" left="20" top="17" width="221" height="33"/>
+        <Static id="sta03" taborder="1" text="※ Script 표준 정의입니다.&#13;&#13;&#13;&#13;&#13;&#10;Script 탭 소스를 확인해 주세요.&#13;&#13;&#13;&#13;&#13;&#10;&#13;&#13;&#13;&#13;&#13;&#10;/**&#13;&#13;&#13;&#10;*  컨설팅 표준화 작업&#13;&#13;&#13;&#10;*  @MenuPath    샘플 &gt; script 표준&#13;&#13;&#13;&#10;*  @FileName      sampleScript.xfdl &#13;&#13;&#13;&#10;*  @Creator          consulting&#13;&#13;&#13;&#10;*  @CreateDate    2018.01.01&#13;&#13;&#13;&#10;*  @Desction    스크립트 표준 및 주석 표준 정의&#13;&#13;&#13;&#10;************** 소스 수정 이력 ***********************************************&#13;&#13;&#13;&#10;*  date          &#9;&#9;Modifier                Description&#13;&#13;&#13;&#10;*******************************************************************************&#13;&#13;&#13;&#10;*  2018.01.01     &#9;consulting &#9;                최초 생성&#13;&#13;&#10;*  2018.01.05     &#9;consulting &#9;                주석 수정&#13;&#13;&#13;&#10;*******************************************************************************&#13;&#13;&#13;&#10;*/&#13;&#13;&#13;&#13;&#13;&#10;&#13;&#13;&#13;&#13;&#13;&#10;/************************************************************************************************&#13;&#13;&#13;&#13;&#13;&#10; * FORM 변수 선언 영역&#13;&#13;&#13;&#13;&#13;&#10; ************************************************************************************************/&#13;&#13;&#13;&#13;&#13;&#10;&#13;&#13;&#13;&#13;&#13;&#10;/************************************************************************************************&#13;&#13;&#13;&#13;&#13;&#10; * FORM EVENT 영역(onload, onbeforeclose)&#13;&#13;&#13;&#13;&#13;&#10; ************************************************************************************************/&#13;&#13;&#13;&#13;&#13;&#10;&#13;&#13;&#13;&#13;&#13;&#10;/************************************************************************************************&#13;&#13;&#13;&#13;&#13;&#10; * CALLBACK 콜백 처리부분(Transaction, Popup)&#13;&#13;&#13;&#13;&#13;&#10; ************************************************************************************************/&#13;&#13;&#13;&#13;&#13;&#10;&#13;&#13;&#13;&#13;&#13;&#10;/************************************************************************************************&#13;&#13;&#13;&#13;&#13;&#10; * CRUD 및 TRANSACTION 서비스 호출 처리&#13;&#13;&#13;&#13;&#13;&#10; ************************************************************************************************/&#13;&#13;&#13;&#13;&#13;&#10;&#13;&#13;&#13;&#13;&#13;&#10;/************************************************************************************************&#13;&#13;&#13;&#13;&#13;&#10; * 사용자 FUNCTION 영역&#13;&#13;&#13;&#13;&#13;&#10; ************************************************************************************************/&#13;&#13;&#13;&#13;&#13;&#10;&#13;&#13;&#13;&#13;&#13;&#10;/************************************************************************************************&#13;&#13;&#13;&#13;&#13;&#10; * 각 COMPONENT 별 EVENT 영역&#13;&#13;&#13;&#13;&#13;&#10; ************************************************************************************************/" left="20" top="60" height="620" background="cornsilk" right="13" verticalAlign="top"/>
+        <Static id="sta00" taborder="2" text="17px" top="0" width="13" background="aquamarine" opacity="0.5" bottom="311" right="0" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    샘플 > script 표준
+*  @FileName 	sampleScript.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2017.03.09
+*  @Desction    스크립트 표준 및 주석 표준 정의
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2018.01.01     	consulting 	                최초 생성
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * include 영역(업무화면에서 꼭 필요한 경우에만 사용하세요)
+ ************************************************************************************************/
+//include "lib::libCommon.xjs";
+
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.fvTest = "aaa";	// form변수 sample 
+
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+};
+
+/**
+ * @description 화면 닫힐때 변경사항 체크(입력 화면에서 변경되는 Dataset 체크 필요, 선택)
+ * @return {boolean} true(화면 닫음) / false(화면 닫지 않음)
+*/
+this.fnClose = function()
+{
+    return true;
+// 	if (this.gfnDsIsUpdated(this.dsList)) {
+// 		return false;
+// 	} 
+// 	else {
+// 		return true;
+// 	}	
+};
+
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수(선택)
+*/
+this.fnCallback = function(svcID,errorCode,errorMsg)
+{
+	// 에러 시 화면 처리 내역
+	if(errorCode != 0)
+	{
+		return;
+	}
+	
+	switch(svcID)
+	{
+		case "search":
+			// trace(this.dsList.saveXML());
+			break;
+			
+		case "save":
+			// 저장 되었습니다.
+			this.gfnAlert("msg.save.success");	
+			break;
+	}
+};
+
+/**
+ * @description Popup CallBack 함수(선택)
+*/
+this.fnPopupCallback = function(strId, strVal)
+{
+	trace(" strId : " + strId + " strVal : " + strVal);
+};
+
+
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+/**
+ * @description 조회
+*/
+this.fnSearch = function ()
+{
+	// 조회조건 설정
+ 	this.dsInput.setColumn(0,"id",this.gfnNvl(this.divSearch.form.edtId.value,""));
+	
+ 	var strSvcId    = "search";
+	var strSvcUrl   = "transactionSelectTest.do";
+	var inData      = "dsInput=dsInput";
+	var outData     = "dsList=dsList";
+	var strArg      = "name=" + this.gfnNvl(this.divSearch.form.edtName.value,"");
+	var callBackFnc = "fnCallback";
+	var isAsync   	= true;
+	
+	this.gfnTransaction(strSvcId , 		// transaction을 구분하기 위한 svc id값
+						strSvcUrl , 	// trabsaction을 요청할 주소
+						inData , 		// 입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+						outData , 		// 처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+						strArg, 		// 입력값으로 보낼 arguments, strFormData="20120607"
+						callBackFnc, 	// transaction의 결과를 받을 Function 이름
+						isAsync); 		// 비동기통신 여부 [생략가능]
+};
+
+/**
+ * @description 입력
+*/
+this.fnAdd = function()
+{
+	this.dsList.addRow();
+};
+
+/**
+ * @description 삭제
+*/
+this.fnDel = function()
+{
+	this.dsList.deleteRow(this.dsList.rowposition);
+};
+
+/**
+ * @description 저장
+*/
+this.fnSave = function()
+{
+	// 변경사항 체크
+	if (this.gfnDsIsUpdated(this.dsList) == false) {
+		// 변경된 내역이 없습니다.
+		this.gfnAlert("msg.save.nochange");
+		return;
+	}
+
+	// Validation 체크
+	this.gfnClearValidation(this.dsList);
+	this.gfnSetValidation(this.dsList, "ID", "아이디", "required,length:5");
+ 	if (this.gfnValidation(this.dsList, "U") == false) return;
+	
+	var strSvcUrl   = "transactionSaveTest.do";
+	var inData      = "dsList=dsList:U";
+	var outData     = "dsList=dsList";
+	
+	this.gfnTransaction("save", strSvcUrl, inData, outData);
+};
+
+/**
+ * @description 엑셀
+*/
+this.fnExcel = function()
+{
+
+};
+
+/**
+ * @description 출력
+*/
+this.fnPrint = function()
+{
+
+};
+
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/**
+ * @description 사용자 함수
+*/
+this.fnTest = function(sMessage)
+{
+	trace(sMessage);
+};
+
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

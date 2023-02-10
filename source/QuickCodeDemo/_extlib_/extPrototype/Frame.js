@@ -197,7 +197,7 @@ pForm.gfnOnkeydown = function(obj, e)
 	if (e.ctrlkey && e.keycode == 81)
 	{
 		// 운영환경에서는 실행 방지
-		//if (nexacro.getEnvironmentVariable("evRunMode") == "R") return;
+		if (nexacro.getEnvironmentVariable("evRunMode") == "R") return;
 		
 		var oArg = {};
 		var oOption = {popuptype:"modeless", titlebar : "true", title:"디 버 그",width:"1080",height:"703"};
@@ -502,11 +502,7 @@ pForm.gfnGetServerUrl = function()
 	
     var objEnv = nexacro.getEnvironment();
 		urlPath = objEnv.services["svc"].url;
-		
-	
-	// TODO : 임시
-	urlPath = urlPath.replace("service/","");
-		
+			
 //     if (system.navigatorname == "nexacro") 
 // 	{
 // 	    var objEnv = nexacro.getEnvironment();

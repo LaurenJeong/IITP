@@ -53,7 +53,7 @@ pForm.gfnGetReadFile = function (sFilePath, oDsOutputNm, sSvcId)
 	
 	// 파일읽기
 	var strSvcId    = this.gfnNvl(sSvcId,"gfnGetReadFile");
-	var strSvcUrl   = "readFile.jsp";
+	var strSvcUrl   = "service/readFile.jsp";
 	var inData      = "";
 	var outData     = oDsOutputNm + "=output";
 	var callBackFnc = "fnCallbackReadFile";

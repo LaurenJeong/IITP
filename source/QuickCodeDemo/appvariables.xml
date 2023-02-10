@@ -62,6 +62,28 @@
         </Row>
         <Row>
           <Col id="MENU_GRP_CD">WB</Col>
+          <Col id="MENU_CD">WB10010020</Col>
+          <Col id="UP_MENU_CD">WB10000000</Col>
+          <Col id="MENU_NM">Grid</Col>
+          <Col id="MENU_TYPE">30</Col>
+          <Col id="WORK_URL">frame::frameWorkSP.xfdl</Col>
+          <Col id="MENU_LVL">2</Col>
+          <Col id="PGM_URL">manual::view_grid.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_GRP_CD">WB</Col>
+          <Col id="MENU_CD">WB10010030</Col>
+          <Col id="UP_MENU_CD">WB10000000</Col>
+          <Col id="MENU_NM">막대차트</Col>
+          <Col id="MENU_TYPE">30</Col>
+          <Col id="WORK_URL">frame::frameWorkSP.xfdl</Col>
+          <Col id="MENU_LVL">2</Col>
+          <Col id="PGM_URL">manual::view_barchart.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_GRP_CD">WB</Col>
           <Col id="MENU_CD">WB20000000</Col>
           <Col id="UP_MENU_CD">WB</Col>
           <Col id="MENU_NM">Action</Col>
@@ -108,6 +130,7 @@
           <Col id="MENU_KWRD">FreeformViewTemplate|Freeform|단건|기본</Col>
           <Col id="WORK_URL">frame::frameWork.xfdl</Col>
           <Col id="MENU_PARAM">{"vtSeq": 1}</Col>
+          <Col id="MENU_DESC"></Col>
         </Row>
         <Row>
           <Col id="MENU_GRP_CD">MU</Col>
@@ -130,7 +153,7 @@
           <Col id="MENU_LVL">2</Col>
           <Col id="PGM_URL">manual::view_grid.xfdl</Col>
           <Col id="MENU_YN">N</Col>
-          <Col id="MENU_KWRD"></Col>
+          <Col id="MENU_KWRD"/>
           <Col id="WORK_URL">frame::frameWork.xfdl</Col>
           <Col id="MENU_PARAM">{"vtSeq": 3}</Col>
         </Row>
@@ -1939,6 +1962,7 @@
 - titletext 값을 입력하여 Title영역을 생성할 수 있으며, useexpandbutton 속성값을 설정하여 View를 접기/펼치기 기능 제공
 - format 속성을 활용하여 여러 개의 필드를 하나의 영역에 표현할 경우(ex. 주소 : 우편번호, 주소, 상세주소), 
   mergelabel 속성을 “true”로 설정하여, 1:N으로 레이블(Static) + 컴포넌트로 표현 할 수 있습니다. (레이블은 첫 번째 필드의 레이블정보로 표현)</Col>
+          <Col id="VT_DESC">&lt;p&gt;&lt;font face="굴림" size="3"&gt;&lt;font size="2"&gt;&lt;font face="맑은 고딕"&gt;Model의 Field값을 기준으로 단건 데이터를 표시하기 위한 컴포넌트를 생성합니다.&lt;/font&gt;&lt;br&gt;&lt;font face="맑은 고딕"&gt;Model Field 정보를 기준으로 레이블(Static) + 컴포넌트를 생성합니다.&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face="맑은 고딕"&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face="맑은 고딕"&gt;comptype이 “auto”인 경우 Model의 정보(fieldtype, datatype)에 따라 컴포넌트가 생성됩니다.&lt;br&gt;fieldtype이 “SelectOne”, “SelectAny”인 경우 combo, “MultiMedia”인 경우 imageviewer가 생성됩니다.&lt;br&gt;fieldtype이 “FreeText”인 경우 datatype에 따라 숫자형 데이터(INT, FLOAT, BIGDECIMAL)인 경우 maskedit, 날짜형 데이터(DATE, TIME, DATETIME) 인 경우 calendar로 생성됩니다.&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face="맑은 고딕"&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face="맑은 고딕"&gt;titletext 값을 입력하여 Title영역을 생성할 수 있습니다. &lt;br&gt;생성된 title영역에 useexpandbutton 속성값을 설정하여, View를 접기/펼치기 기능을 사용할 수 있습니다.&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face="맑은 고딕"&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face="맑은 고딕"&gt;compreadonly 속성을 활용하여, 컴포넌트가 읽기전용 형태로 데이터를 표시할 수 있습니다.&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face="맑은 고딕"&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face="맑은 고딕"&gt;format 속성을 활용하여 여러 개의 필드를 하나의 영역에 표현할 경우(ex. 주소 : 우편번호, 주소, 상세주소), mergelabel 속성을 “true”로 설정하여, 1:N으로 레이블(Static) + 컴포넌트로 표현 할 수 있습니다.&lt;br&gt;(레이블은 첫 번째 필드의 레이블정보로 표현)&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face="맑은 고딕"&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face="맑은 고딕"&gt;View Template에 정의된 상수값에 따라 프로젝트 표준 디자인을 적용할 수 있습니다.&lt;/font&gt;&lt;/p&gt;&lt;p align="left" style="margin: 1em 0px; text-align: left; text-indent: 0cm; mso-char-indent-count: 0;"&gt;&lt;p&gt;&lt;strong&gt;&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;[컴포넌트간격]&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;&lt;p&gt;&lt;img id="div_0dde9e16-4e21-b77e-4bae-39fd57fc91f9" src="http://172.10.12.77:8080/quickcodeDemo/richtexteditor/repository/FreeFormViewTemplate_컴포넌트간격_20230210_0.png"&gt;&lt;/p&gt;&lt;p id="div_0dde9e16-4e21-b77e-4bae-39fd57fc91f9_focus"&gt;&lt;/p&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/p&gt;</Col>
         </Row>
         <Row>
           <Col id="VT_SEQ">2</Col>

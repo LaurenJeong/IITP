@@ -13,6 +13,8 @@
 
 var pForm = nexacro.Form.prototype;
 
+pForm.RTE_PREVIEW_URL = "richtexteditor/html/preview.html";
+
 /**
  * @class 해당 콤포넌트의 form으로 부터의 경로를 구하는 함수
  * @param {Object} obj - 콤포넌트

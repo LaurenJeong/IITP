@@ -45,6 +45,14 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.gfnInitLang(oLftFrm);
 	this.gfnInitLang(oTopFrm);
 	
+	// 샘플 프로젝트 추가
+	var sRunMode = nexacro.getEnvironmentVariable("evRunMode");
+	if (sRunMode == "S" || sRunMode == "D")
+	{
+		trace("여기")
+		this.objApp.gdsMenu.appendData(this.dsSample);
+	}
+	
 	oTopFrm.fnChangeLang();
 	oLftFrm.fnChangeLang();
 	// 다국어 처리 END
@@ -182,6 +190,74 @@ this.fnGoHome = function(oArgs)
 }
 
 ]]></Script>
-    <Objects/>
+    <Objects>
+      <Dataset id="dsSample">
+        <ColumnInfo>
+          <Column id="MENU_GRP_CD" type="STRING" size="256"/>
+          <Column id="MENU_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_CD" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_TYPE" type="STRING" size="256"/>
+          <Column id="WORK_URL" type="STRING" size="256"/>
+          <Column id="MENU_LVL" type="INT" size="256"/>
+          <Column id="PGM_ID" type="STRING" size="256"/>
+          <Column id="PGM_URL" type="STRING" size="256"/>
+          <Column id="MENU_YN" type="STRING" size="256"/>
+          <Column id="MENU_DESC" type="STRING" size="256"/>
+          <Column id="MENU_KWRD" type="STRING" size="256"/>
+          <Column id="MENU_PARAM" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_GRP_CD">SP</Col>
+            <Col id="MENU_CD">SP</Col>
+            <Col id="UP_MENU_CD">0</Col>
+            <Col id="MENU_NM">샘플</Col>
+            <Col id="MENU_LVL">0</Col>
+            <Col id="MENU_YN">Y</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_GRP_CD">SP</Col>
+            <Col id="MENU_CD">SP10000000</Col>
+            <Col id="UP_MENU_CD">SP</Col>
+            <Col id="MENU_NM">표준 및 기본 정의</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="MENU_YN">Y</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_GRP_CD">SP</Col>
+            <Col id="MENU_CD">SP10010011</Col>
+            <Col id="UP_MENU_CD">WB10000000</Col>
+            <Col id="MENU_NM">script 표준</Col>
+            <Col id="MENU_TYPE">10</Col>
+            <Col id="MENU_LVL">2</Col>
+            <Col id="PGM_URL">sample::sampleScript.xfdl</Col>
+            <Col id="MENU_YN">Y</Col>
+            <Col id="MENU_KWRD">표준</Col>
+            <Col id="WORK_URL">frame::frameWork.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_GRP_CD">SP</Col>
+            <Col id="MENU_CD">SP20000000</Col>
+            <Col id="UP_MENU_CD">SP</Col>
+            <Col id="MENU_NM">연동</Col>
+            <Col id="MENU_LVL">1</Col>
+            <Col id="MENU_YN">Y</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_GRP_CD">SP</Col>
+            <Col id="MENU_CD">SP20010011</Col>
+            <Col id="UP_MENU_CD">SP20000000</Col>
+            <Col id="MENU_NM">웹에디터</Col>
+            <Col id="MENU_TYPE">10</Col>
+            <Col id="MENU_LVL">2</Col>
+            <Col id="PGM_URL">sample::sampleRichTextEditor.xfdl</Col>
+            <Col id="MENU_YN">Y</Col>
+            <Col id="MENU_KWRD">웹에디터</Col>
+            <Col id="WORK_URL">frame::frameWork.xfdl</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
   </Form>
 </FDL>
