@@ -3,7 +3,7 @@
   <Form id="cmmActionInfo" width="1050" height="600" titletext="Action 정보" onload="form_onload">
     <Layouts>
       <Layout height="600" width="1050" flexwrap="wrap" verticalgap="5" horizontalgap="5" spacing="0px 10px 10px">
-        <Static id="staTriggerInfo" taborder="0" text="Trigger Info" left="0" top="0" height="30" cssclass="sta_WF_title02" width="100%"/>
+        <Static id="staTriggerInfo" taborder="0" text="Trigger Info" left="0" top="0" height="30" cssclass="sta_WF_title01" width="100%"/>
         <View id="viwTriggerInfo" taborder="1" text="viwModelInfo" top="staTriggerInfo:5" height="40" width="100%" left="0" viewdataset="viewdataset">
           <Layouts>
             <Layout>
@@ -61,7 +61,7 @@
             <Attribute id="usefieldbox" value="true"/>
           </ViewTemplateInfo>
         </View>
-        <Static id="staProperty" taborder="2" text="Property" left="0" top="viwTriggerInfo:10" height="30" cssclass="sta_WF_title02" width="100%"/>
+        <Static id="staProperty" taborder="2" text="Property" left="0" top="viwTriggerInfo:10" height="30" cssclass="sta_WF_title01" width="100%"/>
         <Grid id="grdProperty" taborder="3" top="staProperty:5" height="198" binddataset="dsActionPrp" width="100%" left="0" autofittype="col" autosizingtype="row" extendsizetype="row" commSet="selecttype,cellcopypaste">
           <Formats>
             <Format id="default">
@@ -84,7 +84,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="staModelArgument" taborder="4" text="Model Argument" left="0" top="grdProperty:10" height="30" cssclass="sta_WF_title02" width="100%"/>
+        <Static id="staModelArgument" taborder="4" text="Model Argument" left="0" top="grdProperty:10" height="30" cssclass="sta_WF_title01" width="100%"/>
         <Grid id="grdModelArgument" taborder="5" top="staModelArgument:5" height="226" autofittype="col" binddataset="dsModelArg" width="100%" left="0" treeinitstatus="expand,all" treeusecheckbox="false" commSet="selecttype,cellcopypaste">
           <Formats>
             <Format id="default">
@@ -107,7 +107,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="staUserArgument" taborder="6" text="User Defined(Extra) Argument" left="0" top="grdModelArgument:10" height="30" cssclass="sta_WF_title02" width="100.00%"/>
+        <Static id="staUserArgument" taborder="6" text="User Defined(Extra) Argument" left="0" top="grdModelArgument:10" height="30" cssclass="sta_WF_title01" width="100.00%"/>
         <Grid id="grdUserArgument" taborder="7" top="staUserArgument:5" height="198" binddataset="dsUserArg" width="100.00%" left="0" autofittype="col" commSet="selecttype,cellcopypaste">
           <Formats>
             <Format id="default">
