@@ -140,6 +140,40 @@ this.fnLeftMenuAction = function()
 	this.objApp.gvMainFrame.form.resetScroll();
 };
 
+/**
+ * @description  https가 아닐때 클립보드 복사
+*/
+this.fnUnsecuredCopyToClipboard = function(text)
+{
+	const textArea = document.createElement("textarea");
+	textArea.value = text;
+	document.body.appendChild(textArea);
+	textArea.focus();
+	textArea.select();
+	try {
+		document.execCommand('copy');
+	} catch (err) {
+		console.error('Unable to copy to clipboard', err);
+	}
+	document.body.removeChild(textArea);
+}
+
+/**
+ * @description  클립보드 복사
+*/
+this.fnCopyToClipboard = function(content)
+{
+	if (system.navigatorname == "nexacro") {
+		system.clearClipboard();
+		system.setClipboard("CF_TEXT",content);
+	} else {
+		if (window.isSecureContext && navigator.clipboard) {
+			navigator.clipboard.writeText(content);
+		} else {
+			this.fnUnsecuredCopyToClipboard(content);
+		}
+	}
+};
 /************************************************************************************************
  * 각 COMPONENT 별 EVENT 영역
  ************************************************************************************************/
@@ -225,7 +259,7 @@ this.btnMenuOpen_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 this.btnLinkCopy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	if (system.navigatorname != "nexacro") {
-		navigator.clipboard.writeText(window.location.href);
+		this.fnCopyToClipboard(window.location.href);
 	}
 };
 ]]></Script>
