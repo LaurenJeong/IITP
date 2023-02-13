@@ -20,11 +20,11 @@
                     <Formats>
                       <Format id="default">
                         <Columns>
-                          <Column size="80"/>
-                          <Column size="180"/>
+                          <Column size="120"/>
+                          <Column size="170"/>
                           <Column size="300"/>
-                          <Column size="180"/>
-                          <Column size="300"/>
+                          <Column size="170"/>
+                          <Column size="250"/>
                         </Columns>
                         <Rows>
                           <Row size="28" band="head"/>
@@ -38,7 +38,7 @@
                           <Cell col="4" text="Model Name"/>
                         </Band>
                         <Band id="body">
-                          <Cell text="bind:VIEW_ID"/>
+                          <Cell text="bind:VIEW_ID" expandshow="show" expandimage="url('theme://images/btn_MDI_preD.png')"/>
                           <Cell col="1" text="bind:VT_ID" expandshow="expr:VT_SEQ!=null?'show':'hide'" cssclass="expr:VT_SEQ!=null?'cell_WF_Link':''"/>
                           <Cell col="2" text="bind:VT_NM"/>
                           <Cell col="3" text="bind:MODEL_ID" cssclass="expr:MODEL_SEQ!=null?'cell_WF_Link':''"/>
@@ -164,6 +164,10 @@ this.fv_sampleHBorder	= 2;		// 샘플 가로 border 사이즈 합계
 this.fv_sampleVBorder	= 2;		// 샘플 세로 border 사이즈 합계
 this.fv_sampleMinHeight	= 550;		// 샘플 최소 높이
 this.fv_sampleMinWidth	= 1030;		// 샘플 최소 넓이
+
+// 선택된 View 깜박임 애니메이션
+this.fv_oAniBlink;
+this.fv_oAniView;
 /***********************************************************************************************
 * FORM EVENT 영역(onload)
 /***********************************************************************************************/
@@ -656,6 +660,7 @@ this.tabInfo_Tabpage1_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.
 		}
 	}
 };
+
 /**
  * @description View List 그리드 expand 버튼 클릭(QuickCode Info 팝업)
  */
@@ -683,7 +688,60 @@ this.tabInfo_Tabpage1_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.G
 		
 		this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
 	}
+	else if (obj.getBindCellIndex("body","VIEW_ID") == e.cell)
+	{
+		var sViewId = oDsBind.getColumn(nRow,"VIEW_ID");
+		var oView;
+		if (!this.gfnIsNull(sViewId)) {
+			oView = this.divWork.form.components[sViewId];
+			
+			if (this.gfnIsNull(this.fv_oAniBlink))
+			{
+				this.fv_oAniBlink = new nexacro.Animation("aniBlink", this);  
+				this.addChild( "aniBlink", this.fv_oAniBlink);
+				
+				this.fv_oAniBlink.set_duration(1000);
+				this.fv_oAniBlink.set_easing("easeoutcubic");
+				this.fv_oAniBlink.set_loop(true);
+				this.fv_oAniBlink.set_loopcount(3);
+				this.fv_oAniBlink.setEventHandler("oncomplete", this.aniBlink_oncomplete, this);
+			}
+			
+			if (this.fv_oAniView) {
+				this.fv_oAniBlink.stop();
+				this.fv_oAniView.set_opacity(1);
+				this.fv_oAniView.set_background("");
+				this.fnRemoveAllAniItem(this.fv_oAniBlink);
+			}
+			this.fv_oAniBlink.addTarget("item" + oView.name, oView, "opacity:[0.5,1],background:['#efd0cc','#ffffff']");
+			this.fv_oAniView = oView;
+			this.fv_oAniBlink.play();
+
+		}
+	}
 };
+
+/**
+ * @description 애니메이션에 추가된 Item 제거
+ */
+this.fnRemoveAllAniItem = function(oAni)
+{
+	var arrAniItems = oAni.items;
+	for(var i=arrAniItems.length -1; i>=0; i--){
+		oAni.removeTarget( arrAniItems[i].id );
+	}
+}
+
+/**
+ * @description 애니메이션에 완료이벤트
+ */
+this.aniBlink_oncomplete = function(obj:nexacro.Animation,e:nexacro.AnimationEventInfo)
+{
+	//this.gfnLog("aniBlink_oncomplete : " + e.fromreferenceobject);
+	this.fnRemoveAllAniItem(this.fv_oAniBlink);
+	this.fv_oAniView = null;
+}
+
 /**
  * @description Action List 그리드 셀 클릭(매뉴얼 팝업)
  */
