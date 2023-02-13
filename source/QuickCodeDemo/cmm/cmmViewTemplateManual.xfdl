@@ -73,7 +73,7 @@
           </Formats>
         </Grid>
         <Static id="staVtDesc" taborder="11" text="Description" left="0" top="grdViewAttribute:20" height="30" cssclass="sta_WF_title01" right="10" visible="false"/>
-        <WebView id="webPreview" taborder="12" left="0" top="staVtDesc:5" height="100" right="10" visible="false" onloadcompleted="webPreview_onloadcompleted" onusernotify="webPreview_onusernotify"/>
+        <WebBrowser id="webPreview" taborder="12" left="0" top="staVtDesc:5" height="100" right="10" visible="false" onloadcompleted="webPreview_onloadcompleted" onusernotify="webPreview_onusernotify"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -144,8 +144,9 @@
 this.objApp = this.gfnGetApplication();
 
 this.fv_vtSeq;
-this.fv_previewUrl = this.gfnGetServerUrl() + this.RTE_PREVIEW_URL;
 
+// Description Preview html 링크
+this.fv_previewUrl = this.gfnGetServerUrl() + this.RTE_PREVIEW_URL;
 
 // 샘플관련
 this.fv_sampleUrl		= "";
@@ -225,7 +226,7 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 				// 화면 넓이와 높이가 0이상일때 사이즈 셋팅
 				if (nHeight > 0 && nWidth > 0)
 				{
-					this.gfnLog("nHeight : " + nHeight + " nWidth : " + nWidth);
+					//this.gfnLog("nHeight : " + nHeight + " nWidth : " + nWidth);
 					this.divSample.set_minheight(nHeight + this.fv_sampleHBorder);
 					this.divSample.set_minwidth(nWidth + this.fv_sampleVBorder);
 					this.resetScroll();
@@ -307,33 +308,32 @@ this.fnSetViewTemplateInfo = function()
 /************************************************************************************************
  * 각 COMPONENT 별 EVENT 영역
  ************************************************************************************************/
-this.webPreview_onloadcompleted = function(obj:nexacro.WebView,e:nexacro.WebLoadCompEventInfo)
+/**
+ * @description WebBrowser onloadcompleted 이벤트
+ */
+this.webPreview_onloadcompleted = function(obj:nexacro.WebBrowser,e:nexacro.WebLoadCompEventInfo)
 {
-	this.gfnLog("e.url : " + e.url);
 	if ( e.url == this.fv_previewUrl )
 	{
-		
-		//var content = this.getOwnerFrame().content;
-		
-		//obj.callMethod("setContent", this.getOwnerFrame().content);
+		// Description 내용설정
 		var sContens = this.dsVt.getColumn(0,"VT_DESC");
-		this.gfnLog("sContens " + sContens);
 		if (!this.gfnIsNull(sContens)) {
-			obj.callScript("setContent('" + sContens + "'");
-			
+			obj.callMethod("setContent", sContens);
 		}
-	}
+	}	
 };
 
-this.webPreview_onusernotify = function(obj:nexacro.WebView,e:nexacro.WebUserNotifyEventInfo)
+/**
+ * @description WebBrowser onusernotify 이벤트
+ */
+this.webPreview_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserNotifyEventInfo)
 {
-	this.gfnLog("webPreview_onusernotify");
+	//this.gfnLog("webPreview_onusernotify : " + e.userdata);
 	if ( e.userdata == "loadContent" )
 	{
-		var ret = obj.callMethod("getDocHeight");
-		
-		this.webPreview.set_minheight(ret + 20);
-		
+		// Description 사이즈 설정
+		var ret = nexacro.toNumber(obj.callMethod("getDocHeight"),0) + 20;
+		this.webPreview.set_height(ret);
 		this.resetScroll();
 	}
 };

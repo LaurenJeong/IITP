@@ -105,6 +105,8 @@
             </Format>
           </Formats>
         </Grid>
+        <Static id="staVtDesc" taborder="17" text="Description" left="0" top="grdActionEvent:20" height="30" cssclass="sta_WF_title01" right="10" visible="false"/>
+        <WebBrowser id="webPreview" taborder="18" left="0" top="staVtDesc:5" height="100" right="10" visible="false" onloadcompleted="webPreview_onloadcompleted" onusernotify="webPreview_onusernotify"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -177,6 +179,9 @@
 this.objApp = this.gfnGetApplication();
 
 this.fv_actionSeq;
+
+// Description Preview html 링크
+this.fv_previewUrl = this.gfnGetServerUrl() + this.RTE_PREVIEW_URL;
 
 // 샘플관련
 this.fv_sampleUrl		= "";
@@ -348,12 +353,49 @@ this.fnSetActionInfo = function()
 	this.fnSetGridSize(this.grdActionMethod, this.staActionMethod);
 	this.fnSetGridSize(this.grdActionEvent, this.staActionEvent);
 	
+	// 설명이 있는 경우 설명 표시
+	var sContens = this.dsAction.getColumn(0,"ACTION_DESC");
+	if (!this.gfnIsNull(sContens)) {
+		this.webPreview.set_url(this.fv_previewUrl);
+		this.staVtDesc.set_visible(true);
+		this.webPreview.set_visible(true);
+	}
+	
 	this.resetScroll();	
 };
 
 /************************************************************************************************
  * 각 COMPONENT 별 EVENT 영역
- ************************************************************************************************/]]></Script>
+ ************************************************************************************************/
+/**
+ * @description WebBrowser onloadcompleted 이벤트
+ */
+this.webPreview_onloadcompleted = function(obj:nexacro.WebBrowser,e:nexacro.WebLoadCompEventInfo)
+{
+	if ( e.url == this.fv_previewUrl )
+	{
+		// Description 내용설정
+		var sContens = this.dsVt.getColumn(0,"VT_DESC");
+		if (!this.gfnIsNull(sContens)) {
+			obj.callMethod("setContent", sContens);
+		}
+	}	
+};
+
+/**
+ * @description WebBrowser onusernotify 이벤트
+ */
+this.webPreview_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserNotifyEventInfo)
+{
+	//this.gfnLog("webPreview_onusernotify : " + e.userdata);
+	if ( e.userdata == "loadContent" )
+	{
+		// Description 사이즈 설정
+		var ret = nexacro.toNumber(obj.callMethod("getDocHeight"),0) + 20;
+		this.webPreview.set_height(ret);
+		this.resetScroll();
+	}
+};]]></Script>
     <Bind>
       <BindItem id="item0" compid="staActionNm" propid="text" datasetid="dsAction" columnid="ACTION_NM"/>
       <BindItem id="item1" compid="txaActionInfo" propid="value" datasetid="dsAction" columnid="ACTION_INFO"/>
