@@ -47,9 +47,8 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	// 샘플 프로젝트 추가
 	var sRunMode = nexacro.getEnvironmentVariable("evRunMode");
-	if (sRunMode == "S" || sRunMode == "D")
+	if (sRunMode == "S" || sRunMode == "L")
 	{
-		trace("여기")
 		this.objApp.gdsMenu.appendData(this.dsSample);
 	}
 	
