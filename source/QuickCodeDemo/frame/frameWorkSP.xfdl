@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frameWorkSP" left="0" top="0" width="1050" height="872" onclose="form_onclose" onsize="form_onsize" onactivate="form_onactivate" onload="form_onload" onkeydown="form_onkeydown" titletext="frameWork(활용)" background="#ffffff">
+  <Form id="frameWorkSP" left="0" top="0" width="1055" height="872" onclose="form_onclose" onsize="form_onsize" onactivate="form_onactivate" onload="form_onload" onkeydown="form_onkeydown" titletext="frameWork(활용)" background="#ffffff">
     <Layouts>
-      <Layout width="1050" height="872">
+      <Layout width="1055" height="872">
         <Static id="Static03" taborder="0" text="h16" visible="false" left="1063" top="-1" width="33" height="22"/>
-        <Div id="divWork" taborder="1" left="10" top="40" right="10" border="1px none , 1px none , 1px none, 1px none" text="divWork" height="30">
+        <Div id="divWork" taborder="1" left="10" top="45" right="10" text="divWork" height="552" cssclass="div_WF_SampleBg">
           <Layouts>
             <Layout/>
           </Layouts>
         </Div>
         <Div id="divTitle" taborder="2" left="0" top="0" right="0" url="frame::frameWorkTitle.xfdl" height="35" border="1px none , 1px none , 1px solid gainsboro" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
         <Static id="staLodingTime" taborder="3" top="7" width="425" height="17" font="normal bold 14px/normal &quot;Gulim&quot;,&quot;Arial&quot;" usedecorate="true" color="orangered" right="130" textAlign="right" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
-        <Tab id="tabInfo" taborder="4" tabindex="0" left="10" top="divWork:20" right="10" bottom="10">
+        <Tab id="tabInfo" taborder="4" tabindex="0" left="10" top="divWork:20" right="10" bottom="10" minheight="245" maxheight="">
           <Tabpages>
             <Tabpage id="Tabpage1" text="View Info">
               <Layouts>
@@ -158,6 +158,12 @@ this.objApp = this.gfnGetApplication();
 this.fv_formContents = "";
 this.fv_formJson;
 this.fv_formNode;
+
+// 샘플관련
+this.fv_sampleHBorder	= 2;		// 샘플 가로 border 사이즈 합계
+this.fv_sampleVBorder	= 2;		// 샘플 세로 border 사이즈 합계
+this.fv_sampleMinHeight	= 550;		// 샘플 최소 높이
+this.fv_sampleMinWidth	= 1030;		// 샘플 최소 넓이
 /***********************************************************************************************
 * FORM EVENT 영역(onload)
 /***********************************************************************************************/
@@ -265,8 +271,8 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 	{
 		case "getSource":
 			var sContents = this.dsContents.getColumn(0,"contents");
-			
-			//this.gfnLog("sContents : " + sContents);
+			var nHeight = 0;
+			var nWidth = 0;
 			
 			// Contents값을 기준으로 form Node 생성
 			this.fv_formNode = this.gfnGetFormContents(sContents);
@@ -274,9 +280,21 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 			if (this.fv_formNode)
 			{
 				// 화면 사이즈 조절
-				this.divWork.set_minheight(this.fv_formNode.getAttribute("height"));
-				this.divWork.set_minwidth(this.fv_formNode.getAttribute("width"));
-				this.resetScroll();	
+				nHeight	= nexacro.toNumber(this.fv_formNode.getAttribute("height"));
+				nWidth	= nexacro.toNumber(this.fv_formNode.getAttribute("width"));
+				
+				//this.gfnLog("nWidth : " + nWidth);
+				
+				// 화면 넓이와 높이가 0이상일때 사이즈 셋팅
+				if (nHeight > 0 && nWidth > 0)
+				{
+					if (nHeight < this.fv_sampleMinHeight)	nHeight = this.fv_sampleMinHeight;
+					if (nWidth < this.fv_sampleMinWidth)	nWidth = this.fv_sampleMinWidth;
+					
+					this.divWork.set_minheight(nHeight + this.fv_sampleHBorder);
+					this.divWork.set_minwidth(nWidth + this.fv_sampleVBorder);
+					this.resetScroll();
+				}
 				
 				// QuickCode Info
 				this.fnGetQuickCodeInfo();

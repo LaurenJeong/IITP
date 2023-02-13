@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="action_excelimport" width="1080" height="300" titletext="ExcelImportAction" onload="form_onload">
+  <Form id="action_excelimport" width="1030" height="300" titletext="ExcelImportAction" onload="form_onload">
     <Layouts>
-      <Layout height="300" width="1080">
-        <View id="viwExcelImport" taborder="0" viewdataset="viewdataset" left="0" top="40" right="0" bottom="0">
+      <Layout height="300" width="1030">
+        <Button id="btnExcelImport" taborder="1" text="ExcelImport" left="10" top="10" width="103" height="30"/>
+        <View id="viwExcelImport" taborder="0" viewdataset="viewdataset" left="10" top="btnExcelImport:10" right="10" bottom="10">
           <Layouts>
             <Layout>
               <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset">
@@ -86,7 +87,6 @@
             <Attribute id="summbandsize" value="-1"/>
           </ViewTemplateInfo>
         </View>
-        <Button id="btnExcelImport" taborder="1" text="ExcelImport" left="0" top="0" width="103" height="30"/>
       </Layout>
     </Layouts>
     <Objects>

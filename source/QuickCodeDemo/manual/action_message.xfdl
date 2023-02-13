@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="action_message" width="1080" height="300" titletext="MessageAction" onload="form_onload">
+  <Form id="action_message" width="1030" height="210" titletext="MessageAction" onload="form_onload">
     <Layouts>
-      <Layout height="300" width="1080">
-        <Button id="btnAlert" taborder="0" text="Alert" left="0" top="0" width="100" height="30"/>
-        <Button id="btnConfirm" taborder="1" text="Confirm" left="106" top="0" height="30" width="100"/>
-        <TextArea id="txtOutput" taborder="2" left="0" top="40" right="0" bottom="0"/>
+      <Layout height="210" width="1030">
+        <Button id="btnAlert" taborder="0" text="Alert" left="10" top="10" width="100" height="30"/>
+        <Button id="btnConfirm" taborder="1" text="Confirm" left="btnAlert:5" top="10" height="30" width="100"/>
+        <TextArea id="txtOutput" taborder="2" left="10" top="btnAlert:10" right="10" bottom="10"/>
       </Layout>
     </Layouts>
     <Objects>

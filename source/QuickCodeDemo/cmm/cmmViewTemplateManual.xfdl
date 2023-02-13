@@ -5,8 +5,8 @@
       <Layout width="1040" height="800">
         <Static id="Static03" taborder="0" text="h16" visible="false" left="1063" top="-41" height="22" right="10"/>
         <TextArea id="txaVtInfo" taborder="5" left="0" top="55" height="100" right="10" readonly="true"/>
-        <Static id="staTitle2" taborder="10" text="ViewTemplate 사용예" left="0" top="txaVtInfo:10" height="25" cssclass="sta_WF_notice01" right="10"/>
-        <Div id="divSample" taborder="1" left="0" top="staTitle2:5" right="10" border="1px none , 1px none , 1px none, 1px none" text="divSample" height="30">
+        <Static id="staTitle2" taborder="10" text="ViewTemplate 사용예" left="0" top="txaVtInfo:10" height="25" cssclass="sta_WF_title01" right="10"/>
+        <Div id="divSample" taborder="1" left="0" top="staTitle2:5" right="10" height="30" cssclass="div_WF_SampleBg">
           <Layouts>
             <Layout/>
           </Layouts>
@@ -72,6 +72,8 @@
             </Format>
           </Formats>
         </Grid>
+        <Static id="staVtDesc" taborder="11" text="Description" left="0" top="grdViewAttribute:20" height="30" cssclass="sta_WF_title01" right="10" visible="false"/>
+        <WebView id="webPreview" taborder="12" left="0" top="staVtDesc:5" height="100" right="10" visible="false" onloadcompleted="webPreview_onloadcompleted" onusernotify="webPreview_onusernotify"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -142,7 +144,13 @@
 this.objApp = this.gfnGetApplication();
 
 this.fv_vtSeq;
-this.fv_sampleUrl = "";
+this.fv_previewUrl = this.gfnGetServerUrl() + this.RTE_PREVIEW_URL;
+
+
+// 샘플관련
+this.fv_sampleUrl		= "";
+this.fv_sampleHBorder	= 2;		// 샘플 가로 border 사이즈 합계
+this.fv_sampleVBorder	= 2;		// 샘플 세로 border 사이즈 합계
 /***********************************************************************************************
 * FORM EVENT 영역(onload)
 /***********************************************************************************************/
@@ -199,20 +207,29 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 	{
 		case "getSource":
 			var sContents = this.dsContents.getColumn(0,"contents");
-			
-			//this.gfnLog("sContents : " + sContents);
+			var nHeight = 0;
+			var nWidth = 0;
 			
 			// Contents값을 기준으로 form Node 생성
 			this.fv_formNode = this.gfnGetFormContents(sContents);
 			
 			if (this.fv_formNode)
 			{
+				// 화면 설정
 				this.divSample.set_url(this.fv_sampleUrl);
 				
 				// 화면 사이즈 조절
-				this.divSample.set_minheight(this.fv_formNode.getAttribute("height"));
-				this.divSample.set_minwidth(this.fv_formNode.getAttribute("width"));
-				this.resetScroll();	
+				nHeight	= nexacro.toNumber(this.fv_formNode.getAttribute("height"));
+				nWidth	= nexacro.toNumber(this.fv_formNode.getAttribute("width"));
+				
+				// 화면 넓이와 높이가 0이상일때 사이즈 셋팅
+				if (nHeight > 0 && nWidth > 0)
+				{
+					this.gfnLog("nHeight : " + nHeight + " nWidth : " + nWidth);
+					this.divSample.set_minheight(nHeight + this.fv_sampleHBorder);
+					this.divSample.set_minwidth(nWidth + this.fv_sampleVBorder);
+					this.resetScroll();
+				}
 			}
 			break;
 	}
@@ -276,12 +293,51 @@ this.fnSetViewTemplateInfo = function()
 	this.fnSetGridSize(this.grdFieldUserAttribute, this.staFieldUserAttribute);
 	this.fnSetGridSize(this.grdViewAttribute, this.staViewAttribute);
 	
+	// 설명이 있는 경우 설명 표시
+	var sContens = this.dsVt.getColumn(0,"VT_DESC");
+	if (!this.gfnIsNull(sContens)) {
+		this.webPreview.set_url(this.fv_previewUrl);
+		this.staVtDesc.set_visible(true);
+		this.webPreview.set_visible(true);
+	}
+	
 	this.resetScroll();
 };
 
 /************************************************************************************************
  * 각 COMPONENT 별 EVENT 영역
- ************************************************************************************************/]]></Script>
+ ************************************************************************************************/
+this.webPreview_onloadcompleted = function(obj:nexacro.WebView,e:nexacro.WebLoadCompEventInfo)
+{
+	this.gfnLog("e.url : " + e.url);
+	if ( e.url == this.fv_previewUrl )
+	{
+		
+		//var content = this.getOwnerFrame().content;
+		
+		//obj.callMethod("setContent", this.getOwnerFrame().content);
+		var sContens = this.dsVt.getColumn(0,"VT_DESC");
+		this.gfnLog("sContens " + sContens);
+		if (!this.gfnIsNull(sContens)) {
+			obj.callScript("setContent('" + sContens + "'");
+			
+		}
+	}
+};
+
+this.webPreview_onusernotify = function(obj:nexacro.WebView,e:nexacro.WebUserNotifyEventInfo)
+{
+	this.gfnLog("webPreview_onusernotify");
+	if ( e.userdata == "loadContent" )
+	{
+		var ret = obj.callMethod("getDocHeight");
+		
+		this.webPreview.set_minheight(ret + 20);
+		
+		this.resetScroll();
+	}
+};
+]]></Script>
     <Bind>
       <BindItem id="item0" compid="staVtNm" propid="text" datasetid="dsVt" columnid="VT_NM"/>
       <BindItem id="item1" compid="txaVtInfo" propid="value" datasetid="dsVt" columnid="VT_INFO"/>
