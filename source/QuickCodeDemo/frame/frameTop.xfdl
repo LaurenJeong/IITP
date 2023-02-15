@@ -371,7 +371,7 @@ this.fnCreateTopMenu = function (strID, strName, index)
 	objBtn.menuid = strID;
 	objBtn.set_cssclass("btn_TF_Menu");
 	objBtn.set_textAlign("center");
-	objBtn.setEventHandler("onclick", this.Button_onclick, this);
+	objBtn.setEventHandler("onclick", this.btnTopMenu_onclick, this);
 	objBtn.set_visible(true);
 	objBtn.show();
 };
@@ -400,6 +400,12 @@ this.fnFindObj = function (strId)
 	return this.divTopBtn.form.components[strId];
 };
 
+this.fnSetActiveTopMenu = function (sGroupId, sMenuId)
+{
+	this.objApp.gvLeftFrame.form.fnChangeMenu(sGroupId, sMenuId);
+	this.fnSetActiveBtn(sGroupId);
+};
+
 /************************************************************************************************
  * 각 COMPONENT 별 EVENT 영역
  ************************************************************************************************/
@@ -426,10 +432,9 @@ this.btnLogOut_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	}	
 };
 
-this.Button_onclick = function (obj:Button, e:ClickEventInfo)
+this.btnTopMenu_onclick = function (obj:Button, e:ClickEventInfo)
 {
-	this.objApp.gvLeftFrame.form.fnChangeMenu(obj.menuid);
-	this.fnSetActiveBtn(obj.menuid);
+	this.fnSetActiveTopMenu(obj.menuid);
 	this.fnLeftMenuOpenClose(true);		// 대메뉴 변경시 Left 메뉴열기
 };  
 

@@ -836,13 +836,8 @@ this.btnDown_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var sUrl		= this.gfnGetArgument("pageUrl");
 	var sSourceUrl	= this.objApp.id + "/" + this.gfnGetSourceUrl(sUrl);
-	var sServerUrl	= this.gfnGetServerUrl() + "fileDownload.do?name=";
 	
-	var sDownUrl	= sServerUrl + sSourceUrl;
-	var sFileUrl	= sSourceUrl.substring(sSourceUrl.lastIndexOf("/") + 1);
-	
-	this.fdtSample.set_downloadfilename(sFileUrl);
-	this.fdtSample.download(sDownUrl);
+	this.gfnFileDownload(this.fdtSample, sSourceUrl);
 };
 ]]></Script>
   </Form>

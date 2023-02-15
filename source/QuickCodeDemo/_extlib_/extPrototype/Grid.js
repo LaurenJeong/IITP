@@ -13,6 +13,7 @@
 *  2017.10.19		consulting			   	    찾기/바꾸기 기능 추가
 *  2017.10.30       consulting			   	    그리드기능추가 및 스크립트정비
 *  2018.01.16		consulting					gfnGetApplication 공통함수 변경
+*  2022.02.15     	PJY 	                	프로젝트에 맞게 수정보완 
 *******************************************************************************
 */
 var pForm = nexacro.Form.prototype;
@@ -35,8 +36,7 @@ grid propertiy
 	personal : 그리드포맷 저장
 	initial : 초기상태로
 	
-	cellcopy	: 클립보드 복사
-	cellpaste	: 붙여넣기
+	cellcopypaste	: 복사/붙여넣기
 	cellmove	: 컬럼이동
 	cellsize 	: 컬럼사이즈조정
 	autoenter	: autoenter

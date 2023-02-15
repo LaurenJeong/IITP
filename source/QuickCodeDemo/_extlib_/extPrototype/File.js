@@ -9,6 +9,7 @@
 *******************************************************************************
 *  2017.03.08     	consulting 	                최초 생성 
 *  2017.10.17     	consulting       	        주석 정비
+*  2022.02.15     	PJY 	                	다운로드 부분만 수정(업로드 하지않음)
 *******************************************************************************
 */
 
@@ -17,7 +18,7 @@ var pForm = nexacro.Form.prototype;
 // file upload 및 download 환경 설정
 pForm.fileConfig = {
 		uploadUrl : "file/saveFile.jsp?path=nexacro",
-		downloadUrl : "file/downloadFile.jsp?path=nexacro&fileName=",
+		downloadUrl : "fileDownload.do?name=",
 		deleteUrl : "file/deleteFile.jsp?path=nexacro",
 		downImage : "theme://img_file.png",
 		delImage : "theme://btn_del.png",
@@ -72,23 +73,22 @@ pForm.gfnFileUpload = function(objFileUpload, sUrl, sPath)
  * @param {Object} objFileDownload - 파일다운로드 컴포넌트
  * @param {String} sFilename - 다운로드 할 파일명
  * @param {String} [sUrl] - 파일업로드 서비스 호출 경로
- * @param {String} [sPath] - 파일업로드시킬 폴더 위치
  * @return N/A
  * @example this.gfnFileUpload(objFileUpload, sFilename);
  */
-pForm.gfnFileDownload = function(objFileDownload, sFilename, sUrl, sPath)
+pForm.gfnFileDownload = function(objFileDownload, sFilename, sUrl)
 {
 	var svcUrl = this.gfnGetServerUrl();
 	if (this.gfnIsNull(sUrl)) sUrl = svcUrl;
 	
-	
 	//파일다운로드 서비스 호출 경로
-	var sFileUrl = sUrl + "fileDownload.jsp";
+	var sFileUrl = sUrl + this.fileConfig.downloadUrl;
+	var sDownUrl = sFileUrl + sFilename;
 	
-	//파일 다운로드할 폴더 위치 지정
-	if (this.gfnIsNull(sPath)) sPath = "PATH=upload";
+	var sDownFileNm	= this.gfnGetFileName(sFilename,true);
 	
-	objFileDownload.download(sFileUrl + "?" + sPath + "&file=" + sFilename);
+	objFileDownload.set_downloadfilename(sDownFileNm);
+	objFileDownload.download(sDownUrl);
 };
 
 /**

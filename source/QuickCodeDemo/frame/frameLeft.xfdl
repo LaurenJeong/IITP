@@ -296,12 +296,11 @@ this.fnChangeLang = function()
 /**
  * @description 상단 top메뉴 변경시 left메뉴 변경 처리
 */
-this.fnChangeMenu = function (topMenuId)
+this.fnChangeMenu = function (topMenuId, sMenuId)
 {
 	var filterExpr = this.FRAME_MENUCOLUMNS.groupId + "==" + nexacro.wrapQuote(topMenuId);
 		filterExpr += "&&" + this.FRAME_MENUCOLUMNS.menuLevel + "!=0";
 		filterExpr += "&&" + this.FRAME_MENUCOLUMNS.useYn + "=='Y'";
-	
 	
 	this.objApp.gdsMenu.set_enableevent(false);
 	this.dsMenu.set_enableevent(false);
@@ -311,14 +310,62 @@ this.fnChangeMenu = function (topMenuId)
 	this.objApp.gdsMenu.set_enableevent(true);
 	this.dsMenu.set_enableevent(true);
 	
-	// 대메뉴 클릭시 첫번째 메뉴 열기
-	if (this.dsMenu.rowcount > 0) {
-		var nTreeStatus = this.divLeft.form.grdTree.getTreeStatus(0);
-		if (nTreeStatus == false) {
-			this.divLeft.form.grdTree.setTreeStatus(0,true);
+	// 기본메뉴 위치설정
+	var bRowposition = true;
+	if(this.gfnIsNull(sMenuId)) {
+		// 대메뉴 클릭시 첫번째 메뉴 열기
+		var nFRow = this.dsMenu.findRowExpr(this.FRAME_MENUCOLUMNS.pageUrl + ".toString().length > 0");
+		if (nFRow >=0) {
+			sMenuId = this.dsMenu.getColumn(nFRow,this.FRAME_MENUCOLUMNS.menuId);
+		}
+		bRowposition = false;
+	}
+	
+	// 메뉴 기준으로 트리 오픈
+	this.fnSetMenuSelect(sMenuId, bRowposition);
+};
+
+this.fnSetMenuSelect  = function (sMenuId, bRowposition)
+{
+	if(this.gfnIsNull(sMenuId))			return;
+	if(this.gfnIsNull(bRowposition)) 	bRowposition = true;
+	
+	var oGrid	= this.divLeft.form.grdTree;
+	var oDs		= oGrid.getBindDataset();
+	
+	var nFRow = oDs.findRow(this.FRAME_MENUCOLUMNS.menuId,sMenuId);
+	
+	if (this.dsMenu.rowposition == nFRow)		return;
+	
+	var arrPathRow = new Array();
+	var nPRow, nTRow, nTreeStatus;
+	
+	if (nFRow >= 0) {
+		
+		// 부모 Path Row 찾기
+		nPRow = nFRow;
+		while (nPRow >= 0)
+		{
+			arrPathRow.unshift(nPRow);
+			nPRow = this.divLeft.form.grdTree.getTreeParentRow(nPRow, true);
+		}
+		
+		// 부모 상태 펼치기
+		for(i=0; i<arrPathRow.length; i++)
+		{
+			nTRow	= this.divLeft.form.grdTree.getTreeRow(arrPathRow[i]);
+			nTreeStatus	= this.divLeft.form.grdTree.getTreeStatus(nTRow);
+			if (nTreeStatus == 0) {
+				this.divLeft.form.grdTree.setTreeStatus(nTRow,true);
+			}
+		}
+		
+		// rowposition 변경
+		if (bRowposition) {
+			this.dsMenu.set_rowposition(nFRow);
 		}
 	}
-};
+}
 
  /**
  * @description FORM오픈 [공통함수호출]

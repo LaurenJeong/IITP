@@ -8,13 +8,14 @@
 *  date          		Modifier                Description
 *******************************************************************************
 *  2017.03.08     	consulting 	                최초 생성 
-*  2018.01.16	    consulting					gfnGetApplication 추가				   
+*  2018.01.16	    consulting					gfnGetApplication 추가
+*  2022.02.15     	PJY 	                	프로젝트에 맞게 수정보완 
 *******************************************************************************
 */
 
 var pForm  = nexacro.Form.prototype;
 
-pForm.FRAME_SYSVER				= "nexacroN";	// 넥사크로 제품구분 nexacro14/nexacro17
+pForm.FRAME_SYSVER				= "nexacroN";	// 넥사크로 제품구분 nexacro14/nexacro17/nexacroN
 pForm.FRAME_MDI_MAX_CNT 		= 15;	 		//열린 메뉴 최대 갯수
 pForm.FRAME_IS_COMBTN_USE 		= false;		//공통 버튼 사용유무
 pForm.FRAME_IS_AUTOKILLFOCUS 	= false;		//static / div등을 클릭하더라도 이전컴포넌트에 killfocus를 강제로 발생시키기 위한 flag 
@@ -69,7 +70,7 @@ pForm.gfnFormOnLoad = function(objForm)
 		var nElapseTime = (objDate.getTime() - nStartTime)/1000;
 		//trace("gfnFormOnLoad : "+ sStartDate + " - " + nStartTime + " / " + sEndDate + " - " + nElapseTime);		
 		
-		objForm.parent.parent.staLodingTime.set_text("해당 화면의 loading 시간은 " +  + nElapseTime + " Sec 입니다.");
+		this.objApp.gvWorkFrame.form.staLodingTime.set_text("해당 화면의 loading 시간은 " +  + nElapseTime + " Sec 입니다.");
 		
 		// 키다운 이벤트 추가
 		objForm.addEventHandler("onkeydown", this.gfnOnkeydown, this);	
@@ -166,23 +167,23 @@ pForm.gfnInitComp = function(objForm)
 				this.gfnSetGrid(arrComp[i]);
 			}
 			
-			// Edit 처리
-			if (arrComp[i] instanceof nexacro.Edit)	
-			{
-				// _ms_clear user property가 true 일때만
-				if (arrComp[i]._ms_clear == "true") {
-					this._gfnSetEditMsClear(arrComp[i]);
-				}
-			}
-			
-			// Calendar 처리
-			if (arrComp[i] instanceof nexacro.Calendar)
-			{
-				// 월달력 Popup Div 호출 이벤트 추가
-				if (arrComp[i].uCalType == "MM") {
-					arrComp[i].addEventHandler("ondropdown", this.gfnCalMMOndropdown, this);
-				}
-			}
+// 			// Edit 처리
+// 			if (arrComp[i] instanceof nexacro.Edit)	
+// 			{
+// 				// _ms_clear user property가 true 일때만
+// 				if (arrComp[i]._ms_clear == "true") {
+// 					this._gfnSetEditMsClear(arrComp[i]);
+// 				}
+// 			}
+// 			
+// 			// Calendar 처리
+// 			if (arrComp[i] instanceof nexacro.Calendar)
+// 			{
+// 				// 월달력 Popup Div 호출 이벤트 추가
+// 				if (arrComp[i].uCalType == "MM") {
+// 					arrComp[i].addEventHandler("ondropdown", this.gfnCalMMOndropdown, this);
+// 				}
+// 			}
 		}
 	}
 };
@@ -212,56 +213,11 @@ pForm.gfnOnkeydown = function(obj, e)
  * @return N/A
  * @example 
  */
-pForm.gfnCall = function(oObj)
-{	
-	if(!this.gfnIsNull(oObj) && typeof(oObj) !=  "object") return;	
-	
-	var objApp  = pForm.gfnGetApplication();
-	var gdsOpen = objApp.gdsOpenMenu;				//열린 	  dataset	
-	var ds      = oObj.ds;							//넘어온 dataset
-	var nRow    = oObj.nRow;						//선택된 현재 row
-	var oArgs 	= oObj.oArgs;   					//넘어온 arguments
-	var sMenuId;
-
-	if (!this.gfnIsNull( oObj.sMenuId)){
-		sMenuId = oObj.sMenuId;
-	}else{
-		sMenuId = ds.getColumn(nRow, this.FRAME_MENUCOLUMNS.menuId);
-	}	
-	
-	var winid = gdsOpen.lookup(this.FRAME_MENUCOLUMNS.menuId, sMenuId, this.FRAME_MENUCOLUMNS.winId);
-
-	if (!this.gfnIsNull(winid))
-	{
-		if (objApp.gvMdiFrame.form.isActiveFrame(winid, oArgs) == true)
-		{
-			objApp.gvMdiFrame.form.fnMoveTab(winid);
-			return;
-		}
-	}
-	
-	//열린메뉴 체크( application.gvMax = 8)	
-	if( this.FRAME_MDI_MAX_CNT <= gdsOpen.getRowCount() ){
-		          
-		alert(this.FRAME_MDI_MAX_CNT +"개 초과하여 화면을 열수 없습니다");
-		return false;
-	}
-	
-	this.gfnNewMdi(sMenuId, nRow, oArgs);
-};
-
-/**
- * @class left메뉴 클릭시 해당화면 호출함수 <br>
- * @param {Object} oObj 
- * @return N/A
- * @example 
- */
 pForm.gfnCallSDI = function(oObj)
 {	
 	if (!this.gfnIsNull(oObj) && typeof(oObj) !=  "object") return;	
 	
 	var objApp  = pForm.gfnGetApplication();
-	var gdsOpen = objApp.gdsOpenMenu;							// 열린   Dataset	
 	var ds      = oObj.ds;										// 넘어온 Dataset
 	var nRow    = oObj.nRow;									// 선택된 현재 row
 	var oArgs 	= oObj.oArgs; 									// 넘어온 Arguments
@@ -276,82 +232,14 @@ pForm.gfnCallSDI = function(oObj)
 };
 
 /**
- * @class gdsOpenMenu의 해당 Row의 정보를 기준으로 신규 윈도우 화면을 생성하고 open 시킴 <br>
+ * @class Sdi 신규 윈도우 화면을 생성하고 open 시킴 <br>
  * @param {String} sMenuId - menuId
- * @param {Number} nRow - gdsOpenMenu의rowpostion
- * @param {Object} oArgs - arguments
- * @return N/A
- */
-pForm.gfnNewMdi = function(sMenuId, nRow, oArgs)
-{	
-	var objApp   = pForm.gfnGetApplication();
-	var gdsOpen  = objApp.gdsOpenMenu;		//열린 dataset
-	var gdsMenu  = objApp.gdsMenu;
-	var winid    = "win" + sMenuId + "_" + gdsOpen.getRowCount() + "_" + parseInt(Math.random() * 1000);		
-	var sPageUrl = gdsMenu.lookupAs(this.FRAME_MENUCOLUMNS.menuId, sMenuId, this.FRAME_MENUCOLUMNS.pageUrl);
-	var sGroupId = gdsMenu.lookupAs(this.FRAME_MENUCOLUMNS.menuId, sMenuId, this.FRAME_MENUCOLUMNS.groupId);
-
-	// 화면 loading 시간 측정
-	var objDate = new Date();
-	var nStartTime = objDate.getTime();
-    var sStartDate = objDate.getYear()
-						+"-"+String(objDate.getMonth()).padLeft(2, '0')
-						+"-"+String(objDate.getDate()).padLeft(2, '0')
-						+" "+String(objDate.getHours()).padLeft(2, '0')
-						+":"+String(objDate.getMinutes()).padLeft(2, '0')
-						+":"+String(objDate.getSeconds()).padLeft(2, '0')
-						+" "+objDate.getMilliseconds();
-	objApp.nStartTime = nStartTime;
-	objApp.sStartDate = sStartDate;
-	
-	// 다국어 처리
-	var sColumn  = this.FRAME_MENUCOLUMNS.menuNm;
-	var sNowLang = nexacro.getEnvironmentVariable("evLanguage");
-	if (sNowLang != "KO") {
-		sColumn = sColumn+sNowLang;
-	}
-	
-	var sMenuNm  = gdsMenu.lookupAs(this.FRAME_MENUCOLUMNS.menuId, sMenuId, sColumn);
-	
-	if(this.gfnIsNull(sPageUrl)) return;		//pageURl 이 없으면 return
-	this.gfnSetOpenMenuDs(winid, sMenuId, sMenuNm, sPageUrl, sGroupId);	// 열린메뉴 화면 삽입
-
-	var objNewWin = new ChildFrame;
-	objNewWin.init(winid, 0, 0, objApp.gvWorkFrame.getOffsetWidth() - 0, objApp.gvWorkFrame.getOffsetHeight() - 0);
-	objApp.gvWorkFrame.addChild(winid, objNewWin);
-
-	//objNewWin.set_tooltiptext(winid);
-	objNewWin.arguments = [];
-	objNewWin.set_dragmovetype("all");
-	objNewWin.set_showtitlebar(false);
-	objNewWin.set_resizable(true);
-	objNewWin.set_openstatus("maximize");
-	objNewWin.set_titletext(sMenuNm);
-	objNewWin.set_showcascadetitletext(false);
-	objNewWin.arguments["winKey"] = winid;
-	objNewWin.arguments["menuId"] = sMenuId;
-	objNewWin.arguments["menuNm"] = sMenuNm;
-	objNewWin.arguments["pageUrl"] = sPageUrl;
-	objNewWin.arguments["oArgs"] = oArgs;
-	objNewWin.set_formurl("frame::frameWork.xfdl");
-
-	objApp.gvMdiFrame.form.fnAddTab(winid, sMenuNm);   //mdi tab button add	
-	objApp.gvMdiFrame.form.isActiveFrame(winid);
-	
-	objNewWin.show();	
-};
-
-/**
- * @class gdsOpenMenu의 해당 Row의 정보를 기준으로 신규 윈도우 화면을 생성하고 open 시킴 <br>
- * @param {String} sMenuId - menuId
- * @param {Number} nRow - gdsOpenMenu의rowpostion
  * @param {Object} oArgs - arguments
  * @return N/A
  */
 pForm.gfnNewSdi = function(sMenuId, oArgs)
 {
 	var objApp   = pForm.gfnGetApplication();
-	var gdsOpen  = objApp.gdsOpenMenu;		//열린 dataset
 	var gdsMenu  = objApp.gdsMenu;
 	
 	var nFRow    = gdsMenu.findRow(this.FRAME_MENUCOLUMNS.menuId, sMenuId);
@@ -365,6 +253,8 @@ pForm.gfnNewSdi = function(sMenuId, oArgs)
 	
 	var sPageUrl = gdsMenu.getColumn(nFRow, this.FRAME_MENUCOLUMNS.pageUrl);
 	var sGroupId = gdsMenu.getColumn(nFRow, this.FRAME_MENUCOLUMNS.groupId);
+	
+	//this.gfnLog("sGroupId : " + sGroupId + " sMenuId : " + sMenuId);
 	
 	//pageURl 이 없으면 return
 	if(this.gfnIsNull(sPageUrl)) return;
@@ -413,6 +303,9 @@ pForm.gfnNewSdi = function(sMenuId, oArgs)
 	
 	objNewWin.set_url(sWorkUrl);
 	
+	// 메뉴 설정
+	objApp.gvTopFrame.form.fnSetActiveTopMenu(sGroupId, sMenuId);
+	
 	// History 추가
 	if (system.navigatorname != "nexacro")
 	{
@@ -423,27 +316,6 @@ pForm.gfnNewSdi = function(sMenuId, oArgs)
 		
 		MyHistory.setLocationHash(sHash, oData, sUrl);
 	}
-};
-
-/**
- * @class 열린화면 데이터셋에 추가 <br>
- * @param {String} winid
- * @param {String} menuId
- * @param {String} strTitle
- * @param {String} spageUrl
- * @param {String} sGroupId
- * @return N/A
- */
-pForm.gfnSetOpenMenuDs = function(winid, menuid, strTitle, spageUrl, sGroupId)
-{
-	var objApp  = pForm.gfnGetApplication();
-	var gdsOpen = objApp.gdsOpenMenu ;  //열린 dataset
-	var nRow = gdsOpen.addRow();
-	gdsOpen.setColumn(nRow, this.FRAME_MENUCOLUMNS.winId, winid);
-	gdsOpen.setColumn(nRow, this.FRAME_MENUCOLUMNS.menuId, menuid);
-	gdsOpen.setColumn(nRow, this.FRAME_MENUCOLUMNS.title, strTitle);	
-	gdsOpen.setColumn(nRow, this.FRAME_MENUCOLUMNS.groupId, sGroupId);
-	gdsOpen.setColumn(nRow, this.FRAME_MENUCOLUMNS.menuUrl, spageUrl);
 };
 
 /**
@@ -524,7 +396,7 @@ pForm.gfnGetServerUrl = function()
 pForm.gfnGetApplication = function()
 {
 	// nexacro 14/17 구분하여 Application object를 사용한다.
-	var objApp = (pForm.FRAME_SYSVER == "nexacro17" || pForm.FRAME_SYSVER == "nexacroN" ? nexacro.getApplication() : application);
+	var objApp = pForm.FRAME_SYSVER == "nexacro14" ? application : nexacro.getApplication();
 	
 	return objApp;
 };
