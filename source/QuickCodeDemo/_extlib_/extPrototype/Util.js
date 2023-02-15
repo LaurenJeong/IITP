@@ -40,6 +40,21 @@ pForm.gfnIsNull = function(sValue)
 };
 
 /**
+ * @class	값이 존재하는지 여부 체크 <br>
+ * @param	{String} sValue	
+ * @return	{Boolean} true/false
+ * @example
+ * var bNotNull = this.gfnIsNotNull("aaa");	// true
+ */
+pForm.gfnIsNotNull = function(sValue)
+{
+	if (this.gfnIsNull(sValue))
+		return false;
+	else
+		return true;
+};
+
+/**
  * @class 입력값을 체크하여 Null인경우 지정한 값을 리턴 <br>
  * @param {String} inVal
  * @param {String} nullVal	- Null인경우 대치값

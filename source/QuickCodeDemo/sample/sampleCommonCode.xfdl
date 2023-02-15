@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <TypeDefinition url="..\default_typedef.xml"/>
+  <Form id="sampleCommonCode" left="0" top="0" width="1030" height="570" titletext="공통코드 조회 샘플" onload="form_onload">
+    <Layouts>
+      <Layout width="1030" height="570">
+        <Combo id="cboCode1" taborder="0" left="8" top="198" width="160" height="25" innerdataset="dsCd1" codecolumn="COMM_CD" datacolumn="COMM_NM" onitemchanged="cboCode1_onitemchanged"/>
+        <Combo id="cboCode2" taborder="1" innerdataset="dsCd2" codecolumn="COMM_CD" datacolumn="COMM_NM" left="520" top="198" width="160" height="25"/>
+        <Grid id="Grid00" taborder="2" useinputpanel="false" left="8" top="268" width="403" height="122" binddataset="dsCd1" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="185"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="코드그룹"/>
+                <Cell col="1" text="코드ID"/>
+                <Cell col="2" text="코드명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:GRP_COMM_CD"/>
+                <Cell col="1" text="bind:COMM_CD"/>
+                <Cell col="2" text="bind:COMM_NM"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="Grid01" taborder="3" useinputpanel="false" left="520" top="268" width="403" height="122" binddataset="dsCd2" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="185"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="코드그룹"/>
+                <Cell col="1" text="코드ID"/>
+                <Cell col="2" text="코드명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:GRP_COMM_CD"/>
+                <Cell col="1" text="bind:COMM_CD"/>
+                <Cell col="2" text="bind:COMM_NM"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="Grid02" taborder="4" useinputpanel="false" left="8" top="484" width="403" height="218" binddataset="dsCd3" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="185"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="코드그룹"/>
+                <Cell col="1" text="코드ID"/>
+                <Cell col="2" text="코드명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:GRP_COMM_CD"/>
+                <Cell col="1" text="bind:COMM_CD"/>
+                <Cell col="2" text="bind:COMM_NM"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="Grid03" taborder="5" useinputpanel="false" left="520" top="484" width="403" height="218" binddataset="dsCd4" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="185"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="코드그룹"/>
+                <Cell col="1" text="코드ID"/>
+                <Cell col="2" text="코드명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:GRP_COMM_CD"/>
+                <Cell col="1" text="bind:COMM_CD"/>
+                <Cell col="2" text="bind:COMM_NM"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static05" taborder="6" text="* 콤보 index 0설정" left="8" top="233" height="20" cssclass="staWF_Txttip" width="132"/>
+        <Static id="Static06" taborder="7" text="* 코드값이 '40'이 아닌값. COMM_CD!='40'" left="520" top="443" height="34" cssclass="staWF_Txttip" width="505"/>
+        <TextArea id="txtGuide" taborder="8" left="0" top="10" right="10" readonly="true" value="1. this.gfnSearchCommonCode(arrComCodeArg) 함수로 공통코드를 조회할 수 있습니다.&#10;&#10;2. arrComCodeArg 배열에 조회할 공통코드 정보를 추가 후 함수를 호출합니다.&#10;  - cdGrpId : 공통코드 그룹ID&#10;  - obj     : 조회된 공통코드를 적용할 객체(Dataset/Combo). Combo 선택시 첫번째 index 자동설정&#10;  - firstcd : 첫번째 Row에 추가할 CD값. ex) all&#10;  - firstnm : 첫번째 Row에 추가할 값 ex) 전체&#10;  - filter : expr로 추가할 filter 문자열 ex) COMM_CD&lt;='100'" height="145"/>
+        <Static id="Static02" taborder="9" text="'CM0003' 조회, 콤보, 전체 추가" left="0" top="158" width="485" height="30" cssclass="sta_WF_notice01"/>
+        <Static id="Static00" taborder="10" text="'CM0004' 조회, 데이터셋, 선택 추가" left="514" top="158" width="485" height="30" cssclass="sta_WF_notice01"/>
+        <Static id="Static03" taborder="11" text="'QC0003' 조회" left="0" top="415" width="485" height="30" cssclass="sta_WF_notice01"/>
+        <Static id="Static04" taborder="12" text="'QC0003' 조회, Filter 추가" left="514" top="415" width="485" height="30" cssclass="sta_WF_notice01"/>
+        <Static id="Static01" taborder="13" text="* 데이터셋을 설정한 경우 index 0 설정 안함&#13;&#10;* gfnSetFirstCd(objComp, sFirstNm, sFirstCd, sFirstNmCol, sFirstCdCol)함수로 설정가능." left="520" top="225" height="37" cssclass="staWF_Txttip" width="505"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsCd1">
+        <ColumnInfo>
+          <Column id="GRP_COMM_CD" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="COMM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCd2">
+        <ColumnInfo>
+          <Column id="GRP_COMM_CD" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="COMM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCd3">
+        <ColumnInfo>
+          <Column id="GRP_COMM_CD" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="COMM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCd4">
+        <ColumnInfo>
+          <Column id="GRP_COMM_CD" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="COMM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    샘플 > 엑셀샘플
+*  @FileName 	sampleExcel.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2023.02.14
+*  @Desction    스크립트 표준 및 주석 표준 정의
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2023.02.14     	consulting 	                최초 생성
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * include 선언부
+ ************************************************************************************************/
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:Form, e:nexacro.LoadEventInfo)
+{
+	// [필수] 폼 초기화 함수
+	this.gfnFormOnLoad(this);
+	
+	/** [참고]
+	 * @함수설명  				공통코드 조회
+	 * @param arrComCodeArg 	조회할 공통코드 정보
+		  - grpcd : 공통코드 그룹ID
+		  - obj     : 조회된 공통코드를 적용할 객체(Dataset/Combo). Combo 선택시 첫번째 index 자동설정
+		  - firstcd : 첫번째 Row에 추가할 CD값. ex) all
+		  - firstnm : 첫번째 Row에 추가할 값 ex) 전체
+		  - filter : expr로 추가할 filter 문자열 ex) COMM_CD<='100'
+	 * @return None
+	 */
+	 
+	// 공통코드 조회
+	var arrComCode = new Array();
+	arrComCode.push({grpcd:"CM0003", obj:this.cboCode1, firstnm: this.gfnGetWord("all")});
+	arrComCode.push({grpcd:"CM0004", obj:this.dsCd2, firstcd:"00", firstnm:this.gfnGetWord("select") });
+	arrComCode.push({grpcd:"QC0003", obj:this.dsCd3});
+	arrComCode.push({grpcd:"QC0003", obj:this.dsCd4, filter:"COMM_CD!='40'"});
+	
+	this.gfnSearchCommonCode(arrComCode);
+	
+	// 공통코드 조회 후 멀티콤보 셋팅
+	//this.divMultCombo02.form.fnSetDataset();
+}
+
+/**
+ * @description 화면 닫힐때 변경사항 체크(입력 화면에서 변경되는 Dataset 체크 필요, 선택)
+ * @return {boolean} true(화면 닫음) / false(화면 닫지 않음)
+*/
+this.fnClose = function()
+{
+	return true;
+};
+
+/************************************************************************************************
+ * 공통버튼 Function 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/]]></Script>
+  </Form>
+</FDL>

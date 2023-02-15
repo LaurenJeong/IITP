@@ -462,6 +462,7 @@ this.fnSearchMenu = function (sNm)
 	var nMaxSize = 180;
 	var nSetSize = 0;
 	var nFCnt = 0;
+	var sFilterStr = "";
 	
 	this.dsPdivMenu.set_enableevent(false);
 	this.pdivMenuSearch.form.grdMenuSearch.set_enableredraw(false);
@@ -472,7 +473,11 @@ this.fnSearchMenu = function (sNm)
 	sNm = sNm.trim();
 	sNm = sNm.toLowerCase();
 	
-	this.dsPdivMenu.filter(this.FRAME_MENUCOLUMNS.menuNm + ".toLowerCase().indexOf('"+sNm+"') > -1 || " + this.FRAME_MENUCOLUMNS.menuKeyword + ".toLowerCase().indexOf('"+sNm+"') > -1");
+	sFilterStr = this.FRAME_MENUCOLUMNS.menuUrl + ".toString().length > 0 && ";
+	sFilterStr += "(" + this.FRAME_MENUCOLUMNS.menuNm + ".toLowerCase().indexOf('"+sNm+"') > -1 || ";
+	sFilterStr += this.FRAME_MENUCOLUMNS.menuKeyword + ".toLowerCase().indexOf('"+sNm+"') > -1" + ")";
+	
+	this.dsPdivMenu.filter(sFilterStr);
 	nFCnt = this.dsPdivMenu.rowcount;
 	
 	if (nFCnt == 0) return;

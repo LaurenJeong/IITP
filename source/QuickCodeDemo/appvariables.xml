@@ -52,10 +52,34 @@
           <Col id="MENU_GRP_CD">WB</Col>
           <Col id="MENU_CD">WB10010010</Col>
           <Col id="UP_MENU_CD">WB10000000</Col>
-          <Col id="MENU_NM">Freeform 일반</Col>
-          <Col id="MENU_TYPE">30</Col>
+          <Col id="MENU_NM">FreeformViewTemplate</Col>
+          <Col id="MENU_TYPE"/>
           <Col id="MENU_LVL">2</Col>
+          <Col id="PGM_URL"/>
+          <Col id="MENU_YN">Y</Col>
+          <Col id="MENU_KWRD"/>
+          <Col id="WORK_URL"/>
+        </Row>
+        <Row>
+          <Col id="MENU_GRP_CD">WB</Col>
+          <Col id="MENU_CD">WB10010011</Col>
+          <Col id="UP_MENU_CD">WB10000000</Col>
+          <Col id="MENU_NM">상세화면</Col>
+          <Col id="MENU_TYPE">30</Col>
+          <Col id="MENU_LVL">3</Col>
           <Col id="PGM_URL">manual::view_freeform.xfdl</Col>
+          <Col id="MENU_YN">Y</Col>
+          <Col id="MENU_KWRD">FreeformViewTemplate|Freeform|단건|기본</Col>
+          <Col id="WORK_URL">frame::frameWorkSP.xfdl</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_GRP_CD">WB</Col>
+          <Col id="MENU_CD">WB10010012</Col>
+          <Col id="UP_MENU_CD">WB10000000</Col>
+          <Col id="MENU_NM">format을 이용한 화면</Col>
+          <Col id="MENU_TYPE">30</Col>
+          <Col id="MENU_LVL">3</Col>
+          <Col id="PGM_URL">workbook::view_freeform_01.xfdl</Col>
           <Col id="MENU_YN">Y</Col>
           <Col id="MENU_KWRD">FreeformViewTemplate|Freeform|단건|기본</Col>
           <Col id="WORK_URL">frame::frameWorkSP.xfdl</Col>
@@ -130,7 +154,7 @@
           <Col id="MENU_KWRD">FreeformViewTemplate|Freeform|단건|기본</Col>
           <Col id="WORK_URL">frame::frameWork.xfdl</Col>
           <Col id="MENU_PARAM">{"vtSeq": 1}</Col>
-          <Col id="MENU_DESC"></Col>
+          <Col id="MENU_DESC"/>
         </Row>
         <Row>
           <Col id="MENU_GRP_CD">MU</Col>
@@ -1127,6 +1151,478 @@
         <Column id="KO" type="STRING" size="256"/>
         <Column id="EN" type="STRING" size="256"/>
       </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="word">frame.menu</Col>
+          <Col id="KO">메뉴</Col>
+          <Col id="EN">menu</Col>
+        </Row>
+        <Row>
+          <Col id="word">frame.favorites</Col>
+          <Col id="KO">즐겨찾기</Col>
+          <Col id="EN">Favorites</Col>
+        </Row>
+        <Row>
+          <Col id="word">frame.searchMenu</Col>
+          <Col id="KO">메뉴검색</Col>
+          <Col id="EN">Search</Col>
+        </Row>
+        <Row>
+          <Col id="word">frame.searchMenu.button</Col>
+          <Col id="KO">검색</Col>
+          <Col id="EN">sch..</Col>
+        </Row>
+        <Row>
+          <Col id="word">frame.logOut</Col>
+          <Col id="KO">로그아웃</Col>
+          <Col id="EN">Log out</Col>
+        </Row>
+        <Row>
+          <Col id="word">cmm.no</Col>
+          <Col id="KO">순번</Col>
+          <Col id="EN">NO</Col>
+        </Row>
+        <Row>
+          <Col id="word">cmm.status</Col>
+          <Col id="KO">상태</Col>
+          <Col id="EN">Status</Col>
+        </Row>
+        <Row>
+          <Col id="word">cmm.checkbox</Col>
+          <Col id="KO">체크박스</Col>
+          <Col id="EN">Checkbox</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.notice</Col>
+          <Col id="KO">알림</Col>
+          <Col id="EN">notice</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.confirm</Col>
+          <Col id="KO">확인</Col>
+          <Col id="EN">confirm</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.ok</Col>
+          <Col id="KO">확인</Col>
+          <Col id="EN">OK</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.close</Col>
+          <Col id="KO">닫기</Col>
+          <Col id="EN">Close</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.cancel</Col>
+          <Col id="KO">취소</Col>
+          <Col id="EN">Cancel</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.periodselect</Col>
+          <Col id="KO">기간 선택</Col>
+          <Col id="EN">Select the time period</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.monthselect</Col>
+          <Col id="KO">월 선택</Col>
+          <Col id="EN">Select the month</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.dataselect</Col>
+          <Col id="KO">데이터 선택</Col>
+          <Col id="EN">Select the data</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.columnselect</Col>
+          <Col id="KO">컬럼 선택</Col>
+          <Col id="EN">Select the column</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.modal</Col>
+          <Col id="KO">모달팝업</Col>
+          <Col id="EN">modal popup</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.columnname</Col>
+          <Col id="KO">컬럼명</Col>
+          <Col id="EN">column name</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.filtercriteria</Col>
+          <Col id="KO">필터 기준</Col>
+          <Col id="EN">filter criteria</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.findcondition</Col>
+          <Col id="KO">찾을 조건</Col>
+          <Col id="EN">find conditions</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.datafiltersetting</Col>
+          <Col id="KO">데이터 필터 설정</Col>
+          <Col id="EN">data filter setting</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.apply</Col>
+          <Col id="KO">적용</Col>
+          <Col id="EN">Apply</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.datafindreplace</Col>
+          <Col id="KO">데이터 찾기/바꾸기</Col>
+          <Col id="EN">data find/replace</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.targetcolumn</Col>
+          <Col id="KO">대상 컬럼</Col>
+          <Col id="EN">target column</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.findstring</Col>
+          <Col id="KO">찾을 문자열</Col>
+          <Col id="EN">find string</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.replacestring</Col>
+          <Col id="KO">바꿀 문자열</Col>
+          <Col id="EN">replace string</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.finddirection</Col>
+          <Col id="KO">찾을 방향</Col>
+          <Col id="EN">find direction</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.findposition</Col>
+          <Col id="KO">찾을 위치</Col>
+          <Col id="EN">find position</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.find</Col>
+          <Col id="KO">찾기</Col>
+          <Col id="EN">Find</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.replace</Col>
+          <Col id="KO">바꾸기</Col>
+          <Col id="EN">Replace</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.allchange</Col>
+          <Col id="KO">모두바꾸기</Col>
+          <Col id="EN">All Replace</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.casesensitive</Col>
+          <Col id="KO">대/소문자 구분</Col>
+          <Col id="EN">Case sensitive</Col>
+        </Row>
+        <Row>
+          <Col id="word">popup.colshwohide</Col>
+          <Col id="KO">컬럼 보이기/숨기기</Col>
+          <Col id="EN">column show/hide</Col>
+        </Row>
+        <Row>
+          <Col id="word">search</Col>
+          <Col id="KO">조회</Col>
+          <Col id="EN">search</Col>
+        </Row>
+        <Row>
+          <Col id="word">insert</Col>
+          <Col id="KO">입력</Col>
+          <Col id="EN">insert</Col>
+        </Row>
+        <Row>
+          <Col id="word">delete</Col>
+          <Col id="KO">삭제</Col>
+          <Col id="EN">delete</Col>
+        </Row>
+        <Row>
+          <Col id="word">modify</Col>
+          <Col id="KO">수정</Col>
+          <Col id="EN">modify</Col>
+        </Row>
+        <Row>
+          <Col id="word">save</Col>
+          <Col id="KO">저장</Col>
+          <Col id="EN">save</Col>
+        </Row>
+        <Row>
+          <Col id="word">print</Col>
+          <Col id="KO">출력</Col>
+          <Col id="EN">print</Col>
+        </Row>
+        <Row>
+          <Col id="word">excel</Col>
+          <Col id="KO">엑셀</Col>
+          <Col id="EN">excel</Col>
+        </Row>
+        <Row>
+          <Col id="word">employee</Col>
+          <Col id="KO">사원</Col>
+          <Col id="EN">employee</Col>
+        </Row>
+        <Row>
+          <Col id="word">department</Col>
+          <Col id="KO">부서</Col>
+          <Col id="EN">department</Col>
+        </Row>
+        <Row>
+          <Col id="word">company</Col>
+          <Col id="KO">회사</Col>
+          <Col id="EN">company</Col>
+        </Row>
+        <Row>
+          <Col id="word">user</Col>
+          <Col id="KO">사용자</Col>
+          <Col id="EN">user</Col>
+        </Row>
+        <Row>
+          <Col id="word">user.jumin</Col>
+          <Col id="KO">주민등록번호</Col>
+          <Col id="EN">Social Security Number</Col>
+        </Row>
+        <Row>
+          <Col id="word">user.id</Col>
+          <Col id="KO">아이디</Col>
+          <Col id="EN">ID</Col>
+        </Row>
+        <Row>
+          <Col id="word">designation</Col>
+          <Col id="KO">명칭</Col>
+          <Col id="EN">designation</Col>
+        </Row>
+        <Row>
+          <Col id="word">useflg</Col>
+          <Col id="KO">사용 여부</Col>
+          <Col id="EN">use flg</Col>
+        </Row>
+        <Row>
+          <Col id="word">reguser</Col>
+          <Col id="KO">등록자</Col>
+          <Col id="EN">register user</Col>
+        </Row>
+        <Row>
+          <Col id="word">description</Col>
+          <Col id="KO">설명</Col>
+          <Col id="EN">description</Col>
+        </Row>
+        <Row>
+          <Col id="word">date.start</Col>
+          <Col id="KO">시작일자</Col>
+          <Col id="EN">Start date</Col>
+        </Row>
+        <Row>
+          <Col id="word">date.end</Col>
+          <Col id="KO">종료일</Col>
+          <Col id="EN">End date</Col>
+        </Row>
+        <Row>
+          <Col id="word">value.max</Col>
+          <Col id="KO">최대값</Col>
+          <Col id="EN">Maximum value</Col>
+        </Row>
+        <Row>
+          <Col id="word">value.interest</Col>
+          <Col id="KO">금리</Col>
+          <Col id="EN">Interest rate</Col>
+        </Row>
+        <Row>
+          <Col id="word">value.1st</Col>
+          <Col id="KO">1번째값</Col>
+          <Col id="EN">1st value</Col>
+        </Row>
+        <Row>
+          <Col id="word">value.2nd</Col>
+          <Col id="KO">2번째값</Col>
+          <Col id="EN">2nd value</Col>
+        </Row>
+        <Row>
+          <Col id="word">register</Col>
+          <Col id="KO">등록자</Col>
+          <Col id="EN">register</Col>
+        </Row>
+        <Row>
+          <Col id="word">info</Col>
+          <Col id="KO">정보</Col>
+          <Col id="EN">info</Col>
+        </Row>
+        <Row>
+          <Col id="word">word</Col>
+          <Col id="KO">용어</Col>
+          <Col id="EN">word</Col>
+        </Row>
+        <Row>
+          <Col id="word">dictionary</Col>
+          <Col id="KO">사전</Col>
+          <Col id="EN">dictionary</Col>
+        </Row>
+        <Row>
+          <Col id="word">nation</Col>
+          <Col id="KO">국가</Col>
+          <Col id="EN">nation</Col>
+        </Row>
+        <Row>
+          <Col id="word">language</Col>
+          <Col id="KO">언어</Col>
+          <Col id="EN">language</Col>
+        </Row>
+        <Row>
+          <Col id="word">select</Col>
+          <Col id="KO">선택</Col>
+          <Col id="EN">Select</Col>
+        </Row>
+        <Row>
+          <Col id="word">all</Col>
+          <Col id="KO">전체</Col>
+          <Col id="EN">All</Col>
+        </Row>
+        <Row>
+          <Col id="word">initialize</Col>
+          <Col id="KO">초기화</Col>
+          <Col id="EN">initialize</Col>
+        </Row>
+        <Row>
+          <Col id="word">tab1</Col>
+          <Col id="KO">1번째탭</Col>
+          <Col id="EN">First Tab</Col>
+        </Row>
+        <Row>
+          <Col id="word">tab2</Col>
+          <Col id="KO">2번째탭</Col>
+          <Col id="EN">Second Tab</Col>
+        </Row>
+        <Row>
+          <Col id="word">korean</Col>
+          <Col id="KO">한글</Col>
+          <Col id="EN">Korean</Col>
+        </Row>
+        <Row>
+          <Col id="word">english</Col>
+          <Col id="KO">영어</Col>
+          <Col id="EN">English</Col>
+        </Row>
+        <Row>
+          <Col id="word">sort</Col>
+          <Col id="KO">정렬</Col>
+          <Col id="EN">sort</Col>
+        </Row>
+        <Row>
+          <Col id="word">colfix</Col>
+          <Col id="KO">열고정</Col>
+          <Col id="EN">column fix</Col>
+        </Row>
+        <Row>
+          <Col id="word">rowfix</Col>
+          <Col id="KO">행고정</Col>
+          <Col id="EN">row fix</Col>
+        </Row>
+        <Row>
+          <Col id="word">excel</Col>
+          <Col id="KO">엑셀</Col>
+          <Col id="EN">excel</Col>
+        </Row>
+        <Row>
+          <Col id="word">basicfunction</Col>
+          <Col id="KO">기본기능</Col>
+          <Col id="EN">basic function</Col>
+        </Row>
+        <Row>
+          <Col id="word">complicatedgrid</Col>
+          <Col id="KO">복잡한 그리드</Col>
+          <Col id="EN">complicated grid</Col>
+        </Row>
+        <Row>
+          <Col id="word">gridpersonal</Col>
+          <Col id="KO">그리드개인화</Col>
+          <Col id="EN">personalization grid</Col>
+        </Row>
+        <Row>
+          <Col id="word">listcount</Col>
+          <Col id="KO">목록 갯수</Col>
+          <Col id="EN">List count</Col>
+        </Row>
+        <Row>
+          <Col id="word">etorangers</Col>
+          <Col id="KO">꾸러기수비대</Col>
+          <Col id="EN">Eto Rangers</Col>
+        </Row>
+        <Row>
+          <Col id="word">sunday</Col>
+          <Col id="KO">일요일</Col>
+          <Col id="EN">Sunday</Col>
+        </Row>
+        <Row>
+          <Col id="word">monday</Col>
+          <Col id="KO">월요일</Col>
+          <Col id="EN">Monday</Col>
+        </Row>
+        <Row>
+          <Col id="word">tuesday</Col>
+          <Col id="KO">화요일</Col>
+          <Col id="EN">Tuesday</Col>
+        </Row>
+        <Row>
+          <Col id="word">wednesday</Col>
+          <Col id="KO">수요일</Col>
+          <Col id="EN">Wednesday</Col>
+        </Row>
+        <Row>
+          <Col id="word">thursday</Col>
+          <Col id="KO">목요일</Col>
+          <Col id="EN">Thursday</Col>
+        </Row>
+        <Row>
+          <Col id="word">friday</Col>
+          <Col id="KO">금요일</Col>
+          <Col id="EN">Friday</Col>
+        </Row>
+        <Row>
+          <Col id="word">saturday</Col>
+          <Col id="KO">토요일</Col>
+          <Col id="EN">Saturday</Col>
+        </Row>
+        <Row>
+          <Col id="word">mon</Col>
+          <Col id="KO">월</Col>
+          <Col id="EN">MON</Col>
+        </Row>
+        <Row>
+          <Col id="word">tue</Col>
+          <Col id="KO">화</Col>
+          <Col id="EN">TUE</Col>
+        </Row>
+        <Row>
+          <Col id="word">wed</Col>
+          <Col id="KO">수</Col>
+          <Col id="EN">WED</Col>
+        </Row>
+        <Row>
+          <Col id="word">thu</Col>
+          <Col id="KO">목</Col>
+          <Col id="EN">THU</Col>
+        </Row>
+        <Row>
+          <Col id="word">fri</Col>
+          <Col id="KO">금</Col>
+          <Col id="EN">FRI</Col>
+        </Row>
+        <Row>
+          <Col id="word">sat</Col>
+          <Col id="KO">토</Col>
+          <Col id="EN">SAT</Col>
+        </Row>
+        <Row>
+          <Col id="word">sun</Col>
+          <Col id="KO">일</Col>
+          <Col id="EN">SUN</Col>
+        </Row>
+        <Row>
+          <Col id="word">week</Col>
+          <Col id="KO">주</Col>
+          <Col id="EN">WEEK</Col>
+        </Row>
+      </Rows>
     </Dataset>
     <Dataset id="gdsGridPopupMenu">
       <ColumnInfo>

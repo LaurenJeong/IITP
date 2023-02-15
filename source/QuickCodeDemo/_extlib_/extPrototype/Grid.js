@@ -129,7 +129,7 @@ pForm.gfnSetGrid = function(objGrid)
 	objGrid.set_enableevent(true);
 	objGrid.set_enableredraw(true);	
 	objDs.set_enableevent(true);
-};	
+};
 
 /**
  * @class Grid에 기능 추가(addCol..)

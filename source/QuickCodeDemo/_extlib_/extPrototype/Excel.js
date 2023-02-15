@@ -14,6 +14,37 @@
 
 var pForm = nexacro.Form.prototype;
 
+pForm.COM_EXCEL_TYPE = "EXCEL2007";
+
+// xeni URL
+pForm.COM_EXCEL_URL = "svc::XExportImport";
+
+/**
+ * @class gfnGetSheetName : Sheet명 반환(지원안하는 특수문자 제거)
+* @param	{String} sSheetName	- Sheet명
+* @param	{String} sNullNm	- 빈값일때 sheet명
+* @return	{String} Sheet명
+*/
+pForm.gfnGetSheetName = function(sSheetName, sNullNm)
+{
+	if (this.gfnIsNull(sNullNm))	sNullNm = "Sheet1";
+
+	var regExp = /[?*:\/\[\]]/g;
+	var sRetuenNm;
+
+	if (this.gfnIsNull(sSheetName))	sSheetName = sNullNm;
+
+	sRetuenNm = sSheetName.replace(regExp,""); //시트명에 특수문자 제거
+	sRetuenNm = this.gfnIsNull(sRetuenNm) ?sNullNm : sRetuenNm;
+
+	//sheetName 30이상일경우 기본시트명
+	if( String(sRetuenNm).length > 30 ){
+		sRetuenNm =  sNullNm;
+	}
+
+	return sRetuenNm;
+};
+
 /**
  * @class excel export <br>
  * @param {Object} objGrid - Grid Object	
@@ -25,41 +56,60 @@ var pForm = nexacro.Form.prototype;
  */
 pForm.gfnExcelExport = function(objGrid,  sSheetName, sFileName)
 {
-
-	this.setWaitCursor(true);
-	var objGrid_excel = objGrid;
-	
+	//this.setWaitCursor(true);
+	var objGridExcel;
 	var regExp = /[?*:\/\[\]]/g;  				//(엑셀에서 지원하지않는 모든 문자)
 	
-	sFileName = sFileName.replace(regExp,"");	//파일명에 특수문자 제거
-	sSheetName = sSheetName.replace(regExp,""); //시트명에 특수문자 제거
-	
 	//fileName nullcheck
-	sFileName = this.gfnIsNull(sFileName) ? this.gfnGetArgument("menuNm")+"_"+this.gfnGetDate() : sFileName;
-	//sheetName nullcheck
-	sSheetName = this.gfnIsNull(sSheetName) ? "sheet1" : sSheetName;
-	//sheetName 30이상일경우 기본시트명
-	if( String(sSheetName).length > 30 ){
-		sSheetName =  "sheet1";
-	}
+	sFileName = this.gfnIsNull(sFileName) ? "ExcelExport_" + this.gfnGetArgument(this.FRAME_MENUCOLUMNS.menuNm) + "_" + this.gfnGetDate("time") : sFileName;		// fileName nullcheck
+	sFileName = sFileName.replace(regExp, "");	// 파일명에 특수문자 제거
 	
-	var svcUrl = "svc::XExportImport.do";
-	this.objExport = null
+	var sType	= objGrid.toString().toUpperCase();
+	
+	this.objExport = null;
 	this.objExport = new ExcelExportObject();
+	this.objExport.set_exporturl(this.COM_EXCEL_URL);
 	
-	this.objExport.objgrid = objGrid_excel;
-	this.objExport.set_exporturl(svcUrl);
-	this.objExport.addExportItem(nexacro.ExportItemTypes.GRID, objGrid_excel, sSheetName+"!A1","allband","allrecord",null,null,"image");
-	this.objExport.set_exportfilename(sFileName);	
-	
+	if(sType == "[OBJECT GRID]")
+	{
+		sSheetName = this.gfnGetSheetName(sSheetName);
+		objGridExcel = objGrid;
+
+		this.objExport.addExportItem(nexacro.ExportItemTypes.GRID, objGridExcel, sSheetName + "!A1","allband","allrecord","nosuppress","allstyle","image","","width");
+
+		this.objExport.objgrid = objGridExcel;
+	}
+	else
+	{
+		var arrGridExcel = new Array();
+
+		for(var i=0; i<objGrid.length; i++)
+		{
+			strSheetNm = sSheetName[i];
+			strSheetNm = this.gfnIsNull(strSheetNm) ? "Sheet" + (i+1) : strSheetNm;
+			strSheetNm = this.gfnGetSheetName(strSheetNm);
+
+			objGridExcel = objGrid[i];
+
+			arrGridExcel.push(objGridExcel);
+
+			this.objExport.addExportItem(nexacro.ExportItemTypes.GRID, objGridExcel, strSheetNm + "!A1","allband","allrecord","nosuppress","allstyle","image","","width");
+		}
+		this.objExport.objgrid = arrGridExcel;
+	}
+
+	this.objExport.set_exporttype(eval("nexacro.ExportTypes." + this.COM_EXCEL_TYPE));	//내보내기 할 엑셀 형식 지정
+	this.objExport.set_exportfilename(sFileName);
+ 	//this.objExport.set_exportuitype("none");
+ 	//this.objExport.set_exportmessageprocess("");
+	this.objExport.set_exportuitype("exportprogress");
  	this.objExport.set_exporteventtype("itemrecord");
- 	this.objExport.set_exportuitype("none");
- 	this.objExport.set_exportmessageprocess("");
-	this.objExport.addEventHandler("onsuccess", this.gfnExportOnsuccess, this);	
-	this.objExport.addEventHandler("onerror", this.gfnExportOnerror, this);	
-		
-	//objGrid.set_font("9px 'arial'");	
-		
+	this.objExport.set_exportmessageprocess("%d[%d/%d]");
+	this.objExport.set_exportactivemode('active');
+
+	this.objExport.addEventHandler("onsuccess", this.gfnExportOnsuccess, this);
+	this.objExport.addEventHandler("onerror", this.gfnExportOnerror, this);
+	
 	var result = this.objExport.exportData();
 };
 
@@ -72,7 +122,7 @@ pForm.gfnExcelExport = function(objGrid,  sSheetName, sFileName)
  */
 pForm.gfnExportOnsuccess = function(obj, e)
 {	
-	this.setWaitCursor(false);
+	//this.setWaitCursor(false);
 };
 
 /**
@@ -85,7 +135,38 @@ pForm.gfnExportOnsuccess = function(obj, e)
 pForm.gfnExportOnerror = function(obj,  e)
 {
 	this.alert("Excel Export Error!!");
-	this.setWaitCursor(false);
+	//this.setWaitCursor(false);
+};
+
+/**
+ * @class  FileDialog에서 사용할 확장자별 파일유형 반환
+ * @param {String} sImportType - 타입(EXCEL,EXCEL2007,HANCELL2014,CSV)
+ * @return {String} 적용될 파일형식
+ */
+pForm.gfnGetFileFilter = function(sImportType)
+{
+	var strFilefilter = "";
+
+	switch(sImportType)
+	{
+	    case "EXCEL":
+			strFilefilter = "Worksheet 97 - 2003 Files (*.xls)|*.xls|";
+			break;
+	    case "EXCEL2007":
+	    	strFilefilter = "Worksheet Files (*.xlsx)|*.xlsx|";
+			break;
+	    case "HANCELL2014":
+	    	strFilefilter = "Hancell Files (*.cell)|*.cell|";
+			break;
+	    case "CSV":
+	    	strFilefilter = "CSV (*.csv)|*.csv|";
+			break;
+	    default : break;
+	}
+
+	strFilefilter += "All (*.xls;*.xlsx;*.cell;*.csv)|*.xls;*.xlsx;*.cell;*.csv|";
+
+	return strFilefilter;
 };
 
 /**
@@ -105,17 +186,17 @@ pForm.gfnExcelImportAll = function(objDs,sSheet,sHead,sBody,sCallback,sImportId,
 {	
 	this.setWaitCursor(true);    	
 	
-	if(this.gfnIsNull(sSheet)) sSheet = "sheet1";
+	if(this.gfnIsNull(sSheet)) sSheet = "Sheet1";
 	if(this.gfnIsNull(sBody)) sBody = "A2";
 	if(this.gfnIsNull(sHead)) return false;
 	
-	var svcUrl = "svc::XExportImport.do";
-	
 	var objImport ;	
+	var sFilefilter = this.gfnGetFileFilter(this.COM_EXCEL_TYPE);
 	
 	objImport = new nexacro.ExcelImportObject(objDs+"_ExcelImport",this);				
-	objImport.set_importurl(svcUrl);						
-	objImport.set_importtype(nexacro.ImportTypes.EXCEL);			
+	objImport.set_importurl(this.COM_EXCEL_URL);						
+	objImport.set_importtype(eval("nexacro.ExportTypes." + this.COM_EXCEL_TYPE));			
+	objImport.set_filefilter(sFilefilter);
 	
 	if (!this.gfnIsNull(sCallback))
 	{
@@ -167,20 +248,19 @@ pForm.gfnImportAllOnsuccess = function(obj,  e)
  */
 pForm.gfnExcelImport = function(sDataset, sSheet, sBody, sCallback, sImportId, objForm)
 {
-	alert("22");
 	//trace("gfnExcelImport");
 	this.setWaitCursor(true);    	
 	
 	if(this.gfnIsNull(sSheet)) sSheet = "sheet1";
 	if(this.gfnIsNull(sBody)) sBody = "A2";
 	
-	var svcUrl = "svc::XExportImport.do";
+	var sFilefilter = this.gfnGetFileFilter(sImportType);
 	
 	var objImport;	
 	objImport = new nexacro.ExcelImportObject(sDataset+"_ExcelImport",this);				
-	objImport.set_importurl(svcUrl);						
-	objImport.set_importtype(nexacro.ImportTypes.EXCEL);			
-	objImport.outds = sDataset;
+	objImport.set_importurl(this.COM_EXCEL_URL);						
+	objImport.set_importtype(eval("nexacro.ExportTypes." + this.COM_EXCEL_TYPE));	
+	objImport.set_filefilter(sFilefilter);
 
 	if (!this.gfnIsNull(sCallback))
 	{
@@ -191,7 +271,8 @@ pForm.gfnExcelImport = function(sDataset, sSheet, sBody, sCallback, sImportId, o
 	
 	//out dataset 생성(차후 onsucess 함수에서 헤더생성하기 위한)
 	var sOutDsName = sDataset+"_outds";	
-	if(this.isValidObject(sOutDsName)) this.removeChild(sOutDsName);			
+	if(this.isValidObject(sOutDsName)) this.removeChild(sOutDsName);	
+	
 	var objOutDs = new Dataset();
 	objOutDs.name = sOutDsName;
 	this.addChild(objOutDs.name, objOutDs);
@@ -255,4 +336,28 @@ pForm.gfnImportAllOnerror = function(obj,  e)
 {
 	this.setWaitCursor(false);	
 	this.alert(e.errormsg);
+};
+
+// 그리드에 연결된 정보로 데이터셋 컬럼 생성
+pForm.gfnMakeColInfoFromGrid = function(objGrid, objToDs)
+{
+	var sColID = "";
+	var sBand = "body";
+
+	objToDs.clear();		// 데이터셋초기화
+
+	// 그리드 정보로 dataset 컬럼 생성
+	for(var i=0; i < objGrid.getCellCount(sBand); i++)
+	{
+		sColID = this._gfnGridGetBindColumnNameByIndex(objGrid, i);
+
+		if (sColID != "")
+		{
+			objToDs.addColumn(sColID, "string" );
+		}
+		else
+		{
+			objToDs.addColumn("COL_" + i, "string" );
+		}
+	}
 };

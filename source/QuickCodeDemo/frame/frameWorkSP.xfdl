@@ -13,10 +13,17 @@
         <Static id="staLodingTime" taborder="3" top="7" width="425" height="17" font="normal bold 14px/normal &quot;Gulim&quot;,&quot;Arial&quot;" usedecorate="true" color="orangered" right="130" textAlign="right" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
         <Tab id="tabInfo" taborder="4" tabindex="0" left="10" top="divWork:20" right="10" bottom="10" minheight="245" maxheight="">
           <Tabpages>
-            <Tabpage id="Tabpage1" text="View Info">
+            <Tabpage id="tabpInfo" text="Description">
               <Layouts>
                 <Layout>
-                  <Grid id="grdList" taborder="0" left="0" top="10" right="0" bottom="0" binddataset="dsViewInfo" autofittype="col" oncellclick="tabInfo_Tabpage1_grdList_oncellclick" onexpandup="tabInfo_Tabpage1_grdList_onexpandup">
+                  <TextArea id="txaMenuDesc" taborder="0" left="0" top="10" right="0" bottom="0"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="tabpView" text="View Info">
+              <Layouts>
+                <Layout>
+                  <Grid id="grdList" taborder="0" left="0" top="10" right="0" bottom="0" binddataset="dsViewInfo" autofittype="col" oncellclick="tabInfo_tabpView_grdList_oncellclick" onexpandup="tabInfo_tabpView_grdList_onexpandup">
                     <Formats>
                       <Format id="default">
                         <Columns>
@@ -50,10 +57,10 @@
                 </Layout>
               </Layouts>
             </Tabpage>
-            <Tabpage id="Tabpage2" text="Action">
+            <Tabpage id="tabpAction" text="Action">
               <Layouts>
                 <Layout>
-                  <Grid id="grdList" taborder="0" left="0" top="10" right="0" bottom="0" binddataset="dsAction" autofittype="col" oncellclick="tabInfo_Tabpage2_grdList_oncellclick" onexpandup="tabInfo_Tabpage2_grdList_onexpandup">
+                  <Grid id="grdList" taborder="0" left="0" top="10" right="0" bottom="0" binddataset="dsAction" autofittype="col" oncellclick="tabInfo_tabpAction_grdList_oncellclick" onexpandup="tabInfo_tabpAction_grdList_onexpandup">
                     <Formats>
                       <Format id="default">
                         <Columns>
@@ -184,7 +191,17 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	//넘어온 아규먼트 셋팅
 	this.fnSetOwnFrameArgu(this);
 	
-	var sUrl = this.gfnGetArgument("pageUrl");
+	var sMenuId		= this.gfnGetArgument("menuId");
+	var sUrl		= this.gfnGetArgument("pageUrl");
+	
+	// Description 설정
+	var sMenuDesc	= this.objApp.gdsMenu.lookupAs(this.FRAME_MENUCOLUMNS.menuId, sMenuId, this.FRAME_MENUCOLUMNS.menuDesc);
+	if (!this.gfnIsNull(sMenuDesc)) {
+		this.tabInfo.tabpInfo.form.txaMenuDesc.set_value(sMenuDesc);
+	} else {
+		this.tabInfo.tabpInfo.set_enable(false);
+		this.tabInfo.set_tabindex(1);
+	}
 	
 	// 파일정보 읽기
 	this.gfnGetReadFile(sUrl, "dsContents", "getSource");
@@ -407,18 +424,18 @@ this.fnGetQuickCodeInfo = function()
 	// Tab 설정
 	var sTabText = "View Info";
 	if (this.dsViewInfo.rowcount > 0)		sTabText += "(" + this.dsViewInfo.rowcount + ")";
-	this.tabInfo.Tabpage1.set_text(sTabText);
+	this.tabInfo.tabpView.set_text(sTabText);
 	
 	sTabText = "Action Info";
 	if (this.dsAction.rowcount == 0)
 	{
-		this.tabInfo.Tabpage2.set_enable(false);
+		this.tabInfo.tabpAction.set_enable(false);
 	}
 	else
 	{
 		sTabText += "(" + this.dsAction.rowcount + ")";
 	}
-	this.tabInfo.Tabpage2.set_text(sTabText);
+	this.tabInfo.tabpAction.set_text(sTabText);
 };
 
 /**
@@ -617,7 +634,7 @@ this.fnGetActionList = function()
 /**
  * @description View List 그리드 셀 클릭(매뉴얼 팝업)
  */
-this.tabInfo_Tabpage1_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+this.tabInfo_tabpView_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	var oDsBind = obj.getBindDataset();
 	var nRow = e.row;
@@ -664,7 +681,7 @@ this.tabInfo_Tabpage1_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.
 /**
  * @description View List 그리드 expand 버튼 클릭(QuickCode Info 팝업)
  */
-this.tabInfo_Tabpage1_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+this.tabInfo_tabpView_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
 {
 	var oDsBind = obj.getBindDataset();
 	var nRow = e.row;
@@ -745,7 +762,7 @@ this.aniBlink_oncomplete = function(obj:nexacro.Animation,e:nexacro.AnimationEve
 /**
  * @description Action List 그리드 셀 클릭(매뉴얼 팝업)
  */
-this.tabInfo_Tabpage2_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+this.tabInfo_tabpAction_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	var oDsBind = obj.getBindDataset();
 	var nRow = e.row;
@@ -786,7 +803,7 @@ this.tabInfo_Tabpage2_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.
 /**
  * @description Action List 그리드 expand 버튼 클릭(QuickCode Info 팝업)
  */
-this.tabInfo_Tabpage2_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+this.tabInfo_tabpAction_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
 {
 	var oDsBind = obj.getBindDataset();
 	var nRow = e.row;

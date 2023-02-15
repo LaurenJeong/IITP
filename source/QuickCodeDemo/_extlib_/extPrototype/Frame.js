@@ -36,6 +36,7 @@ pForm.FRAME_MENUCOLUMNS = {
 	useYn		: "MENU_YN",
 	menuType	: "MENU_TYPE",
 	workUrl		: "WORK_URL",
+	menuDesc	: "MENU_DESC",
 	menuKeyword	: "MENU_KWRD"
 };
 

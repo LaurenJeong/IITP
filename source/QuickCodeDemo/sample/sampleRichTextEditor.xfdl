@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
   <TypeDefinition url="..\default_typedef.xml"/>
-  <Form id="sampleRichTextEditor" classname="RichTextEditorSample" left="0" top="0" width="800" height="600" titletext="RichTextEditor" onload="RichTextEditorSample_onload">
+  <Form id="sampleRichTextEditor" classname="RichTextEditorSample" left="0" top="0" width="1030" height="570" titletext="RichTextEditor" onload="RichTextEditorSample_onload">
     <Layouts>
       <Layout>
-        <Div id="div_editor" taborder="0" left="12" top="38" text="Div01" async="false" right="8" bottom="64" url="cmm::cmmRichTextEditor.xfdl"/>
+        <Div id="div_editor" taborder="0" left="0" top="40" text="Div01" async="false" right="10" bottom="0" url="cmm::cmmRichTextEditor.xfdl"/>
         <Button id="btn_load" taborder="1" text="Load Data" top="7" width="96" height="26" onclick="btn_load_onclick" right="112"/>
         <Button id="btn_preview" taborder="2" text="Preview" top="7" width="96" height="26" onclick="btn_preview_onclick" right="11"/>
-        <Button id="btnClipboard" taborder="3" left="476" top="7" width="111" height="26" text="본문 복사하기" onclick="btnClipboard_onclick"/>
+        <Button id="btnClipboard" taborder="3" top="7" width="111" height="26" text="본문 복사하기" onclick="btnClipboard_onclick" right="213"/>
+        <Static id="sta02" taborder="4" text="RichTextEditor" left="0" top="5" width="221" height="30" cssclass="sta_WF_title01"/>
       </Layout>
     </Layouts>
     <Objects>

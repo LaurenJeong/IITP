@@ -4,8 +4,8 @@
   <Form id="sampleRichTextEditorPreview" classname="RichTextEditorPreviewSample" left="0" top="0" width="800" height="600" titletext="Preview" onload="RichTextEditorPreviewSample_onload">
     <Layouts>
       <Layout>
-        <WebBrowser id="web_preview" left="5" top="8" taborder="0" style="border:1px solid gray ;" onloadcompleted="web_preview_onloadcompleted" onusernotify="web_preview_onusernotify" right="5" bottom="32"/>
-        <Button id="Button00" taborder="1" text="Close" top="web_preview:3" width="96" height="26" onclick="Button00_onclick" right="5"/>
+        <WebBrowser id="web_preview" left="10" top="10" taborder="0" style="border:1px solid gray ;" onloadcompleted="web_preview_onloadcompleted" onusernotify="web_preview_onusernotify" right="10" height="544"/>
+        <Button id="Button00" taborder="1" text="Close" width="96" height="26" onclick="Button00_onclick" right="10" top="web_preview:10"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -33,7 +33,7 @@ this.web_preview_onusernotify = function(obj:WebBrowser, e:nexacro.WebTitleChang
 	{
 		var ret = obj.callMethod("getDocHeight");
 		
-		this.web_preview.set_minheight(ret + 20);
+		this.web_preview.set_height(ret + 20);
 		this.resetScroll();
 		trace(ret);
 	}
