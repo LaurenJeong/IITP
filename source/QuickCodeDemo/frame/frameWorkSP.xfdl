@@ -16,7 +16,7 @@
             <Tabpage id="tabpInfo" text="Description">
               <Layouts>
                 <Layout>
-                  <TextArea id="txaMenuDesc" taborder="0" left="0" top="10" right="0" bottom="0"/>
+                  <TextArea id="txaMenuDesc" taborder="0" left="0" top="10" right="0" bottom="0" onchanged="tabInfo_tabpInfo_txaMenuDesc_onchanged"/>
                 </Layout>
               </Layouts>
             </Tabpage>
@@ -27,6 +27,7 @@
                     <Formats>
                       <Format id="default">
                         <Columns>
+                          <Column size="30" band="left"/>
                           <Column size="120"/>
                           <Column size="170"/>
                           <Column size="300"/>
@@ -38,18 +39,20 @@
                           <Row size="28"/>
                         </Rows>
                         <Band id="head">
-                          <Cell text="View ID"/>
-                          <Cell col="1" text="View Template ID"/>
-                          <Cell col="2" text="View Template Name"/>
-                          <Cell col="3" text="Model ID"/>
-                          <Cell col="4" text="Model Name"/>
+                          <Cell/>
+                          <Cell col="1" text="View ID"/>
+                          <Cell col="2" text="View Template ID"/>
+                          <Cell col="3" text="View Template Name"/>
+                          <Cell col="4" text="Model ID"/>
+                          <Cell col="5" text="Model Name"/>
                         </Band>
                         <Band id="body">
-                          <Cell text="bind:VIEW_ID" expandshow="show" expandimage="url('theme://images/btn_MDI_preD.png')"/>
-                          <Cell col="1" text="bind:VT_ID" expandshow="expr:VT_SEQ!=null?'show':'hide'" cssclass="expr:VT_SEQ!=null?'cell_WF_Link':''"/>
-                          <Cell col="2" text="bind:VT_NM"/>
-                          <Cell col="3" text="bind:MODEL_ID" cssclass="expr:MODEL_SEQ!=null?'cell_WF_Link':''"/>
-                          <Cell col="4" text="bind:MODEL_NM"/>
+                          <Cell text="theme://images/btn_MDI_nxtD.png" textAlign="center" displaytype="imagecontrol"/>
+                          <Cell col="1" text="bind:VIEW_ID"/>
+                          <Cell col="2" text="bind:VT_ID" expandshow="expr:VT_SEQ!=null?'show':'hide'" cssclass="expr:VT_SEQ!=null?'cell_WF_Link':''"/>
+                          <Cell col="3" text="bind:VT_NM"/>
+                          <Cell col="4" text="bind:MODEL_ID" cssclass="expr:MODEL_SEQ!=null?'cell_WF_Link':''"/>
+                          <Cell col="5" text="bind:MODEL_NM"/>
                         </Band>
                       </Format>
                     </Formats>
@@ -641,7 +644,46 @@ this.tabInfo_tabpView_grdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.
 	
 	if (e.clickitem != "expandbutton")
 	{
-		if (obj.getBindCellIndex("body","MODEL_ID") == e.cell)			// Model Info 팝업 호출
+		if (obj.getCellText(0,e.cell) == "theme://images/btn_MDI_nxtD.png")		// View 위치 표시 버튼
+		{
+			var sViewId = oDsBind.getColumn(nRow,"VIEW_ID");
+			var oView;
+			var sAniProp = "";
+			
+			if (!this.gfnIsNull(sViewId)) {
+				oView = this.divWork.form.components[sViewId];
+				
+				if (this.gfnIsNull(this.fv_oAniBlink))
+				{
+					this.fv_oAniBlink = new nexacro.Animation("aniBlink", this);  
+					this.addChild( "aniBlink", this.fv_oAniBlink);
+					
+					this.fv_oAniBlink.set_duration(1000);
+					this.fv_oAniBlink.set_easing("easeoutcubic");
+					this.fv_oAniBlink.set_loop(true);
+					this.fv_oAniBlink.set_loopcount(3);
+					this.fv_oAniBlink.setEventHandler("oncomplete", this.aniBlink_oncomplete, this);
+				}
+				
+				if (this.fv_oAniView) {
+					this.fv_oAniBlink.stop();
+					this.fnSetOrgStausComp(this.fv_oAniView);
+					this.fnRemoveAllAniItem(this.fv_oAniBlink);
+				}
+				
+				// 기존값 UserProperty에 설정
+				oView._opacity = oView.opacity;
+				oView._background = oView.background;
+				
+				sAniProp = "opacity:[0.5," + this.gfnNvl(oView.opacity,1) + "]";
+				sAniProp += ",background:['#efd0cc','" + this.gfnNvl(oView.background,"#ffffff") + "']";
+				
+				this.fv_oAniBlink.addTarget("item" + oView.name, oView, sAniProp);
+				this.fv_oAniView = oView;
+				this.fv_oAniBlink.play();
+			}
+		}
+		else if (obj.getBindCellIndex("body","MODEL_ID") == e.cell)				// Model Info 팝업 호출
 		{
 			var sModelSeq	= oDsBind.getColumn(nRow,"MODEL_SEQ");
 			if (this.gfnIsNull(sModelSeq))		return;
@@ -705,37 +747,6 @@ this.tabInfo_tabpView_grdList_onexpandup = function(obj:nexacro.Grid,e:nexacro.G
 		
 		this.gfnPopup(sPopupId, sUrl, oParam, sCallBack, oOption);
 	}
-	else if (obj.getBindCellIndex("body","VIEW_ID") == e.cell)
-	{
-		var sViewId = oDsBind.getColumn(nRow,"VIEW_ID");
-		var oView;
-		if (!this.gfnIsNull(sViewId)) {
-			oView = this.divWork.form.components[sViewId];
-			
-			if (this.gfnIsNull(this.fv_oAniBlink))
-			{
-				this.fv_oAniBlink = new nexacro.Animation("aniBlink", this);  
-				this.addChild( "aniBlink", this.fv_oAniBlink);
-				
-				this.fv_oAniBlink.set_duration(1000);
-				this.fv_oAniBlink.set_easing("easeoutcubic");
-				this.fv_oAniBlink.set_loop(true);
-				this.fv_oAniBlink.set_loopcount(3);
-				this.fv_oAniBlink.setEventHandler("oncomplete", this.aniBlink_oncomplete, this);
-			}
-			
-			if (this.fv_oAniView) {
-				this.fv_oAniBlink.stop();
-				this.fv_oAniView.set_opacity(1);
-				this.fv_oAniView.set_background("");
-				this.fnRemoveAllAniItem(this.fv_oAniBlink);
-			}
-			this.fv_oAniBlink.addTarget("item" + oView.name, oView, "opacity:[0.5,1],background:['#efd0cc','#ffffff']");
-			this.fv_oAniView = oView;
-			this.fv_oAniBlink.play();
-
-		}
-	}
 };
 
 /**
@@ -750,12 +761,22 @@ this.fnRemoveAllAniItem = function(oAni)
 }
 
 /**
+ * @description 애니메이션이 적용된 컴포넌트 원래 상태로 설정
+ */
+this.fnSetOrgStausComp = function(oComp)
+{
+	oComp.set_opacity(this.gfnNvl(oComp._orgopacity,1));
+	oComp.set_background(this.gfnNvl(oComp._orgbackground,""));
+}
+
+/**
  * @description 애니메이션에 완료이벤트
  */
 this.aniBlink_oncomplete = function(obj:nexacro.Animation,e:nexacro.AnimationEventInfo)
 {
-	//this.gfnLog("aniBlink_oncomplete : " + e.fromreferenceobject);
+	//this.gfnLog("aniBlink_oncomplete : " + e.fromreferenceobject.items.length);
 	this.fnRemoveAllAniItem(this.fv_oAniBlink);
+	this.fnSetOrgStausComp(this.fv_oAniView);
 	this.fv_oAniView = null;
 }
 

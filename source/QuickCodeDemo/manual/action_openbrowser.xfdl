@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="action_openbrowser" width="1030" height="300" titletext="OpenBrowserAction" onload="form_onload">
+    <Layouts>
+      <Layout height="300" width="1030">
+        <Button id="btnOpenBrowser" taborder="0" text="Open Google" left="10" top="10" width="100" height="30"/>
+        <TextArea id="txtOutput" taborder="1" left="10" top="50" right="10" bottom="10"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <OpenBrowserAction id="OpenBrowserAction00" url="https://www.google.com/" newwindow="true" targetview="action_openbrowser" onerror="Common_onerror" onsuccess="Common_onsuccess">
+        <Contents/>
+      </OpenBrowserAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="action_openbrowser" triggerobj="btnOpenBrowser" targetaction="OpenBrowserAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="action_openbrowser" triggerobj="btnOpenBrowser2" targetaction="OpenBrowserAction01" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+};
+
+this.Common_onerror = function(obj, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onerror : " + e.userdata);
+};
+
+this.Common_onsuccess = function(obj, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : " + e.userdata);
+};]]></Script>
+  </Form>
+</FDL>

@@ -21,6 +21,14 @@
       <Field required="false" id="IMAGE" label="IMAGE" fieldtype="FreeText" datatype="STRING" datasize="80" innerdatasetinfo=""/>
       <FieldUserAttributes/>
     </Model>
+    <Model id="FreeFormModel003" name="FreeFormModel003" iotype="output" description="">
+      <Field required="true" id="Company" label="회사명" fieldtype="SelectOne" datatype="STRING" datasize="80" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;01&quot;,&quot;value&quot;:&quot;TOBESOFT&quot;},{&quot;code&quot;:&quot;02&quot;,&quot;value&quot;:&quot;A Company&quot;},{&quot;code&quot;:&quot;03&quot;,&quot;value&quot;:&quot;B Company&quot;},{&quot;code&quot;:&quot;04&quot;,&quot;value&quot;:&quot;C Company&quot;}]}"/>
+      <Field required="true" id="Department" label="부서명" fieldtype="SelectOne" datatype="STRING" datasize="80" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;A&quot;,&quot;value&quot;:&quot;경영본부&quot;},{&quot;code&quot;:&quot;B&quot;,&quot;value&quot;:&quot;연구소&quot;},{&quot;code&quot;:&quot;C&quot;,&quot;value&quot;:&quot;제조본부&quot;},{&quot;code&quot;:&quot;D&quot;,&quot;value&quot;:&quot;영업본부&quot;},{&quot;code&quot;:&quot;E&quot;,&quot;value&quot;:&quot;고객지원본부&quot;}]}"/>
+      <Field required="true" id="Name" label="성명" fieldtype="FreeText" datatype="STRING" datasize="80" innerdatasetinfo=""/>
+      <Field required="false" id="Phone" label="전화번호" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="Email" label="이메일주소" fieldtype="FreeText" datatype="STRING" datasize="80"/>
+      <Field required="false" id="Status" label="상태" fieldtype="SelectOne" datatype="STRING" datasize="80" innerdatasetinfo="{&quot;columns&quot;:[{&quot;id&quot;:&quot;code&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;code&quot;},{&quot;id&quot;:&quot;value&quot;,&quot;datatype&quot;:&quot;STRING&quot;,&quot;innertype&quot;:&quot;data&quot;}],&quot;rows&quot;:[{&quot;code&quot;:&quot;01&quot;,&quot;value&quot;:&quot;재직&quot;},{&quot;code&quot;:&quot;02&quot;,&quot;value&quot;:&quot;휴직&quot;},{&quot;code&quot;:&quot;09&quot;,&quot;value&quot;:&quot;퇴직&quot;}]}"/>
+    </Model>
   </Models>
-  <Service id="FreeForm" name="" url=""/>
+  <Service id="" name="" url=""/>
 </ModelInfo>

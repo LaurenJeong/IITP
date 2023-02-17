@@ -62,7 +62,7 @@ pForm.gfnIsNotNull = function(sValue)
  */
 pForm.gfnNvl = function(inVal, nullVal)
 {
-	if(inVal == null) {
+	if(this.gfnIsNull(inVal)) {
 		inVal = nullVal;
 	}
 	return inVal;

@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="view_bubblechart" width="1030" height="300" titletext="BubbleChartViewTemplate" onload="form_onload">
+    <Layouts>
+      <Layout height="300" mobileorientation="landscape" width="1030">
+        <View id="viewSample" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="10" cssclass="viw_box" right="10" bottom="10">
+          <Layouts>
+            <Layout>
+              <BubbleChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true">
+                <Contents><![CDATA[{
+									"title" : {
+										"id" : "title",
+										"textfont" : "normal 700 17px/normal 'Malgun Gothic'",
+										"padding" : "0px 0px 5px",
+										"subtextcolor" : "gray",
+										"subtextfont" : "italic 8/normal 'Malgun Gothic'",
+										"visible" : true,
+										"text" : "BubbleChart",
+										"align" : "topcenter"
+									},
+									"legend" : {
+										"id" : "legend",
+										"padding" : "3px 10px 3px 10px",
+										"itemtextfont" : "9pt 'Malgun Gothic'",
+										"itemtextcolor" : "#4c4c4c",
+										"itemautofit" : true,
+										"markertextgap" : "5",
+										"markertype" : "circle",
+										"verticalitemgap" : "5",
+										"linestyle" : "1px dashed #4c4c4c",
+										"visible" : true,
+										"align" : "rightcenter"
+									},
+									"tooltip" : {
+										"id" : "tooltip",
+										"background" : "#4b4b4b",
+										"linestyle" : "0px none",
+										"textcolor" : "white",
+										"textfont" : "10pt/normal 'Malgun Gothic'",
+										"padding" : "5px"
+									},
+									"board" : {
+										"id" : "board"
+									},
+									"valueaxes" : [
+										{
+											"id" : "valueaxisx",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "",
+											"labelmask" : "",
+											"labeltype" : "number"
+										},
+										{
+											"id" : "valueaxisy",
+											"boardlinevisible" : true,
+											"boardlinestyle" : "1px solid #d0d0d0",
+											"titletextcolor" : "#4c4c4c",
+											"titletextfont" : "bold 8pt 'Malgun Gothic'",
+											"titlerotate" : "0",
+											"titletextalign" : "high",
+											"titlegap" : "5",
+											"labeltextcolor" : "#6f6f6f",
+											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
+											"ticklinestyle" : "1px solid #525252",
+											"axislinestyle" : "1px solid #525252",
+											"labelgap" : "5",
+											"ticksize" : "5",
+											"autotickscale" : "10",
+											"titletext" : "",
+											"labelmask" : "",
+											"labeltype" : "number"
+										}
+									],
+									"seriesset" : [
+										{
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"id" : "series",
+											"titletext" : "남아메리카",
+											"valuecolumn" : "bind:LIFE_EXPECTANCY_1",
+											"value2column" : "bind:FERTILITY_RATE_1",
+											"fillstyle" : "#1f77b4",
+											"linestyle" : "1px solid #1f77b4",
+											"value3column" : "bind:POPULATION_1",
+											"opacity" : "0.5",
+											"itemtextvisible" : false
+										},
+										{
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"id" : "series_1",
+											"titletext" : "유럽",
+											"valuecolumn" : "bind:LIFE_EXPECTANCY_2",
+											"value2column" : "bind:FERTILITY_RATE_2",
+											"fillstyle" : "#ff7f0e",
+											"linestyle" : "1px solid #ff7f0e",
+											"value3column" : "bind:POPULATION_2",
+											"opacity" : "0.5",
+											"itemtextvisible" : false
+										},
+										{
+											"itemtextfont" : "8pt 'Malgun Gothic'",
+											"id" : "series_2",
+											"titletext" : "중동",
+											"valuecolumn" : "bind:LIFE_EXPECTANCY_3",
+											"value2column" : "bind:FERTILITY_RATE_3",
+											"fillstyle" : "#2ca02c",
+											"linestyle" : "1px solid #2ca02c",
+											"value3column" : "bind:POPULATION_3",
+											"opacity" : "0.5",
+											"itemtextvisible" : false
+										}
+									]
+								}]]></Contents>
+              </BubbleChart>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="REGION_1" type="STRING" size="80" description="North America"/>
+                <Column id="ID_1" type="STRING" size="80" description="country"/>
+                <Column id="LIFE_EXPECTANCY_1" type="BIGDECIMAL" size="80" description="Life Expectancy"/>
+                <Column id="FERTILITY_RATE_1" type="BIGDECIMAL" size="80" description="Fertility Rate"/>
+                <Column id="POPULATION_1" type="BIGDECIMAL" size="80" description="Population"/>
+                <Column id="REGION_2" type="STRING" size="80" description="Europe"/>
+                <Column id="ID_2" type="STRING" size="80" description="country"/>
+                <Column id="LIFE_EXPECTANCY_2" type="BIGDECIMAL" size="80" description="Life Expectancy"/>
+                <Column id="FERTILITY_RATE_2" type="BIGDECIMAL" size="80" description="Fertility Rate"/>
+                <Column id="POPULATION_2" type="BIGDECIMAL" size="80" description="Population"/>
+                <Column id="REGION_3" type="STRING" size="80" description="Middle East"/>
+                <Column id="ID_3" type="STRING" size="80" description="country"/>
+                <Column id="LIFE_EXPECTANCY_3" type="BIGDECIMAL" size="80" description="Life Expectancy"/>
+                <Column id="FERTILITY_RATE_3" type="BIGDECIMAL" size="80" description="Fertility Rate"/>
+                <Column id="POPULATION_3" type="BIGDECIMAL" size="80" description="Population"/>
+              </ColumnInfo>
+              <Rows/>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="bubblemodel" filepath="nexacrochart\chartModelService.xmodel">
+            <Fields>
+              <Field id="REGION_1" description="" displaytype="none" seriesname=""/>
+              <Field id="ID_1" description="" displaytype="none" seriesname=""/>
+              <Field id="LIFE_EXPECTANCY_1" description="" displaytype="seriesx" seriesname="남아메리카"/>
+              <Field id="FERTILITY_RATE_1" description="" displaytype="seriesy" seriesname="남아메리카"/>
+              <Field id="POPULATION_1" description="" displaytype="bubblesize" seriesname="남아메리카"/>
+              <Field id="REGION_2" description="" displaytype="none" seriesname=""/>
+              <Field id="ID_2" description="" displaytype="none" seriesname=""/>
+              <Field id="LIFE_EXPECTANCY_2" description="" displaytype="seriesx" seriesname="유럽"/>
+              <Field id="FERTILITY_RATE_2" description="" displaytype="seriesy" seriesname="유럽"/>
+              <Field id="POPULATION_2" description="" displaytype="bubblesize" seriesname="유럽"/>
+              <Field id="REGION_3" description="" displaytype="none" seriesname=""/>
+              <Field id="ID_3" description="" displaytype="none" seriesname=""/>
+              <Field id="LIFE_EXPECTANCY_3" description="" displaytype="seriesx" seriesname="중동"/>
+              <Field id="FERTILITY_RATE_3" description="" displaytype="seriesy" seriesname="중동"/>
+              <Field id="POPULATION_3" description="" displaytype="bubblesize" seriesname="중동"/>
+            </Fields>
+            <Components>
+              <Component id="chart" fields="REGION_1,ID_1,LIFE_EXPECTANCY_1,FERTILITY_RATE_1,POPULATION_1,REGION_2,ID_2,LIFE_EXPECTANCY_2,FERTILITY_RATE_2,POPULATION_2,REGION_3,ID_3,LIFE_EXPECTANCY_3,FERTILITY_RATE_3,POPULATION_3"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Chart\BubbleChartViewTemplate.xviewgen">
+            <Attribute id="enableanimation" value="true"/>
+            <Attribute id="titletext" value="BubbleChart"/>
+            <Attribute id="titlealign" value="topcenter"/>
+            <Attribute id="legendposition" value="rightcenter"/>
+            <Attribute id="itemtextposition" value="none"/>
+            <Attribute id="viewpadding" value="20"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="REGION_1" type="STRING" size="256"/>
+          <Column id="ID_1" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY_1" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_1" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_1" type="BIGDECIMAL" size="256"/>
+          <Column id="REGION_2" type="STRING" size="256"/>
+          <Column id="ID_2" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY_2" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_2" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_2" type="BIGDECIMAL" size="256"/>
+          <Column id="REGION_3" type="STRING" size="256"/>
+          <Column id="ID_3" type="STRING" size="256"/>
+          <Column id="LIFE_EXPECTANCY_3" type="BIGDECIMAL" size="256"/>
+          <Column id="FERTILITY_RATE_3" type="BIGDECIMAL" size="256"/>
+          <Column id="POPULATION_3" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_1">80.66</Col>
+            <Col id="FERTILITY_RATE_1">1.67</Col>
+            <Col id="POPULATION_1">33739900</Col>
+            <Col id="LIFE_EXPECTANCY_2">79.84</Col>
+            <Col id="FERTILITY_RATE_2">1.36</Col>
+            <Col id="POPULATION_2">81902307</Col>
+            <Col id="LIFE_EXPECTANCY_3">72.73</Col>
+            <Col id="FERTILITY_RATE_3">2.78</Col>
+            <Col id="POPULATION_3">79716203</Col>
+            <Col id="ID_1">CAN</Col>
+            <Col id="ID_2">DEU</Col>
+            <Col id="ID_3">EGY</Col>
+            <Col id="REGION_1">North America</Col>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_2">78.6</Col>
+            <Col id="FERTILITY_RATE_2">1.84</Col>
+            <Col id="POPULATION_2">5523095</Col>
+            <Col id="LIFE_EXPECTANCY_3">72.49</Col>
+            <Col id="FERTILITY_RATE_3">1.7</Col>
+            <Col id="POPULATION_3">73137148</Col>
+            <Col id="ID_1">USA</Col>
+            <Col id="LIFE_EXPECTANCY_1">78.09</Col>
+            <Col id="FERTILITY_RATE_1">2.05</Col>
+            <Col id="POPULATION_1">307007000</Col>
+            <Col id="ID_2">DNK</Col>
+            <Col id="ID_3">IRN</Col>
+            <Col id="REGION_1">North America</Col>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_2">80.05</Col>
+            <Col id="FERTILITY_RATE_2">2</Col>
+            <Col id="POPULATION_2">61801570</Col>
+            <Col id="LIFE_EXPECTANCY_3">68.09</Col>
+            <Col id="FERTILITY_RATE_3">4.77</Col>
+            <Col id="POPULATION_3">31090763</Col>
+            <Col id="ID_2">GBR</Col>
+            <Col id="ID_3">IRQ</Col>
+            <Col id="ID_1"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+            <Col id="REGION_1"/>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+          <Row>
+            <Col id="LIFE_EXPECTANCY_3">81.55</Col>
+            <Col id="FERTILITY_RATE_3">2.96</Col>
+            <Col id="POPULATION_3">7485600</Col>
+            <Col id="LIFE_EXPECTANCY_2">68.6</Col>
+            <Col id="FERTILITY_RATE_2">1.54</Col>
+            <Col id="POPULATION_2">141850000</Col>
+            <Col id="ID_2">RUS</Col>
+            <Col id="ID_3">ISR</Col>
+            <Col id="ID_1"/>
+            <Col id="LIFE_EXPECTANCY_1"/>
+            <Col id="FERTILITY_RATE_1"/>
+            <Col id="POPULATION_1"/>
+            <Col id="REGION_1"/>
+            <Col id="REGION_2">Europe</Col>
+            <Col id="REGION_3">Middle East</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 차트용 데이터 셋팅
+	this.viewSample.form.viewdataset.copyData(this.dsData);
+};]]></Script>
+  </Form>
+</FDL>

@@ -60,8 +60,11 @@ if (!nexacro.DsCopyRowDataAction)
 				return;
 			}
 			
+			// 모델정보에 따라 복사할 컬럼값 설정
+			var strColInfo = this.gfnSetModelArgument(objView);
+			
  			// Call Function
- 			this.gfnCopyRowData(objToDs,objFormDs,nTargetRow,nFromRow);
+ 			this.gfnCopyRowData(objToDs,objFormDs,nTargetRow,nFromRow,strColInfo);
 		}	
 	};	
 	
@@ -212,7 +215,7 @@ if (!nexacro.DsCopyRowDataAction)
 	 * @param {String} nFromRow - 복사 할 Row
 	 * @return N/A
 	 */   
-	nexacro.DsCopyRowDataAction.prototype.gfnCopyRowData = function (objToDs,objFormDs,nToRow,nFromRow)
+	nexacro.DsCopyRowDataAction.prototype.gfnCopyRowData = function (objToDs,objFormDs,nToRow,nFromRow,strColInfo)
 	{
 		if (this.gfnIsNull(nToRow))			nToRow = objToDs.rowposition;
 		if (this.gfnIsNull(nFromRow))		nFromRow = objFormDs.rowposition;
@@ -237,7 +240,7 @@ if (!nexacro.DsCopyRowDataAction)
 			}
 		}
 		
-		var rtn = objToDs.copyRow(nToRow, objFormDs, nFromRow);
+		var rtn = objToDs.copyRow(nToRow, objFormDs, nFromRow, strColInfo);
 		
 		if (rtn == false)
 		{
@@ -247,5 +250,34 @@ if (!nexacro.DsCopyRowDataAction)
 		{
 			this.on_fire_onsuccess();
 		}
+	};
+	
+	// Model Argument 처리 : 설정된 모델정보만 복사
+	nexacro.DsCopyRowDataAction.prototype.gfnSetModelArgument = function(oTargetView)
+	{
+		var strColInfo = "";
+		
+		// Model Argument 있는지 확인
+		var oModelList = this.getContents("model");		// Action 내 model 정보 
+		
+		// 설정한 Model Argument가 있는 경우 복사할 컬럼정보설정
+		if (oModelList)
+		{
+			var arrColInfo = new Array();
+			var oFieldList;
+			
+			// targetview에 해당하는 Model Argument만 처리
+			var oModel = oModelList.find(oModel => oModel["viewid"] = oTargetView.id);
+			
+			// fieldlist정보로 strColInfo 설정 : "fieldid1=value1,fieldid2=value2" 형식
+			if (oModel)
+			{
+				oFieldList	= oModel["fieldlist"];
+				oFieldList.forEach(oField => arrColInfo.push(oField["fieldid"] + "=" + oField["value"]));
+				strColInfo = arrColInfo.join(",");
+			}
+		}
+		
+		return strColInfo;
 	};
 }

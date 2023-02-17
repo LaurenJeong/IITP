@@ -6,7 +6,7 @@
         <View id="viewSample" taborder="1" text="View00" viewdataset="viewdataset" left="10" top="10" right="10" cssclass="viw_box" bottom="10">
           <Layouts>
             <Layout>
-              <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:month">
+              <BasicChart id="chart" left="20" top="20" right="20" bottom="20" legendspacing="10px" binddataset="viewdataset" enableanimation="true" categorycolumn="bind:Month">
                 <Contents><![CDATA[{
 									"title" : {
 										"id" : "title",
@@ -77,48 +77,6 @@
 											"titletext" : "",
 											"labelmask" : "",
 											"labeltype" : "number"
-										},
-										{
-											"id" : "valueaxisy1",
-											"boardlinevisible" : false,
-											"opposite" : true,
-											"boardlinestyle" : "1px solid #d0d0d0",
-											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 8pt 'Malgun Gothic'",
-											"titlerotate" : "0",
-											"titletextalign" : "high",
-											"titlegap" : "5",
-											"labeltextcolor" : "#6f6f6f",
-											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
-											"ticklinestyle" : "1px solid #525252",
-											"axislinestyle" : "1px solid #525252",
-											"labelgap" : "5",
-											"ticksize" : "5",
-											"autotickscale" : "10",
-											"titletext" : "",
-											"labelmask" : "",
-											"labeltype" : "number"
-										},
-										{
-											"id" : "valueaxisy2",
-											"boardlinevisible" : false,
-											"opposite" : true,
-											"boardlinestyle" : "1px solid #d0d0d0",
-											"titletextcolor" : "#4c4c4c",
-											"titletextfont" : "bold 8pt 'Malgun Gothic'",
-											"titlerotate" : "0",
-											"titletextalign" : "high",
-											"titlegap" : "5",
-											"labeltextcolor" : "#6f6f6f",
-											"labeltextfont" : "9pt/normal 'Malgun Gothic'",
-											"ticklinestyle" : "1px solid #525252",
-											"axislinestyle" : "1px solid #525252",
-											"labelgap" : "5",
-											"ticksize" : "5",
-											"autotickscale" : "10",
-											"titletext" : "",
-											"labelmask" : "",
-											"labeltype" : "number"
 										}
 									],
 									"seriesset" : [
@@ -129,9 +87,9 @@
 											"itemtextcolor" : "#4c4c4c",
 											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"baritemtextgap" : 5,
-											"id" : "seriesRainfall",
-											"titletext" : "Rainfall",
-											"valuecolumn" : "bind:rainfall",
+											"id" : "seriesSeoul",
+											"titletext" : "서울지점",
+											"valuecolumn" : "bind:Seoul",
 											"barfillstyle" : "#1f77b4",
 											"linestyle" : "1px solid #1f77b4",
 											"lineareafillstyle" : "#1f77b4",
@@ -147,16 +105,15 @@
 											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"lineitemtextgap" : 5,
 											"pointitemtextgap" : 5,
-											"id" : "seriesTemperature",
-											"titletext" : "Temperature",
-											"valuecolumn" : "bind:temperature",
+											"id" : "seriesBusan",
+											"titletext" : "부산지점",
+											"valuecolumn" : "bind:Busan",
 											"linetype" : "segment",
 											"barfillstyle" : "#ff7f0e",
 											"linestyle" : "1px solid #ff7f0e",
 											"lineareafillstyle" : "#ff7f0e",
 											"pointfillstyle" : "#ff7f0e",
-											"itemtextvisible" : false,
-											"valueaxis" : "valueaxisy1"
+											"itemtextvisible" : false
 										},
 										{
 											"barvisible" : false,
@@ -167,17 +124,15 @@
 											"itemtextfont" : "9pt 'Malgun Gothic'",
 											"lineitemtextgap" : 5,
 											"pointitemtextgap" : 5,
-											"pointvisible" : true,
-											"id" : "seriesPressure",
-											"titletext" : "Sea-Level Pressure",
-											"valuecolumn" : "bind:pressure",
+											"id" : "seriesGwangju",
+											"titletext" : "광주지점",
+											"valuecolumn" : "bind:Gwangju",
 											"linetype" : "segment",
 											"barfillstyle" : "#2ca02c",
 											"linestyle" : "1px solid #2ca02c",
 											"lineareafillstyle" : "#2ca02c",
 											"pointfillstyle" : "#2ca02c",
-											"itemtextvisible" : false,
-											"valueaxis" : "valueaxisy2"
+											"itemtextvisible" : false
 										}
 									]
 								}]]></Contents>
@@ -187,10 +142,10 @@
           <Objects>
             <Dataset id="viewdataset">
               <ColumnInfo>
-                <Column id="month" type="STRING" size="80" description="Month"/>
-                <Column id="rainfall" type="FLOAT" size="80" description="Rainfall"/>
-                <Column id="temperature" type="FLOAT" size="80" description="Temperature"/>
-                <Column id="pressure" type="FLOAT" size="80" description="Sea-Level Pressure"/>
+                <Column id="Month" type="STRING" size="80" description="월"/>
+                <Column id="Seoul" type="BIGDECIMAL" size="80" description="서울지점"/>
+                <Column id="Busan" type="BIGDECIMAL" size="80" description="부산지점"/>
+                <Column id="Gwangju" type="BIGDECIMAL" size="80" description="광주지점"/>
               </ColumnInfo>
               <Rows/>
             </Dataset>
@@ -202,15 +157,15 @@
             <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
             <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
           </Bind>
-          <ModelInfo modelserviceid="model" serviceid="" modelid="combinationmodel" filepath="nexacrochart\chartModelService.xmodel">
+          <ModelInfo modelserviceid="model" serviceid="" modelid="basicmodel" filepath="nexacrochart\chartModelService.xmodel">
             <Fields>
-              <Field id="month" description="" displaytype="category" seriesdisplay="bar" linetype="segment" valueaxes="y"/>
-              <Field id="rainfall" description="" displaytype="series" seriesdisplay="bar" linetype="segment" valueaxes="y"/>
-              <Field id="temperature" description="" displaytype="series" seriesdisplay="line" linetype="segment" valueaxes="y1"/>
-              <Field id="pressure" description="" displaytype="series" seriesdisplay="linepoint" linetype="segment" valueaxes="y2"/>
+              <Field id="Month" description="" innerdatasetinfo="" displaytype="category" seriesdisplay="bar" linetype="segment" valueaxes="y"/>
+              <Field id="Seoul" description="" innerdatasetinfo="" displaytype="series" seriesdisplay="bar" linetype="segment" valueaxes="y"/>
+              <Field id="Busan" description="" innerdatasetinfo="" displaytype="series" seriesdisplay="line" linetype="segment" valueaxes="y"/>
+              <Field id="Gwangju" description="" innerdatasetinfo="" displaytype="series" seriesdisplay="line" linetype="segment" valueaxes="y"/>
             </Fields>
             <Components>
-              <Component id="chart" fields="month,rainfall,temperature,pressure"/>
+              <Component id="chart" fields="Month,Seoul,Busan,Gwangju"/>
             </Components>
           </ModelInfo>
           <ViewTemplateInfo filepath="Chart\CombinationChartViewTemplate.xviewgen">
@@ -227,83 +182,83 @@
     <Objects>
       <Dataset id="dsData">
         <ColumnInfo>
-          <Column id="month" type="STRING" size="256"/>
-          <Column id="rainfall" type="FLOAT" size="256"/>
-          <Column id="temperature" type="FLOAT" size="256"/>
-          <Column id="pressure" type="FLOAT" size="256"/>
+          <Column id="Month" type="STRING" size="256"/>
+          <Column id="Seoul" type="INT" size="256"/>
+          <Column id="Busan" type="INT" size="256"/>
+          <Column id="Gwangju" type="INT" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="month">12/Jan</Col>
-            <Col id="rainfall">49.9</Col>
-            <Col id="temperature">7.0</Col>
-            <Col id="pressure">1016</Col>
+            <Col id="Month">Jan</Col>
+            <Col id="Seoul">77</Col>
+            <Col id="Busan">85</Col>
+            <Col id="Gwangju">45</Col>
           </Row>
           <Row>
-            <Col id="month">12/Feb</Col>
-            <Col id="rainfall">71.5</Col>
-            <Col id="temperature">6.9</Col>
-            <Col id="pressure">1016</Col>
+            <Col id="Month">Feb</Col>
+            <Col id="Seoul">87</Col>
+            <Col id="Busan">75</Col>
+            <Col id="Gwangju">75</Col>
           </Row>
           <Row>
-            <Col id="month">12/Mar</Col>
-            <Col id="rainfall">106.4</Col>
-            <Col id="temperature">9.5</Col>
-            <Col id="pressure">1015.9</Col>
+            <Col id="Month">Mar</Col>
+            <Col id="Seoul">88</Col>
+            <Col id="Busan">87</Col>
+            <Col id="Gwangju">65</Col>
           </Row>
           <Row>
-            <Col id="month">12/Apr</Col>
-            <Col id="rainfall">129.2</Col>
-            <Col id="temperature">14.5</Col>
-            <Col id="pressure">1015.5</Col>
+            <Col id="Month">Apr</Col>
+            <Col id="Seoul">86</Col>
+            <Col id="Busan">78</Col>
+            <Col id="Gwangju">78</Col>
           </Row>
           <Row>
-            <Col id="month">12/May</Col>
-            <Col id="rainfall">144.0</Col>
-            <Col id="temperature">18.2</Col>
-            <Col id="pressure">1012.3</Col>
+            <Col id="Month">May</Col>
+            <Col id="Seoul">82</Col>
+            <Col id="Busan">84</Col>
+            <Col id="Gwangju">56</Col>
           </Row>
           <Row>
-            <Col id="month">12/Jun</Col>
-            <Col id="rainfall">176.0</Col>
-            <Col id="temperature">21.5</Col>
-            <Col id="pressure">1009.5</Col>
+            <Col id="Month">Jun</Col>
+            <Col id="Seoul">80</Col>
+            <Col id="Busan">68</Col>
+            <Col id="Gwangju">65</Col>
           </Row>
           <Row>
-            <Col id="month">12/Jul</Col>
-            <Col id="rainfall">135.6</Col>
-            <Col id="temperature">25.2</Col>
-            <Col id="pressure">1009.6</Col>
+            <Col id="Month">Jul</Col>
+            <Col id="Seoul">79</Col>
+            <Col id="Busan">57</Col>
+            <Col id="Gwangju">54</Col>
           </Row>
           <Row>
-            <Col id="month">12/Aug</Col>
-            <Col id="rainfall">148.5</Col>
-            <Col id="temperature">26.5</Col>
-            <Col id="pressure">1010.2</Col>
+            <Col id="Month">Aug</Col>
+            <Col id="Seoul">72</Col>
+            <Col id="Busan">67</Col>
+            <Col id="Gwangju">79</Col>
           </Row>
           <Row>
-            <Col id="month">12/Sep</Col>
-            <Col id="rainfall">216.4</Col>
-            <Col id="temperature">23.3</Col>
-            <Col id="pressure">1013.1</Col>
+            <Col id="Month">Sep</Col>
+            <Col id="Seoul">90</Col>
+            <Col id="Busan">87</Col>
+            <Col id="Gwangju">85</Col>
           </Row>
           <Row>
-            <Col id="month">12/Oct</Col>
-            <Col id="rainfall">194.1</Col>
-            <Col id="temperature">18.3</Col>
-            <Col id="pressure">1016.9</Col>
+            <Col id="Month">Oct</Col>
+            <Col id="Seoul">95</Col>
+            <Col id="Busan">75</Col>
+            <Col id="Gwangju">79</Col>
           </Row>
           <Row>
-            <Col id="month">12/Nov</Col>
-            <Col id="rainfall">95.6</Col>
-            <Col id="temperature">13.9</Col>
-            <Col id="pressure">1018.2</Col>
+            <Col id="Month">Nov</Col>
+            <Col id="Seoul">40</Col>
+            <Col id="Busan">84</Col>
+            <Col id="Gwangju">65</Col>
           </Row>
           <Row>
-            <Col id="month">12/Dec</Col>
-            <Col id="rainfall">54.4</Col>
-            <Col id="temperature">9.6</Col>
-            <Col id="pressure">1016.7</Col>
+            <Col id="Month">Dec</Col>
+            <Col id="Seoul">60</Col>
+            <Col id="Busan">65</Col>
+            <Col id="Gwangju">79</Col>
           </Row>
         </Rows>
       </Dataset>

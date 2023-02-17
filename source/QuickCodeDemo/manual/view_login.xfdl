@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="view_login" width="1030" height="160" titletext="LoginViewTemplate" cssclass="sta_WF_notice01" onload="form_onload">
+    <Layouts>
+      <Layout height="160" mobileorientation="landscape" width="1030">
+        <View id="viewSample" taborder="0" text="View00" viewdataset="viewdataset" left="10" top="10" cssclass="viw_bg" width="515" height="140">
+          <Layouts>
+            <Layout>
+              <Button id="btnLogin" top="20" width="100" right="20" height="65" cssclass="btn_login" text="Login"/>
+              <Static id="staIdLabel" left="20" top="20" width="100" height="30" text="아이디" cssclass="sta_login_label"/>
+              <Edit id="edtId" left="120" top="20" height="30" right="btnLogin:10" password="false"/>
+              <Static id="staPwLabel" left="20" top="55" width="100" height="30" text="패스워드" cssclass="sta_login_label"/>
+              <Edit id="edtPw" left="120" top="55" height="30" right="btnLogin:10" password="true"/>
+              <CheckBox id="chkSaveId" left="120" top="90" height="30" right="btnLogin:10" text="Save User ID" cssclass="chk_login"/>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="ID" type="STRING" size="80" description="아이디"/>
+                <Column id="PW" type="STRING" size="80" description="패스워드"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_edtId" compid="edtId" propid="value" datasetid="viewdataset" columnid="ID"/>
+            <BindItem id="bind_edtPw" compid="edtPw" propid="value" datasetid="viewdataset" columnid="PW"/>
+          </Bind>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="LoginModel001" filepath="sample\Login.xmodel">
+            <Fields>
+              <Field id="ID" description="" comptype="auto" password="false" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" displaynulltext="" cssclass="" labelcssclass="sta_login_label"/>
+              <Field id="PW" description="" comptype="auto" password="true" compwidth="100%" compheight="30px" labelsize="100" fieldposition="horizontal" displaynulltext="" cssclass="" labelcssclass="sta_login_label"/>
+            </Fields>
+            <Components>
+              <Component id="btnLogin" fields="_viewcomp"/>
+              <Component id="staIdLabel" fields="ID"/>
+              <Component id="edtId" fields="ID"/>
+              <Component id="staPwLabel" fields="PW"/>
+              <Component id="edtPw" fields="PW"/>
+              <Component id="chkSaveId" fields="_viewcomp"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\LoginViewTemplate.xviewgen">
+            <Attribute id="loginbuttontype" value="right"/>
+            <Attribute id="loginbuttontext" value="Login"/>
+            <Attribute id="loginbuttoncssclass" value="btn_login"/>
+            <Attribute id="saveidcheckboxuse" value="true"/>
+            <Attribute id="saveidcheckboxtext" value="Save User ID"/>
+            <Attribute id="saveidcheckboxcssclass" value="chk_login"/>
+            <Attribute id="viewpadding" value="20"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsViewAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">loginbuttontype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">right | bottom | rightfull</Col>
+            <Col id="DESCPTION">로그인버튼 위치
+ - right : 로그인버튼을 오른쪽에 생성
+ - rightfull : 로그인버튼을 오른쪽에 꽉 채워서 생성
+ - bottomfull : 로그인버튼을 하단에 꽉 채워서 생성</Col>
+          </Row>
+          <Row>
+            <Col id="ID">loginbuttontext</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="TYPE_VALUE">left | center | right</Col>
+            <Col id="DESCPTION">로그인버튼 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">loginbuttoncssclass</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="TYPE_VALUE">top | middle | bottom</Col>
+            <Col id="DESCPTION">조회버튼의 CSS Class Id</Col>
+          </Row>
+          <Row>
+            <Col id="ID">saveidcheckboxuse</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="TYPE_VALUE">none | top | middle | bottom | full</Col>
+            <Col id="DESCPTION">아이디저장 체크박스 사용여부</Col>
+          </Row>
+          <Row>
+            <Col id="ID">saveidcheckboxtext</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">아이디저장 체크박스 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">saveidcheckboxcssclass</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">아이디저장 체크박스 CSS Class Id</Col>
+          </Row>
+          <Row>
+            <Col id="ID">format</Col>
+            <Col id="TYPE">Layout</Col>
+            <Col id="DESCPTION">Layout을 설정하기 위한 속성</Col>
+          </Row>
+          <Row>
+            <Col id="ID">viewpadding</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">View 여백 설정(px)
+(숫자만 입력 가능하며, 빈칸으로 구분하여 설정가능합니다.)
+ - 1회입력 : [1번째값] top/right/bottom/left 에 모두 적용
+ - 2회입력 : [1번째값] top/bottom, [2번째값] right/left 에 적용
+ - 3회입력 : [1번째값] top, [2번째값] right/left, [3번째값] bottom 에 적용
+ - 4회입력 : [1번째값] top, [2번째값] right, [3번째값] bottom, [4번째값] left 에 적용</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsFieldUserAttribute">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="TYPE_VALUE" type="STRING" size="256"/>
+          <Column id="DESCPTION" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">comptype</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">auto | button | combo | edit | maskedit…</Col>
+            <Col id="DESCPTION">필드에 표현 할 컴포넌트 타입</Col>
+          </Row>
+          <Row>
+            <Col id="ID">password</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">패스워드여부</Col>
+          </Row>
+          <Row>
+            <Col id="ID">compwidth</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="TYPE_VALUE">px or %</Col>
+            <Col id="DESCPTION">컴포넌트의 넓이</Col>
+          </Row>
+          <Row>
+            <Col id="ID">compheight</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="TYPE_VALUE">px or %</Col>
+            <Col id="DESCPTION">컴포넌트의 높이</Col>
+          </Row>
+          <Row>
+            <Col id="ID">labelsize</Col>
+            <Col id="TYPE">Number</Col>
+            <Col id="DESCPTION">레이블 영역의 넓이</Col>
+          </Row>
+          <Row>
+            <Col id="ID">fieldposition</Col>
+            <Col id="TYPE">Enum</Col>
+            <Col id="TYPE_VALUE">horizontal | vertical</Col>
+            <Col id="DESCPTION">레이블과 컴포넌트 위치
+ - horizontal : 좌우배치
+ - vertical : 상하배치</Col>
+          </Row>
+          <Row>
+            <Col id="ID">displaynulltext</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="TYPE_VALUE">Field가 빈값일때 표시할 Text</Col>
+          </Row>
+          <Row>
+            <Col id="ID">cssclass</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">컴포넌트 생성시 사용할 CSS Class Id</Col>
+          </Row>
+          <Row>
+            <Col id="ID">labelcssclass</Col>
+            <Col id="TYPE">String</Col>
+            <Col id="DESCPTION">레이블 생성시 사용할 CSS Class Id</Col>
+          </Row>
+          <Row>
+            <Col id="ID">usecomp</Col>
+            <Col id="TYPE">Boolean</Col>
+            <Col id="DESCPTION">컴포넌트 생성 여부</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+};]]></Script>
+  </Form>
+</FDL>

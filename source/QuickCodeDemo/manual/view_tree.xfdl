@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="view_tree" width="1030" height="300" titletext="TreeViewTemplate" onload="form_onload">
+    <Layouts>
+      <Layout height="300" mobileorientation="landscape" width="1030">
+        <View id="viewSample" taborder="1" text="View00" viewdataset="viewdataset" left="10" top="10" right="10" bottom="10">
+          <Layouts>
+            <Layout>
+              <Div id="divTitle" left="0" top="0" height="30" right="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="staTitle" left="0" top="0" height="30" width="120" text="상세내역" fittocontents="width" cssclass="sta_subtitle"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Button id="btnTreecollapse" width="30" height="30" cssclass="btn_tree_collapse" onclick="viewSample.form.lfn_TreeView_btnTreecollapse_onclick" top="0" right="35"/>
+              <Button id="btnTreeexpand" width="30" height="30" cssclass="btn_tree_expand" onclick="viewSample.form.lfn_TreeView_btnTreeexpand_onclick" top="0" right="0"/>
+              <Grid id="grdList" left="0" top="35" right="0" bottom="0" binddataset="viewdataset" autofittype="col" treeinitstatus="expand,all" treeusebutton="use" treeuseimage="true" treeuseline="true" treeusecheckbox="true">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="200"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell displaytype="treeitemcontrol" edittype="tree" treelevel="bind:TREE_LVL" treestartlevel="0" text="bind:TREE_TXT" treecheck="bind:TREE_CHK"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="TREE_LVL" type="STRING" size="80" description="트리 LEVEL"/>
+                <Column id="TREE_TXT" type="STRING" size="80" description="트리명"/>
+                <Column id="TREE_CHK" type="STRING" size="1" description="트리체크"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <Bind>
+            <BindItem id="bind_cmbCompany" compid="cmbCompany" propid="value" datasetid="viewdataset" columnid="Company"/>
+            <BindItem id="bind_cmbDepartment" compid="cmbDepartment" propid="value" datasetid="viewdataset" columnid="Department"/>
+            <BindItem id="bind_edtName" compid="edtName" propid="value" datasetid="viewdataset" columnid="Name"/>
+            <BindItem id="bind_edtPhone" compid="edtPhone" propid="value" datasetid="viewdataset" columnid="Phone"/>
+            <BindItem id="bind_edtEmail" compid="edtEmail" propid="value" datasetid="viewdataset" columnid="Email"/>
+          </Bind>
+          <Script><![CDATA[this.lfn_TreeView_btnTreecollapse_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){var objForm = obj.parent;var objGrid = objForm.components['grdList'];objGrid.set_treeinitstatus('collapse,all');};this.lfn_TreeView_btnTreeexpand_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){var objForm = obj.parent;var objGrid = objForm.components['grdList'];objGrid.set_treeinitstatus('expand,all');};]]></Script>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="TreeModel001" filepath="sample\Tree.xmodel">
+            <Fields>
+              <Field id="TREE_LVL" description="" treetype="treelevel"/>
+              <Field id="TREE_TXT" description="" treetype="treetext"/>
+              <Field id="TREE_CHK" description="" treetype="treecheck"/>
+            </Fields>
+            <Components>
+              <Component id="divTitle" fields="_viewcomp"/>
+              <Component id="btnTreecollapse" fields="_viewcomp"/>
+              <Component id="btnTreeexpand" fields="_viewcomp"/>
+              <Component id="grdList" fields="TREE_LVL,TREE_TXT,TREE_CHK"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\TreeViewTemplate.xviewgen">
+            <Attribute id="titletext" value="상세내역"/>
+            <Attribute id="treeinitstatus" value="expand"/>
+            <Attribute id="treeusebutton" value="use"/>
+            <Attribute id="treeuseimage" value="true"/>
+            <Attribute id="treeuseline" value="true"/>
+            <Attribute id="treestartlevel" value="0"/>
+            <Attribute id="treestatusbutton" value="righttop"/>
+            <Attribute id="bodybandsize" value="30"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsTree">
+        <ColumnInfo>
+          <Column id="TREE_TXT" type="STRING" size="256"/>
+          <Column id="TREE_LVL" type="STRING" size="256"/>
+          <Column id="TREE_CHK" type="STRING" size="1"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="TREE_TXT">depth 1</Col>
+            <Col id="TREE_LVL">0</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">1</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 1</Col>
+            <Col id="TREE_LVL">0</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 1</Col>
+            <Col id="TREE_LVL">0</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 2</Col>
+            <Col id="TREE_LVL">1</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+          <Row>
+            <Col id="TREE_TXT">depth 1</Col>
+            <Col id="TREE_LVL">0</Col>
+            <Col id="TREE_CHK">0</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// Tree데이터
+	this.viewSample.form.viewdataset.copyData(this.dsTree);
+};]]></Script>
+  </Form>
+</FDL>

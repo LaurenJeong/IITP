@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="action_dscopydata" width="1030" height="300" titletext="DsCopyDataAction" onload="form_onload">
+    <Layouts>
+      <Layout height="300" width="1030">
+        <TextArea id="txtOutput" taborder="0" left="720" top="10" right="10" bottom="10"/>
+        <View id="viewLeft" taborder="1" text="viewLeft" viewdataset="viewdataset" left="10" top="10" width="265" bottom="10">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_Company" col="0" row="0" text="회사명"/>
+                      <Cell id="cell_head_1_0_Department" col="1" row="0" text="부서명"/>
+                      <Cell id="cell_head_2_0_Name" col="2" row="0" text="성명"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_Company" col="0" row="0" text="bind:Company" displaytype="combotext" edittype="combo" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_1_0_Department" col="1" row="0" text="bind:Department" displaytype="combotext" edittype="combo" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_2_0_Name" col="2" row="0" text="bind:Name" displaytype="normal" edittype="normal"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+                <Column id="Status" type="STRING" size="80" description="상태"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="Company">01</Col>
+                  <Col id="Department">A</Col>
+                  <Col id="Name">1</Col>
+                </Row>
+                <Row>
+                  <Col id="Company">01</Col>
+                  <Col id="Department">A</Col>
+                  <Col id="Name">2</Col>
+                </Row>
+                <Row>
+                  <Col id="Company">01</Col>
+                  <Col id="Department">B</Col>
+                  <Col id="Name">3</Col>
+                </Row>
+                <Row>
+                  <Col id="Company">01</Col>
+                  <Col id="Department">B</Col>
+                  <Col id="Name">4</Col>
+                </Row>
+                <Row>
+                  <Col id="Company">01</Col>
+                  <Col id="Department">C</Col>
+                  <Col id="Name">5</Col>
+                </Row>
+                <Row>
+                  <Col id="Company">01</Col>
+                  <Col id="Department">C</Col>
+                  <Col id="Name">6</Col>
+                </Row>
+                <Row>
+                  <Col id="Company">01</Col>
+                  <Col id="Department">D</Col>
+                  <Col id="Name">7</Col>
+                </Row>
+                <Row>
+                  <Col id="Company">01</Col>
+                  <Col id="Department">D</Col>
+                  <Col id="Name">8</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">01</Col>
+                  <Col id="value">TOBESOFT</Col>
+                </Row>
+                <Row>
+                  <Col id="code">02</Col>
+                  <Col id="value">A Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">03</Col>
+                  <Col id="value">B Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">04</Col>
+                  <Col id="value">C Company</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">A</Col>
+                  <Col id="value">경영본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">B</Col>
+                  <Col id="value">연구소</Col>
+                </Row>
+                <Row>
+                  <Col id="code">C</Col>
+                  <Col id="value">제조본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">D</Col>
+                  <Col id="value">영업본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">E</Col>
+                  <Col id="value">고객지원본부</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel003" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Status" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="Email" description="" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="Phone" description="" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="Company" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Department" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Name" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="Company,Department,Name"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+        <Button id="btnCopy" taborder="2" text="전체 복사(전환)" left="293" top="10" width="130" height="30"/>
+        <Button id="btnCopy3" taborder="3" text="전체 복사(추가)" left="293" top="btnCopy:5" width="130" height="30"/>
+        <View id="viewRight" taborder="4" text="viewLeft" viewdataset="viewdataset" left="440" top="10" width="265" bottom="10">
+          <Layouts>
+            <Layout>
+              <Grid id="grdList" left="0" top="0" right="0" bottom="0" binddataset="viewdataset" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                      <Column size="80" band="body"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="30" band="head"/>
+                      <Row size="30" band="body"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell id="cell_head_0_0_Company" col="0" row="0" text="회사명"/>
+                      <Cell id="cell_head_1_0_Department" col="1" row="0" text="부서명"/>
+                      <Cell id="cell_head_2_0_Name" col="2" row="0" text="성명"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell id="cell_body_0_0_Company" col="0" row="0" text="bind:Company" displaytype="combotext" edittype="combo" combodataset="innerdatasetCompany" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_1_0_Department" col="1" row="0" text="bind:Department" displaytype="combotext" edittype="combo" combodataset="innerdatasetDepartment" combocodecol="code" combodatacol="value"/>
+                      <Cell id="cell_body_2_0_Name" col="2" row="0" text="bind:Name" displaytype="normal" edittype="normal"/>
+                    </Band>
+                    <Band id="summary"/>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+          <Objects>
+            <Dataset id="viewdataset">
+              <ColumnInfo>
+                <Column id="Company" type="STRING" size="80" description="회사명"/>
+                <Column id="Department" type="STRING" size="80" description="부서명"/>
+                <Column id="Name" type="STRING" size="80" description="성명"/>
+                <Column id="Phone" type="STRING" size="80" description="전화번호"/>
+                <Column id="Email" type="STRING" size="80" description="이메일주소"/>
+                <Column id="Status" type="STRING" size="80" description="상태"/>
+              </ColumnInfo>
+              <Rows>
+                <Row/>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetCompany">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">01</Col>
+                  <Col id="value">TOBESOFT</Col>
+                </Row>
+                <Row>
+                  <Col id="code">02</Col>
+                  <Col id="value">A Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">03</Col>
+                  <Col id="value">B Company</Col>
+                </Row>
+                <Row>
+                  <Col id="code">04</Col>
+                  <Col id="value">C Company</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+            <Dataset id="innerdatasetDepartment">
+              <ColumnInfo>
+                <Column id="code" type="STRING" size="256"/>
+                <Column id="value" type="STRING" size="256"/>
+              </ColumnInfo>
+              <Rows>
+                <Row>
+                  <Col id="code">A</Col>
+                  <Col id="value">경영본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">B</Col>
+                  <Col id="value">연구소</Col>
+                </Row>
+                <Row>
+                  <Col id="code">C</Col>
+                  <Col id="value">제조본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">D</Col>
+                  <Col id="value">영업본부</Col>
+                </Row>
+                <Row>
+                  <Col id="code">E</Col>
+                  <Col id="value">고객지원본부</Col>
+                </Row>
+              </Rows>
+            </Dataset>
+          </Objects>
+          <ModelInfo modelserviceid="model" serviceid="" modelid="FreeFormModel003" filepath="sample\FreeForm.xmodel">
+            <Fields>
+              <Field id="Status" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="Email" description="" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="Phone" description="" innerdatasetinfo="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="false"/>
+              <Field id="Company" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Department" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+              <Field id="Name" description="" displaytype="auto" edittype="auto" fieldwidth="80" cssclass="" summprop="none" usecomp="true"/>
+            </Fields>
+            <Components>
+              <Component id="grdList" fields="Company,Department,Name"/>
+            </Components>
+          </ModelInfo>
+          <ViewTemplateInfo filepath="Asset\GridViewTemplate.xviewgen">
+            <Attribute id="usetotalcount" value="true"/>
+            <Attribute id="headbandsize" value="30"/>
+            <Attribute id="bodybandsize" value="30"/>
+            <Attribute id="summbandsize" value="-1"/>
+          </ViewTemplateInfo>
+        </View>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <DsCopyDataAction id="DsCopyDataAction00" targetview="viewRight" fromview="viewLeft" onerror="Common_onerror" onsuccess="Common_onsuccess">
+        <Contents/>
+      </DsCopyDataAction>
+      <DsCopyDataAction id="DsCopyDataAction01" targetview="viewRight" fromview="viewLeft" onerror="Common_onerror" onsuccess="Common_onsuccess" copytype="append">
+        <Contents/>
+      </DsCopyDataAction>
+    </Objects>
+    <Trigger>
+      <TriggerItem id="item0" triggertype="Click" triggerview="action_dscopydata" triggerobj="btnCopy" targetaction="DsCopyDataAction00" condition=""/>
+      <TriggerItem id="item1" triggertype="Click" triggerview="action_dscopydata" triggerobj="btnCopy3" targetaction="DsCopyDataAction01" condition=""/>
+      <TriggerItem id="item2" triggertype="Click" triggerview="action_dscopydata" triggerobj="btnCopy2" targetaction="DsCopyDataAction02" condition=""/>
+      <TriggerItem id="item3" triggertype="Click" triggerview="action_dscopydata" triggerobj="btnCopy4" targetaction="DsCopyDataAction03" condition=""/>
+    </Trigger>
+    <Script type="xscript5.1"><![CDATA[this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+};
+
+this.Common_onerror = function(obj, e:nexacro.ActionErrorEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onerror : " + e.userdata);
+};
+
+this.Common_onsuccess = function(obj, e:nexacro.ActionSuccessEventInfo)
+{
+	this.txtOutput.insertText("\n" + obj.name + "_onsuccess : " + e.userdata);
+};
+
+
+]]></Script>
+  </Form>
+</FDL>
